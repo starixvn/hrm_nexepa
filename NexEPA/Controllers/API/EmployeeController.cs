@@ -14,9 +14,6 @@ namespace NexEPA.Controllers.API
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
-    using System;
-    using NexEPA.Core.Extensions;
-    using System.Linq;
 
     /// <summary>
     /// Employee API Controller.
