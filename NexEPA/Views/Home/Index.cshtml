@@ -1,0 +1,52 @@
+﻿@model string
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+@section JavascriptInHead
+{
+    <script type="text/javascript" src="~/Scripts/Views/Employee/employee-controller.js"></script>
+    <script type="text/javascript" src="~/Scripts/Views/Employee/employee-reponsiory.js"></script>
+    <script src="~/Scripts/Views/Group/group-controller.js" type="text/javascript"></script>
+    <script src="~/Scripts/Views/Group/group-reposirory.js" type="text/javascript"></script>
+}
+
+<div class="container">
+    <h1><a href="#">NexEPA Site</a></h1>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="~/Home/Index">Home</a></li>
+                    <li><a href="~/Employee/Index">My space</a></li>
+                    <li><a href="~/Group/Index">Projects</a></li>
+                    <li><a href="#">Target</a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">EPA
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Project</a> </li>
+                            <li><a href="#">Sprint</a> </li>
+                            <li><a href="#">Period</a> </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Employee</a> </li>
+                            <li><a href="#">KPI</a> </li>
+                            <li><a href="#">KPI Group</a> </li>
+                            <li><a href="#">Target template</a> </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Target Setting</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h1 class="testdotless"><< Navigation section >> </h1>
+        <br />
+    </div>
+    <div ng-view></div>
+</div>

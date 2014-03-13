@@ -1,0 +1,22 @@
+﻿<a class="btn" href="/Employee/Create">Add Employee</a>
+
+<div class="row">
+    <div class="span10">
+        <table class="table">
+            <tr>
+                <th>Code</th>
+                <th>Nick Name</th>
+                <th>Full Name</th>
+                <th>Skype</th>
+                <th>Email</th>
+            </tr>
+            <tr ng-repeat="employee in employees">
+                <td>{{employee.code}}</td>
+                <td>{{employee.nickName}}</td>
+                <td>{{employee.fullName}}</td>
+                <td>{{employee.skype}}</td>
+                <td>{{employee.email}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
