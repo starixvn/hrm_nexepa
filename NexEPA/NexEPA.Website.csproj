@@ -169,9 +169,9 @@
     <Content Include="Scripts\Libs\bootstrap.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
-    <Content Include="Scripts\Views\Employee\employee-reponsiory.js" />
+    <Content Include="Scripts\Views\Employee\employee-repository.js" />
     <Content Include="Scripts\Views\Group\group-controller.js" />
-    <Content Include="Scripts\Views\Group\group-reposirory.js" />
+    <Content Include="Scripts\Views\Group\group-repository.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0.min.js" />
