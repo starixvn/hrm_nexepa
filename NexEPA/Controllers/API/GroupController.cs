@@ -18,6 +18,7 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// Group API Controller.
     /// </summary>
+    [ExceptionHandling]
     public class GroupController : ApiController
     {
         private readonly GroupService _groupService;

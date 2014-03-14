@@ -38,21 +38,12 @@ namespace NexEPA.Core.Services
         public virtual IEnumerable<T> GetData<T>(ICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-
-            try
+            if (criteria.IsValid())
             {
-                if (criteria.IsValid())
-                {
-                    return _dynamicRepository.Fetch<T>(criteria);
-                }
+                return _dynamicRepository.Fetch<T>(criteria);
+            }
 
-                return new List<T>();
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex);
-                return null;
-            }
+            return new List<T>();
         }
 
         /// <summary>
@@ -63,26 +54,12 @@ namespace NexEPA.Core.Services
         /// <returns>The object.</returns>
         public virtual T GetDataEntity<T>(ICriteria criteria)
         {
-            try
+            if (criteria.IsValid())
             {
-                if (criteria.IsValid())
-                {
-                    return _dynamicRepository.Get<T>(criteria);
-                }
-
-                return default(T);
+                return _dynamicRepository.Get<T>(criteria);
             }
-            catch (Exception ex)
-            {
-                HandleException(ex);
-                return default(T);
-            }
-        }
 
-        private void HandleException(Exception ex)
-        {
-            // Implement later
-            throw ex;
+            return default(T);
         }
     }
 }

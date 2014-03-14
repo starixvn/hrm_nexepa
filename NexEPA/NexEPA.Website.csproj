@@ -54,6 +54,9 @@
     <Reference Include="Fanex.Data, Version=0.5.404.62, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\Fanex.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\Fanex.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.NAP.Core, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\Fanex.NAP.Core.dll</HintPath>
     </Reference>
@@ -144,6 +147,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
+    <Compile Include="Controllers\API\ExceptionHandling\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\GroupController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -176,8 +180,8 @@
     <Content Include="Scripts\Libs\jquery-2.1.0.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0.min.js" />
     <Content Include="Scripts\registration-module.js" />
-    <Content Include="Templates\Employee\create.html" />
-    <Content Include="Templates\Employee\employees.html" />
+    <Content Include="Templates\Employee\Create.html" />
+    <Content Include="Templates\Employee\View.html" />
     <Content Include="Templates\Group\groups.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -18,6 +18,7 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// Employee API Controller.
     /// </summary>
+    [ExceptionHandling]
     public class EmployeeController : ApiController
     {
         private readonly EmployeeService _employeeService;

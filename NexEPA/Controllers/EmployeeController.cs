@@ -9,14 +9,13 @@
 
 namespace NexEPA.Controllers
 {
+    using System;
     using System.Net;
     using System.Web.Mvc;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
-    using System;
     
-
     /// <summary>
     /// Employee Controller.
     /// </summary>

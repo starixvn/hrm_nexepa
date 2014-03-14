@@ -9,7 +9,7 @@ registrationModule.factory('employeeRepository', function ($http, $q) {
             return deferred.promise;
         },
         save: function (employee) {
-            $http.post('/Employee/Create', employee);
+            $http.post('api/Employee/Create', employee);
         }
     };
 });

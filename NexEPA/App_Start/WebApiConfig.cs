@@ -11,12 +11,17 @@ namespace NexEPA
 {
     using System.Web.Http;
     using Newtonsoft.Json.Serialization;
+    using NexEPA.Controllers.API;
 
     /// <summary>
     /// WebAPI Config.
     /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Register config.
+        /// </summary>
+        /// <param name="config">Http Configuration.</param>
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
@@ -26,6 +31,7 @@ namespace NexEPA
 
             var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Filters.Add(new ExceptionHandlingAttribute());
         }
     }
 }
