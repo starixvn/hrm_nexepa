@@ -170,6 +170,9 @@
     <Content Include="Content\Common\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Libs\angular-min.js" />
+    <Content Include="Scripts\Libs\angular-resource.min.js" />
+    <Content Include="Scripts\Libs\angular-route-min.js" />
     <Content Include="Scripts\Libs\bootstrap.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />

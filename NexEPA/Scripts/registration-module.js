@@ -1,7 +1,7 @@
 ﻿/* exported registrationModule */
 'use strict';
 
-var registrationModule = angular.module("registrationModule", [])
+var registrationModule = angular.module("registrationModule", ['ngRoute', 'ngResource'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
         $routeProvider.when('/Group/Index', { templateUrl: '../templates/group/groups.html', controller: 'GroupController' });
