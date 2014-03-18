@@ -22,17 +22,17 @@ namespace NexEPA.Core.Repositories
     /// </summary>
     public class BaseRepository
     {
-        public CommandResult Insert(ICriteria criteria, bool isReturnValueOutputProperties = false)
+        public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
         {
             return ExecuteNonQuery(criteria);
         }
 
-        public CommandResult Update(ICriteria criteria, bool isReturnValueOutputProperties = false)
+        public CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false)
         {
             return ExecuteNonQuery(criteria);
         }
 
-        public CommandResult Delete(ICriteria criteria, bool isReturnValueOutputProperties = false)
+        public CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false)
         {
             return ExecuteNonQuery(criteria);
         }
@@ -41,15 +41,16 @@ namespace NexEPA.Core.Repositories
         /// Function to insert, update or delete.
         /// </summary>
         /// <param name="criteria">Criteria contains parameter throw stored procedure.</param>
+        /// <param name="hasGetOutputParams">Has get output parameters or no.</param>
         /// <returns>Command Result.</returns>
-        private CommandResult ExecuteNonQuery(ICriteria criteria, bool isReturnValueOutputProperties = false)
+        private CommandResult ExecuteNonQuery(ICriteria criteria, bool hasGetOutputParams = false)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var hash = criteria.GetSpParams();
                 hash = (new ResultCriteria()).AddSpParams(hash);
                 var result = db.ExecuteNonQuery(hash);
-                if (result == 1 && isReturnValueOutputProperties)
+                if (result == 1 && hasGetOutputParams)
                 {
                     SetValueForOutputProperty(criteria, hash);
                 }
