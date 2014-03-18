@@ -16,16 +16,8 @@ namespace NexEPA.Core.Extensions
     /// </summary>
     public class OutputAttribute : Attribute
     {
-        private bool _isOutput;
-
         public OutputAttribute()
         {
-            this._isOutput = true;
-        }
-
-        public virtual bool IsOutput
-        {
-            get { return _isOutput; }
         }
     }
 }
