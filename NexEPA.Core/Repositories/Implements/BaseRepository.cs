@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2014.3.11">Created</change>
 // </history>
 
-namespace NexEPA.Core.Repositories
+namespace NexEPA.Core.Repositories.Implements
 {
     using System;
     using System.Collections;
@@ -16,11 +16,12 @@ namespace NexEPA.Core.Repositories
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Extensions;
+    using NexEPA.Core.Repositories.Interfaces;
 
     /// <summary>
     /// Repository Base.
     /// </summary>
-    public class BaseRepository
+    public class BaseRepository : IBaseRepository
     {
         public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
         {
