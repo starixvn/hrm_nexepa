@@ -55,13 +55,11 @@
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\Implements\BaseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\Impl\" />
-    <Folder Include="Repositories\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

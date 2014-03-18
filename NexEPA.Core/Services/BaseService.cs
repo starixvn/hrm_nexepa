@@ -7,19 +7,18 @@
 //   <change who="Quinn.Vo" date="2014.3.6">Created</change>
 // </history>
 
-namespace NexEPA.Core.Services.Implements
+namespace NexEPA.Core.Services
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Repositories.Implements;
-    using NexEPA.Core.Services.Interfaces;
     using NexEPA.Core.Repositories.Interfaces;
 
     /// <summary>
     /// Query Service.
     /// </summary>
-    public class BaseService : IBaseService
+    public class BaseService
     {
         protected readonly IBaseRepository _Repository;
         private readonly IDynamicRepository _dynamicRepository;

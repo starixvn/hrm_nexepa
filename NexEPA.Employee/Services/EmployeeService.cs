@@ -11,7 +11,6 @@ namespace NexEPA.Employee.Services
 {
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Extensions;
     using NexEPA.Core.Services;
     using NexEPA.Employee.Criteria;
 
