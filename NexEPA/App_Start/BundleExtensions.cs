@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2014.3.11">Created</change>
 // </history>
 
-namespace NexEPA.App_Start
+namespace NexEPA
 {
     using System.Web;
     using System.Web.Optimization;
