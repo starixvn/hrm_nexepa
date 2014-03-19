@@ -60,7 +60,10 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repositories\Impl\" />
+    <Folder Include="Repositories\Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

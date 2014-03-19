@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2014.3.6">Created</change>
 // </history>
 
-namespace Apollo.Age.WebApp
+namespace NexEPA
 {
     using System.Web;
     using System.Web.Optimization;
