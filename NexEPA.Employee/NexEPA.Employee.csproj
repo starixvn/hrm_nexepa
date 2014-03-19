@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\GetEmployeeByIdCriteria.cs" />
+    <Compile Include="Criteria\GetEmployeeByRoleCriteria.cs" />
     <Compile Include="Criteria\GetGroupByIdCriteria.cs" />
     <Compile Include="Criteria\InsertEmployeeCriteria.cs" />
     <Compile Include="Criteria\UpdateEmployeeCriteria.cs" />

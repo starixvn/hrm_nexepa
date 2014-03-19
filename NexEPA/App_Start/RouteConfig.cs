@@ -31,9 +31,9 @@ namespace NexEPA
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
-                name: "Group",
-                url: "Group/Index",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+                name: "Projects",
+                url: "Projects/{*catchall}",
+                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
                 name: "Default",

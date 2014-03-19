@@ -149,10 +149,11 @@
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="Controllers\API\ExceptionHandling\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
-    <Compile Include="Controllers\API\GroupController.cs" />
+    <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,24 +169,47 @@
     <Content Include="Content\Common\bootstrap-theme.min.css" />
     <Content Include="Content\Common\bootstrap.css" />
     <Content Include="Content\Common\bootstrap.min.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Common\Images\animated-overlay.gif" />
+    <Content Include="Content\Common\Images\calendar.png" />
+    <Content Include="Content\Common\Images\delete-icon.png" />
+    <Content Include="Content\Common\Images\edit-icon.png" />
+    <Content Include="Content\Common\Images\save.png" />
+    <Content Include="Content\Common\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\Common\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\Common\Images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\Common\Images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\Common\Images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\Common\Images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Common\Images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\Common\Images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\Common\Images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\Common\Images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Common\Images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\Common\Images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\Common\Images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\Common\Images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Common\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Libs\angular-min.js" />
     <Content Include="Scripts\Libs\angular-resource.min.js" />
     <Content Include="Scripts\Libs\angular-route-min.js" />
     <Content Include="Scripts\Libs\bootstrap.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
+    <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
     <Content Include="Scripts\Views\Employee\employee-repository.js" />
-    <Content Include="Scripts\Views\Group\group-controller.js" />
-    <Content Include="Scripts\Views\Group\group-repository.js" />
+    <Content Include="Scripts\Views\Projects\projects-controller.js" />
+    <Content Include="Scripts\Views\Projects\projects-repository.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0.min.js" />
     <Content Include="Scripts\registration-module.js" />
     <Content Include="Templates\Employee\Create.html" />
     <Content Include="Templates\Employee\View.html" />
-    <Content Include="Templates\Group\groups.html" />
+    <Content Include="Templates\Projects\Create.html" />
+    <Content Include="Templates\Projects\Index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -206,9 +230,9 @@
     <None Include="Content\Common\bootstrap-theme.css.map" />
     <None Include="Content\Common\bootstrap.css.map" />
     <None Include="Content\Employee\employee.less" />
-    <None Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -221,6 +245,10 @@
     <ProjectReference Include="..\NexEPA.Employee\NexEPA.Employee.csproj">
       <Project>{80C95EAA-B6BC-4E4F-93B9-DF0312D0C425}</Project>
       <Name>NexEPA.Employee</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Project\NexEPA.Project.csproj">
+      <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>
+      <Name>NexEPA.Project</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
