@@ -1,4 +1,4 @@
-﻿/* global registrationModule */
+﻿/* global projectsSettingModule */
 'use strict';
 
 projectsSettingModule.factory('selectListDataFactory', function ($http, $q) {

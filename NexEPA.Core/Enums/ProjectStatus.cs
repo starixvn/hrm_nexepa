@@ -16,7 +16,7 @@ namespace NexEPA.Core.Enums
     using Fanex.Common.Extensions;
 
     /// <summary>
-    /// Enum ProjectStatus.
+    /// ENUM ProjectStatus.
     /// </summary>
     public enum ProjectStatus
     {

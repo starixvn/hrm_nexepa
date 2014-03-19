@@ -19,18 +19,14 @@ namespace NexEPA.Project.Models
     {
         public int ProjectId { get; set; }
 
-        [Required(ErrorMessage = "The field Project Name is required.")]
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        [Required(ErrorMessage = "The field Start Date is required.")]
+     
         public DateTime StartDate { get; set; }
-
-        [Required(ErrorMessage = "The field End Date is required.")]
+        
         public DateTime EndDate { get; set; }
-
-        [Required(ErrorMessage = "The field Project Manager is required.")]
+     
         public int ProjectManager { get; set; }
 
         public int Status { get; set; }

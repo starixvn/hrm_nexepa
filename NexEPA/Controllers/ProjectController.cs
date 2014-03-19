@@ -9,14 +9,13 @@
 
 namespace NexEPA.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
+    using NexEPA.Core.Enums;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
-    using System.Linq;
-    using NexEPA.Core.Models;
-    using NexEPA.Core.Enums;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Project Controller.

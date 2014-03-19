@@ -1,9 +1,5 @@
-﻿/* global registrationModule */
+﻿/* global projectsSettingModule */
 'use strict';
-
-projectsSettingModule.controller("ProjectController", function ($scope) {
-
-});
 
 projectsSettingModule.controller("CreateProjectController", function ($scope, selectListDataFactory, projectsFactory, projectFactory, $location) {
 
@@ -21,5 +17,5 @@ projectsSettingModule.controller("CreateProjectController", function ($scope, se
         function (response) {
             $scope.errors = response.data;
         });
-    }
+    };
 });

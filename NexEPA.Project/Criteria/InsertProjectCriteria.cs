@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="SelectListModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="InsertProjectCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,16 +7,18 @@
 //   <change who="Bradley.Mac" date="2014.3.19">Created</change>
 // </history>
 
-namespace NexEPA.Core.Models
+namespace NexEPA.Project.Criteria
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// Select List Model.
+    /// Insert Project Criteria.
     /// </summary>
-    public class SelectListModel
+    public class InsertProjectCriteria : CriteriaBase
     {
-        public string Name { get; set; }
-
-        public int Value { get; set; }
     }
 }
