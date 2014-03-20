@@ -11,7 +11,6 @@ namespace NexEPA
 {
     using System.Web.Http;
     using Newtonsoft.Json.Serialization;
-    using NexEPA.Controllers.API;
 
     /// <summary>
     /// WebAPI Config.

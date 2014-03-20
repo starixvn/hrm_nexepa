@@ -40,6 +40,9 @@ namespace NexEPA.Controllers.API
                 EmployeeId = 1
             };
 
+            var a = "aaa";
+            var i = int.Parse(a);
+
             var employees = _employeeService.GetData<Employee>(criteria);
             return employees;
         }

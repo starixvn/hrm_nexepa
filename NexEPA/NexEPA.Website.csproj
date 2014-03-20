@@ -147,7 +147,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
-    <Compile Include="Controllers\API\ExceptionHandling\ExceptionHandlingAttribute.cs" />
+    <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\GroupController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
