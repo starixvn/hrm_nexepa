@@ -35,12 +35,12 @@ namespace NexEPA.Controllers.API
 
         public IEnumerable<Employee> GetEmployees()
         {
-            var criteria = new GetEmployeeByIdCriteria
+            GetEmployeeByIdCriteria criteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = 1
             };
 
-            var employees = _employeeService.GetData<Employee>(criteria);
+            IEnumerable<Employee> employees = _employeeService.GetData<Employee>(criteria);
             return employees;
         }
     }

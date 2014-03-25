@@ -27,7 +27,7 @@ namespace NexEPA.Project.Repositories.Impl
         /// <returns>Enumerable of Project Model.</returns>
         public IEnumerable<ProjectModel> GetAllProject(ICriteria criteria)
         {
-            var project = new ProjectModel();
+            ProjectModel project = new ProjectModel();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var entity = db.Query<ProjectModel, MilestoneModel, ProjectModel>(

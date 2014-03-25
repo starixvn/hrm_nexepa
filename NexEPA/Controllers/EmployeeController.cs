@@ -10,8 +10,10 @@
 namespace NexEPA.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Web.Mvc;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
@@ -35,12 +37,12 @@ namespace NexEPA.Controllers
 
         public ActionResult Index()
         {
-            var criteria = new GetEmployeeByIdCriteria
+            GetEmployeeByIdCriteria criteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = 1
             };
 
-            var employees = _employeeService.GetData<Employee>(criteria);
+            IEnumerable<Employee> employees = _employeeService.GetData<Employee>(criteria);
             return Json(employees, JsonRequestBehavior.AllowGet);
         }
 
@@ -49,7 +51,7 @@ namespace NexEPA.Controllers
         {
             employee.EmployeeId = 7;
             employee.JoinedDate = DateTime.Now;
-            var result = _employeeService.Insert(employee);
+            CommandResult result = _employeeService.Insert(employee);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

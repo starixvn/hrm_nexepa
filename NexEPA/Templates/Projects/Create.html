@@ -1,8 +1,11 @@
 ﻿<form class="form-horizontal" name="addProjectForm" novalidate>
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10" style="color: red;" ng-show="errors.length > 0" ng-repeat="error in errors">
+    <div class="col-sm-offset-2 col-sm-10" style="color: red;" ng-show="errors.length > 0"
+        ng-repeat="error in errors">
         {{error}}
     </div>
+    <div class='col-sm-offset-2 col-sm-10' style='color: red; display: none;' id='dateValid'>
+        End date must be greater than Start date.</div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">
@@ -17,14 +20,16 @@
     <label class="col-sm-2 control-label">
         Start Date</label>
     <div class="col-sm-2">
-        <input type="text" class="form-control" ng-model="project.startDate" placeholder="Start Date" datepicker id="startDate" readonly/>
+        <input type="text" class="form-control" ng-model="project.startDate" placeholder="Start Date"
+            datepicker id="startDate" readonly />
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">
         End Date</label>
     <div class="col-sm-2">
-        <input type="text" class="form-control" ng-model="project.endDate" placeholder="End Date" datepicker id="endDate" readonly/>
+        <input type="text" class="form-control" ng-model="project.endDate" placeholder="End Date"
+            datepicker id="endDate" readonly />
     </div>
 </div>
 <div class="form-group">
@@ -59,5 +64,4 @@
             Submit</button>
     </div>
 </div>
-
 </form>

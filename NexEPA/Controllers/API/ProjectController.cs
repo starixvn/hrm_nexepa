@@ -15,6 +15,7 @@ namespace NexEPA.Controllers.API
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Project.Criteria;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
@@ -46,7 +47,7 @@ namespace NexEPA.Controllers.API
         /// <returns>List Project Model.</returns>
         public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
-            var criteria = new GetAllProjectCriteria();
+            GetAllProjectCriteria criteria = new GetAllProjectCriteria();
             if (projectManager != null || status != null || period != null)
             {
                 criteria = new GetAllProjectCriteria()
@@ -58,7 +59,7 @@ namespace NexEPA.Controllers.API
                 };
             }
 
-            var projects = _projectService.GetAllProject(criteria);
+            IEnumerable<ProjectModel> projects = _projectService.GetAllProject(criteria);
 
             return projects;
         }
@@ -72,7 +73,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                var criteria = new AddProjectCriteria()
+                AddProjectCriteria criteria = new AddProjectCriteria()
                 {
                     Name = project.Name,
                     Description = project.Description,
@@ -84,10 +85,11 @@ namespace NexEPA.Controllers.API
                     CreatedDate = DateTime.Now.Date
                 };
 
-                var result = _projectService.InsertProject(criteria);
+                CommandResult result = _projectService.InsertProject(criteria);
+
                 if (result.Code != 0)
                 {
-                    var errorMessage = new List<string>() { result.Message };
+                    List<string> errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -108,7 +110,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                var criteria = new UpdateProjectCriteria
+                UpdateProjectCriteria criteria = new UpdateProjectCriteria
                 {
                     ProjectId = project.ProjectId,
                     Name = project.Name,
@@ -121,10 +123,11 @@ namespace NexEPA.Controllers.API
                     Description = project.Description
                 };
 
-                var result = _projectService.UpdateProject(criteria);
+                CommandResult result = _projectService.UpdateProject(criteria);
+
                 if (result.Code != 0)
                 {
-                    var errorMessage = new List<string>() { result.Message };
+                    List<string> errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 

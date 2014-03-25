@@ -9,6 +9,8 @@
 
 namespace NexEPA.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using NexEPA.Core.Enums;
@@ -40,8 +42,8 @@ namespace NexEPA.Controllers
 
         public ActionResult RenderPMSelectList()
         {
-            var criteria = new GetEmployeeByRoleCriteria() { RoleId = null };
-            var employees = _employeeService.GetData<Employee>(criteria);
+            GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = null };
+            IEnumerable<Employee> employees = _employeeService.GetData<Employee>(criteria);
             var selectListEmployee = employees.Select(x => new { x.FullName, x.EmployeeId });
 
             return Json(selectListEmployee, JsonRequestBehavior.AllowGet);
@@ -49,7 +51,7 @@ namespace NexEPA.Controllers
 
         public ActionResult RenderProjectStatusSelectList()
         {
-            var data = new[]
+            Array data = new[]
                 {
                     new SelectListModel { Id = (int)ProjectStatus.Active, Name = ProjectStatus.Active.ToString() },
                     new SelectListModel { Id = (int)ProjectStatus.Closed, Name = ProjectStatus.Closed.ToString() }
@@ -64,7 +66,7 @@ namespace NexEPA.Controllers
         /// <returns>Select list data.</returns>
         public ActionResult RenderProjectPeriodSelectList()
         {
-            var statusList = new[]
+            Array statusList = new[]
                     {
                         new SelectListModel() { Name = "This month", Id = 1 },
                         new SelectListModel() { Name = "Last 3 months", Id = 2 },

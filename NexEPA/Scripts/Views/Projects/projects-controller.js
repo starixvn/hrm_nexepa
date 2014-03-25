@@ -1,25 +1,18 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
+
 var dateValidation = function () {
     var startDate = new Date($('#startDate').val());
     var endDate = new Date($('#endDate').val());
+    var dateWarning = $("#dateValid");
     if (startDate !== "" && endDate !== "") {
         if (endDate < startDate) {
-            $("form .form-group:eq(1)").before("<div id='dateValid' class='form-group'>"
-                + "<div class='col-sm-offset-2 col-sm-10 ng-scope ng-binding' style='color:red;'> "
-                + "End date must be greater than Start date.</div></div>");
+            dateWarning.show();
             return false;
         }
         else {
-            $.fn.exists = function () {
-                return this.length !== 0;
-            };
-            var dateErrors = $("#dateValid");
-            if (dateErrors.exists()) {
-                dateErrors.remove();
-                return true;
-            }
+            dateWarning.hide();
         }
     }
     return true;

@@ -31,99 +31,148 @@ namespace NexEPA.Project.Services.Impl
             this._projectRepository = projectRepository ?? new ProjectRepository();
         }
 
+        /// <summary>
+        /// Get Project By id.
+        /// </summary>
+        /// <param name="criteria">Get Project By Id Criteria.</param>
+        /// <returns>Project Model.</returns>
         public ProjectModel GetById(GetProjectByIdCriteria criteria)
         {
+            ProjectModel result = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this.GetDataEntity<ProjectModel>(criteria);
+                result = this.GetDataEntity<ProjectModel>(criteria);
                 return result;
             }
 
-            return null;
+            return result;
         }
 
+        /// <summary>
+        /// Get all project.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List Project Model.</returns>
         public IEnumerable<ProjectModel> GetAllProject(GetAllProjectCriteria criteria)
         {
+            IEnumerable<ProjectModel> lstProject = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                return _projectRepository.GetAllProject(criteria);
+                lstProject = _projectRepository.GetAllProject(criteria);
+                return lstProject;
             }
 
-            return null;
+            return lstProject;
         }
 
+        /// <summary>
+        /// Insert Project.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
         public CommandResult InsertProject(AddProjectCriteria criteria)
         {
+            CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this._Repository.Insert(criteria);
+                result = this._Repository.Insert(criteria);
                 return result;
             }
 
-            return null;
+            return result;
         }
 
+        /// <summary>
+        /// Update Project.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
         public CommandResult UpdateProject(UpdateProjectCriteria criteria)
         {
+            CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this._Repository.Update(criteria);
+                result = this._Repository.Update(criteria);
                 return result;
             }
 
-            return null;
+            return result;
         }
 
+        /// <summary>
+        /// Get Milestone By Project Id.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List Milestone.</returns>
         public IEnumerable<MilestoneModel> GetMilestoneByProjectId(GetMilestoneByProjectIdCriteria criteria)
         {
+            IEnumerable<MilestoneModel> lstMilestone = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this.GetData<MilestoneModel>(criteria);
-                return result;
+                lstMilestone = this.GetData<MilestoneModel>(criteria);
+                return lstMilestone;
             }
 
-            return null;
+            return lstMilestone;
         }
 
+        /// <summary>
+        /// Update Milestone.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
         public CommandResult UpdateMilestone(UpdateMilestoneCriteria criteria)
         {
-             Check.Argument.IsNotNull(criteria, "criteria");
-             if (criteria.IsValid())
-             {
-                 var result = this._Repository.Update(criteria);
-                 return result;
-             }
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Update(criteria);
+                return result;
+            }
 
-             return null;
+            return result;
         }
 
+        /// <summary>
+        /// Insert Milestone.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
         public CommandResult InsertMilestone(AddMilestoneCriteria criteria)
         {
+            CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this._Repository.Insert(criteria);
+                result = this._Repository.Insert(criteria);
                 return result;
             }
 
-            return null;
+            return result;
         }
 
+        /// <summary>
+        /// Delete Milestone.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
         public CommandResult DeleteMilestone(DeleteMilestoneCriteria criteria)
         {
+            CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this._Repository.Delete(criteria);
+                result = this._Repository.Delete(criteria);
                 return result;
             }
 
-            return null;
+            return result;
         }
     }
 }

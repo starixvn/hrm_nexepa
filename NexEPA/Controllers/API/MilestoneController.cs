@@ -15,6 +15,7 @@ namespace NexEPA.Controllers.API
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Project.Criteria;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
@@ -37,14 +38,24 @@ namespace NexEPA.Controllers.API
             this._projectService = projectService ?? new ProjectService();
         }
 
+        /// <summary>
+        /// Get Milestone.
+        /// </summary>
+        /// <param name="projectId">Project id.</param>
+        /// <returns>List Milestone Model.</returns>
         public IEnumerable<MilestoneModel> GetMilestones(int projectId)
         {
-            var getMilestoneCriteria = new GetMilestoneByProjectIdCriteria()
+            IEnumerable<MilestoneModel> result = null;
+            if (projectId > 0)
             {
-                ProjectId = projectId
-            };
-            var result = _projectService.GetMilestoneByProjectId(getMilestoneCriteria);
+                GetMilestoneByProjectIdCriteria getMilestoneCriteria = new GetMilestoneByProjectIdCriteria()
+                {
+                    ProjectId = projectId
+                };
 
+                result = _projectService.GetMilestoneByProjectId(getMilestoneCriteria);
+            }
+            
             return result;
         }
 
@@ -58,7 +69,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                var criteria = new AddMilestoneCriteria()
+                AddMilestoneCriteria criteria = new AddMilestoneCriteria()
                 {
                     Description = milestone.Description,
                     Name = milestone.Name,
@@ -69,7 +80,9 @@ namespace NexEPA.Controllers.API
                     CreatedBy = 1,
                     CreatedDate = DateTime.Now.Date
                 };
-                var result = _projectService.InsertMilestone(criteria);
+
+                CommandResult result = _projectService.InsertMilestone(criteria);
+
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
@@ -91,16 +104,18 @@ namespace NexEPA.Controllers.API
         {
             if (milestoneId > 0)
             {
-                var criteria = new DeleteMilestoneCriteria()
+                DeleteMilestoneCriteria criteria = new DeleteMilestoneCriteria()
                 {
                     MilestoneId = milestoneId,
                     ModifiedBy = 1,
                     ModifiedDate = DateTime.Now.Date
                 };
-                var result = _projectService.DeleteMilestone(criteria);
+
+                CommandResult result = _projectService.DeleteMilestone(criteria);
+
                 if (result.Code != 0)
                 {
-                    var errorMessage = new List<string>() { result.Message };
+                    List<string> errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -120,7 +135,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                var criteria = new UpdateMilestoneCriteria()
+                UpdateMilestoneCriteria criteria = new UpdateMilestoneCriteria()
                 {
                     Description = milestone.Description,
                     MilestoneId = milestone.MilestoneId,
@@ -132,10 +147,12 @@ namespace NexEPA.Controllers.API
                     ModifiedBy = 1,
                     ModifiedDate = DateTime.Now.Date
                 };
-                var result = _projectService.UpdateMilestone(criteria);
+
+                CommandResult result = _projectService.UpdateMilestone(criteria);
+
                 if (result.Code != 0)
                 {
-                    var errorMessage = new List<string>() { result.Message };
+                    List<string> errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
