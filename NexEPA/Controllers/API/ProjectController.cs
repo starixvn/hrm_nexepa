@@ -47,17 +47,19 @@ namespace NexEPA.Controllers.API
         /// <returns>List Project Model.</returns>
         public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
-            GetAllProjectCriteria criteria = new GetAllProjectCriteria();
-            if (projectManager != null || status != null || period != null)
+            DateTime? startDate = null;
+            if (period != null)
             {
-                criteria = new GetAllProjectCriteria()
+                startDate = GetPeriodOfTime(period.Value);
+            }
+
+            GetAllProjectCriteria criteria = new GetAllProjectCriteria()
                 {
                     ProjectManager = projectManager,
                     Status = status,
-                    StartDate = null,
-                    EndDate = null
+                    StartDate = startDate,
+                    EndDate = DateTime.Now.Date
                 };
-            }
 
             IEnumerable<ProjectModel> projects = _projectService.GetAllProject(criteria);
 
@@ -142,6 +144,37 @@ namespace NexEPA.Controllers.API
         private IEnumerable<string> RetrieveErrorMessages()
         {
             return ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+        }
+
+        /// <summary>
+        /// Get Period of time.
+        /// </summary>
+        /// <param name="period">Period from filter.</param>
+        /// <returns>Date time.</returns>
+        private DateTime GetPeriodOfTime(int period)
+        {
+            DateTime startDate = new DateTime();
+            var now = DateTime.Now;
+            switch (period)
+            {
+                case 1:
+                    startDate = new DateTime(now.Year, now.Month, 1);
+                    break;
+                case 2:
+                    startDate = DateTime.Now.AddMonths(-3).Date;
+                    break;
+                case 3:
+                    startDate = DateTime.Now.AddMonths(-6).Date;
+                    break;
+                case 4:
+                    startDate = DateTime.Now.AddMonths(-12).Date;
+                    break;
+                default:
+                    startDate = DateTime.Now.Date;
+                    break;
+            }
+
+            return startDate;
         }
     }
 }

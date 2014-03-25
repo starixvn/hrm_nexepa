@@ -32,19 +32,43 @@ var dateValidation1 = function () {
 
 projectsSettingModule.controller("ProjectController", function ($scope, selectListDataFactory, dataFilterFactory, projectService) {
 
-    $scope.projects = dataFilterFactory.filterData(null).then(function (proData) {
-        $scope.projects = proData;
-    });
+    $scope.initViewIndex = function () {
+        $scope.projects = dataFilterFactory.filterData(null).then(function (proData) {
+            $scope.projects = proData;
+        });
+        selectListDataFactory.renderPMSelectList().then(function (lstPM) {
+            $scope.pms = lstPM;
+        });
+        selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
+            $scope.status = lstStatus;
+        });
+        selectListDataFactory.renderProjectPeriodSelectList().then(function (lstPeriod) {
+            $scope.periods = lstPeriod;
+        });
+    };
 
-    selectListDataFactory.renderPMSelectList().then(function (lstPM) {
-        $scope.pms = lstPM;
-    });
-    selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
-        $scope.status = lstStatus;
-    });
-    selectListDataFactory.renderProjectPeriodSelectList().then(function (lstPeriod) {
-        $scope.periods = lstPeriod;
-    });
+    $scope.initViewAdd = function () {
+        selectListDataFactory.renderPMSelectList().then(function (lstPM) {
+            $scope.pms = lstPM;
+        });
+        selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
+            $scope.status = lstStatus;
+        });
+    };
+
+    //    $scope.projects = dataFilterFactory.filterData(null).then(function (proData) {
+    //        $scope.projects = proData;
+    //    });
+
+    //    selectListDataFactory.renderPMSelectList().then(function (lstPM) {
+    //        $scope.pms = lstPM;
+    //    });
+    //    selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
+    //        $scope.status = lstStatus;
+    //    });
+    //    selectListDataFactory.renderProjectPeriodSelectList().then(function (lstPeriod) {
+    //        $scope.periods = lstPeriod;
+    //    });
 
     $scope.getProjectList = function (filter) {
         dataFilterFactory.filterData(filter).then(function (lstEmployee) {
