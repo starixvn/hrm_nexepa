@@ -116,7 +116,6 @@ projectsSettingModule.controller("UpdateProjectController", function ($scope, pr
 
 projectsSettingModule.controller('IndexCtrl', function ($scope, milestoneFactory, notificationFactory, projectService) {
     $scope.currentProject = projectService.getProperty();
-    debugger;
 
     $scope.milestones = [];
     $scope.addMode = false;
@@ -136,7 +135,7 @@ projectsSettingModule.controller('IndexCtrl', function ($scope, milestoneFactory
     var successCallback = function () {
         notificationFactory.success();
 
-        return milestoneFactory.getMilestone().success(getMilestoneSuccessCallback).error(errorCallback);
+        return milestoneFactory.getMilestone($scope.currentProject.projectId).success(getMilestoneSuccessCallback).error(errorCallback);
     };
 
     var successPostCallback = function (data, status, headers, config) {
@@ -154,15 +153,15 @@ projectsSettingModule.controller('IndexCtrl', function ($scope, milestoneFactory
     milestoneFactory.getMilestone($scope.currentProject.projectId).success(getMilestoneSuccessCallback).error(errorCallback);
 
     $scope.addMilestone = function () {
+        $scope.milestone.projectId = $scope.currentProject.projectId;
         milestoneFactory.addMilestone($scope.milestone).success(successPostCallback).error(errorCallback);
     };
 
     $scope.deleteMilestone = function (milestone) {
-        milestoneFactory.deleteMilestone(milestone).success(successCallback).error(errorCallback);
+        milestoneFactory.deleteMilestone(milestone.milestoneId).success(successCallback).error(errorCallback);
     };
 
     $scope.updateMilestone = function (milestone) {
-        debugger;
         var validate = dateValidation1();
         if (validate) {
             milestoneFactory.updateMilestone(milestone).success(successCallback).error(errorCallback);

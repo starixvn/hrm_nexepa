@@ -21,6 +21,8 @@
     <Setting Key="Milestone_GetByProject" SpName="Milestone_GetByProject" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Milestone_Insert" SpName="Milestone_Insert" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Milestone_Update" SpName="Milestone_Update" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Milestone_Delete" SpName="Milestone_Delete" DbName="NexEPA" Plain="1" ></Setting>
+    
   </Function>
 
 </Functions>

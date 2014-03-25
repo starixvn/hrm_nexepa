@@ -77,8 +77,8 @@ projectsSettingModule.factory('milestoneFactory', function ($http) {
         addMilestone: function (milestone) {
             return $http.post(url, milestone);
         },
-        deleteMilestone: function (milestone) {
-            return $http['delete'](url + milestone.milestoneId);
+        deleteMilestone: function (milestoneId) {
+            return $http['delete']('/api/Milestone/', { params: { milestoneId: milestoneId} });
         },
         updateMilestone: function (milestone) {
             return $http.put(url + milestone.milestoneId, milestone);
