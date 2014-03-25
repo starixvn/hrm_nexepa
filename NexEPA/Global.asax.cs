@@ -12,6 +12,7 @@ namespace NexEPA
     using System;
     using System.Web;
     using System.Web.Http;
+    using System.Web.Http.Validation.Providers;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Fanex.Data.Configuration;
@@ -22,6 +23,9 @@ namespace NexEPA
     /// </summary>
     public class MvcApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// Application Start.
+        /// </summary>
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -29,8 +33,10 @@ namespace NexEPA
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
             DbSettingProviderManager.Current.Start();
+            GlobalConfiguration.Configuration.Services.RemoveAll(
+                typeof(System.Web.Http.Validation.ModelValidatorProvider),
+                v => v is InvalidModelValidatorProvider);
         }
 
         protected void Application_Error(object sender, EventArgs e)

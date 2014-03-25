@@ -1,10 +1,15 @@
-﻿<form class="form-horizontal">
-<div style="color:red;" ng-show="errors.length > 0" ng-repeat="error in errors">{{error}}</div>
+﻿<form class="form-horizontal" name="addProjectForm" novalidate>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10" style="color: red;" ng-show="errors.length > 0" ng-repeat="error in errors">
+        {{error}}
+    </div>
+</div>
 <div class="form-group">
     <label class="col-sm-2 control-label">
         Project Name</label>
     <div class="col-sm-4">
-        <input type="text" name="projectname" ng-model="project.name" class="form-control" placeholder="Project Name" />
+        <input type="text" name="projectname" ng-model="project.name" class="form-control"
+            placeholder="Project Name" />
         <!--<div class="text-danger" ng-show="addProjectForm.projectname.$error.required && accountForm.fullname.$dirty">Project Name is required.</div>-->
     </div>
 </div>
@@ -12,16 +17,14 @@
     <label class="col-sm-2 control-label">
         Start Date</label>
     <div class="col-sm-2">
-        <input type="text" ng-model="project.startDate" class="form-control" placeholder="Start Date"
-            datepicker readonly />
+        <input type="text" class="form-control" ng-model="project.startDate" placeholder="Start Date" datepicker id="startDate" readonly/>
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">
         End Date</label>
     <div class="col-sm-2">
-        <input type="text" ng-model="project.endDate" class="form-control" placeholder="End Date"
-            datepicker readonly />
+        <input type="text" class="form-control" ng-model="project.endDate" placeholder="End Date" datepicker id="endDate" readonly/>
     </div>
 </div>
 <div class="form-group">
@@ -38,15 +41,23 @@
     <label class="col-sm-2 control-label">
         Status</label>
     <div class="col-sm-4">
-        <select class="form-control" ng-options="s.value as s.text for s in status" ng-model="project.status">
+        <select class="form-control" ng-options="s.id as s.name for s in status" ng-model="project.status">
             <option style="display: none" value="">-- Select a status --</option>
         </select>
     </div>
 </div>
 <div class="form-group">
+    <label class="col-sm-2 control-label">
+        Description</label>
+    <div class="col-sm-4">
+        <textarea class="form-control" ng-model="project.description"></textarea>
+    </div>
+</div>
+<div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-        <button class="btn btn-default" ng-click="save(project)">
+        <button class="btn btn-default" ng-disable="addProjectForm.$invalid" ng-click="save(project)">
             Submit</button>
     </div>
 </div>
+
 </form>

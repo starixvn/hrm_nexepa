@@ -9,44 +9,130 @@
 
 namespace NexEPA.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-    using NexEPA.Employee.Services;
+    using NexEPA.Project.Criteria;
     using NexEPA.Project.Models;
+    using NexEPA.Project.Services.Impl;
+    using NexEPA.Project.Services.Interfaces;
 
     /// <summary>
     /// Project Controller.
     /// </summary>
-    [ExceptionHandling]
     public class ProjectController : ApiController
     {
-        private readonly GroupService _groupService;
-
-        private readonly EmployeeService _employeeService;
+        private readonly IProjectService _projectService;
 
         public ProjectController()
-            : this(null, null)
+            : this(null)
         {
         }
 
-        public ProjectController(GroupService groupService, EmployeeService employeeService)
+        public ProjectController(IProjectService projectService)
         {
-            this._groupService = groupService ?? new GroupService();
-            this._employeeService = employeeService ?? new EmployeeService();
+            this._projectService = projectService ?? new ProjectService();
         }
 
-        public HttpResponseMessage Post(HttpRequestMessage request, ProjectModel project)
+        /// <summary>
+        /// Get projects by criteria.
+        /// </summary>
+        /// <param name="projectManager">Project Manager.</param>
+        /// <param name="status">Project Status.</param>
+        /// <param name="period">Project Period.</param>
+        /// <returns>List Project Model.</returns>
+        public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
+        {
+            var criteria = new GetAllProjectCriteria();
+            if (projectManager != null || status != null || period != null)
+            {
+                criteria = new GetAllProjectCriteria()
+                {
+                    ProjectManager = projectManager,
+                    Status = status,
+                    StartDate = null,
+                    EndDate = null
+                };
+            }
+
+            var projects = _projectService.GetAllProject(criteria);
+
+            return projects;
+        }
+
+        /// <summary>
+        /// Insert Project.
+        /// </summary>
+        /// <param name="project">Project Model.</param>
+        /// <returns>Http Response Message.</returns>
+        public HttpResponseMessage Post(ProjectModel project)
         {
             if (ModelState.IsValid)
             {
+                var criteria = new AddProjectCriteria()
+                {
+                    Name = project.Name,
+                    Description = project.Description,
+                    ProjectManager = project.ProjectManager,
+                    StartDate = project.StartDate,
+                    EndDate = project.EndDate,
+                    Status = project.Status,
+                    CreatedBy = 1,
+                    CreatedDate = DateTime.Now.Date
+                };
+
+                var result = _projectService.InsertProject(criteria);
+                if (result.Code != 0)
+                {
+                    var errorMessage = new List<string>() { result.Message };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                }
+
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             else
             {
-                return request.CreateResponse(HttpStatusCode.OK, RetrieveErrorMessages());
+                return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
+            }
+        }
+
+        /// <summary>
+        /// Update Project.
+        /// </summary>
+        /// <param name="project">Project Model.</param>
+        /// <returns>Http Message Response.</returns>
+        public HttpResponseMessage Put(ProjectModel project)
+        {
+            if (ModelState.IsValid)
+            {
+                var criteria = new UpdateProjectCriteria
+                {
+                    ProjectId = project.ProjectId,
+                    Name = project.Name,
+                    ProjectManager = project.ProjectManager,
+                    StartDate = project.StartDate,
+                    EndDate = project.EndDate,
+                    Status = project.Status,
+                    ModifiedBy = 1,
+                    ModifiedDate = DateTime.Now.Date,
+                    Description = project.Description
+                };
+
+                var result = _projectService.UpdateProject(criteria);
+                if (result.Code != 0)
+                {
+                    var errorMessage = new List<string>() { result.Message };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                }
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
             }
         }
 

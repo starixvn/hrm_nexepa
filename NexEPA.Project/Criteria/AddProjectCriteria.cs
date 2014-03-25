@@ -1,0 +1,46 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="AddProjectCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Bradley.Mac" date="2014.3.20">Created</change>
+// </history>
+
+namespace NexEPA.Project.Criteria
+{
+    using System;
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// Add Project Criteria.
+    /// </summary>
+    public class AddProjectCriteria : CriteriaBase
+    {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public int? ProjectManager { get; set; }
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
+        public byte? Status { get; set; }
+
+        public int CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public override bool IsValid()
+        {
+            return true;
+        }
+
+        public override string GetSettingKey()
+        {
+            return "Project_Insert";
+        }
+    }
+}

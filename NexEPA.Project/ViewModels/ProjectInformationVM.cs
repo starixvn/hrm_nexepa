@@ -19,6 +19,6 @@ namespace NexEPA.Project.ViewModels
     {
         public ProjectModel ProjectModel { get; set; }
 
-        public List<ProjectMilestoneModel> ProjectMilestone { get; set; }
+        public List<MilestoneModel> ProjectMilestone { get; set; }
     }
 }

@@ -12,4 +12,15 @@
     <Setting Key="Employee_GetByRole" SpName="Employee_GetByRole" DbName="NexEPA" Plain="1" >
     </Setting>
   </Function>
+
+  <Function Name="Project">
+    <Setting Key="Project_Get" SpName="Project_Get" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Project_Insert" SpName="Project_Insert" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Project_Update" SpName="Project_Update" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Milestone_GetById" SpName="Milestone_GetById" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Milestone_GetByProject" SpName="Milestone_GetByProject" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Milestone_Insert" SpName="Milestone_Insert" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Milestone_Update" SpName="Milestone_Update" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
+
 </Functions>

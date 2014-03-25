@@ -1,0 +1,68 @@
+﻿<form class="form-horizontal" name="addProjectForm" novalidate>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10" style="color: red;" ng-show="errors.length > 0" ng-repeat="error in errors">
+        {{error}}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        Project Name</label>
+    <div class="col-sm-4">
+        <input type="text" name="projectname" ng-model="projectUpdate.name" class="form-control"
+            placeholder="Project Name" />
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        Start Date</label>
+    <div class="col-sm-2">
+        <input type="text" class="form-control" ng-model="projectUpdate.startDate" placeholder="Start Date" 
+            datepicker1 id="startDate" readonly/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        End Date</label>
+    <div class="col-sm-2">
+        <input type="text" class="form-control" ng-model="projectUpdate.endDate" placeholder="End Date" 
+            datepicker1 id="endDate"  readonly/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        PM</label>
+    <div class="col-sm-4">
+        <select class="form-control" ng-options="pm.employeeId as pm.fullName for pm in pms"
+            ng-model="projectUpdate.projectManager">
+            <option style="display: none" value="">-- Select a Project Manager --</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        Status</label>
+    <div class="col-sm-4">
+        <select class="form-control" ng-options="s.id as s.name for s in projectstatus" 
+           ng-model="projectUpdate.status">
+            <option style="display: none" value="">-- Select a status --</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        Description</label>
+    <div class="col-sm-4">
+        <textarea class="form-control" ng-model="projectUpdate.description"></textarea>
+    </div>
+</div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="exampleInputPassword1">Milestone</label>
+                <div class="col-sm-4" ng-include src="'/Templates/Projects/ProjectMilestone.html'"></div>
+            </div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-default" ng-disable="addProjectForm.$invalid" ng-click="update(projectUpdate)">
+            Submit</button>
+    </div>
+</div>
+</form>

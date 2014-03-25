@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ProjectMilestoneModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="MilestoneModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.3.18">Created</change>
+//   <change who="Bradley.Mac" date="2014.3.24">Created</change>
 // </history>
 
 namespace NexEPA.Project.Models
@@ -12,9 +12,9 @@ namespace NexEPA.Project.Models
     using System;
 
     /// <summary>
-    /// Project Milestone Model.
+    /// Milestone Model.
     /// </summary>
-    public class ProjectMilestoneModel
+    public class MilestoneModel
     {
         public int MilestoneId { get; set; }
 
@@ -24,11 +24,11 @@ namespace NexEPA.Project.Models
 
         public int ProjectId { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public int Status { get; set; }
+        public byte? Status { get; set; }
 
         public int CreatedBy { get; set; }
 

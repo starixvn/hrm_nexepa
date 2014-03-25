@@ -9,20 +9,21 @@
 
 namespace NexEPA.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using NexEPA.Core.Enums;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
+    using NexEPA.Project.Models;
+    using NexEPA.Project.Services.Impl;
 
     /// <summary>
     /// Project Controller.
     /// </summary>
     public class ProjectController : JsonController
     {
-        private readonly GroupService _groupService;
+        private readonly ProjectService _projectService;
 
         private readonly EmployeeService _employeeService;
 
@@ -31,9 +32,9 @@ namespace NexEPA.Controllers
         {
         }
 
-        public ProjectController(GroupService groupService, EmployeeService employeeService)
+        public ProjectController(ProjectService projectService, EmployeeService employeeService)
         {
-            this._groupService = groupService ?? new GroupService();
+            this._projectService = projectService ?? new ProjectService();
             this._employeeService = employeeService ?? new EmployeeService();
         }
 
@@ -48,10 +49,27 @@ namespace NexEPA.Controllers
 
         public ActionResult RenderProjectStatusSelectList()
         {
-            var statusList = new List<SelectListItem>
+            var data = new[]
+                {
+                    new SelectListModel { Id = (int)ProjectStatus.Active, Name = ProjectStatus.Active.ToString() },
+                    new SelectListModel { Id = (int)ProjectStatus.Closed, Name = ProjectStatus.Closed.ToString() }
+                };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Project period filter select list.
+        /// </summary>
+        /// <returns>Select list data.</returns>
+        public ActionResult RenderProjectPeriodSelectList()
+        {
+            var statusList = new[]
                     {
-                        new SelectListItem() { Text = ProjectStatus.Active.ToString(), Value = ((short)ProjectStatus.Active).ToString() },
-                        new SelectListItem() { Text = ProjectStatus.Closed.ToString(), Value = ((short)ProjectStatus.Closed).ToString() }
+                        new SelectListModel() { Name = "This month", Id = 1 },
+                        new SelectListModel() { Name = "Last 3 months", Id = 2 },
+                        new SelectListModel() { Name = "Last 6 months", Id = 3 },
+                        new SelectListModel() { Name = "Last 12 months", Id = 4 }
                     };
 
             return Json(statusList, JsonRequestBehavior.AllowGet);

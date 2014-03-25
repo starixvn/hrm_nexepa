@@ -1,0 +1,24 @@
+﻿<form class="form-inline" role="form">
+<div class="form-group">
+    <label>
+        Project Manager</label>
+    <select class="form-control" ng-options="pm.employeeId as pm.fullName for pm in pms" ng-model="filter.projectManager">
+        <option value="">-- All --</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>
+        Status</label>
+    <select class="form-control" ng-options="s.id as s.name for s in status" ng-model="filter.status">
+        <option value="">-- All --</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>
+        Period</label>
+    <select class="form-control" ng-options="p.id as p.name for p in periods" ng-model="filter.period">
+        <option value="">-- All --</option>
+    </select>
+</div>
+<button type="button" class="btn btn-default" ng-click="getProjectList(filter)">Query</button>
+</form>

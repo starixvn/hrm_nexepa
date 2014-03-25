@@ -9,10 +9,6 @@
 
 namespace NexEPA.Core.Enums
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.Common.Extensions;
 
     /// <summary>
@@ -20,16 +16,16 @@ namespace NexEPA.Core.Enums
     /// </summary>
     public enum ProjectStatus
     {
+         /// <summary>
+        /// CheckOut item.
+        /// </summary>
+        [StringValue("Active")]
+        Active = 1,
+
         /// <summary>
         /// CheckIn item.
         /// </summary>
         [StringValue("Closed")]
-        Closed = 0,
-
-        /// <summary>
-        /// CheckOut item.
-        /// </summary>
-        [StringValue("Active")]
-        Active = 1
+        Closed = 2
     }
 }

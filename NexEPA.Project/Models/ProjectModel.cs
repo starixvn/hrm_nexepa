@@ -19,17 +19,23 @@ namespace NexEPA.Project.Models
     {
         public int ProjectId { get; set; }
 
+        [Required(ErrorMessage = "The field Project Name is required.")]
         public string Name { get; set; }
 
         public string Description { get; set; }
-     
-        public DateTime StartDate { get; set; }
-        
-        public DateTime EndDate { get; set; }
-     
-        public int ProjectManager { get; set; }
 
-        public int Status { get; set; }
+        [Required(ErrorMessage = "The field Start Date is required.")]  
+        [DataType(DataType.Date)]
+        public DateTime? StartDate { get; set; }
+
+        [Required(ErrorMessage = "The field End Date is required.")]
+        [DataType(DataType.Date)]
+        public DateTime? EndDate { get; set; }
+
+        [Required(ErrorMessage = "The field Project Manager is required.")]
+        public int? ProjectManager { get; set; }
+
+        public byte? Status { get; set; }
 
         public int CreatedBy { get; set; }
 
@@ -38,5 +44,13 @@ namespace NexEPA.Project.Models
         public int ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }
+
+        public int? Members { get; set; }
+
+        public string FullName { get; set; }
+
+        public string NickName { get; set; }
+
+        public MilestoneModel Milestone { get; set; }
     }
 }
