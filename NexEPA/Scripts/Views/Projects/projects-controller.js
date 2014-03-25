@@ -1,7 +1,6 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-
 var dateValidation = function () {
     var startDate = new Date($('#startDate').val());
     var endDate = new Date($('#endDate').val());
@@ -30,109 +29,84 @@ var dateValidation1 = function () {
     return true;
 };
 
-projectsSettingModule.controller("ProjectController", function ($scope, selectListDataFactory, dataFilterFactory, projectService) {
-
-    $scope.initViewIndex = function () {
-        $scope.projects = dataFilterFactory.filterData(null).then(function (proData) {
-            $scope.projects = proData;
-        });
-        selectListDataFactory.renderPMSelectList().then(function (lstPM) {
+projectsSettingModule.controller("ProjectController",
+function ($scope, projectDataFactory, dataFilterFactory, projectService, projectFactory, projectsFactory, $location) {
+    //$scope.project = null;
+    var loadSelectList = function () {
+        projectDataFactory.renderPMSelectList().then(function (lstPM) {
             $scope.pms = lstPM;
         });
-        selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
+        projectDataFactory.renderStatusSelectList().then(function (lstStatus) {
             $scope.status = lstStatus;
         });
-        selectListDataFactory.renderProjectPeriodSelectList().then(function (lstPeriod) {
+    };
+
+    //view Index.
+    $scope.initViewIndex = function () {
+        $scope.projects = dataFilterFactory.filterData(null).then(function (lstProject) {
+            $scope.projects = lstProject;
+        });
+    };
+
+    $scope.initViewFilter = function () {
+        loadSelectList();
+        projectDataFactory.renderProjectPeriodSelectList().then(function (lstPeriod) {
             $scope.periods = lstPeriod;
         });
     };
 
-    $scope.initViewAdd = function () {
-        selectListDataFactory.renderPMSelectList().then(function (lstPM) {
-            $scope.pms = lstPM;
-        });
-        selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
-            $scope.status = lstStatus;
-        });
-    };
-
-    //    $scope.projects = dataFilterFactory.filterData(null).then(function (proData) {
-    //        $scope.projects = proData;
-    //    });
-
-    //    selectListDataFactory.renderPMSelectList().then(function (lstPM) {
-    //        $scope.pms = lstPM;
-    //    });
-    //    selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
-    //        $scope.status = lstStatus;
-    //    });
-    //    selectListDataFactory.renderProjectPeriodSelectList().then(function (lstPeriod) {
-    //        $scope.periods = lstPeriod;
-    //    });
-
     $scope.getProjectList = function (filter) {
-        dataFilterFactory.filterData(filter).then(function (lstEmployee) {
-            $scope.projects = lstEmployee;
+        dataFilterFactory.filterData(filter).then(function (lstProject) {
+            $scope.projects = lstProject;
         });
     };
 
-    $scope.editProject = function (currObj) {
-        projectService.setProperty(currObj);
+    //view Add
+    $scope.initViewAdd = function () {
+        loadSelectList();
     };
-
-});
-
-projectsSettingModule.controller("CreateProjectController", function ($scope, selectListDataFactory, projectsFactory, projectFactory, $location) {
-
-    selectListDataFactory.renderPMSelectList().then(function (lstPM) {
-        $scope.pms = lstPM;
-    });
-    selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
-        $scope.status = lstStatus;
-    });
 
     $scope.save = function (project) {
         var checkDateValidation = dateValidation();
         if (checkDateValidation) {
             $scope.errors = [];
             projectsFactory.create(project).$promise.then(
-            function () { $location.url('/Home/Index'); },
+            function () { $location.url('/Projects/Index'); },
             function (response) {
                 $scope.errors = response.data;
             });
         }
     };
 
-});
+    //view Edit
+    $scope.initViewEdit = function () {
+        loadSelectList();
+        var projectId = projectService.getProperty();
+        projectDataFactory.getProjectById(projectId).then(function (project) {
+            $scope.projectUpdate = project;
+        });
+    };
 
-projectsSettingModule.controller("UpdateProjectController", function ($scope, projectService, selectListDataFactory, projectFactory, $location) {
-
-    selectListDataFactory.renderPMSelectList().then(function (lstPM) {
-        $scope.pms = lstPM;
-    });
-    selectListDataFactory.renderStatusSelectList().then(function (lstStatus) {
-        $scope.projectstatus = lstStatus;
-
-    });
-
-    $scope.projectUpdate = projectService.getProperty();
+    $scope.editProject = function (projectId) {
+        projectService.setProperty(projectId);
+    };
 
     $scope.update = function (project) {
         var checkDateValidation = dateValidation();
         if (checkDateValidation) {
             $scope.errors = [];
-            projectFactory.update(project).$promise.then(
-            function () { $location.url('/Project/Index'); },
+            projectsFactory.update(project).$promise.then(
+            function () { $location.url('/Projects/Index'); },
             function (response) {
                 $scope.errors = response.data;
             });
         }
     };
+
 });
 
-
-projectsSettingModule.controller('IndexCtrl', function ($scope, milestoneFactory, notificationFactory, projectService) {
-    $scope.currentProject = projectService.getProperty();
+projectsSettingModule.controller('MilestoneCtrl', function ($scope, milestoneFactory, notificationFactory, projectService) {
+    var projectId = projectService.getProperty();
 
     $scope.milestones = [];
     $scope.addMode = false;
@@ -152,7 +126,7 @@ projectsSettingModule.controller('IndexCtrl', function ($scope, milestoneFactory
     var successCallback = function () {
         notificationFactory.success();
 
-        return milestoneFactory.getMilestone($scope.currentProject.projectId).success(getMilestoneSuccessCallback).error(errorCallback);
+        return milestoneFactory.getMilestone(projectId).success(getMilestoneSuccessCallback).error(errorCallback);
     };
 
     var successPostCallback = function (data, status, headers, config) {
@@ -166,11 +140,10 @@ projectsSettingModule.controller('IndexCtrl', function ($scope, milestoneFactory
         notificationFactory.error(data.ExceptionMessage);
     };
 
-
-    milestoneFactory.getMilestone($scope.currentProject.projectId).success(getMilestoneSuccessCallback).error(errorCallback);
+    milestoneFactory.getMilestone(projectId).success(getMilestoneSuccessCallback).error(errorCallback);
 
     $scope.addMilestone = function () {
-        $scope.milestone.projectId = $scope.currentProject.projectId;
+        $scope.milestone.projectId = projectId;
         milestoneFactory.addMilestone($scope.milestone).success(successPostCallback).error(errorCallback);
     };
 

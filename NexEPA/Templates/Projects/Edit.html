@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal" name="addProjectForm" novalidate>
+﻿<form class="form-horizontal" name="addProjectForm" novalidate ng-init="initViewEdit()">
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10" style="color: red;" ng-show="errors.length > 0" ng-repeat="error in errors">
         {{error}}
@@ -42,7 +42,7 @@
     <label class="col-sm-2 control-label">
         Status</label>
     <div class="col-sm-4">
-        <select class="form-control" ng-options="s.id as s.name for s in projectstatus" 
+        <select class="form-control" ng-options="s.id as s.name for s in status" 
            ng-model="projectUpdate.status">
             <option style="display: none" value="">-- Select a status --</option>
         </select>

@@ -15,6 +15,7 @@
 
   <Function Name="Project">
     <Setting Key="Project_Get" SpName="Project_Get" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Project_GetById" SpName="Project_GetById" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Project_Insert" SpName="Project_Insert" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Project_Update" SpName="Project_Update" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Milestone_GetById" SpName="Milestone_GetById" DbName="NexEPA" Plain="1" ></Setting>

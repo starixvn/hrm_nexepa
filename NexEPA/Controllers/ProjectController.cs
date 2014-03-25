@@ -17,16 +17,17 @@ namespace NexEPA.Controllers
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
+    using NexEPA.Project.Criteria;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
+    using NexEPA.Project.Services.Interfaces;
 
     /// <summary>
     /// Project Controller.
     /// </summary>
     public class ProjectController : JsonController
     {
-        private readonly ProjectService _projectService;
-
+        private readonly IProjectService _projectService;
         private readonly EmployeeService _employeeService;
 
         public ProjectController()
@@ -34,7 +35,7 @@ namespace NexEPA.Controllers
         {
         }
 
-        public ProjectController(ProjectService projectService, EmployeeService employeeService)
+        public ProjectController(IProjectService projectService, EmployeeService employeeService)
         {
             this._projectService = projectService ?? new ProjectService();
             this._employeeService = employeeService ?? new EmployeeService();
@@ -75,6 +76,14 @@ namespace NexEPA.Controllers
                     };
 
             return Json(statusList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetProjectById(int projectId)
+        {
+            GetProjectByIdCriteria criteria = new GetProjectByIdCriteria { ProjectId = projectId };
+            ProjectModel project = _projectService.GetById(criteria);
+
+            return Json(project, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -31,7 +31,7 @@
             </tr>
             <tr ng-repeat="project in projects">
                 <td>
-                    <a ng-click="editProject(project)" href="/Projects/Edit">{{project.name}}
+                    <a ng-click="editProject(project.projectId)" href="/Projects/Edit">{{project.name}}
                     </a>
                 </td>
                 <td>

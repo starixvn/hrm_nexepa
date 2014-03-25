@@ -1,7 +1,7 @@
 ﻿/* global projectsSettingModule, toastr */
 'use strict';
 
-projectsSettingModule.factory('selectListDataFactory', function ($http, $q) {
+projectsSettingModule.factory('projectDataFactory', function ($http, $q) {
     return {
         renderPMSelectList: function () {
             var deferred = $q.defer();
@@ -17,6 +17,11 @@ projectsSettingModule.factory('selectListDataFactory', function ($http, $q) {
             var deferred = $q.defer();
             $http.get('/Project/RenderProjectPeriodSelectList').success(deferred.resolve).error(deferred.reject);
             return deferred.promise;
+        },
+        getProjectById: function (projectId) {
+            var deferred = $q.defer();
+            $http.get('/Project/GetProjectById/', { params: {projectId: projectId} }).success(deferred.resolve).error(deferred.reject);
+            return deferred.promise;
         }
     };
 });
@@ -24,14 +29,14 @@ projectsSettingModule.factory('selectListDataFactory', function ($http, $q) {
 projectsSettingModule.factory("projectsFactory", function ($resource) {
     return $resource('/api/Project', {}, {
         query: { method: 'GET', isArray: true },
-        create: { method: 'POST', isArray: true }
+        create: { method: 'POST', isArray: true },
+        update: { method: 'PUT'}
     });
 });
 
 projectsSettingModule.factory("projectFactory", function ($resource) {
     return $resource('/api/Project/:id', {}, {
         details: { method: 'GET' },
-        update: { method: 'PUT'},
         deleteItem: { method: 'DELETE', params: { id: '@id'} }
     });
 });
@@ -67,8 +72,6 @@ projectsSettingModule.service('projectService', function () {
 
 
 var url = '/api/Milestone/';
-
-
 projectsSettingModule.factory('milestoneFactory', function ($http) {
     return {
         getMilestone: function (projectId) {
