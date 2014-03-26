@@ -1,11 +1,11 @@
-﻿<a class="btn" href="/Projects/Create">Add Project</a>
+﻿
 <div class="row">
     <div ng-include src="'/Templates/Projects/ProjectFilterPanel.html'">
     </div>
 </div>
 <div class="row" ng-init="initViewIndex()">
     <div class="span10">
-        <table class="table">
+        <table class="table table-striped table-condensed table-hover">
             <tr>
                 <th>
                     Project
@@ -31,7 +31,7 @@
             </tr>
             <tr ng-repeat="project in projects">
                 <td>
-                    <a ng-click="editProject(project.projectId)" href="/Projects/Edit">{{project.name}}
+                    <a href="/Projects/Edit/{{project.projectId}}">{{project.name}}
                     </a>
                 </td>
                 <td>
@@ -41,7 +41,7 @@
                     {{project.fullName}}
                 </td>
                 <td>
-                    {{project.members}}
+                    <a href="/ProjectMembers/View/{{project.projectId}}">{{project.members}}</a>
                 </td>
                 <td>
                     {{project.status|enumStatusText}}

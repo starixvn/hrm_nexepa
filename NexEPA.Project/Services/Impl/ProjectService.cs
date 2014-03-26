@@ -43,7 +43,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 result = this.GetDataEntity<ProjectModel>(criteria);
-                return result;
             }
 
             return result;
@@ -61,7 +60,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 lstProject = _projectRepository.GetAllProject(criteria);
-                return lstProject;
             }
 
             return lstProject;
@@ -79,7 +77,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 result = this._Repository.Insert(criteria);
-                return result;
             }
 
             return result;
@@ -97,7 +94,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 result = this._Repository.Update(criteria);
-                return result;
             }
 
             return result;
@@ -115,7 +111,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 lstMilestone = this.GetData<MilestoneModel>(criteria);
-                return lstMilestone;
             }
 
             return lstMilestone;
@@ -133,7 +128,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 result = this._Repository.Update(criteria);
-                return result;
             }
 
             return result;
@@ -151,7 +145,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 result = this._Repository.Insert(criteria);
-                return result;
             }
 
             return result;
@@ -169,7 +162,6 @@ namespace NexEPA.Project.Services.Impl
             if (criteria.IsValid())
             {
                 result = this._Repository.Delete(criteria);
-                return result;
             }
 
             return result;

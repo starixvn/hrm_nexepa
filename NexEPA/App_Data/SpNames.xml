@@ -23,7 +23,15 @@
     <Setting Key="Milestone_Insert" SpName="Milestone_Insert" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Milestone_Update" SpName="Milestone_Update" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Milestone_Delete" SpName="Milestone_Delete" DbName="NexEPA" Plain="1" ></Setting>
-    
   </Function>
+
+  <Function Name="ProjectMembers">
+    <Setting Key="ProjectMember_Get" SpName="ProjectMember_Get" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="ProjectMember_GetRoleMember" SpName="ProjectMember_GetRoleMember" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="ProjectMember_DeleteMemberRole" SpName="ProjectMember_DeleteMemberRole" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="ProjectMember_AddMemberRole" SpName="ProjectMember_AddMemberRole" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="ProjectRole_GetAll" SpName="ProjectRole_GetAll" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
+
 
 </Functions>

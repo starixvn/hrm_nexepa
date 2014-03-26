@@ -30,8 +30,10 @@ var dateValidation1 = function () {
 };
 
 projectsSettingModule.controller("ProjectController",
-function ($scope, projectDataFactory, dataFilterFactory, projectService, projectFactory, projectsFactory, $location) {
+function ($scope, $routeParams, projectDataFactory, dataFilterFactory, projectFactory, projectsFactory, $location) {
     //$scope.project = null;
+    
+
     var loadSelectList = function () {
         projectDataFactory.renderPMSelectList().then(function (lstPM) {
             $scope.pms = lstPM;
@@ -80,16 +82,16 @@ function ($scope, projectDataFactory, dataFilterFactory, projectService, project
 
     //view Edit
     $scope.initViewEdit = function () {
+        var projectId = $routeParams.projectId;
         loadSelectList();
-        var projectId = projectService.getProperty();
         projectDataFactory.getProjectById(projectId).then(function (project) {
             $scope.projectUpdate = project;
         });
     };
 
-    $scope.editProject = function (projectId) {
-        projectService.setProperty(projectId);
-    };
+//    $scope.editProject = function (projectId) {
+//        projectService.setProperty(projectId);
+//    };
 
     $scope.update = function (project) {
         var checkDateValidation = dateValidation();
@@ -105,8 +107,8 @@ function ($scope, projectDataFactory, dataFilterFactory, projectService, project
 
 });
 
-projectsSettingModule.controller('MilestoneCtrl', function ($scope, milestoneFactory, notificationFactory, projectService) {
-    var projectId = projectService.getProperty();
+projectsSettingModule.controller('MilestoneCtrl', function ($scope, $routeParams, milestoneFactory, notificationFactory) {
+    var projectId = $routeParams.projectId;
 
     $scope.milestones = [];
     $scope.addMode = false;

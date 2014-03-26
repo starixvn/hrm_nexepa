@@ -1,4 +1,4 @@
-﻿/* global projectsSettingModule, toastr */
+﻿/* global projectsSettingModule */
 'use strict';
 
 projectsSettingModule.factory('projectDataFactory', function ($http, $q) {
@@ -46,33 +46,20 @@ projectsSettingModule.factory("dataFilterFactory", function ($http, $q) {
     return {
         filterData: function (filter) {
             var deferred = $q.defer();
-
             $http.get('/api/Project/', { params: {
                 projectManager: filter != null ? filter.projectManager : "",
                 status: filter != null ? filter.status : "",
                 period: filter != null ? filter.period : ""
-            } 
-            }).success(deferred.resolve).error(deferred.reject);
+            }
+        }).success(deferred.resolve).error(deferred.reject);
+
             return deferred.promise;
         }
     };
 });
 
-projectsSettingModule.service('projectService', function () {
-    var property;
-    return {
-        getProperty: function () {
-            return property;
-        },
-        setProperty: function (value) {
-            property = value;
-        }
-    };
-});
-
-
-var url = '/api/Milestone/';
 projectsSettingModule.factory('milestoneFactory', function ($http) {
+    var url = '/api/Milestone/';
     return {
         getMilestone: function (projectId) {
             return $http.get(url, {params: {projectId: projectId}});
@@ -85,18 +72,6 @@ projectsSettingModule.factory('milestoneFactory', function ($http) {
         },
         updateMilestone: function (milestone) {
             return $http.put(url + milestone.milestoneId, milestone);
-        }
-    };
-});
-
-projectsSettingModule.factory('notificationFactory', function () {
-
-    return {
-        success: function () {
-            toastr.success("Success");
-        },
-        error: function (text) {
-            toastr.error(text, "Error!");
         }
     };
 });

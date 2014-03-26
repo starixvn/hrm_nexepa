@@ -1,5 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, projectService*/
-/*global $, angular*/
+/*global $, angular, toastr*/
 
 'use strict';
 
@@ -7,7 +7,9 @@ var projectsSettingModule = angular.module("projectsSettingModule", ['ngRoute', 
 .config(function ($routeProvider) {
     $routeProvider.when('/Projects/Index', { templateUrl: '../templates/Projects/Index.html', controller: 'ProjectController' });
     $routeProvider.when('/Projects/Create', { templateUrl: '../templates/Projects/Create.html', controller: 'ProjectController' });
-    $routeProvider.when('/Projects/Edit', { templateUrl: '../templates/Projects/Edit.html', controller: 'ProjectController' });
+    $routeProvider.when('/Projects/Edit/:projectId', { templateUrl: '/templates/Projects/Edit.html', controller: 'ProjectController' });
+    $routeProvider.when('/ProjectMembers/View/:projectId', { templateUrl: '/templates/ProjectMembers/Index.html', controller: 'ProjectMembersController' });
+    $routeProvider.when('/ProjectMembers/Create', { templateUrl: '../templates/ProjectMembers/Create.html', controller: 'ProjectMembersController' });
 });
 
 var registrationModule = angular.module("registrationModule", ['projectsSettingModule'])
@@ -82,3 +84,26 @@ registrationModule.filter('enumStatusText', function () {
     };
 });
 
+projectsSettingModule.service('projectService', function () {
+    var property;
+    return {
+        getProperty: function () {
+            return property;
+        },
+        setProperty: function (value) {
+            property = value;
+        }
+    };
+});
+
+projectsSettingModule.factory('notificationFactory', function () {
+
+    return {
+        success: function () {
+            toastr.success("Success");
+        },
+        error: function (text) {
+            toastr.error(text, "Error!");
+        }
+    };
+});
