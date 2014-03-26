@@ -147,12 +147,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
-    <Compile Include="Controllers\API\ExceptionHandling\ExceptionHandlingAttribute.cs" />
+    <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMembersController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -199,10 +199,13 @@
     <Content Include="Scripts\Libs\angular-min.js" />
     <Content Include="Scripts\Libs\angular-resource.min.js" />
     <Content Include="Scripts\Libs\angular-route-min.js" />
+    <Content Include="Scripts\Libs\angular-translate.js" />
     <Content Include="Scripts\Libs\bootstrap.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
+    <Content Include="Scripts\Views\Resource\resource-controller.js" />
+    <Content Include="Scripts\Views\Resource\resource-repository.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
     <Content Include="Scripts\Views\Employee\employee-repository.js" />
     <Content Include="Scripts\Views\ProjectMember\projectmembers-repository.js" />
@@ -262,6 +265,10 @@
     <ProjectReference Include="..\NexEPA.Project\NexEPA.Project.csproj">
       <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>
       <Name>NexEPA.Project</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Resources\NexEPA.Resources.csproj">
+      <Project>{ED674458-9368-45CF-AB91-63280F79CBA5}</Project>
+      <Name>NexEPA.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

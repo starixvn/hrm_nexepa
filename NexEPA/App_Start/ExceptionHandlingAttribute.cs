@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2014.3.14">Created</change>
 // </history>
 
-namespace NexEPA.Controllers.API
+namespace NexEPA
 {
     using System.Web;
     using System.Web.Http.Filters;

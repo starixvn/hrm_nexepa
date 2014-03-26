@@ -1,16 +1,17 @@
 ﻿<a class="btn" href="/Employee/Create">Add Employee</a>
-
-<div class="row" ng-init="get()">
+<button data-ng-click="changeLanguage('de')" data-translate="BUTTON_TEXT_DE"></button>
+<button data-ng-click="changeLanguage('en')" data-translate="BUTTON_TEXT_EN"></button>
+<div class="row" data-ng-init="get()">
     <div class="span10">
         <table class="table">
             <tr>
-                <th>Code</th>
-                <th>Nick Name</th>
-                <th>Full Name</th>
-                <th>Skype</th>
-                <th>Email</th>
+                <th data-translate="Code"></th>
+                <th data-translate="NickName"></th>
+                <th data-translate="FullName"></th>
+                <th data-translate="Skype"></th>
+                <th data-translate="Email"></th>
             </tr>
-            <tr ng-repeat="employee in employees">
+            <tr data-ng-repeat="employee in employees">
                 <td>{{employee.code}}</td>
                 <td>{{employee.nickName}}</td>
                 <td>{{employee.fullName}}</td>

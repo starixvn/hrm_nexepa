@@ -1,4 +1,4 @@
-﻿/* exported registrationModule, projectsSettingModule, projectService*/
+﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService*/
 /*global $, angular, toastr*/
 
 'use strict';
@@ -12,7 +12,13 @@ var projectsSettingModule = angular.module("projectsSettingModule", ['ngRoute', 
     $routeProvider.when('/ProjectMembers/Create', { templateUrl: '../templates/ProjectMembers/Create.html', controller: 'ProjectMembersController' });
 });
 
-var registrationModule = angular.module("registrationModule", ['projectsSettingModule'])
+var resourceModule = angular.module('resourceModule', ['pascalprecht.translate'])
+  .config(function ($translateProvider) {
+      $translateProvider.useLoader('resourceRepository', {});
+      $translateProvider.preferredLanguage('en');
+  });
+
+var registrationModule = angular.module("registrationModule", ['resourceModule', 'projectsSettingModule'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
         $routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
