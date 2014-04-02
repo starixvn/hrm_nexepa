@@ -20,7 +20,7 @@ namespace NexEPA.Project.Criteria.ProjectMembers
 
         public int? MilestoneId { get; set; }
 
-        public bool? IsDisabled { get; set; }
+        public bool? IsShowDeletedMember { get; set; }
 
         public override bool IsValid()
         {
