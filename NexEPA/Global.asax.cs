@@ -14,6 +14,7 @@ namespace NexEPA
     using System.Web.Http;
     using System.Web.Http.Validation.Providers;
     using System.Web.Mvc;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using Fanex.Data.Configuration;
     using Fanex.Logging;
@@ -29,7 +30,7 @@ namespace NexEPA
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
