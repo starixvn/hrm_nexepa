@@ -52,7 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Criteria\GetAllTargetTypeCriteria.cs" />
+    <Compile Include="Criteria\GetEmployeeByDomainUsernameCriteria.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
