@@ -16,6 +16,7 @@ namespace NexEPA
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using System.Web.SessionState;
     using Fanex.Data.Configuration;
     using Fanex.Logging;
 
@@ -24,6 +25,9 @@ namespace NexEPA
     /// </summary>
     public class MvcApplication : HttpApplication
     {
+        private const string _WebApiPrefix = "api";
+        private static string _webApiExecutionPath = string.Format("~/{0}", _WebApiPrefix);
+
         /// <summary>
         /// Application Start.
         /// </summary>
@@ -59,5 +63,18 @@ namespace NexEPA
                 LogService.Error(message);
             }
         }
+
+        ////protected void Application_PostAuthorizeRequest()
+        ////{
+        ////    if (IsWebApiRequest())
+        ////    {
+        ////        HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+        ////    }
+        ////}
+
+        ////private static bool IsWebApiRequest()
+        ////{
+        ////    return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webApiExecutionPath);
+        ////}
     }
 }
