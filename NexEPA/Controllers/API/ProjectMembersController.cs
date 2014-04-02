@@ -42,7 +42,7 @@ namespace NexEPA.Controllers.API
         /// Get All Member of Project.
         /// </summary>
         /// <param name="projectId">Project Id.</param>
-        /// <param name="isDisabled">Get disabled use.</param>
+        /// <param name="isShowDeletedMember">Get disabled use.</param>
         /// <param name="milestoneId">Belong to milestone.</param>
         /// <returns>List of Project Member Model.</returns>
         public IEnumerable<ProjectMembersModel> Get(int projectId, bool? isShowDeletedMember = null, int? milestoneId = null)
