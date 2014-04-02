@@ -1,7 +1,7 @@
 ﻿'use strict';
-/*global registrationModule*/
+/*global kpiSettingModule*/
 
-registrationModule.factory('KPIRepository', ['$http', function ($http) {
+kpiSettingModule.factory('KPIRepository', ['$http', function ($http) {
 	var url = '/api/KPI/';
 
 	return {
