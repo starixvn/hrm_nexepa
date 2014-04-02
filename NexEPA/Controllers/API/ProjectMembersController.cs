@@ -45,12 +45,12 @@ namespace NexEPA.Controllers.API
         /// <param name="isDisabled">Get disabled use.</param>
         /// <param name="milestoneId">Belong to milestone.</param>
         /// <returns>List of Project Member Model.</returns>
-        public IEnumerable<ProjectMembersModel> Get(int projectId, bool? isDisabled = null, int? milestoneId = null)
+        public IEnumerable<ProjectMembersModel> Get(int projectId, bool? isShowDeletedMember = null, int? milestoneId = null)
         {
             GetAllProjectMembersCriteria criteria = new GetAllProjectMembersCriteria()
             {
                 ProjectId = projectId,
-                IsDisabled = isDisabled,
+                IsShowDeletedMember = isShowDeletedMember,
                 MilestoneId = milestoneId
             };
             IEnumerable<ProjectMembersModel> projects = _projectMemberService.GetAllProjectMember(criteria);
