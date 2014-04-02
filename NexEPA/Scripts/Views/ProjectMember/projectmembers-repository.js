@@ -4,11 +4,11 @@
 projectsSettingModule.factory("projectMembersFactory", function ($http, $q) {
     var url = '/api/ProjectMembers/';
     return {
-        getMember: function (projectId, isDisabled, milestoneId) {
+        getMember: function (projectId, isShowDeletedMember, milestoneId) {
             var deferred = $q.defer();
             $http.get(url, { params: {
                 projectId: projectId,
-                isDisabled: isDisabled != null ? isDisabled : null,
+                isShowDeletedMember: isShowDeletedMember != null ? isShowDeletedMember : null,
                 milestoneId: milestoneId != null ? milestoneId : ""
             }
             }).success(deferred.resolve).error(deferred.reject);

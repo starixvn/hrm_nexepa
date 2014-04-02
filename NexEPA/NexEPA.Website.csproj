@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -233,7 +232,9 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -256,7 +257,6 @@
     <None Include="Content\Common\bootstrap-theme.css.map" />
     <None Include="Content\Common\bootstrap.css.map" />
     <None Include="Content\fonts\big_noodle_titling.ttf" />
-    <None Include="Content\Site\Employee\employee.less" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -288,6 +288,10 @@
     <ProjectReference Include="..\NexEPA.KPI\NexEPA.KPI.csproj">
       <Project>{EC6531E6-095E-4E78-BA9D-C1EBAA0B3547}</Project>
       <Name>NexEPA.KPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Web\NexEPA.Web.csproj">
+      <Project>{61F58E59-EAE1-497F-9B08-595C4330C9BD}</Project>
+      <Name>NexEPA.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

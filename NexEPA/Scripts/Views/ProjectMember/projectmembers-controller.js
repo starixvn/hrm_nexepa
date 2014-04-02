@@ -40,8 +40,8 @@ function ($scope, $routeParams, $location, projectService, projectMembersFactory
     /**
     * Events.
     */
-    $scope.filterMember = function (isdeleted, milestone) {
-        projectMembersFactory.getMember(projectIdInUrl, isdeleted, milestone).then(successGetMembers);
+    $scope.filterMember = function (isShowDeletedMember, milestone) {
+        projectMembersFactory.getMember(projectIdInUrl, isShowDeletedMember, milestone).then(successGetMembers);
     };
 
     $scope.deleteMember = function (member) {
