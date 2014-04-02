@@ -24,6 +24,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Web.Attributes;
+    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Project Controller.
@@ -51,6 +53,7 @@ namespace NexEPA.Controllers.API
         /// <param name="status">Project Status.</param>
         /// <param name="period">Project Period.</param>
         /// <returns>List Project Model.</returns>
+        ////[ApiAuthorize]
         public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
             DateTime? startDate = null;

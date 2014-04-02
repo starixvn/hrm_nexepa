@@ -4,6 +4,7 @@
 body {
     font-family: @font-family;
     font-size: @font-size;
+    color: @font-color;
 }
 
 .container.page {
@@ -175,8 +176,8 @@ body {
         color: #FFFFFF;
         display: inline-block;
         font-size: 12px;
-        height: 28px;
-        line-height: 25px;
+        height: 26px;
+        line-height: 24px;
         margin-right: 0;
         padding: 0 15px 4px;
         text-align: center;
@@ -201,10 +202,12 @@ body {
 
         label {
             font-weight: normal;
+            color: @font-color;
+            margin-right: 5px;
         }
 
         .form-control {
-            font-size: @font-size;
+            font-size: @font-size - 1;
             height: 27px;
             padding: 4px;
             .border-radius(3px);
@@ -243,6 +246,108 @@ body {
         &.table-striped > tbody > tr:nth-child(2n+1) > td,
         &.table-striped > tbody > tr:nth-child(2n+1) > th {
             background-color: @odd-td-bg;
+        }
+    }
+
+    /* Form */
+
+    .common-form {
+        border: 1px solid @border-light-color;
+        padding: 10px;
+        margin: 10px 1%;
+        background-color: #F4F4F4;
+        .border-radius(2px);
+        .box-shadow(1px 1px 2px #ccc);
+
+
+        label {
+            font-weight: normal;
+            color: @font-color;
+            margin-top: 3px;
+        }
+
+        [class*="col-"] {
+            padding: 7px 15px;
+        }
+
+        .form-control {
+            .border-radius(3px);
+            border: 1px solid #C8C8C8;
+            box-shadow: 1px 1px 3px 3px #F2F2F2;
+            height: 30px;
+            font-size: @font-size;
+        }
+
+        select.form-control {
+            padding: 4px 5px; 
+        }
+    }
+
+    /* Calendar */
+    .ng-valid-date {
+        background-color: #fff;
+        width: 300px;
+        padding: 0 0 10px;
+
+        .btn {
+            padding: 0 10px 4px;
+        }
+
+        table {
+            .btn {
+                background: none;
+                border: none;
+                box-shadow: none;
+                color: #CCC;
+                text-shadow: none;
+            }
+
+            thead {
+                color: #4F4F4F;
+
+                .btn  {
+                    &.btn-block {
+                        color: #4F4F4F;
+                    }
+                }
+
+                th {
+                    padding: 8px 3px;
+                }
+
+                tr:first-child {
+                    #gradient .vertical(#EDEDED, #C4C4C4);
+                    
+                    th {
+                        padding: 3px 3px 1px;
+                    }
+
+                   .glyphicon {
+                        color: #fff;
+                        border-radius: 11px;
+                        color: #FFF;
+                        font-size: 10px;
+                        padding: 4px 6px 4px 4px;
+                        text-shadow: 0 0 #666;
+                        background-color: #B5B5B5;
+                   }
+                }
+            }
+
+            tbody {
+                .ng-binding {
+                    color: #0789D1;
+
+                     &.text-muted{
+                        color: #CDCDE2;
+                    }
+                }
+
+                em.ng-binding {
+                    color: #4F4F4F;
+                    font-size: 13px;
+                }
+            }
         }
     }
 }

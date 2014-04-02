@@ -40,8 +40,8 @@ function ($scope, $routeParams, $location, projectService, projectMembersFactory
     /**
     * Events.
     */
-    $scope.filterMember = function (isdeleted, milestone) {
-        projectMembersFactory.getMember(projectIdInUrl, isdeleted, milestone).then(successGetMembers);
+    $scope.filterMember = function (isShowDeletedMember, milestone) {
+        projectMembersFactory.getMember(projectIdInUrl, isShowDeletedMember, milestone).then(successGetMembers);
     };
 
     $scope.deleteMember = function (member) {
@@ -121,7 +121,9 @@ function ($scope, $routeParams, projectMembersFactory, $location, $window, proje
     * Scope variable.
     */
     var projectId = projectService.getProperty();
+    var employeeId = $routeParams.employeeId;
     var cacheListEmployee = ProjectSettingCache.get("CacheListEmployee");
+    debugger;
     var lstRoles = [];
     $scope.errors = [];
     $scope.roles = [];
@@ -142,21 +144,25 @@ function ($scope, $routeParams, projectMembersFactory, $location, $window, proje
     var errorUpdateMember = function (response) { $scope.errors = response; };
 
     var successGetRolesOfMember = function (data) {
-        $scope.editMember = data[0];
-        $.each(data, function (key) {
-            var object = {};
-            object.projectRoleId = data[key].projectRoleId;
-            object.name = data[key].name;
-            lstRoles.push(object);
-        });
-
-        $.each($scope.roles, function (key) {
-            $.each(lstRoles, function (k) {
-                if (lstRoles[k].projectRoleId === $scope.roles[key].projectRoleId) {
-                    $scope.roles[key].selected = true;
-                }
+        if (data.length > 0) {
+            $scope.editMember = data[0];
+            $.each(data, function (key) {
+                var object = {};
+                object.projectRoleId = data[key].projectRoleId;
+                object.name = data[key].name;
+                lstRoles.push(object);
             });
-        });
+            $.each($scope.roles, function (key) {
+                $.each(lstRoles, function (k) {
+                    if (lstRoles[k].projectRoleId === $scope.roles[key].projectRoleId) {
+                        $scope.roles[key].selected = true;
+                    }
+                });
+            });
+        }
+        else {
+            $scope.editMember.employeeId = parseInt(employeeId);
+        }
     };
 
     /**
@@ -171,7 +177,7 @@ function ($scope, $routeParams, projectMembersFactory, $location, $window, proje
     }
 
     projectMembersFactory.getProjectRole().then(successGetProjectRoles);
-    projectMembersFactory.getMemberRoles(projectService.getProperty(), $routeParams.employeeId).then(successGetRolesOfMember);
+    projectMembersFactory.getMemberRoles(projectId, employeeId).then(successGetRolesOfMember);
 
     /**
     * Events.

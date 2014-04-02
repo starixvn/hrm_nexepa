@@ -1,32 +1,19 @@
-﻿<html ng-app="registrationModule">
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html ng-app="registrationModule">
 <head>
-    <link href="../../Content/Common/toastr.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Common/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../Content/Site/Projects/project.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/site/layout.less" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/Libs/jquery-2.1.0.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/Libs/bootstrap.js" type="text/javascript"></script>
-    <script src="../../Scripts/Libs/angular-min.js" type="text/javascript"></script>
-    <script src="../../Scripts/Libs/ui-bootstrap-tpls-0.10.0.min.js" type="text/javascript"></script>
-    <script src="../../Scripts/Libs/angular-resource.min.js" type="text/javascript"></script>
-    <script src="../../Scripts/Libs/angular-route-min.js" type="text/javascript"></script>
-    <script src="~/Scripts/Libs/jquery-2.1.0.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/Libs/bootstrap.js" type="text/javascript"></script>
-    <link href="~/Content/Common/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Common/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Employee/employee.less" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/registration-module.js" type="text/javascript"></script>
-    <script src="../../Scripts/Libs/toastr.js" type="text/javascript"></script>
-    <script src="~/Scripts/Libs/angular-translate.js" type="text/javascript"></script>
-    <script src="~/Scripts/Views/Resource/resource-repository.js" type="text/javascript"></script>
-    <script src="~/Scripts/Views/Resource/resource-controller.js" type="text/javascript"></script>
-
-    @RenderSection("JavascriptInHead", required: false)
+    @Styles.Render("~/Content/css")
     <title>EPA Site </title>
 </head>
 <body>
     <div class="container page">
         @RenderBody()
     </div>
+    @Scripts.Render("~/bundles/vendor")
+    @Scripts.Render("~/bundles/app")
 </body>
 </html>
