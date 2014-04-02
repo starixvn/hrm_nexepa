@@ -30,7 +30,7 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// Project Controller.
     /// </summary>
-    public class ProjectController : BaseController
+    public class ProjectController : ApiController
     {
         private readonly IProjectService _projectService;
         private readonly EmployeeService _employeeService;
