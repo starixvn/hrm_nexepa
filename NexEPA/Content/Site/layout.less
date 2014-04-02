@@ -282,4 +282,72 @@ body {
             padding: 4px 5px; 
         }
     }
+
+    /* Calendar */
+    .ng-valid-date {
+        background-color: #fff;
+        width: 300px;
+        padding: 0 0 10px;
+
+        .btn {
+            padding: 0 10px 4px;
+        }
+
+        table {
+            .btn {
+                background: none;
+                border: none;
+                box-shadow: none;
+                color: #CCC;
+                text-shadow: none;
+            }
+
+            thead {
+                color: #4F4F4F;
+
+                .btn  {
+                    &.btn-block {
+                        color: #4F4F4F;
+                    }
+                }
+
+                th {
+                    padding: 8px 3px;
+                }
+
+                tr:first-child {
+                    #gradient .vertical(#EDEDED, #C4C4C4);
+                    
+                    th {
+                        padding: 3px 3px 1px;
+                    }
+
+                   .glyphicon {
+                        color: #fff;
+                        border-radius: 11px;
+                        color: #FFF;
+                        font-size: 10px;
+                        padding: 4px 6px 4px 4px;
+                        text-shadow: 0 0 #666;
+                        background-color: #B5B5B5;
+                   }
+                }
+            }
+
+            tbody {
+                .ng-binding {
+                    color: #0789D1;
+
+                     &.text-muted{
+                        color: #CDCDE2;
+                    }
+                }
+
+                em.ng-binding {
+                    color: #4F4F4F;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
 }
