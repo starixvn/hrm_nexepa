@@ -256,13 +256,13 @@
     </None>
     <None Include="Content\Common\bootstrap-theme.css.map" />
     <None Include="Content\Common\bootstrap.css.map" />
-    <None Include="Content\fonts\big_noodle_titling.ttf" />
+    <Content Include="Content\fonts\big_noodle_titling.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Content\Site\mixins.less" />
-    <None Include="Content\Site\variables.less" />
-    <None Include="Content\Site\layout.less" />
+    <Content Include="Content\Site\mixins.less" />
+    <Content Include="Content\Site\variables.less" />
+    <Content Include="Content\Site\layout.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

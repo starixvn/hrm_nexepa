@@ -63,17 +63,17 @@ namespace NexEPA
             }
         }
 
-        protected void Application_PostAuthorizeRequest()
-        {
-            if (IsWebApiRequest())
-            {
-                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
-            }
-        }
+        ////protected void Application_PostAuthorizeRequest()
+        ////{
+        ////    if (IsWebApiRequest())
+        ////    {
+        ////        HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+        ////    }
+        ////}
 
-        private static bool IsWebApiRequest()
-        {
-            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webApiExecutionPath);
-        }
+        ////private static bool IsWebApiRequest()
+        ////{
+        ////    return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webApiExecutionPath);
+        ////}
     }
 }
