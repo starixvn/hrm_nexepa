@@ -9,6 +9,7 @@
 
 namespace NexEPA
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.Routing;
 
@@ -21,6 +22,7 @@ namespace NexEPA
         /// Function to register routes.
         /// </summary>
         /// <param name="routes">Route Collection.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -36,6 +38,11 @@ namespace NexEPA
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
+               name: "Get all KPI Group",
+               url: "KPI/GetAllKPIGroup/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
                 name: "ProjectsDafault",
                 url: "Projects/Index",
                 defaults: new { controller = "Home", action = "Index" });
@@ -49,6 +56,31 @@ namespace NexEPA
                 name: "ProjectsMemberDefault",
                 url: "ProjectMembers/View",
                 defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
+                name: "Create new KPI Group",
+                url: "KPI/CreateNewKPIGroup",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+                name: "Edit KPI Group",
+                url: "KPI/EditKPIGroup/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+               name: "Create new KPI",
+               url: "KPI/CreateKPI/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+               name: "ViewKPI",
+               url: "KPI/ViewKPI/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+               name: "Edit KPI",
+               url: "KPI/EditKPI/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Default",

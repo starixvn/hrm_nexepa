@@ -11,7 +11,6 @@ namespace NexEPA
 {
     using System.Web.Http;
     using Newtonsoft.Json.Serialization;
-    using NexEPA.Controllers.API;
 
     /// <summary>
     /// WebAPI Config.
@@ -25,9 +24,14 @@ namespace NexEPA
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
+               name: "ActionApi",
+               routeTemplate: "api/{controller}/{action}/{id}",
+               defaults: new { id = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
+               name: "DefaultApi",
+               routeTemplate: "api/{controller}/{id}",
+               defaults: new { id = RouteParameter.Optional });
 
             var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

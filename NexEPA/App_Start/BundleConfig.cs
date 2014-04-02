@@ -9,10 +9,7 @@
 
 namespace NexEPA
 {
-    using System.Web;
     using System.Web.Optimization;
-    using BundleTransformer.Core.Orderers;
-    using BundleTransformer.Core.Transformers;
 
     /// <summary>
     /// Bundle Config.

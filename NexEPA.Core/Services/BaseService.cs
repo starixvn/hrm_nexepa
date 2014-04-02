@@ -9,21 +9,21 @@
 
 namespace NexEPA.Core.Services
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Repositories;
+    using NexEPA.Core.Repositories.Implements;
+    using NexEPA.Core.Repositories.Interfaces;
 
     /// <summary>
     /// Query Service.
     /// </summary>
     public class BaseService
     {
-        protected readonly BaseRepository _Repository;
+        protected readonly IBaseRepository _Repository;
         private readonly IDynamicRepository _dynamicRepository;
 
-        public BaseService(IDynamicRepository dynamicRepository = null, BaseRepository repository = null)
+        public BaseService(IDynamicRepository dynamicRepository = null, IBaseRepository repository = null)
         {
             _dynamicRepository = dynamicRepository ?? new DynamicRepository();
             _Repository = repository ?? new BaseRepository();

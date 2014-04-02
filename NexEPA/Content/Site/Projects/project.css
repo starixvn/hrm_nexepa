@@ -1,0 +1,9 @@
+﻿#startDate, #endDate
+{
+    cursor: auto;
+    background-color: #fff;
+}
+
+.form-inline .form-group {
+    margin: 0px 10px;
+}

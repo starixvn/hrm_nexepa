@@ -2,32 +2,27 @@
     <div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
     </div>
 </div>
-<div class="row" ng-controller="ProjectMembersController" ng-init="initViewIndex()">
+<div class="row">
     <div class="span10">
         <table class="table table-striped table-condensed table-hover">
         <thead>
             <tr>
-                <th>
-                    Member
+                <th data-translate="Members">
                 </th>
-                <th>
-                    Role(s)
+                <th data-translate="Roles">
                 </th>
-                <th>
-                    Evaluation
+                <th data-translate="Evaluation">
                 </th>
-                <th>
-                    Evaluation date
+                <th data-translate="EvaluationDate">
                 </th>
-                <th>
-                    Action
+                <th data-translate="Action">
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="member in members">
                 <td>
-                    {{member.fullName}} ({{member.nickName}})
+                <a href="/Member/Edit/{{member.employeeId}}">{{member.fullName}} ({{member.nickName}})</a>
                 </td>
                 <td>
                     {{member.name}}
@@ -38,8 +33,7 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <i class="btn glyphicon glyphicon-edit" ng-click="editMember(member)">edit</i>
-                        <i class="btn glyphicon glyphicon-remove" ng-click="deleteMember(member)">delete</i>
+                        <a class="btn glyphicon glyphicon-remove" ng-click="deleteMember(member)" title="Delete"></a>
                     </div>
                 </td>
             </tr>

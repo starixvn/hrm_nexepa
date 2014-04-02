@@ -117,25 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddMember" xml:space="preserve">
+    <value>Add Member</value>
+  </data>
+  <data name="AddProject" xml:space="preserve">
+    <value>Add Project</value>
+  </data>
   <data name="BUTTON_TEXT_DE" xml:space="preserve">
     <value>german</value>
   </data>
   <data name="BUTTON_TEXT_EN" xml:space="preserve">
     <value>english</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="Evaluation" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="EvaluationDate" xml:space="preserve">
+    <value>Evaluation Date</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Full Name</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
   </data>
+  <data name="Period" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="PM" xml:space="preserve">
+    <value>PM</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Project Manager</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Project Name</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Role(s)</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="Skype" xml:space="preserve">
     <value>Skype</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="ShowDeletedMembers" xml:space="preserve">
+    <value>Show deleted members</value>
   </data>
 </root>

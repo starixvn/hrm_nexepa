@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -54,7 +58,7 @@
     <Reference Include="Fanex.Data, Version=0.5.404.62, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\Fanex.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fanex.Logging">
       <HintPath>..\Dependencies\Fanex.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.NAP.Core, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -148,15 +152,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
-    <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMembersController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
+    <Compile Include="Controllers\API\CoreController.cs" />
+    <Compile Include="Controllers\API\KPIController.cs" />
+    <Compile Include="Controllers\API\KPIGroupController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JsonController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
-    <Compile Include="Controllers\ProjectMembersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,57 +172,53 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\SpNames.xml" />
+    <Content Include="favicon.ico" />
     <Content Include="Content\Common\bootstrap-spacelab.min.css" />
     <Content Include="Content\Common\bootstrap-theme.css" />
     <Content Include="Content\Common\bootstrap-theme.min.css" />
     <Content Include="Content\Common\bootstrap.css" />
     <Content Include="Content\Common\bootstrap.min.css" />
-    <Content Include="Content\Common\Images\animated-overlay.gif" />
-    <Content Include="Content\Common\Images\calendar.png" />
-    <Content Include="Content\Common\Images\delete-icon.png" />
-    <Content Include="Content\Common\Images\edit-icon.png" />
-    <Content Include="Content\Common\Images\save.png" />
-    <Content Include="Content\Common\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
-    <Content Include="Content\Common\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
-    <Content Include="Content\Common\Images\ui-bg_flat_10_000000_40x100.png" />
-    <Content Include="Content\Common\Images\ui-bg_glass_100_f6f6f6_1x400.png" />
-    <Content Include="Content\Common\Images\ui-bg_glass_100_fdf5ce_1x400.png" />
-    <Content Include="Content\Common\Images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\Common\Images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
-    <Content Include="Content\Common\Images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
-    <Content Include="Content\Common\Images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
-    <Content Include="Content\Common\Images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\Common\Images\ui-icons_228ef1_256x240.png" />
-    <Content Include="Content\Common\Images\ui-icons_ef8c08_256x240.png" />
-    <Content Include="Content\Common\Images\ui-icons_ffd27a_256x240.png" />
-    <Content Include="Content\Common\Images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\Common\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Content\Common\toastr.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Projects\project.css" />
+    <Content Include="Content\Site\images\icon-breadcrumb.png" />
+    <Content Include="Content\Site\images\line-menu.png" />
+    <Content Include="Content\Site\images\logo.png" />
+    <Content Include="Content\Site\images\sprite_ico_2012-05-15.png" />
+    <Content Include="Content\Site\images\table_header_repeat.jpg" />
+    <Content Include="Content\Site\Projects\project.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Extensions\CommonFactories\notification-factory.js" />
+    <Content Include="Scripts\Extensions\Filters\projectstatus-filter.js" />
+    <Content Include="Scripts\Extensions\Services\projectsetting-service.js" />
     <Content Include="Scripts\Libs\angular-min.js" />
     <Content Include="Scripts\Libs\angular-resource.min.js" />
     <Content Include="Scripts\Libs\angular-route-min.js" />
     <Content Include="Scripts\Libs\angular-translate.js" />
     <Content Include="Scripts\Libs\bootstrap.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
-    <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
+    <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.min.js" />
     <Content Include="Scripts\Views\Resource\resource-controller.js" />
     <Content Include="Scripts\Views\Resource\resource-repository.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
     <Content Include="Scripts\Views\Employee\employee-repository.js" />
     <Content Include="Scripts\Views\ProjectMember\projectmembers-repository.js" />
-    <Content Include="Scripts\Views\ProjectMember\projectsmembers-controller.js" />
+    <Content Include="Scripts\Views\ProjectMember\projectmembers-controller.js" />
     <Content Include="Scripts\Views\Projects\projects-controller.js" />
     <Content Include="Scripts\Views\Projects\projects-repository.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0.min.js" />
     <Content Include="Scripts\registration-module.js" />
+    <Content Include="Scripts\Views\KPI\KPICommon.js" />
+    <Content Include="Scripts\Views\KPI\KPI\KPI-controller.js" />
+    <Content Include="Scripts\Views\KPI\KPI\KPI-repository.js" />
+    <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-controller.js" />
+    <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-repository.js" />
     <Content Include="Templates\Employee\Create.html" />
     <Content Include="Templates\Employee\View.html" />
+    <Content Include="Templates\ProjectMembers\Edit.html" />
     <Content Include="Templates\ProjectMembers\Create.html" />
     <Content Include="Templates\ProjectMembers\Index.html" />
     <Content Include="Templates\Projects\Create.html" />
@@ -226,6 +227,12 @@
     <Content Include="Templates\Projects\ProjectFilterPanel.html" />
     <Content Include="Templates\ProjectMembers\ProjectMembersFilterPanel.html" />
     <Content Include="Templates\Projects\ProjectMilestone.html" />
+    <Content Include="Templates\KPI\KPIGroup\Create.html" />
+    <Content Include="Templates\KPI\KPIGroup\Edit.html" />
+    <Content Include="Templates\KPI\modalConfirmContent.html" />
+    <Content Include="Templates\KPI\KPI\Create.html" />
+    <Content Include="Templates\KPI\KPI\Edit.html" />
+    <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -235,7 +242,10 @@
     </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Common\Images\" />
+    <Folder Include="Scripts\Extensions\Directives\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -245,13 +255,18 @@
     </None>
     <None Include="Content\Common\bootstrap-theme.css.map" />
     <None Include="Content\Common\bootstrap.css.map" />
-    <None Include="Content\Employee\employee.less" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\fonts\big_noodle_titling.ttf" />
+    <None Include="Content\Site\Employee\employee.less" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\Site\mixins.less" />
+    <None Include="Content\Site\variables.less" />
+    <None Include="Content\Site\layout.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
@@ -269,6 +284,10 @@
     <ProjectReference Include="..\NexEPA.Resources\NexEPA.Resources.csproj">
       <Project>{ED674458-9368-45CF-AB91-63280F79CBA5}</Project>
       <Name>NexEPA.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.KPI\NexEPA.KPI.csproj">
+      <Project>{EC6531E6-095E-4E78-BA9D-C1EBAA0B3547}</Project>
+      <Name>NexEPA.KPI</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

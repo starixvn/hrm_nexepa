@@ -16,7 +16,7 @@ namespace NexEPA.Controllers.API
     using System.Net.Http;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Project.Criteria;
+    using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
@@ -74,8 +74,8 @@ namespace NexEPA.Controllers.API
                     Description = milestone.Description,
                     Name = milestone.Name,
                     ProjectId = milestone.ProjectId,
-                    StartDate = milestone.StartDate,
-                    EndDate = milestone.EndDate,
+                    StartDate = TimeZone.CurrentTimeZone.ToLocalTime(milestone.StartDate.Value),
+                    EndDate = TimeZone.CurrentTimeZone.ToLocalTime(milestone.EndDate.Value),
                     Status = milestone.Status,
                     CreatedBy = 1,
                     CreatedDate = DateTime.Now.Date

@@ -11,8 +11,4 @@ registrationModule.controller("EmployeeController", function ($scope, $translate
     $scope.save = function (employee) {
         employeeRepository.save(employee);
     };
-
-    $scope.changeLanguage = function (langKey) {
-        $translate.use(langKey);
-    };
 });

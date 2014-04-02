@@ -10,6 +10,7 @@
 namespace NexEPA.Project.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Member Models.
@@ -18,7 +19,8 @@ namespace NexEPA.Project.Models
     {
         public int ProjectId { get; set; }
 
-        public int EmployeeId { get; set; }
+        [Required(ErrorMessage = "The field Employee is required.")]
+        public int? EmployeeId { get; set; }
 
         public string ProjectRoleIds { get; set; }
 

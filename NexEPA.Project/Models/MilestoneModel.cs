@@ -10,6 +10,7 @@
 namespace NexEPA.Project.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Milestone Model.
@@ -18,14 +19,17 @@ namespace NexEPA.Project.Models
     {
         public int MilestoneId { get; set; }
 
+        [Required(ErrorMessage = "The field Name is required.")] 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
         public int ProjectId { get; set; }
-
+        
+        [Required(ErrorMessage = "The field Start Date is required.")]  
         public DateTime? StartDate { get; set; }
-
+        
+        [Required(ErrorMessage = "The field End Date is required.")]
         public DateTime? EndDate { get; set; }
 
         public byte? Status { get; set; }

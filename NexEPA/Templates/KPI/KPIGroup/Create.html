@@ -1,0 +1,44 @@
+﻿
+<h2>Create new KPI Group</h2>
+
+ <div class="row">
+    <form novalidate name="form" class="col-md-3">
+        <div>
+            <div ng-show="submitted && form.$invalid">
+                <div class="error" ng-show="form.groupName.$error.required">Please fill out the name!</div>
+                <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$error.required">Please fill out the weight!</div>
+                <div class="error" ng-show="form.groupName.$valid && !form.groupWeight.$error.required &&
+                    (form.groupWeight.$error.min || form.groupWeight.$error.max)">The value must be in range 0 to 100!</div>
+                <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$valid && form.groupSelect.$error.required">Please choose the form!</div>
+            </div>
+            <div class="success" ng-show="success" ng-bind="saveSuccessMessage"></div>
+            <div class="error" ng-show="!success" ng-bind="saveErrorMessage"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="groupName" ng-model="group.name" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Weight</label>
+            <input type="number" name="groupWeight" ng-model="group.weight" required min="0" max="100" 
+                    numbers-only="numbers-only" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Form</label>
+            <select name="groupSelect" ng-model="group.targetTypeId" 
+                ng-options="opt.targetTypeId as opt.name for opt in formOptions" required class="form-control">
+                <option value="">-- Select the form --</option>
+             </select>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" ng-model="group.isActive"/> Active
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea ng-model="group.description" class="form-control" ></textarea>
+        </div>
+        <button class="btn btn-primary" ng-click="save(group)">Create</button>
+        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    </form>
+</div>

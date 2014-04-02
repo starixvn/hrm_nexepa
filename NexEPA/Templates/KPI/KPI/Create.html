@@ -1,0 +1,51 @@
+﻿
+<h2>Add new KPI</h2>
+
+<div class="row">
+    <form novalidate name="form" class="col-md-3">
+         <div>
+            <div ng-show="submitted && form.$invalid">
+                <div class="error" ng-show="form.itemFormSelect.$error.required">Please choose the form!</div>
+                <div class="error" ng-show="form.itemFormSelect.$valid && form.itemGroupSelect.$error.required">Please choose the group!</div>
+                <div class="error" ng-show="form.itemFormSelect.$valid && form.itemGroupSelect.$valid &&
+                        form.itemName.$error.required">Please fill out the title!</div>
+            </div>
+            <div class="success" ng-show="success" ng-bind="successMessage"></div>
+            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Form</label>
+            <select name="itemFormSelect" ng-model="item.targetTypeId" 
+                ng-options="opt.targetTypeId as opt.name for opt in formOptions" 
+                ng-change="getGroupByTargetType(item.targetTypeId)"
+                ng-disabled="!isCreatedFromKPI"
+                required class="form-control">
+                <option value="">-- Select the form --</option>
+                </select>
+        </div>
+        <div class="form-group">
+            <label>Group</label>
+            <select name="itemGroupSelect" ng-model="item.kpiGroupId" 
+                ng-options="opt.kpiGroupID as opt.name for opt in groupOptions"
+                ng-disabled="!isCreatedFromKPI" 
+                required class="form-control">
+                <option value="">-- Select the group --</option>
+                </select>
+        </div>
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="itemName" ng-model="item.name" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea ng-model="item.description" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" ng-model="item.isRequireComment"/> Require evaluatee's comment
+        </div>
+        <button class="btn btn-primary" ng-click="save(item)">Add</button>
+        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    </form>
+</div>
+

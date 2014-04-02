@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.3.20">Created</change>
 // </history>
 
-namespace NexEPA.Project.Criteria
+namespace NexEPA.Project.Criteria.Project
 {
     using System;
     using Fanex.NAP.Framework.Data;

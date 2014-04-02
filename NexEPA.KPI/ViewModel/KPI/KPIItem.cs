@@ -1,0 +1,33 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="KPIItem.cs" company="Nexcel Solution Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="2014.03.18">Created</change>
+// </history>
+
+namespace NexEPA.KPI.ViewModel.KPI
+{ 
+    /// <summary>
+    /// The view model of KPI.
+    /// </summary>
+    public class KPIItem
+    {
+        public int KPIId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public bool IsRequireComment { get; set; }
+
+        public int KPIGroupId { get; set; }
+
+        public string KPIGroupName { get; set; }
+
+        public int TargetTypeId { get; set; }
+
+        public string TargetTypeName { get; set; }
+    }
+}

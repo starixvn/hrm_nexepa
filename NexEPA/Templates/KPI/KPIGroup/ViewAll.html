@@ -1,0 +1,44 @@
+﻿<div class="container">
+    <div class="row">
+        <form novalidate class="form-inline">
+            <div class="form-group">
+                <label>Form</label>
+                <select name="formSelect" ng-model="filter.targetTypeId" 
+                    ng-options="opt.targetTypeId as opt.name for opt in formOptions" required class="form-control">
+                    <option value="">-- All --</option>
+                 </select>
+            </div>
+            <button class="btn btn-primary" ng-click="query(filter.targetTypeId)">Query</button>
+            <button class="btn btn-primary" ng-click="create()">Create KPI Group</button>
+            <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
+        </form>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>Group</th>
+                <th>Weight (%)</th>
+                <th>Criteria</th>
+                <th>Form</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="group in KPIGroupList">
+                <td ng-bind="group.name"></td>
+                <td ng-bind="group.weight"></td>
+                <td>
+                    <a href="" ng-show="group.numberKPI > 0" ng-click="viewKPI(group.targetTypeId,group.kpiGroupID)" ng-bind="group.numberKPI"></a>
+                    <span ng-show="group.numberKPI === 0" ng-bind="0"></span>
+                 </td>
+                <td ng-bind="group.form"></td>
+                <td>
+                    <a class="btn glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(group.kpiGroupID)"/>
+                    <a class="btn glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(group.kpiGroupID, group.name)"/>
+                    <a class="btn glyphicon glyphicon-plus" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+

@@ -1,0 +1,36 @@
+﻿<form class="form-horizontal" name="addMemberForm" novalidate>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10" style="color: red;" ng-show="errors.length > 0"
+        ng-repeat="error in errors">
+        {{error}}
+    </div>
+    <div class='col-sm-offset-2 col-sm-10' style='color: red; display: none;' id='memberValid'>
+        Please select a role(s).</div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label" data-translate="User"></label>
+    <div class="col-sm-4">
+        <select class="form-control" ng-options="member.employeeId as member.fullName for member in members"
+            ng-model="editMember.employeeId" required>
+            <option style="display: none" value="">-- Select a member --</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label" data-translate="Role"></label>
+    <div class="col-sm-4">
+        <span ng-repeat="role in roles">
+            <label class="checkbox">
+                <input type="checkbox" type="checkbox" value="{{role.name}}" ng-model="role.selected" />
+                {{role.name}}
+            </label>
+        </span>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary" ng-disabled="addMemberForm.$invalid" ng-click="updateMember(editMember.employeeId)" data-translate="Submit"></button>
+        <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel"></button>
+    </div>
+</div>
+</form>

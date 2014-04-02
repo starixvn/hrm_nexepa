@@ -1,0 +1,44 @@
+﻿<div>
+    <div class="row">
+        <form novalidate class="form-inline">
+             <div ng-show="isViewAll" class="form-group">
+                <label>Form</label>
+                <select name="formSelect" ng-model="filter.targetTypeId" 
+                    ng-options="opt.targetTypeId as opt.name for opt in formOptions" required class="form-control">
+                    <option value="">-- All --</option>
+                 </select>
+            </div>
+            <div ng-show="isViewAll" class="form-group">
+                <label>Group</label>
+                <select name="itemGroupSelect" ng-model="filter.kpiGroupId" 
+                    ng-options="opt.kpiGroupID as opt.name for opt in groupOptions" required class="form-control">
+                    <option value="">-- All --</option>
+                </select>
+             </div>
+            <button ng-show="isViewAll" class="btn btn-primary" ng-click="query(filter.targetTypeId, filter.kpiGroupId)">Query</button>
+            <button ng-show="!isViewAll" class="btn btn-default" ng-click="back()">Back</button>
+            <button class="btn btn-primary" ng-click="create()">Create KPI</button>
+            <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
+        </form>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Group</th>
+                <th>Form</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="item in KPIList">
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.kpiGroupName"></td>
+                <td ng-bind="item.targetTypeName"></td>
+                <td>
+                    <a class="btn glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
+                    <a class="btn glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

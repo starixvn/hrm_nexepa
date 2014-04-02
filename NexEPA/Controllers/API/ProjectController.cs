@@ -16,7 +16,11 @@ namespace NexEPA.Controllers.API
     using System.Net.Http;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Project.Criteria;
+    using NexEPA.Core.Enums;
+    using NexEPA.Employee.Criteria;
+    using NexEPA.Employee.Models;
+    using NexEPA.Employee.Services;
+    using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
@@ -27,15 +31,17 @@ namespace NexEPA.Controllers.API
     public class ProjectController : ApiController
     {
         private readonly IProjectService _projectService;
+        private readonly EmployeeService _employeeService;
 
         public ProjectController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService, EmployeeService employeeService)
         {
             this._projectService = projectService ?? new ProjectService();
+            this._employeeService = employeeService ?? new EmployeeService();
         }
 
         /// <summary>
@@ -73,6 +79,7 @@ namespace NexEPA.Controllers.API
         /// <returns>Http Response Message.</returns>
         public HttpResponseMessage Post(ProjectModel project)
         {
+            var date = TimeZone.CurrentTimeZone.ToLocalTime(project.StartDate.Value);
             if (ModelState.IsValid)
             {
                 AddProjectCriteria criteria = new AddProjectCriteria()
@@ -80,8 +87,8 @@ namespace NexEPA.Controllers.API
                     Name = project.Name,
                     Description = project.Description,
                     ProjectManager = project.ProjectManager,
-                    StartDate = project.StartDate,
-                    EndDate = project.EndDate,
+                    StartDate = TimeZone.CurrentTimeZone.ToLocalTime(project.StartDate.Value),
+                    EndDate = TimeZone.CurrentTimeZone.ToLocalTime(project.EndDate.Value),
                     Status = project.Status,
                     CreatedBy = 1,
                     CreatedDate = DateTime.Now.Date
@@ -139,6 +146,55 @@ namespace NexEPA.Controllers.API
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
             }
+        }
+
+        [HttpGet]
+        public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null)
+        {
+            GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
+            IEnumerable<Employee> employees = _employeeService.GetData<Employee>(criteria);
+            var selectListEmployee = employees.Select(x => new { x.FullName, x.EmployeeId });
+
+            return selectListEmployee;
+        }
+
+        [HttpGet]
+        public Array RenderProjectStatusSelectList()
+        {
+            Array data = new[]
+                {
+                    new SelectListModel { Id = (int)ProjectStatus.Active, Name = ProjectStatus.Active.ToString() },
+                    new SelectListModel { Id = (int)ProjectStatus.Closed, Name = ProjectStatus.Closed.ToString() }
+                };
+
+            return data;
+        }
+
+        /// <summary>
+        /// Project period filter select list.
+        /// </summary>
+        /// <returns>Select list data.</returns>
+        [HttpGet]
+        public Array RenderProjectPeriodSelectList()
+        {
+            Array statusList = new[]
+                    {
+                        new SelectListModel() { Name = "This month", Id = 1 },
+                        new SelectListModel() { Name = "Last 3 months", Id = 2 },
+                        new SelectListModel() { Name = "Last 6 months", Id = 3 },
+                        new SelectListModel() { Name = "Last 12 months", Id = 4 }
+                    };
+
+            return statusList;
+        }
+
+        [HttpGet]
+        public ProjectModel GetProjectById(int projectId)
+        {
+            GetProjectByIdCriteria criteria = new GetProjectByIdCriteria { ProjectId = projectId };
+            ProjectModel project = _projectService.GetById(criteria);
+
+            return project;
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

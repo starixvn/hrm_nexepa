@@ -13,7 +13,8 @@ namespace NexEPA.Project.Services.Impl
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
-    using NexEPA.Project.Criteria;
+    using NexEPA.Project.Criteria.Milestone;
+    using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
     using NexEPA.Project.Repositories.Impl;
     using NexEPA.Project.Repositories.Interfaces;

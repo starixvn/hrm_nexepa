@@ -21,7 +21,7 @@ namespace NexEPA
     /// <summary>
     /// MVC Application.
     /// </summary>
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         /// <summary>
         /// Application Start.
@@ -39,16 +39,24 @@ namespace NexEPA
                 v => v is InvalidModelValidatorProvider);
         }
 
+        /// <summary>
+        /// Application Error.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">The EventArgs.</param>
         protected void Application_Error(object sender, EventArgs e)
         {
-            Exception ex = Server.GetLastError().GetBaseException();
-            string message = ex.Message +
-                    "\r\nSource: " + ex.Source +
-                    "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
-                    "\r\nTargetSite: " + ex.TargetSite +
-                    "\r\nStackTrace: " + ex.StackTrace;
+            if (!Request.IsLocal)
+            {
+                Exception ex = Server.GetLastError().GetBaseException();
+                string message = ex.Message +
+                        "\r\nSource: " + ex.Source +
+                        "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
+                        "\r\nTargetSite: " + ex.TargetSite +
+                        "\r\nStackTrace: " + ex.StackTrace;
 
-            LogService.Error(message);
+                LogService.Error(message);
+            }
         }
     }
 }

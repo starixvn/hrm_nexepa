@@ -31,6 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Data, Version=0.5.404.62, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Core">
+      <HintPath>..\Dependencies\Fanex.NAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Framework">
+      <HintPath>..\Dependencies\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +50,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\KPIGroup\DeleteKPIGroupCriteria.cs" />
+    <Compile Include="Criteria\KPIGroup\GetAllKPIGroupCriteria.cs" />
+    <Compile Include="Criteria\KPIGroup\GetKPIGroupByIdCriteria.cs" />
+    <Compile Include="Criteria\KPIGroup\InsertKPIGroupCriteria.cs" />
+    <Compile Include="Criteria\KPIGroup\UpdateKPIGroupCriteria.cs" />
+    <Compile Include="Criteria\KPI\DeleteKPICriteria.cs" />
+    <Compile Include="Criteria\KPI\GetKPIByIdCriteria.cs" />
+    <Compile Include="Criteria\KPI\GetKPICriteria.cs" />
+    <Compile Include="Criteria\KPI\InsertKPICriteria.cs" />
+    <Compile Include="Criteria\KPI\UpdateKPICriteria.cs" />
+    <Compile Include="Model\KPIGroup\KPIGroupInfo.cs" />
+    <Compile Include="Model\KPI\KPIInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Implement\KPIGroup\KPIGroupRepository.cs" />
+    <Compile Include="Repository\Implement\KPI\KPIRepository.cs" />
+    <Compile Include="Repository\Interface\KPIGroup\IKPIGroupRepository.cs" />
+    <Compile Include="Repository\Interface\KPI\IKPIRepository.cs" />
+    <Compile Include="Services\Implement\KPIGroup\KPIGroupServices.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Services\Implement\KPI\KPIServices.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Services\Interface\KPIGroup\IKPIGroupServices.cs" />
+    <Compile Include="Services\Interface\KPI\IKPIServices.cs" />
+    <Compile Include="ViewModel\KPIGroup\KPIGroupItem.cs" />
+    <Compile Include="ViewModel\KPI\KPIItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
+      <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
+      <Name>NexEPA.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
