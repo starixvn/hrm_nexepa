@@ -13,28 +13,33 @@
                 <li>
                     <a href="~/Home/Index">Home</a>
                 </li>
-                <li>
-                    <a href="~/Projects/Index">Project</a>
-                </li>
-                <li>
-                    <a href="#">EPA</a>
-                </li>
                 <li class="dropdown">
-                    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Report <b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Project</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Sprint</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Period</a></li>
+                    @*<a href="#">Project</a>*@
+                    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="button" aria-labelledby="drop1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="~/Projects/Index">Project</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Target</a></li>
                     </ul>
                 </li>
+                
                 <li class="dropdown">
-                    <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+                    <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">EPA <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My EPA</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Member EPA</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Report</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Employer</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Employee list</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/KPI/ViewKPI">KPI</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/KPI/GetAllKPIGroup">KPI Group</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Target Template</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Target Setting</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Target Template</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Target Setting</a></li>
                     </ul>
                 </li>
                 </ul>
