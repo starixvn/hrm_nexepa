@@ -126,7 +126,7 @@ body {
 
     .button-icon {
         margin: 4px 10px 0px 20px;
-        #gradient .vertical(#EEEEEE, #C8C8C8);
+        #gradient .vertical(#EEE, #C8C8C8);
         .border-radius(3px);
         border: 1px solid @border-color;
         border-color: @border-color @border-color #959595;
@@ -286,10 +286,22 @@ body {
     /* Calendar */
     .dropdown-menu.ng-valid-date {
         background-color: #fff;
-        /*padding: 0 0 10px;*/
+        padding: 0 0 10px;
+        width: 300px;
 
         .btn {
             padding: 0 10px 4px;
+        }
+
+        .btn-group .btn, li .btn-success {
+            #gradient .vertical(#EEE, #C8C8C8);
+            border-color: @border-color;
+            color: #4F4F4F;
+            text-shadow: none;
+
+            &:hover {
+                #gradient .vertical(#FBFBFB, #D4D4D4);
+            }
         }
 
         table {
@@ -302,8 +314,6 @@ body {
             }
 
             thead {
-                color: #4F4F4F;
-
                 .btn  {
                     &.btn-block {
                         color: #4F4F4F;
@@ -312,6 +322,10 @@ body {
 
                 th {
                     padding: 8px 3px;
+                    background: none;
+                    border: none;
+                    color: #4F4F4F;
+                    text-shadow: none;
                 }
 
                 tr:first-child {
@@ -324,7 +338,6 @@ body {
                    .glyphicon {
                         color: #fff;
                         border-radius: 11px;
-                        color: #FFF;
                         font-size: 10px;
                         padding: 4px 6px 4px 4px;
                         text-shadow: 0 0 #666;
@@ -340,6 +353,10 @@ body {
                      &.text-muted{
                         color: #CDCDE2;
                     }
+                }
+
+                td {
+                    padding: 3px;
                 }
 
                 em.ng-binding {
