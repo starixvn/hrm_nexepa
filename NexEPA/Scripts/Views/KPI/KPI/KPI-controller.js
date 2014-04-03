@@ -1,7 +1,7 @@
 ﻿'use strict';
-/*global registrationModule*/
+/*global kpiSettingModule*/
 
-registrationModule.controller("ViewKPIController",
+kpiSettingModule.controller("ViewKPIController",
 	function ($scope, $routeParams, $location, $modal, $route, KPIRepository, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
@@ -94,7 +94,7 @@ registrationModule.controller("ViewKPIController",
 		};
 	});
 
-registrationModule.controller('CreateNewKPIController',
+kpiSettingModule.controller('CreateNewKPIController',
 	function ($scope, $routeParams, $timeout, $location, KPIRepository, CacheFactory, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -177,7 +177,7 @@ registrationModule.controller('CreateNewKPIController',
 		};
 	});
 
-registrationModule.controller("EditKPIController",
+kpiSettingModule.controller("EditKPIController",
 	function ($scope, $routeParams, $location, $timeout, KPIRepository, CacheFactory, CommonRepository) {
 		var kpiId = $routeParams.id;
 		var formOptionsCache = CacheFactory.get("formOptions");

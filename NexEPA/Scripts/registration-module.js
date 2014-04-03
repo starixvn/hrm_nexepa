@@ -1,4 +1,4 @@
-﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService*/
+﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule*/
 /*global angular*/
 'use strict';
 
@@ -21,15 +21,19 @@ var resourceModule = angular.module('resourceModule', ['pascalprecht.translate']
     $translateProvider.preferredLanguage('en');
 });
 
-var registrationModule = angular.module("registrationModule", ['resourceModule', 'projectsSettingModule', 'ui.bootstrap'])
+var kpiSettingModule = angular.module("kpiSettingModule", ['ngRoute', 'ngResource'])
+.config(function ($routeProvider) {
+	$routeProvider.when('/KPI/GetAllKPIGroup', { templateUrl: '/templates/KPI/KPIGroup/ViewAll.html', controller: 'GetAllKPIGroupController' });
+	$routeProvider.when('/KPI/CreateNewKPIGroup', { templateUrl: '/templates/KPI/KPIGroup/Create.html', controller: 'CreateNewKPIGroupController' });
+	$routeProvider.when('/KPI/EditKPIGroup/:id', { templateUrl: '/templates/KPI/KPIGroup/Edit.html', controller: 'EditKPIGroupController' });
+	$routeProvider.when('/KPI/CreateKPI/', { templateUrl: '/templates/KPI/KPI/Create.html', controller: 'CreateNewKPIController' });
+	$routeProvider.when('/KPI/ViewKPI/', { templateUrl: '/templates/KPI/KPI/View.html', controller: 'ViewKPIController' });
+	$routeProvider.when('/KPI/EditKPI/:id', { templateUrl: '/templates/KPI/KPI/Edit.html', controller: 'EditKPIController' });
+});
+
+var registrationModule = angular.module("registrationModule", ['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule'])
 .config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
     $routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
-$routeProvider.when('/KPI/GetAllKPIGroup', { templateUrl: '/templates/KPI/KPIGroup/ViewAll.html', controller: 'GetAllKPIGroupController' });
-		$routeProvider.when('/KPI/CreateNewKPIGroup', { templateUrl: '/templates/KPI/KPIGroup/Create.html', controller: 'CreateNewKPIGroupController' });
-		$routeProvider.when('/KPI/EditKPIGroup/:id', { templateUrl: '/templates/KPI/KPIGroup/Edit.html', controller: 'EditKPIGroupController' });
-		$routeProvider.when('/KPI/CreateKPI/', { templateUrl: '/templates/KPI/KPI/Create.html', controller: 'CreateNewKPIController' });
-		$routeProvider.when('/KPI/ViewKPI/', { templateUrl: '/templates/KPI/KPI/View.html', controller: 'ViewKPIController' });
-		$routeProvider.when('/KPI/EditKPI/:id', { templateUrl: '/templates/KPI/KPI/Edit.html', controller: 'EditKPIController' });
     $locationProvider.html5Mode(true);
 });

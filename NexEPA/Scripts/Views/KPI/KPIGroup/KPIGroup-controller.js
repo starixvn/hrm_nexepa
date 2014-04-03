@@ -1,8 +1,8 @@
 ﻿'use strict';
-/*global registrationModule*/
+/*global kpiSettingModule*/
 
 
-registrationModule.controller("GetAllKPIGroupController",
+kpiSettingModule.controller("GetAllKPIGroupController",
 	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -89,9 +89,48 @@ registrationModule.controller("GetAllKPIGroupController",
 		$scope.query = function (targetTypeId) {
 			getAllGroup(targetTypeId);
 		};
+
+		// confirm active group or not
+		$scope.confirmActive = function (group) {
+			var action = !group.isDisabled ? "deactivate" : "activate";
+			var newGroup = group;
+			newGroup.isDisabled = !group.isDisabled;
+
+			var modalConfirmInstance = $modal.open({
+				templateUrl: '/templates/KPI/modalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return newGroup.name;
+					},
+					action: function () {
+						return action;
+					}
+				}
+			});
+
+			modalConfirmInstance.result.then(function () {
+				KPIGroupRepository.updateGroup(newGroup).success(function (response) {
+					if (response.isSuccessful === true) {
+						$scope.hasError = false;
+					}
+					else {
+						$scope.hasError = true;
+						$scope.errorMessage = response.message;
+					}
+				}).error(function (httpResponse, status) {
+					if (status === 404) {
+						$scope.hasError = true;
+						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
+					}
+				});
+			}, function () {
+				group.isDisabled = !newGroup.isDisabled;
+			});
+		};
 	});
 
-registrationModule.controller("CreateNewKPIGroupController",
+kpiSettingModule.controller("CreateNewKPIGroupController",
 	function ($scope, $location, $timeout, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -138,9 +177,9 @@ registrationModule.controller("CreateNewKPIGroupController",
 		$scope.cancel = function () {
 			window.history.back();
 		};
-});
+	});
 
-registrationModule.controller("EditKPIGroupController",
+kpiSettingModule.controller("EditKPIGroupController",
 	function ($scope, $location, $routeParams, $timeout, $route, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var groupId = $routeParams.id;
 
@@ -193,4 +232,4 @@ registrationModule.controller("EditKPIGroupController",
 		$scope.cancel = function () {
 			window.history.back();
 		};
-});
+	});

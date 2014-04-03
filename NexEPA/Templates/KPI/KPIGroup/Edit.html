@@ -1,47 +1,70 @@
-﻿
- <h2>Edit KPI Group</h2>
+﻿<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="KPIGroup"></a></li>
+            <li class="current" data-translate="EditKPIGroup"></li>
+        </ul>
+        <div class="button-icon">
+            <span class=""></span><a href="" ng-click="cancel()" data-translate="BackToList">
+            </a>
+        </div>
+    </div>
+</div>
 
  <div class="row">
-    <form name="form" novalidate class="col-md-3">
+    <form name="form" novalidate class="form-horizontal" role="form">
           <div>
             <div ng-show="submitted && form.$invalid">
-                 <div class="error" ng-show="form.groupName.$error.required">Please fill out the name!</div>
-                 <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$error.required">Please fill out the weight!</div>
+                 <div class="error" ng-show="form.groupName.$error.required" data-translate="NameRequire"></div>
+                 <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$error.required" data-translate="WeightRequire"></div>
                  <div class="error" ng-show="form.groupName.$valid && !form.groupWeight.$error.required &&
-                        (form.groupWeight.$error.min || form.groupWeight.$error.max)">The value must be in range 0 to 100!</div> 
+                        (form.groupWeight.$error.min || form.groupWeight.$error.max)" data-translate="WeghtRangeRequire"></div> 
             </div> 
             <div class="success" ng-show="success" ng-bind="updateSuccessMessage"></div>
             <div class="error" ng-show="!success" ng-bind="updateErrorMessage"></div>
         </div>
 
         <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="groupName" ng-model="editGroup.name" required class="form-control"/>
+            <label class="col-sm-2 control-label" data-translate="Name"></label>
+            <div class="col-sm-4">
+                <input type="text" name="groupName" ng-model="editGroup.name" required class="form-control"/>
+            </div>
         </div>
 
         <div class="form-group">
-            <label>Weight</label>
-            <input type="number" name="groupWeight" ng-model="editGroup.weight" required 
-                min="0" max="100" numbers-only="numbers-only" class="form-control" />
+            <label class="col-sm-2 control-label" data-translate="Weight"></label>
+            <div class="col-sm-4">
+                <input type="number" name="groupWeight" ng-model="editGroup.weight" required 
+                    min="0" max="100" numbers-only="numbers-only" class="form-control" />
+            </div>
         </div>
 
         <div class="form-group">
-            <label>Form</label>
-            <select ng-model="editGroup.targetTypeId" 
-                ng-options="opt.targetTypeId as opt.name for opt in formOptions"
-                class="form-control"></select>
+            <label class="col-sm-2 control-label" data-translate="Form"></label>
+            <div class="col-sm-4">
+                <select ng-model="editGroup.targetTypeId" 
+                    ng-options="opt.targetTypeId as opt.name for opt in formOptions"
+                    class="form-control"></select>
+            </div>
         </div>
 
         <div class="form-group">
-            <input type="checkbox" ng-model="editGroup.isActive" ng-checked="!editGroup.isDisabled" /> Active
+            <label class="col-sm-offset-2 col-sm-10">
+                <input type="checkbox" ng-model="editGroup.isActive" ng-checked="!editGroup.isDisabled" />
+                    <span data-translate="Active"></span>
+            </label>
         </div>
 
         <div class="form-group">
-            <label>Description</label>
-            <textarea ng-model="editGroup.description" class="form-control"></textarea>
+            <label class="col-sm-2 control-label" data-translate="Description"></label>
+            <div class="col-sm-4">
+                <textarea ng-model="editGroup.description" class="form-control"></textarea>
+            </div>
         </div>
 
-        <button class="btn btn-primary" ng-click="update(editGroup)">Save</button>
-        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-primary" ng-click="update(editGroup)" data-translate="Save"></button>
+            <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel"></button>
+        </div>
     </form>
 </div>
