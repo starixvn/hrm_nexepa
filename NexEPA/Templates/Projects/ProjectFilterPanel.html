@@ -3,10 +3,6 @@
         <li><a href="#">Project</a></li>
         <li class="current">Project 1</li>
     </ul>
-    <div class="button-icon">
-        <span class="icon plus"></span><a href="/Projects/Create" data-translate="AddProject">
-        </a>
-    </div>
 </div>
 <form class="row form-inline filter" role="form">
     <div class="form-group">
@@ -31,8 +27,8 @@
             <option value="">-- All --</option>
         </select>
     </div>
-    <button type="button" class="btn" ng-click="getProjectList(filter)" data-translate="Submit">
-    </button>
-    <!--<a class="btn btn-primary pull-right" href="/Projects/Create" data-translate="AddProject">
-    </a>-->
+    <a class="btn btn-primary" ng-click="getProjectList(filter)" data-translate="Submit">
+    </a>
+    <a class="btn btn-primary" href="/Projects/Create" data-translate="AddProject">
+    </a>
 </form>

@@ -184,7 +184,7 @@
     <Content Include="Content\Site\images\logo.png" />
     <Content Include="Content\Site\images\sprite_ico_2012-05-15.png" />
     <Content Include="Content\Site\images\table_header_repeat.jpg" />
-    <Content Include="Content\Site\Projects\project.css" />
+    <None Include="Content\Site\Projects\project.less" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Extensions\CommonFactories\notification-factory.js" />

@@ -12,18 +12,25 @@ var memberValidation = function (selected) {
 };
 
 projectsSettingModule.controller("ProjectMembersController",
-function ($scope, $routeParams, $location, projectService, projectMembersFactory, notificationFactory) {
+function ($scope, $routeParams, $location, projectService, projectMembersFactory, notificationFactory, projectDataFactory) {
     /**
     * Scope variable.
     */
     $("#memberValid").hide();
     var projectIdInUrl = $routeParams.projectId;
+    $scope.currentProject = [];
 
     /**
     * Ajax event loaded. 
     */
     var successGetMembers = function (data) { $scope.members = data; };
     var successGetMilestones = function (data) { $scope.milestones = data; };
+    // Get project by Id
+    var successGetProjectById = function (data) {
+        projectService.setProperty(data);
+        $scope.currentProject = data;
+    };
+
     var successDeleteMember = function () {
         notificationFactory.success();
         return projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers, errorNotification);
@@ -33,9 +40,9 @@ function ($scope, $routeParams, $location, projectService, projectMembersFactory
     /**
     * Initialize data to view Index.
     */
-    projectService.setProperty(projectIdInUrl);
     projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
     projectMembersFactory.getMilestone(projectIdInUrl).then(successGetMilestones);
+    projectDataFactory.getProjectById(projectIdInUrl).then(successGetProjectById);
 
     /**
     * Events.
@@ -55,7 +62,8 @@ function ($scope, $location, $window, projectService, projectMembersFactory, pro
     /**
     * Scope variable.
     */
-    var projectId = projectService.getProperty();
+    $scope.currentProject = projectService.getProperty();
+    var projectId = $scope.currentProject.projectId;
     var cacheListEmployee = ProjectSettingCache.get("CacheListEmployee");
     $scope.roles = [];
     $scope.selection = [];
@@ -120,10 +128,10 @@ function ($scope, $routeParams, projectMembersFactory, $location, $window, proje
     /**
     * Scope variable.
     */
-    var projectId = projectService.getProperty();
+    $scope.currentProject = projectService.getProperty();
+    var projectId = $scope.currentProject.projectId;
     var employeeId = $routeParams.employeeId;
     var cacheListEmployee = ProjectSettingCache.get("CacheListEmployee");
-    debugger;
     var lstRoles = [];
     $scope.errors = [];
     $scope.roles = [];

@@ -4,7 +4,7 @@
 </div>
 <div class="row">
     <div class="span10">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th data-translate="ProjectName">
@@ -33,16 +33,16 @@
                 <td>
                     {{project.fullName}}
                 </td>
-                <td>
+                <td class="text-center">
                     <a href="/ProjectMembers/View/{{project.projectId}}">{{project.members}}</a>
                 </td>
-                <td>
+                <td class="text-center">
                     {{project.status|enumStatusText}}
                 </td>
-                <td>
+                <td class="text-center">
                     {{project.startDate|date:'dd-MMM-yyyy'}}
                 </td>
-                <td>
+                <td class="text-center">
                     {{project.endDate|date:'dd-MMM-yyyy'}}
                 </td>
             </tr>

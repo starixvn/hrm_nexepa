@@ -1,20 +1,19 @@
-﻿<form class="form-inline" role="form">
-<div class="form-group">
-    <input type="checkbox" ng-model="isShowDeletedMember" id="showDeleted" />
-    <label for="showDeleted" data-translate="ShowDeletedMembers">
-    </label>
-</div>
-<div class="form-group">
-    <label class="span6 offset3" data-translate="Milestone">
-    </label>
-    <select class="form-control" ng-options="m.milestoneId as m.name for m in milestones"
-        ng-model="milestone">
-        <option value="">-- All --</option>
-    </select>
-</div>
-<button type="button" class="btn btn-primary" ng-click="filterMember(isShowDeletedMember, milestone)"
-    data-translate="Submit">
-</button>
-<a class="btn btn-primary pull-right" href="/ProjectMembers/Create" data-translate="Add Member">
-</a>
+﻿<form class="row form-inline filter" role="form">
+    <div class="form-group">
+        <input type="checkbox" ng-model="isShowDeletedMember" id="showDeleted" />
+        <label for="showDeleted" data-translate="ShowDeletedMembers">
+        </label>
+    </div>
+    <div class="form-group">
+        <label data-translate="Milestone">
+        </label>
+        <select class="form-control" ng-options="m.milestoneId as m.name for m in milestones"
+            ng-model="milestone">
+            <option value="">-- All --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <a class="btn btn-primary" ng-click="filterMember(isShowDeletedMember, milestone)" data-translate="Submit"></a>
+        <a class="btn btn-primary" href="/ProjectMembers/Create" data-translate="Add Member"></a>
+    </div>
 </form>

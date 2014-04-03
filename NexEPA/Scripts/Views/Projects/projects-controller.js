@@ -196,30 +196,28 @@ projectsSettingModule.controller('MilestoneController',
         */
         var projectId = $routeParams.projectId;
         $scope.milestones = [];
+        $scope.milestoneErrors = [];
         $scope.addMode = false;
-
-        $scope.toggleAddMode = function () {
-            $scope.addMode = !$scope.addMode;
-        };
-
-        $scope.toggleEditMode = function (milestone) {
-            milestone.editMode = !milestone.editMode;
-        };
 
         /**
         * Ajax event. 
         */
-        // Callback for failure to update, insert or delete Milestone
-        var errorNotification = function (data) { notificationFactory.error(data); };
+        // Notify error popup when action is failure.
+        var errorNotification = function (data) {
+            notificationFactory.error(data);
+        };
 
-        // Callback Success for Delete, Update Milestone.
+        // Notify success popup when action is succeed.
         var successNotification = function () {
             notificationFactory.success();
             return milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
         };
 
         // Get Milestone
-        var successGetMilestones = function (data) { $scope.milestones = data; };
+        var successGetMilestones = function (data) {
+            $scope.milestones = data;
+            $scope.milestoneErrors = {};
+        };
 
         // Callback Success for Post data.
         var successAddMilestone = function (data, status, headers, config) {
@@ -227,6 +225,27 @@ projectsSettingModule.controller('MilestoneController',
                 $scope.toggleAddMode();
                 $scope.milestone = {};
             });
+        };
+
+        var errorAddUpdateMilestone = function (data) {
+            $scope.milestoneErrors = data;
+        };
+
+        /**
+        * Switch mode Add/Update/Normal
+        */
+        $scope.toggleAddMode = function () {
+            $scope.addMode = !$scope.addMode;
+            if ($scope.addMode === false) {
+                $scope.milestoneErrors = {};
+            }
+        };
+
+        $scope.toggleEditMode = function (milestone) {
+            milestone.editMode = !milestone.editMode;
+            if (milestone.editMode === false) {
+                milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
+            }
         };
 
         /**
@@ -240,17 +259,18 @@ projectsSettingModule.controller('MilestoneController',
         // Add Milestone.
         $scope.addMilestone = function () {
             if ($scope.milestone == null) {
-                notificationFactory.error("The fields Name, Start Date, End Date is required!");
+                var errorMessage = "The field Name is required., The field Start Date is required., The field End Date is required.";
+                $scope.milestoneErrors = errorMessage.split(',');
             }
             else {
                 $scope.milestone.projectId = projectId;
-                milestoneFactory.addMilestone($scope.milestone).then(successAddMilestone, errorNotification);
+                milestoneFactory.addMilestone($scope.milestone).then(successAddMilestone, errorAddUpdateMilestone);
             }
 
         };
         // Update Milestone.
         $scope.updateMilestone = function (milestone) {
-            milestoneFactory.updateMilestone(milestone).then(successNotification, errorNotification);
+            milestoneFactory.updateMilestone(milestone).then(successNotification, errorAddUpdateMilestone);
         };
         // Delete Milestone.
         $scope.deleteMilestone = function (milestone) {
