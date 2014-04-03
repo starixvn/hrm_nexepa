@@ -15,14 +15,14 @@
     <form novalidate name="form" class="form-horizontal" role="form">
         <div class="form-group">
             <div ng-show="submitted && form.$invalid">
-                <div ng-show="form.groupName.$error.required" data-translate="NameRequire"></div>
-                <div ng-show="form.groupName.$valid && form.groupWeight.$error.required" data-translate="WeightRequire"></div>
-                <div ng-show="form.groupName.$valid && !form.groupWeight.$error.required &&
+                <div class="error" ng-show="form.groupName.$error.required" data-translate="NameRequire"></div>
+                <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$error.required" data-translate="WeightRequire"></div>
+                <div class="error" ng-show="form.groupName.$valid && !form.groupWeight.$error.required &&
                     (form.groupWeight.$error.min || form.groupWeight.$error.max)" data-translate="WeightRangeRequire"></div>
                 <div class="error col-sm-offset-2 col-sm-10" ng-show="form.groupName.$valid && form.groupWeight.$valid && form.groupSelect.$error.required" data-translate="FormRequire"></div>
             </div>
-            <div  ng-show="success" ng-bind="saveSuccessMessage"></div>
-            <div  ng-show="!success" ng-bind="saveErrorMessage"></div>
+            <div class="success" ng-show="success" ng-bind="successMessage"></div>
+            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </div>
 
         <div class="form-group">
@@ -35,14 +35,16 @@
             <label class="col-sm-2 control-label" data-translate="Weight"></label>
             <div class="col-sm-4">
                 <input type="number" name="groupWeight" ng-model="group.weight" required min="0" max="100" 
-                        numbers-only="numbers-only" class="form-control" />
+                        numbers-only="numbers-only" ng-change="weightOnChange(group)" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="Form"></label>
             <div class="col-sm-4">
                 <select name="groupSelect" ng-model="group.targetTypeId" 
-                    ng-options="opt.targetTypeId as opt.name for opt in formOptions" required class="form-control">
+                    ng-options="opt.targetTypeId as opt.name for opt in formOptions" 
+                    ng-change="formOnChange(group)"
+                    required class="form-control">
                     <option value="">-- Select the form --</option>
                  </select>
              </div>

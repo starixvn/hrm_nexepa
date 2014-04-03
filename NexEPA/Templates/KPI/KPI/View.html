@@ -2,7 +2,9 @@
     <div class="row sub-header">
         <ul class="breadcrumb list-inline pull-left">
             <li><a href="#" data-translate="KPI"></a></li>
-            <li class="current" data-translate="ManageKPI">
+            <li class="current">
+                 <span data-translate="ManageKPI"></span>
+                 <span ng-show="KPIList">of "{{KPIList[0].kpiGroupName}}"</span>
             </li>
         </ul>
         <div class="button-icon">

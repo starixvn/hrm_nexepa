@@ -12,7 +12,7 @@ registrationModule.factory('CommonRepository', ['$http', '$q', function ($http, 
 
 	common.getGroupByTargetTypeId = function (targetTypeId) {
 		var deferred = $q.defer();
-		$http.get('/api/KPIGroup/GetGroupListByTargetTypeId', { params: { targetTypeId: targetTypeId } })
+		$http.get('/api/KPIGroup/GetGroupListByTargetTypeId', { params: { targetTypeId: targetTypeId} })
 			.success(deferred.resolve).error(deferred.reject);
 		return deferred.promise;
 	};
@@ -25,10 +25,12 @@ registrationModule.factory('CommonRepository', ['$http', '$q', function ($http, 
 			if (group.name === undefined) {
 				return false;
 			}
+
 			if (group.weight === undefined || group.weight === null || isNaN(group.weight) ||
 					group.weight < 0 || group.weight > 100) {
 				return false;
 			}
+
 			if (group.targetTypeId === undefined) {
 				return false;
 			}
