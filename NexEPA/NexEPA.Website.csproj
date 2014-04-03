@@ -151,6 +151,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
+    <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMembersController.cs" />
@@ -215,7 +216,6 @@
     <Content Include="Scripts\Views\KPI\KPI\KPI-repository.js" />
     <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-controller.js" />
     <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-repository.js" />
-    <Content Include="Templates\Employee\Create.html" />
     <Content Include="Templates\Employee\View.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />
     <Content Include="Templates\ProjectMembers\Create.html" />

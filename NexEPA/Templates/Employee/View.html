@@ -1,23 +1,58 @@
-﻿<a class="btn" href="/Employee/Create">Add Employee</a>
-<!--<button data-ng-click="changeLanguage('de')" data-translate="BUTTON_TEXT_DE"></button>
-<button data-ng-click="changeLanguage('en')" data-translate="BUTTON_TEXT_EN"></button>-->
-<div class="row" data-ng-init="get()">
-    <div class="span10">
-        <table class="table">
-            <tr>
-                <th data-translate="StartDate"></th>
-                <th data-translate="NickName"></th>
-                <th data-translate="FullName"></th>
-                <th data-translate="Skype"></th>
-                <th data-translate="Email"></th>
-            </tr>
-            <tr data-ng-repeat="employee in employees">
-                <td>{{employee.code}}</td>
-                <td>{{employee.nickName}}</td>
-                <td>{{employee.fullName}}</td>
-                <td>{{employee.skype}}</td>
-                <td>{{employee.email}}</td>
-            </tr>
-        </table>
+﻿
+<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="Employee"></a></li>
+            <li class="current" data-translate="ManageEmployee"></li>
+        </ul>
     </div>
+
+    <div class="form-inline filter">
+        <form novalidate class="form-inline">
+            <div class="form-group">
+                <label data-translate="Keyword"></label>
+                <input type="text" ng-model="filter.keyword" placeholder="full name or nick name"/>
+            </div>
+            <div class="form-group">
+                <label data-translate="Team"></label>
+                <select ng-model="filter.groupId" 
+                    ng-options="opt.groupId as opt.name for opt in groupOptions" class="form-control">
+                    <option value="" data-translate="AllTeam"></option>
+                </select>
+            </div>
+            <button class="btn btn-primary" ng-click="query(filter)" data-translate="Submit"></button>
+            <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th data-translate="SymbolCount"></th>
+            <th data-translate="Code"></th>
+            <th data-translate="NickName"></th>
+            <th data-translate="FullName"></th>
+            <th data-translate="Job Title"></th>
+            <th data-translate="Team"></th>
+            <th data-translate="Skype"></th>
+            <th data-translate="Email"></th>
+            <th data-translate="JoinedDate"></th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="employee in employees">
+                <td class="index" ng-bind="$index + 1"></td>
+                <td class="code" ng-bind="employee.code"></td>
+                <td class="nick-name" ng-bind="employee.nickName"></td>
+                <td ng-bind="employee.fullName"></td>
+                <td ng-bind="employee.jobTitleName"></td>
+                <td ng-bind="employee.groupName"></td>
+                <td>
+                    <a href="skype:{{employee.skype}}?chat" ng-bind="employee.skype"/>
+                </td>
+                <td ng-bind="employee.email"></td>
+                <td class="joined-date" ng-bind="employee.joinedDate"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

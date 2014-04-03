@@ -13,6 +13,7 @@
     </Setting>
     <Setting Key="Employee_GetByRole" SpName="Employee_GetByRole" DbName="NexEPA" Plain="1" >
     </Setting>
+    <Setting Key="Employee_GetAll" SpName="Employee_GetAll" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
 
   <Function Name="Project">

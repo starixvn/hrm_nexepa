@@ -1,4 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule*/
+/* exported employeeModule*/
 /*global angular*/
 'use strict';
 
@@ -31,7 +32,12 @@ var kpiSettingModule = angular.module("kpiSettingModule", ['ngRoute', 'ngResourc
 	$routeProvider.when('/KPI/EditKPI/:id', { templateUrl: '/templates/KPI/KPI/Edit.html', controller: 'EditKPIController' });
 });
 
-var registrationModule = angular.module("registrationModule", ['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule'])
+var employeeModule = angular.module("employeeModule", ['ngRoute', 'ngResource'])
+.config(function ($routeProvider) {
+	$routeProvider.when('/Employee/GetAllEmployee', { templateUrl: '/templates/Employee/View.html', controller: 'ViewAllEmployeeController' });
+});
+
+var registrationModule = angular.module("registrationModule", ['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'employeeModule'])
 .config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
     $routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
