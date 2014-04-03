@@ -29,7 +29,8 @@ namespace NexEPA
                 "~/Content/Common/bootstrap-theme.css",
                 "~/Content/Site/layout.less",
                 "~/Content/Site/Employee/employee.less",
-                "~/Content/Site/Projects/project.less"));
+                "~/Content/Site/Projects/project.less",
+                "~/Content/Site/KPI/KPI.less"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",

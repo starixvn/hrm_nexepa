@@ -40,20 +40,20 @@
                 </tr>
             </thead>
             <tr ng-repeat="group in KPIGroupList">
-                <td ng-bind="group.name"></td>
-                <td ng-bind="group.weight"></td>
-                <td>
+                <td class="group" ng-bind="group.name"></td>
+                <td class="weight" ng-bind="group.weight"></td>
+                <td class="criteria">
                     <a href="" ng-show="group.numberKPI > 0" ng-click="viewKPI(group.targetTypeId,group.kpiGroupID)" ng-bind="group.numberKPI"></a>
                     <span ng-show="group.numberKPI === 0" ng-bind="0"></span>
                     </td>
-                <td ng-bind="group.form"></td>
-                <td>
+                <td class="form" ng-bind="group.form"></td>
+                <td class="active">
                     <input type="checkbox" ng-checked="!group.isDisabled" ng-click="confirmActive(group)"/>
                 </td>
-                <td>
-                    <a class="btn glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(group.kpiGroupID)"/>
-                    <a class="btn glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(group.kpiGroupID, group.name)"/>
-                    <a class="btn glyphicon glyphicon-plus" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" />
+                <td class="actionGroup">
+                    <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(group.kpiGroupID)"/>
+                    <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(group.kpiGroupID, group.name)"/>
+                    <a class="glyphicon glyphicon-plus" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" />
                 </td>
             </tr>
         </table>
