@@ -547,7 +547,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value must be in range 0 to 100!.
+        ///   Looks up a localized string similar to The value of weight must be in range 0 to 100!.
         /// </summary>
         public static string WeightRangeRequire {
             get {

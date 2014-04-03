@@ -228,9 +228,6 @@
   <data name="EditKPIGroup" xml:space="preserve">
     <value>Edit KPI Group</value>
   </data>
-  <data name="KPIGroup" xml:space="preserve">
-    <value>KPI Group</value>
-  </data>
   <data name="Form" xml:space="preserve">
     <value>Form</value>
   </data>
@@ -248,7 +245,7 @@
   </data>
   <data name="BackToList" xml:space="preserve">
     <value>← Back to list</value>
-  </data> 
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -277,7 +274,7 @@
     <value>Please fill out the weight!</value>
   </data>
   <data name="WeightRangeRequire" xml:space="preserve">
-    <value>The value must be in range 0 to 100!</value>
+    <value>The value of weight must be in range 0 to 100!</value>
   </data>
   <data name="FormRequire" xml:space="preserve">
     <value>Please choose the form!</value>

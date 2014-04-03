@@ -18,10 +18,10 @@
                  <div class="error" ng-show="form.groupName.$error.required" data-translate="NameRequire"></div>
                  <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$error.required" data-translate="WeightRequire"></div>
                  <div class="error" ng-show="form.groupName.$valid && !form.groupWeight.$error.required &&
-                        (form.groupWeight.$error.min || form.groupWeight.$error.max)" data-translate="WeghtRangeRequire"></div> 
+                        (form.groupWeight.$error.min || form.groupWeight.$error.max)" data-translate="WeightRangeRequire"></div> 
             </div> 
-            <div class="success" ng-show="success" ng-bind="updateSuccessMessage"></div>
-            <div class="error" ng-show="!success" ng-bind="updateErrorMessage"></div>
+            <div class="success" ng-show="success" ng-bind="successMessage"></div>
+            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </div>
 
         <div class="form-group">
@@ -35,7 +35,7 @@
             <label class="col-sm-2 control-label" data-translate="Weight"></label>
             <div class="col-sm-4">
                 <input type="number" name="groupWeight" ng-model="editGroup.weight" required 
-                    min="0" max="100" numbers-only="numbers-only" class="form-control" />
+                    min="0" max="100" numbers-only="numbers-only" ng-change="weightOnChange(editGroup)" class="form-control" />
             </div>
         </div>
 
@@ -44,6 +44,7 @@
             <div class="col-sm-4">
                 <select ng-model="editGroup.targetTypeId" 
                     ng-options="opt.targetTypeId as opt.name for opt in formOptions"
+                    ng-change="formOnChange(editGroup)"
                     class="form-control"></select>
             </div>
         </div>

@@ -1,6 +1,29 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
+var calculateTotalWeightAndShowWarningMessage = function (group, $scope, CommonRepository) {
+	if (group.targetTypeId && group.weight) {
+		CommonRepository.getGroupByTargetTypeId(group.targetTypeId).then(function (groupList) {
+			var totalWeight = group.weight;
+
+			for (var i = 0; i < groupList.length; i++) {
+				totalWeight += groupList[i].weight;
+			}
+
+			if (totalWeight > 100) {
+				$scope.success = false;
+				$scope.errorMessage = "The total weight of all Groups in the Form is greater than 100%!";
+
+			}
+			else {
+				$scope.success = true;
+				$scope.errorMessage = "";
+			}
+		});
+
+		return $scope;
+	}
+};
 
 kpiSettingModule.controller("GetAllKPIGroupController",
 	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, CommonRepository) {
@@ -130,7 +153,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		};
 	});
 
-kpiSettingModule.controller("CreateNewKPIGroupController",
+	kpiSettingModule.controller("CreateNewKPIGroupController",
 	function ($scope, $location, $timeout, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -155,19 +178,19 @@ kpiSettingModule.controller("CreateNewKPIGroupController",
 					.success(function (response) {
 						if (response.isSuccessful === true) {
 							$scope.success = true;
-							$scope.saveSuccessMessage = "Created successful!";
+							$scope.successMessage = "Created successful!";
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
 						}
 						else {
 							$scope.success = false;
-							$scope.saveErrorMessage = response.message;
+							$scope.errorMessage = response.message;
 						}
 					})
 					.error(function (httpResponse, status) {
 						if (status === 404) {
-							$scope.hasError = true;
+							$scope.success = false;
 							$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
 						}
 					});
@@ -176,6 +199,16 @@ kpiSettingModule.controller("CreateNewKPIGroupController",
 
 		$scope.cancel = function () {
 			window.history.back();
+		};
+
+		// weight on change
+		$scope.weightOnChange = function (group) {
+			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
+		};
+
+		// form on change
+		$scope.formOnChange = function (group) {
+			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
 		};
 	});
 
@@ -210,19 +243,19 @@ kpiSettingModule.controller("EditKPIGroupController",
 					.success(function (response) {
 						if (response.isSuccessful === true) {
 							$scope.success = true;
-							$scope.updateSuccessMessage = "Updated successful!";
+							$scope.successMessage = "Updated successful!";
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
 						}
 						else {
 							$scope.success = false;
-							$scope.updateErrorMessage = response.message;
+							$scope.errorMessage = response.message;
 						}
 					})
 					.error(function (httpResponse, status) {
 						if (status === 404) {
-							$scope.hasError = true;
+							$scope.success = false;
 							$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
 						}
 					});
@@ -231,5 +264,15 @@ kpiSettingModule.controller("EditKPIGroupController",
 
 		$scope.cancel = function () {
 			window.history.back();
+		};
+
+		// weight on change
+		$scope.weightOnChange = function (group) {
+			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
+		};
+
+		// form on change
+		$scope.formOnChange = function (group) {
+			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
 		};
 	});
