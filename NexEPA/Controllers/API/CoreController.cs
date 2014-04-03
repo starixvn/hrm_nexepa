@@ -14,11 +14,12 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
     using NexEPA.Core.Services;
+    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Core controller.
     /// </summary>
-    public class CoreController : ApiController
+    public class CoreController : BaseController
     {
         private EPAService _epaService;
 

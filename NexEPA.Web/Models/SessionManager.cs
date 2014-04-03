@@ -9,7 +9,9 @@
 
 namespace NexEPA.Core.Models
 {
+    using System.Linq;
     using System.Web;
+    using System.Web.Security;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Services;
@@ -25,16 +27,22 @@ namespace NexEPA.Core.Models
         {
             get
             {
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    FormsAuthentication.RedirectToLoginPage();
+                }
+
                 var session = HttpContext.Current.Session;
                 if (session != null && session[Constants.CurrentSessionKey] != null)
                 {
                     _currentUser = (UserSession)session[Constants.CurrentSessionKey];
                 }
-                else
+                else if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")
+                || HttpContext.Current.Request.Headers.AllKeys.Contains("Cookie"))
                 {
                     var criteria = new GetEmployeeByDomainUsernameCriteria()
                     {
-                        DomainUsername = "spvn\\" + HttpContext.Current.User.Identity.Name
+                        DomainUsername = HttpContext.Current.User.Identity.Name
                     };
                     _currentUser = new BaseService().GetDataEntity<UserSession>(criteria);
 

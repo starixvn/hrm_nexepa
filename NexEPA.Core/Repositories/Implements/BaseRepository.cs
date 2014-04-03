@@ -25,17 +25,17 @@ namespace NexEPA.Core.Repositories.Implements
     {
         public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            return ExecuteNonQuery(criteria);
+            return ExecuteNonQuery(criteria, hasGetOutputParams);
         }
 
         public CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            return ExecuteNonQuery(criteria);
+            return ExecuteNonQuery(criteria, hasGetOutputParams);
         }
 
         public CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            return ExecuteNonQuery(criteria);
+            return ExecuteNonQuery(criteria, hasGetOutputParams);
         }
 
         /// <summary>

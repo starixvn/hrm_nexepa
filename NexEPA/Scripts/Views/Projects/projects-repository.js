@@ -7,8 +7,8 @@ projectsSettingModule.factory('projectDataFactory', function ($http, $q) {
         getEmployeeSelectList: function (roleId) {
             var deferred = $q.defer();
             $http.get('/api/Project/RenderEmployeeSelectList', {
-                params: { roleId: roleId} 
-             }).success(deferred.resolve).error(deferred.reject);
+                params: { roleId: roleId }
+            }).success(deferred.resolve).error(deferred.reject);
             return deferred.promise;
         },
         getProjectStatusSelectList: function () {
@@ -43,7 +43,13 @@ projectsSettingModule.factory('projectDataFactory', function ($http, $q) {
                 status: filter != null ? filter.status : "",
                 period: filter != null ? filter.period : ""
             }
-            }).success(deferred.resolve).error(deferred.reject);
+            }).success(deferred.resolve).error(function () {
+////                console.log(status);
+////                if (status === 401) {
+////                    alert("Unauthorized");
+////                }
+                deferred.reject;
+            });
             return deferred.promise;
         }
     };

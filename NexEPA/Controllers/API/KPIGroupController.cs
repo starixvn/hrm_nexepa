@@ -17,11 +17,12 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.Services.Implement.KPIGroup;
     using NexEPA.KPI.Services.Interface.KPIGroup;
     using NexEPA.KPI.ViewModel.KPIGroup;
+    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// KPI Group Controller.
     /// </summary>
-    public class KPIGroupController : ApiController
+    public class KPIGroupController : BaseController
     {
         private IKPIGroupServices _kpiGroupServices;
 
