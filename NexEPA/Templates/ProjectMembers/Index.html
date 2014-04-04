@@ -3,6 +3,10 @@
         <li><a href="/Projects/Index">Project</a></li>
         <li class="current">Project member - {{currentProject.name}}</li>
     </ul>
+     <div class="button-icon">
+        <span class="icon plus"></span><a href="/ProjectMembers/Create" data-translate="AddMember">
+        </a>
+    </div>
 </div>
 <div class="row">
     <div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
