@@ -26,7 +26,7 @@ namespace NexEPA.Core.Enums
         HR = 2,
 
         /// <summary>
-        /// PM item.
+        /// Project Manager item.
         /// </summary>
         [StringValue("PM")]
         PM = 3,
