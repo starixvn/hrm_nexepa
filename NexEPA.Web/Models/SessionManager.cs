@@ -9,12 +9,11 @@
 
 namespace NexEPA.Core.Models
 {
-    using System.Linq;
     using System.Web;
     using System.Web.Security;
     using NexEPA.Core.Constants;
-    using NexEPA.Core.Criteria;
-    using NexEPA.Core.Services;
+    using NexEPA.Web.Criteria;
+    using NexEPA.Web.Services.Impl;
 
     /// <summary>
     /// Session Manager.
@@ -43,7 +42,7 @@ namespace NexEPA.Core.Models
                     {
                         DomainUsername = HttpContext.Current.User.Identity.Name
                     };
-                    _currentUser = new BaseService().GetDataEntity<UserSession>(criteria);
+                    _currentUser = new CommonService().GetUserByDomainUsername(criteria);
 
                     if (_currentUser != null && !_currentUser.IsDisabled)
                     {

@@ -40,17 +40,17 @@ namespace NexEPA.Web.Attributes
                 HandleUnauthorizedRequest(actionContext);
             }
 
-            var attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
-
             var currentUser = SessionManager.CurrentUser;
             if (currentUser != null)
             {
+                var attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
                 foreach (AuthorizeAttribute item in attributes)
                 {
-                    if (item.Roles != string.Empty && currentUser != null && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                    if (item.Roles != string.Empty 
+                        && currentUser != null 
+                        && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
                     {
-                        var message = new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
-                        throw new HttpResponseException(message);
+                        HandlePermissionRequest(actionContext);
                     }
                 }
 
@@ -70,6 +70,12 @@ namespace NexEPA.Web.Attributes
                 actionContext.Response = challengeMessage;
                 ////throw new HttpResponseException(challengeMessage);
             }
+        }
+
+        private void HandlePermissionRequest(HttpActionContext actionContext)
+        {
+            var message = new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
+            actionContext.Response = message;
         }
     }
 }

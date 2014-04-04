@@ -54,10 +54,11 @@
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Criteria\GetAllTargetTypeCriteria.cs" />
-    <Compile Include="Criteria\GetEmployeeByDomainUsernameCriteria.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
+    <Compile Include="Enums\RolesEnum.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
+    <Compile Include="Extensions\StringValueAttribute.cs" />
     <Compile Include="Model\Target\TargetType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\BaseRepository.cs" />
