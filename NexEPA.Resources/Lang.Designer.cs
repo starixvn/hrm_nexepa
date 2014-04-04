@@ -178,6 +178,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Target.
+        /// </summary>
+        public static string CreateTarget {
+            get {
+                return ResourceManager.GetString("CreateTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Criteria.
         /// </summary>
         public static string Criteria {
@@ -228,6 +237,15 @@ namespace NexEPA.Resources {
         public static string EditKPIGroup {
             get {
                 return ResourceManager.GetString("EditKPIGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Target.
+        /// </summary>
+        public static string EditTarget {
+            get {
+                return ResourceManager.GetString("EditTarget", resourceCulture);
             }
         }
         
@@ -349,6 +367,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Target.
+        /// </summary>
+        public static string ManageTarget {
+            get {
+                return ResourceManager.GetString("ManageTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
@@ -408,6 +435,15 @@ namespace NexEPA.Resources {
         public static string PM {
             get {
                 return ResourceManager.GetString("PM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
             }
         }
         
@@ -507,6 +543,15 @@ namespace NexEPA.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string Target {
+            get {
+                return ResourceManager.GetString("Target", resourceCulture);
             }
         }
         

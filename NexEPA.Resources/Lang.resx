@@ -285,4 +285,19 @@
   <data name="TitleRequire" xml:space="preserve">
     <value>Please fill out the title!</value>
   </data>
+  <data name="CreateTarget" xml:space="preserve">
+    <value>Create Target</value>
+  </data>
+  <data name="EditTarget" xml:space="preserve">
+    <value>Edit Target</value>
+  </data>
+  <data name="ManageTarget" xml:space="preserve">
+    <value>Manage Target</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
 </root>

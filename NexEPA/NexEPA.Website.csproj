@@ -165,12 +165,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\Target\Target\TargetController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\SpNames.xml" />
+    <Content Include="Content\Common\datepicker.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\Common\bootstrap-spacelab.min.css" />
     <Content Include="Content\Common\bootstrap-theme.css" />
@@ -217,6 +219,8 @@
     <Content Include="Scripts\Views\KPI\KPI\KPI-repository.js" />
     <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-controller.js" />
     <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-repository.js" />
+    <Content Include="Scripts\Views\Target\Target\target-controller.js" />
+    <Content Include="Scripts\Views\Target\Target\target-repository.js" />
     <Content Include="Templates\Employee\Create.html" />
     <Content Include="Templates\Employee\View.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />
@@ -234,6 +238,7 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
+    <Content Include="Templates\Target\Target\View.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -265,6 +270,7 @@
     <Content Include="Content\Site\mixins.less" />
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\layout.less" />
+    <None Include="Content\Site\Target\target.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -290,6 +296,10 @@
     <ProjectReference Include="..\NexEPA.KPI\NexEPA.KPI.csproj">
       <Project>{EC6531E6-095E-4E78-BA9D-C1EBAA0B3547}</Project>
       <Name>NexEPA.KPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Target\NexEPA.Target.csproj">
+      <Project>{F8B34F7A-9461-4861-A5BA-B69B4C9302DA}</Project>
+      <Name>NexEPA.Target</Name>
     </ProjectReference>
     <ProjectReference Include="..\NexEPA.Web\NexEPA.Web.csproj">
       <Project>{61F58E59-EAE1-497F-9B08-595C4330C9BD}</Project>
