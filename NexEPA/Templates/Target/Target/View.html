@@ -21,13 +21,13 @@
             </div>
             <div class="form-group">
                 <label data-translate="StartDate"></label>
-                <input type="text" ng-model="filter.startDate" datepicker-popup="MMM dd,yyyy" show-button-bar="false"/>
-                <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopup($event)"></button>
+                <input type="text" ng-model="filter.startDate" datepicker-popup="MMM dd,yyyy" is-open="startDateOpened" show-button-bar="false"/>
+                <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupStartDate($event)"></button>
             </div>
             <div class="form-group">
                 <label data-translate="EndDate"></label>
-                <input type="text" ng-model="filter.endDate" datepicker-popup="MMM dd,yyyy" show-button-bar="false"/>
-                <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopup($event)"></button>
+                <input type="text" ng-model="filter.endDate" datepicker-popup="MMM dd,yyyy" is-open="endDateOpened" show-button-bar="false"/>
+                <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupEndDate($event)"></button>
             </div>
 
             <button class="btn btn-primary" ng-click="query(filter)" data-translate="Submit"></button>

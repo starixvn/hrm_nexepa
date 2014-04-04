@@ -18,7 +18,27 @@ targetModule.controller('ViewTargetController', function ($scope, targetFactory,
 	var getTarget = function (targetTypeId, startDate, endDate) {
 		targetFactory.getTarget(targetTypeId, startDate, endDate).success(function (targetList) {
 			$scope.targetList = targetList;
-		}).error();
+		}).error(function () {
+			//// TODO : show error message
+		});
+	};
+
+	// show start date calendar when click button start date
+	$scope.openPopupStartDate = function ($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.startDateOpened = true;
+		$scope.endDateOpened = false;
+	};
+
+	// show end date calendar when click button end date
+	$scope.openPopupEndDate = function ($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.endDateOpened = true;
+		$scope.startDateOpened = false;
 	};
 
 	// get Target
@@ -26,6 +46,11 @@ targetModule.controller('ViewTargetController', function ($scope, targetFactory,
 
 	// filter data
 	$scope.query = function (filterData) {
-		getTarget(filterData.targetTypeId, filterData.startDate.toDateString(), filterData.endDate);
+		if (filterData) {
+			var startDate = filterData.startDate ? filterData.startDate.toDateString() : null;
+			var endDate = filterData.endDate ? filterData.endDate.toDateString() : null;
+
+			getTarget(filterData.targetTypeId, startDate, endDate);
+		}
 	};
 });
