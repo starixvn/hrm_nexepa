@@ -15,13 +15,17 @@ targetModule.controller('ViewTargetController', function ($scope, targetFactory,
 		});
 	}
 
-	var getTarget = function () {
-		targetFactory.getTarget().success(function (targetList) {
+	var getTarget = function (targetTypeId, startDate, endDate) {
+		targetFactory.getTarget(targetTypeId, startDate, endDate).success(function (targetList) {
 			$scope.targetList = targetList;
 		}).error();
 	};
 
 	// get Target
-	getTarget();
+	getTarget(null, null, null);
 
+	// filter data
+	$scope.query = function (filterData) {
+		getTarget(filterData.targetTypeId, filterData.startDate.toDateString(), filterData.endDate);
+	};
 });

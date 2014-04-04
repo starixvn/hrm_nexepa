@@ -1,0 +1,47 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="TargetRepositories.cs" company="Nexcel Solutions Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="2014.04.04">Created</change>
+// </history>
+
+namespace NexEPA.Target.Repositories.Implement.Target
+{
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Model.Target;
+    using NexEPA.Target.Models.Target;
+    using NexEPA.Target.Repositories.Interface.Target;
+
+    /// <summary>
+    /// The implement of Target Repository.
+    /// </summary>
+    public class TargetRepositories : ITargetRepositories
+    {
+        /// <summary>
+        /// Get target.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List Target Info.</returns>
+        public IList<TargetInfo> GetTarget(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<TargetInfo, TargetType, Project, Milestone, TargetInfo>(
+                    (ti, ta, pro, mi) => 
+                    {
+                        ti.TargetType = ta;
+                        ti.Project = pro;
+                        ti.Milestone = mi;
+                        return ti;
+                    },
+                    "TargetTypeId,ProjectId,MilestoneId",
+                    criteria.GetSpParams()).ToList();
+            }
+        }
+    }
+}

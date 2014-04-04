@@ -10,8 +10,13 @@
 namespace NexEPA.Target.Services.Implement.Target
 {
     using System.Collections.Generic;
+    using NexEPA.Core.Constants;
     using NexEPA.Core.Services;
+    using NexEPA.Target.Models.Target;
+    using NexEPA.Target.Repositories.Implement.Target;
+    using NexEPA.Target.Repositories.Interface.Target;
     using NexEPA.Target.Services.Interface.Target;
+    using NexEPA.Target.Target.Criteria;
     using NexEPA.Target.ViewModels.Target;
 
     /// <summary>
@@ -19,24 +24,43 @@ namespace NexEPA.Target.Services.Implement.Target
     /// </summary>
     public class TargetServices : BaseService, ITargetServices
     {
-        public List<TargetItem> GetAllTarget()
+        private ITargetRepositories _targetRepository;
+
+        public TargetServices()
+        {
+            _targetRepository = new TargetRepositories();
+        }
+
+        /// <summary>
+        /// Get target.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List Target Item.</returns>
+        public List<TargetItem> GetAllTarget(GetTargetCriteria criteria)
         {
             var targetList = new List<TargetItem>();
-            //// pseudo data
-            for (var i = 0; i < 4; i++)
-            {
-                var targetItem = new TargetItem
-                {
-                    Name = "Target " + i,
-                    TargetTypeName = "Form " + i,
-                    ProjectName = "Project " + i,
-                    MilestoneName = "Milestone " + i,
-                    StartDate = "04/04/2014",
-                    EndDate = "30/04/2014",
-                    Status = "Status " + i
-                };
 
-                targetList.Add(targetItem);
+            if (criteria.IsValid())
+            {
+                List<TargetInfo> rawTargetList = (List<TargetInfo>)_targetRepository.GetTarget(criteria);
+
+                foreach (var rawTarget in rawTargetList)
+                {
+                    var targetItem = new TargetItem
+                    {
+                        TargetId = rawTarget.TargetId,
+                        Name = rawTarget.Name,
+                        Description = rawTarget.Description,
+                        StartDate = rawTarget.StartDate.ToString(Constants.ShortDateStringFormat),
+                        EndDate = rawTarget.EndDate.ToString(Constants.ShortDateStringFormat),
+                        //// TODO : get status by status id
+                        TargetType = rawTarget.TargetType,
+                        Project = rawTarget.Project,
+                        Milestone = rawTarget.Milestone
+                    };
+
+                    targetList.Add(targetItem);
+                }
             }
 
             return targetList;

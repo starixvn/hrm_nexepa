@@ -7,12 +7,14 @@
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
 // </history>
 
-namespace NexEPA.Templates.Target.Target
+namespace NexEPA.Controllers.Target
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using NexEPA.Target.Services.Implement.Target;
     using NexEPA.Target.Services.Interface.Target;
+    using NexEPA.Target.Target.Criteria;
     using NexEPA.Target.ViewModels.Target;
     using NexEPA.Web.Controllers;
 
@@ -34,9 +36,19 @@ namespace NexEPA.Templates.Target.Target
         }
 
         [HttpGet]
-        public List<TargetItem> GetTarget()
+        public List<TargetItem> GetTarget(
+            int? targetTypeId = null, 
+            DateTime? startDate = null,
+            DateTime? endDate = null)
         {
-            return _targetServices.GetAllTarget();
+            var criteria = new GetTargetCriteria
+            {
+               TargetTypeId = targetTypeId,
+               StartDate = startDate,
+               EndDate = endDate
+            };
+
+            return _targetServices.GetAllTarget(criteria);
         }
     }
 }

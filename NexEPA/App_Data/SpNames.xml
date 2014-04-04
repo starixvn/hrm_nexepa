@@ -50,5 +50,7 @@
   </Function>
   <Function Name="Target">
     <Setting Key="TargetType_GetAll" SpName="TargetType_GetAll" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Target_Get" SpName="Target_Get" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
 </Functions>

@@ -15,5 +15,7 @@ namespace NexEPA.Core.Constants
     public class Constants
     {
         public const string CurrentSessionKey = "NexEPA.CurrentSession";
+
+        public static readonly string ShortDateStringFormat = "dd MMM,yyyy";
     }
 }

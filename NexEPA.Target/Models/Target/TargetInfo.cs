@@ -10,6 +10,7 @@
 namespace NexEPA.Target.Models.Target
 {
     using System;
+using NexEPA.Core.Model.Target;
 
     /// <summary>
     /// The model of Target.
@@ -22,28 +23,20 @@ namespace NexEPA.Target.Models.Target
 
         public string Description { get; set; }
 
-        public int TargetTypeId { get; set; }
-
-        public int ScoreTypeId { get; set; }
-
-        public int ProcessGroupId { get; set; }
-
-        public int? ProjectId { get; set; }
-
-        public int? MilestoneId { get; set; }
-
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
 
         public int? StatusId { get; set; }
 
-        public int? CreatedBy { get; set; }
+        public int ScoreTypeId { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public int ProcessGroupId { get; set; }
 
-        public int? ModifiedBy { get; set; }
+        public TargetType TargetType { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public Project Project { get; set; }
+
+        public Milestone Milestone { get; set; }
     }
 }

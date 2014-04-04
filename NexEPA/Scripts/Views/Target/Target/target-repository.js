@@ -3,8 +3,9 @@
 
 targetModule.factory('targetFactory', ['$http', function ($http) {
 	return {
-		getTarget: function () {
-			return $http.get('/api/Target/GetTarget');
+		getTarget: function (targetTypeId, startDate, endDate) {
+			return $http.get('/api/Target/GetTarget',
+				{ params: { targetTypeId: targetTypeId, startDate: startDate, endDate: endDate } });
 		}
 	};
 } ]);

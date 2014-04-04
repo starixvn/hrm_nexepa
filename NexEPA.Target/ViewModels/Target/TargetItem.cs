@@ -9,7 +9,8 @@
 
 namespace NexEPA.Target.ViewModels.Target
 {
-    using System;
+    using NexEPA.Core.Model.Target;
+    using NexEPA.Target.Models.Target;
 
     /// <summary>
     /// The view model of Target.
@@ -22,18 +23,6 @@ namespace NexEPA.Target.ViewModels.Target
 
         public string Description { get; set; }
 
-        public int TargetTypeId { get; set; }
-
-        public string TargetTypeName { get; set; }
-
-        public int? ProjectId { get; set; }
-
-        public string ProjectName { get; set; }
-
-        public int? MilestoneId { get; set; }
-
-        public string MilestoneName { get; set; }
-
         public string StartDate { get; set; }
 
         public string EndDate { get; set; }
@@ -41,5 +30,11 @@ namespace NexEPA.Target.ViewModels.Target
         public int? StatusId { get; set; }
 
         public string Status { get; set; }
+
+        public TargetType TargetType { get; set; }
+
+        public Project Project { get; set; }
+
+        public Milestone Milestone { get; set; }
     }
 }

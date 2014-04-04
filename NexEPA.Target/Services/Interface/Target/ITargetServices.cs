@@ -10,6 +10,7 @@
 namespace NexEPA.Target.Services.Interface.Target
 {
     using System.Collections.Generic;
+    using NexEPA.Target.Target.Criteria;
     using NexEPA.Target.ViewModels.Target;
 
     /// <summary>
@@ -17,6 +18,6 @@ namespace NexEPA.Target.Services.Interface.Target
     /// </summary>
     public interface ITargetServices
     {
-        List<TargetItem> GetAllTarget();
+        List<TargetItem> GetAllTarget(GetTargetCriteria criteria);
     }
 }

@@ -30,7 +30,7 @@
                 <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopup($event)"></button>
             </div>
 
-            <button class="btn btn-primary" ng-click="query(filter.targetTypeId)" data-translate="Submit"></button>
+            <button class="btn btn-primary" ng-click="query(filter)" data-translate="Submit"></button>
             <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
         </form>
     </div>
@@ -51,9 +51,9 @@
         <tbody>
             <tr ng-repeat="target in targetList">
                 <td ng-bind="target.name"></td>
-                <td class="form" ng-bind="target.targetTypeName"></td>
-                <td ng-bind="target.projectName"></td>
-                <td ng-bind="target.milestoneName"></td>
+                <td class="form" ng-bind="target.targetType.name"></td>
+                <td ng-bind="target.project.name"></td>
+                <td ng-bind="target.milestone.name"></td>
                 <td class="start-date" ng-bind="target.startDate"></td>
                 <td class="end-date" ng-bind="target.endDate"></td>
                 <td class="status" ng-bind="target.status"></td>
