@@ -1,4 +1,4 @@
-﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule*/
+﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule,targetModule*/
 /*global angular*/
 'use strict';
 
