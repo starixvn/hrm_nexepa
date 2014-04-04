@@ -12,13 +12,12 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
     using System;
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Model.KPIGroup;
     using NexEPA.KPI.Repository.Implement.KPIGroup;
     using NexEPA.KPI.Repository.Interface.KPIGroup;
-    using NexEPA.KPI.Services.Implement.KPI;
-    using NexEPA.KPI.Services.Interface.KPI;
     using NexEPA.KPI.Services.Interface.KPIGroup;
     using NexEPA.KPI.ViewModel.KPIGroup;
 
@@ -63,8 +62,6 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
 
                     groupList.Add(groupItem);
                 }
-
-                ////TODO : save all group in session
             }
 
             return groupList;
@@ -106,7 +103,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// <returns>The error code and error message.</returns>
         public CommandResult InsertKPIGroup(InsertKPIGroupCriteria criteria)
         {
-            //// TODO : criteria.CreatedBy = current user login
+            criteria.CreatedBy = SessionManager.CurrentUser.UserId;
             criteria.CreatedDate = DateTime.Now;
             return _Repository.Insert(criteria);
         }
@@ -118,7 +115,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// <returns>The error code and error message.</returns>
         public CommandResult UpdateKPIGroup(UpdateKPIGroupCriteria criteria)
         {
-            //// TODO : criteria.ModifiedBy = current user login
+            criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
             criteria.ModifiedDate = DateTime.Now;
             return _Repository.Update(criteria);
         }
@@ -130,7 +127,6 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
 
         public List<KPIGroupItem> GetGroupListByTargetTypeId(int targetTypeId)
         {
-            //// TODO : get all group from session
             var criteria = new GetAllKPIGroupCriteria();
             List<KPIGroupItem> allGroup = this.GetAllKPIGroup(criteria);
             return allGroup.FindAll(s => s.TargetTypeId == targetTypeId);

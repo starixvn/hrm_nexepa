@@ -63,8 +63,8 @@ namespace NexEPA.Controllers.API
             var criteria = new DeleteKPICriteria
             {
                 KPIId = kpiId,
-                ModifiedDate = DateTime.Now
-                //// TODO : criteria.ModifiedBy = current login user
+                ModifiedDate = DateTime.Now,
+                ModifiedBy = this.CurrentUser.UserId
             };
 
             return _kpiServices.DeleteKPI(criteria);
