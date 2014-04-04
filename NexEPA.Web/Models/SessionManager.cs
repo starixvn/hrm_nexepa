@@ -37,8 +37,7 @@ namespace NexEPA.Core.Models
                 {
                     _currentUser = (UserSession)session[Constants.CurrentSessionKey];
                 }
-                else if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")
-                || HttpContext.Current.Request.Headers.AllKeys.Contains("Cookie"))
+                else
                 {
                     var criteria = new GetEmployeeByDomainUsernameCriteria()
                     {

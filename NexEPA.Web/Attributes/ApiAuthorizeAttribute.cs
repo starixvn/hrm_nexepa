@@ -28,6 +28,11 @@ namespace NexEPA.Web.Attributes
         /// <param name="actionContext">HttpAction Context.</param>
         public override void OnAuthorization(HttpActionContext actionContext)
         {
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                HandleUnauthorizedRequest(actionContext);
+            }
+
             var session = HttpContext.Current.Session;
             if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")
                 && !HttpContext.Current.Request.Headers.AllKeys.Contains("Cookie"))
@@ -59,10 +64,12 @@ namespace NexEPA.Web.Attributes
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            var challengeMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-            ////challengeMessage.Headers.Add("WWW-Authenticate", "NTML");
-            actionContext.Response = challengeMessage;
-            ////throw new HttpResponseException(challengeMessage);
+            if (!HttpContext.Current.Request.IsLocal)
+            {
+                var challengeMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                actionContext.Response = challengeMessage;
+                ////throw new HttpResponseException(challengeMessage);
+            }
         }
     }
 }
