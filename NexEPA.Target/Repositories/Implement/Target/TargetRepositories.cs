@@ -43,5 +43,27 @@ namespace NexEPA.Target.Repositories.Implement.Target
                     criteria.GetSpParams()).ToList();
             }
         }
+
+        /// <summary>
+        /// Get Target by ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The TargetInfo.</returns>
+        public TargetInfo GetTargetById(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.QueryEntity<TargetInfo, TargetType, Project, Milestone, TargetInfo>(
+                    (ti, ta, pro, mi) =>
+                    {
+                        ti.TargetType = ta;
+                        ti.Project = pro;
+                        ti.Milestone = mi;
+                        return ti;
+                    },
+                    "TargetTypeId,ProjectId,MilestoneId",
+                    criteria.GetSpParams());
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@
 namespace NexEPA.Target.Services.Interface.Target
 {
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
+    using NexEPA.Target.Criteria.Target;
     using NexEPA.Target.Target.Criteria;
     using NexEPA.Target.ViewModels.Target;
 
@@ -19,5 +21,11 @@ namespace NexEPA.Target.Services.Interface.Target
     public interface ITargetServices
     {
         List<TargetItem> GetAllTarget(GetTargetCriteria criteria);
+
+        TargetItem GetTargetById(GetTargetByIdCriteria criteria);
+
+        CommandResult Insert(InsertTargetCriteria criteria);
+
+        CommandResult Update(UpdateTargetCriteria criteria);
     }
 }

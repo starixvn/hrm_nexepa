@@ -11,7 +11,15 @@ namespace NexEPA.Controllers.Target
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
+    using Fanex.NAP.Framework.Data;
+    using NexEPA.Project.Criteria.Milestone;
+    using NexEPA.Project.Criteria.Project;
+    using NexEPA.Project.Models;
+    using NexEPA.Project.Services.Impl;
+    using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Target.Criteria.Target;
     using NexEPA.Target.Services.Implement.Target;
     using NexEPA.Target.Services.Interface.Target;
     using NexEPA.Target.Target.Criteria;
@@ -24,20 +32,22 @@ namespace NexEPA.Controllers.Target
     public class TargetController : BaseController
     {
         private ITargetServices _targetServices;
+        private IProjectService _projectService;
 
         public TargetController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public TargetController(TargetServices targetServices)
+        public TargetController(TargetServices targetServices, ProjectService projectServices)
         {
             _targetServices = targetServices ?? new TargetServices();
+            _projectService = projectServices ?? new ProjectService();
         }
 
         [HttpGet]
         public List<TargetItem> GetTarget(
-            int? targetTypeId = null, 
+            int? targetTypeId = null,
             DateTime? startDate = null,
             DateTime? endDate = null)
         {
@@ -49,6 +59,50 @@ namespace NexEPA.Controllers.Target
             };
 
             return _targetServices.GetAllTarget(criteria);
+        }
+
+        [HttpGet]
+        public TargetItem GetTargetById(int id)
+        {
+            var criteria = new GetTargetByIdCriteria
+            {
+                TargetId = id
+            };
+
+            return _targetServices.GetTargetById(criteria);
+        }
+
+        public CommandResult Post(InsertTargetCriteria criteria)
+        {
+            return _targetServices.Insert(criteria);
+        }
+
+        public CommandResult Put(UpdateTargetCriteria criteria)
+        {
+            return _targetServices.Update(criteria);
+        }
+
+        [HttpGet]
+        public IEnumerable<dynamic> GetAllProject()
+        {
+            var criteria = new GetAllProjectCriteria();
+            IEnumerable<ProjectModel> allProjectList = _projectService.GetAllProject(criteria);
+
+            var projectOfTarget = allProjectList.Select(pro => new { pro.Name, pro.ProjectId });
+            return projectOfTarget;
+        }
+
+        [HttpGet]
+        public IEnumerable<dynamic> GetMilestoneByProjectId(int projectId)
+        {
+            var getMilestoneCriteria = new GetMilestoneByProjectIdCriteria()
+            {
+                ProjectId = projectId
+            }; 
+            var milestoneList = _projectService.GetMilestoneByProjectId(getMilestoneCriteria);
+
+            var milestoneResult = milestoneList.Select(mi => new { mi.Name, mi.MilestoneId });
+            return milestoneResult;
         }
     }
 }

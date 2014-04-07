@@ -10,6 +10,7 @@
 namespace NexEPA.Core.Services
 {
     using System.Collections.Generic;
+    using NexEPA.Core.Constants;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
 
@@ -26,6 +27,33 @@ namespace NexEPA.Core.Services
         public IEnumerable<TargetType> GetAllTargetType(GetAllTargetTypeCriteria criteria) 
         {
             return GetData<TargetType>(criteria);
+        }
+
+        /// <summary>
+        /// Get status by ID.
+        /// </summary>
+        /// <param name="statusId">The status ID.</param>
+        /// <returns>The status.</returns>
+        public string GetStatusById(int statusId)
+        {
+            string status = string.Empty;
+
+            switch (statusId)
+            {
+                case (int)Constants.Status.Active:
+                    status = Constants.ActiveStatus;
+                    break;
+
+                case (int)Constants.Status.Pending:
+                    status = Constants.PendingStatus;
+                    break;
+
+                case (int)Constants.Status.Closed:
+                    status = Constants.ClosedStatus;
+                    break;
+            }
+
+            return status;
         }
     }
 }

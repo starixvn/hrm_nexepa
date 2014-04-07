@@ -10,7 +10,8 @@
 namespace NexEPA.Target.Models.Target
 {
     using System;
-using NexEPA.Core.Model.Target;
+    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Model.Target;
 
     /// <summary>
     /// The model of Target.
@@ -23,11 +24,11 @@ using NexEPA.Core.Model.Target;
 
         public string Description { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public int? StatusId { get; set; }
+        public int Status { get; set; }
 
         public int ScoreTypeId { get; set; }
 

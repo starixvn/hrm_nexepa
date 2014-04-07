@@ -300,4 +300,16 @@
   <data name="Target" xml:space="preserve">
     <value>Target</value>
   </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
+  </data>
+  <data name="CreatedSuccessfulMessage" xml:space="preserve">
+    <value>Created successful!</value>
+  </data>
+  <data name="ProjectRequire" xml:space="preserve">
+    <value>Please choose the project!</value>
+  </data>
+  <data name="UpdatedSuccessfulMessage" xml:space="preserve">
+    <value>Updated successful!</value>
+  </data>
 </root>

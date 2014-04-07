@@ -160,6 +160,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created successful!.
+        /// </summary>
+        public static string CreatedSuccessfulMessage {
+            get {
+                return ResourceManager.GetString("CreatedSuccessfulMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create KPI.
         /// </summary>
         public static string CreateKPI {
@@ -264,6 +273,15 @@ namespace NexEPA.Resources {
         public static string EndDate {
             get {
                 return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, an error occurred while processing your request, please notify the administrators!.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
             }
         }
         
@@ -466,6 +484,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose the project!.
+        /// </summary>
+        public static string ProjectRequire {
+            get {
+                return ResourceManager.GetString("ProjectRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Require evaluatee&apos;s comment.
         /// </summary>
         public static string RequireComment {
@@ -570,6 +597,15 @@ namespace NexEPA.Resources {
         public static string TitleRequire {
             get {
                 return ResourceManager.GetString("TitleRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated successful!.
+        /// </summary>
+        public static string UpdatedSuccessfulMessage {
+            get {
+                return ResourceManager.GetString("UpdatedSuccessfulMessage", resourceCulture);
             }
         }
         

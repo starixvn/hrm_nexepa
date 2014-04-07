@@ -34,6 +34,8 @@ var kpiSettingModule = angular.module("kpiSettingModule", ['ngRoute', 'ngResourc
 var targetModule = angular.module("targetModule", ['ngRoute', 'ngResource'])
 .config(function ($routeProvider) {
 	$routeProvider.when('/Target/ViewTarget', { templateUrl: '/templates/Target/Target/View.html', controller: 'ViewTargetController' });
+	$routeProvider.when('/Target/CreateTarget', { templateUrl: '/templates/Target/Target/Create.html', controller: 'CreateTargetController' });
+	$routeProvider.when('/Target/EditTarget/:id', { templateUrl: '/templates/Target/Target/Edit.html', controller: 'EditTargetController' });
 });
 
 var registrationModule = angular.module("registrationModule", ['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetModule'])
