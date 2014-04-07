@@ -58,6 +58,16 @@ namespace NexEPA
                 defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
+               name: "TargetTemplateView",
+               url: "TargetTemplate/Edit/{Id}",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
+                name: "TargetTemplateDefault",
+                url: "TargetTemplate/{*catchall}",
+                defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                 name: "Create new KPI Group",
                 url: "KPI/CreateNewKPIGroup",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });

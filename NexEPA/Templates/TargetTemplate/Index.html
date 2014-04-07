@@ -1,0 +1,46 @@
+﻿<div class="row sub-header">
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a></li>
+    </ul>
+     <div class="button-icon">
+        <span class="icon plus"></span><a href="/TargetTemplate/Create" data-translate="CreateTargetTemplate">
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span10">
+        <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th data-translate="Name">
+                </th>
+                <th data-translate="TargetType">
+                </th>
+                <th data-translate="Description">
+                </th>
+                <th data-translate="Action">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tgtemplate in tgtemplates">
+                <td>
+                <a href="/TargetTemplate/Edit/{{tgtemplate.targetId}}">{{tgtemplate.name}}</a>
+                </td>
+                <td class="text-center">
+                    {{tgtemplate.targetTypeId | targetType}}
+                </td>
+                <td>
+                    {{tgtemplate.description}}
+                </td>
+                <td class="text-center">
+                    <div class="btn-group">
+                        <a href="javascript:;" class="glyphicon glyphicon-remove" ng-click="deleteTemplate(tgtemplate)" title="Delete"></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>

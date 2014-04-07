@@ -80,7 +80,6 @@
     <Compile Include="Services\Impl\ProjectService.cs" />
     <Compile Include="Services\Interfaces\IProjectMemberService.cs" />
     <Compile Include="Services\Interfaces\IProjectService.cs" />
-    <Compile Include="ViewModels\ProjectInformationVM.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

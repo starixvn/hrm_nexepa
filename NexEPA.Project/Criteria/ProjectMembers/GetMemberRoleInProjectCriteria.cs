@@ -27,7 +27,7 @@ namespace NexEPA.Project.Criteria.ProjectMembers
 
         public override string GetSettingKey()
         {
-            return "ProjectMember_GetRoleMember";
+            return "ProjectMember_GetMemberRole";
         }
     }
 }

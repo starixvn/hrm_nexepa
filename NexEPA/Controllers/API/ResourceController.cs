@@ -13,13 +13,13 @@ namespace NexEPA.Controllers.API
     using System.Globalization;
     using System.Linq;
     using System.Resources;
+    using System.Web.Http;
     using NexEPA.Resources;
-    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Resource Controller.
     /// </summary>
-    public class ResourceController : BaseController
+    public class ResourceController : ApiController
     {
         /// <summary>
         /// Function to get resource by language.

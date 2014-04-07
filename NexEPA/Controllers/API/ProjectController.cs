@@ -24,13 +24,11 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
-    using NexEPA.Web.Attributes;
-    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Project Controller.
     /// </summary>
-    public class ProjectController : BaseController
+    public class ProjectController : ApiController
     {
         private readonly IProjectService _projectService;
         private readonly EmployeeService _employeeService;
