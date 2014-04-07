@@ -19,7 +19,7 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// Core controller.
     /// </summary>
-    public class CoreController : BaseController
+    public class CoreController : ApiController
     {
         private EPAService _epaService;
 

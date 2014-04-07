@@ -27,7 +27,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
 
         public int ModifiedBy { get; set; }
 
-        public int TargetTypeId { get; set; }
+        public int? TargetTypeId { get; set; }
 
         public override bool IsValid()
         {

@@ -20,9 +20,21 @@ targetTemplateModule.factory("targetTemplateFactory", function ($http, $q) {
             $http.get('/api/targetTemplate/Get').success(deferred.resolve).error(deferred.reject);
             return deferred.promise;
         },
+        getKPI: function (targetTypeId, groupId) {
+            var deferred = $q.defer();
+            $http.get('/api/targetTemplate/GetKPI/', { params: { targetTypeId: targetTypeId, groupId: groupId} })
+            .success(deferred.resolve).error(deferred.reject);
+            return deferred.promise;
+        },
         addTargetTemplate: function (template) {
             var deferred = $q.defer();
             $http.post(url, template).success(deferred.resolve).error(deferred.reject);
+            return deferred.promise;
+        },
+        addKPI: function (objectKPI) {
+            var deferred = $q.defer();
+            $http.post('/api/targetTemplate/AddKPI/', objectKPI)
+            .success(deferred.resolve).error(deferred.reject);
             return deferred.promise;
         },
         updateTargetTemplate: function (template) {
@@ -32,7 +44,8 @@ targetTemplateModule.factory("targetTemplateFactory", function ($http, $q) {
         },
         deleteTargetTemplate: function (targetId) {
             var deferred = $q.defer();
-            $http['delete'](url, { params: { targetId: targetId} }).success(deferred.resolve).error(deferred.reject);
+            $http['delete'](url, { params: { targetId: targetId} })
+            .success(deferred.resolve).error(deferred.reject);
             return deferred.promise;
         }
     };

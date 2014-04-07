@@ -19,6 +19,9 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
     using NexEPA.Core.Services;
+    using NexEPA.KPI.Services.Implement.KPI;
+    using NexEPA.KPI.Services.Interface.KPI;
+    using NexEPA.KPI.ViewModel.KPI;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Impl;
@@ -31,16 +34,18 @@ namespace NexEPA.Controllers.API
     {
         private readonly ITargetTemplateService _targetTemplateService;
         private readonly EPAService _epaService;
+        private readonly IKPIServices _kpiServices;
 
         public TargetTemplateController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public TargetTemplateController(ITargetTemplateService targetTemplateService, EPAService epaService)
+        public TargetTemplateController(ITargetTemplateService targetTemplateService, EPAService epaService, IKPIServices kpiServices)
         {
             this._targetTemplateService = targetTemplateService ?? new TargetTemplateService();
             _epaService = epaService ?? new EPAService();
+            _kpiServices = kpiServices ?? new KPIServices();
         }
 
         public IEnumerable<TargetType> GetAllTargetType()
@@ -54,6 +59,36 @@ namespace NexEPA.Controllers.API
         {
             GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria() { TargetId = targetId };
             var data = this._targetTemplateService.GetTargetTemplateById(criteria);
+            return data;
+        }
+
+        /// <summary>
+        /// Method Get KPI.
+        /// </summary>
+        /// <param name="targetTypeId">Target Type Id.</param>
+        /// <param name="groupId">KPI Group Id.</param>
+        /// <returns>List KPI item after group by KPIGroupName.</returns>
+        public dynamic GetKPI(int? targetTypeId = null, int? groupId = null)
+        {
+            List<KPIItem> lstKPI = _kpiServices.GetKPI(targetTypeId, groupId);
+            List<int> lstSelectedKPI = null;
+
+            if (lstSelectedKPI != null)
+            {
+                foreach (var item in lstKPI.Where(x => lstSelectedKPI.Contains(x.KPIId)))
+                {
+                    item.Selected = true;
+                }
+            }
+
+            var data = (from kpi in lstKPI
+                        group kpi by kpi.KPIGroupName into item
+                        select new
+                        {
+                            KPIGroupName = item.Key,
+                            KPIGroupItems = item.ToList()
+                        }).ToList();
+
             return data;
         }
 
@@ -134,8 +169,8 @@ namespace NexEPA.Controllers.API
         /// <returns>Http Response Message.</returns>
         public HttpResponseMessage Delete(int targetId)
         {
-            DeleteTargetTemplateCriteria criteria = new DeleteTargetTemplateCriteria() 
-            { 
+            DeleteTargetTemplateCriteria criteria = new DeleteTargetTemplateCriteria()
+            {
                 TargetId = targetId,
                 ModifiedBy = 1,
                 ModifiedDate = DateTime.Now
@@ -148,6 +183,38 @@ namespace NexEPA.Controllers.API
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Add KPI to targetTemplate.
+        /// </summary>
+        /// <param name="model">Target Template KPI Model.</param>
+        /// <returns>Http Response message.</returns>
+        public HttpResponseMessage AddKPI(TargetTemplateKPIModel model)
+        {
+            if (model != null)
+            {
+                AddKPIToTargetTemplateCriteria criteria = new AddKPIToTargetTemplateCriteria()
+                {
+                    TargetId = model.TargetId,
+                    KPIIds = model.KPIIds,
+                    AddedDate = DateTime.Now,
+                    AddedBy = 1
+                };
+
+                CommandResult result = this._targetTemplateService.AddKPIToTargetTemplate(criteria);
+                if (result.Code != 0)
+                {
+                    List<string> errorMessage = new List<string>() { result.Message };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                }
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

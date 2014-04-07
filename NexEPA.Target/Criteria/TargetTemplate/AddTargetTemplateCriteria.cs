@@ -21,7 +21,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
 
         public string Description { get; set; }
 
-        public int TargetTypeId { get; set; }
+        public int? TargetTypeId { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

@@ -237,6 +237,7 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
+    <Content Include="Templates\TargetTemplate\AddKPI.html" />
     <Content Include="Templates\TargetTemplate\Create.html" />
     <Content Include="Templates\TargetTemplate\Edit.html" />
     <Content Include="Templates\TargetTemplate\Index.html" />

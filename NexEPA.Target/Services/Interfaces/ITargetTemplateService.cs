@@ -28,5 +28,7 @@ namespace NexEPA.Target.Services.Interfaces
         CommandResult UpdateTargetTemplate(UpdateTargetTemplateCriteria criteria);
 
         CommandResult DeleteTargetTemplate(DeleteTargetTemplateCriteria criteria);
+
+        CommandResult AddKPIToTargetTemplate(AddKPIToTargetTemplateCriteria criteria);
     }
 }

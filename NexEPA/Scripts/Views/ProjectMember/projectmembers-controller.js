@@ -111,7 +111,7 @@ function ($scope, $location, $window, projectService, projectMembersFactory, pro
     };
 
     // Watch for checkboxlist change.
-    $scope.$watch('roles|filter:{selected:true}', function (selectedItems) {
+    $scope.$watch('kpiGroupItems|filter:{selected:true}', function (selectedItems) {
         $scope.selection = selectedItems.map(function (item) {
             return item.projectRoleId;
 

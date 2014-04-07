@@ -10,6 +10,7 @@
 namespace NexEPA.Target.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Target Template Model.
@@ -18,11 +19,13 @@ namespace NexEPA.Target.Models
     {
         public int TargetId { get; set; }
 
+        [Required(ErrorMessage = "The field Name is required.")]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public int TargetTypeId { get; set; }
+        [Required(ErrorMessage = "The field Target Type is required.")]
+        public int? TargetTypeId { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

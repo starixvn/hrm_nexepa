@@ -121,7 +121,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now.Date
             };
 
-            CommandResult result = _projectMemberService.DeleteMemebr(criteria);
+            CommandResult result = _projectMemberService.DeleteMember(criteria);
             if (result.Code != 0)
             {
                 List<string> errorMessage = new List<string>() { result.Message };
