@@ -35,18 +35,25 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         public List<EmployeeItem> GetAllEmployee(
-            string searchKey = "", 
+            string keyword = "", 
             int? groupId = null, 
             bool? isDisabled = null)
         {
             var criteria = new GetAllEmployeeCriteria
             {
                 IsDisabled = isDisabled,
-                SearchKeyword = searchKey,
+                Keyword = keyword,
                 GroupId = groupId
             };
 
             return _employeeServices.GetAllEmployee(criteria);
+        }
+
+        [HttpGet]
+        public List<Group> GetAllGroup()
+        {
+            var criteria = new GetAllEmployeeGroupCriteria();
+            return _employeeServices.GetAllEmployeeGroup(criteria);
         }
     }
 }

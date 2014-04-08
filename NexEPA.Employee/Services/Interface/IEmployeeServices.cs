@@ -19,5 +19,7 @@ namespace NexEPA.Employee.Services.Interface
     public interface IEmployeeServices
     {
         List<EmployeeItem> GetAllEmployee(GetAllEmployeeCriteria criteria);
+
+        List<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria);
     }
 }

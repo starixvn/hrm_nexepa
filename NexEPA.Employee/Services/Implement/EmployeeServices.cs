@@ -15,6 +15,8 @@ namespace NexEPA.Employee.Services.Implement
     using NexEPA.Employee.Constant;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
+    using NexEPA.Employee.Repositories.Implement;
+    using NexEPA.Employee.Repositories.Interface;
     using NexEPA.Employee.Services.Interface;
     using NexEPA.Employee.ViewModels;
 
@@ -23,6 +25,13 @@ namespace NexEPA.Employee.Services.Implement
     /// </summary>
     public class EmployeeServices : BaseService, IEmployeeServices
     {
+        private IEmployeeRepositories _employeeRepositories;
+
+        public EmployeeServices()
+        {
+            _employeeRepositories = new EmployeeRepositories();
+        }
+
         /// <summary>
         /// Get all employee.
         /// </summary>
@@ -30,7 +39,7 @@ namespace NexEPA.Employee.Services.Implement
         /// <returns>The list Employee Item.</returns>
         public List<EmployeeItem> GetAllEmployee(GetAllEmployeeCriteria criteria)
         {
-            IEnumerable<EmployeeInfo> rawEmployees = GetData<EmployeeInfo>(criteria);
+            IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetAllEmployee(criteria);
             var employees = new List<EmployeeItem>();
 
             foreach (var employee in rawEmployees)
@@ -48,18 +57,38 @@ namespace NexEPA.Employee.Services.Implement
                     Email = employee.Email,
                     Skype = employee.Skype,
                     JoinedDate = joinedDate,
-                    GroupId = employee.GroupId,
-                    GroupName = "Virtual Group Name",
-                    //// TODO : GroupName = GetGroupNameById(GroupId)
-                    JobTitleId = employee.JobTitleId,
-                    JobTitleName = "Virtual Job Title"
-                    //// TODO : JobTitleName = GetJobTitleById(JobTitleId)
+                    Group = employee.Group,
+                    JobTitle = employee.JobTitle
                 };
 
                 employees.Add(employeeItem);
             }
 
             return employees;
+        }
+
+        /// <summary>
+        /// Get all employee's group.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list Group.</returns>
+        public List<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria)
+        {
+            IEnumerable<GroupInfo> rawGroups = GetData<GroupInfo>(criteria);
+            var employeeGroups = new List<Group>();
+
+            foreach (var group in rawGroups)
+            {
+                var groupItem = new Group
+                {
+                    GroupId = group.GroupId,
+                    Name = group.Name
+                };
+
+                employeeGroups.Add(groupItem);
+            }
+
+            return employeeGroups;
         }
     }
 }

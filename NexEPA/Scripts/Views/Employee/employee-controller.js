@@ -6,6 +6,7 @@ employeeModule.controller("ViewAllEmployeeController", function ($scope, $transl
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
+			$scope.disabledSubmitButton = false;
 		}).error(function () {
 			$scope.hasError = true;
 			$translate("ErrorMessage").then(function (errorMessage) {
@@ -23,17 +24,16 @@ employeeModule.controller("ViewAllEmployeeController", function ($scope, $transl
 		$scope.groupOptions = groupOptions;
 	}
 	else {
-		////TODO: call ajax to get list group
-		$scope.groupOptions = [
-			{ groupId: 1, name: "Solaris" },
-			{ groupId: 2, name: "Rome" },
-			{ groupId: 3, name: "Olympus" },
-			{ groupId: 4, name: "R&D" },
-			{ groupId: 5, name: "Design"}];
+		employeeRepository.getAllGroup().success(function (groupList) {
+			$scope.groupOptions = groupList;
+		}).error();
 	}
 
 	// when filter data
 	$scope.query = function (filter) {
-		getEmployee(filter.keyword, filter.groupId);
+		if (filter) {
+			getEmployee(filter.keyword, filter.groupId);
+			$scope.disabledSubmitButton = true;
+		}
 	};
 });

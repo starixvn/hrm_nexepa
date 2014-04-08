@@ -10,10 +10,10 @@
 namespace NexEPA.Employee.Constant
 {
     /// <summary>
-    /// The constant of Employee module..
+    /// The constant of Employee module.
     /// </summary>
     public static class EmployeeConstant
     {
-        public static readonly string ShortDateStringFormat = "dd MMM,yyyy";
+        public static readonly string ShortDateStringFormat = "MMM dd,yyyy";
     }
 }

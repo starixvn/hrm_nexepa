@@ -20,7 +20,7 @@
                     <option value="" data-translate="AllTeam"></option>
                 </select>
             </div>
-            <button class="btn btn-primary" ng-click="query(filter)" data-translate="Submit"></button>
+            <button class="btn btn-primary" ng-click="query(filter)" ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
             <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
         </form>
     </div>
@@ -45,8 +45,8 @@
                 <td class="code" ng-bind="employee.code"></td>
                 <td class="nick-name" ng-bind="employee.nickName"></td>
                 <td ng-bind="employee.fullName"></td>
-                <td ng-bind="employee.jobTitleName"></td>
-                <td ng-bind="employee.groupName"></td>
+                <td ng-bind="employee.jobTitle.name"></td>
+                <td ng-bind="employee.group.name"></td>
                 <td>
                     <a href="skype:{{employee.skype}}?chat" ng-bind="employee.skype"/>
                 </td>

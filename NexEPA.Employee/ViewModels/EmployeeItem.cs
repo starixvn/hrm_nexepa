@@ -10,6 +10,7 @@
 namespace NexEPA.Employee.ViewModels
 {
     using System;
+    using NexEPA.Employee.Models;
 
     /// <summary>
     /// The View Model of Employee.
@@ -30,12 +31,8 @@ namespace NexEPA.Employee.ViewModels
 
         public string JoinedDate { get; set; }
 
-        public int GroupId { get; set; }
+        public Group Group { get; set; }
 
-        public string GroupName { get; set; }
-
-        public int JobTitleId { get; set; }
-
-        public string JobTitleName { get; set; }
+        public JobTitle JobTitle { get; set; }
     }
 }

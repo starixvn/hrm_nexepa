@@ -38,8 +38,9 @@ var employeeModule = angular.module("employeeModule", ['ngRoute', 'ngResource'])
 });
 
 var registrationModule = angular.module("registrationModule", ['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'employeeModule'])
-.config(function ($routeProvider, $locationProvider) {
+.config(function ($routeProvider, $locationProvider, $compileProvider) {
     $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
     $routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
     $locationProvider.html5Mode(true);
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype):/);
 });

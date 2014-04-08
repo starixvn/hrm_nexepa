@@ -18,15 +18,13 @@ namespace NexEPA.Employee.Criteria
     {
         public bool? IsDisabled { get; set; }
 
-        [SpParam(Ignored = true)]
-        public string SearchKeyword { get; set; }
+        public string Keyword { get; set; }
 
-        [SpParam(Ignored = true)]
         public int? GroupId { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Employee_GetAll";
+            return "Employee_Get";
         }
 
         public override bool IsValid()

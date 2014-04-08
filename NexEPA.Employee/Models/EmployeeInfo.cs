@@ -11,6 +11,7 @@
 namespace NexEPA.Employee.Models
 {
     using System;
+    using NexEPA.Employee.ViewModels;
 
     /// <summary>
     /// Employee class.
@@ -31,16 +32,14 @@ namespace NexEPA.Employee.Models
 
         public string Skype { get; set; }
 
-        public int GroupId { get; set; }
-
         public int EmployeeLevelId { get; set; }
-
-        public int JobTitleId { get; set; }
-
-        public int LeaderId { get; set; }
 
         public DateTime? JoinedDate { get; set; }
 
         public bool IsDisabled { get; set; }
+
+        public Group Group { get; set; }
+
+        public JobTitle JobTitle { get; set; }
     }
 }
