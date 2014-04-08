@@ -27,9 +27,9 @@ namespace NexEPA.Target.ViewModels.Target
 
         public string EndDate { get; set; }
 
-        public int? StatusId { get; set; }
+        public int? Status { get; set; }
 
-        public string Status { get; set; }
+        public string StatusName { get; set; }
 
         public TargetType TargetType { get; set; }
 

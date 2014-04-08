@@ -28,13 +28,13 @@ namespace NexEPA.Target.Services.Implement.Target
     /// </summary>
     public class TargetServices : BaseService, ITargetServices
     {
-        private ITargetRepositories _targetRepository;
+        private ITargetRepositories _targetRepositories;
 
         private EPAService _epaService;
 
         public TargetServices()
         {
-            _targetRepository = new TargetRepositories();
+            _targetRepositories = new TargetRepositories();
             _epaService = new EPAService();
         }
 
@@ -49,7 +49,7 @@ namespace NexEPA.Target.Services.Implement.Target
 
             if (criteria.IsValid())
             {
-                List<TargetInfo> rawTargetList = (List<TargetInfo>)_targetRepository.GetTarget(criteria);
+                List<TargetInfo> rawTargetList = (List<TargetInfo>)_targetRepositories.GetTarget(criteria);
 
                 foreach (var rawTarget in rawTargetList)
                 {
@@ -63,7 +63,7 @@ namespace NexEPA.Target.Services.Implement.Target
                         Description = rawTarget.Description,
                         StartDate = startDate,
                         EndDate = endDate,
-                        Status = _epaService.GetStatusById(rawTarget.Status),
+                        StatusName = _epaService.GetStatusById(rawTarget.Status),
                         TargetType = rawTarget.TargetType,
                         Project = rawTarget.Project,
                         Milestone = rawTarget.Milestone
@@ -80,10 +80,10 @@ namespace NexEPA.Target.Services.Implement.Target
         /// Get Target by ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The TargetItem.</returns>
+        /// <returns>The Target Item.</returns>
         public TargetItem GetTargetById(GetTargetByIdCriteria criteria)
         {
-            TargetInfo rawTarget = _targetRepository.GetTargetById(criteria);
+            TargetInfo rawTarget = _targetRepositories.GetTargetById(criteria);
 
             var startDate = rawTarget.StartDate != null ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
             var endDate = rawTarget.EndDate != null ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
@@ -95,7 +95,8 @@ namespace NexEPA.Target.Services.Implement.Target
                 Description = rawTarget.Description,
                 StartDate = startDate,
                 EndDate = endDate,
-                Status = _epaService.GetStatusById(rawTarget.Status),
+                StatusName = _epaService.GetStatusById(rawTarget.Status),
+                Status = rawTarget.Status,
                 TargetType = rawTarget.TargetType,
                 Project = rawTarget.Project,
                 Milestone = rawTarget.Milestone
@@ -128,6 +129,18 @@ namespace NexEPA.Target.Services.Implement.Target
             criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
             criteria.ModifiedDate = DateTime.Now;
             return _Repository.Update(criteria);
+        }
+
+        /// <summary>
+        /// Delete Target.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult Delete(DeleteTargetCriteria criteria)
+        {
+            criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
+            criteria.ModifiedDate = DateTime.Now;
+            return _Repository.Delete(criteria);
         }
     }
 }

@@ -27,5 +27,7 @@ namespace NexEPA.Target.Services.Interface.Target
         CommandResult Insert(InsertTargetCriteria criteria);
 
         CommandResult Update(UpdateTargetCriteria criteria);
+
+        CommandResult Delete(DeleteTargetCriteria criteria);
     }
 }

@@ -14,6 +14,7 @@ namespace NexEPA.Controllers.Target
     using System.Linq;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Services;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
@@ -33,16 +34,21 @@ namespace NexEPA.Controllers.Target
     {
         private ITargetServices _targetServices;
         private IProjectService _projectService;
+        private EPAService _epaService;
 
         public TargetController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public TargetController(TargetServices targetServices, ProjectService projectServices)
+        public TargetController(
+            TargetServices targetServices, 
+            ProjectService projectService,
+            EPAService epaService)
         {
             _targetServices = targetServices ?? new TargetServices();
-            _projectService = projectServices ?? new ProjectService();
+            _projectService = projectService ?? new ProjectService();
+            _epaService = epaService ?? new EPAService();
         }
 
         [HttpGet]
@@ -62,11 +68,11 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
-        public TargetItem GetTargetById(int id)
+        public TargetItem GetTargetById(int targetId)
         {
             var criteria = new GetTargetByIdCriteria
             {
-                TargetId = id
+                TargetId = targetId
             };
 
             return _targetServices.GetTargetById(criteria);
@@ -80,6 +86,16 @@ namespace NexEPA.Controllers.Target
         public CommandResult Put(UpdateTargetCriteria criteria)
         {
             return _targetServices.Update(criteria);
+        }
+
+        public CommandResult Delete(int targetId)
+        {
+            var criteria = new DeleteTargetCriteria
+            {
+                TargetId = targetId
+            };
+
+            return _targetServices.Delete(criteria);
         }
 
         [HttpGet]
@@ -103,6 +119,12 @@ namespace NexEPA.Controllers.Target
 
             var milestoneResult = milestoneList.Select(mi => new { mi.Name, mi.MilestoneId });
             return milestoneResult;
+        }
+
+        [HttpGet]
+        public List<dynamic> GetAllStatus()
+        {
+            return _epaService.GetAllStatus();
         }
     }
 }

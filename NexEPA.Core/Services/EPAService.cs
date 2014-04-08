@@ -9,6 +9,7 @@
 
 namespace NexEPA.Core.Services
 {
+    using System;
     using System.Collections.Generic;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Criteria;
@@ -54,6 +55,32 @@ namespace NexEPA.Core.Services
             }
 
             return status;
+        }
+
+        /// <summary>
+        /// Get all status.
+        /// </summary>
+        /// <returns>List status.</returns>
+        public List<dynamic> GetAllStatus()
+        {
+            var statusIdList = Enum.GetValues(typeof(Constants.Status));
+            List<dynamic> allStatus = new List<dynamic>();
+ 
+            foreach (var status in statusIdList)
+            {
+                var statusId = (int)status;
+                var statusName = GetStatusById(statusId);
+
+                var statusItem = new
+                {
+                    Status = statusId,
+                    Name = statusName
+                };
+
+                allStatus.Add(statusItem);
+            }
+
+            return allStatus;
         }
     }
 }

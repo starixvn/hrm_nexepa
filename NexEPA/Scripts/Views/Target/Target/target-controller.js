@@ -1,60 +1,95 @@
 ﻿'use strict';
 /*global targetModule*/
 
-targetModule.controller('ViewTargetController', function ($scope, $location, $translate, targetUtility, targetFactory, targetCacheFactory, CommonRepository) {
+targetModule.controller('ViewTargetController',
+	function ($scope, $location, $translate, $modal, $route, targetUtility, targetFactory, targetCacheFactory, CommonRepository) {
 
-	// get Form Options
-	targetUtility.getFormOptions($scope, CommonRepository);
+		// get Form Options
+		targetUtility.getFormOptions($scope, CommonRepository);
 
-	var getTarget = function (targetTypeId, startDate, endDate) {
-		targetFactory.getTarget(targetTypeId, startDate, endDate).success(function (targetList) {
-			$scope.targetList = targetList;
-		}).error(function () {
-			targetUtility.showErrorMessage($scope);
-		});
-	};
+		var getTarget = function (targetTypeId, startDate, endDate) {
+			targetFactory.getTarget(targetTypeId, startDate, endDate).success(function (targetList) {
+				$scope.targetList = targetList;
+				$scope.submitted = false;
+			}).error(function () {
+				targetUtility.showErrorMessage($scope);
+			});
+		};
 
-	// get Target
-	getTarget(null, null, null);
+		// get Target
+		getTarget(null, null, null);
 
-	// show start date calendar when click button start date
-	$scope.openPopupStartDate = function ($event) {
-		targetUtility.openPopupStartDate($event, $scope);
-	};
+		// show start date calendar when click button start date
+		$scope.openPopupStartDate = function ($event) {
+			targetUtility.openPopupStartDate($event, $scope);
+		};
 
-	// show end date calendar when click button end date
-	$scope.openPopupEndDate = function ($event) {
-		targetUtility.openPopupEndDate($event, $scope);
-	};
+		// show end date calendar when click button end date
+		$scope.openPopupEndDate = function ($event) {
+			targetUtility.openPopupEndDate($event, $scope);
+		};
 
-	// filter data
-	$scope.query = function (filterData) {
-		if (filterData) {
-			var startDate = filterData.startDate ? filterData.startDate.toDateString() : null;
-			var endDate = filterData.endDate ? filterData.endDate.toDateString() : null;
+		// filter data
+		$scope.query = function (filterData) {
+			$scope.submitted = true;
 
-			getTarget(filterData.targetTypeId, startDate, endDate);
-		}
-	};
+			if (filterData) {
+				var startDate = filterData.startDate ? filterData.startDate.toDateString() : null;
+				var endDate = filterData.endDate ? filterData.endDate.toDateString() : null;
 
-	// create target
-	$scope.create = function () {
-		$location.url('Target/CreateTarget');
-	};
+				getTarget(filterData.targetTypeId, startDate, endDate);
+			}
+		};
 
-	// edit target
-	$scope.edit = function (targetId) {
-		$location.path('Target/EditTarget/' + targetId);
-	};
-});
+		// create target
+		$scope.create = function () {
+			$location.url('Target/CreateTarget');
+		};
 
-targetModule.controller("CreateTargetController",
+		// edit target
+		$scope.edit = function (targetId) {
+			$location.path('Target/EditTarget/' + targetId);
+		};
+
+		// delete target
+		$scope.openDeletePopup = function (targetId, targetName) {
+			var modalDeleteInstance = $modal.open({
+				templateUrl: '/templates/KPI/modalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return targetName;
+					},
+					action: function () {
+						return "delete";
+					}
+				}
+			});
+
+			modalDeleteInstance.result.then(function () {
+				targetFactory.deleteTarget(targetId).success(function (response) {
+					if (response.isSuccessful === true) {
+						$scope.hasError = false;
+						$route.reload();
+					}
+					else {
+						$scope.hasError = true;
+						$scope.errorMessage = response.message;
+					}
+				}).error(function () {
+					targetUtility.showErrorMessage($scope);
+				});
+			});
+		};
+	});
+
+	targetModule.controller("CreateTargetController",
 	function ($scope, $timeout, $location, $translate, targetFactory, targetUtility, targetCacheFactory, CommonRepository) {
 
 		// get Form Options
 		targetUtility.getFormOptions($scope, CommonRepository);
 
-		// The onchange function of Form select list
+		// The onchange function of Form dropdown list
 		$scope.formOnChange = function (targetTypeId) {
 			targetUtility.resetProjectInformation($scope);
 
@@ -64,7 +99,7 @@ targetModule.controller("CreateTargetController",
 			}
 		};
 
-		// the onchange funtion of Project select list
+		// the onchange funtion of Project dropdown list
 		$scope.projectOnChange = function (projectId) {
 			$scope.isSelectedProject = false;
 			$scope.target.milestoneId = null;
@@ -88,6 +123,7 @@ targetModule.controller("CreateTargetController",
 		// save target
 		$scope.save = function (target) {
 			$scope.submitted = true;
+			$scope.disabledSubmit = true;
 
 			if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
 				var newTarget = angular.copy(target);
@@ -110,9 +146,12 @@ targetModule.controller("CreateTargetController",
 						$scope.errorMessage = response.message;
 					}
 				})
-			.error(function () {
-				targetUtility.showErrorMessage($scope, $translate);
-			});
+				.error(function () {
+					targetUtility.showErrorMessage($scope, $translate);
+				});
+			}
+			else {
+				$scope.disabledSubmit = false;
 			}
 		};
 
@@ -129,21 +168,18 @@ targetModule.controller("CreateTargetController",
 
 		// get Target by ID
 		targetFactory.getTargetById(targetId).success(function (target) {
-			target.startDate = new Date(target.startDate);
-			target.endDate = new Date(target.endDate);
+			target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
+			target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
 
 			$scope.target = target;
 
 			if (target.targetType && target.targetType.targetTypeId) {
 				$scope.target.targetTypeId = target.targetType.targetTypeId;
-
-				if ($scope.target.targetTypeId === 2) {
-					$scope.formIsProject = true;
-					targetUtility.getAllProject($scope);
-				}
 			}
+
 			if (target.project && target.project.projectId) {
 				$scope.formIsProject = true;
+				targetUtility.getAllProject($scope);
 				$scope.target.projectId = target.project.projectId;
 
 				if (target.milestone && target.milestone.milestoneId) {
@@ -153,7 +189,7 @@ targetModule.controller("CreateTargetController",
 				}
 			}
 		}).error(function () {
-			targetUtility.showErrorMessage($scope, $translate);
+			targetUtility.showErrorMessage($scope);
 		});
 
 		// get Form options
@@ -170,6 +206,9 @@ targetModule.controller("CreateTargetController",
 				targetUtility.getAllProject($scope);
 			}
 		};
+
+		// get all status
+		targetUtility.getAllStatus($scope);
 
 		// the onchange funtion of Project
 		$scope.projectOnChange = function (projectId) {
@@ -191,8 +230,10 @@ targetModule.controller("CreateTargetController",
 			targetUtility.openPopupEndDate($event, $scope);
 		};
 
+		// update target
 		$scope.save = function (target) {
 			$scope.submitted = true;
+			$scope.disabledSubmit = true;
 
 			if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
 				var newTarget = angular.copy(target);
@@ -223,6 +264,9 @@ targetModule.controller("CreateTargetController",
 				.error(function () {
 					targetUtility.showErrorMessage($scope, $translate);
 				});
+			}
+			else {
+				$scope.disabledSubmit = false;
 			}
 		};
 

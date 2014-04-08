@@ -54,6 +54,7 @@
     <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Target_Insert" SpName="Target_Insert" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Target_Update" SpName="Target_Update" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Target_Delete" SpName="Target_Delete" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
 </Functions>

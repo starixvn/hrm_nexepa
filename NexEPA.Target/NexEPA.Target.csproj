@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\Target\DeleteTargetCriteria.cs" />
     <Compile Include="Criteria\Target\GetTargetByIdCriteria.cs" />
     <Compile Include="Criteria\Target\GetTargetCriteria.cs" />
     <Compile Include="Criteria\Target\InsertTargetCriteria.cs" />

@@ -30,7 +30,7 @@
                 <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupEndDate($event)"></button>
             </div>
 
-            <button class="btn btn-primary" ng-click="query(filter)" data-translate="Submit"></button>
+            <button class="btn btn-primary" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>
             <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
         </form>
     </div>
@@ -56,10 +56,10 @@
                 <td ng-bind="target.milestone.name"></td>
                 <td class="start-date" ng-bind="target.startDate"></td>
                 <td class="end-date" ng-bind="target.endDate"></td>
-                <td class="status" ng-bind="target.status"></td>
+                <td class="status" ng-bind="target.statusName"></td>
                 <td class="action">
                     <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(target.targetId)"/>
-                    <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup()"/>
+                    <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(target.targetId, target.name)"/>
                 </td>
             </tr>
         </tbody>

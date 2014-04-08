@@ -8,7 +8,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 				{ params: { targetTypeId: targetTypeId, startDate: startDate, endDate: endDate} });
 		},
 		getTargetById: function (targetId) {
-			return $http.get('/api/Target/GetTargetById', { params: { id: targetId} });
+			return $http.get('/api/Target/GetTargetById', { params: { targetId: targetId} });
 		},
 		createTarget: function (target) {
 			return $http.post('/api/Target/', target);
@@ -16,11 +16,17 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 		editTarget: function (target) {
 			return $http.put('/api/Target/', target);
 		},
+		deleteTarget: function (targetId) {
+			return $http['delete']('/api/Target', { params: { targetId: targetId } });
+		},
 		getAllProject: function () {
 			return $http.get('/api/Target/GetAllProject');
 		},
 		getMilestoneOfProject: function (projectId) {
 			return $http.get('/api/Target/GetMilestoneByProjectId', { params: { projectId: projectId} });
+		},
+		getAllStatus: function () {
+			return $http.get('/api/Target/GetAllStatus');
 		}
 	};
 } ]);
@@ -29,14 +35,15 @@ targetModule.factory('targetCacheFactory', ['$cacheFactory', function ($cacheFac
 	return $cacheFactory('targetCache');
 }]);
 
-targetModule.factory('targetUtility', ['$translate','targetFactory','targetCacheFactory',function ($translate, targetFactory, targetCacheFactory) {
+targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCacheFactory', 
+		function ($translate, targetFactory, targetCacheFactory) {
 	var utility = {};
 
 	utility.getAllProject = function ($scope) {
 		targetFactory.getAllProject().success(function (projectList) {
 			$scope.projectOptions = projectList;
 		}).error(function () {
-			utility.showErrorMessage($scope, $translate);
+			utility.showErrorMessage($scope);
 		});
 	};
 
@@ -44,7 +51,7 @@ targetModule.factory('targetUtility', ['$translate','targetFactory','targetCache
 		targetFactory.getMilestoneOfProject(projectId).success(function (milestoneList) {
 			$scope.milestoneOptions = milestoneList;
 		}).error(function () {
-			utility.showErrorMessage($scope, $translate);
+			utility.showErrorMessage($scope);
 		});
 	};
 
@@ -60,6 +67,14 @@ targetModule.factory('targetUtility', ['$translate','targetFactory','targetCache
 				targetCacheFactory.put("formOptions", listTargetType);
 			});
 		}
+	};
+
+	utility.getAllStatus = function ($scope) {
+		targetFactory.getAllStatus().success(function (statusList) {
+			$scope.statusOptions = statusList;
+		}).error(function () {
+			utility.showErrorMessage($scope);
+		});
 	};
 
 	utility.validateTarget = function (target, formIsProject) {
@@ -115,5 +130,5 @@ targetModule.factory('targetUtility', ['$translate','targetFactory','targetCache
 	};
 
 	return utility;
-}]);
+} ]);
 
