@@ -20,7 +20,7 @@
                     <option value="">-- All --</option>
                     </select>
             </div>
-            <button class="btn btn-primary" ng-click="query(filter.targetTypeId)" data-translate="Submit"></button>
+            <button class="btn btn-primary" ng-click="query(filter.targetTypeId)" ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
             <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
         </form>
     </div>

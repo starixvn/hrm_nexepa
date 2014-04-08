@@ -33,6 +33,7 @@ kpiSettingModule.controller("ViewKPIController",
 		var getKPI = function (targetTypeId, groupId) {
 			KPIRepository.viewKPI(targetTypeId, groupId).success(function (KPIList) {
 				$scope.KPIList = KPIList;
+				$scope.disabledSubmitButton = false;
 			}).error(function (httpResponse, status) {
 				if (status === 404) {
 					$scope.hasError = true;
@@ -91,10 +92,11 @@ kpiSettingModule.controller("ViewKPIController",
 		// query data when filter
 		$scope.query = function (targetTypeId, groupId) {
 			getKPI(targetTypeId, groupId);
+			$scope.disabledSubmitButton = true;
 		};
 	});
 
-kpiSettingModule.controller('CreateNewKPIController',
+	kpiSettingModule.controller('CreateNewKPIController',
 	function ($scope, $routeParams, $timeout, $location, KPIRepository, CacheFactory, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -144,6 +146,7 @@ kpiSettingModule.controller('CreateNewKPIController',
 
 		$scope.save = function (item) {
 			$scope.submitted = true;
+			$scope.disabledSubmitButton = true;
 
 			if (CommonRepository.validateKPI(item) === true) {
 				KPIRepository.createKPI(item).success(function (response) {
@@ -170,6 +173,9 @@ kpiSettingModule.controller('CreateNewKPIController',
 					}
 				});
 			}
+			else {
+				$scope.disabledSubmitButton = false;
+			}
 		};
 
 		$scope.cancel = function () {
@@ -177,7 +183,7 @@ kpiSettingModule.controller('CreateNewKPIController',
 		};
 	});
 
-kpiSettingModule.controller("EditKPIController",
+	kpiSettingModule.controller("EditKPIController",
 	function ($scope, $routeParams, $location, $timeout, KPIRepository, CacheFactory, CommonRepository) {
 		var kpiId = $routeParams.id;
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -206,6 +212,7 @@ kpiSettingModule.controller("EditKPIController",
 
 		$scope.save = function (kpiItem) {
 			$scope.submitted = true;
+			$scope.disabledSubmitButton = true;
 
 			if (CommonRepository.validateKPI(kpiItem) === true) {
 				KPIRepository.editKPI(kpiItem).success(function (response) {
@@ -226,6 +233,9 @@ kpiSettingModule.controller("EditKPIController",
 						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
 					}
 				});
+			}
+			else {
+				$scope.disabledSubmitButton = false;
 			}
 		};
 
