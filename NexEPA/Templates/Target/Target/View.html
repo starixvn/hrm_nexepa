@@ -39,6 +39,7 @@
 <div class="row">
     <table class="table table-bordered table-striped">
         <thead>
+            <th data-translate="SymbolCount"></th>
             <th data-translate="Target"></th>
             <th data-translate="Form"></th>
             <th data-translate="Project"></th>
@@ -50,6 +51,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="target in targetList">
+                <td class="count" ng-bind="$index + 1"></td>
                 <td ng-bind="target.name"></td>
                 <td class="form" ng-bind="target.targetType.name"></td>
                 <td ng-bind="target.project.name"></td>

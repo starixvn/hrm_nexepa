@@ -574,6 +574,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #.
+        /// </summary>
+        public static string SymbolCount {
+            get {
+                return ResourceManager.GetString("SymbolCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Target.
         /// </summary>
         public static string Target {

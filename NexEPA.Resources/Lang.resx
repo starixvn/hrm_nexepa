@@ -312,4 +312,7 @@
   <data name="UpdatedSuccessfulMessage" xml:space="preserve">
     <value>Updated successful!</value>
   </data>
+  <data name="SymbolCount" xml:space="preserve">
+    <value>#</value>
+  </data>
 </root>
