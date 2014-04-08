@@ -9,6 +9,7 @@
 
 namespace NexEPA.Employee.Services.Implement
 {
+    using System;
     using System.Collections.Generic;
     using NexEPA.Core.Services;
     using NexEPA.Employee.Constant;
@@ -34,6 +35,10 @@ namespace NexEPA.Employee.Services.Implement
 
             foreach (var employee in rawEmployees)
             {
+                string joinedDate = employee.JoinedDate != null 
+                    ? ((DateTime)employee.JoinedDate).ToString(EmployeeConstant.ShortDateStringFormat)
+                    : string.Empty;
+
                 var employeeItem = new EmployeeItem
                 {
                     EmployeeId = employee.EmployeeId,
@@ -42,7 +47,7 @@ namespace NexEPA.Employee.Services.Implement
                     NickName = employee.NickName,
                     Email = employee.Email,
                     Skype = employee.Skype,
-                    JoinedDate = employee.JoinedDate.ToString(EmployeeConstant.ShortDateStringFormat),
+                    JoinedDate = joinedDate,
                     GroupId = employee.GroupId,
                     GroupName = "Virtual Group Name",
                     //// TODO : GroupName = GetGroupNameById(GroupId)

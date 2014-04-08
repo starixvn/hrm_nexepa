@@ -39,7 +39,7 @@ namespace NexEPA.Employee.Models
 
         public int LeaderId { get; set; }
 
-        public DateTime JoinedDate { get; set; }
+        public DateTime? JoinedDate { get; set; }
 
         public bool IsDisabled { get; set; }
     }

@@ -32,6 +32,7 @@ employeeModule.controller("ViewAllEmployeeController", function ($scope, $transl
 			{ groupId: 5, name: "Design"}];
 	}
 
+	// when filter data
 	$scope.query = function (filter) {
 		getEmployee(filter.keyword, filter.groupId);
 	};
