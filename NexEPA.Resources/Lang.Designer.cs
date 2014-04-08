@@ -313,7 +313,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the form!.
+        ///   Looks up a localized string similar to Please choose the Form!.
         /// </summary>
         public static string FormRequire {
             get {
@@ -340,7 +340,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the group!.
+        ///   Looks up a localized string similar to Please choose the Group!.
         /// </summary>
         public static string GroupRequire {
             get {
@@ -421,7 +421,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the name!.
+        ///   Looks up a localized string similar to Please fill out the Name!.
         /// </summary>
         public static string NameRequire {
             get {
@@ -484,7 +484,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the project!.
+        ///   Looks up a localized string similar to Please choose the Project!.
         /// </summary>
         public static string ProjectRequire {
             get {
@@ -601,7 +601,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the title!.
+        ///   Looks up a localized string similar to Please fill out the Title!.
         /// </summary>
         public static string TitleRequire {
             get {
@@ -637,7 +637,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value of weight must be in range 0 to 100!.
+        ///   Looks up a localized string similar to The value of Weight must be in range 0 to 100!.
         /// </summary>
         public static string WeightRangeRequire {
             get {
@@ -646,7 +646,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the weight!.
+        ///   Looks up a localized string similar to Please fill out the Weight!.
         /// </summary>
         public static string WeightRequire {
             get {

@@ -13,28 +13,28 @@
 </div>
 
 <div class="row">
-    <form class="form-horizontal" name="createForm" novalidate>
+    <form class="col-sm-7 form-horizontal common-form" name="createForm" novalidate>
          <div>
-            <div ng-show="submitted && createForm.$invalid">
+            <div class="col-sm-offset-2" ng-show="submitted && createForm.$invalid">
                 <div class="error" ng-show="createForm.targetName.$error.required" data-translate="NameRequire" ></div>
                 <div class="error" ng-show="createForm.targetName.$valid && createForm.targetFormSelect.$error.required" data-translate="FormRequire"></div>
                 <div class="error" ng-show="createForm.targetName.$valid && createForm.targetFormSelect.$valid &&
                         createForm.targetProjectSelect.$error.required && formIsProject" data-translate="ProjectRequire"></div>
             </div>
-            <div class="success" ng-show="success" ng-bind="successMessage"></div>
-            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
+            <div class="success col-sm-offset-2" ng-show="success" ng-bind="successMessage"></div>
+            <div class="error col-sm-offset-2" ng-show="!success" ng-bind="errorMessage"></div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="Name"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <input class="form-control" name="targetName" ng-model="target.name" required type="text"/>
             </div>
         </div>
 
          <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="Form"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                  <select name="targetFormSelect" ng-model="target.targetTypeId" 
                     ng-options="opt.targetTypeId as opt.name for opt in formOptions" 
                     ng-change="formOnChange(target.targetTypeId)"
@@ -46,7 +46,7 @@
 
         <div class="form-group" ng-show="formIsProject">
             <label class="col-sm-2 control-label" data-translate="Project"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                  <select name="targetProjectSelect" ng-model="target.projectId"
                     ng-options="opt.projectId as opt.name for opt in projectOptions"
                     ng-change="projectOnChange(target.projectId)"
@@ -58,7 +58,7 @@
 
         <div class="form-group" ng-show="isSelectedProject">
             <label class="col-sm-2 control-label" data-translate="Milestone"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                  <select name="targetMilestoneSelect" ng-model="target.milestoneId"
                     ng-options="opt.milestoneId as opt.name for opt in milestoneOptions"
                     class="form-control">
@@ -69,7 +69,7 @@
 
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="Status"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                  <select name="targetStatusSelect" ng-model="target.status"
                     ng-options="opt.status as opt.name for opt in statusOptions"
                     class="form-control">
@@ -79,7 +79,7 @@
 
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="StartDate"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <input type="text" ng-model="target.startDate" datepicker-popup="MMM dd,yyyy" is-open="startDateOpened" show-button-bar="false"/>
                 <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupStartDate($event)"></button>
             </div>
@@ -87,7 +87,7 @@
 
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="EndDate"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <input type="text" ng-model="target.endDate" datepicker-popup="MMM dd,yyyy" is-open="endDateOpened" show-button-bar="false"/>
                 <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupEndDate($event)"></button>
             </div>
@@ -95,7 +95,7 @@
 
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="Description"></label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <textarea ng-model="target.description" class="form-control" ></textarea>
             </div>
         </div>

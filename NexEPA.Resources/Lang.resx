@@ -268,22 +268,22 @@
     <value>Require evaluatee's comment</value>
   </data>
   <data name="NameRequire" xml:space="preserve">
-    <value>Please fill out the name!</value>
+    <value>Please fill out the Name!</value>
   </data>
   <data name="WeightRequire" xml:space="preserve">
-    <value>Please fill out the weight!</value>
+    <value>Please fill out the Weight!</value>
   </data>
   <data name="WeightRangeRequire" xml:space="preserve">
-    <value>The value of weight must be in range 0 to 100!</value>
+    <value>The value of Weight must be in range 0 to 100!</value>
   </data>
   <data name="FormRequire" xml:space="preserve">
-    <value>Please choose the form!</value>
+    <value>Please choose the Form!</value>
   </data>
   <data name="GroupRequire" xml:space="preserve">
-    <value>Please choose the group!</value>
+    <value>Please choose the Group!</value>
   </data>
   <data name="TitleRequire" xml:space="preserve">
-    <value>Please fill out the title!</value>
+    <value>Please fill out the Title!</value>
   </data>
   <data name="CreateTarget" xml:space="preserve">
     <value>Create Target</value>
@@ -307,7 +307,7 @@
     <value>Created successful!</value>
   </data>
   <data name="ProjectRequire" xml:space="preserve">
-    <value>Please choose the project!</value>
+    <value>Please choose the Project!</value>
   </data>
   <data name="UpdatedSuccessfulMessage" xml:space="preserve">
     <value>Updated successful!</value>
