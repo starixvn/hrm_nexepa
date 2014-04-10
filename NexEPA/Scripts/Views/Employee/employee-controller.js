@@ -35,5 +35,8 @@ employeeModule.controller("ViewAllEmployeeController", function ($scope, $transl
 			getEmployee(filter.keyword, filter.groupId);
 			$scope.disabledSubmitButton = true;
 		}
+		else {
+			$scope.disabledSubmitButton = false;
+		}
 	};
 });
