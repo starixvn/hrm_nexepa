@@ -43,6 +43,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 			KPIGroupRepository.getAll(targetTypeId)
 				.success(function (groupList) {
 					$scope.KPIGroupList = groupList;
+					$scope.disabledSubmitButton = false;
 				})
 				.error(function (httpResponse, status) {
 					if (status === 404) {
@@ -110,6 +111,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 		// query data when filter
 		$scope.query = function (targetTypeId) {
+			$scope.disabledSubmitButton = true;
 			getAllGroup(targetTypeId);
 		};
 
@@ -170,6 +172,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		//save new KPI group
 		$scope.save = function (group) {
 			$scope.submitted = true;
+			$scope.disabledSubmitButton = true;
 
 			if (CommonRepository.validateGroup(group) === true) {
 				group.isDisabled = !group.isActive;
@@ -195,6 +198,9 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 						}
 					});
 			}
+			else {
+				$scope.disabledSubmitButton = false;
+			}
 		};
 
 		$scope.cancel = function () {
@@ -212,7 +218,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		};
 	});
 
-kpiSettingModule.controller("EditKPIGroupController",
+	kpiSettingModule.controller("EditKPIGroupController",
 	function ($scope, $location, $routeParams, $timeout, $route, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var groupId = $routeParams.id;
 
@@ -234,6 +240,7 @@ kpiSettingModule.controller("EditKPIGroupController",
 
 		$scope.update = function (group) {
 			$scope.submitted = true;
+			$scope.disabledSubmitButton = true;
 
 			if (CommonRepository.validateGroup(group) === true) {
 				var newGroup = group;
@@ -259,6 +266,9 @@ kpiSettingModule.controller("EditKPIGroupController",
 							$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
 						}
 					});
+			}
+			else {
+				$scope.disabledSubmitButton = false;
 			}
 		};
 

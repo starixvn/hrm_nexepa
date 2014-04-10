@@ -4,7 +4,7 @@
             <li><a href="#" data-translate="KPI"></a></li>
             <li class="current">
                  <span data-translate="ManageKPI"></span>
-                 <span ng-show="KPIList">of "{{KPIList[0].kpiGroupName}}"</span>
+                 <span ng-show="!isViewAll && KPIList">of "{{KPIList[0].kpiGroupName}}"</span>
             </li>
         </ul>
         <div class="button-icon">
@@ -32,7 +32,8 @@
                     <option value="">-- All --</option>
                 </select>
                 </div>
-            <button ng-show="isViewAll" class="btn btn-primary" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" data-translate="Submit"></button>
+            <button ng-show="isViewAll" class="btn btn-primary" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
+                    ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
             <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
         </form>
     </div>
