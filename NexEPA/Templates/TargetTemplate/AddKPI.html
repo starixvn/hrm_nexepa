@@ -1,25 +1,25 @@
 ﻿<div class="modal-addKPI" id="modal-addKPI">
-    <div class="modal-header">
-        <h3>
-            KPI List</h3>
-    </div>
-    <div class="modal-body">
-        <ul class="list-group list-header">
-            <li class="list-group-item" ng-repeat="kpi in lstKPI">
-            <label>{{ kpi.kpiGroupName }}</label> 
-                <span ng-repeat="item in kpi.kpiGroupItems">
-                    <label class="checkbox group-checkbox">
-                        <input type="checkbox" type="checkbox" value="{{item.name}}" ng-model="item.selected" />
-                        {{item.name}}
-                    </label>
-                </span>
-            </li>
-        </ul>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">
-            OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">
-            Cancel</button>
-    </div>
+	<div class="modal-header">
+		<span class="popup-header">KPI List</span>
+		<input class="pull-right search-inline" type="text" ng-model="KPIName" placeholder="Search..." />
+	</div>
+	<div class="modal-body">
+		<ul class="list-group list-header">
+			<li class="list-group-item" ng-repeat="kpi in lstKPI | filter: KPIName">
+				<label>
+					{{ kpi.kpiGroupName }}</label>
+				<span ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
+					<label class="checkbox group-checkbox">
+						<input type="checkbox" type="checkbox" value="{{item.name}}" ng-model="item.selected" />
+						{{item.name}}
+					</label>
+				</span></li>
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">
+			OK</button>
+		<button class="btn btn-warning" ng-click="cancel()">
+			Cancel</button>
+	</div>
 </div>

@@ -8,8 +8,10 @@ var projectsSettingModule = angular.module("projectsSettingModule", ['ngRoute', 
     $routeProvider.when('/Projects/Create', { templateUrl: '../templates/Projects/Create.html', controller: 'CreateProjectController' });
     $routeProvider.when('/Projects/Edit/:projectId', { templateUrl: '/templates/Projects/Edit.html', controller: 'EditProjectController' });
     $routeProvider.when('/ProjectMembers/View/:projectId', { templateUrl: '/templates/ProjectMembers/Index.html', controller: 'ProjectMembersController' });
-    $routeProvider.when('/ProjectMembers/Create', { templateUrl: '../templates/ProjectMembers/Create.html', controller: 'AddProjectMembersController' });
-    $routeProvider.when('/Member/Edit/:employeeId', { templateUrl: '/templates/ProjectMembers/Edit.html', controller: 'EditProjectMembersController' });
+    $routeProvider.when('/ProjectMembers/Create/:projectId', 
+    { templateUrl: '/templates/ProjectMembers/Create.html', controller: 'AddProjectMembersController' });
+    $routeProvider.when('/ProjectMembers/Edit/ProjectId=:projectId/EmployeeId=:employeeId',
+     { templateUrl: '/templates/ProjectMembers/Edit.html', controller: 'EditProjectMembersController' });
 })
 .factory("ProjectSettingCache", function ($cacheFactory) {
     return $cacheFactory();

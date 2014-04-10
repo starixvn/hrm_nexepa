@@ -25,13 +25,13 @@ namespace NexEPA.Target.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "The field Target Type is required.")]
-        public int? TargetTypeId { get; set; }
+        public byte? TargetTypeId { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         public int CreatedBy { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public int ModifiedBy { get; set; }
     }

@@ -1,0 +1,19 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="KPIModel.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Bradley.Mac" date="2014.4.8">Created</change>
+// </history>
+
+namespace NexEPA.Target.Models
+{
+    /// <summary>
+    /// KPI Model.
+    /// </summary>
+    public class KPIModel
+    {
+        public int KPIId { get; set; }
+    }
+}

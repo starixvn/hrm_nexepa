@@ -1,53 +1,60 @@
 ﻿<div class="row sub-header">
-    <ul class="breadcrumb list-inline pull-left">
-        <li><a href="/Projects/Index">Project</a></li>
-        <li class="current">Project member - {{currentProject.name}}</li>
-    </ul>
-     <div class="button-icon">
-        <span class="icon plus"></span><a href="/ProjectMembers/Create" data-translate="AddMember">
-        </a>
-    </div>
+	<ul class="breadcrumb list-inline pull-left">
+		<li>
+			<a href="/Projects/Index">Project</a></li>
+		<li class="current">Project member - {{currentProject.name}}</li>
+	</ul>
+	<div class="button-icon">
+		<span class="icon plus"></span>
+		<a href="/ProjectMembers/Create/{{currentProject.projectId}}" data-translate="AddMember">
+		</a>
+	</div>
 </div>
 <div class="row">
-    <div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
-    </div>
+	<div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
+	</div>
 </div>
 <div class="row">
-    <div class="span10">
-        <table class="table table-bordered table-striped table-hover">
-        <thead>
-            <tr>
-                <th data-translate="Members">
-                </th>
-                <th data-translate="Roles">
-                </th>
-                <th data-translate="Evaluation">
-                </th>
-                <th data-translate="EvaluationDate">
-                </th>
-                <th data-translate="Action">
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="member in members">
-                <td>
-                <a href="/Member/Edit/{{member.employeeId}}">{{member.fullName}} ({{member.nickName}})</a>
-                </td>
-                <td>
-                    {{member.name}}
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td class="text-center">
-                    <div class="btn-group">
-                        <a href="javascript:;" class="glyphicon glyphicon-remove" ng-click="deleteMember(member)" title="Delete"></a>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
+	<div class="span10">
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th data-translate="Members">
+					</th>
+					<th data-translate="Roles">
+					</th>
+					<th data-translate="Evaluation">
+					</th>
+					<th data-translate="EvaluationDate">
+					</th>
+					<th data-translate="Action">
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="member in members">
+					<td>
+						{{member.fullName}} ({{member.nickName}})
+					</td>
+					<td>
+						{{member.name}}
+					</td>
+					<td>
+						tbd
+					</td>
+					<td>
+						tbd
+					</td>
+					<td class="text-center">
+						<div class="btn-group">
+							<a href="/ProjectMembers/Edit/ProjectId={{currentProject.projectId}}/EmployeeId={{member.employeeId}}"
+								class="glyphicon glyphicon-edit" title="Edit"></a>
+							<a href="javascript:;" class="glyphicon glyphicon-remove margin-icon" ng-click="deleteMember(member)"
+								title="Delete"></a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

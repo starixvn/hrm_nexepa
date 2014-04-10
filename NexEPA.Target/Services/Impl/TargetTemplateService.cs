@@ -93,5 +93,17 @@ namespace NexEPA.Target.Services.Impl
 
             return result;
         }
+
+        public IEnumerable<KPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<KPIModel> lstKPI = null;
+            if (criteria.IsValid())
+            {
+                lstKPI = GetData<KPIModel>(criteria);
+            }
+
+            return lstKPI;
+        }
     }
 }

@@ -59,19 +59,6 @@ registrationModule.factory("CacheFactory", ['$cacheFactory', function ($cacheFac
 	return $cacheFactory("KPICache");
 }]);
 
-registrationModule.controller("ModalConfirmController", function ($scope, $modalInstance, name, action) {
-	$scope.name = name;
-	$scope.action = action;
-
-	$scope.ok = function () {
-		$modalInstance.close();
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
-	};
-});
-
 registrationModule.directive('numbersOnly', function () {
 	return {
 		require: 'ngModel',

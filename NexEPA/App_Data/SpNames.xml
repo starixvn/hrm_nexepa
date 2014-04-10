@@ -55,6 +55,7 @@
     <Setting Key="TargetTemplate_Update" SpName="TargetTemplate_Update" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="TargetTemplate_Delete" SpName="TargetTemplate_Delete" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="TargetTemplate_AddKPI" SpName="TargetTemplate_AddKPI" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="KPI_GetByTargetTemplate" SpName="KPI_GetByTargetTemplate" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
   
   <Function Name="Target">

@@ -132,10 +132,22 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        public IEnumerable<ProjectRoleModel> ProjectRole()
+        public IEnumerable<ProjectRoleModel> ProjectRole(int? projectId = null, int? employeeId = null)
         {
             GetAllProjectRoleCriteria criteria = new GetAllProjectRoleCriteria();
             IEnumerable<ProjectRoleModel> data = _projectMemberService.GetAllProjectRole(criteria);
+
+            if (projectId != null && employeeId != null)
+            {
+                IEnumerable<ProjectMembersModel> roles = GetMemberRoleInProject(projectId.Value, employeeId.Value);
+                if (roles != null)
+                {
+                    foreach (var item in data.Where(x=> roles.Select(y=>y.ProjectRoleId).Contains(x.ProjectRoleId)))
+                    {
+                        item.Selected = true;
+                    }
+                }
+            }
 
             return data;
         }

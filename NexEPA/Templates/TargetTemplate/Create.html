@@ -1,50 +1,53 @@
 ﻿<div class="row sub-header">
-    <ul class="breadcrumb list-inline pull-left">
-        <li><a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a></li>
-        <li class="current" data-translate="Create"></li>
-    </ul>
+	<ul class="breadcrumb list-inline pull-left">
+		<li>
+			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
+		</li>
+		<li class="current" data-translate="Create"></li>
+	</ul>
 </div>
 <div class="row">
-    <form class="col-sm-7 form-horizontal common-form" name="addTargetTemplateForm" novalidate>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7" style="color: red;" ng-show="errors.length > 0"
-            ng-repeat="error in errors">
-            {{error}}
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">
-            {{"Name" | translate}} (*)</label>
-        <div class="col-sm-7">
-            <input type="text" class="form-control" ng-model="template.name" placeholder="Name" required/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">
-            {{"TargetType" | translate}} (*)
-        </label>
-        <div class="col-sm-7">
-            <select class="form-control" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
-                ng-model="template.targetTypeId" required>
-                <option style="display: none" value="">-- Select a target type --</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label" data-translate="Description">
-        </label>
-        <div class="col-sm-7">
-            <textarea class="form-control custom-texarea" ng-model="template.description" id="description"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
-            <button class="btn btn-primary" ng-disabled="addTargetTemplateForm.$invalid" ng-click="addTargetType(template)"
-                data-translate="Submit">
-            </button>
-            <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
-            </button>
-        </div>
-    </div>
-    </form>
+	<form class="col-sm-7 form-horizontal common-form" name="addTargetTemplateForm" novalidate>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-7" style="color: red;" ng-show="errors.length > 0"
+			ng-repeat="error in errors">
+			{{error}}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			{{"Name" | translate}} (*)</label>
+		<div class="col-sm-7">
+			<input type="text" class="form-control" ng-model="template.name" placeholder="Name"
+				required />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			{{"TargetType" | translate}} (*)
+		</label>
+		<div class="col-sm-7">
+			<select class="form-control" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
+				ng-model="template.targetTypeId" required>
+				<option style="display: none" value="">-- Select a target type --</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" data-translate="Description">
+		</label>
+		<div class="col-sm-7">
+			<textarea class="form-control custom-texarea" ng-model="template.description" id="description"></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-7">
+			<button class="btn btn-primary" ng-disabled="addTargetTemplateForm.$invalid" ng-click="addTargetType(template)"
+				data-translate="Submit">
+			</button>
+			<button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
+			</button>
+		</div>
+	</div>
+	</form>
 </div>

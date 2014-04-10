@@ -68,16 +68,20 @@ namespace NexEPA.Controllers.API
         /// <param name="targetTypeId">Target Type Id.</param>
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
-        public dynamic GetKPI(int? targetTypeId = null, int? groupId = null)
+        public dynamic GetKPI(int? targetId = null, int? targetTypeId = null, int? groupId = null)
         {
             List<KPIItem> lstKPI = _kpiServices.GetKPI(targetTypeId, groupId);
-            List<int> lstSelectedKPI = null;
 
-            if (lstSelectedKPI != null)
+            if (targetId != null)
             {
-                foreach (var item in lstKPI.Where(x => lstSelectedKPI.Contains(x.KPIId)))
+                var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() { TargetId = targetId };
+                List<KPIModel> lstSelectedKPI = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria).ToList();
+                if (lstSelectedKPI != null)
                 {
-                    item.Selected = true;
+                    foreach (var item in lstKPI.Where(x => lstSelectedKPI.Select(y => y.KPIId).Contains(x.KPIId)))
+                    {
+                        item.Selected = true;
+                    }
                 }
             }
 

@@ -33,18 +33,18 @@ namespace NexEPA
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
-               name: "ProjectsEdit",
-               url: "Projects/Edit/{Id}",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
                name: "Get all KPI Group",
                url: "KPI/GetAllKPIGroup/{id}",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
+               name: "ProjectsEdit",
+               url: "Projects/Edit/{Id}",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                 name: "ProjectsDafault",
-                url: "Projects/Index",
+                url: "Projects/{*catchall}",
                 defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
@@ -53,8 +53,18 @@ namespace NexEPA
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
+               name: "ProjectsMemberCreate",
+               url: "ProjectMembers/Create/{Id}",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
+               name: "ProjectsMemberEdit",
+               url: "ProjectMembers/Edit/ProjectId={proId}/EmployeeId={empId}",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                 name: "ProjectsMemberDefault",
-                url: "ProjectMembers/View",
+                url: "ProjectMembers/{*catchall}",
                 defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(

@@ -29,8 +29,8 @@ namespace NexEPA
                 "~/Content/Common/bootstrap-theme.css",
                 "~/Content/Site/layout.less",
                 "~/Content/Site/Employee/employee.less",
-                "~/Content/Site/KPI/KPI.less",
-                "~/Content/Site/Projects/project.less"));
+                "~/Content/Site/Projects/project.less",
+                "~/Content/Site/KPI/KPI.less"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",
@@ -54,7 +54,8 @@ namespace NexEPA
                 "~/Scripts/Views/ProjectMember/projectmembers-repository.js",
                 "~/Scripts/Extensions/Filters/projectstatus-filter.js",
                 "~/Scripts/Extensions/Services/projectsetting-service.js",
-                "~/Scripts/Extensions/CommonFactories/notification-factory.js",
+                "~/Scripts/Extensions/Common/notification-factory.js",
+                "~/Scripts/Extensions/Common/modalconfirm-controller.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-controller.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-repository.js",
                 "~/Scripts/Views/KPI/KPI/KPI-controller.js",

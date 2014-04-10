@@ -190,7 +190,8 @@
     <None Include="Content\Site\Projects\project.less" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\Extensions\CommonFactories\notification-factory.js" />
+    <Content Include="Scripts\Extensions\Common\modalconfirm-controller.js" />
+    <Content Include="Scripts\Extensions\Common\notification-factory.js" />
     <Content Include="Scripts\Extensions\Filters\projectstatus-filter.js" />
     <Content Include="Scripts\Extensions\Services\projectsetting-service.js" />
     <Content Include="Scripts\Libs\angular.js" />
@@ -220,6 +221,7 @@
     <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-repository.js" />
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-controller.js" />
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-repository.js" />
+    <Content Include="Templates\Common\ModalConfirmContent.html" />
     <Content Include="Templates\Employee\Create.html" />
     <Content Include="Templates\Employee\View.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />
