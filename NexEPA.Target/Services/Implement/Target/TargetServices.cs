@@ -114,8 +114,8 @@ namespace NexEPA.Target.Services.Implement.Target
         {
             criteria.CreatedBy = SessionManager.CurrentUser.UserId;
             criteria.CreatedDate = DateTime.Now;
-            //// default active status when create the new target
-            criteria.Status = (int)Constants.Status.Active;
+            //// default new status when create the new target
+            criteria.Status = (int)Constants.Status.New;
             return _Repository.Insert(criteria);
         }
 

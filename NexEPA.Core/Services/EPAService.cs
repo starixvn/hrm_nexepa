@@ -41,12 +41,20 @@ namespace NexEPA.Core.Services
 
             switch (statusId)
             {
-                case (int)Constants.Status.Active:
-                    status = Constants.ActiveStatus;
+                case (int)Constants.Status.New:
+                    status = Constants.NewStatus;
+                    break;
+
+                case (int)Constants.Status.InProgress:
+                    status = Constants.InProgressStatus;
                     break;
 
                 case (int)Constants.Status.Pending:
                     status = Constants.PendingStatus;
+                    break;
+
+                case (int)Constants.Status.Resolved:
+                    status = Constants.ResolvedStatus;
                     break;
 
                 case (int)Constants.Status.Closed:
