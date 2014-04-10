@@ -34,7 +34,7 @@
                 </div>
             <button ng-show="isViewAll" class="btn btn-primary" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
                     ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
-            <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
+            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </form>
     </div>
 </div>
@@ -57,6 +57,9 @@
                 <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kPIId)"/>
                 <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
             </td>
+        </tr>
+        <tr ng-show="KPIList == ''">
+            <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
         </tr>
     </table>
 </div>

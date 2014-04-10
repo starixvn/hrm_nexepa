@@ -1,8 +1,9 @@
 ﻿'use strict';
-/*global registrationModule*/
+/*global kpiSettingModule*/
 
-registrationModule.factory('CommonRepository', ['$http', '$q', function ($http, $q) {
+kpiSettingModule.factory('CommonRepository', ['$http', '$q', '$translate', function ($http, $q, $translate) {
 	var common = {};
+
 
 	common.getFormOptions = function () {
 		var deferred = $q.defer();
@@ -31,7 +32,7 @@ registrationModule.factory('CommonRepository', ['$http', '$q', function ($http, 
 				return false;
 			}
 
-			if (group.targetTypeId === undefined) {
+			if (group.targetTypeId === undefined || group.targetTypeId === null) {
 				return false;
 			}
 		}
@@ -44,7 +45,13 @@ registrationModule.factory('CommonRepository', ['$http', '$q', function ($http, 
 			return false;
 		}
 		else {
-			if (item.name === undefined || item.kpiGroupId === undefined || item.targetTypeId === undefined) {
+			if (item.name === undefined) {
+				return false;
+			}
+			else if (item.targetTypeId === undefined || item.targetTypeId === null) {
+				return false;
+			}
+			else if (item.kpiGroupId === undefined || item.kpiGroupId === null) {
 				return false;
 			}
 		}
@@ -52,14 +59,28 @@ registrationModule.factory('CommonRepository', ['$http', '$q', function ($http, 
 		return true;
 	};
 
+	common.showSuccessMessage = function ($scope, keyMessage) {
+		$scope.success = true;
+		$translate(keyMessage).then(function (message) {
+			$scope.successMessage = message;
+		});
+	};
+
+	common.showErrorMessage = function ($scope, keyMessage) {
+		$scope.success = false;
+		$translate(keyMessage).then(function (errorMessage) {
+			$scope.errorMessage = errorMessage;
+		});
+	};
+
 	return common;
 } ]);
 
-registrationModule.factory("CacheFactory", ['$cacheFactory', function ($cacheFactory) {
+kpiSettingModule.factory("CacheFactory", ['$cacheFactory', function ($cacheFactory) {
 	return $cacheFactory("KPICache");
 }]);
 
-registrationModule.controller("ModalConfirmController", function ($scope, $modalInstance, name, action) {
+kpiSettingModule.controller("ModalConfirmController", function ($scope, $modalInstance, name, action) {
 	$scope.name = name;
 	$scope.action = action;
 
@@ -72,7 +93,7 @@ registrationModule.controller("ModalConfirmController", function ($scope, $modal
 	};
 });
 
-registrationModule.directive('numbersOnly', function () {
+kpiSettingModule.directive('numbersOnly', function () {
 	return {
 		require: 'ngModel',
 		link: function (scope, element, attrs, modelCtrl) {

@@ -1,6 +1,7 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
+// View KPI
 kpiSettingModule.controller("ViewKPIController",
 	function ($scope, $routeParams, $location, $modal, $route, KPIRepository, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var groupId = $routeParams.groupId;
@@ -34,11 +35,9 @@ kpiSettingModule.controller("ViewKPIController",
 			KPIRepository.viewKPI(targetTypeId, groupId).success(function (KPIList) {
 				$scope.KPIList = KPIList;
 				$scope.disabledSubmitButton = false;
-			}).error(function (httpResponse, status) {
-				if (status === 404) {
-					$scope.hasError = true;
-					$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-				}
+			}).error(function () {
+				CommonRepository.showErrorMessage($scope, "ErrorMessage");
+				$scope.disabledSubmitButton = false;
 			});
 		};
 
@@ -73,18 +72,15 @@ kpiSettingModule.controller("ViewKPIController",
 			modalDeleteInstance.result.then(function () {
 				KPIRepository.deleteKPI(kpiId).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.hasError = false;
+						$scope.success = true;
 						$route.reload();
 					}
 					else {
-						$scope.hasError = true;
+						$scope.success = false;
 						$scope.errorMessage = response.message;
 					}
-				}).error(function (httpResponse, status) {
-					if (status === 404) {
-						$scope.hasError = true;
-						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-					}
+				}).error(function () {
+					CommonRepository.showErrorMessage($scope, "ErrorMessage");
 				});
 			});
 		};
@@ -96,6 +92,7 @@ kpiSettingModule.controller("ViewKPIController",
 		};
 	});
 
+// Create New KPI
 	kpiSettingModule.controller('CreateNewKPIController',
 	function ($scope, $routeParams, $timeout, $location, KPIRepository, CacheFactory, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -152,7 +149,7 @@ kpiSettingModule.controller("ViewKPIController",
 				KPIRepository.createKPI(item).success(function (response) {
 					if (response.isSuccessful === true) {
 						$scope.success = true;
-						$scope.successMessage = "Created successful!";
+						CommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
 						$timeout(function () {
 							if (!$scope.isCreatedFromKPI) {
 								window.history.back();
@@ -165,12 +162,11 @@ kpiSettingModule.controller("ViewKPIController",
 					else {
 						$scope.success = false;
 						$scope.errorMessage = response.message;
+						$scope.disabledSubmitButton = false;
 					}
-				}).error(function (httpResponse, status) {
-					if (status === 404) {
-						$scope.hasError = true;
-						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-					}
+				}).error(function () {
+					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					$scope.disabledSubmitButton = false;
 				});
 			}
 			else {
@@ -183,6 +179,7 @@ kpiSettingModule.controller("ViewKPIController",
 		};
 	});
 
+// Edit KPI
 	kpiSettingModule.controller("EditKPIController",
 	function ($scope, $routeParams, $location, $timeout, KPIRepository, CacheFactory, CommonRepository) {
 		var kpiId = $routeParams.id;
@@ -203,11 +200,8 @@ kpiSettingModule.controller("ViewKPIController",
 			CommonRepository.getGroupByTargetTypeId(kpiItem.targetTypeId).then(function (groupList) {
 				$scope.groupOptions = groupList;
 			});
-		}).error(function (httpResponse, status) {
-			if (status === 404) {
-				$scope.hasError = true;
-				$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-			}
+		}).error(function () {
+			CommonRepository.showErrorMessage($scope, "ErrorMessage");
 		});
 
 		$scope.save = function (kpiItem) {
@@ -218,7 +212,7 @@ kpiSettingModule.controller("ViewKPIController",
 				KPIRepository.editKPI(kpiItem).success(function (response) {
 					if (response.isSuccessful === true) {
 						$scope.success = true;
-						$scope.successMessage = "Updated successful!";
+						CommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
 						$timeout(function () {
 							window.history.back();
 						}, 2000);
@@ -226,12 +220,11 @@ kpiSettingModule.controller("ViewKPIController",
 					else {
 						$scope.success = false;
 						$scope.errorMessage = response.message;
+						$scope.disabledSubmitButton = false;
 					}
-				}).error(function (httpResponse, status) {
-					if (status === 404) {
-						$scope.hasError = true;
-						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-					}
+				}).error(function () {
+					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					$scope.disabledSubmitButton = false;
 				});
 			}
 			else {
