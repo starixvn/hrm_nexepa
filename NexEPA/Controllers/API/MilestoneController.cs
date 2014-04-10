@@ -86,13 +86,13 @@ namespace NexEPA.Controllers.API
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                    return request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
 
-            return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
+            return request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
         }
 
         /// <summary>
@@ -153,13 +153,13 @@ namespace NexEPA.Controllers.API
                 if (result.Code != 0)
                 {
                     List<string> errorMessage = new List<string>() { result.Message };
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                    return request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
 
-            return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
+            return request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
         }
 
         private IEnumerable<string> RetrieveErrorMessages()
