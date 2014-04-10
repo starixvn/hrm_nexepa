@@ -27,7 +27,7 @@
             <div ng-show="isViewAll" class="form-group">
                 <label data-translate="Group"></label>
                 <select name="itemGroupSelect" ng-model="filter.kPIGroupId" 
-                    ng-options="opt.kpiGroupID as opt.name for opt in groupOptions | filter: {targetTypeId: filter.targetTypeId}"
+                    ng-options="opt.kPIGroupID as opt.name for opt in groupOptions | filter: {targetTypeId: filter.targetTypeId}"
                     required class="form-control">
                     <option value="">-- All --</option>
                 </select>
