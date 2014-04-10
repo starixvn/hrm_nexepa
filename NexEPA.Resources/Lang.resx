@@ -312,4 +312,7 @@
   <data name="AllTeam" xml:space="preserve">
     <value>All teams</value>
   </data>
+  <data name="EmptyResult" xml:space="preserve">
+    <value>There are no information!</value>
+  </data>
 </root>

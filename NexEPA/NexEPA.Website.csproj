@@ -263,6 +263,7 @@
     <Content Include="Content\Site\mixins.less" />
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\layout.less" />
+    <None Include="Content\Site\Employee\employee.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

@@ -53,6 +53,9 @@
                 <td ng-bind="employee.email"></td>
                 <td class="joined-date" ng-bind="employee.joinedDate"></td>
             </tr>
+            <tr ng-show="employees == ''">
+                <td class="empty-result" colspan="9" data-translate="EmptyResult"></td>
+            </tr>
         </tbody>
     </table>
 </div>
