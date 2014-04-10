@@ -160,6 +160,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created successful!.
+        /// </summary>
+        public static string CreatedSuccessfulMessage {
+            get {
+                return ResourceManager.GetString("CreatedSuccessfulMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create KPI.
         /// </summary>
         public static string CreateKPI {
@@ -241,11 +250,29 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no information!.
+        /// </summary>
+        public static string EmptyResult {
+            get {
+                return ResourceManager.GetString("EmptyResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Date.
         /// </summary>
         public static string EndDate {
             get {
                 return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, an error occurred while processing your request, please notify the administrators!.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
             }
         }
         
@@ -529,6 +556,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updated successful!.
+        /// </summary>
+        public static string UpdatedSuccessfulMessage {
+            get {
+                return ResourceManager.GetString("UpdatedSuccessfulMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.
         /// </summary>
         public static string User {
@@ -561,6 +597,15 @@ namespace NexEPA.Resources {
         public static string WeightRequire {
             get {
                 return ResourceManager.GetString("WeightRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The total weight of all Groups in the Form is greater than 100%!.
+        /// </summary>
+        public static string WeightWarningMessage {
+            get {
+                return ResourceManager.GetString("WeightWarningMessage", resourceCulture);
             }
         }
     }

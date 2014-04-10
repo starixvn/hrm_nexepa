@@ -21,7 +21,7 @@
                     </select>
             </div>
             <button class="btn btn-primary" ng-click="query(filter.targetTypeId)" ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
-            <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
+            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </form>
     </div>
 </div>
@@ -55,6 +55,9 @@
                     <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(group.kpiGroupID, group.name)"/>
                     <a class="glyphicon glyphicon-plus" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" />
                 </td>
+            </tr>
+            <tr ng-show="KPIGroupList == ''">
+                <td class="empty-result" colspan="6" data-translate="EmptyResult"></td>
             </tr>
         </table>
     </div>

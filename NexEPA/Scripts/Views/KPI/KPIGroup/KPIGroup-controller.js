@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
-var calculateTotalWeightAndShowWarningMessage = function (group, $scope, CommonRepository) {
+var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $translate, CommonRepository) {
 	if (group.targetTypeId && group.weight) {
 		CommonRepository.getGroupByTargetTypeId(group.targetTypeId).then(function (groupList) {
 			var totalWeight = group.weight;
@@ -11,9 +11,7 @@ var calculateTotalWeightAndShowWarningMessage = function (group, $scope, CommonR
 			}
 
 			if (totalWeight > 100) {
-				$scope.success = false;
-				$scope.errorMessage = "The total weight of all Groups in the Form is greater than 100%!";
-
+				CommonRepository.showErrorMessage($scope, "WeightWarningMessage");
 			}
 			else {
 				$scope.success = true;
@@ -25,6 +23,7 @@ var calculateTotalWeightAndShowWarningMessage = function (group, $scope, CommonR
 	}
 };
 
+// View KPI Group
 kpiSettingModule.controller("GetAllKPIGroupController",
 	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -45,11 +44,9 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 					$scope.KPIGroupList = groupList;
 					$scope.disabledSubmitButton = false;
 				})
-				.error(function (httpResponse, status) {
-					if (status === 404) {
-						$scope.hasError = true;
-						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-					}
+				.error(function () {
+					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					$scope.disabledSubmitButton = false;
 				});
 		};
 
@@ -83,18 +80,15 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 			modalDeleteInstance.result.then(function () {
 				KPIGroupRepository.deleteGroup(groupId).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.hasError = false;
+						$scope.success = true;
 						$route.reload();
 					}
 					else {
-						$scope.hasError = true;
+						$scope.success = false;
 						$scope.errorMessage = response.message;
 					}
-				}).error(function (httpResponse, status) {
-					if (status === 404) {
-						$scope.hasError = true;
-						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-					}
+				}).error(function () {
+					CommonRepository.showErrorMessage($scope, "ErrorMessage");
 				});
 			});
 		};
@@ -137,17 +131,14 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 			modalConfirmInstance.result.then(function () {
 				KPIGroupRepository.updateGroup(newGroup).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.hasError = false;
+						$scope.success = true;
 					}
 					else {
-						$scope.hasError = true;
+						$scope.success = false;
 						$scope.errorMessage = response.message;
 					}
-				}).error(function (httpResponse, status) {
-					if (status === 404) {
-						$scope.hasError = true;
-						$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-					}
+				}).error(function () {
+					CommonRepository.showErrorMessage($scope, "ErrorMessage");
 				});
 			}, function () {
 				group.isDisabled = !newGroup.isDisabled;
@@ -155,8 +146,9 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		};
 	});
 
+// Create New KPI Group
 	kpiSettingModule.controller("CreateNewKPIGroupController",
-	function ($scope, $location, $timeout, KPIGroupRepository, CacheFactory, CommonRepository) {
+	function ($scope, $location, $timeout, $translate, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -180,8 +172,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 				KPIGroupRepository.addGroup(group)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							$scope.success = true;
-							$scope.successMessage = "Created successful!";
+							CommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
@@ -189,13 +180,12 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 						else {
 							$scope.success = false;
 							$scope.errorMessage = response.message;
+							$scope.disabledSubmitButton = false;
 						}
 					})
-					.error(function (httpResponse, status) {
-						if (status === 404) {
-							$scope.success = false;
-							$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-						}
+					.error(function () {
+						CommonRepository.showErrorMessage($scope, "ErrorMessage");
+						$scope.disabledSubmitButton = false;
 					});
 			}
 			else {
@@ -209,17 +199,18 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 		// weight on change
 		$scope.weightOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
 		};
 
 		// form on change
 		$scope.formOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
 		};
 	});
 
+// Edit KPI Group
 	kpiSettingModule.controller("EditKPIGroupController",
-	function ($scope, $location, $routeParams, $timeout, $route, KPIGroupRepository, CacheFactory, CommonRepository) {
+	function ($scope, $location, $routeParams, $timeout, $route, $translate, KPIGroupRepository, CacheFactory, CommonRepository) {
 		var groupId = $routeParams.id;
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
@@ -249,8 +240,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 				KPIGroupRepository.updateGroup(newGroup)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							$scope.success = true;
-							$scope.successMessage = "Updated successful!";
+							CommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
@@ -258,13 +248,12 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 						else {
 							$scope.success = false;
 							$scope.errorMessage = response.message;
+							$scope.disabledSubmitButton = false;
 						}
 					})
-					.error(function (httpResponse, status) {
-						if (status === 404) {
-							$scope.success = false;
-							$scope.errorMessage = "Sorry, an error occurred while processing your request, please notify the administrators!";
-						}
+					.error(function () {
+						CommonRepository.showErrorMessage($scope, "ErrorMessage");
+						$scope.disabledSubmitButton = false;
 					});
 			}
 			else {
@@ -278,11 +267,11 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 		// weight on change
 		$scope.weightOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
 		};
 
 		// form on change
 		$scope.formOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, CommonRepository);
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
 		};
 	});
