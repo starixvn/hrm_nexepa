@@ -40,7 +40,30 @@
 </div>
 
 <div class="row">
-    <table class="table table-bordered table-striped">
+    <table ng-show="isViewAll" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th data-translate="Title"></th>
+                <th data-translate="Group"></th>
+                <th data-translate="Form"></th>
+                <th data-translate="Action"></th>
+            </tr>
+        </thead>
+        <tr ng-repeat="item in KPIList">
+            <td ng-bind="item.name"></td>
+            <td ng-bind="item.kPIGroupName"></td>
+            <td class="form" ng-bind="item.targetTypeName"></td>
+            <td class="actionKPI">
+                <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kPIId)"/>
+                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kPIId, item.name)"/>
+            </td>
+        </tr>
+        <tr ng-show="KPIList == ''">
+            <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
+        </tr>
+    </table>
+
+    <table ng-show="!isViewAll" class="table table-KPI table-bordered table-striped">
         <thead>
             <tr>
                 <th data-translate="Title"></th>
@@ -63,3 +86,5 @@
         </tr>
     </table>
 </div>
+
+

@@ -122,7 +122,7 @@ kpiSettingModule.controller("ViewKPIController",
 
 			$scope.item = {
 				targetTypeId: parseInt(targetTypeId),
-				kpiGroupId: parseInt(groupId)
+				kPIGroupId: parseInt(groupId)
 			};
 		}
 		else {
