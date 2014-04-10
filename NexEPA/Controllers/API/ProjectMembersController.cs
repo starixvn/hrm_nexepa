@@ -131,6 +131,12 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Get Project Role.
+        /// </summary>
+        /// <param name="projectId">Project Id.</param>
+        /// <param name="employeeId">Employee Id.</param>
+        /// <returns>List ProjectRoleModel.</returns>
         [HttpGet]
         public IEnumerable<ProjectRoleModel> ProjectRole(int? projectId = null, int? employeeId = null)
         {
@@ -142,7 +148,7 @@ namespace NexEPA.Controllers.API
                 IEnumerable<ProjectMembersModel> roles = GetMemberRoleInProject(projectId.Value, employeeId.Value);
                 if (roles != null)
                 {
-                    foreach (var item in data.Where(x=> roles.Select(y=>y.ProjectRoleId).Contains(x.ProjectRoleId)))
+                    foreach (var item in data.Where(x => roles.Select(y => y.ProjectRoleId).Contains(x.ProjectRoleId)))
                     {
                         item.Selected = true;
                     }

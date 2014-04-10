@@ -65,6 +65,7 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Method Get KPI.
         /// </summary>
+        ///  <param name="targetId">Target Id.</param>
         /// <param name="targetTypeId">Target Type Id.</param>
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
