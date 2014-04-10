@@ -33,7 +33,6 @@ namespace NexEPA.Web.Attributes
                 HandleUnauthorizedRequest(actionContext);
             }
 
-            var session = HttpContext.Current.Session;
             if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")
                 && !HttpContext.Current.Request.Headers.AllKeys.Contains("Cookie"))
             {
@@ -46,7 +45,7 @@ namespace NexEPA.Web.Attributes
                 var attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
                 foreach (AuthorizeAttribute item in attributes)
                 {
-                    if (item.Roles != string.Empty 
+                    if (!string.IsNullOrWhiteSpace(item.Roles)
                         && currentUser != null 
                         && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
                     {

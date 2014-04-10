@@ -82,7 +82,6 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "PM")]
         public HttpResponseMessage Post(ProjectModel project)
         {
-            var date = TimeZone.CurrentTimeZone.ToLocalTime(project.StartDate.Value);
             if (ModelState.IsValid)
             {
                 AddProjectCriteria criteria = new AddProjectCriteria()

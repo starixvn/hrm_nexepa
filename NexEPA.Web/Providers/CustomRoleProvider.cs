@@ -84,7 +84,7 @@ namespace NexEPA.Web.Providers
         /// <returns>List of role.</returns>
         public override string[] GetRolesForUser(string username)
         {
-            var user = GetCurrentUser(username);
+            var user = SessionManager.CurrentUser;
             var roles = new List<string>();
 
             if (user != null && user.Roles != null)
@@ -96,11 +96,6 @@ namespace NexEPA.Web.Providers
             }
 
             return roles.ToArray();
-        }
-
-        private UserSession GetCurrentUser(string username)
-        {
-            return SessionManager.CurrentUser;
         }
     }
 }
