@@ -315,4 +315,7 @@
   <data name="SymbolCount" xml:space="preserve">
     <value>#</value>
   </data>
+  <data name="EmptyResult" xml:space="preserve">
+    <value>There are no information!</value>
+  </data>
 </root>

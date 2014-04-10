@@ -39,6 +39,9 @@ targetModule.controller('ViewTargetController',
 
 				getTarget(filterData.targetTypeId, startDate, endDate);
 			}
+			else {
+				$scope.submitted = false;
+			}
 		};
 
 		// create target

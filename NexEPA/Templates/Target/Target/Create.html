@@ -68,7 +68,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="StartDate"></label>
             <div class="col-sm-4">
-                <input type="text" ng-model="target.startDate" datepicker-popup="MMM dd,yyyy" is-open="startDateOpened" show-button-bar="false"/>
+                <input class="calendar-form-control" type="text" ng-model="target.startDate" datepicker-popup="MMM dd,yyyy" is-open="startDateOpened" show-button-bar="false"/>
                 <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupStartDate($event)"></button>
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="EndDate"></label>
             <div class="col-sm-4">
-                <input type="text" ng-model="target.endDate" datepicker-popup="MMM dd,yyyy" is-open="endDateOpened" show-button-bar="false"/>
+                <input class="calendar-form-control" type="text" ng-model="target.endDate" datepicker-popup="MMM dd,yyyy" is-open="endDateOpened" show-button-bar="false"/>
                 <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupEndDate($event)"></button>
             </div>
         </div>

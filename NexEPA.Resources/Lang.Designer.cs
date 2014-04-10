@@ -268,6 +268,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no information!.
+        /// </summary>
+        public static string EmptyResult {
+            get {
+                return ResourceManager.GetString("EmptyResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Date.
         /// </summary>
         public static string EndDate {
