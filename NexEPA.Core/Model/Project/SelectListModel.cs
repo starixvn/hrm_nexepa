@@ -4,10 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.3.24">Created</change>
+//   <change who="Bradley.Mac" date="2014.4.11">Created</change>
 // </history>
 
-namespace NexEPA.Project.Models
+namespace NexEPA.Core.Model.Project
 {
     /// <summary>
     /// Select List Model.

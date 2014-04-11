@@ -72,7 +72,6 @@
     <Compile Include="Models\ProjectMembersModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\ProjectRoleModel.cs" />
-    <Compile Include="Models\SelectListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\ProjectRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProjectRepository.cs" />
