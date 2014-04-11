@@ -5,7 +5,6 @@ registrationModule.filter('enumStatusText', function ($http) {
 	var statusEnum = [];
 	$http.get('/api/Project/RenderProjectStatusSelectList').success(function (data) {
 		statusEnum = data;
-		debugger;
 	});
 	return function (input) {
 		var statusText;
