@@ -7,13 +7,18 @@ registrationModule.filter('enumStatusText', function ($http) {
 		statusEnum = data;
 	});
 	return function (input) {
-		var statusText;
-		$.each(statusEnum, function (i, val) {
-			if (statusEnum[i].id === input) {
-				statusText = val.name;
-			}
-		});
-		return statusText;
+		switch (input) {
+			case 0:
+				return statusEnum[0].name;
+			case 1:
+				return statusEnum[1].name;
+			case 2:
+				return statusEnum[2].name;
+			case 3:
+				return statusEnum[3].name;
+			case 4:
+				return statusEnum[4].name;
+		}
 	};
 });
 

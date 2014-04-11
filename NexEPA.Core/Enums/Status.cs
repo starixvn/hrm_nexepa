@@ -10,7 +10,6 @@
 namespace NexEPA.Core.Enums
 {
     using System.ComponentModel;
-    using Fanex.Common.Extensions;
 
     /// <summary>
     /// ENUM Status.
@@ -20,31 +19,31 @@ namespace NexEPA.Core.Enums
         /// <summary>
         /// New items.
         /// </summary>
-        [StringValue("New")]
+        [Description("New")]
         New = 0,
 
         /// <summary>
         /// In Progress item.
         /// </summary>
-        [StringValue("In Progress")]
+        [Description("In Progress")]
         InProgress = 1,
 
         /// <summary>
         /// Pending item.
         /// </summary>
-        [StringValue("Pending")]
+        [Description("Pending")]
         Pending = 2,
 
         /// <summary>
         /// Resolved item.
         /// </summary>
-        [StringValue("Resolved")]
+        [Description("Resolved")]
         Resolved = 3,
 
         /// <summary>
         /// Closed item.
         /// </summary>
-        [StringValue("Closed")]
+        [Description("Closed")]
         Closed = 4
     }
 }
