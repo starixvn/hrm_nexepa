@@ -62,7 +62,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\Target\TargetRepositories.cs" />
     <Compile Include="Repositories\Interface\Target\ITargetRepositories.cs" />
-    <Compile Include="Services\Implement\Target\TargetServices.cs" />
+    <Compile Include="Services\Implement\Target\TargetServices.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Services\Interface\Target\ITargetServices.cs" />
     <Compile Include="ViewModels\Target\TargetItem.cs" />
   </ItemGroup>

@@ -14,7 +14,8 @@ namespace NexEPA.Controllers.Target
     using System.Linq;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Services;
+    using NexEPA.Core.Model.Project;
+    using NexEPA.Core.Utilities;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
@@ -34,21 +35,18 @@ namespace NexEPA.Controllers.Target
     {
         private ITargetServices _targetServices;
         private IProjectService _projectService;
-        private EPAService _epaService;
 
         public TargetController()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
         public TargetController(
             TargetServices targetServices, 
-            ProjectService projectService,
-            EPAService epaService)
+            ProjectService projectService)
         {
             _targetServices = targetServices ?? new TargetServices();
             _projectService = projectService ?? new ProjectService();
-            _epaService = epaService ?? new EPAService();
         }
 
         [HttpGet]
@@ -122,9 +120,9 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
-        public List<dynamic> GetAllStatus()
+        public IEnumerable<SelectListModel> GetAllStatus()
         {
-            return _epaService.GetAllStatus();
+            return EnumStatus.GetAllStatus();
         }
     }
 }

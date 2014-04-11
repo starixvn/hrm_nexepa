@@ -13,8 +13,10 @@ namespace NexEPA.Target.Services.Implement.Target
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Utilities;
     using NexEPA.Target.Criteria.Target;
     using NexEPA.Target.Models.Target;
     using NexEPA.Target.Repositories.Implement.Target;
@@ -30,12 +32,9 @@ namespace NexEPA.Target.Services.Implement.Target
     {
         private ITargetRepositories _targetRepositories;
 
-        private EPAService _epaService;
-
         public TargetServices()
         {
             _targetRepositories = new TargetRepositories();
-            _epaService = new EPAService();
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace NexEPA.Target.Services.Implement.Target
                         Description = rawTarget.Description,
                         StartDate = startDate,
                         EndDate = endDate,
-                        StatusName = _epaService.GetStatusById(rawTarget.Status),
+                        StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
                         TargetType = rawTarget.TargetType,
                         Project = rawTarget.Project,
                         Milestone = rawTarget.Milestone
@@ -95,7 +94,7 @@ namespace NexEPA.Target.Services.Implement.Target
                 Description = rawTarget.Description,
                 StartDate = startDate,
                 EndDate = endDate,
-                StatusName = _epaService.GetStatusById(rawTarget.Status),
+                StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
                 Status = rawTarget.Status,
                 TargetType = rawTarget.TargetType,
                 Project = rawTarget.Project,
@@ -115,7 +114,7 @@ namespace NexEPA.Target.Services.Implement.Target
             criteria.CreatedBy = SessionManager.CurrentUser.UserId;
             criteria.CreatedDate = DateTime.Now;
             //// default new status when create the new target
-            criteria.Status = (int)Constants.Status.New;
+            criteria.Status = (int)Status.New;
             return _Repository.Insert(criteria);
         }
 

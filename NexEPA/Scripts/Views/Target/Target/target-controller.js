@@ -147,10 +147,12 @@ targetModule.controller('ViewTargetController',
 					else {
 						$scope.success = false;
 						$scope.errorMessage = response.message;
+						$scope.disabledSubmit = false;
 					}
 				})
 				.error(function () {
 					targetUtility.showErrorMessage($scope, $translate);
+					$scope.disabledSubmit = false;
 				});
 			}
 			else {
@@ -262,10 +264,12 @@ targetModule.controller('ViewTargetController',
 					else {
 						$scope.success = false;
 						$scope.errorMessage = response.message;
+						$scope.disabledSubmit = false;
 					}
 				})
 				.error(function () {
 					targetUtility.showErrorMessage($scope, $translate);
+					$scope.disabledSubmit = false;
 				});
 			}
 			else {

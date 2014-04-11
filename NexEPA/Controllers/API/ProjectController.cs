@@ -17,6 +17,7 @@ namespace NexEPA.Controllers.API
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Model.Project;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
@@ -24,7 +25,6 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
-    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -166,8 +166,8 @@ namespace NexEPA.Controllers.API
         {
             Array data = new[]
                 {
-                    new SelectListModel { Id = (int)ProjectStatus.Active, Name = ProjectStatus.Active.ToString() },
-                    new SelectListModel { Id = (int)ProjectStatus.Closed, Name = ProjectStatus.Closed.ToString() }
+                    new SelectListModel { Id = (int)Status.New, Name = Status.New.ToString() },
+                    new SelectListModel { Id = (int)Status.Closed, Name = Status.Closed.ToString() }
                 };
 
             return data;
