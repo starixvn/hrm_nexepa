@@ -35,6 +35,8 @@ namespace NexEPA.Project.Models
 
         public byte? Status { get; set; }
 
+        public string StatusName { get; set; }
+
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }

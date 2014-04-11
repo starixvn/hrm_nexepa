@@ -69,9 +69,9 @@ namespace NexEPA.Controllers.API
                     EndDate = DateTime.Now.Date
                 };
 
-            IEnumerable<ProjectModel> projects = _projectService.GetAllProject(criteria);
+            IEnumerable<ProjectModel> lstProject = _projectService.GetAllProject(criteria);
 
-            return projects;
+            return lstProject;
         }
 
         /// <summary>
