@@ -14,7 +14,6 @@ namespace NexEPA.Controllers.API
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
@@ -26,11 +25,12 @@ namespace NexEPA.Controllers.API
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Impl;
     using NexEPA.Target.Services.Interfaces;
+    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Target Template Controller.
     /// </summary>
-    public class TargetTemplateController : ApiController
+    public class TargetTemplateController : BaseController
     {
         private readonly ITargetTemplateService _targetTemplateService;
         private readonly EPAService _epaService;
