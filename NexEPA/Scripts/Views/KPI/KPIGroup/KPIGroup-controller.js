@@ -65,7 +65,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		// delete
 		$scope.openDeletePopup = function (groupId, groupName) {
 			var modalDeleteInstance = $modal.open({
-				templateUrl: '/templates/KPI/modalConfirmContent.html',
+				templateUrl: '/templates/Common/ModalConfirmContent.html',
 				controller: "ModalConfirmController",
 				resolve: {
 					name: function () {
