@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -236,7 +236,6 @@
     <Content Include="Templates\Projects\ProjectMilestone.html" />
     <Content Include="Templates\KPI\KPIGroup\Create.html" />
     <Content Include="Templates\KPI\KPIGroup\Edit.html" />
-    <Content Include="Templates\KPI\modalConfirmContent.html" />
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
@@ -258,6 +257,7 @@
   <ItemGroup>
     <Folder Include="Content\Common\Images\" />
     <Folder Include="Scripts\Extensions\Directives\" />
+    <Folder Include="Scripts\Views\Target\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
