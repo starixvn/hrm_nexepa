@@ -116,7 +116,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 			newGroup.isDisabled = !group.isDisabled;
 
 			var modalConfirmInstance = $modal.open({
-				templateUrl: '/templates/KPI/modalConfirmContent.html',
+				templateUrl: '/templates/Common/modalConfirmContent.html',
 				controller: "ModalConfirmController",
 				resolve: {
 					name: function () {
