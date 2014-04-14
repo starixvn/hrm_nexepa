@@ -51,7 +51,7 @@ kpiSettingModule.factory('CommonRepository', ['$http', '$q', '$translate', funct
 			else if (item.targetTypeId === undefined || item.targetTypeId === null) {
 				return false;
 			}
-			else if (item.kPIGroupId === undefined || item.kPIGroupId === null) {
+			else if (item.kpiGroupId === undefined || item.kpiGroupId === null) {
 				return false;
 			}
 		}

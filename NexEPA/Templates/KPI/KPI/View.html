@@ -4,7 +4,7 @@
             <li><a href="#" data-translate="KPI"></a></li>
             <li class="current">
                  <span data-translate="ManageKPI"></span>
-                 <span ng-show="!isViewAll && KPIList">of "{{KPIList[0].kPIGroupName}}"</span>
+                 <span ng-show="!isViewAll && KPIList">of "{{KPIList[0].kpiGroupName}}"</span>
             </li>
         </ul>
         <div class="button-icon">
@@ -26,13 +26,13 @@
             </div>
             <div ng-show="isViewAll" class="form-group">
                 <label data-translate="Group"></label>
-                <select name="itemGroupSelect" ng-model="filter.kPIGroupId" 
-                    ng-options="opt.kPIGroupID as opt.name for opt in groupOptions | filter: {targetTypeId: filter.targetTypeId}"
+                <select name="itemGroupSelect" ng-model="filter.kpiGroupId" 
+                    ng-options="opt.kpiGroupID as opt.name for opt in groupOptions | filter: {targetTypeId: filter.targetTypeId}"
                     required class="form-control">
                     <option value="">-- All --</option>
                 </select>
                 </div>
-            <button ng-show="isViewAll" class="btn btn-primary" ng-click="query(filter.targetTypeId, filter.kPIGroupId)" 
+            <button ng-show="isViewAll" class="btn btn-primary" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
                     ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
             <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </form>
@@ -51,11 +51,11 @@
         </thead>
         <tr ng-repeat="item in KPIList">
             <td ng-bind="item.name"></td>
-            <td ng-bind="item.kPIGroupName"></td>
+            <td ng-bind="item.kpiGroupName"></td>
             <td class="form" ng-bind="item.targetTypeName"></td>
             <td class="actionKPI">
-                <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kPIId)"/>
-                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kPIId, item.name)"/>
+                <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
+                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
             </td>
         </tr>
         <tr ng-show="KPIList == ''">
@@ -74,11 +74,11 @@
         </thead>
         <tr ng-repeat="item in KPIList">
             <td ng-bind="item.name"></td>
-            <td ng-bind="item.kPIGroupName"></td>
+            <td ng-bind="item.kpiGroupName"></td>
             <td class="form" ng-bind="item.targetTypeName"></td>
             <td class="actionKPI">
-                <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kPIId)"/>
-                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kPIId, item.name)"/>
+                <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
+                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
             </td>
         </tr>
         <tr ng-show="KPIList == ''">
