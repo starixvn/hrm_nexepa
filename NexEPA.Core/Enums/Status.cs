@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.4.11">Created</change>
+//   <change who="Bradley.Mac" date="2014.3.19">Created</change>
 // </history>
 
 namespace NexEPA.Core.Enums

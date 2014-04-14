@@ -54,6 +54,7 @@ namespace NexEPA.Controllers.API
         /// <param name="status">Project Status.</param>
         /// <param name="period">Project Period.</param>
         /// <returns>List Project Model.</returns>
+        ////[ApiAuthorize]
         public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
             DateTime? startDate = null;
@@ -83,6 +84,7 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "PM")]
         public HttpResponseMessage Post(ProjectModel project)
         {
+            var date = TimeZone.CurrentTimeZone.ToLocalTime(project.StartDate.Value);
             if (ModelState.IsValid)
             {
                 AddProjectCriteria criteria = new AddProjectCriteria()

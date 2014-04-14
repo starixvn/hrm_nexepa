@@ -30,7 +30,8 @@ namespace NexEPA
                 "~/Content/Site/layout.less",
                 "~/Content/Site/Employee/employee.less",
                 "~/Content/Site/Projects/project.less",
-                "~/Content/Site/KPI/KPI.less"));
+                "~/Content/Site/KPI/KPI.less",
+                "~/Content/Site/Target/target.less"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",
@@ -62,7 +63,9 @@ namespace NexEPA
                 "~/Scripts/Views/KPI/KPI/KPI-repository.js",
                 "~/Scripts/Views/KPI/KPICommon.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-controller.js",
-                "~/Scripts/Views/TargetTemplate/targettemplate-repository.js"));
+                "~/Scripts/Views/TargetTemplate/targettemplate-repository.js",
+                "~/Scripts/Views/Target/Target/target-controller.js",
+                "~/Scripts/Views/Target/Target/target-repository.js"));
         }
     }
 }

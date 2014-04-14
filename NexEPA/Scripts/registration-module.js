@@ -1,4 +1,4 @@
-﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule*/
+﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule*/
 /*global angular*/
 'use strict';
 
@@ -33,6 +33,13 @@ var kpiSettingModule = angular.module("kpiSettingModule", ['ngRoute', 'ngResourc
 	$routeProvider.when('/KPI/EditKPI/:id', { templateUrl: '/templates/KPI/KPI/Edit.html', controller: 'EditKPIController' });
 });
 
+var targetModule = angular.module("targetModule", ['ngRoute', 'ngResource'])
+.config(function ($routeProvider) {
+	$routeProvider.when('/Target/ViewTarget', { templateUrl: '/templates/Target/Target/View.html', controller: 'ViewTargetController' });
+	$routeProvider.when('/Target/CreateTarget', { templateUrl: '/templates/Target/Target/Create.html', controller: 'CreateTargetController' });
+	$routeProvider.when('/Target/EditTarget/:id', { templateUrl: '/templates/Target/Target/Edit.html', controller: 'EditTargetController' });
+});
+
 var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'ngResource'])
 .config(function ($routeProvider) {
     $routeProvider.when('/TargetTemplate/Index', { templateUrl: '../templates/TargetTemplate/Index.html', controller: 'TargetTemplateController' });
@@ -41,7 +48,7 @@ var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'n
 });
 
 var registrationModule = angular.module("registrationModule",
-['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetTemplateModule'])
+['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetTemplateModule', 'targetModule'])
 .config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
     $routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
