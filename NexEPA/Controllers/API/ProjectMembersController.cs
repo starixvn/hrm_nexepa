@@ -20,11 +20,12 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Project Members Controller.
     /// </summary>
-    public class ProjectMembersController : ApiController
+    public class ProjectMembersController : BaseController
     {
         private readonly IProjectMemberService _projectMemberService;
 
