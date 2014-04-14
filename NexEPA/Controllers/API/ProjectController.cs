@@ -81,7 +81,6 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "PM")]
         public HttpResponseMessage Post(ProjectModel project)
         {
             var date = TimeZone.CurrentTimeZone.ToLocalTime(project.StartDate.Value);
@@ -120,7 +119,6 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Message Response.</returns>
-        [ApiAuthorize(Roles = "PM")]
         public HttpResponseMessage Put(ProjectModel project)
         {
             if (ModelState.IsValid)
