@@ -157,7 +157,7 @@ targetTemplateModule.controller('ModalViewKPIsController', function ($scope, $mo
 	};
 
 	$.each($scope.lstKPI, function (key) {
-		var data = $scope.lstKPI[key].kPIGroupItems;
+		var data = $scope.lstKPI[key].kpiGroupItems;
 		$.each(data, function (k) {
 			$scope.lstAllData.push(data[k]);
 		});

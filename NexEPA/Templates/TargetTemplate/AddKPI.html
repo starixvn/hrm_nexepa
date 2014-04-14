@@ -7,8 +7,8 @@
 		<ul class="list-group list-header">
 			<li class="list-group-item" ng-repeat="kpi in lstKPI | filter: KPIName">
 				<label>
-					{{ kpi.kPIGroupName }}</label>
-				<span ng-repeat="item in kpi.kPIGroupItems | filter: KPIName">
+					{{ kpi.kpiGroupName }}</label>
+				<span ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
 					<label class="checkbox group-checkbox">
 						<input type="checkbox" type="checkbox" value="{{item.name}}" ng-model="item.selected" />
 						{{item.name}}
