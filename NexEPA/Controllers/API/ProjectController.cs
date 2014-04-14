@@ -25,6 +25,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Web.Attributes;
 
     /// <summary>
     /// Project Controller.

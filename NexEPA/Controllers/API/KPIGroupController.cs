@@ -22,7 +22,7 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// KPI Group Controller.
     /// </summary>
-    public class KPIGroupController : ApiController
+    public class KPIGroupController : BaseController
     {
         private IKPIGroupServices _kpiGroupServices;
 
