@@ -1,15 +1,17 @@
-﻿/* global registrationModule */
+﻿/* global employeeModule */
 'use strict';
 
-registrationModule.factory('employeeRepository', function ($http, $q) {
-    return {
-        get: function () {
-            var deferred = $q.defer();
-            $http.get('/api/Employee/GetEmployees').success(deferred.resolve).error(deferred.reject);
-            return deferred.promise;
-        },
-        save: function (employee) {
-            $http.post('api/Employee/Create', employee);
-        }
-    };
-});
+employeeModule.factory('employeeRepository', ['$http', function ($http) {
+	return {
+		getAllEmployee: function (keyword, groupId) {
+			return $http.get('/api/Employee/GetAllEmployee/', { params: { keyword: keyword, groupId: groupId} });
+		},
+		getAllGroup: function () {
+			return $http.get('/api/Employee/GetAllGroup');
+		}
+	};
+} ]);
+
+employeeModule.factory('employeeCacheFactory', ['$cacheFactory', function ($cacheFactory) {
+	return $cacheFactory("EmployeeCache");
+} ]);

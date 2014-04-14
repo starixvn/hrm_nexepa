@@ -152,6 +152,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
+    <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMembersController.cs" />
@@ -228,7 +229,6 @@
     <Content Include="Scripts\Views\Target\Target\target-controller.js" />
     <Content Include="Scripts\Views\Target\Target\target-repository.js" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
-    <Content Include="Templates\Employee\Create.html" />
     <Content Include="Templates\Employee\View.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />
     <Content Include="Templates\ProjectMembers\Create.html" />
@@ -284,6 +284,7 @@
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\layout.less" />
     <None Include="Content\Site\Target\target.less" />
+    <None Include="Content\Site\Employee\employee.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

@@ -1,4 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule*/
+/* exported employeeModule*/
 /*global angular*/
 'use strict';
 
@@ -47,10 +48,16 @@ var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'n
     $routeProvider.when('/TargetTemplate/Edit/:targetId', { templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
 });
 
+var employeeModule = angular.module("employeeModule", ['ngRoute', 'ngResource'])
+.config(function ($routeProvider) {
+	$routeProvider.when('/Employee/GetAllEmployee', { templateUrl: '/templates/Employee/View.html', controller: 'ViewAllEmployeeController' });
+});
+
 var registrationModule = angular.module("registrationModule",
-['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetTemplateModule', 'targetModule'])
-.config(function ($routeProvider, $locationProvider) {
+['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule' ])
+.config(function ($routeProvider, $locationProvider, $compileProvider) {
     $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
     $routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
     $locationProvider.html5Mode(true);
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype):/);
 });

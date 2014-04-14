@@ -52,19 +52,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\GetAllEmployeeCriteria.cs" />
+    <Compile Include="Criteria\GetAllEmployeeGroupCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByRoleCriteria.cs" />
     <Compile Include="Criteria\GetGroupByIdCriteria.cs" />
     <Compile Include="Criteria\InsertEmployeeCriteria.cs" />
     <Compile Include="Criteria\UpdateEmployeeCriteria.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\EmployeeInfo.cs" />
+    <Compile Include="Models\GroupInfo.cs" />
+    <Compile Include="ViewModels\Group.cs" />
+    <Compile Include="ViewModels\JobTitle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\EmployeeService.cs" />
-    <Compile Include="Services\GroupService.cs" />
+    <Compile Include="Repositories\Implement\EmployeeRepositories.cs" />
+    <Compile Include="Repositories\Interface\IEmployeeRepositories.cs" />
+    <Compile Include="Services\Implement\EmployeeServices.cs" />
+    <Compile Include="Services\Interface\IEmployeeServices.cs" />
+    <Compile Include="ViewModels\EmployeeItem.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <Folder Include="Constant\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">

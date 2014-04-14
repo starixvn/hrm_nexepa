@@ -20,7 +20,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
-    using NexEPA.Employee.Services;
+    using NexEPA.Employee.Services.Implement;
     using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
@@ -34,17 +34,17 @@ namespace NexEPA.Controllers.API
     public class ProjectController : BaseController
     {
         private readonly IProjectService _projectService;
-        private readonly EmployeeService _employeeService;
+        private readonly EmployeeServices _employeeService;
 
         public ProjectController()
             : this(null, null)
         {
         }
 
-        public ProjectController(IProjectService projectService, EmployeeService employeeService)
+        public ProjectController(IProjectService projectService, EmployeeServices employeeService)
         {
             this._projectService = projectService ?? new ProjectService();
-            this._employeeService = employeeService ?? new EmployeeService();
+            this._employeeService = employeeService ?? new EmployeeServices();
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null)
         {
             GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
-            IEnumerable<Employee> employees = _employeeService.GetData<Employee>(criteria);
+            IEnumerable<EmployeeInfo> employees = _employeeService.GetData<EmployeeInfo>(criteria);
             var selectListEmployee = employees.Select(x => new { x.FullName, x.EmployeeId });
 
             return selectListEmployee;

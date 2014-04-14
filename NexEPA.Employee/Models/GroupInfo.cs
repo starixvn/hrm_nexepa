@@ -1,18 +1,18 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Group.cs" company="Nexcel Solutions Vietnam">
+﻿// -----------------------------------------------------------------------
+// <copyright file="GroupInfo.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Quinn.Vo" date="2014.3.7">Created</change>
+//   <change who="Josh.Phan" date="2014.04.03">Created</change>
 // </history>
 
 namespace NexEPA.Employee.Models
 {
     /// <summary>
-    /// Employee group entity.
+    /// The Group Info model.
     /// </summary>
-    public class Group
+    public class GroupInfo
     {
         public int GroupId { get; set; }
 
@@ -21,9 +21,5 @@ namespace NexEPA.Employee.Models
         public string Name { get; set; }
 
         public int DepartmentId { get; set; }
-
-        public int? LeaderId { get; set; }
-
-        public bool IsDisabled { get; set; }
     }
 }

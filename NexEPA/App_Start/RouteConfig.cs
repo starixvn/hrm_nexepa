@@ -33,14 +33,14 @@ namespace NexEPA
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
-               name: "Get all KPI Group",
-               url: "KPI/GetAllKPIGroup/{id}",
-               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
-
-            routes.MapRoute(
                name: "ProjectsEdit",
                url: "Projects/Edit/{Id}",
                defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
+               name: "Get all KPI Group",
+               url: "KPI/GetAllKPIGroup/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "ProjectsDafault",
@@ -116,6 +116,11 @@ namespace NexEPA
                name: "Edit Target",
                url: "Target/EditTarget/{id}",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+              name: "View Employee",
+              url: "Employee/GetAllEmployee",
+              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Default",
