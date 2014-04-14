@@ -187,6 +187,16 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Target.
+        /// </summary>
+        public static string CreateTarget {
+            get {
+                return ResourceManager.GetString("CreateTarget", resourceCulture);
+            }
+        }
+
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Target Template.
         /// </summary>
         public static string CreateTargetTemplate {
@@ -246,6 +256,15 @@ namespace NexEPA.Resources {
         public static string EditKPIGroup {
             get {
                 return ResourceManager.GetString("EditKPIGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Target.
+        /// </summary>
+        public static string EditTarget {
+            get {
+                return ResourceManager.GetString("EditTarget", resourceCulture);
             }
         }
         
@@ -313,7 +332,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the form!.
+        ///   Looks up a localized string similar to Please choose the Form!.
         /// </summary>
         public static string FormRequire {
             get {
@@ -340,7 +359,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the group!.
+        ///   Looks up a localized string similar to Please choose the Group!.
         /// </summary>
         public static string GroupRequire {
             get {
@@ -385,6 +404,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Target.
+        /// </summary>
+        public static string ManageTarget {
+            get {
+                return ResourceManager.GetString("ManageTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
@@ -412,7 +440,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the name!.
+        ///   Looks up a localized string similar to Please fill out the Name!.
         /// </summary>
         public static string NameRequire {
             get {
@@ -448,6 +476,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Manager.
         /// </summary>
         public static string ProjectManager {
@@ -462,6 +499,15 @@ namespace NexEPA.Resources {
         public static string ProjectName {
             get {
                 return ResourceManager.GetString("ProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose the Project!.
+        /// </summary>
+        public static string ProjectRequire {
+            get {
+                return ResourceManager.GetString("ProjectRequire", resourceCulture);
             }
         }
         
@@ -564,6 +610,24 @@ namespace NexEPA.Resources {
             }
         }
         
+            /// <summary>
+        ///   Looks up a localized string similar to #.
+        /// </summary>
+        public static string SymbolCount {
+            get {
+                return ResourceManager.GetString("SymbolCount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string Target {
+            get {
+                return ResourceManager.GetString("Target", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
@@ -574,7 +638,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the title!.
+        ///   Looks up a localized string similar to Please fill out the Title!.
         /// </summary>
         public static string TitleRequire {
             get {
@@ -610,7 +674,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value of weight must be in range 0 to 100!.
+        ///   Looks up a localized string similar to The value of Weight must be in range 0 to 100!.
         /// </summary>
         public static string WeightRangeRequire {
             get {
@@ -619,7 +683,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the weight!.
+        ///   Looks up a localized string similar to Please fill out the Weight!.
         /// </summary>
         public static string WeightRequire {
             get {

@@ -23,7 +23,7 @@ namespace NexEPA.Core.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List Target Type.</returns>
-        public IEnumerable<TargetType> GetAllTargetType(GetAllTargetTypeCriteria criteria) 
+        public IEnumerable<TargetType> GetAllTargetType(GetAllTargetTypeCriteria criteria)
         {
             return GetData<TargetType>(criteria);
         }

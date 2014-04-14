@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2014.3.28">Created</change>
+//   <change who="Josh.Phan" date="2014.04.07">Changed</change>
 // </history>
 
 namespace NexEPA.Core.Constants
@@ -15,5 +16,7 @@ namespace NexEPA.Core.Constants
     public class Constants
     {
         public const string CurrentSessionKey = "NexEPA.CurrentSession";
+
+        public const string ShortDateStringFormat = "MMM dd,yyyy";
     }
 }

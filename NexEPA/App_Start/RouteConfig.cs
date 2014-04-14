@@ -103,6 +103,21 @@ namespace NexEPA
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
+               name: "View Target",
+               url: "Target/ViewTarget/",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+               name: "Create Target",
+               url: "Target/CreateTarget/",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+               name: "Edit Target",
+               url: "Target/EditTarget/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });

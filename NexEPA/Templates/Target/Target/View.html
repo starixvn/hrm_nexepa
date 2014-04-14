@@ -1,0 +1,72 @@
+﻿<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="Target"></a></li>
+            <li class="current" data-translate="ManageTarget"></li>
+        </ul>
+        <div class="button-icon">
+            <span class="icon plus"></span><a href="" ng-click="create()" data-translate="CreateTarget">
+            </a>
+        </div>
+    </div>
+
+    <div class="form-inline filter">
+        <form novalidate class="form-inline">
+            <div class="form-group">
+                <label data-translate="Form"></label>
+                <select name="formSelect" ng-model="filter.targetTypeId" 
+                    ng-options="opt.targetTypeId as opt.name for opt in formOptions" required class="form-control">
+                    <option value="">-- All --</option>
+                    </select>
+            </div>
+            <div class="form-group">
+                <label data-translate="StartDate"></label>
+                <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="MMM dd,yyyy" is-open="startDateOpened" show-button-bar="false"/>
+                <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupStartDate($event)"></button>
+            </div>
+            <div class="form-group">
+                <label data-translate="EndDate"></label>
+                <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup="MMM dd,yyyy" is-open="endDateOpened" show-button-bar="false"/>
+                <button class="btn-default glyphicon glyphicon-calendar" ng-click="openPopupEndDate($event)"></button>
+            </div>
+
+            <button class="btn btn-primary" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>
+            <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th data-translate="SymbolCount"></th>
+            <th data-translate="Target"></th>
+            <th data-translate="Form"></th>
+            <th data-translate="Project"></th>
+            <th data-translate="Milestone"></th>
+            <th data-translate="StartDate"></th>
+            <th data-translate="EndDate"></th>
+            <th data-translate="Status"></th>
+            <th data-translate="Action"></th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="target in targetList">
+                <td class="count" ng-bind="$index + 1"></td>
+                <td ng-bind="target.name"></td>
+                <td class="form" ng-bind="target.targetType.name"></td>
+                <td ng-bind="target.project.name"></td>
+                <td ng-bind="target.milestone.name"></td>
+                <td class="start-date" ng-bind="target.startDate"></td>
+                <td class="end-date" ng-bind="target.endDate"></td>
+                <td class="status" ng-bind="target.statusName"></td>
+                <td class="action">
+                    <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(target.targetId)"/>
+                    <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(target.targetId, target.name)"/>
+                </td>
+            </tr>
+            <tr ng-show="targetList == ''">
+                <td class="empty-result" colspan="9" data-translate="EmptyResult"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
