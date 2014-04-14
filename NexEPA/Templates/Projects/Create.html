@@ -12,29 +12,29 @@
                 {{error}}
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">{{"ProjectName" | translate}} (*)</label>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label">{{"ProjectName" | translate}}</label>
             <div class="col-sm-8">
                 <input type="text" name="projectname" ng-model="project.name" class="form-control"
                     placeholder="Project Name" required />
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">{{"StartDate" | translate}} (*)</label>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label">{{"StartDate" | translate}}</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.startDate" placeholder="Start Date"
                     datepicker-popup="dd-MMMM-yyyy" id="startDate" readonly required />
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">{{"EndDate" | translate}} (*)</label>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label">{{"EndDate" | translate}}</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.endDate" placeholder="End Date" 
                     datepicker-popup="dd-MMMM-yyyy" id="endDate" readonly required />
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">{{"PM" | translate}} (*)</label>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label">{{"PM" | translate}}</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-options="pm.employeeId as pm.fullName for pm in pms"
                     ng-model="project.projectManager" required>
@@ -42,8 +42,8 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">{{"Status" | translate}} (*)</label>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label">{{"Status" | translate}}</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-options="s.id as s.name for s in status" ng-model="project.status"
                     required>
