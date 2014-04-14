@@ -90,6 +90,16 @@ kpiSettingModule.controller("ViewKPIController",
 			getKPI(targetTypeId, groupId);
 			$scope.disabledSubmitButton = true;
 		};
+
+		// reload
+		$scope.reload = function () {
+			if ($scope.isViewAll) {
+				$route.reload();
+			}
+			else {
+				$location.url('/KPI/ViewKPI/');
+			} 
+		};
 	});
 
 // Create New KPI
@@ -177,6 +187,10 @@ kpiSettingModule.controller("ViewKPIController",
 		$scope.cancel = function () {
 			window.history.back();
 		};
+
+		$scope.backToView = function () {
+			$location.url('/KPI/ViewKPI/');
+		};
 	});
 
 // Edit KPI
@@ -234,5 +248,9 @@ kpiSettingModule.controller("ViewKPIController",
 
 		$scope.cancel = function () {
 			window.history.back();
+		};
+
+		$scope.backToView = function () {
+			$location.url('/KPI/ViewKPI/');
 		};
 	});

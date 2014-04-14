@@ -84,6 +84,10 @@ targetModule.controller('ViewTargetController',
 				});
 			});
 		};
+
+		$scope.reload = function () {
+			$route.reload();
+		};
 	});
 
 	targetModule.controller("CreateTargetController",
@@ -163,6 +167,11 @@ targetModule.controller('ViewTargetController',
 		// cancel
 		$scope.cancel = function () {
 			window.history.back();
+		};
+
+		// back to view
+		$scope.backToView = function () {
+			$location.url('/Target/ViewTarget/');
 		};
 	});
 
@@ -280,5 +289,10 @@ targetModule.controller('ViewTargetController',
 		// cancel
 		$scope.cancel = function () {
 			window.history.back();
+		};
+
+		// back to view
+		$scope.backToView = function () {
+			$location.url('/Target/ViewTarget/');
 		};
 	});

@@ -144,6 +144,11 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 				group.isDisabled = !newGroup.isDisabled;
 			});
 		};
+
+		// reload
+		$scope.reload = function () {
+			$route.reload();
+		};
 	});
 
 // Create New KPI Group
@@ -205,6 +210,10 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		// form on change
 		$scope.formOnChange = function (group) {
 			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
+		};
+
+		$scope.backToView = function () {
+			$location.url('/KPI/GetAllKPIGroup/');
 		};
 	});
 
@@ -273,5 +282,9 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		// form on change
 		$scope.formOnChange = function (group) {
 			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
+		};
+
+		$scope.backToView = function () {
+			$location.url('/KPI/GetAllKPIGroup/');
 		};
 	});

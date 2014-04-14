@@ -1,7 +1,7 @@
 ﻿/* global employeeModule */
 'use strict';
 
-employeeModule.controller("ViewAllEmployeeController", function ($scope, $translate, employeeRepository, employeeCacheFactory) {
+employeeModule.controller("ViewAllEmployeeController", function ($scope, $translate, $route, employeeRepository, employeeCacheFactory) {
 
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
@@ -38,5 +38,10 @@ employeeModule.controller("ViewAllEmployeeController", function ($scope, $transl
 		else {
 			$scope.disabledSubmitButton = false;
 		}
+	};
+
+	// reload
+	$scope.reload = function () {
+		$route.reload();
 	};
 });
