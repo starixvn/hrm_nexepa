@@ -54,17 +54,20 @@
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Criteria\GetAllTargetTypeCriteria.cs" />
+    <Compile Include="Criteria\GetEmployeeByDomainUsernameCriteria.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
-    <Compile Include="Enums\ProjectStatus.cs" />
+    <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\RolesEnum.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Extensions\StringValueAttribute.cs" />
+    <Compile Include="Model\Project\SelectListModel.cs" />
     <Compile Include="Model\Target\TargetType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\BaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\EPAService.cs" />
+    <Compile Include="Utilities\EnumStatus.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

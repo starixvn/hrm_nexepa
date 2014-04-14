@@ -29,5 +29,7 @@ namespace NexEPA.KPI.ViewModel.KPI
         public int TargetTypeId { get; set; }
 
         public string TargetTypeName { get; set; }
+
+        public bool? Selected { get; set; }
     }
 }

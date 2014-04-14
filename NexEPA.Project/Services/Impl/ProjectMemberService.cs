@@ -34,7 +34,7 @@ namespace NexEPA.Project.Services.Impl
             return result;
         }
 
-        public CommandResult DeleteMemebr(DeleteMemberCriteria criteria)
+        public CommandResult DeleteMember(DeleteMemberCriteria criteria)
         {
             CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");

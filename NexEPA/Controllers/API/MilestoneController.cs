@@ -14,17 +14,17 @@ namespace NexEPA.Controllers.API
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
-    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Milestone Controller.
     /// </summary>
-    public class MilestoneController : BaseController
+    public class MilestoneController : ApiController
     {
         private readonly IProjectService _projectService;
 

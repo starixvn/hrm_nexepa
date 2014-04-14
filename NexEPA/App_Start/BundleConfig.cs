@@ -54,12 +54,15 @@ namespace NexEPA
                 "~/Scripts/Views/ProjectMember/projectmembers-repository.js",
                 "~/Scripts/Extensions/Filters/projectstatus-filter.js",
                 "~/Scripts/Extensions/Services/projectsetting-service.js",
-                "~/Scripts/Extensions/CommonFactories/notification-factory.js",
+                "~/Scripts/Extensions/Common/notification-factory.js",
+                "~/Scripts/Extensions/Common/modalconfirm-controller.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-controller.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-repository.js",
                 "~/Scripts/Views/KPI/KPI/KPI-controller.js",
                 "~/Scripts/Views/KPI/KPI/KPI-repository.js",
-                "~/Scripts/Views/KPI/KPICommon.js"));
+                "~/Scripts/Views/KPI/KPICommon.js",
+                "~/Scripts/Views/TargetTemplate/targettemplate-controller.js",
+                "~/Scripts/Views/TargetTemplate/targettemplate-repository.js"));
         }
     }
 }

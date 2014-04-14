@@ -80,19 +80,6 @@ kpiSettingModule.factory("CacheFactory", ['$cacheFactory', function ($cacheFacto
 	return $cacheFactory("KPICache");
 }]);
 
-kpiSettingModule.controller("ModalConfirmController", function ($scope, $modalInstance, name, action) {
-	$scope.name = name;
-	$scope.action = action;
-
-	$scope.ok = function () {
-		$modalInstance.close();
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
-	};
-});
-
 kpiSettingModule.directive('numbersOnly', function () {
 	return {
 		require: 'ngModel',

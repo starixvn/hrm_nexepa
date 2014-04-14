@@ -15,7 +15,7 @@
                 <th data-translate="Description">
                 </th>
                 <th class="text-center">
-                    <a class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()" title="Add" />
+                    <a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="toggleAddMode()" title="Add" />
                 </th>
             </tr>
         </thead>
@@ -35,8 +35,8 @@
                 <input type="text" class="form-control" ng-model="milestone.description" />
             </td>
             <td class="text-center">
-                <a class="btn glyphicon glyphicon-saved" ng-click="addMilestone()" title="Save" />
-                <a class="btn glyphicon glyphicon-trash" ng-click="toggleAddMode()" title="Cancel" />
+                <a href="javascript:;" class="glyphicon glyphicon-saved" ng-click="addMilestone()" title="Save" />
+                <a href="javascript:;" class="glyphicon glyphicon-trash" ng-click="toggleAddMode()" title="Cancel" />
             </td>
         </tr>
         <tr ng-repeat="milestone in milestones | orderBy:'Id':true">
@@ -62,12 +62,12 @@
             </td>
             <td class="text-center">
                 <div ng-show="milestone.editMode == null || milestone.editMode == false">
-                    <a class="btn glyphicon glyphicon-edit" ng-click="toggleEditMode(milestone)" title="Edit" />
-                    <a class="btn glyphicon glyphicon-remove" ng-click="deleteMilestone(milestone)" title="Delete" />
+                    <a href="javascript:;" class="glyphicon glyphicon-edit" ng-click="toggleEditMode(milestone)" title="Edit" />
+                    <a href="javascript:;" class="glyphicon glyphicon-remove" ng-click="deleteMilestone(milestone)" title="Delete" />
                 </div>
                 <div ng-show="milestone.editMode == true">
-                    <a class="btn glyphicon glyphicon-saved" ng-click="updateMilestone(milestone)" title="Save" />
-                    <a class="btn glyphicon glyphicon-trash" ng-click="toggleEditMode(milestone)" title="Cancel" />
+                    <a href="javascript:;" class="glyphicon glyphicon-saved" ng-click="updateMilestone(milestone)" title="Save" />
+                    <a href="javascript:;" class="glyphicon glyphicon-trash" ng-click="toggleEditMode(milestone)" title="Cancel" />
                 </div>
             </td>
         </tr>

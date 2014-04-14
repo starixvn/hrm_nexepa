@@ -20,12 +20,11 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
-    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Project Members Controller.
     /// </summary>
-    public class ProjectMembersController : BaseController
+    public class ProjectMembersController : ApiController
     {
         private readonly IProjectMemberService _projectMemberService;
 
@@ -122,7 +121,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now.Date
             };
 
-            CommandResult result = _projectMemberService.DeleteMemebr(criteria);
+            CommandResult result = _projectMemberService.DeleteMember(criteria);
             if (result.Code != 0)
             {
                 List<string> errorMessage = new List<string>() { result.Message };
@@ -132,11 +131,29 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Get Project Role.
+        /// </summary>
+        /// <param name="projectId">Project Id.</param>
+        /// <param name="employeeId">Employee Id.</param>
+        /// <returns>List ProjectRoleModel.</returns>
         [HttpGet]
-        public IEnumerable<ProjectRoleModel> ProjectRole()
+        public IEnumerable<ProjectRoleModel> ProjectRole(int? projectId = null, int? employeeId = null)
         {
             GetAllProjectRoleCriteria criteria = new GetAllProjectRoleCriteria();
             IEnumerable<ProjectRoleModel> data = _projectMemberService.GetAllProjectRole(criteria);
+
+            if (projectId != null && employeeId != null)
+            {
+                IEnumerable<ProjectMembersModel> roles = GetMemberRoleInProject(projectId.Value, employeeId.Value);
+                if (roles != null)
+                {
+                    foreach (var item in data.Where(x => roles.Select(y => y.ProjectRoleId).Contains(x.ProjectRoleId)))
+                    {
+                        item.Selected = true;
+                    }
+                }
+            }
 
             return data;
         }

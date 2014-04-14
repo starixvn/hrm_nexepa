@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">

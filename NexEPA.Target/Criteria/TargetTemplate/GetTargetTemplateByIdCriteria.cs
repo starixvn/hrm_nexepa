@@ -1,0 +1,31 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="GetTargetTemplateByIdCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Bradley.Mac" date="2014.4.4">Created</change>
+// </history>
+
+namespace NexEPA.Target.Criteria.TargetTemplate
+{
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// Get Target Template By Id Criteria.
+    /// </summary>
+    public class GetTargetTemplateByIdCriteria : CriteriaBase
+    {
+        public int TargetId { get; set; }
+
+        public override bool IsValid()
+        {
+            return true;
+        }
+
+        public override string GetSettingKey()
+        {
+            return "TargetTemplate_GetById";
+        }
+    }
+}

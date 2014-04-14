@@ -16,7 +16,8 @@ namespace NexEPA.Controllers.API
     using System.Net.Http;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Enums;
+    using NexEPA.Core.Model.Project;
+    using NexEPA.Core.Utilities;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services;
@@ -24,13 +25,11 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
-    using NexEPA.Web.Attributes;
-    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Project Controller.
     /// </summary>
-    public class ProjectController : BaseController
+    public class ProjectController : ApiController
     {
         private readonly IProjectService _projectService;
         private readonly EmployeeService _employeeService;
@@ -69,9 +68,9 @@ namespace NexEPA.Controllers.API
                     EndDate = DateTime.Now.Date
                 };
 
-            IEnumerable<ProjectModel> projects = _projectService.GetAllProject(criteria);
+            IEnumerable<ProjectModel> lstProject = _projectService.GetAllProject(criteria);
 
-            return projects;
+            return lstProject;
         }
 
         /// <summary>
@@ -161,15 +160,14 @@ namespace NexEPA.Controllers.API
             return selectListEmployee;
         }
 
+        /// <summary>
+        /// Render Project Status Select List.
+        /// </summary>
+        /// <returns>Array of Project Status.</returns>
         [HttpGet]
-        public Array RenderProjectStatusSelectList()
+        public IEnumerable<SelectListModel> RenderProjectStatusSelectList()
         {
-            Array data = new[]
-                {
-                    new SelectListModel { Id = (int)ProjectStatus.Active, Name = ProjectStatus.Active.ToString() },
-                    new SelectListModel { Id = (int)ProjectStatus.Closed, Name = ProjectStatus.Closed.ToString() }
-                };
-
+            var data = EnumStatus.GetAllStatus();
             return data;
         }
 
@@ -182,10 +180,10 @@ namespace NexEPA.Controllers.API
         {
             Array statusList = new[]
                     {
-                        new SelectListModel() { Name = "This month", Id = 1 },
-                        new SelectListModel() { Name = "Last 3 months", Id = 2 },
-                        new SelectListModel() { Name = "Last 6 months", Id = 3 },
-                        new SelectListModel() { Name = "Last 12 months", Id = 4 }
+                        new SelectListModel() { Id = 1, Name = "This month" },
+                        new SelectListModel() { Id = 2, Name = "Last 3 months" },
+                        new SelectListModel() { Id = 3, Name = "Last 6 months" },
+                        new SelectListModel() { Id = 4, Name = "Last 12 months" }
                     };
 
             return statusList;

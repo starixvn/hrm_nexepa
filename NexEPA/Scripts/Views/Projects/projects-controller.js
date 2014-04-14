@@ -2,278 +2,293 @@
 'use strict';
 
 projectsSettingModule.controller('ProjectController', function ($scope, projectDataFactory, ProjectSettingCache) {
-    /**
-    * Project Setting Cache. 
-    */
-    var cacheListPM = ProjectSettingCache.get("CacheListPM");
-    var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
-    var cacheListPeriod = ProjectSettingCache.get("CacheListPeriod");
-    /**
-    * Ajax event Loaded. 
-    */
-    // Get data to ProjectManager - Select List
-    var successGetEmployeeSelectList = function (data) {
-        $scope.pms = data;
-        ProjectSettingCache.put("CacheListPM", data);
-    };
+	/**
+	* Project Setting Cache. 
+	*/
+	var cacheListPM = ProjectSettingCache.get("CacheListPM");
+	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+	var cacheListPeriod = ProjectSettingCache.get("CacheListPeriod");
+	/**
+	* Ajax event Loaded. 
+	*/
+	// Get data to ProjectManager - Select List
+	var successGetEmployeeSelectList = function (data) {
+		$scope.pms = data;
+		ProjectSettingCache.put("CacheListPM", data);
+	};
 
-    // Get data to Status - Select List
-    var successGetProjectStatusSelectList = function (data) {
-        $scope.status = data;
-        ProjectSettingCache.put("CacheListStatus", data);
-    };
+	// Get data to Status - Select List
+	var successGetProjectStatusSelectList = function (data) {
+		$scope.status = data;
+		ProjectSettingCache.put("CacheListStatus", data);
+	};
 
-    // Get data to Period - Select List
-    var successGetPeriodSelectList = function (data) {
-        $scope.periods = data;
-        ProjectSettingCache.put("CacheListPeriod", data);
-    };
+	// Get data to Period - Select List
+	var successGetPeriodSelectList = function (data) {
+		$scope.periods = data;
+		ProjectSettingCache.put("CacheListPeriod", data);
+	};
 
-    // Filter data by criteria.
-    var successFilterData = function (data) { $scope.projects = data; };
+	// Filter data by criteria.
+	var successFilterData = function (data) { $scope.projects = data; };
 
-    /**
-    * Initialize data to view Index.
-    */
-    projectDataFactory.filterData(null).then(successFilterData);
+	/**
+	* Initialize data to view Index.
+	*/
+	projectDataFactory.filterData(null).then(successFilterData);
 
-    // Check for list ProjectManager has cache data.
-    if (cacheListPM) {
-        $scope.pms = cacheListPM;
-    }
-    else {
-        projectDataFactory.getEmployeeSelectList(null).then(successGetEmployeeSelectList);
-    }
+	// Check for list ProjectManager has cache data.
+	if (cacheListPM) {
+		$scope.pms = cacheListPM;
+	}
+	else {
+		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+	}
 
-    // Check for list Status has cache data.
-    if (cacheListStatus) {
-        $scope.status = cacheListStatus;
-    }
-    else {
-        projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
-    }
+	// Check for list Status has cache data.
+	if (cacheListStatus) {
+		$scope.status = cacheListStatus;
+	}
+	else {
+		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
+	}
 
-    // Check for list Periods has cache data.
-    if (cacheListPeriod) {
-        $scope.periods = cacheListPeriod;
-    }
-    else {
-        projectDataFactory.getProjectPeriodSelectList().then(successGetPeriodSelectList);
-    }
+	// Check for list Periods has cache data.
+	if (cacheListPeriod) {
+		$scope.periods = cacheListPeriod;
+	}
+	else {
+		projectDataFactory.getProjectPeriodSelectList().then(successGetPeriodSelectList);
+	}
 
-    /**
-    * Event: Filter 
-    */
-    $scope.getProjectList = function (filter) {
-        projectDataFactory.filterData(filter).then(successFilterData);
-    };
+	/**
+	* Event: Filter 
+	*/
+	$scope.getProjectList = function (filter) {
+		projectDataFactory.filterData(filter).then(successFilterData);
+	};
 });
 
 projectsSettingModule.controller('CreateProjectController',
 function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
-    var cacheListPM = ProjectSettingCache.get("CacheListPM");
-    var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
-    $scope.errors = [];
-    /**
-    * Ajax event. 
-    */
-    // Get data to ProjectManager - Select List
-    var successGetEmployeeSelectList = function (data) {
-        $scope.pms = data;
-        ProjectSettingCache.put("CacheListPM", data);
-    };
+	var cacheListPM = ProjectSettingCache.get("CacheListPM");
+	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+	$scope.errors = [];
+	/**
+	* Ajax event. 
+	*/
+	// Get data to ProjectManager - Select List
+	var successGetEmployeeSelectList = function (data) {
+		$scope.pms = data;
+		ProjectSettingCache.put("CacheListPM", data);
+	};
 
-    // Get data to Status - Select List
-    var successGetProjectStatusSelectList = function (data) {
-        $scope.status = data;
-        ProjectSettingCache.put("CacheListStatus", data);
-    };
+	// Get data to Status - Select List
+	var successGetProjectStatusSelectList = function (data) {
+		$scope.status = data;
+		ProjectSettingCache.put("CacheListStatus", data);
+	};
 
-    // Success add new project callback.
-    var successAddProject = function () { $location.url('/Projects/Index'); };
+	// Success add new project callback.
+	var successAddProject = function () { $location.url('/Projects/Index'); };
 
-    // Errors occur during Add process.
-    var errorAddProject = function (response) { $scope.errors = response; };
+	// Errors occur during Add process.
+	var errorAddProject = function (response) { $scope.errors = response; };
 
-    /**
-    * Initialize data to view Create Project. 
-    */
-    // Check for list ProjectManager has cache data.
-    if (cacheListPM) {
-        $scope.pms = cacheListPM;
-    }
-    else {
-        projectDataFactory.getEmployeeSelectList(null).then(successGetEmployeeSelectList);
-    }
+	/**
+	* Initialize data to view Create Project. 
+	*/
+	// Check for list ProjectManager has cache data.
+	if (cacheListPM) {
+		$scope.pms = cacheListPM;
+	}
+	else {
+		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+	}
 
-    // Check for list Status has cache data.
-    if (cacheListStatus) {
-        $scope.status = cacheListStatus;
-    }
-    else {
-        projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
-    }
+	// Check for list Status has cache data.
+	if (cacheListStatus) {
+		$scope.status = cacheListStatus;
+	}
+	else {
+		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
+	}
 
-    /**
-    * Events 
-    */
-    // Save
-    $scope.save = function (project) {
-        projectDataFactory.addProject(project).then(successAddProject, errorAddProject);
-    };
+	/**
+	* Events 
+	*/
+	// Save
+	$scope.save = function (project) {
+		projectDataFactory.addProject(project).then(successAddProject, errorAddProject);
+	};
 
-    // Cancel
-    $scope.cancel = function () { $window.history.back(); };
+	// Cancel
+	$scope.cancel = function () { $window.history.back(); };
 });
 
-projectsSettingModule.controller('EditProjectController',
-    function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache) {
-    /**
-    * Scope variables. 
-    */
-    var projectId = $routeParams.projectId;
-    $scope.errors = [];
-    var cacheListPM = ProjectSettingCache.get("CacheListPM");
-    var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
-    /**
-    * Ajax event. 
-    */
-    // Get data to ProjectManager - Select List
-    var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
+projectsSettingModule.controller('EditProjectController', function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache) {
+	/**
+	* Scope variables. 
+	*/
+	var projectId = $routeParams.projectId;
+	$scope.errors = [];
+	var cacheListPM = ProjectSettingCache.get("CacheListPM");
+	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+	/**
+	* Ajax event. 
+	*/
+	// Get data to ProjectManager - Select List
+	var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
 
-    // Get data to Status - Select List
-    var successGetProjectStatusSelectList = function (data) { $scope.status = data; };
+	// Get data to Status - Select List
+	var successGetProjectStatusSelectList = function (data) { $scope.status = data; };
 
-    // Get project by Id
-    var successGetProjectById = function (data) { $scope.projectUpdate = data; };
+	// Get project by Id
+	var successGetProjectById = function (data) { $scope.projectUpdate = data; };
 
-    // Update Project success callback.
-    var successUpdateProject = function () { $location.url('/Projects/Index'); };
+	// Update Project success callback.
+	var successUpdateProject = function () { $location.url('/Projects/Index'); };
 
-    // Update Project failure callback.
-    var errorUpdateProject = function (response) { $scope.errors = response; };
+	// Update Project failure callback.
+	var errorUpdateProject = function (response) { $scope.errors = response; };
 
-    /**
-    * Initialize data to view Edit Project. 
-    */
-    // Check for list ProjectManager has cache data.
-    if (cacheListPM) {
-        $scope.pms = cacheListPM;
-    }
-    else {
-        projectDataFactory.getEmployeeSelectList(null).then(successGetEmployeeSelectList);
-    }
+	/**
+	* Initialize data to view Edit Project. 
+	*/
+	// Check for list ProjectManager has cache data.
+	if (cacheListPM) {
+		$scope.pms = cacheListPM;
+	}
+	else {
+		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+	}
 
-    // Check for list Status has cache data.
-    if (cacheListStatus) {
-        $scope.status = cacheListStatus;
-    }
-    else {
-        projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
-    }
+	// Check for list Status has cache data.
+	if (cacheListStatus) {
+		$scope.status = cacheListStatus;
+	}
+	else {
+		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
+	}
 
-    projectDataFactory.getProjectById(projectId).then(successGetProjectById);
+	projectDataFactory.getProjectById(projectId).then(successGetProjectById);
 
-    /**
-    * Events 
-    */
-    // Update
-    $scope.update = function (project) {
-        projectDataFactory.updateProject(project).then(successUpdateProject, errorUpdateProject);
-    };
+	/**
+	* Events 
+	*/
+	// Update
+	$scope.update = function (project) {
+		projectDataFactory.updateProject(project).then(successUpdateProject, errorUpdateProject);
+	};
 
-    // Cancel
-    $scope.cancel = function () {
-        $window.history.back();
-    };
+	// Cancel
+	$scope.cancel = function () {
+		$window.history.back();
+	};
 });
 
 
 projectsSettingModule.controller('MilestoneController',
-    function ($scope, $routeParams, milestoneFactory, notificationFactory) {
-        /**
-        * Scope variables. 
-        */
-        var projectId = $routeParams.projectId;
-        $scope.milestones = [];
-        $scope.milestoneErrors = [];
-        $scope.addMode = false;
+function ($scope, $routeParams, $modal, milestoneFactory, notificationFactory) {
+	/**
+	* Scope variables. 
+	*/
+	var projectId = $routeParams.projectId;
+	$scope.milestones = [];
+	$scope.milestoneErrors = [];
+	$scope.addMode = false;
 
-        /**
-        * Ajax event. 
-        */
-        // Notify error popup when action is failure.
-        var errorNotification = function (data) {
-            notificationFactory.error(data);
-        };
+	/**
+	* Ajax event. 
+	*/
+	// Notify error popup when action is failure.
+	var errorNotification = function (data) {
+		notificationFactory.error(data);
+	};
 
-        // Notify success popup when action is succeed.
-        var successNotification = function () {
-            notificationFactory.success();
-            return milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
-        };
+	// Notify success popup when action is succeed.
+	var successNotification = function () {
+		notificationFactory.success();
+		return milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
+	};
 
-        // Get Milestone
-        var successGetMilestones = function (data) {
-            $scope.milestones = data;
-            $scope.milestoneErrors = {};
-        };
+	// Get Milestone
+	var successGetMilestones = function (data) {
+		$scope.milestones = data;
+		$scope.milestoneErrors = {};
+	};
 
-        // Callback Success for Post data.
-        var successAddMilestone = function (data, status, headers, config) {
-            successNotification(data, status, headers, config).then(function () {
-                $scope.toggleAddMode();
-                $scope.milestone = {};
-            });
-        };
+	// Callback Success for Post data.
+	var successAddMilestone = function (data, status, headers, config) {
+		successNotification(data, status, headers, config).then(function () {
+			$scope.toggleAddMode();
+			$scope.milestone = {};
+		});
+	};
 
-        var errorAddUpdateMilestone = function (data) {
-            $scope.milestoneErrors = data;
-        };
+	var errorAddUpdateMilestone = function (data) {
+		$scope.milestoneErrors = data;
+	};
 
-        /**
-        * Switch mode Add/Update/Normal
-        */
-        $scope.toggleAddMode = function () {
-            $scope.addMode = !$scope.addMode;
-            if ($scope.addMode === false) {
-                $scope.milestoneErrors = {};
-            }
-        };
+	/**
+	* Switch mode Add/Update/Normal
+	*/
+	$scope.toggleAddMode = function () {
+		$scope.addMode = !$scope.addMode;
+		if ($scope.addMode === false) {
+			$scope.milestoneErrors = {};
+		}
+	};
 
-        $scope.toggleEditMode = function (milestone) {
-            milestone.editMode = !milestone.editMode;
-            if (milestone.editMode === false) {
-                milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
-            }
-        };
+	$scope.toggleEditMode = function (milestone) {
+		milestone.editMode = !milestone.editMode;
+		if (milestone.editMode === false) {
+			milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
+		}
+	};
 
-        /**
-        * Initialize data to view Project Milestone 
-        */
-        milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
+	/**
+	* Initialize data to view Project Milestone 
+	*/
+	milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
 
-        /**
-        * Events 
-        */
-        // Add Milestone.
-        $scope.addMilestone = function () {
-            if ($scope.milestone == null) {
-                var errorMessage = "The field Name is required., The field Start Date is required., The field End Date is required.";
-                $scope.milestoneErrors = errorMessage.split(',');
-            }
-            else {
-                $scope.milestone.projectId = projectId;
-                milestoneFactory.addMilestone($scope.milestone).then(successAddMilestone, errorAddUpdateMilestone);
-            }
+	/**
+	* Events 
+	*/
+	// Add Milestone.
+	$scope.addMilestone = function () {
+		if ($scope.milestone == null) {
+			var errorMessage = "The field Name is required., The field Start Date is required., The field End Date is required.";
+			$scope.milestoneErrors = errorMessage.split(',');
+		}
+		else {
+			$scope.milestone.projectId = projectId;
+			milestoneFactory.addMilestone($scope.milestone).then(successAddMilestone, errorAddUpdateMilestone);
+		}
 
-        };
-        // Update Milestone.
-        $scope.updateMilestone = function (milestone) {
-            milestoneFactory.updateMilestone(milestone).then(successNotification, errorAddUpdateMilestone);
-        };
-        // Delete Milestone.
-        $scope.deleteMilestone = function (milestone) {
-            milestoneFactory.deleteMilestone(milestone.milestoneId).then(successNotification, errorNotification);
-        };
-    });
+	};
+	// Update Milestone.
+	$scope.updateMilestone = function (milestone) {
+		milestoneFactory.updateMilestone(milestone).then(successNotification, errorAddUpdateMilestone);
+	};
+	// Delete Milestone.
+	$scope.deleteMilestone = function (milestone) {
+		debugger;
+		var deleteModalInstance = $modal.open({
+			templateUrl: '/templates/Common/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return milestone.name;
+				},
+				action: function () {
+					return "delete";
+				}
+			}
+		});
+		deleteModalInstance.result.then(function () {
+			milestoneFactory.deleteMilestone(milestone.milestoneId).then(successNotification, errorNotification);
+		});
+
+	};
+});

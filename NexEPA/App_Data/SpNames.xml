@@ -29,12 +29,11 @@
 
   <Function Name="ProjectMembers">
     <Setting Key="ProjectMember_Get" SpName="ProjectMember_Get" DbName="NexEPA" Plain="1" ></Setting>
-    <Setting Key="ProjectMember_GetRoleMember" SpName="ProjectMember_GetRoleMember" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="ProjectMember_GetMemberRole" SpName="ProjectMember_GetMemberRole" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="ProjectMember_DeleteMemberRole" SpName="ProjectMember_DeleteMemberRole" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="ProjectMember_AddMemberRole" SpName="ProjectMember_AddMemberRole" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="ProjectRole_GetAll" SpName="ProjectRole_GetAll" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
-
 
   <Function Name="KPI">
     <Setting Key="KPIGroup_GetAll" SpName="KPIGroup_GetAll" DbName="NexEPA" Plain="1" ></Setting>
@@ -48,6 +47,17 @@
     <Setting Key="KPI_Update" SpName="KPI_Update" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="KPI_Delete" SpName="KPI_Delete" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
+
+  <Function Name="TargetTemplate">
+    <Setting Key="TargetTemplate_GetAll" SpName="TargetTemplate_GetAll" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="TargetTemplate_GetById" SpName="TargetTemplate_GetById" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="TargetTemplate_Insert" SpName="TargetTemplate_Insert" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="TargetTemplate_Update" SpName="TargetTemplate_Update" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="TargetTemplate_Delete" SpName="TargetTemplate_Delete" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="TargetTemplate_AddKPI" SpName="TargetTemplate_AddKPI" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="KPI_GetByTargetTemplate" SpName="KPI_GetByTargetTemplate" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
+  
   <Function Name="Target">
     <Setting Key="TargetType_GetAll" SpName="TargetType_GetAll" DbName="NexEPA" Plain="1" ></Setting>
   </Function>

@@ -9,14 +9,10 @@
 
 namespace NexEPA.Project.Criteria.ProjectMembers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get All Project Role Criteria.
     /// </summary>
     public class GetAllProjectRoleCriteria : CriteriaBase
     {
