@@ -258,7 +258,7 @@ function ($scope, $routeParams, $modal, milestoneFactory, notificationFactory) {
 	// Add Milestone.
 	$scope.addMilestone = function () {
 		if ($scope.milestone == null) {
-			var errorMessage = "The field Name is required., The field Start Date is required., The field End Date is required.";
+			var errorMessage = "Please fill out all required (*) fields.";
 			$scope.milestoneErrors = errorMessage.split(',');
 		}
 		else {

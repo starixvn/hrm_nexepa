@@ -1,75 +1,98 @@
 ﻿<div ng-controller="MilestoneController">
-    <table class="table table-bordered table-striped table-hover" id="milestone-table">
-        <div class="col-sm-10" style="color: red;" ng-show="milestoneErrors.length > 0" id="addError"
-            ng-repeat="error in milestoneErrors">
-            {{error}}
-        </div>
-        <thead>
-            <tr class="required">
-                <th class="control-label" data-translate="Name">
-                </th>
-                <th class="control-label" data-translate="StartDate">
-                </th>
-                <th class="control-label" data-translate="EndDate">
-                </th>
-                <th data-translate="Description">
-                </th>
-                <th class="text-center">
-                    <a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="toggleAddMode()" title="Add" />
-                </th>
-            </tr>
-        </thead>
-        <tr ng-show="addMode">
-            <td>
-                <input type="text" class="form-control" ng-model="milestone.name" />
-            </td>
-            <td>
-                <input type="text" class="form-control" ng-model="milestone.startDate" datepicker-popup="dd-MMMM-yyyy"
-                    readonly />
-            </td>
-            <td>
-                <input type="text" class="form-control"" ng-model="milestone.endDate" datepicker-popup="dd-MMMM-yyyy"
-                    readonly />
-            </td>
-            <td>
-                <input type="text" class="form-control" ng-model="milestone.description" />
-            </td>
-            <td class="text-center">
-                <a href="javascript:;" class="glyphicon glyphicon-saved" ng-click="addMilestone()" title="Save" />
-                <a href="javascript:;" class="glyphicon glyphicon-trash" ng-click="toggleAddMode()" title="Cancel" />
-            </td>
-        </tr>
-        <tr ng-repeat="milestone in milestones | orderBy:'Id':true">
-            <td>
-                <span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.name}}</span>
-                <input ng-model="milestone.name" class="form-control" ng-show="milestone.editMode == true" />
-            </td>
-            <td>
-                <span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.startDate
-                    | date:'dd-MMM-yyyy'}}</span>
-                <input ng-model="milestone.startDate" class="form-control" ng-show="milestone.editMode == true" readonly
-                    datepicker-popup="dd-MMMM-yyyy" id="start1" />
-            </td>
-            <td>
-                <span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.endDate
-                    | date:'dd-MMM-yyyy'}}</span>
-                <input ng-model="milestone.endDate" class="form-control" ng-show="milestone.editMode == true" readonly
-                    datepicker-popup="dd-MMMM-yyyy" id="end1" />
-            </td>
-            <td>
-                <span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.description}}</span>
-                <input ng-model="milestone.description" class="form-control" ng-show="milestone.editMode == true" />
-            </td>
-            <td class="text-center">
-                <div ng-show="milestone.editMode == null || milestone.editMode == false">
-                    <a href="javascript:;" class="glyphicon glyphicon-edit" ng-click="toggleEditMode(milestone)" title="Edit" />
-                    <a href="javascript:;" class="glyphicon glyphicon-remove" ng-click="deleteMilestone(milestone)" title="Delete" />
-                </div>
-                <div ng-show="milestone.editMode == true">
-                    <a href="javascript:;" class="glyphicon glyphicon-saved" ng-click="updateMilestone(milestone)" title="Save" />
-                    <a href="javascript:;" class="glyphicon glyphicon-trash" ng-click="toggleEditMode(milestone)" title="Cancel" />
-                </div>
-            </td>
-        </tr>
-    </table>
+	<table class="table table-bordered table-striped table-hover" id="milestone-table">
+		<div class="col-sm-10" style="color: red;" ng-show="milestoneErrors.length > 0" id="addError"
+			ng-repeat="error in milestoneErrors">
+			{{error}}
+		</div>
+		<thead>
+			<tr ng-show="addMode == false">
+				<th data-translate="Name">
+				</th>
+				<th data-translate="StartDate">
+				</th>
+				<th data-translate="EndDate">
+				</th>
+				<th data-translate="Description">
+				</th>
+				<th class="text-center">
+					<a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="toggleAddMode()"
+						title="Add" />
+				</th>
+			</tr>
+		</thead>
+		<thead ng-show="addMode">
+			<tr class="required">
+				<th class="control-label" data-translate="Name">
+				</th>
+				<th class="control-label" data-translate="StartDate">
+				</th>
+				<th class="control-label" data-translate="EndDate">
+				</th>
+				<th data-translate="Description">
+				</th>
+				<th class="text-center">
+					<a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="toggleAddMode()"
+						title="Add" />
+				</th>
+			</tr>
+		</thead>
+		<tr ng-show="addMode">
+			<td>
+				<input type="text" class="form-control" ng-model="milestone.name" />
+			</td>
+			<td>
+				<input type="text" class="form-control" ng-model="milestone.startDate" datepicker-popup="dd-MMMM-yyyy"
+					readonly />
+			</td>
+			<td>
+				<input type="text" class="form-control" ng-model="milestone.endDate" datepicker-popup="dd-MMMM-yyyy"
+					readonly />
+			</td>
+			<td>
+				<input type="text" class="form-control" ng-model="milestone.description" />
+			</td>
+			<td class="text-center">
+				<a href="javascript:;" class="glyphicon glyphicon-saved" ng-click="addMilestone()"
+					title="Save" />
+				<a href="javascript:;" class="glyphicon glyphicon-trash" ng-click="toggleAddMode()"
+					title="Cancel" />
+			</td>
+		</tr>
+		<tr ng-repeat="milestone in milestones | orderBy:'Id':true">
+			<td>
+				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.name}}</span>
+				<input ng-model="milestone.name" class="form-control" ng-show="milestone.editMode == true" />
+			</td>
+			<td>
+				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.startDate
+					| date:'dd-MMM-yyyy'}}</span>
+				<input ng-model="milestone.startDate" class="form-control" ng-show="milestone.editMode == true"
+					readonly datepicker-popup="dd-MMMM-yyyy" id="start1" />
+			</td>
+			<td>
+				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.endDate
+					| date:'dd-MMM-yyyy'}}</span>
+				<input ng-model="milestone.endDate" class="form-control" ng-show="milestone.editMode == true"
+					readonly datepicker-popup="dd-MMMM-yyyy" id="end1" />
+			</td>
+			<td>
+				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.description}}</span>
+				<input ng-model="milestone.description" class="form-control" ng-show="milestone.editMode == true" />
+			</td>
+			<td class="text-center">
+				<div ng-show="milestone.editMode == null || milestone.editMode == false">
+					<a href="javascript:;" class="glyphicon glyphicon-edit" ng-click="toggleEditMode(milestone)"
+						title="Edit" />
+					<a href="javascript:;" class="glyphicon glyphicon-remove" ng-click="deleteMilestone(milestone)"
+						title="Delete" />
+				</div>
+				<div ng-show="milestone.editMode == true">
+					<a href="javascript:;" class="glyphicon glyphicon-saved" ng-click="updateMilestone(milestone)"
+						title="Save" />
+					<a href="javascript:;" class="glyphicon glyphicon-trash" ng-click="toggleEditMode(milestone)"
+						title="Cancel" />
+				</div>
+			</td>
+		</tr>
+	</table>
 </div>
