@@ -5,7 +5,7 @@ registrationModule.factory('commonFactory', function () {
 	var common = {};
 
 	common.getDateFormat = function ($scope) {
-		$scope.dateFormat = "dd MMM,yyyy";
+		$scope.dateFormat = "dd MMM, yyyy";
 	};
 
 	common.getSourceCalendarImage = function ($scope) {
