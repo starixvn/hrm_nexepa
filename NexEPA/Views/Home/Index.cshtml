@@ -15,18 +15,18 @@
                 </li>
                 <li class="dropdown">
                     @*<a href="#">Project</a>*@
-                    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="button" aria-labelledby="drop1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="~/Projects/Index">Project</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/Target/ViewTarget">Target</a></li>
+                    <a id="drop1" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                    <ul class="dropdown-menu" data-role="button" aria-labelledby="drop1">
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="~/Projects/Index">Project</a></li>
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Target/ViewTarget">Target</a></li>
                     </ul>
                 </li>
                 
                 <li class="dropdown">
-                    <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">EPA <b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My EPA</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Member EPA</a></li>
+                    <a id="drop2" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">EPA <b class="caret"></b></a>
+                    <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop1">
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">My EPA</a></li>
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">Member EPA</a></li>
                     </ul>
                 </li>
                 <li>
@@ -34,12 +34,12 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/Employee/GetAllEmployee">Employee list</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/KPI/ViewKPI">KPI</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/KPI/GetAllKPIGroup">KPI Group</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/TargetTemplate/Index">Target Template</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Target Setting</a></li>
+                    <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop2">
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Employee/GetAllEmployee">Employee list</a></li>
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/KPI/ViewKPI">KPI</a></li>
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/KPI/GetAllKPIGroup">KPI Group</a></li>
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/TargetTemplate/Index">Target Template</a></li>
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">Target Setting</a></li>
                     </ul>
                 </li>
                 </ul>
@@ -70,5 +70,5 @@
         </a>
     </div>
 </div>*@
-<div class="row" ng-view>
+<div class="row" data-ng-view>
 </div>
