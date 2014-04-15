@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\SpNames.xml" />
+    <Content Include="Content\Site\images\calendar.png" />
     <Content Include="favicon.ico" />
     <Content Include="Content\Common\bootstrap-spacelab.min.css" />
     <Content Include="Content\Common\bootstrap-theme.css" />
@@ -195,6 +196,7 @@
     <None Include="Content\Site\Projects\project.less" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Extensions\Common\common-factory.js" />
     <Content Include="Scripts\Extensions\Common\modalconfirm-controller.js" />
     <Content Include="Scripts\Extensions\Common\notification-factory.js" />
     <Content Include="Scripts\Extensions\Filters\projectstatus-filter.js" />

@@ -35,100 +35,100 @@ targetModule.factory('targetCacheFactory', ['$cacheFactory', function ($cacheFac
 	return $cacheFactory('targetCache');
 }]);
 
-targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCacheFactory', 
+targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCacheFactory',
 		function ($translate, targetFactory, targetCacheFactory) {
-	var utility = {};
+			var utility = {};
 
-	utility.getAllProject = function ($scope) {
-		targetFactory.getAllProject().success(function (projectList) {
-			$scope.projectOptions = projectList;
-		}).error(function () {
-			utility.showErrorMessage($scope);
-		});
-	};
+			utility.getAllProject = function ($scope) {
+				targetFactory.getAllProject().success(function (projectList) {
+					$scope.projectOptions = projectList;
+				}).error(function () {
+					utility.showErrorMessage($scope);
+				});
+			};
 
-	utility.getMilestone = function (projectId, $scope) {
-		targetFactory.getMilestoneOfProject(projectId).success(function (milestoneList) {
-			$scope.milestoneOptions = milestoneList;
-		}).error(function () {
-			utility.showErrorMessage($scope);
-		});
-	};
+			utility.getMilestone = function (projectId, $scope) {
+				targetFactory.getMilestoneOfProject(projectId).success(function (milestoneList) {
+					$scope.milestoneOptions = milestoneList;
+				}).error(function () {
+					utility.showErrorMessage($scope);
+				});
+			};
 
-	utility.getFormOptions = function ($scope, CommonRepository) {
-		var formOptionsCache = targetCacheFactory.get("formOptions");
+			utility.getFormOptions = function ($scope, KPICommonRepository) {
+				var formOptionsCache = targetCacheFactory.get("formOptions");
 
-		if (formOptionsCache) {
-			$scope.formOptions = formOptionsCache;
-		}
-		else {
-			CommonRepository.getFormOptions().then(function (listTargetType) {
-				$scope.formOptions = listTargetType;
-				targetCacheFactory.put("formOptions", listTargetType);
-			});
-		}
-	};
+				if (formOptionsCache) {
+					$scope.formOptions = formOptionsCache;
+				}
+				else {
+					KPICommonRepository.getFormOptions().then(function (listTargetType) {
+						$scope.formOptions = listTargetType;
+						targetCacheFactory.put("formOptions", listTargetType);
+					});
+				}
+			};
 
-	utility.getAllStatus = function ($scope) {
-		targetFactory.getAllStatus().success(function (statusList) {
-			$scope.statusOptions = statusList;
-		}).error(function () {
-			utility.showErrorMessage($scope);
-		});
-	};
+			utility.getAllStatus = function ($scope) {
+				targetFactory.getAllStatus().success(function (statusList) {
+					$scope.statusOptions = statusList;
+				}).error(function () {
+					utility.showErrorMessage($scope);
+				});
+			};
 
-	utility.validateTarget = function (target, formIsProject) {
-		if (target === undefined) {
-			return false;
-		}
-		else {
-			if (target.name === undefined) {
-				return false;
-			}
-			else if (target.targetTypeId === undefined || target.targetTypeId === null) {
-				return false;
-			}
-			else if (formIsProject) {
-				if (target.projectId === undefined || target.projectId === null) {
+			utility.validateTarget = function (target, formIsProject) {
+				if (target === undefined) {
 					return false;
 				}
-			}
-		}
+				else {
+					if (target.name === undefined) {
+						return false;
+					}
+					else if (target.targetTypeId === undefined || target.targetTypeId === null) {
+						return false;
+					}
+					else if (formIsProject) {
+						if (target.projectId === undefined || target.projectId === null) {
+							return false;
+						}
+					}
+				}
 
-		return true;
-	};
+				return true;
+			};
 
-	utility.openPopupStartDate = function ($event, $scope) {
-		$event.preventDefault();
-		$event.stopPropagation();
+			utility.openPopupStartDate = function ($event, $scope) {
+				$event.preventDefault();
+				$event.stopPropagation();
 
-		$scope.startDateOpened = true;
-		$scope.endDateOpened = false;
-	};
+				$scope.startDateOpened = true;
+				$scope.endDateOpened = false;
+			};
 
-	utility.openPopupEndDate = function ($event, $scope) {
-		$event.preventDefault();
-		$event.stopPropagation();
+			utility.openPopupEndDate = function ($event, $scope) {
+				$event.preventDefault();
+				$event.stopPropagation();
 
-		$scope.endDateOpened = true;
-		$scope.startDateOpened = false;
-	};
+				$scope.endDateOpened = true;
+				$scope.startDateOpened = false;
+			};
 
-	utility.showErrorMessage = function ($scope) {
-		$scope.hasError = true;
-		$translate("ErrorMessage").then(function (errorMessage) {
-			$scope.errorMessage = errorMessage;
-		});
-	};
+			utility.showErrorMessage = function ($scope) {
+				$scope.hasError = true;
+				$translate("ErrorMessage").then(function (errorMessage) {
+					$scope.errorMessage = errorMessage;
+				});
+			};
 
-	utility.resetProjectInformation = function ($scope) {
-		$scope.formIsProject = false;
-		$scope.isSelectedProject = false;
+			utility.resetProjectInformation = function ($scope) {
+				$scope.formIsProject = false;
+				$scope.isSelectedProject = false;
 
-		$scope.target.projectId = null;
-		$scope.target.milestoneId = null;
-	};
+				$scope.target.projectId = null;
+				$scope.target.milestoneId = null;
+			};
 
-	return utility;
-} ]);
+			return utility;
+		} ]);
 

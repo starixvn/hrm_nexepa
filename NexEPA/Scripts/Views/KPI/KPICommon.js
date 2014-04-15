@@ -1,9 +1,8 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
-kpiSettingModule.factory('CommonRepository', ['$http', '$q', '$translate', function ($http, $q, $translate) {
+kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', function ($http, $q, $translate) {
 	var common = {};
-
 
 	common.getFormOptions = function () {
 		var deferred = $q.defer();

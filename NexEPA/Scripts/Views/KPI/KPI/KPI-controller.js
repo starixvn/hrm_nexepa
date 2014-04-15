@@ -3,7 +3,7 @@
 
 // View KPI
 kpiSettingModule.controller("ViewKPIController",
-	function ($scope, $routeParams, $location, $modal, $route, KPIRepository, KPIGroupRepository, CacheFactory, CommonRepository) {
+	function ($scope, $routeParams, $location, $modal, $route, KPIRepository, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 
@@ -20,7 +20,7 @@ kpiSettingModule.controller("ViewKPIController",
 				$scope.formOptions = formOptionsCache;
 			}
 			else {
-				CommonRepository.getFormOptions().then(function (targetTypeList) {
+				KPICommonRepository.getFormOptions().then(function (targetTypeList) {
 					$scope.formOptions = targetTypeList;
 					CacheFactory.put("formOptions", targetTypeList);
 				});
@@ -36,7 +36,7 @@ kpiSettingModule.controller("ViewKPIController",
 				$scope.KPIList = KPIList;
 				$scope.disabledSubmitButton = false;
 			}).error(function () {
-				CommonRepository.showErrorMessage($scope, "ErrorMessage");
+				KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 				$scope.disabledSubmitButton = false;
 			});
 		};
@@ -66,7 +66,8 @@ kpiSettingModule.controller("ViewKPIController",
 					action: function () {
 						return "delete";
 					}
-				}
+				},
+				windowClass: "modal-confirm-center"
 			});
 
 			modalDeleteInstance.result.then(function () {
@@ -80,7 +81,7 @@ kpiSettingModule.controller("ViewKPIController",
 						$scope.errorMessage = response.message;
 					}
 				}).error(function () {
-					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 				});
 			});
 		};
@@ -104,14 +105,14 @@ kpiSettingModule.controller("ViewKPIController",
 
 // Create New KPI
 	kpiSettingModule.controller('CreateNewKPIController',
-	function ($scope, $routeParams, $timeout, $location, KPIRepository, CacheFactory, CommonRepository) {
+	function ($scope, $routeParams, $timeout, $location, KPIRepository, CacheFactory, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
 			$scope.formOptions = formOptionsCache;
 		}
 		else {
-			CommonRepository.getFormOptions().then(function (targetTypeList) {
+			KPICommonRepository.getFormOptions().then(function (targetTypeList) {
 				$scope.formOptions = targetTypeList;
 				CacheFactory.put("formOptions", targetTypeList);
 			});
@@ -122,7 +123,7 @@ kpiSettingModule.controller("ViewKPIController",
 		$scope.isCreatedFromKPI = false;
 
 		var getGroupOptions = function (targetTypeId) {
-			CommonRepository.getGroupByTargetTypeId(targetTypeId).then(function (groupList) {
+			KPICommonRepository.getGroupByTargetTypeId(targetTypeId).then(function (groupList) {
 				$scope.groupOptions = groupList;
 			});
 		};
@@ -155,11 +156,11 @@ kpiSettingModule.controller("ViewKPIController",
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
 
-			if (CommonRepository.validateKPI(item) === true) {
+			if (KPICommonRepository.validateKPI(item) === true) {
 				KPIRepository.createKPI(item).success(function (response) {
 					if (response.isSuccessful === true) {
 						$scope.success = true;
-						CommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
+						KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
 						$timeout(function () {
 							if (!$scope.isCreatedFromKPI) {
 								window.history.back();
@@ -175,7 +176,7 @@ kpiSettingModule.controller("ViewKPIController",
 						$scope.disabledSubmitButton = false;
 					}
 				}).error(function () {
-					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 			}
@@ -187,15 +188,11 @@ kpiSettingModule.controller("ViewKPIController",
 		$scope.cancel = function () {
 			window.history.back();
 		};
-
-		$scope.backToView = function () {
-			$location.url('/KPI/ViewKPI/');
-		};
 	});
 
 // Edit KPI
 	kpiSettingModule.controller("EditKPIController",
-	function ($scope, $routeParams, $location, $timeout, KPIRepository, CacheFactory, CommonRepository) {
+	function ($scope, $routeParams, $location, $timeout, KPIRepository, CacheFactory, KPICommonRepository) {
 		var kpiId = $routeParams.id;
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -203,7 +200,7 @@ kpiSettingModule.controller("ViewKPIController",
 			$scope.formOptions = formOptionsCache;
 		}
 		else {
-			CommonRepository.getFormOptions().then(function (targetTypeList) {
+			KPICommonRepository.getFormOptions().then(function (targetTypeList) {
 				$scope.formOptions = targetTypeList;
 				CacheFactory.put("formOptions", targetTypeList);
 			});
@@ -211,22 +208,22 @@ kpiSettingModule.controller("ViewKPIController",
 
 		KPIRepository.getKPIById(kpiId).success(function (kpiItem) {
 			$scope.item = kpiItem;
-			CommonRepository.getGroupByTargetTypeId(kpiItem.targetTypeId).then(function (groupList) {
+			KPICommonRepository.getGroupByTargetTypeId(kpiItem.targetTypeId).then(function (groupList) {
 				$scope.groupOptions = groupList;
 			});
 		}).error(function () {
-			CommonRepository.showErrorMessage($scope, "ErrorMessage");
+			KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 		});
 
 		$scope.save = function (kpiItem) {
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
 
-			if (CommonRepository.validateKPI(kpiItem) === true) {
+			if (KPICommonRepository.validateKPI(kpiItem) === true) {
 				KPIRepository.editKPI(kpiItem).success(function (response) {
 					if (response.isSuccessful === true) {
 						$scope.success = true;
-						CommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
+						KPICommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
 						$timeout(function () {
 							window.history.back();
 						}, 2000);
@@ -237,7 +234,7 @@ kpiSettingModule.controller("ViewKPIController",
 						$scope.disabledSubmitButton = false;
 					}
 				}).error(function () {
-					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 			}
@@ -248,9 +245,5 @@ kpiSettingModule.controller("ViewKPIController",
 
 		$scope.cancel = function () {
 			window.history.back();
-		};
-
-		$scope.backToView = function () {
-			$location.url('/KPI/ViewKPI/');
 		};
 	});

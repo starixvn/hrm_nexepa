@@ -1,9 +1,9 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
-var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $translate, CommonRepository) {
+var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $translate, KPICommonRepository) {
 	if (group.targetTypeId && group.weight) {
-		CommonRepository.getGroupByTargetTypeId(group.targetTypeId).then(function (groupList) {
+		KPICommonRepository.getGroupByTargetTypeId(group.targetTypeId).then(function (groupList) {
 			var totalWeight = group.weight;
 
 			for (var i = 0; i < groupList.length; i++) {
@@ -11,7 +11,7 @@ var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $transl
 			}
 
 			if (totalWeight > 100) {
-				CommonRepository.showErrorMessage($scope, "WeightWarningMessage");
+				KPICommonRepository.showErrorMessage($scope, "WeightWarningMessage");
 			}
 			else {
 				$scope.success = true;
@@ -25,14 +25,14 @@ var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $transl
 
 // View KPI Group
 kpiSettingModule.controller("GetAllKPIGroupController",
-	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, CommonRepository) {
+	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
 			$scope.formOptions = formOptionsCache;
 		}
 		else {
-			CommonRepository.getFormOptions().then(function (listTargetType) {
+			KPICommonRepository.getFormOptions().then(function (listTargetType) {
 				$scope.formOptions = listTargetType;
 				CacheFactory.put("formOptions", listTargetType);
 			});
@@ -45,7 +45,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 					$scope.disabledSubmitButton = false;
 				})
 				.error(function () {
-					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 		};
@@ -74,7 +74,8 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 					action: function () {
 						return "delete";
 					}
-				}
+				},
+				windowClass: "modal-confirm-center"
 			});
 
 			modalDeleteInstance.result.then(function () {
@@ -88,7 +89,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 						$scope.errorMessage = response.message;
 					}
 				}).error(function () {
-					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 				});
 			});
 		};
@@ -125,7 +126,8 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 					action: function () {
 						return action;
 					}
-				}
+				},
+				windowClass: "modal-confirm-center"
 			});
 
 			modalConfirmInstance.result.then(function () {
@@ -138,7 +140,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 						$scope.errorMessage = response.message;
 					}
 				}).error(function () {
-					CommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 				});
 			}, function () {
 				group.isDisabled = !newGroup.isDisabled;
@@ -153,14 +155,14 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 // Create New KPI Group
 	kpiSettingModule.controller("CreateNewKPIGroupController",
-	function ($scope, $location, $timeout, $translate, KPIGroupRepository, CacheFactory, CommonRepository) {
+	function ($scope, $location, $timeout, $translate, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
 			$scope.formOptions = formOptionsCache;
 		}
 		else {
-			CommonRepository.getFormOptions().then(function (listTargetType) {
+			KPICommonRepository.getFormOptions().then(function (listTargetType) {
 				$scope.formOptions = listTargetType;
 				CacheFactory.put("formOptions", listTargetType);
 			});
@@ -171,13 +173,13 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
 
-			if (CommonRepository.validateGroup(group) === true) {
+			if (KPICommonRepository.validateGroup(group) === true) {
 				group.isDisabled = !group.isActive;
 
 				KPIGroupRepository.addGroup(group)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							CommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
+							KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
@@ -189,7 +191,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 						}
 					})
 					.error(function () {
-						CommonRepository.showErrorMessage($scope, "ErrorMessage");
+						KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 						$scope.disabledSubmitButton = false;
 					});
 			}
@@ -204,22 +206,18 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 		// weight on change
 		$scope.weightOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
 		};
 
 		// form on change
 		$scope.formOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
-		};
-
-		$scope.backToView = function () {
-			$location.url('/KPI/GetAllKPIGroup/');
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
 		};
 	});
 
 // Edit KPI Group
 	kpiSettingModule.controller("EditKPIGroupController",
-	function ($scope, $location, $routeParams, $timeout, $route, $translate, KPIGroupRepository, CacheFactory, CommonRepository) {
+	function ($scope, $location, $routeParams, $timeout, $route, $translate, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var groupId = $routeParams.id;
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
@@ -232,7 +230,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 			$scope.formOptions = formOptionsCache;
 		}
 		else {
-			CommonRepository.getFormOptions().then(function (listTargetType) {
+			KPICommonRepository.getFormOptions().then(function (listTargetType) {
 				$scope.formOptions = listTargetType;
 				CacheFactory.put("formOptions", listTargetType);
 			});
@@ -242,14 +240,14 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
 
-			if (CommonRepository.validateGroup(group) === true) {
+			if (KPICommonRepository.validateGroup(group) === true) {
 				var newGroup = group;
 				newGroup.isDisabled = !group.isActive;
 
 				KPIGroupRepository.updateGroup(newGroup)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							CommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
+							KPICommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
@@ -261,7 +259,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 						}
 					})
 					.error(function () {
-						CommonRepository.showErrorMessage($scope, "ErrorMessage");
+						KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
 						$scope.disabledSubmitButton = false;
 					});
 			}
@@ -276,15 +274,11 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 		// weight on change
 		$scope.weightOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
 		};
 
 		// form on change
 		$scope.formOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, CommonRepository);
-		};
-
-		$scope.backToView = function () {
-			$location.url('/KPI/GetAllKPIGroup/');
+			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
 		};
 	});

@@ -57,6 +57,7 @@ namespace NexEPA
                 "~/Scripts/Extensions/Services/projectsetting-service.js",
                 "~/Scripts/Extensions/Common/notification-factory.js",
                 "~/Scripts/Extensions/Common/modalconfirm-controller.js",
+                "~/Scripts/Extensions/Common/common-factory.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-controller.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-repository.js",
                 "~/Scripts/Views/KPI/KPI/KPI-controller.js",

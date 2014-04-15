@@ -32,7 +32,7 @@ namespace NexEPA.KPI.Repository.Implement.KPI
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return (IList<KPIInfo>)db.Query<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
+                return db.Query<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
                     (inf, gr, ta) => 
                     {
                         inf.Group = gr;

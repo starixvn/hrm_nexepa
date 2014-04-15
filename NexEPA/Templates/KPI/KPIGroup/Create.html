@@ -1,7 +1,7 @@
 ﻿<div class="row">
     <div class="row sub-header">
         <ul class="breadcrumb list-inline pull-left">
-            <li><a href="#" data-translate="KPIGroup" ng-click="backToView()"></a></li>
+            <li><a href="#" data-translate="KPIGroup" ng-click="cancel()"></a></li>
             <li class="current" data-translate="CreateKPIGroup"></li>
         </ul>
         <div class="button-icon">
@@ -12,35 +12,38 @@
 </div>
 
  <div class="row">
-    <form novalidate name="form" class="col-sm-7 form-horizontal common-form" role="form">
+    <form novalidate name="form" class="col-sm-5 form-horizontal common-form" role="form">
         <div class="form-group">
-            <div class="col-sm-offset-2" ng-show="submitted && form.$invalid">
-                <div class="error" ng-show="form.groupName.$error.required" data-translate="NameRequire"></div>
-                <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$error.required" data-translate="WeightRequire"></div>
-                <div class="error" ng-show="form.groupName.$valid && !form.groupWeight.$error.required &&
-                    (form.groupWeight.$error.min || form.groupWeight.$error.max)" data-translate="WeightRangeRequire"></div>
-                <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$valid && form.groupSelect.$error.required" data-translate="FormRequire"></div>
+            <label class="col-sm-3"></label>
+            <div class="col-sm-6">
+                <div ng-show="submitted && form.$invalid">
+                    <div class="error" ng-show="form.groupName.$error.required" data-translate="NameRequire"></div>
+                    <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$error.required" data-translate="WeightRequire"></div>
+                    <div class="error" ng-show="form.groupName.$valid && !form.groupWeight.$error.required &&
+                        (form.groupWeight.$error.min || form.groupWeight.$error.max)" data-translate="WeightRangeRequire"></div>
+                    <div class="error" ng-show="form.groupName.$valid && form.groupWeight.$valid && form.groupSelect.$error.required" data-translate="FormRequire"></div>
+                </div>
+                <div class="success" ng-show="success" ng-bind="successMessage"></div>
+                <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
             </div>
-            <div class="success col-sm-offset-2" ng-show="success" ng-bind="successMessage"></div>
-            <div class="error col-sm-offset-2" ng-show="!success" ng-bind="errorMessage"></div>
         </div>
 
         <div class="form-group required">
-            <label class="col-sm-2 control-label" data-translate="Name"></label>
-            <div class="col-sm-8">
+            <label class="col-sm-3 control-label" data-translate="Name"></label>
+            <div class="col-sm-6">
                 <input type="text" name="groupName" ng-model="group.name" required class="form-control" />
             </div>
         </div>
         <div class="form-group required">
-            <label class="col-sm-2 control-label" data-translate="Weight"></label>
-            <div class="col-sm-8">
+            <label class="col-sm-3 control-label" data-translate="Weight"></label>
+            <div class="col-sm-6">
                 <input type="number" name="groupWeight" ng-model="group.weight" required min="0" max="100" 
                         numbers-only="numbers-only" ng-change="weightOnChange(group)" class="form-control" />
             </div>
         </div>
         <div class="form-group required">
-            <label class="col-sm-2 control-label" data-translate="Form"></label>
-            <div class="col-sm-8">
+            <label class="col-sm-3 control-label" data-translate="Form"></label>
+            <div class="col-sm-6">
                 <select name="groupSelect" ng-model="group.targetTypeId" 
                     ng-options="opt.targetTypeId as opt.name for opt in formOptions" 
                     ng-change="formOnChange(group)"
@@ -50,20 +53,23 @@
              </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-offset-2 col-sm-10">
+            <label class="col-sm-offset-3 col-sm-10">
                     <input type="checkbox" ng-model="group.isActive" />
                     <span data-translate="Active"></span>
             </label>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" data-translate="Description"></label>
-            <div class="col-sm-8">
+            <label class="col-sm-3 control-label" data-translate="Description"></label>
+            <div class="col-sm-6">
                 <textarea ng-model="group.description" class="form-control" ></textarea>
             </div>
         </div>
-        <div class="col-sm-offset-2 col-sm-10">
-            <button class="btn btn-primary" ng-click="save(group)" ng-disabled="disabledSubmitButton" data-translate="Create"></button>
-            <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel"></button>
+        <div class="form-group">
+            <label class="col-sm-3"></label>
+            <div class="col-sm-6">
+                <button class="btn btn-primary" ng-click="save(group)" ng-disabled="disabledSubmitButton" data-translate="Create"></button>
+                <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel"></button>
+            </div>
         </div>
     </form>
 </div>

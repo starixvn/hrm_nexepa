@@ -2,12 +2,27 @@
 /*global targetModule*/
 
 targetModule.controller('ViewTargetController',
-	function ($scope, $location, $translate, $modal, $route, targetUtility, targetFactory, targetCacheFactory, CommonRepository) {
+	function ($scope, $location, $translate, $modal, $route, targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory) {
 
 		// get Form Options
-		targetUtility.getFormOptions($scope, CommonRepository);
+		targetUtility.getFormOptions($scope, KPICommonRepository);
+
+		// get Date Format
+		commonFactory.getDateFormat($scope);
+
+		// get Calendar Image
+		commonFactory.getSourceCalendarImage($scope);
+
+		// set default date is today
+		$scope.filter = {
+			startDate: new Date(),
+			endDate: new Date()
+		};
 
 		var getTarget = function (targetTypeId, startDate, endDate) {
+			startDate = startDate ? startDate.toDateString() : null;
+			endDate = endDate ? endDate.toDateString() : null;
+
 			targetFactory.getTarget(targetTypeId, startDate, endDate).success(function (targetList) {
 				$scope.targetList = targetList;
 				$scope.submitted = false;
@@ -17,7 +32,7 @@ targetModule.controller('ViewTargetController',
 		};
 
 		// get Target
-		getTarget(null, null, null);
+		getTarget(null, $scope.filter.startDate, $scope.filter.endDate);
 
 		// show start date calendar when click button start date
 		$scope.openPopupStartDate = function ($event) {
@@ -34,10 +49,7 @@ targetModule.controller('ViewTargetController',
 			$scope.submitted = true;
 
 			if (filterData) {
-				var startDate = filterData.startDate ? filterData.startDate.toDateString() : null;
-				var endDate = filterData.endDate ? filterData.endDate.toDateString() : null;
-
-				getTarget(filterData.targetTypeId, startDate, endDate);
+				getTarget(filterData.targetTypeId, filterData.startDate, filterData.endDate);
 			}
 			else {
 				$scope.submitted = false;
@@ -66,7 +78,8 @@ targetModule.controller('ViewTargetController',
 					action: function () {
 						return "delete";
 					}
-				}
+				},
+				windowClass: "modal-confirm-center"
 			});
 
 			modalDeleteInstance.result.then(function () {
@@ -91,10 +104,16 @@ targetModule.controller('ViewTargetController',
 	});
 
 	targetModule.controller("CreateTargetController",
-	function ($scope, $timeout, $location, $translate, targetFactory, targetUtility, targetCacheFactory, CommonRepository) {
+	function ($scope, $timeout, $location, $translate, targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory) {
 
 		// get Form Options
-		targetUtility.getFormOptions($scope, CommonRepository);
+		targetUtility.getFormOptions($scope, KPICommonRepository);
+
+		// get Date Format
+		commonFactory.getDateFormat($scope);
+
+		// get Calendar Image
+		commonFactory.getSourceCalendarImage($scope);
 
 		// The onchange function of Form dropdown list
 		$scope.formOnChange = function (targetTypeId) {
@@ -176,7 +195,7 @@ targetModule.controller('ViewTargetController',
 	});
 
 	targetModule.controller("EditTargetController",
-	function ($scope, $timeout, $location, $translate, $routeParams, targetFactory, targetUtility, targetCacheFactory, CommonRepository) {
+	function ($scope, $timeout, $location, $translate, $routeParams, targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory) {
 
 		var targetId = $routeParams.id;
 
@@ -207,7 +226,13 @@ targetModule.controller('ViewTargetController',
 		});
 
 		// get Form options
-		targetUtility.getFormOptions($scope, CommonRepository);
+		targetUtility.getFormOptions($scope, KPICommonRepository);
+
+		// get Date Format
+		commonFactory.getDateFormat($scope);
+
+		// get Calendar Image
+		commonFactory.getSourceCalendarImage($scope);
 
 		// The onchange function of Form
 		$scope.formOnChange = function (targetTypeId) {
