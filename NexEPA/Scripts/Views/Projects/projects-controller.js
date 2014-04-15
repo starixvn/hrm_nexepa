@@ -185,6 +185,20 @@ projectsSettingModule.controller('EditProjectController', function ($scope, $rou
 	$scope.cancel = function () {
 		$window.history.back();
 	};
+
+	//	var collapse = $(".boxtitle");
+	//	var itemContent = collapse.next();
+	//	itemContent.show();
+
+	$(".boxtitle").on("click", function () {
+		var header = $(this);
+		//getting the next element
+		var content = header.next();
+		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+		content.slideToggle(500, function () {
+		});
+	});
+
 });
 
 

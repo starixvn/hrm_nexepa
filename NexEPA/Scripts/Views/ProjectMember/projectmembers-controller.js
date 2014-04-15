@@ -24,7 +24,7 @@ function ($scope, $routeParams, $location, $modal, projectMembersFactory, notifi
 	* Ajax event loaded. 
 	*/
 	var successGetMembers = function (data) { $scope.members = data; };
-	var successGetMilestones = function (data) { $scope.milestones = data; };
+	var successGetMilestones = function (data) { $scope.milestones = data;  };
 	// Get project by Id
 	var successGetProjectById = function (data) {
 		$scope.currentProject = data;
@@ -47,6 +47,7 @@ function ($scope, $routeParams, $location, $modal, projectMembersFactory, notifi
 	* Events.
 	*/
 	$scope.filterMember = function (isShowDeletedMember, milestone) {
+		debugger;
 		projectMembersFactory.getMember(projectIdInUrl, isShowDeletedMember, milestone).then(successGetMembers);
 	};
 

@@ -29,7 +29,7 @@ namespace NexEPA
                 "~/Content/Common/bootstrap-theme.css",
                 "~/Content/Site/layout.less",
                 "~/Content/Site/Employee/employee.less",
-                "~/Content/Site/Projects/project.less",
+                "~/Content/Site/Projects/project.css",
                 "~/Content/Site/KPI/KPI.less",
                 "~/Content/Site/Target/target.less"));
 

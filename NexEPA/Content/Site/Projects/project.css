@@ -1,0 +1,125 @@
+﻿.error-message
+{
+	margin-left: 13px;
+	color: red;
+}
+
+ul. list-header
+{
+	font-size: 15px;
+}
+
+label.group-checkbox
+{
+	font-weight: normal;
+}
+
+.modal-addKPI .modal-body
+{
+	max-height: 600px;
+	overflow-y: auto;
+}
+
+span.popup-header
+{
+	font-size: 22px;
+}
+
+.custom-textbox
+{
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 40%;
+	height: 32px;
+	padding: 6px 12px;
+	margin-right: 6px;
+}
+.date-textbox
+{
+	width: 35%;
+}
+
+.custom-textarea
+{
+	min-height: 80px;
+	max-width: 40%;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 6px 12px;
+	margin-right: 6px;
+	width: 40%;
+}
+
+.container-fluid > .sidebar
+{
+	position: relative;
+	top: 0;
+	left: auto;
+	width: 220px; /* width of sidebar */
+}
+
+.left
+{
+	float: left;
+}
+
+.right
+{
+	float: right;
+}
+
+.container-fluid > .content
+{
+	margin: 0 240px; /* width of sidebars + 10px of margin */
+}
+
+.boxtitle
+{
+	background-color: #E5E5E5;
+	background-image: -moz-linear-gradient(center top , #EBEBEB, #E5E5E5);
+	border-top: 1px solid #FAFAFA;
+	padding: 12px 12px;
+	font-family: "Myriad Pro" , Tahoma, REZ, Arial;
+	font-size: 16px;
+	text-shadow: 0.05em 0.05em #fff;
+	color: #777;
+}
+
+.line
+{
+	border-bottom: 1px solid #e5e3e3;
+	margin-bottom: 8px;
+}
+.line:last-child
+{
+	border-bottom: none;
+}
+
+.boxcontent
+{
+	padding-bottom: 10px;
+}
+
+/* Milestone */
+#milestone-table, #member-table
+{
+	margin: 8px 4px 8px 4px;
+	width: 99%;
+}
+
+td.column-limit
+{
+	max-width: 200px;
+	overflow: hidden;
+}
+
+.custom-readonly[readonly]
+{
+	cursor: auto;
+	background-color: #fff;
+}
+
+.milestone-form
+{
+	width: 54%;
+}
