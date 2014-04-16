@@ -33,6 +33,11 @@ namespace NexEPA
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
+                name: "AccessDenied",
+                url: "Home/AccessDenied",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
                name: "ProjectsEdit",
                url: "Projects/Edit/{Id}",
                defaults: new { controller = "Home", action = "Index" });

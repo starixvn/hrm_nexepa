@@ -55,6 +55,7 @@ namespace NexEPA.Controllers.API
         /// <param name="period">Project Period.</param>
         /// <returns>List Project Model.</returns>
         ////[ApiAuthorize]
+        [ApiAuthorize(Roles = "PM,SA")]
         public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
             DateTime? startDate = null;
@@ -81,6 +82,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "PM")]
         public HttpResponseMessage Post(ProjectModel project)
         {
             if (ModelState.IsValid)
@@ -118,6 +120,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Message Response.</returns>
+        [ApiAuthorize(Roles = "PM")]
         public HttpResponseMessage Put(ProjectModel project)
         {
             if (ModelState.IsValid)

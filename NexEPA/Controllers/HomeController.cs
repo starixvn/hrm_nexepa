@@ -10,6 +10,7 @@
 namespace NexEPA.Controllers
 {
     using System.Web.Mvc;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// Home Controller.
@@ -18,6 +19,7 @@ namespace NexEPA.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.User = SessionManager.CurrentUser.FullName + " - " + SessionManager.CurrentUser.NickName;
             return View();
         }
     }

@@ -196,6 +196,7 @@
     <Content Include="Content\Site\Projects\project.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Extensions\Services\error-service.js" />
     <Content Include="Scripts\Extensions\Common\common-factory.js" />
     <Content Include="Scripts\Extensions\Common\modalconfirm-controller.js" />
     <Content Include="Scripts\Extensions\Common\notification-factory.js" />
@@ -230,6 +231,7 @@
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-repository.js" />
     <Content Include="Scripts\Views\Target\Target\target-controller.js" />
     <Content Include="Scripts\Views\Target\Target\target-repository.js" />
+    <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
     <Content Include="Templates\Employee\View.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />

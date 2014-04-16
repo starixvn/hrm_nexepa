@@ -1,5 +1,4 @@
-﻿@model string
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row header">
@@ -13,35 +12,47 @@
                 <li>
                     <a href="~/Home/Index">Home</a>
                 </li>
+                <li>
+                    <a href="/Employee/GetAllEmployee">Employees</a>
+                </li>
+                @if (Roles.IsUserInRole("PM") || Roles.IsUserInRole("SA"))
+                { 
                 <li class="dropdown">
                     @*<a href="#">Project</a>*@
                     <a id="drop1" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="button" aria-labelledby="drop1">
+                    
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="~/Projects/Index">Project</a></li>
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Target/ViewTarget">Target</a></li>
                     </ul>
                 </li>
-                
+                }
                 <li class="dropdown">
                     <a id="drop2" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">EPA <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop1">
-                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">My EPA</a></li>
-                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">Member EPA</a></li>
+                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="~/Home/AccessDenied">My EPA</a></li>
+                    @if (Roles.IsUserInRole("PM") || Roles.IsUserInRole("Leader"))
+                    {
+                        <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">Member EPA</a></li> 
+                    }
                     </ul>
                 </li>
                 <li>
                     <a href="#">Report</a>
                 </li>
+                @if (Roles.IsUserInRole("SA"))
+                { 
                 <li class="dropdown">
                     <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop2">
-                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Employee/GetAllEmployee">Employee list</a></li>
+                    @*<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Employee/GetAllEmployee">Employee list</a></li>*@
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/KPI/ViewKPI">KPI</a></li>
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/KPI/GetAllKPIGroup">KPI Group</a></li>
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/TargetTemplate/Index">Target Template</a></li>
-                    <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">Target Setting</a></li>
+                    @*<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">Target Setting</a></li>*@
                     </ul>
                 </li>
+                }
                 </ul>
                 @*<ul class="nav navbar-nav navbar-right info">
                 <li id="fat-menu" class="dropdown">
@@ -54,9 +65,10 @@
             </div>
         </nav>
         <ul class="list-inline info">
-            <li><span class="glyphicon glyphicon-user"></span>Lê Thị Thùy Dương - Alice.Le</li>
-            <li>|</li>
-            <li><span class="glyphicon glyphicon-log-out"></span><a href="#">Logout</a></li>
+            <li><span class="glyphicon glyphicon-user"></span>@ViewBag.User</li>
+            @*<li><span class="glyphicon glyphicon-user"></span>Lê Thị Thùy Dương - Alice.Le</li>*@
+            @*<li>|</li>*@
+            @*<li><span class="glyphicon glyphicon-log-out"></span><a href="#">Logout</a></li>*@
         </ul>
     </div>
 </div>

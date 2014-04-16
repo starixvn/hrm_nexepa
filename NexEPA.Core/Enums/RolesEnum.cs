@@ -14,10 +14,10 @@ namespace NexEPA.Core.Enums
     public enum RolesEnum : short
     {
         /// <summary>
-        /// SystemAdmin item.
+        /// System Admin item.
         /// </summary>
-        [StringValue("System Admin")]
-        SystemAdmin = 1,
+        [StringValue("SA")]
+        SA = 1,
 
         /// <summary>
         /// Human Resource item.
