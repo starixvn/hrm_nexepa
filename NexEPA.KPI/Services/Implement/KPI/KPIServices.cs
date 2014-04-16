@@ -9,10 +9,9 @@
 
 namespace NexEPA.KPI.Services.Implement.KPI
 {
-    using System;
     using System.Collections.Generic;
+    using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Model.KPI;
@@ -36,23 +35,53 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// <summary>
         /// Get KPI list by group ID.
         /// </summary>
-        /// <param name="targetTypeId">The Target Type ID.</param>
-        /// <param name="groupId">The group ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The list KPI.</returns>
-        public List<KPIItem> GetKPI(int? targetTypeId, int? groupId)
-        { 
-            var getKPIByGroupIdCriteria = new GetKPICriteria
-            {
-                TargetTypeId = targetTypeId,
-                KPIGroupId = groupId
-            };
-
-            var listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(getKPIByGroupIdCriteria);
+        public List<KPIItem> GetKPI(GetKPICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
             var listKPI = new List<KPIItem>();
 
-            foreach (var infoKPI in listKPIInfo)
+            if (criteria.IsValid())
             {
-                var itemKPI = new KPIItem
+                IEnumerable<KPIInfo> listKPIInfo = _kpiRepository.GetKPI(criteria);
+
+                foreach (var infoKPI in listKPIInfo)
+                {
+                    var itemKPI = new KPIItem
+                    {
+                        KPIId = infoKPI.KPIId,
+                        Name = infoKPI.Name,
+                        Description = infoKPI.Description,
+                        IsRequireComment = infoKPI.IsRequireComment,
+                        KPIGroupId = infoKPI.Group.KPIGroupId,
+                        KPIGroupName = infoKPI.Group.Name,
+                        TargetTypeId = infoKPI.TargetType.TargetTypeId,
+                        TargetTypeName = infoKPI.TargetType.Name
+                    };
+
+                    listKPI.Add(itemKPI);
+                }
+            }
+
+            return listKPI; 
+        }
+
+        /// <summary>
+        /// Get KPI by ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The KPI Item.</returns>
+        public KPIItem GetKPIById(GetKPIByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var kpiItem = new KPIItem();
+
+            if (criteria.IsValid())
+            {
+                KPIInfo infoKPI = _kpiRepository.GetKPIById(criteria);
+
+                kpiItem = new KPIItem
                 {
                     KPIId = infoKPI.KPIId,
                     Name = infoKPI.Name,
@@ -63,38 +92,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
                     TargetTypeId = infoKPI.TargetType.TargetTypeId,
                     TargetTypeName = infoKPI.TargetType.Name
                 };
-
-                listKPI.Add(itemKPI);
             }
-
-            return listKPI; 
-        }
-
-        /// <summary>
-        /// Get KPI by ID.
-        /// </summary>
-        /// <param name="kpiId">The KPI identity.</param>
-        /// <returns>The KPI Item.</returns>
-        public KPIItem GetKPIById(int kpiId)
-        {
-            var criteria = new GetKPIByIdCriteria
-            {
-                KPIId = kpiId
-            };
-
-            KPIInfo infoKPI = _kpiRepository.GetKPIById(criteria);
-
-            var kpiItem = new KPIItem
-            {
-                KPIId = infoKPI.KPIId,
-                Name = infoKPI.Name,
-                Description = infoKPI.Description,
-                IsRequireComment = infoKPI.IsRequireComment,
-                KPIGroupId = infoKPI.Group.KPIGroupId,
-                KPIGroupName = infoKPI.Group.Name,
-                TargetTypeId = infoKPI.TargetType.TargetTypeId,
-                TargetTypeName = infoKPI.TargetType.Name
-            };
 
             return kpiItem;
         }
@@ -106,9 +104,15 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// <returns>The Command Result.</returns>
         public CommandResult InsertKPI(InsertKPICriteria criteria)
         {
-            criteria.CreatedBy = SessionManager.CurrentUser.UserId;
-            criteria.CreatedDate = DateTime.Now;
-            return _Repository.Insert(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
 
         /// <summary>
@@ -118,14 +122,33 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// <returns>The Command Result.</returns>
         public CommandResult UpdateKPI(UpdateKPICriteria criteria)
         {
-            criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-            criteria.ModifiedDate = DateTime.Now;
-            return _Repository.Update(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
         }
 
+        /// <summary>
+        /// Delete KPI.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
         public CommandResult DeleteKPI(DeleteKPICriteria criteria)
         {
-            return _Repository.Delete(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Delete(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

@@ -327,18 +327,6 @@
   <data name="TargetType" xml:space="preserve">
     <value>Target Type</value>
   </data>
-  <data name="EmptyResult" xml:space="preserve">
-    <value>There are no information!</value>
-  </data>
-  <data name="CreatedSuccessfulMessage" xml:space="preserve">
-    <value>Created successful!</value>
-  </data>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
-  </data>
-  <data name="UpdatedSuccessfulMessage" xml:space="preserve">
-    <value>Updated successful!</value>
-  </data>
   <data name="WeightWarningMessage" xml:space="preserve">
     <value>The total weight of all Groups in the Form is greater than 100%!</value>
   </data>
@@ -347,9 +335,6 @@
   </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
-  </data>
-  <data name="SymbolCount" xml:space="preserve">
-    <value>#</value>
   </data>
   <data name="JoinedDate" xml:space="preserve">
     <value>Joined Date</value>
@@ -360,16 +345,10 @@
   <data name="ManageEmployee" xml:space="preserve">
     <value>Manage Employee</value>
   </data>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
-  </data>
   <data name="Keyword" xml:space="preserve">
     <value>Keyword</value>
   </data>
   <data name="AllTeam" xml:space="preserve">
     <value>All teams</value>
-  </data>
-  <data name="EmptyResult" xml:space="preserve">
-    <value>There are no information!</value>
   </data>
 </root>

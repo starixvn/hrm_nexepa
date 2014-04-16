@@ -43,6 +43,7 @@ namespace NexEPA.Controllers.API
             {
                 TargetTypeId = targetTypeId
             };
+
             return _kpiGroupServices.GetAllKPIGroup(criteria);
         }
 
@@ -59,11 +60,17 @@ namespace NexEPA.Controllers.API
 
         public CommandResult Post(InsertKPIGroupCriteria criteria)
         {
+            criteria.CreatedBy = this.CurrentUser.UserId;
+            criteria.CreatedDate = DateTime.Now;
+
             return _kpiGroupServices.InsertKPIGroup(criteria);
         }
 
         public CommandResult Put(UpdateKPIGroupCriteria criteria)
         {
+            criteria.ModifiedBy = this.CurrentUser.UserId;
+            criteria.ModifiedDate = DateTime.Now;
+
             return _kpiGroupServices.UpdateKPIGroup(criteria);
         }
 

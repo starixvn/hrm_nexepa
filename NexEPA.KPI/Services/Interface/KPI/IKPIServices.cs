@@ -19,9 +19,9 @@ namespace NexEPA.KPI.Services.Interface.KPI
     /// </summary>
     public interface IKPIServices
     {
-        List<KPIItem> GetKPI(int? targetTypeId, int? groupId);
+        List<KPIItem> GetKPI(GetKPICriteria criteria);
 
-        KPIItem GetKPIById(int kpiId);
+        KPIItem GetKPIById(GetKPIByIdCriteria criteria);
 
         CommandResult InsertKPI(InsertKPICriteria criteria);
 

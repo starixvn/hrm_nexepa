@@ -101,9 +101,14 @@ targetModule.controller('ViewTargetController',
 		$scope.reload = function () {
 			$route.reload();
 		};
-	});
 
-	targetModule.controller("CreateTargetController",
+		// view target employee
+		$scope.viewTargetEmployee = function (targetId) {
+			$location.path("/Target/TargetEmployee/" + targetId);
+		};
+});
+
+targetModule.controller("CreateTargetController",
 	function ($scope, $timeout, $location, $translate, targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory) {
 
 		// get Form Options
@@ -192,9 +197,9 @@ targetModule.controller('ViewTargetController',
 		$scope.backToView = function () {
 			$location.url('/Target/ViewTarget/');
 		};
-	});
+});
 
-	targetModule.controller("EditTargetController",
+targetModule.controller("EditTargetController",
 	function ($scope, $timeout, $location, $translate, $routeParams, targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory) {
 
 		var targetId = $routeParams.id;
@@ -320,4 +325,27 @@ targetModule.controller('ViewTargetController',
 		$scope.backToView = function () {
 			$location.url('/Target/ViewTarget/');
 		};
+});
+
+// Target Employee Controller
+targetModule.controller("TargetEmployeeController", function ($scope, $routeParams, targetFactory, employeeRepository) {
+	var targetId = $routeParams.id;
+
+	// get all employee by target Id
+	targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
+		$scope.employees = employees;
+	}).error(function () {
+		//TODO
 	});
+
+	//search employee
+	$scope.search = function (searchPattern) {
+		employeeRepository.getAllEmployee(searchPattern, null).success(function (employeeList) {
+			$scope.employeesSearch = employeeList;
+		}).error();
+	};
+
+	$scope.cancel = function () {
+		window.history.back();
+	};
+});

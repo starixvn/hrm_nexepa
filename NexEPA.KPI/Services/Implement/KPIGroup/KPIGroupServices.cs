@@ -9,10 +9,9 @@
 
 namespace NexEPA.KPI.Services.Implement.KPIGroup
 {
-    using System;
     using System.Collections.Generic;
+    using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Model.KPIGroup;
@@ -39,12 +38,13 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list KPIGroupItem.</returns>
         public List<KPIGroupItem> GetAllKPIGroup(GetAllKPIGroupCriteria criteria)
-        { 
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
             var groupList = new List<KPIGroupItem>();
 
             if (criteria.IsValid())
             {
-                IList<KPIGroupInfo> groupInfoList = _kpiGroupRepository.GetAllKPIGroup(criteria);
+                IEnumerable<KPIGroupInfo> groupInfoList = _kpiGroupRepository.GetAllKPIGroup(criteria);
 
                 foreach (var group in groupInfoList)
                 {
@@ -74,6 +74,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// <returns>The KPI Group Item.</returns>
         public KPIGroupItem GetKPIGroupById(GetKPIGroupByIdCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             var kpiGroupItem = new KPIGroupItem();
 
             if (criteria.IsValid())
@@ -103,9 +104,15 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// <returns>The error code and error message.</returns>
         public CommandResult InsertKPIGroup(InsertKPIGroupCriteria criteria)
         {
-            criteria.CreatedBy = SessionManager.CurrentUser.UserId;
-            criteria.CreatedDate = DateTime.Now;
-            return _Repository.Insert(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
 
         /// <summary>
@@ -115,20 +122,40 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// <returns>The error code and error message.</returns>
         public CommandResult UpdateKPIGroup(UpdateKPIGroupCriteria criteria)
         {
-            criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-            criteria.ModifiedDate = DateTime.Now;
-            return _Repository.Update(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
         }
 
+        /// <summary>
+        /// Delete KPI Group.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
         public CommandResult DeleteKPIGroup(DeleteKPIGroupCriteria criteria) 
         {
-            return _Repository.Delete(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Delete(criteria);
+            }
+
+            return commandResult;
         }
 
         public List<KPIGroupItem> GetGroupListByTargetTypeId(int targetTypeId)
         {
             var criteria = new GetAllKPIGroupCriteria();
             List<KPIGroupItem> allGroup = this.GetAllKPIGroup(criteria);
+
             return allGroup.FindAll(s => s.TargetTypeId == targetTypeId);
         }
     }

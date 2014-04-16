@@ -18,7 +18,7 @@ namespace NexEPA.KPI.Repository.Interface.KPI
     /// </summary>
     public interface IKPIRepository
     {
-        IList<KPIInfo> GetKPI(ICriteria criteria);
+        IEnumerable<KPIInfo> GetKPI(ICriteria criteria);
 
         KPIInfo GetKPIById(ICriteria criteria);
     }

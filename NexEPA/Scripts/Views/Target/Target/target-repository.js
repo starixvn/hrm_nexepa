@@ -17,7 +17,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http.put('/api/Target/', target);
 		},
 		deleteTarget: function (targetId) {
-			return $http['delete']('/api/Target', { params: { targetId: targetId } });
+			return $http['delete']('/api/Target', { params: { targetId: targetId} });
 		},
 		getAllProject: function () {
 			return $http.get('/api/Target/GetAllProject');
@@ -27,6 +27,12 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 		},
 		getAllStatus: function () {
 			return $http.get('/api/Target/GetAllStatus');
+		},
+		getEmployeeByTargetId: function (targetId) {
+			return $http.get('/api/Target/GetEmployeeByTargetId', { params: { targetId: targetId} });
+		},
+		insertTargetEmployee: function (employee) {
+			return $http.post('/api/Target/InsertTargetEmployee', employee);
 		}
 	};
 } ]);
@@ -131,4 +137,17 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 
 			return utility;
 		} ]);
+
+targetModule.directive('autoComplete', function($timeout) {
+	return function(scope, iElement, iAttrs) {
+			iElement.autocomplete({
+				source: scope[iAttrs.uiItems],
+				select: function() {
+					$timeout(function() {
+						iElement.trigger('input');
+					}, 0);
+				}
+			});
+		};
+});
 

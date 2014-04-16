@@ -21,10 +21,10 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
-    using NexEPA.Target.Criteria.Target;
+    using NexEPA.Target.Criteria.Target.Target;
+    using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Services.Impl.Target;
     using NexEPA.Target.Services.Interfaces;
-    using NexEPA.Target.Target.Criteria;
     using NexEPA.Target.ViewModels.Target;
     using NexEPA.Web.Controllers;
 
@@ -123,6 +123,23 @@ namespace NexEPA.Controllers.Target
         public IEnumerable<SelectListModel> GetAllStatus()
         {
             return EnumStatus.GetAllStatus();
+        }
+
+        [HttpGet]
+        public List<TargetEmployeeItem> GetEmployeeByTargetId(int targetId)
+        {
+            var criteria = new GetAllEmployeeByTargetIdCriteria
+            {
+                 TargetId = targetId
+            };
+
+            return _targetServices.GetTargetEmployeeByTargetId(criteria);
+        }
+
+        [HttpPost]
+        public CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria)
+        {
+            return _targetServices.InsertTargetEmployee(criteria);
         }
     }
 }

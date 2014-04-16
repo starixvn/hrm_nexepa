@@ -18,6 +18,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
     using NexEPA.Core.Services;
+    using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Services.Implement.KPI;
     using NexEPA.KPI.Services.Interface.KPI;
     using NexEPA.KPI.ViewModel.KPI;
@@ -71,7 +72,13 @@ namespace NexEPA.Controllers.API
         /// <returns>List KPI item after group by KPIGroupName.</returns>
         public dynamic GetKPI(int? targetId = null, int? targetTypeId = null, int? groupId = null)
         {
-            List<KPIItem> lstKPI = _kpiServices.GetKPI(targetTypeId, groupId);
+            var getKPIByGroupIdCriteria = new GetKPICriteria
+            {
+                TargetTypeId = targetTypeId,
+                KPIGroupId = groupId
+            };
+
+            List<KPIItem> lstKPI = _kpiServices.GetKPI(getKPIByGroupIdCriteria);
 
             if (targetId != null)
             {

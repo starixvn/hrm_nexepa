@@ -66,14 +66,18 @@
     <Compile Include="Criteria\TargetTemplate\GetListKPIByTargetTemplateIdCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetTargetTemplateByIdCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\UpdateTargetTemplateCriteria.cs" />
+    <Compile Include="Criteria\Target\TargetEmployee\AddTargetEmployeeCriteria.cs" />
+    <Compile Include="Criteria\Target\TargetEmployee\DeleteTargetEmployeeCriteria.cs" />
+    <Compile Include="Criteria\Target\TargetEmployee\GetAllEmployeeByTargetIdCriteria.cs" />
     <Compile Include="Models\KPIModel.cs" />
-    <Compile Include="Criteria\Target\DeleteTargetCriteria.cs" />
-    <Compile Include="Criteria\Target\GetTargetByIdCriteria.cs" />
-    <Compile Include="Criteria\Target\GetTargetCriteria.cs" />
-    <Compile Include="Criteria\Target\InsertTargetCriteria.cs" />
-    <Compile Include="Criteria\Target\UpdateTargetCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\DeleteTargetCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\GetTargetByIdCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\GetTargetCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\InsertTargetCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\UpdateTargetCriteria.cs" />
     <Compile Include="Models\Target\Milestone.cs" />
     <Compile Include="Models\Target\Project.cs" />
+    <Compile Include="Models\Target\TargetEmployeeInfo.cs" />
     <Compile Include="Models\Target\TargetInfo.cs" />
     <Compile Include="Models\TargetTemplateKPIModel.cs" />
     <Compile Include="Models\TargetTemplateModel.cs" />
@@ -84,6 +88,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Services\Interfaces\ITargetServices.cs" />
+    <Compile Include="ViewModels\Target\TargetEmployeeItem.cs" />
     <Compile Include="ViewModels\Target\TargetItem.cs" />
     <Compile Include="Services\Impl\TargetTemplateService.cs" />
     <Compile Include="Services\Interfaces\ITargetTemplateService.cs" />
@@ -104,6 +109,7 @@
       <Name>NexEPA.Web</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

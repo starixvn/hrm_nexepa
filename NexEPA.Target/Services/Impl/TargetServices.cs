@@ -11,18 +11,19 @@ namespace NexEPA.Target.Services.Impl.Target
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Core.Utilities;
-    using NexEPA.Target.Criteria.Target;
+    using NexEPA.Target.Criteria.Target.Target;
+    using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Models.Target;
     using NexEPA.Target.Repositories.Implement.Target;
     using NexEPA.Target.Repositories.Interface.Target;
     using NexEPA.Target.Services.Interfaces;
-    using NexEPA.Target.Target.Criteria;
     using NexEPA.Target.ViewModels.Target;
 
     /// <summary>
@@ -44,11 +45,12 @@ namespace NexEPA.Target.Services.Impl.Target
         /// <returns>List Target Item.</returns>
         public List<TargetItem> GetAllTarget(GetTargetCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             var targetList = new List<TargetItem>();
 
             if (criteria.IsValid())
             {
-                List<TargetInfo> rawTargetList = (List<TargetInfo>)_targetRepositories.GetTarget(criteria);
+                IEnumerable<TargetInfo> rawTargetList = _targetRepositories.GetTarget(criteria);
 
                 foreach (var rawTarget in rawTargetList)
                 {
@@ -63,6 +65,8 @@ namespace NexEPA.Target.Services.Impl.Target
                         StartDate = startDate,
                         EndDate = endDate,
                         StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
+                        NumberKPI = rawTarget.KPIs,
+                        NumberMember = rawTarget.Members,
                         TargetType = rawTarget.TargetType,
                         Project = rawTarget.Project,
                         Milestone = rawTarget.Milestone
@@ -82,24 +86,30 @@ namespace NexEPA.Target.Services.Impl.Target
         /// <returns>The Target Item.</returns>
         public TargetItem GetTargetById(GetTargetByIdCriteria criteria)
         {
-            TargetInfo rawTarget = _targetRepositories.GetTargetById(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var targetItem = new TargetItem();
 
-            var startDate = rawTarget.StartDate != null ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
-            var endDate = rawTarget.EndDate != null ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
-
-            var targetItem = new TargetItem
+            if (criteria.IsValid())
             {
-                TargetId = rawTarget.TargetId,
-                Name = rawTarget.Name,
-                Description = rawTarget.Description,
-                StartDate = startDate,
-                EndDate = endDate,
-                StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
-                Status = rawTarget.Status,
-                TargetType = rawTarget.TargetType,
-                Project = rawTarget.Project,
-                Milestone = rawTarget.Milestone
-            };
+                TargetInfo rawTarget = _targetRepositories.GetTargetById(criteria);
+
+                var startDate = rawTarget.StartDate != null ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
+                var endDate = rawTarget.EndDate != null ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
+
+                targetItem = new TargetItem
+                {
+                    TargetId = rawTarget.TargetId,
+                    Name = rawTarget.Name,
+                    Description = rawTarget.Description,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
+                    Status = rawTarget.Status,
+                    TargetType = rawTarget.TargetType,
+                    Project = rawTarget.Project,
+                    Milestone = rawTarget.Milestone
+                };
+            }
 
             return targetItem;
         }
@@ -111,11 +121,20 @@ namespace NexEPA.Target.Services.Impl.Target
         /// <returns>The Command Result.</returns>
         public CommandResult Insert(InsertTargetCriteria criteria)
         {
-            criteria.CreatedBy = SessionManager.CurrentUser.UserId;
-            criteria.CreatedDate = DateTime.Now;
-            //// default new status when create the new target
-            criteria.Status = (int)Status.New;
-            return _Repository.Insert(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid()) 
+            {
+                criteria.CreatedBy = SessionManager.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+                //// default new status when create the new target
+                criteria.Status = (int)Status.New;
+
+                commandResult = _Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
 
         /// <summary>
@@ -125,9 +144,17 @@ namespace NexEPA.Target.Services.Impl.Target
         /// <returns>The Command Result.</returns>
         public CommandResult Update(UpdateTargetCriteria criteria)
         {
-            criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-            criteria.ModifiedDate = DateTime.Now;
-            return _Repository.Update(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
         }
 
         /// <summary>
@@ -137,9 +164,69 @@ namespace NexEPA.Target.Services.Impl.Target
         /// <returns>The Command Result.</returns>
         public CommandResult Delete(DeleteTargetCriteria criteria)
         {
-            criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-            criteria.ModifiedDate = DateTime.Now;
-            return _Repository.Delete(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+                commandResult = _Repository.Delete(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Get Target's Employee by Target Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list TargetEmployeeItem.</returns>
+        public List<TargetEmployeeItem> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var employeeList = new List<TargetEmployeeItem>();
+
+            if (criteria.IsValid())
+            {
+                IEnumerable<TargetEmployeeInfo> rawEmployees = GetData<TargetEmployeeInfo>(criteria);
+
+                foreach (var rawEmployee in rawEmployees)
+                {
+                    var employeeItem = new TargetEmployeeItem
+                    {
+                        EmployeeId = rawEmployee.EmployeeId,
+                        FullName = rawEmployee.FullName,
+                        NickName = rawEmployee.NickName,
+                        GroupId = rawEmployee.GroupId,
+                        GroupName = rawEmployee.Name
+                    };
+
+                    employeeList.Add(employeeItem);
+                }
+            }
+
+            return employeeList;
+        }
+
+        /// <summary>
+        /// Insert Target's Employee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The CommandResult.</returns>
+        public CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                criteria.AddedBy = SessionManager.CurrentUser.UserId;
+                criteria.AddedDate = DateTime.Now;
+                commandResult = _Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

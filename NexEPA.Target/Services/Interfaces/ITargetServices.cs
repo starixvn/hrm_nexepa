@@ -11,8 +11,8 @@ namespace NexEPA.Target.Services.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Target.Criteria.Target;
-    using NexEPA.Target.Target.Criteria;
+    using NexEPA.Target.Criteria.Target.Target;
+    using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.ViewModels.Target;
 
     /// <summary>
@@ -29,5 +29,9 @@ namespace NexEPA.Target.Services.Interfaces
         CommandResult Update(UpdateTargetCriteria criteria);
 
         CommandResult Delete(DeleteTargetCriteria criteria);
+
+        List<TargetEmployeeItem> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria);
+
+        CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria);
     }
 }

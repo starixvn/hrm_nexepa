@@ -11,6 +11,7 @@ namespace NexEPA.Employee.Services.Implement
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.Common.Helper;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Services;
     using NexEPA.Employee.Criteria;
@@ -39,29 +40,34 @@ namespace NexEPA.Employee.Services.Implement
         /// <returns>The list Employee Item.</returns>
         public List<EmployeeItem> GetAllEmployee(GetAllEmployeeCriteria criteria)
         {
-            IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetAllEmployee(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
             var employees = new List<EmployeeItem>();
 
-            foreach (var employee in rawEmployees)
+            if (criteria.IsValid())
             {
-                string joinedDate = employee.JoinedDate != null 
-                    ? ((DateTime)employee.JoinedDate).ToString(Constants.ShortDateStringFormat)
-                    : string.Empty;
+                IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetAllEmployee(criteria);
 
-                var employeeItem = new EmployeeItem
+                foreach (var employee in rawEmployees)
                 {
-                    EmployeeId = employee.EmployeeId,
-                    Code = employee.Code,
-                    FullName = employee.FullName,
-                    NickName = employee.NickName,
-                    Email = employee.Email,
-                    Skype = employee.Skype,
-                    JoinedDate = joinedDate,
-                    Group = employee.Group,
-                    JobTitle = employee.JobTitle
-                };
+                    string joinedDate = employee.JoinedDate != null
+                        ? ((DateTime)employee.JoinedDate).ToString(Constants.ShortDateStringFormat)
+                        : string.Empty;
 
-                employees.Add(employeeItem);
+                    var employeeItem = new EmployeeItem
+                    {
+                        EmployeeId = employee.EmployeeId,
+                        Code = employee.Code,
+                        FullName = employee.FullName,
+                        NickName = employee.NickName,
+                        Email = employee.Email,
+                        Skype = employee.Skype,
+                        JoinedDate = joinedDate,
+                        Group = employee.Group,
+                        JobTitle = employee.JobTitle
+                    };
+
+                    employees.Add(employeeItem);
+                }
             }
 
             return employees;
@@ -74,18 +80,23 @@ namespace NexEPA.Employee.Services.Implement
         /// <returns>The list Group.</returns>
         public List<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria)
         {
-            IEnumerable<GroupInfo> rawGroups = GetData<GroupInfo>(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
             var employeeGroups = new List<Group>();
 
-            foreach (var group in rawGroups)
+            if (criteria.IsValid())
             {
-                var groupItem = new Group
-                {
-                    GroupId = group.GroupId,
-                    Name = group.Name
-                };
+                IEnumerable<GroupInfo> rawGroups = GetData<GroupInfo>(criteria);
 
-                employeeGroups.Add(groupItem);
+                foreach (var group in rawGroups)
+                {
+                    var groupItem = new Group
+                    {
+                        GroupId = group.GroupId,
+                        Name = group.Name
+                    };
+
+                    employeeGroups.Add(groupItem);
+                }
             }
 
             return employeeGroups;

@@ -34,6 +34,10 @@ namespace NexEPA.Target.Models.Target
 
         public int ProcessGroupId { get; set; }
 
+        public int KPIs { get; set; }
+
+        public int Members { get; set; }
+
         public TargetType TargetType { get; set; }
 
         public Project Project { get; set; }

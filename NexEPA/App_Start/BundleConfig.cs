@@ -27,6 +27,7 @@ namespace NexEPA
                 "~/Content/Common/toastr.css",
                 "~/Content/Common/bootstrap.css",
                 "~/Content/Common/bootstrap-theme.css",
+                "~/Content/Common/jquery-ui-1.10.4.custom.min.css",
                 "~/Content/Site/layout.less",
                 "~/Content/Site/Employee/employee.less",
                 "~/Content/Site/Projects/project.css",
@@ -35,6 +36,7 @@ namespace NexEPA
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",
+                "~/Scripts/Libs/jquery-ui-1.10.4.custom.min.js",
                 "~/Scripts/Libs/bootstrap.js",
                 "~/Scripts/Libs/angular.js",
                 "~/Scripts/Libs/ui-bootstrap-tpls-0.10.0.js",

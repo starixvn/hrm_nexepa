@@ -69,4 +69,10 @@
     <Setting Key="Target_Delete" SpName="Target_Delete" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
+
+  <Function Name="TargetEmployee">
+    <Setting Key="TargetEmployee_GetAll" SpName="TargetEmployee_GetAll" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="TargetEmployee_Add" SpName="TargetEmployee_Add" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="TargetEmployee_Delete" SpName="TargetEmployee_Delete" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
 </Functions>

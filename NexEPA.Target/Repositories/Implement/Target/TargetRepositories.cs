@@ -10,7 +10,6 @@
 namespace NexEPA.Target.Repositories.Implement.Target
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Model.Target;
@@ -27,7 +26,7 @@ namespace NexEPA.Target.Repositories.Implement.Target
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List Target Info.</returns>
-        public IList<TargetInfo> GetTarget(ICriteria criteria)
+        public IEnumerable<TargetInfo> GetTarget(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -40,7 +39,7 @@ namespace NexEPA.Target.Repositories.Implement.Target
                         return ti;
                     },
                     "TargetTypeId,ProjectId,MilestoneId",
-                    criteria.GetSpParams()).ToList();
+                    criteria.GetSpParams());
             }
         }
 

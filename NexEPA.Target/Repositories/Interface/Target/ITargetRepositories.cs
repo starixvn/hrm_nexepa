@@ -18,7 +18,7 @@ namespace NexEPA.Target.Repositories.Interface.Target
     /// </summary>
     public interface ITargetRepositories
     {
-        IList<TargetInfo> GetTarget(ICriteria criteria);
+        IEnumerable<TargetInfo> GetTarget(ICriteria criteria);
 
         TargetInfo GetTargetById(ICriteria criteria);
     }

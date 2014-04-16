@@ -44,6 +44,8 @@
             <th data-translate="Form"></th>
             <th data-translate="Project"></th>
             <th data-translate="Milestone"></th>
+            <th data-translate="Members"></th>
+            <th data-translate="KPI"></th>
             <th data-translate="StartDate"></th>
             <th data-translate="EndDate"></th>
             <th data-translate="Status"></th>
@@ -52,10 +54,20 @@
         <tbody>
             <tr ng-repeat="target in targetList">
                 <td class="count" ng-bind="$index + 1"></td>
-                <td ng-bind="target.name"></td>
+                <td>
+                    <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target.targetId)"></a>
+                </td>
                 <td class="form" ng-bind="target.targetType.name"></td>
                 <td ng-bind="target.project.name"></td>
                 <td ng-bind="target.milestone.name"></td>
+                <td class="target-member">
+                    <a href="" ng-bind="target.numberMember" ng-click="viewTargetEmployee(target.targetId)" ng-show="target.numberMember >= 0"></a>
+                    <!--<span ng-show="target.numberMember === 0" ng-bind="0"></span>-->
+                </td>
+                <td class="target-kpi">
+                    <a href="" ng-show="target.numberKPI > 0" ng-bind="target.numberKPI"></a>
+                    <span ng-show="target.numberKPI === 0" ng-bind="0"></span>
+                </td>
                 <td class="start-date" ng-bind="target.startDate"></td>
                 <td class="end-date" ng-bind="target.endDate"></td>
                 <td class="status" ng-bind="target.statusName"></td>

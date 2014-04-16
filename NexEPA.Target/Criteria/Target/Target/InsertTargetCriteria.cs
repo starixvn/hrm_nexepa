@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.07">Created</change>
 // </history>
 
-namespace NexEPA.Target.Criteria.Target
+namespace NexEPA.Target.Criteria.Target.Target
 {
     using System;
     using Fanex.NAP.Framework.Data;

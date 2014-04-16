@@ -39,22 +39,39 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public List<KPIItem> ViewKPI(int? targetTypeId = null, int? groupId = null)
         {
-            return _kpiServices.GetKPI(targetTypeId, groupId);
+            var getKPIByGroupIdCriteria = new GetKPICriteria
+            {
+                TargetTypeId = targetTypeId,
+                KPIGroupId = groupId
+            };
+
+            return _kpiServices.GetKPI(getKPIByGroupIdCriteria);
         }
 
         [HttpGet]
         public KPIItem GetKPIById(int kpiId)
         {
-            return _kpiServices.GetKPIById(kpiId);
+            var criteria = new GetKPIByIdCriteria
+            {
+                KPIId = kpiId
+            };
+
+            return _kpiServices.GetKPIById(criteria);
         }
 
         public CommandResult Post(InsertKPICriteria criteria)
         {
+            criteria.CreatedBy = this.CurrentUser.UserId;
+            criteria.CreatedDate = DateTime.Now;
+
             return _kpiServices.InsertKPI(criteria);
         }
 
         public CommandResult Put(UpdateKPICriteria criteria)
         {
+            criteria.ModifiedBy = this.CurrentUser.UserId;
+            criteria.ModifiedDate = DateTime.Now;
+
             return _kpiServices.UpdateKPI(criteria);
         }
 

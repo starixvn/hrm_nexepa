@@ -39,7 +39,7 @@ namespace NexEPA.Employee.Repositories.Implement
                         return emp;
                     },
                     "GroupId,JobTitleId",
-                    criteria.GetSpParams()).ToList();
+                    criteria.GetSpParams());
             }
         }
     }

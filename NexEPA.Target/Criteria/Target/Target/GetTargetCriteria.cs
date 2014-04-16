@@ -1,51 +1,46 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateTargetCriteria.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="GetTargetCriteria.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="2014.04.07">Created</change>
+//   <change who="Josh.Phan" date="2014.04.04">Created</change>
 // </history>
 
-namespace NexEPA.Target.Criteria.Target
+namespace NexEPA.Target.Criteria.Target.Target
 {
     using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// Update Target Criteria.
+    /// Get Target criteria.
     /// </summary>
-    public class UpdateTargetCriteria : CriteriaBase
+    public class GetTargetCriteria : CriteriaBase
     {
-        public int TargetId { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
         public int? TargetTypeId { get; set; }
 
         public int? ProjectId { get; set; }
 
-        public int? MilestoneId { get; set; }
+        public int? ProjectManager { get; set; }
 
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
 
-        public int Status { get; set; }
-
-        public int ModifiedBy { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
+        public int? Status { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Target_Update";
+            return "Target_Get";
         }
 
         public override bool IsValid()
         {
+            if (StartDate != null && EndDate != null)
+            {
+                return StartDate <= EndDate;
+            }
+
             return true;
         }
     }

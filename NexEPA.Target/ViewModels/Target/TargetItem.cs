@@ -31,6 +31,10 @@ namespace NexEPA.Target.ViewModels.Target
 
         public string StatusName { get; set; }
 
+        public int NumberKPI { get; set; }
+
+        public int NumberMember { get; set; }
+
         public TargetType TargetType { get; set; }
 
         public Project Project { get; set; }

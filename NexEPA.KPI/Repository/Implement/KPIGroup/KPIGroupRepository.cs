@@ -10,7 +10,6 @@
 namespace NexEPA.KPI.Repository.Implement.KPIGroup
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Model.Target;
@@ -26,8 +25,8 @@ namespace NexEPA.KPI.Repository.Implement.KPIGroup
         /// Get all KPI group.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List KPI Group.</returns>
-        public IList<KPIGroupInfo> GetAllKPIGroup(ICriteria criteria)
+        /// <returns>IEnumerable KPI Group.</returns>
+        public IEnumerable<KPIGroupInfo> GetAllKPIGroup(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -38,7 +37,7 @@ namespace NexEPA.KPI.Repository.Implement.KPIGroup
                         return gr;
                     },
                     "TargetTypeId",
-                    criteria.GetSpParams()).ToList();
+                    criteria.GetSpParams());
             }
         }
 
@@ -51,7 +50,7 @@ namespace NexEPA.KPI.Repository.Implement.KPIGroup
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return (KPIGroupInfo)db.QueryEntity<KPIGroupInfo, TargetType, KPIGroupInfo>(
+                return db.QueryEntity<KPIGroupInfo, TargetType, KPIGroupInfo>(
                     (gr, ta) =>
                     {
                         gr.TargetType = ta;
