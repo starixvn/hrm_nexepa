@@ -7,9 +7,10 @@
 //   <change who="Bradley.Mac" date="2014.3.26">Created</change>
 // </history>
 
-using System;
 namespace NexEPA.Project.Models
 {
+    using System;
+
     /// <summary>
     /// Project Members Model.
     /// </summary>
