@@ -1,9 +1,9 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-var memberValidation = function (selected) {
+var memberValidation = function (employeeId, selected, joinDate) {
 	var error = $("#memberValid");
-	if (selected.length > 0) {
+	if (selected.length > 0 && employeeId != null && joinDate != null) {
 		error.hide();
 		return true;
 	}
@@ -12,19 +12,22 @@ var memberValidation = function (selected) {
 };
 
 projectsSettingModule.controller("ProjectMembersController",
-function ($scope, $routeParams, $location, $modal, projectMembersFactory, notificationFactory, projectDataFactory) {
+function ($scope, $routeParams, $location, $modal, ProjectSettingCache, projectMilestoneService,
+projectMembersFactory, notificationFactory, projectDataFactory) {
 	/**
 	* Scope variable.
 	*/
 	$("#memberValid").hide();
 	var projectIdInUrl = $routeParams.projectId;
+	var cacheListEmployee = ProjectSettingCache.get("CacheListEmployee");
 	$scope.currentProject = [];
+	$scope.roles = [];
 
 	/**
 	* Ajax event loaded. 
 	*/
 	var successGetMembers = function (data) { $scope.members = data; };
-	var successGetMilestones = function (data) { $scope.milestones = data;  };
+	var successGetMilestones = function (data) { $scope.milestones = data; };
 	// Get project by Id
 	var successGetProjectById = function (data) {
 		$scope.currentProject = data;
@@ -43,14 +46,134 @@ function ($scope, $routeParams, $location, $modal, projectMembersFactory, notifi
 	projectMembersFactory.getMilestone(projectIdInUrl).then(successGetMilestones);
 	projectDataFactory.getProjectById(projectIdInUrl).then(successGetProjectById);
 
+	// Watch for Milestone list change in MilestoneController.
+	$scope.$watch(function () {
+		return projectMilestoneService.getProperty();
+	}, function (value) {
+		$scope.milestones = value;
+	});
+
 	/**
 	* Events.
 	*/
+	// Filter Data Display on Grid.
 	$scope.filterMember = function (isShowDeletedMember, milestone) {
-		debugger;
 		projectMembersFactory.getMember(projectIdInUrl, isShowDeletedMember, milestone).then(successGetMembers);
 	};
 
+	// Add New Member.
+	$scope.addMember = function () {
+		/**
+		* Ajax event loaded. 
+		*/
+		var successAddProjectMember = function () {
+			notificationFactory.success();
+			projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
+		};
+
+		// Popup Add New Memeber.
+		var populateModalInstance = function (lstMembers, roles) {
+			var addModalInstance = $modal.open({
+				templateUrl: '/templates/ProjectMembers/Create.html',
+				controller: "AddProjectMembersController",
+				resolve: {
+					lstMembers: function () {
+						return lstMembers;
+					},
+					roles: function () {
+						return roles;
+					},
+					projectId: function () {
+						return projectIdInUrl;
+					}
+				}
+			});
+			addModalInstance.result.then(function (member) {
+				projectMembersFactory.addMember(member).then(successAddProjectMember, errorNotification);
+			});
+		};
+
+		var successGetEmployeeSelectList = function (data) {
+			$scope.lstMembers = data;
+			ProjectSettingCache.put("CacheListEmployee", data);
+			projectMembersFactory.getProjectRole().then(function (data) {
+				$scope.roles = data;
+				populateModalInstance($scope.lstMembers, data);
+			});
+		};
+
+		/**
+		* Initialize data to view Add.
+		*/
+		if (cacheListEmployee) {
+			$scope.lstMembers = cacheListEmployee;
+			projectMembersFactory.getProjectRole().then(function (data) {
+				$scope.roles = data;
+				populateModalInstance($scope.lstMembers, data);
+			});
+		}
+		else {
+			projectDataFactory.getEmployeeSelectList(null).then(successGetEmployeeSelectList);
+		}
+	};
+
+	// Update Member.
+	$scope.updateMember = function (employeeId, joinDate) {
+		var successUpdateProjectMember = function () {
+			notificationFactory.success();
+			projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
+		};
+		var successGetEmployeeSelectList = function (data) {
+			$scope.lstMembers = data;
+			ProjectSettingCache.put("CacheListEmployee", data);
+			projectMembersFactory.getProjectRole(projectIdInUrl, employeeId).then(function (data) {
+				$scope.roles = data;
+				populateModalInstance($scope.lstMembers, data);
+			});
+		};
+
+		// Popup Edit Member.
+		var populateModalInstance = function (lstMembers, roles) {
+			var editMember = {};
+			editMember.employeeId = employeeId;
+			editMember.joinDate = joinDate;
+			editMember.projectId = projectIdInUrl;
+			var addModalInstance = $modal.open({
+				templateUrl: '/templates/ProjectMembers/Edit.html',
+				controller: "EditProjectMembersController",
+				resolve: {
+					lstMembers: function () {
+						return lstMembers;
+					},
+					roles: function () {
+						return roles;
+					},
+					editMember: function () {
+						return editMember;
+					}
+				}
+			});
+			addModalInstance.result.then(function (member) {
+				projectMembersFactory.addMember(member).then(successUpdateProjectMember, errorNotification);
+			});
+		};
+
+		/**
+		* Initialize data to view Edit.
+		*/
+		if (cacheListEmployee) {
+			$scope.lstMembers = cacheListEmployee;
+			projectMembersFactory.getProjectRole(projectIdInUrl, employeeId).then(function (data) {
+				$scope.roles = data;
+				populateModalInstance($scope.lstMembers, data);
+			});
+		}
+		else {
+			projectDataFactory.getEmployeeSelectList(null).then(successGetEmployeeSelectList);
+		}
+	};
+
+	// Delete Member.
 	$scope.deleteMember = function (member) {
 		member.projectId = projectIdInUrl;
 		var deleteModalInstance = $modal.open({
@@ -65,150 +188,68 @@ function ($scope, $routeParams, $location, $modal, projectMembersFactory, notifi
 				}
 			}
 		});
-
 		deleteModalInstance.result.then(function () {
 			projectMembersFactory.deleteMember(member).then(successDeleteMember, errorNotification);
 		});
 	};
 });
 
-projectsSettingModule.controller("AddProjectMembersController",
-function ($scope, $location, $routeParams, $window, projectMembersFactory, projectDataFactory, ProjectSettingCache) {
-	/**
-	* Scope variable.
-	*/
-	var projectId = $routeParams.projectId;
-	var cacheListEmployee = ProjectSettingCache.get("CacheListEmployee");
-	$scope.roles = [];
+projectsSettingModule.controller('AddProjectMembersController', function ($scope, $modalInstance, lstMembers, roles, projectId) {
 	$scope.selection = [];
+	$scope.lstMembers = lstMembers;
+	$scope.roles = roles;
 
-	/**
-	* Ajax event loaded. 
-	*/
-	var successGetProjectRoles = function (data) { $scope.roles = data; };
-	var successGetProjectById = function (data) { $scope.currentProject = data; };
-
-	var successGetEmployeeSelectList = function (data) {
-		$scope.members = data;
-		ProjectSettingCache.put("CacheListEmployee", data);
-	};
-
-	var successAddProjectMember = function () { $location.url('/ProjectMembers/View/' + projectId); };
-	var errorAddProjectMember = function (response) { $scope.errors = response; };
-
-	/**
-	* Initialize data to view Add Member.
-	*/
-	// Check for list Employee has cache data.
-	if (cacheListEmployee) {
-		$scope.members = cacheListEmployee;
-	}
-	else {
-		projectDataFactory.getEmployeeSelectList(null).then(successGetEmployeeSelectList);
-	}
-
-	projectMembersFactory.getProjectRole().then(successGetProjectRoles);
-	projectDataFactory.getProjectById(projectId).then(successGetProjectById);
-
-	/**
-	* Events.
-	*/
-	$scope.addMember = function (employeeId) {
+	$scope.ok = function (employeeId, joinDate) {
 		var selected = $scope.selection;
-		var object = {};
-		if (memberValidation(selected)) {
+		var member = {};
+		if (memberValidation(employeeId, selected, joinDate)) {
 			var projectRolesIds = selected.join(',');
 			$scope.errors = [];
-			object.projectId = projectId;
-			object.projectRoleIds = projectRolesIds;
-			object.employeeId = employeeId;
-			projectMembersFactory.addMember(object).then(successAddProjectMember, errorAddProjectMember);
+			member.projectId = projectId;
+			member.projectRoleIds = projectRolesIds;
+			member.employeeId = employeeId;
+			member.joinDate = joinDate;
+			$modalInstance.close(member);
 		}
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
 	};
 
 	// Watch for checkboxlist change.
 	$scope.$watch('roles|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
 			return item.projectRoleId;
-
 		});
 	}, true);
-
-	$scope.cancel = function () {
-		$window.history.back();
-	};
 });
 
 projectsSettingModule.controller("EditProjectMembersController",
-function ($scope, $routeParams, projectMembersFactory, $location, $window, projectDataFactory, ProjectSettingCache) {
-	/**
-	* Scope variable.
-	*/
-	var projectId = $routeParams.projectId;
-	var employeeId = $routeParams.employeeId;
-	var cacheListEmployee = ProjectSettingCache.get("CacheListEmployee");
-	$scope.errors = [];
-	$scope.roles = [];
+function ($scope, $modalInstance, lstMembers, roles, editMember) {
+	$scope.lstMembers = lstMembers;
+	$scope.roles = roles;
 	$scope.selection = [];
-	$scope.editMember = [];
+	$scope.editMember = editMember;
 
-	/**
-	* Ajax event loaded. 
-	*/
-	var successGetProjectRoles = function (data) {
-		$scope.roles = data;
-		$scope.editMember.employeeId = parseInt(employeeId);
+	$scope.ok = function (member) {
+		var selected = $scope.selection;
+		if (memberValidation(member.employeeId, selected, member.joinDate)) {
+			var projectRolesIds = selected.join(',');
+			$scope.errors = [];
+			member.projectRoleIds = projectRolesIds;
+			$modalInstance.close(member);
+		}
 	};
 
-	var successGetProjectById = function (data) { $scope.currentProject = data; };
-
-	var successGetEmployeeSelectList = function (data) {
-		$scope.members = data;
-		ProjectSettingCache.put("CacheListEmployee", data);
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
 	};
 
-	var successUpdateMember = function () { $location.url('/ProjectMembers/View/' + projectId); };
-	var errorUpdateMember = function (response) { $scope.errors = response; };
-
-	/**
-	* Initialize data to view Edit Member.
-	*/
-	// Check for list Employee has cache data.
-	if (cacheListEmployee) {
-		$scope.members = cacheListEmployee;
-	}
-	else {
-		projectDataFactory.getEmployeeSelectList(null).then(successGetEmployeeSelectList);
-	}
-
-	projectMembersFactory.getProjectRole(projectId, employeeId).then(successGetProjectRoles);
-	projectDataFactory.getProjectById(projectId).then(successGetProjectById);
-
-	/**
-	* Events.
-	*/
 	// Watch for checkboxlist change.
 	$scope.$watch('roles|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
 			return item.projectRoleId;
 		});
 	}, true);
-
-	// Update Member.
-	$scope.updateMember = function (employeeId) {
-		var selected = $scope.selection;
-		var object = {};
-		if (memberValidation(selected)) {
-			var projectRolesIds = selected.join(',');
-			object.projectId = projectId;
-			object.projectRoleIds = projectRolesIds;
-			object.employeeId = employeeId;
-			projectMembersFactory.addMember(object).then(successUpdateMember, errorUpdateMember);
-		}
-	};
-
-	// Cancel
-	$scope.cancel = function () {
-		$window.history.back();
-	};
 });

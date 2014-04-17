@@ -86,7 +86,8 @@ namespace NexEPA.Controllers.API
                     EmployeeId = member.EmployeeId,
                     ProjectRoleIds = member.ProjectRoleIds,
                     AddedBy = 1,
-                    AddedDate = DateTime.Now.Date
+                    AddedDate = DateTime.Now.Date,
+                    JoinDate = TimeZone.CurrentTimeZone.ToLocalTime(member.JoinDate.Value),
                 };
 
                 CommandResult result = _projectMemberService.AddMember(criteria);

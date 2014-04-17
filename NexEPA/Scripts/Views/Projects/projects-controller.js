@@ -194,10 +194,6 @@ projectsSettingModule.controller('EditProjectController', function ($scope, $rou
         $window.history.back();
     };
 
-	//	var collapse = $(".boxtitle");
-	//	var itemContent = collapse.next();
-	//	itemContent.show();
-
 	$(".boxtitle").on("click", function () {
 		var header = $(this);
 		//getting the next element
@@ -209,9 +205,8 @@ projectsSettingModule.controller('EditProjectController', function ($scope, $rou
 
 });
 
-
 projectsSettingModule.controller('MilestoneController',
-function ($scope, $routeParams, $modal, milestoneFactory, notificationFactory) {
+function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactory, notificationFactory) {
 	/**
 	* Scope variables. 
 	*/
@@ -237,6 +232,7 @@ function ($scope, $routeParams, $modal, milestoneFactory, notificationFactory) {
 	// Get Milestone
 	var successGetMilestones = function (data) {
 		$scope.milestones = data;
+		projectMilestoneService.setProperty(data);
 		$scope.milestoneErrors = {};
 	};
 
@@ -287,7 +283,6 @@ function ($scope, $routeParams, $modal, milestoneFactory, notificationFactory) {
 			$scope.milestone.projectId = projectId;
 			milestoneFactory.addMilestone($scope.milestone).then(successAddMilestone, errorAddUpdateMilestone);
 		}
-
 	};
 	// Update Milestone.
 	$scope.updateMilestone = function (milestone) {

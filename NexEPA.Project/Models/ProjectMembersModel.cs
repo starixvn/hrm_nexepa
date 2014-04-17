@@ -7,6 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.3.26">Created</change>
 // </history>
 
+using System;
 namespace NexEPA.Project.Models
 {
     /// <summary>
@@ -25,5 +26,7 @@ namespace NexEPA.Project.Models
         public string Code { get; set; }
 
         public string Name { get; set; }
+
+        public DateTime? JoinDate { get; set; }
     }
 }

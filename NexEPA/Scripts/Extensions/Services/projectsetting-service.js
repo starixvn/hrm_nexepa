@@ -1,7 +1,7 @@
 ﻿/*global projectsSettingModule*/
 'use strict';
 
-projectsSettingModule.service('projectService', function () {
+projectsSettingModule.service('projectMilestoneService', function () {
     var property;
     return {
         getProperty: function () {

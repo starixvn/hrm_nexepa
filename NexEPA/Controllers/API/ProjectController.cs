@@ -54,7 +54,7 @@ namespace NexEPA.Controllers.API
         /// <param name="status">Project Status.</param>
         /// <param name="period">Project Period.</param>
         /// <returns>List Project Model.</returns>
-        ////[ApiAuthorize]
+        ////[ApiAuthorize(Roles = "HR")]
         [ApiAuthorize(Roles = "PM,SA")]
         public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
