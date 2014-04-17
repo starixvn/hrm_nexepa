@@ -5,23 +5,23 @@
 
 var projectsSettingModule = angular.module("projectsSettingModule", ['ngRoute', 'ngResource'])
 .config(function ($routeProvider) {
-    $routeProvider.when('/Projects/Index', { templateUrl: '../templates/Projects/Index.html', controller: 'ProjectController' });
-    $routeProvider.when('/Projects/Create', { templateUrl: '../templates/Projects/Create.html', controller: 'CreateProjectController' });
-    $routeProvider.when('/Projects/Edit/:projectId', { templateUrl: '/templates/Projects/Edit.html', controller: 'EditProjectController' });
-    $routeProvider.when('/ProjectMembers/View/:projectId', { templateUrl: '/templates/ProjectMembers/Index.html', controller: 'ProjectMembersController' });
-    $routeProvider.when('/ProjectMembers/Create/:projectId', 
+	$routeProvider.when('/Projects/Index', { templateUrl: '../templates/Projects/Index.html', controller: 'ProjectController' });
+	$routeProvider.when('/Projects/Create', { templateUrl: '../templates/Projects/Create.html', controller: 'CreateProjectController' });
+	$routeProvider.when('/Projects/Edit/:projectId', { templateUrl: '/templates/Projects/Edit.html', controller: 'EditProjectController' });
+	$routeProvider.when('/ProjectMembers/View/:projectId', { templateUrl: '/templates/ProjectMembers/Index.html', controller: 'ProjectMembersController' });
+	$routeProvider.when('/ProjectMembers/Create/:projectId',
     { templateUrl: '/templates/ProjectMembers/Create.html', controller: 'AddProjectMembersController' });
-    $routeProvider.when('/ProjectMembers/Edit/ProjectId=:projectId/EmployeeId=:employeeId',
+	$routeProvider.when('/ProjectMembers/Edit/ProjectId=:projectId/EmployeeId=:employeeId',
      { templateUrl: '/templates/ProjectMembers/Edit.html', controller: 'EditProjectMembersController' });
 })
 .factory("ProjectSettingCache", function ($cacheFactory) {
-    return $cacheFactory();
+	return $cacheFactory();
 });
 
 var resourceModule = angular.module('resourceModule', ['pascalprecht.translate'])
 .config(function ($translateProvider) {
-    $translateProvider.useLoader('resourceRepository', {});
-    $translateProvider.preferredLanguage('en');
+	$translateProvider.useLoader('resourceRepository', {});
+	$translateProvider.preferredLanguage('en');
 });
 
 var kpiSettingModule = angular.module("kpiSettingModule", ['ngRoute', 'ngResource'])
@@ -44,23 +44,23 @@ var targetModule = angular.module("targetModule", ['ngRoute', 'ngResource'])
 
 var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'ngResource'])
 .config(function ($routeProvider) {
-    $routeProvider.when('/TargetTemplate/Index', { templateUrl: '../templates/TargetTemplate/Index.html', controller: 'TargetTemplateController' });
-    $routeProvider.when('/TargetTemplate/Create', { templateUrl: '../templates/TargetTemplate/Create.html', controller: 'CreateTargetTemplateController' });
-    $routeProvider.when('/TargetTemplate/Edit/:targetId', { templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
+	$routeProvider.when('/TargetTemplate/Index', { templateUrl: '../templates/TargetTemplate/Index.html', controller: 'TargetTemplateController' });
+	$routeProvider.when('/TargetTemplate/Create', { templateUrl: '../templates/TargetTemplate/Create.html', controller: 'CreateTargetTemplateController' });
+	$routeProvider.when('/TargetTemplate/Edit/:targetId', { templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
 });
 
 var employeeModule = angular.module("employeeModule", ['ngRoute', 'ngResource'])
 .config(function ($routeProvider) {
-    $routeProvider.when('/Employee/GetAllEmployee', { templateUrl: '/templates/Employee/View.html', controller: 'ViewAllEmployeeController' });
+	$routeProvider.when('/Employee/GetAllEmployee', { templateUrl: '/templates/Employee/View.html', controller: 'ViewAllEmployeeController' });
 });
 
 var registrationModule = angular.module("registrationModule",
 ['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule'])
 .config(function ($routeProvider, $locationProvider, $compileProvider) {
-    $routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
-    $routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
+	$routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
+	$routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });
 
-    $routeProvider.when('/Home/AccessDenied', { templateUrl: '/templates/Common/AccessDenied.html'});
-    $locationProvider.html5Mode(true);
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype):/);
+	$routeProvider.when('/Home/AccessDenied', { templateUrl: '/templates/Common/AccessDenied.html' });
+	$locationProvider.html5Mode(true);
+	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype):/);
 });

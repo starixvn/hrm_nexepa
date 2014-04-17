@@ -26,6 +26,12 @@ targetTemplateModule.factory("targetTemplateFactory", function ($http, $q) {
             .success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
+		getSelectedKPIByTargetTemplate: function (targetId) {
+			var deferred = $q.defer();
+			$http.get('/api/targetTemplate/GetSelectedKPIByTargetTemplate/', { params: { targetId: targetId} })
+            .success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
 		addTargetTemplate: function (template) {
 			var deferred = $q.defer();
 			$http.post('/api/targetTemplate/Post', template).success(deferred.resolve).error(deferred.reject);

@@ -63,6 +63,13 @@ namespace NexEPA.Controllers.API
             return data;
         }
 
+        public IEnumerable<KPIModel> GetSelectedKPIByTargetTemplate(int targetId)
+        {
+            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() { TargetId = targetId };
+            IEnumerable<KPIModel> selectedKPIs = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria);
+            return selectedKPIs;
+        }
+
         /// <summary>
         /// Method Get KPI.
         /// </summary>
@@ -158,7 +165,8 @@ namespace NexEPA.Controllers.API
                     TargetTypeId = model.TargetTypeId,
                     Description = model.Description,
                     ModifiedDate = DateTime.Now,
-                    ModifiedBy = 1
+                    ModifiedBy = 1,
+                    KPIIds = model.KPIIds
                 };
 
                 CommandResult result = this._targetTemplateService.UpdateTargetTemplate(criteria);

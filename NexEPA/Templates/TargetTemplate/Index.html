@@ -37,12 +37,12 @@
 					<td>
 						{{tgtemplate.description}}
 					</td>
-					<td>
-						<a href="javascript:;" ng-click="addKPI(tgtemplate.targetId)">Add KPI</a>
+					<td class="text-center">
+						Total
 					</td>
 					<td class="text-center">
 						<div class="btn-group">
-							<a href="/TargetTemplate/Edit/{{tgtemplate.targetId}}" class="glyphicon glyphicon-edit"
+							<a href="javascript:;" ng-click="editTargetTemplate(tgtemplate.targetId)"" class="glyphicon glyphicon-edit"
 								title="Edit"></a>
 							<a href="javascript:;" class="glyphicon glyphicon-remove" ng-click="deleteTemplate(tgtemplate)"
 								title="Delete"></a>

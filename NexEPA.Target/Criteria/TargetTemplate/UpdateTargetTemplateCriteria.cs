@@ -29,6 +29,8 @@ namespace NexEPA.Target.Criteria.TargetTemplate
 
         public int? TargetTypeId { get; set; }
 
+        public string KPIIds { get; set; }
+
         public override bool IsValid()
         {
             return true;

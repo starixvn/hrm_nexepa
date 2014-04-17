@@ -1,11 +1,50 @@
 ﻿<div class="modal-addKPI" id="modal-addKPI">
 	<div class="modal-header">
-		<span class="popup-header">KPI List</span>
-		<input class="pull-right search-inline" type="text" ng-model="KPIName" placeholder="Search..." />
+		<span class="popup-header">INFORMATION</span>
+		<input class="pull-right custom-textbox" type="text" ng-model="KPIName" placeholder="Search..." />
 	</div>
 	<div class="modal-body">
+		<div class="boxtitle">
+			TARGET TEMPLATE INFORMATIONS
+		</div>
+		<div class="boxcontent">
+			<div class="form-group">
+				<div class="error-message hide-errormessage" id="targetTemplateValid">
+					Please input all required (*) fields.</div>
+			</div>
+			<div class="popup-line popup-required">
+				<label class="col-sm-2 control-label">
+					{{"Name" | translate}}</label>
+				<div class="row">
+					<input type="text" class="custom-textbox custom-width" ng-model="editTemplate.name"
+						placeholder="Name" />
+				</div>
+			</div>
+			<div class="popup-line popup-required">
+				<label class="col-sm-2 control-label">
+					{{"TargetType" | translate}}
+				</label>
+				<div class="row">
+					<select class="custom-textbox custom-width" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
+						ng-model="editTemplate.targetTypeId">
+						<option style="display: none" value="">-- Select a target type --</option>
+					</select>
+				</div>
+			</div>
+			<div class="popup-line">
+				<label class="col-sm-2 control-label" data-translate="Description">
+				</label>
+				<div class="row">
+					<textarea class="custom-textarea custom-width" ng-model="editTemplate.description"
+						id="description"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="boxtitle">
+			KPI LIST
+		</div>
 		<ul class="list-group list-header">
-			<li class="list-group-item" ng-repeat="kpi in lstKPI | filter: KPIName">
+			<li class="list-group-item col-sm-6" ng-repeat="kpi in lstKPI | filter: KPIName">
 				<label>
 					{{ kpi.kpiGroupName }}</label>
 				<span ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
@@ -17,7 +56,7 @@
 		</ul>
 	</div>
 	<div class="modal-footer">
-		<button class="btn btn-primary" ng-click="ok()">
+		<button class="btn btn-primary" ng-click="ok(editTemplate)">
 			OK</button>
 		<button class="btn btn-warning" ng-click="cancel()">
 			Cancel</button>

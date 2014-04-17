@@ -2,6 +2,10 @@
 {
 	margin-left: 13px;
 	color: red;
+}
+
+.hide-errormessage
+{
 	display: none;
 }
 
@@ -35,10 +39,6 @@ span.popup-header
 	padding: 6px 12px;
 	margin-right: 6px;
 }
-.date-textbox
-{
-	width: 35%;
-}
 
 .custom-textarea
 {
@@ -49,6 +49,12 @@ span.popup-header
 	padding: 6px 12px;
 	margin-right: 6px;
 	width: 40%;
+}
+
+.custom-width
+{
+	width: 60%;
+	max-width: 60%;
 }
 
 .container-fluid > .sidebar
@@ -91,6 +97,22 @@ span.popup-header
 	border-bottom: 1px solid #e5e3e3;
 	margin-bottom: 8px;
 }
+
+.popup-line
+{
+	border-bottom: 1px solid #e5e3e3;
+	margin-bottom: 8px;
+	padding-bottom: 8px;
+}
+
+.form-horizontal .line-horizontal
+{
+	border-bottom: 1px solid #e5e3e3;
+	margin-bottom: 8px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
 .line:last-child
 {
 	border-bottom: none;
@@ -140,4 +162,8 @@ label.checkbox
 .popup-date
 {
 	width: 100%;
+}
+
+.app-modal-window .modal-dialog {
+  width: 80%;
 }

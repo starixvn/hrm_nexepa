@@ -351,4 +351,7 @@
   <data name="AllTeam" xml:space="preserve">
     <value>All teams</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
 </root>

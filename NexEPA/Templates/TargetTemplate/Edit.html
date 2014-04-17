@@ -7,48 +7,52 @@
 	</ul>
 </div>
 <div class="row">
-	<form class="col-sm-7 form-horizontal common-form" name="editTargetTemplateForm"
-	novalidate>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-7" style="color: red;" ng-show="errors.length > 0"
-			ng-repeat="error in errors">
-			{{error}}
-		</div>
+	<form class="col-sm-6 common-form project-form" name="editTargetTemplateForm" novalidate>
+	<div class="boxtitle">
+		{{currentTargetTemplateName | uppercase}} INFORMATIONS
 	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">
-			{{"Name" | translate}}</label>
-		<div class="col-sm-7">
-			<input type="text" class="form-control" ng-model="editTemplate.name" placeholder="Name"
-				required />
+	<div class="boxcontent">
+		<div class="line">
+			<div class="col-sm-offset-2 col-sm-7" style="color: red;" ng-show="errors.length > 0"
+				ng-repeat="error in errors">
+				{{error}}
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">
-			{{"TargetType" | translate}}
-		</label>
-		<div class="col-sm-7">
-			<select class="form-control" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
-				ng-model="editTemplate.targetTypeId" required>
-				<option style="display: none" value="">-- Select a target type --</option>
-			</select>
+		<div class="line">
+			<label class="col-sm-2 control-label">
+				{{"Name" | translate}}</label>
+			<div class="row">
+				<input type="text" class="custom-textbox custom-width" ng-model="editTemplate.name"
+					placeholder="Name" required />
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label" data-translate="Description">
-		</label>
-		<div class="col-sm-7">
-			<textarea class="form-control custom-texarea" ng-model="editTemplate.description"
-				id="description"></textarea>
+		<div class="line">
+			<label class="col-sm-2 control-label">
+				{{"TargetType" | translate}}
+			</label>
+			<div class="row">
+				<select class="custom-textbox custom-width" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
+					ng-model="editTemplate.targetTypeId" required>
+					<option style="display: none" value="">-- Select a target type --</option>
+				</select>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-7">
-			<button class="btn btn-primary" ng-disabled="editTargetTemplateForm.$invalid" ng-click="updateTargetTemplate(editTemplate)"
-				data-translate="Submit">
-			</button>
-			<button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
-			</button>
+		<div class="line">
+			<label class="col-sm-2 control-label" data-translate="Description">
+			</label>
+			<div class="row">
+				<textarea class="custom-textarea custom-width" ng-model="editTemplate.description"
+					id="description"></textarea>
+			</div>
+		</div>
+		<div class="line">
+			<div class="col-sm-offset-2 col-sm-7">
+				<button class="btn btn-primary" ng-disabled="editTargetTemplateForm.$invalid" ng-click="updateTargetTemplate(editTemplate)"
+					data-translate="Submit">
+				</button>
+				<button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
+				</button>
+			</div>
 		</div>
 	</div>
 	</form>

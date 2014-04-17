@@ -1,51 +1,51 @@
 ﻿<div class="row">
-    <div ng-include src="'/Templates/Projects/ProjectFilterPanel.html'">
-    </div>
+	<div ng-include src="'/Templates/Projects/ProjectFilterPanel.html'">
+	</div>
 </div>
 <div class="row">
-    <div class="span10">
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th data-translate="ProjectName">
-                    </th>
-                    <th data-translate="Milestone">
-                    </th>
-                    <th data-translate="PM">
-                    </th>
-                    <th data-translate="Members">
-                    </th>
-                    <th data-translate="Status">
-                    </th>
-                    <th data-translate="StartDate">
-                    </th>
-                    <th data-translate="EndDate">
-                    </th>
-                </tr>
-            </thead>
-            <tr ng-repeat="project in projects">
-                <td>
-                    <a href="/Projects/Edit/{{project.projectId}}">{{project.name}} </a>
-                </td>
-                <td>
-                    {{project.milestone.name}}
-                </td>
-                <td>
-                    {{project.fullName}}
-                </td>
-                <td class="text-center">
-                    <a href="/ProjectMembers/View/{{project.projectId}}">{{project.members}}</a>
-                </td>
-                <td class="text-center">
-                    {{project.status|enumStatusText}}
-                </td>
-                <td class="text-center">
-                    {{project.startDate|date:'dd-MMM-yyyy'}}
-                </td>
-                <td class="text-center">
-                    {{project.endDate|date:'dd-MMM-yyyy'}}
-                </td>
-            </tr>
-        </table>
-    </div>
+	<div class="span10">
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th data-translate="ProjectName">
+					</th>
+					<th data-translate="Milestone">
+					</th>
+					<th data-translate="PM">
+					</th>
+					<th data-translate="Members">
+					</th>
+					<th data-translate="Status">
+					</th>
+					<th data-translate="StartDate">
+					</th>
+					<th data-translate="EndDate">
+					</th>
+				</tr>
+			</thead>
+			<tr ng-repeat="project in projects">
+				<td>
+					<a href="/Projects/Edit/{{project.projectId}}">{{project.name}} </a>
+				</td>
+				<td>
+					{{project.milestone.name}}
+				</td>
+				<td>
+					{{project.fullName}}
+				</td>
+				<td class="text-center">
+					{{project.members}}
+				</td>
+				<td class="text-center">
+					{{project.status|enumStatusText}}
+				</td>
+				<td class="text-center">
+					{{project.startDate|date:'dd-MMM-yyyy'}}
+				</td>
+				<td class="text-center">
+					{{project.endDate|date:'dd-MMM-yyyy'}}
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>

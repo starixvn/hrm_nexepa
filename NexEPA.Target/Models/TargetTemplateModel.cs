@@ -34,5 +34,7 @@ namespace NexEPA.Target.Models
         public DateTime? ModifiedDate { get; set; }
 
         public int ModifiedBy { get; set; }
+
+        public string KPIIds { get; set; }
     }
 }

@@ -1,19 +1,37 @@
 ﻿/* global targetTemplateModule */
 'use strict';
 
+var targetTemplateValidation = function (name, targetTypeId) {
+	var error = $("#targetTemplateValid");
+	if (targetTypeId !== null && (name !== "")) {
+		error.hide();
+		return true;
+	}
+	error.show();
+	return false;
+};
+
 targetTemplateModule.controller('TargetTemplateController', function ($scope, $modal, targetTemplateFactory, notificationFactory) {
+	$("#targetTemplateValid").hide();
 	/**
 	* Ajax event Loaded. 
 	*/
 	// Success get all Target Template data.
 	var successGetAllTargetTemplate = function (data) { $scope.tgtemplates = data; };
 
+	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
+
 	// Success delete target template.
 	var successDeleteTargetTemplate = function () {
 		notificationFactory.success();
 		return targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
-
 	};
+
+	var successUpdateTargetTemplate = function () {
+		targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
+	};
+
+	var errorUpdateTargetTemplate = function (response) { $scope.errors = response; };
 
 	// Success get List KPI of each Target Template.
 	var succesGetListKPI = function (data) {
@@ -21,34 +39,36 @@ targetTemplateModule.controller('TargetTemplateController', function ($scope, $m
 		var modalInstance = $modal.open({
 			templateUrl: '../templates/TargetTemplate/AddKPI.html',
 			controller: "ModalViewKPIsController",
+			windowClass: 'app-modal-window',
 			resolve: {
 				lstKPI: function () {
 					return data;
+				},
+				editTemplate: function () {
+					return $scope.editTemplate;
+				},
+				tgTypes: function () {
+					return $scope.tgTypes;
 				}
 			}
 		});
 		modalInstance.result.then(modalConfirmAddKPI);
 	};
 
-	// Success add KPI to Target Template.
-	var successAddKPI = function () {
-		targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
-	};
 
 	// Error notify when action failure.
 	var errorNotify = function (data) { notificationFactory.error(data); };
 
-	var modalConfirmAddKPI = function (itemSelected) {
-		var objectKPI = {};
-		objectKPI.TargetId = $scope.currentTargetId;
-		objectKPI.KPIIds = itemSelected.join(',');
-		targetTemplateFactory.addKPI(objectKPI).then(successAddKPI, errorNotify);
+	var modalConfirmAddKPI = function (editTemplate) {
+		targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
 	};
 
 	/**
 	* Initialize data to view Index.
 	*/
 	targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
+	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
+
 
 	/**
 	* Event: Filter 
@@ -74,11 +94,48 @@ targetTemplateModule.controller('TargetTemplateController', function ($scope, $m
 	};
 
 	// Add KPI Popup
-	$scope.addKPI = function (targetId) {
-		$scope.currentTargetId = targetId;
-		targetTemplateFactory.getKPI(targetId, null, null).then(succesGetListKPI);
+	$scope.editTargetTemplate = function (targetId) {
+		targetTemplateFactory.getTargetTemplateById(targetId).then(function (data) {
+			$scope.editTemplate = data;
+			$scope.currentTargetTemplateName = data.name;
+			targetTemplateFactory.getKPI(targetId, null, null).then(succesGetListKPI);
+		});
+
 	};
 
+});
+
+targetTemplateModule.controller('ModalViewKPIsController', function ($scope, $modalInstance, lstKPI, editTemplate, tgTypes) {
+	$scope.selection = [];
+	$scope.lstKPI = lstKPI;
+	$scope.editTemplate = editTemplate;
+	$scope.tgTypes = tgTypes;
+	$scope.lstAllData = [];
+
+	$scope.ok = function (editTemplate) {
+		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
+			var itemSelected = $scope.selection;
+			editTemplate.kpiIds = itemSelected.join(',');
+			$modalInstance.close(editTemplate);
+		}
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+
+	$.each($scope.lstKPI, function (key) {
+		var data = $scope.lstKPI[key].kpiGroupItems;
+		$.each(data, function (k) {
+			$scope.lstAllData.push(data[k]);
+		});
+	});
+
+	$scope.$watch('lstAllData|filter:{selected:true}', function (selectedItems) {
+		$scope.selection = selectedItems.map(function (item) {
+			return item.kpiId;
+		});
+	}, true);
 });
 
 targetTemplateModule.controller('CreateTargetTemplateController', function ($scope, $location, $window, targetTemplateFactory) {
@@ -107,65 +164,4 @@ targetTemplateModule.controller('CreateTargetTemplateController', function ($sco
 
 	// Cancel
 	$scope.cancel = function () { $window.history.back(); };
-});
-
-targetTemplateModule.controller('EditTargetTemplateController', function ($scope, $location, $window, $routeParams, targetTemplateFactory) {
-	/**
-	* Variables. 
-	*/
-	$scope.errors = [];
-	var targetId = $routeParams.targetId;
-	/**
-	* Ajax event Loaded. 
-	*/
-	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
-	var successGetTargetTemplateById = function (data) {
-		$scope.editTemplate = data;
-		$scope.currentTargetTemplateName = data.name;
-	};
-	var successUpdateTargetTemplate = function () { $location.url('/TargetTemplate/Index'); };
-	var errorUpdateTargetTemplate = function (response) { $scope.errors = response; };
-	/**
-	* Initialize data to view Index.
-	*/
-	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
-	targetTemplateFactory.getTargetTemplateById(targetId).then(successGetTargetTemplateById);
-
-	/**
-	* Event: Filter 
-	*/
-	// Submit
-	$scope.updateTargetTemplate = function (template) {
-		targetTemplateFactory.updateTargetTemplate(template).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
-	};
-
-	// Cancel
-	$scope.cancel = function () { $window.history.back(); };
-});
-
-targetTemplateModule.controller('ModalViewKPIsController', function ($scope, $modalInstance, lstKPI) {
-	$scope.selection = [];
-	$scope.lstKPI = lstKPI;
-	$scope.lstAllData = [];
-
-	$scope.ok = function () {
-		$modalInstance.close($scope.selection);
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
-	};
-
-	$.each($scope.lstKPI, function (key) {
-		var data = $scope.lstKPI[key].kpiGroupItems;
-		$.each(data, function (k) {
-			$scope.lstAllData.push(data[k]);
-		});
-	});
-
-	$scope.$watch('lstAllData|filter:{selected:true}', function (selectedItems) {
-		$scope.selection = selectedItems.map(function (item) {
-			return item.kpiId;
-		});
-	}, true);
 });

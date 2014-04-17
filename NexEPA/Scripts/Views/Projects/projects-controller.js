@@ -80,6 +80,7 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 	$scope.errors = [];
+	$("#projectValid").hide();
 	/**
 	* Ajax event. 
 	*/
@@ -125,7 +126,13 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
 	*/
 	// Save
 	$scope.save = function (project) {
-		projectDataFactory.addProject(project).then(successAddProject, errorAddProject);
+		if (project == null) {
+			$("#projectValid").show();
+		}
+		else {
+			$("#projectValid").hide();
+			projectDataFactory.addProject(project).then(successAddProject, errorAddProject);
+		}
 	};
 
 	// Cancel
