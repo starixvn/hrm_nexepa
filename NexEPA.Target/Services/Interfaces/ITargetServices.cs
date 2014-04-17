@@ -13,6 +13,7 @@ namespace NexEPA.Target.Services.Interfaces
     using Fanex.NAP.Framework.Data;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
+    using NexEPA.Target.Criteria.Target.TargetKPI;
     using NexEPA.Target.ViewModels.Target;
 
     /// <summary>
@@ -33,5 +34,9 @@ namespace NexEPA.Target.Services.Interfaces
         List<TargetEmployeeItem> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria);
 
         CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria);
+
+        CommandResult DeleteTargetEmployee(DeleteTargetEmployeeCriteria criteria);
+
+        List<TargetKPIItem> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria);
     }
 }

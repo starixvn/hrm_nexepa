@@ -33,6 +33,13 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 		},
 		insertTargetEmployee: function (employee) {
 			return $http.post('/api/Target/InsertTargetEmployee', employee);
+		},
+		deleteTargetEmployee: function (targetId, employeeId) {
+			return $http['delete']('/api/Target/DeleteTargetEmployee',
+				{ params: { targetId: targetId, employeeId: employeeId} });
+		},
+		getKPIByTargetId: function (targetId) {
+			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId } });
 		}
 	};
 } ]);
@@ -138,16 +145,33 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 			return utility;
 		} ]);
 
-targetModule.directive('autoComplete', function($timeout) {
-	return function(scope, iElement, iAttrs) {
+// search employee auto-complete directive
+targetModule.directive('searchAutoComplete', function ($timeout, employeeRepository) {
+	return {
+		scope: { searchKey: "&searchKey", employeeId: "=employeeId" },
+		link: function (scope, iElement) {
 			iElement.autocomplete({
-				source: scope[iAttrs.uiItems],
-				select: function() {
-					$timeout(function() {
+				source: function (request, response) {
+					var searchKey = scope.searchKey();
+					employeeRepository.getAllEmployee(searchKey, null).success(function (employeeList) {
+						var data = [];
+						angular.forEach(employeeList, function (employee) {
+							data.push(
+								{ value: employee.nickName + ' (' + employee.fullName + ')',
+									id: employee.employeeId
+								});
+						});
+					response(data);
+					});
+				},
+				select: function (event, ui) {
+					scope.employeeId = ui.item.id;
+					$timeout(function () {
 						iElement.trigger('input');
 					}, 0);
 				}
 			});
-		};
+		}
+	};
 });
 

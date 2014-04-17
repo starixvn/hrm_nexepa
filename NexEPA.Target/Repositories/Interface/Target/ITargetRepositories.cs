@@ -21,5 +21,7 @@ namespace NexEPA.Target.Repositories.Interface.Target
         IEnumerable<TargetInfo> GetTarget(ICriteria criteria);
 
         TargetInfo GetTargetById(ICriteria criteria);
+
+        IEnumerable<TargetKPIInfo> GetKPIByTargetId(ICriteria criteria);
     }
 }

@@ -23,6 +23,7 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Project.Services.Interfaces;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
+    using NexEPA.Target.Criteria.Target.TargetKPI;
     using NexEPA.Target.Services.Impl.Target;
     using NexEPA.Target.Services.Interfaces;
     using NexEPA.Target.ViewModels.Target;
@@ -140,6 +141,36 @@ namespace NexEPA.Controllers.Target
         public CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria)
         {
             return _targetServices.InsertTargetEmployee(criteria);
+        }
+
+        /// <summary>
+        /// Delete Target Employee.
+        /// </summary>
+        /// <param name="targetId">The target ID.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult DeleteTargetEmployee(int targetId, int employeeId)
+        {
+            var criteria = new DeleteTargetEmployeeCriteria
+            {
+                TargetId = targetId,
+                EmployeeId = employeeId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            return _targetServices.DeleteTargetEmployee(criteria);
+        }
+
+        [HttpGet]
+        public List<TargetKPIItem> GetKPIByTargetId(int targetId)
+        {
+            var criteria = new GetKPIByTargetIdCriteria
+            {
+                TargetId = targetId
+            };
+
+            return _targetServices.GetKPIByTargetId(criteria);
         }
     }
 }

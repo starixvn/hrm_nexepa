@@ -61,17 +61,11 @@ namespace NexEPA.Controllers.API
 
         public CommandResult Post(InsertKPICriteria criteria)
         {
-            criteria.CreatedBy = this.CurrentUser.UserId;
-            criteria.CreatedDate = DateTime.Now;
-
             return _kpiServices.InsertKPI(criteria);
         }
 
         public CommandResult Put(UpdateKPICriteria criteria)
         {
-            criteria.ModifiedBy = this.CurrentUser.UserId;
-            criteria.ModifiedDate = DateTime.Now;
-
             return _kpiServices.UpdateKPI(criteria);
         }
 

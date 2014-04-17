@@ -106,7 +106,12 @@ targetModule.controller('ViewTargetController',
 		$scope.viewTargetEmployee = function (targetId) {
 			$location.path("/Target/TargetEmployee/" + targetId);
 		};
-});
+
+		// view target KPI
+		$scope.viewTargetKPI = function (targetId) {
+			$location.path("/Target/TargetKPI/" + targetId);
+		};
+	});
 
 targetModule.controller("CreateTargetController",
 	function ($scope, $timeout, $location, $translate, targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory) {
@@ -328,24 +333,93 @@ targetModule.controller("EditTargetController",
 });
 
 // Target Employee Controller
-targetModule.controller("TargetEmployeeController", function ($scope, $routeParams, targetFactory, employeeRepository) {
-	var targetId = $routeParams.id;
+targetModule.controller("TargetEmployeeController", 
+	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility) {
+		var targetId = $routeParams.id;
 
-	// get all employee by target Id
-	targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
-		$scope.employees = employees;
-	}).error(function () {
-		//TODO
-	});
+		// get all employee by target Id
+		targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
+			$scope.employees = employees;
+		}).error(function () {
+			targetUtility.showErrorMessage($scope);
+		});
 
-	//search employee
-	$scope.search = function (searchPattern) {
-		employeeRepository.getAllEmployee(searchPattern, null).success(function (employeeList) {
-			$scope.employeesSearch = employeeList;
-		}).error();
-	};
+		// add employee
+		$scope.addEmployee = function (employeeId) {
+			var employee = {
+				targetId: targetId,
+				employeeId: employeeId
+			};
+			targetFactory.insertTargetEmployee(employee).success(function (response) {
+				if (response.isSuccessful) {
+					$route.reload();
+				}
+				else {
+					$scope.hasError = true;
+					$scope.errorMessage = response.message;
+				}
+			}).error(function () {
+				targetUtility.showErrorMessage($scope);
+			});
+		};
 
-	$scope.cancel = function () {
-		window.history.back();
-	};
+		// delete employee
+		$scope.openDeletePopup = function (employee) {
+			var modalDeleteInstance = $modal.open({
+				templateUrl: '/templates/Common/modalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return employee.fullName;
+					},
+					action: function () {
+						return "delete";
+					}
+				},
+				windowClass: "modal-confirm-center"
+			});
+
+			modalDeleteInstance.result.then(function () {
+				targetFactory.deleteTargetEmployee(targetId, employee.employeeId).success(function (response) {
+					if (response.isSuccessful === true) {
+						$scope.hasError = false;
+						$route.reload();
+					}
+					else {
+						$scope.hasError = true;
+						$scope.errorMessage = response.message;
+					}
+				}).error(function () {
+					targetUtility.showErrorMessage($scope);
+				});
+			});
+		};
+
+		$scope.cancel = function () {
+			$window.history.back();
+		};
+});
+
+// Target KPI controller
+targetModule.controller("TargetKPIController", 
+	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility, KPIGroupRepository) {
+		var targetId = $routeParams.id;
+
+		// get all KPI group
+		KPIGroupRepository.getAll().success(function (groupList) {
+			$scope.groupOptions = groupList;
+		});
+
+		// get KPI of Target
+		targetFactory.getKPIByTargetId(targetId).success(function (listKPI) {
+			$scope.listKPI = listKPI;
+		}).error(function () {
+			targetUtility.showErrorMessage($scope);
+		});
+
+		// filter by group
+
+		$scope.cancel = function () {
+			$window.history.back();
+		};
 });

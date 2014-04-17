@@ -25,7 +25,7 @@ namespace NexEPA.Target.Repositories.Implement.Target
         /// Get target.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List Target Info.</returns>
+        /// <returns>IEnumerable Target Info.</returns>
         public IEnumerable<TargetInfo> GetTarget(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -61,6 +61,27 @@ namespace NexEPA.Target.Repositories.Implement.Target
                         return ti;
                     },
                     "TargetTypeId,ProjectId,MilestoneId",
+                    criteria.GetSpParams());
+            }
+        }
+
+        /// <summary>
+        /// Get KPI by Target ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The IEnumerable TargetKPIInfo.</returns>
+        public IEnumerable<TargetKPIInfo> GetKPIByTargetId(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<TargetKPIInfo, TargetKPIGroup, TargetType, TargetKPIInfo>(
+                    (ti, tg, tt) =>
+                    {
+                        ti.Group = tg;
+                        ti.TargetType = tt;
+                        return ti;
+                    },
+                    "KPIGroupId,TargetTypeId",
                     criteria.GetSpParams());
             }
         }

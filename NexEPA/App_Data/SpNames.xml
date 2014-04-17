@@ -75,4 +75,8 @@
 		<Setting Key="TargetEmployee_Add" SpName="TargetEmployee_Add" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetEmployee_Delete" SpName="TargetEmployee_Delete" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
+
+  <Function Name="TargetKPI">
+    <Setting Key="KPI_GetByTarget" SpName="KPI_GetByTarget" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
 </Functions>

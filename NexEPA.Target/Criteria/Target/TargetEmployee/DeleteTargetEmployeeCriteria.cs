@@ -9,6 +9,7 @@
 
 namespace NexEPA.Target.Criteria.Target.TargetEmployee
 {
+    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -22,7 +23,7 @@ namespace NexEPA.Target.Criteria.Target.TargetEmployee
 
         public int ModifiedBy { get; set; }
 
-        public int ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public override string GetSettingKey()
         {

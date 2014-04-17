@@ -1,0 +1,43 @@
+﻿<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="Target" ng-click="cancel()"></a></li>
+            <li class="current" data-translate="KPI"></li>
+        </ul>
+        <div class="button-icon">
+            <a href="" ng-click="cancel()" data-translate="BackToList">
+            </a>
+        </div>
+    </div>
+
+    <div class="form-inline filter">
+        <form novalidate class="form-inline">
+            <div class="form-group">
+                <label data-translate="Group"></label>
+                <select ng-model="filter.kpiGroupId" ng-options="opt.kpiGroupID as opt.name for opt in groupOptions" class="form-control">
+                    <option value="">-- All --</option>
+                </select>
+                </div>
+            <button class="btn btn-primary" ng-click="filter(filter.kpiGroupId)" ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
+            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th class="index" data-translate="SymbolCount"></th>
+            <th data-translate="Name"></th>
+            <th data-translate="Group"></th>
+        </thead>
+        <tr ng-repeat="kpiItem in listKPI">
+            <td ng-bind="$index + 1"></td>
+            <td ng-bind="kpiItem.name"></td>
+            <td ng-bind="kpiItem.groupName"></td>
+        </tr>
+        <tr ng-show="listKPI == ''">
+            <td colspan="3" class="empty-result" data-translate="EmptyResult"></td>
+        </tr>
+    </table>
+</div>

@@ -20,6 +20,7 @@ namespace NexEPA.Target.Services.Impl.Target
     using NexEPA.Core.Utilities;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
+    using NexEPA.Target.Criteria.Target.TargetKPI;
     using NexEPA.Target.Models.Target;
     using NexEPA.Target.Repositories.Implement.Target;
     using NexEPA.Target.Repositories.Interface.Target;
@@ -227,6 +228,55 @@ namespace NexEPA.Target.Services.Impl.Target
             }
 
             return commandResult;
+        }
+
+        /// <summary>
+        /// Delete Target's Employee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The CommandResult.</returns>
+        public CommandResult DeleteTargetEmployee(DeleteTargetEmployeeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Delete(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Get KPIs by Target ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List Target KPI Item.</returns>
+        public List<TargetKPIItem> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var kpiItemList = new List<TargetKPIItem>();
+
+            if (criteria.IsValid())
+            {
+                IEnumerable<TargetKPIInfo> rawKPIsInfo = _targetRepositories.GetKPIByTargetId(criteria);
+
+                foreach (var kpiInfo in rawKPIsInfo)
+                {
+                    var kpiItem = new TargetKPIItem
+                    {
+                        KPIId = kpiInfo.KPIId,
+                        Name = kpiInfo.Name,
+                        GroupId = kpiInfo.Group.KPIGroupId,
+                        GroupName = kpiInfo.Group.Name
+                    };
+
+                    kpiItemList.Add(kpiItem);
+                }
+            }
+
+            return kpiItemList;
         }
     }
 }

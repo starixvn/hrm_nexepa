@@ -14,9 +14,8 @@
         <form novalidate class="form-inline">
             <div class="form-group">
                 <label data-translate="Employee"></label>
-                <input class="form-control" ng-change="search(searchPattern)" ng-model="searchPattern" 
-                        auto-complete ui-items="employeesSearch"
-                        placeholder="full name or nick name"/>
+                <input class="form-control" ng-model="searchKey" placeholder="full name or nick name"
+                        search-auto-complete search-key="searchKey" employee-id="employeeId"/>
             </div>
             <button class="btn btn-primary" ng-click="addEmployee(employeeId)" ng-disabled="submitted" data-translate="Add"></button>
             <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
@@ -27,13 +26,23 @@
 <div class="row">
     <table class="table table-bordered table-striped">
         <thead>
-            <th data-translate="Members"></th>
+            <th data-translate="SymbolCount"></th>
+            <th data-translate="FullName"></th>
+            <th data-translate="NickName"></th>
             <th data-translate="Team"></th>
             <th data-translate="Action"></th>
         </thead>
         <tr ng-repeat="employee in employees">
-            <td ng-bind="employee.name"></td>
+            <td class="index" ng-bind="$index + 1"></td>
+            <td ng-bind="employee.fullName"></td>
+            <td ng-bind="employee.nickName"></td>
             <td ng-bind="employee.groupName"></td>
+            <td class="action">
+                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(employee)"/>
+            </td>
+        </tr>
+        <tr ng-show="employees == ''">
+            <td class="empty-result" colspan="5" data-translate="EmptyResult"></td>
         </tr> 
     </table>
 </div>

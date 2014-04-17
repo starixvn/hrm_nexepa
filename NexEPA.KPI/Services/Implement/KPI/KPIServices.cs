@@ -9,9 +9,11 @@
 
 namespace NexEPA.KPI.Services.Implement.KPI
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Model.KPI;
@@ -109,6 +111,8 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
+                criteria.CreatedBy = SessionManager.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
                 commandResult = _Repository.Insert(criteria);
             }
 
@@ -127,6 +131,8 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
+                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Update(criteria);
             }
 

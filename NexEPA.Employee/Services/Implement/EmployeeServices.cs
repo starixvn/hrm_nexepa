@@ -81,7 +81,7 @@ namespace NexEPA.Employee.Services.Implement
         public List<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employeeGroups = new List<Group>();
+            var employeesGroup = new List<Group>();
 
             if (criteria.IsValid())
             {
@@ -95,11 +95,11 @@ namespace NexEPA.Employee.Services.Implement
                         Name = group.Name
                     };
 
-                    employeeGroups.Add(groupItem);
+                    employeesGroup.Add(groupItem);
                 }
             }
 
-            return employeeGroups;
+            return employeesGroup;
         }
     }
 }

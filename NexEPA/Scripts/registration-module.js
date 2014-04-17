@@ -40,6 +40,7 @@ var targetModule = angular.module("targetModule", ['ngRoute', 'ngResource'])
 	$routeProvider.when('/Target/CreateTarget', { templateUrl: '/templates/Target/Target/Create.html', controller: 'CreateTargetController' });
 	$routeProvider.when('/Target/EditTarget/:id', { templateUrl: '/templates/Target/Target/Edit.html', controller: 'EditTargetController' });
 	$routeProvider.when('/Target/TargetEmployee/:id', { templateUrl: '/templates/Target/Target/TargetEmployee.html', controller: 'TargetEmployeeController' });
+	$routeProvider.when('/Target/TargetKPI/:id', { templateUrl: '/templates/Target/Target/TargetKPI.html', controller: 'TargetKPIController' });
 });
 
 var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'ngResource'])
