@@ -167,3 +167,8 @@ label.checkbox
 .app-modal-window .modal-dialog {
   width: 80%;
 }
+
+/* Icon */
+.container.page a.icon-add-header {
+     color: #fff;
+}

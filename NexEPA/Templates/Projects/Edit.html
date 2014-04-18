@@ -6,7 +6,7 @@
 	</ul>
 </div>
 <form class="col-sm-11 common-form project-form" name="addProjectForm" novalidate>
-<div class="boxtitle">
+<div class="boxtitle first">
 	PROJECT INFORMATIONS
 </div>
 <div class="boxcontent">
@@ -85,10 +85,10 @@
 </div>
 <div class="line">
 	<div class="col-sm-offset-5">
-		<button class="btn btn-primary" ng-disable="addProjectForm.$invalid" ng-click="update(projectUpdate)"
+		<button class="button button-icon" ng-disable="addProjectForm.$invalid" ng-click="update(projectUpdate)"
 			data-translate="Submit">
 		</button>
-		<button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>
 	</div>
 </div>

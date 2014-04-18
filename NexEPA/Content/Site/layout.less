@@ -8,7 +8,7 @@ body {
 }
 
 .modal-confirm-center .modal-dialog {
-	margin-top: 13%!important;
+    margin-top: 13%!important;
 }
 
 .container.page {
@@ -26,12 +26,43 @@ body {
 
     a {
         color: @link-color;
+
+        &.glyphicon {
+            &:hover {
+                text-decoration: none;
+            }
+
+            &.icon-add {
+                color: #8CBF26;
+            }
+
+            &.icon-remove {
+                color: #DE5144;
+                margin-right: 5px;
+            }
+
+            &.icon-edit, &.icon-save {
+                color: #1BA0E1;
+                margin-right: 5px;
+            }
+
+            &.icon-delete {
+                color: #6f6e6e;
+                margin-right: 5px;
+            }
+        }
+        
+        
+
+        &.icon-add-header {
+            color: #fff;
+        }
     }
 
     .header {
         #gradient .vertical(#E4E4E4, #DCDCDC);
         padding: 0;
-        border-bottom: 1px solid #898989;
+        border-bottom: 1px solid #aaa;
 
         .logo img {
             margin: 11px 10px 8px 14px;
@@ -171,7 +202,8 @@ body {
         float: left;
     }
 
-    .btn {
+    /* Button */
+    .button {
         #gradient .vertical(#5EB2D5, #308FB7);
         border: 1px solid #256F8E;
         border-color: #256F8E #256F8E #1B5066;
@@ -188,12 +220,14 @@ body {
         text-decoration: none;
         text-shadow: 0 -1px 0 #256F8E;
         vertical-align: bottom;
+        cursor: pointer;
 
         &:hover {
             #gradient .vertical(#72BCDA, #369FCA);
         }
     }
 
+    /* Filter form */
     .filter {
         background-color: #F4F4F4;
         border: 1px solid @border-light-color;
@@ -203,6 +237,16 @@ body {
         min-width: 600px;
         padding: 15px 25px;
         margin: 7px 1% 10px;
+
+        .form-group {
+            margin-right: 10px;
+            line-height: 22px;
+
+            input[type="checkbox"] {
+                position: relative;
+                top: 2px;
+            }
+        }
 
         label {
             font-weight: normal;
@@ -288,132 +332,150 @@ body {
 
         textarea.form-control {
             min-height: 80px;
-			resize: none;
+            resize: none;
         }
 
-		.required .control-label:after {
-			color: #FF0000;
-			content: "*";
-			padding-left: 5px;
-		}
+        .required .control-label:after {
+            color: #FF0000;
+            content: "*";
+            padding-left: 5px;
+        }
     }
 
-	.project-form
-	{
-		padding: 0px;
-		margin: 10px 1%;
-	}
+    .project-form
+    {
+        padding: 0px;
+        margin: 10px 1%;
+    }
 
-	 /* Empty Result */
+     /* Empty Result */
 
-		.empty-result {
-			text-align: center;
-			color: red;
-	}
+        .empty-result {
+            text-align: center;
+            color: red;
+    }
 
-	/* Empty Result*/
+    /* Empty Result*/
 
-	.empty-result {
-		text-align: center;
-		color: red;
-	}
+    .empty-result {
+        text-align: center;
+        color: red;
+    }
+}
 
-    /* Calendar */
+/* Calendar */
 
-	.calendar-form-control {
-		background-color: #FFFFFF;
-		background-image: none;
-		border: 1px solid #CCCCCC;
-		border-radius: 4px;
-		font-size: 12px;
-		height: 30px;
-		width: 100px;
-		padding: 4px;
-	}
+.calendar-form-control {
+    background-color: #FFF;
+    background-image: none;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 30px;
+    width: 100px;
+    padding: 4px;
+}
 
-	.calendar-image {
-		vertical-align: top;
-	}
+.calendar-image {
+    vertical-align: top;
+}
 
-    .dropdown-menu.ng-valid-date {
-        background-color: #fff;
-        padding: 0 0 10px;
+.dropdown-menu.ng-valid-date {
+    background-color: #fff;
+    padding: 0 0 10px;
 
+    .btn {
+        padding: 0 10px 4px;
+
+        &:hover {
+            background: #1BA0E1;
+            span { color: #fff; }
+        }
+    }
+
+    .btn-group .btn, li .btn-success {
+        #gradient .vertical(#EEE, #C8C8C8);
+        border-color: @border-color;
+        color: #4F4F4F;
+        text-shadow: none;
+
+        &:hover {
+            #gradient .vertical(#FBFBFB, #D4D4D4);
+        }
+    }
+
+    table {
         .btn {
-            padding: 0 10px 4px;
-        }
-
-        .btn-group .btn, li .btn-success {
-            #gradient .vertical(#EEE, #C8C8C8);
-            border-color: @border-color;
-            color: #4F4F4F;
+            background: none;
+            border: none;
+            box-shadow: none;
+            color: #CCC;
             text-shadow: none;
-
-            &:hover {
-                #gradient .vertical(#FBFBFB, #D4D4D4);
-            }
         }
 
-        table {
-            .btn {
+        thead {
+            .btn  {
+                &.btn-block {
+                    color: #4F4F4F;
+                }
+            }
+
+            th {
+                padding: 8px 3px;
                 background: none;
                 border: none;
-                box-shadow: none;
-                color: #CCC;
+                color: #4F4F4F;
                 text-shadow: none;
             }
 
-            thead {
-                .btn  {
-                    &.btn-block {
-                        color: #4F4F4F;
-                    }
-                }
-
-                th {
-                    padding: 8px 3px;
-                    background: none;
-                    border: none;
-                    color: #4F4F4F;
-                    text-shadow: none;
-                }
-
-                tr:first-child {
-                    #gradient .vertical(#EDEDED, #C4C4C4);
+            tr:first-child {
+                #gradient .vertical(#EDEDED, #C4C4C4);
                     
-                    th {
-                        padding: 3px 3px 1px;
-                    }
+                th {
+                    padding: 3px 3px 1px;
+                }
 
-                   .glyphicon {
-                        color: #fff;
-                        border-radius: 11px;
-                        font-size: 10px;
-                        padding: 4px 6px 4px 4px;
-                        text-shadow: 0 0 #666;
-                        background-color: #B5B5B5;
-                   }
+                .glyphicon {
+                    color: #fff;
+                    border-radius: 11px;
+                    font-size: 10px;
+                    padding: 4px 6px 4px 4px;
+                    text-shadow: 0 0 #666;
+                    background-color: #B5B5B5;
+                }
+            }
+        }
+
+        tbody {
+            .ng-binding {
+                color: #0789D1;
+
+                    &.text-muted{
+                    color: #CDCDE2;
                 }
             }
 
-            tbody {
-                .ng-binding {
-                    color: #0789D1;
+            td {
+                padding: 3px;
+            }
 
-                     &.text-muted{
-                        color: #CDCDE2;
-                    }
-                }
-
-                td {
-                    padding: 3px;
-                }
-
-                em.ng-binding {
-                    color: #4F4F4F;
-                    font-size: 13px;
-                }
+            em.ng-binding {
+                color: #4F4F4F;
+                font-size: 13px;
             }
         }
     }
 }
+
+/* Modal */
+.modal-dialog {
+    width: 620px;
+}
+
+/* Button of Bootstrap */
+
+.btn.customize {
+    font-size: 13px;
+    padding: 4px 15px;
+}
+
