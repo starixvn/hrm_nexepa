@@ -15,7 +15,7 @@
     <form novalidate name="form" class="col-sm-5 form-horizontal common-form" role="form">
          <div class="form-group">
              <label class="col-sm-3"></label>
-             <div class="col-sm-6">
+             <div class="col-sm-8">
                 <div ng-show="submitted && form.$invalid">
                     <div class="error" ng-show="form.itemFormSelect.$error.required" data-translate="FormRequire" ></div>
                     <div class="error" ng-show="form.itemFormSelect.$valid && form.itemGroupSelect.$error.required" data-translate="GroupRequire"></div>
@@ -29,7 +29,7 @@
 
         <div class="form-group required">
             <label class="col-sm-3 control-label" data-translate="Form"></label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                  <select name="itemFormSelect" ng-model="item.targetTypeId" 
                     ng-options="opt.targetTypeId as opt.name for opt in formOptions" 
                     ng-change="getGroupByTargetType(item.targetTypeId)"
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group required">
             <label class="col-sm-3 control-label" data-translate="Group"></label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                   <select name="itemGroupSelect" ng-model="item.kpiGroupId" 
                     ng-options="opt.kpiGroupID as opt.name for opt in groupOptions"
                     ng-disabled="!isCreatedFromKPI" 
@@ -52,27 +52,26 @@
         </div>
         <div class="form-group required">
             <label class="col-sm-3 control-label" data-translate="Title"></label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <input type="text" name="itemName" ng-model="item.name" required class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label" data-translate="Description"></label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <textarea ng-model="item.description" class="form-control"></textarea>
             </div>
         </div>
         <div class="form-group"> 
-            <label class="col-sm-offset-3 col-sm-10">
+            <label class="col-sm-offset-3 col-sm-8">
                 <input type="checkbox" ng-model="item.isRequireComment" />
                 <span data-translate="RequireComment"></span>
              </label>
         </div>
         <div class="form-group">
-            <label class="col-sm-3"></label>
-            <div class="col-sm-6">
-                <button class="btn btn-primary" ng-click="save(item)" ng-disabled="disabledSubmitButton" data-translate="Create"></button>
-                <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel"></button>
+            <div class="col-sm-offset-3 col-sm-8">
+                <button class="button button-icon" ng-click="save(item)" ng-disabled="disabledSubmitButton" data-translate="Create"></button>
+                <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
             </div>
         </div>
     </form>

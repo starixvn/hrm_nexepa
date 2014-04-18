@@ -32,7 +32,7 @@
                     <option value="">-- All --</option>
                 </select>
                 </div>
-            <button ng-show="isViewAll" class="btn btn-primary" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
+            <button ng-show="isViewAll" class="button button-icon" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
                     ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
             <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </form>
@@ -54,8 +54,8 @@
             <td ng-bind="item.kpiGroupName"></td>
             <td class="form" ng-bind="item.targetTypeName"></td>
             <td class="actionKPI">
-                <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
-                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
+                <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
+                <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
             </td>
         </tr>
         <tr ng-show="KPIList == ''">
@@ -77,8 +77,8 @@
             <td ng-bind="item.kpiGroupName"></td>
             <td class="form" ng-bind="item.targetTypeName"></td>
             <td class="actionKPI">
-                <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
-                <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
+                <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
+                <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
             </td>
         </tr>
         <tr ng-show="KPIList == ''">

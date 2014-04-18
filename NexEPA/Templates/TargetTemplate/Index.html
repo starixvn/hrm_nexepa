@@ -10,46 +10,44 @@
 	</div>
 </div>
 <div class="row">
-	<div class="span10">
-		<table class="table table-bordered table-striped table-hover">
-			<thead>
-				<tr>
-					<th data-translate="Name">
-					</th>
-					<th data-translate="TargetType">
-					</th>
-					<th data-translate="Description">
-					</th>
-					<th data-translate="KPI">
-					</th>
-					<th data-translate="Action">
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="tgtemplate in tgtemplates">
-					<td>
-						{{tgtemplate.name}}
-					</td>
-					<td class="text-center">
-						{{tgtemplate.targetTypeId | targetType}}
-					</td>
-					<td>
-						{{tgtemplate.description}}
-					</td>
-					<td class="text-center">
-						Total
-					</td>
-					<td class="text-center">
-						<div class="btn-group">
-							<a href="javascript:;" ng-click="editTargetTemplate(tgtemplate.targetId)"" class="glyphicon glyphicon-edit"
-								title="Edit"></a>
-							<a href="javascript:;" class="glyphicon glyphicon-remove" ng-click="deleteTemplate(tgtemplate)"
-								title="Delete"></a>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<table class="table table-bordered table-striped table-hover list-target-template">
+		<thead>
+			<tr>
+				<th data-translate="Name">
+				</th>
+				<th data-translate="TargetType">
+				</th>
+				<th data-translate="Description">
+				</th>
+				<th data-translate="KPI">
+				</th>
+				<th data-translate="Action">
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="tgtemplate in tgtemplates">
+				<td>
+					{{tgtemplate.name}}
+				</td>
+				<td class="text-center">
+					{{tgtemplate.targetTypeId | targetType}}
+				</td>
+				<td>
+					{{tgtemplate.description}}
+				</td>
+				<td class="text-center">
+					Total
+				</td>
+				<td class="text-center">
+					<div class="btn-group">
+						<a href="javascript:;" ng-click="editTargetTemplate(tgtemplate.targetId)"" class="glyphicon glyphicon-edit icon-edit"
+							title="Edit"></a>
+						<a href="javascript:;" class="glyphicon glyphicon-remove icon-remove" ng-click="deleteTemplate(tgtemplate)"
+							title="Delete"></a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
