@@ -10,6 +10,7 @@
 
 namespace NexEPA
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Optimization;
 
     /// <summary>
@@ -21,6 +22,7 @@ namespace NexEPA
         /// Register Bundles.
         /// </summary>
         /// <param name="bundles">Bundle Collection.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -70,7 +72,9 @@ namespace NexEPA
                 "~/Scripts/Views/TargetTemplate/targettemplate-controller.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-repository.js",
                 "~/Scripts/Views/Target/Target/target-controller.js",
-                "~/Scripts/Views/Target/Target/target-repository.js"));
+                "~/Scripts/Views/Target/Target/target-repository.js",
+                "~/Scripts/Views/EPA/MyEPA/myepa-controller.js",
+                "~/Scripts/Views/EPA/MyEPA/myepa-repository.js"));
         }
     }
 }

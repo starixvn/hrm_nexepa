@@ -136,6 +136,11 @@ namespace NexEPA
               name: "View Target KPI",
               url: "Target/TargetKPI/{id}",
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+              
+            routes.MapRoute(
+                name: "My EPA",
+                url: "MyEPA/Index",
+                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
                 name: "Default",

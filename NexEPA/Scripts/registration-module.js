@@ -1,4 +1,4 @@
-﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule*/
+﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule, epaModule*/
 /* exported employeeModule*/
 /*global angular*/
 'use strict';
@@ -50,13 +50,18 @@ var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'n
 	$routeProvider.when('/TargetTemplate/Edit/:targetId', { templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
 });
 
+var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
+.config(function ($routeProvider) {
+	$routeProvider.when('/MyEPA/Index', { templateUrl: '../templates/EPA/MyEPA/Index.html', controller: 'MyEPAController' });
+});
+
 var employeeModule = angular.module("employeeModule", ['ngRoute', 'ngResource'])
 .config(function ($routeProvider) {
 	$routeProvider.when('/Employee/GetAllEmployee', { templateUrl: '/templates/Employee/View.html', controller: 'ViewAllEmployeeController' });
 });
 
 var registrationModule = angular.module("registrationModule",
-['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule'])
+['resourceModule', 'projectsSettingModule', 'ui.bootstrap', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'epaModule'])
 .config(function ($routeProvider, $locationProvider, $compileProvider) {
 	$routeProvider.when('/Employee/Index', { templateUrl: '../templates/employee/view.html', controller: 'EmployeeController' });
 	$routeProvider.when('/Employee/Create', { templateUrl: '../templates/employee/create.html', controller: 'EmployeeController' });

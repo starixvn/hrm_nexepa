@@ -354,4 +354,16 @@
   <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
+  <data name="DatePPA" xml:space="preserve">
+    <value>Date of PPA</value>
+  </data>
+  <data name="Evaluator" xml:space="preserve">
+    <value>Evaluator / PM</value>
+  </data>
+  <data name="GeneralInfo" xml:space="preserve">
+    <value>GENERAL INFORMATION</value>
+  </data>
+  <data name="ppa" xml:space="preserve">
+    <value>PROJECT PERFORMANCE APPRAISAL (PPA)</value>
+  </data>
 </root>

@@ -227,6 +227,8 @@
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />
+    <Content Include="Scripts\Views\EPA\MyEPA\myepa-controller.js" />
+    <Content Include="Scripts\Views\EPA\MyEPA\myepa-repository.js" />
     <Content Include="Scripts\Views\Resource\resource-controller.js" />
     <Content Include="Scripts\Views\Resource\resource-repository.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
@@ -251,6 +253,7 @@
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
     <Content Include="Templates\Employee\View.html" />
+    <Content Include="Templates\EPA\MyEPA\Index.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />
     <Content Include="Templates\ProjectMembers\Create.html" />
     <Content Include="Templates\ProjectMembers\Index.html" />

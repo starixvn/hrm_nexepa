@@ -223,6 +223,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date of PPA.
+        /// </summary>
+        public static string DatePPA {
+            get {
+                return ResourceManager.GetString("DatePPA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -349,6 +358,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evaluator / PM.
+        /// </summary>
+        public static string Evaluator {
+            get {
+                return ResourceManager.GetString("Evaluator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Form.
         /// </summary>
         public static string Form {
@@ -372,6 +390,15 @@ namespace NexEPA.Resources {
         public static string FullName {
             get {
                 return ResourceManager.GetString("FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GENERAL INFORMATION.
+        /// </summary>
+        public static string GeneralInfo {
+            get {
+                return ResourceManager.GetString("GeneralInfo", resourceCulture);
             }
         }
         
@@ -534,6 +561,15 @@ namespace NexEPA.Resources {
         public static string PM {
             get {
                 return ResourceManager.GetString("PM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PROJECT PERFORMANCE APPRAISAL (PPA).
+        /// </summary>
+        public static string ppa {
+            get {
+                return ResourceManager.GetString("ppa", resourceCulture);
             }
         }
         
