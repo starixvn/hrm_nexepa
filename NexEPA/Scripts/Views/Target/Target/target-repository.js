@@ -11,7 +11,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http.get('/api/Target/GetTargetById', { params: { targetId: targetId} });
 		},
 		createTarget: function (target) {
-			return $http.post('/api/Target/', target);
+			return $http.post('/api/Target/InsertTarget', target);
 		},
 		editTarget: function (target) {
 			return $http.put('/api/Target/', target);
@@ -38,8 +38,8 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http['delete']('/api/Target/DeleteTargetEmployee',
 				{ params: { targetId: targetId, employeeId: employeeId} });
 		},
-		getKPIByTargetId: function (targetId) {
-			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId } });
+		getKPIByTargetId: function (targetId, groupId) {
+			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId } });
 		}
 	};
 } ]);

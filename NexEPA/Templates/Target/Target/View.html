@@ -46,39 +46,41 @@
             <th data-translate="Milestone"></th>
             <th data-translate="Members"></th>
             <th data-translate="KPI"></th>
+            <th data-translate="Status"></th>
             <th data-translate="StartDate"></th>
             <th data-translate="EndDate"></th>
-            <th data-translate="Status"></th>
             <th data-translate="Action"></th>
         </thead>
         <tbody>
             <tr ng-repeat="target in targetList">
                 <td class="count" ng-bind="$index + 1"></td>
-                <td>
-                    <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target.targetId)"></a>
+                <td ng-bind="target.name">
+                   <!-- <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target.targetId)"></a>-->
                 </td>
                 <td class="form" ng-bind="target.targetType.name"></td>
                 <td ng-bind="target.project.name"></td>
                 <td ng-bind="target.milestone.name"></td>
                 <td class="target-member">
-                    <a href="" ng-bind="target.numberMember" ng-click="viewTargetEmployee(target.targetId)" ng-show="target.numberMember > 0"></a>
+                    <a href="" ng-bind="target.numberMember" ng-click="viewTargetEmployee(target.targetId)" ng-show="target.numberMember > 0"
+                         title="View Members of '{{target.name}}'"></a>
                     <span ng-show="target.numberMember === 0" ng-bind="0"></span>
                 </td>
                 <td class="target-kpi">
-                    <a href="" ng-bind="target.numberKPI" ng-click="viewTargetKPI(target.targetId)" ng-show="target.numberKPI > 0"></a>
+                    <a href="" ng-bind="target.numberKPI" ng-click="viewTargetKPI(target.targetId)" ng-show="target.numberKPI > 0"
+                        title="View KPIs of '{{target.name}}'"></a>
                     <span ng-show="target.numberKPI === 0" ng-bind="0"></span>
                 </td>
+                <td class="status" ng-bind="target.statusName"></td>
                 <td class="start-date" ng-bind="target.startDate"></td>
                 <td class="end-date" ng-bind="target.endDate"></td>
-                <td class="status" ng-bind="target.statusName"></td>
                 <td class="action">
-                    <a class="glyphicon glyphicon-edit" title="Edit" href="" ng-click="edit(target.targetId)"/>
-                    <a class="glyphicon glyphicon-remove" title="Delete" href="" ng-click="openDeletePopup(target.targetId, target.name)"/>
+                    <a class="glyphicon glyphicon-edit" title="Edit Target" href="" ng-click="edit(target.targetId)"/>
+                    <a class="glyphicon glyphicon-remove" title="Delete Target" href="" ng-click="openDeletePopup(target.targetId, target.name)"/>
                     <a class="glyphicon glyphicon-plus" title="Add Member" href="" ng-click="viewTargetEmployee(target.targetId)" />
                 </td>
             </tr>
             <tr ng-show="targetList == ''">
-                <td class="empty-result" colspan="9" data-translate="EmptyResult"></td>
+                <td class="empty-result" colspan="11" data-translate="EmptyResult"></td>
             </tr>
         </tbody>
     </table>

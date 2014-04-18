@@ -3,13 +3,13 @@
 
 // View KPI
 kpiSettingModule.controller("ViewKPIController",
-	function ($scope, $routeParams, $location, $modal, $route, KPIRepository, KPIGroupRepository, CacheFactory, KPICommonRepository) {
+	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 
 		if (groupId) {
 			$scope.back = function () {
-				window.history.back();
+				$window.history.back();
 			};
 		}
 		else {
@@ -105,7 +105,7 @@ kpiSettingModule.controller("ViewKPIController",
 
 // Create New KPI
 	kpiSettingModule.controller('CreateNewKPIController',
-	function ($scope, $routeParams, $timeout, $location, KPIRepository, CacheFactory, KPICommonRepository) {
+	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -163,7 +163,7 @@ kpiSettingModule.controller("ViewKPIController",
 						KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
 						$timeout(function () {
 							if (!$scope.isCreatedFromKPI) {
-								window.history.back();
+								$window.history.back();
 							}
 							else {
 								$location.url('/KPI/ViewKPI/');
@@ -186,13 +186,13 @@ kpiSettingModule.controller("ViewKPIController",
 		};
 
 		$scope.cancel = function () {
-			window.history.back();
+			$window.history.back();
 		};
 	});
 
 // Edit KPI
 	kpiSettingModule.controller("EditKPIController",
-	function ($scope, $routeParams, $location, $timeout, KPIRepository, CacheFactory, KPICommonRepository) {
+	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository) {
 		var kpiId = $routeParams.id;
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -225,7 +225,7 @@ kpiSettingModule.controller("ViewKPIController",
 						$scope.success = true;
 						KPICommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
 						$timeout(function () {
-							window.history.back();
+							$window.history.back();
 						}, 2000);
 					}
 					else {
@@ -244,6 +244,6 @@ kpiSettingModule.controller("ViewKPIController",
 		};
 
 		$scope.cancel = function () {
-			window.history.back();
+			$window.history.back();
 		};
 	});

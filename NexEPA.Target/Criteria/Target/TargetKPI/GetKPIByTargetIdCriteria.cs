@@ -18,6 +18,8 @@ namespace NexEPA.Target.Criteria.Target.TargetKPI
     {
         public int TargetId { get; set; }
 
+        public int? KPIGroupId { get; set; }
+
         public override string GetSettingKey()
         {
             return "KPI_GetByTarget";

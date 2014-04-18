@@ -2,7 +2,8 @@
 /*global targetModule*/
 
 targetModule.controller('ViewTargetController',
-	function ($scope, $location, $translate, $modal, $route, targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory) {
+	function ($scope, $location, $translate, $modal, $route,
+		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
 
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
@@ -26,8 +27,13 @@ targetModule.controller('ViewTargetController',
 			targetFactory.getTarget(targetTypeId, startDate, endDate).success(function (targetList) {
 				$scope.targetList = targetList;
 				$scope.submitted = false;
-			}).error(function () {
-				targetUtility.showErrorMessage($scope);
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					targetUtility.showErrorMessage($scope);
+				}
 			});
 		};
 
@@ -92,8 +98,13 @@ targetModule.controller('ViewTargetController',
 						$scope.hasError = true;
 						$scope.errorMessage = response.message;
 					}
-				}).error(function () {
-					targetUtility.showErrorMessage($scope);
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						targetUtility.showErrorMessage($scope);
+					}
 				});
 			});
 		};
@@ -114,7 +125,8 @@ targetModule.controller('ViewTargetController',
 	});
 
 targetModule.controller("CreateTargetController",
-	function ($scope, $timeout, $location, $translate, targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory) {
+	function ($scope, $timeout, $location, $translate, $window,
+		targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
 
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
@@ -183,8 +195,14 @@ targetModule.controller("CreateTargetController",
 						$scope.disabledSubmit = false;
 					}
 				})
-				.error(function () {
-					targetUtility.showErrorMessage($scope, $translate);
+				.error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						targetUtility.showErrorMessage($scope);
+					}
+
 					$scope.disabledSubmit = false;
 				});
 			}
@@ -195,7 +213,7 @@ targetModule.controller("CreateTargetController",
 
 		// cancel
 		$scope.cancel = function () {
-			window.history.back();
+			$window.history.back();
 		};
 
 		// back to view
@@ -205,7 +223,8 @@ targetModule.controller("CreateTargetController",
 });
 
 targetModule.controller("EditTargetController",
-	function ($scope, $timeout, $location, $translate, $routeParams, targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory) {
+	function ($scope, $timeout, $location, $translate, $routeParams, $window,
+			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
 
 		var targetId = $routeParams.id;
 
@@ -311,8 +330,14 @@ targetModule.controller("EditTargetController",
 						$scope.disabledSubmit = false;
 					}
 				})
-				.error(function () {
-					targetUtility.showErrorMessage($scope, $translate);
+				.error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						targetUtility.showErrorMessage($scope);
+					}
+
 					$scope.disabledSubmit = false;
 				});
 			}
@@ -323,7 +348,7 @@ targetModule.controller("EditTargetController",
 
 		// cancel
 		$scope.cancel = function () {
-			window.history.back();
+			$window.history.back();
 		};
 
 		// back to view
@@ -333,15 +358,20 @@ targetModule.controller("EditTargetController",
 });
 
 // Target Employee Controller
-targetModule.controller("TargetEmployeeController", 
-	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility) {
+targetModule.controller("TargetEmployeeController",
+	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility, ErrorService) {
 		var targetId = $routeParams.id;
 
 		// get all employee by target Id
 		targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
 			$scope.employees = employees;
 		}).error(function () {
-			targetUtility.showErrorMessage($scope);
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				targetUtility.showErrorMessage($scope);
+			} 
 		});
 
 		// add employee
@@ -358,8 +388,13 @@ targetModule.controller("TargetEmployeeController",
 					$scope.hasError = true;
 					$scope.errorMessage = response.message;
 				}
-			}).error(function () {
-				targetUtility.showErrorMessage($scope);
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					targetUtility.showErrorMessage($scope);
+				}
 			});
 		};
 
@@ -389,8 +424,13 @@ targetModule.controller("TargetEmployeeController",
 						$scope.hasError = true;
 						$scope.errorMessage = response.message;
 					}
-				}).error(function () {
-					targetUtility.showErrorMessage($scope);
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						targetUtility.showErrorMessage($scope);
+					}
 				});
 			});
 		};
@@ -401,8 +441,8 @@ targetModule.controller("TargetEmployeeController",
 });
 
 // Target KPI controller
-targetModule.controller("TargetKPIController", 
-	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility, KPIGroupRepository) {
+targetModule.controller("TargetKPIController",
+	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility, KPIGroupRepository, ErrorService) {
 		var targetId = $routeParams.id;
 
 		// get all KPI group
@@ -411,15 +451,33 @@ targetModule.controller("TargetKPIController",
 		});
 
 		// get KPI of Target
-		targetFactory.getKPIByTargetId(targetId).success(function (listKPI) {
-			$scope.listKPI = listKPI;
-		}).error(function () {
-			targetUtility.showErrorMessage($scope);
-		});
+		var getKPIByTargetId = function (targetId, groupId) {
+			$scope.disabledSubmitButton = true;
+
+			targetFactory.getKPIByTargetId(targetId, groupId).success(function (listKPI) {
+				$scope.listKPI = listKPI;
+				$scope.disabledSubmitButton = false;
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					targetUtility.showErrorMessage($scope);
+				}
+
+				$scope.disabledSubmitButton = false;
+			});
+		};
+
+		// get all KPI of Target when no filter
+		getKPIByTargetId(targetId, null);
 
 		// filter by group
+		$scope.filter = function (kpiGroupId) {
+			getKPIByTargetId(targetId, kpiGroupId);
+		};
 
 		$scope.cancel = function () {
 			$window.history.back();
 		};
-});
+	});

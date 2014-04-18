@@ -27,6 +27,7 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Target.Services.Impl.Target;
     using NexEPA.Target.Services.Interfaces;
     using NexEPA.Target.ViewModels.Target;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -51,6 +52,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
+        [ApiAuthorize(Roles = "PM,SA")]
         public List<TargetItem> GetTarget(
             int? targetTypeId = null,
             DateTime? startDate = null,
@@ -67,6 +69,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
+        [ApiAuthorize(Roles = "PM,SA")]
         public TargetItem GetTargetById(int targetId)
         {
             var criteria = new GetTargetByIdCriteria
@@ -77,16 +80,20 @@ namespace NexEPA.Controllers.Target
             return _targetServices.GetTargetById(criteria);
         }
 
-        public CommandResult Post(InsertTargetCriteria criteria)
+        [HttpPost]
+        [ApiAuthorize(Roles = "PM,SA")]
+        public CommandResult InsertTarget(InsertTargetCriteria criteria)
         {
             return _targetServices.Insert(criteria);
         }
 
+        [ApiAuthorize(Roles = "PM,SA")]
         public CommandResult Put(UpdateTargetCriteria criteria)
         {
             return _targetServices.Update(criteria);
         }
 
+        [ApiAuthorize(Roles = "PM,SA")]
         public CommandResult Delete(int targetId)
         {
             var criteria = new DeleteTargetCriteria
@@ -103,7 +110,7 @@ namespace NexEPA.Controllers.Target
             var criteria = new GetAllProjectCriteria();
             IEnumerable<ProjectModel> allProjectList = _projectService.GetAllProject(criteria);
 
-            var projectOfTarget = allProjectList.Select(pro => new { pro.Name, pro.ProjectId });
+            IEnumerable<dynamic> projectOfTarget = allProjectList.Select(pro => new { pro.Name, pro.ProjectId });
             return projectOfTarget;
         }
 
@@ -113,10 +120,10 @@ namespace NexEPA.Controllers.Target
             var getMilestoneCriteria = new GetMilestoneByProjectIdCriteria()
             {
                 ProjectId = projectId
-            }; 
+            };
             var milestoneList = _projectService.GetMilestoneByProjectId(getMilestoneCriteria);
 
-            var milestoneResult = milestoneList.Select(mi => new { mi.Name, mi.MilestoneId });
+            IEnumerable<dynamic> milestoneResult = milestoneList.Select(mi => new { mi.Name, mi.MilestoneId });
             return milestoneResult;
         }
 
@@ -127,6 +134,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
+        [ApiAuthorize(Roles = "PM,SA")]
         public List<TargetEmployeeItem> GetEmployeeByTargetId(int targetId)
         {
             var criteria = new GetAllEmployeeByTargetIdCriteria
@@ -138,6 +146,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpPost]
+        [ApiAuthorize(Roles = "PM,SA")]
         public CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria)
         {
             return _targetServices.InsertTargetEmployee(criteria);
@@ -149,6 +158,7 @@ namespace NexEPA.Controllers.Target
         /// <param name="targetId">The target ID.</param>
         /// <param name="employeeId">The employee ID.</param>
         /// <returns>The Command Result.</returns>
+        [ApiAuthorize(Roles = "PM,SA")]
         public CommandResult DeleteTargetEmployee(int targetId, int employeeId)
         {
             var criteria = new DeleteTargetEmployeeCriteria
@@ -163,11 +173,13 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
-        public List<TargetKPIItem> GetKPIByTargetId(int targetId)
+        [ApiAuthorize(Roles = "PM,SA")]
+        public List<TargetKPIItem> GetKPIByTargetId(int targetId, int? groupId = null)
         {
             var criteria = new GetKPIByTargetIdCriteria
             {
-                TargetId = targetId
+                TargetId = targetId,
+                KPIGroupId = groupId
             };
 
             return _targetServices.GetKPIByTargetId(criteria);

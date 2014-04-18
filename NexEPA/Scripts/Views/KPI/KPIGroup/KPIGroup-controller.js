@@ -155,7 +155,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 // Create New KPI Group
 	kpiSettingModule.controller("CreateNewKPIGroupController",
-	function ($scope, $location, $timeout, $translate, KPIGroupRepository, CacheFactory, KPICommonRepository) {
+	function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -201,7 +201,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		};
 
 		$scope.cancel = function () {
-			window.history.back();
+			$window.history.back();
 		};
 
 		// weight on change
@@ -217,7 +217,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 
 // Edit KPI Group
 	kpiSettingModule.controller("EditKPIGroupController",
-	function ($scope, $location, $routeParams, $timeout, $route, $translate, KPIGroupRepository, CacheFactory, KPICommonRepository) {
+	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var groupId = $routeParams.id;
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
@@ -269,7 +269,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		};
 
 		$scope.cancel = function () {
-			window.history.back();
+			$window.history.back();
 		};
 
 		// weight on change

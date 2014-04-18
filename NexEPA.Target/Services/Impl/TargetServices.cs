@@ -51,12 +51,16 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                IEnumerable<TargetInfo> rawTargetList = _targetRepositories.GetTarget(criteria);
+                IEnumerable<TargetInfo> rawTargets = _targetRepositories.GetTarget(criteria);
 
-                foreach (var rawTarget in rawTargetList)
+                foreach (var rawTarget in rawTargets)
                 {
-                    var startDate = rawTarget.StartDate != null ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
-                    var endDate = rawTarget.EndDate != null ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
+                    string startDate = rawTarget.StartDate != null 
+                        ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
+                        : string.Empty;
+                    string endDate = rawTarget.EndDate != null 
+                        ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) 
+                        : string.Empty;
 
                     var targetItem = new TargetItem
                     {
@@ -94,8 +98,12 @@ namespace NexEPA.Target.Services.Impl.Target
             {
                 TargetInfo rawTarget = _targetRepositories.GetTargetById(criteria);
 
-                var startDate = rawTarget.StartDate != null ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
-                var endDate = rawTarget.EndDate != null ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) : string.Empty;
+                string startDate = rawTarget.StartDate != null 
+                    ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
+                    : string.Empty;
+                string endDate = rawTarget.EndDate != null 
+                    ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) 
+                    : string.Empty;
 
                 targetItem = new TargetItem
                 {
