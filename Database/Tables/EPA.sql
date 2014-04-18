@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[EPA](
 	[EPAId] [int] IDENTITY(1,1) NOT NULL,
 	[EmployeeId] [int] NULL,
 	[TargetId] [int] NULL,
-	[ProcessId] [int] NULL,
+	[EvaluatorId] [int] NULL,
 	[Score] [decimal](18, 2) NULL,
 	[Comment] [nvarchar](max) NULL,
 	[MarkedBy] [int] NULL,

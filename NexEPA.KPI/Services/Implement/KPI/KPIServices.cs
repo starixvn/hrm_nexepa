@@ -13,7 +13,6 @@ namespace NexEPA.KPI.Services.Implement.KPI
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Web.Models;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Model.KPI;
@@ -21,6 +20,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
     using NexEPA.KPI.Repository.Interface.KPI;
     using NexEPA.KPI.Services.Interface.KPI;
     using NexEPA.KPI.ViewModel.KPI;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// The implement of KPI service.
