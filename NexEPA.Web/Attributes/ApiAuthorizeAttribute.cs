@@ -15,7 +15,7 @@ namespace NexEPA.Web.Attributes
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Controllers;
-    using NexEPA.Core.Models;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// APIAuthorize Attribute.

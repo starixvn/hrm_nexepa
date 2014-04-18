@@ -10,8 +10,8 @@
 namespace NexEPA.Web.Services.Impl
 {
     using Fanex.Common.Helper;
-    using NexEPA.Core.Models;
     using NexEPA.Web.Criteria;
+    using NexEPA.Web.Models;
     using NexEPA.Web.Repositories.Impl;
     using NexEPA.Web.Repositories.Interfaces;
     using NexEPA.Web.Services.Interfaces;

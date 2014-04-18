@@ -12,7 +12,7 @@ namespace NexEPA.Web.Providers
     using System;
     using System.Collections.Generic;
     using System.Web.Security;
-    using NexEPA.Core.Models;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// CustomRole Provider.

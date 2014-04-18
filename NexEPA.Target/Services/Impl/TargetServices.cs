@@ -15,7 +15,6 @@ namespace NexEPA.Target.Services.Impl.Target
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
-    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Core.Utilities;
     using NexEPA.Target.Criteria.Target.Target;
@@ -26,6 +25,7 @@ namespace NexEPA.Target.Services.Impl.Target
     using NexEPA.Target.Repositories.Interface.Target;
     using NexEPA.Target.Services.Interfaces;
     using NexEPA.Target.ViewModels.Target;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// The implement of Target Services.

@@ -10,7 +10,7 @@
 namespace NexEPA.Controllers
 {
     using System.Web.Mvc;
-    using NexEPA.Core.Models;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// Home Controller.

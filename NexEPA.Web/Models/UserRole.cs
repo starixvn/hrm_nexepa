@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2014.3.28">Created</change>
 // </history>
 
-namespace NexEPA.Core.Models
+namespace NexEPA.Web.Models
 {
     /// <summary>
     /// User Roles.

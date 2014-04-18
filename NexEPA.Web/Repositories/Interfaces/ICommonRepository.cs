@@ -10,7 +10,7 @@
 namespace NexEPA.Web.Repositories.Interfaces
 {
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Models;
+    using NexEPA.Web.Models;
 
     public interface ICommonRepository
     {

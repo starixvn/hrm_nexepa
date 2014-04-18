@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[EPA](
-	[EPAId] [int] NOT NULL,
+	[EPAId] [int] IDENTITY(1,1) NOT NULL,
 	[EmployeeId] [int] NULL,
 	[TargetId] [int] NULL,
 	[ProcessId] [int] NULL,

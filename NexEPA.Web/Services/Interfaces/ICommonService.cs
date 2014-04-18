@@ -9,8 +9,8 @@
 
 namespace NexEPA.Web.Services.Interfaces
 {
-    using NexEPA.Core.Models;
     using NexEPA.Web.Criteria;
+    using NexEPA.Web.Models;
 
     public interface ICommonService
     {

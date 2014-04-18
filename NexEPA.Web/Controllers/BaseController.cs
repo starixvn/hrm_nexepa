@@ -12,8 +12,8 @@ namespace NexEPA.Web.Controllers
     using System.Web;
     using System.Web.Http;
     using System.Web.Security;
-    using NexEPA.Core.Models;
     using NexEPA.Web.Attributes;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// Base Controller.
