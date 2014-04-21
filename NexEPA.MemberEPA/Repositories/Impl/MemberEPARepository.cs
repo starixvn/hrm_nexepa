@@ -12,6 +12,9 @@ namespace NexEPA.MemberEPA.Repositories.Impl
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Model.Target;
+    using NexEPA.KPI.Model.KPI;
+    using NexEPA.KPI.Model.KPIGroup;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Repositories.Interfaces;
 
@@ -27,15 +30,26 @@ namespace NexEPA.MemberEPA.Repositories.Impl
         /// <returns>EPAInfo Model.</returns>
         public EPAInfoModel GetEPAInfo(ICriteria criteria)
         {
+            EPAInfoModel data = new EPAInfoModel();
+
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    EPAInfoModel info = multi.Read<EPAInfoModel>().FirstOrDefault();
-                    info.ProjectRoles = multi.Read<EPAProjectRoleModel>().ToList();
-                    return info;
+                    data = multi.Read<EPAInfoModel>().FirstOrDefault();
+                    data.ProjectRoles = multi.Read<EPAProjectRoleModel>().ToList();
+                    data.KPIInfo = multi.Read<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
+                        (inf, gr, ta) =>
+                        {
+                            inf.Group = gr;
+                            inf.TargetType = ta;
+                            return inf;
+                        },
+                        "KPIGroupId,TargetTypeId").ToList();
                 }
             }
+
+            return data;
         }
     }
 }
