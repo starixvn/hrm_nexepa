@@ -38,9 +38,10 @@ var targetModule = angular.module("targetModule", ['ngRoute', 'ngResource'])
 .config(function ($routeProvider) {
 	$routeProvider.when('/Target/ViewTarget', { templateUrl: '/templates/Target/Target/View.html', controller: 'ViewTargetController' });
 	$routeProvider.when('/Target/CreateTarget', { templateUrl: '/templates/Target/Target/Create.html', controller: 'CreateTargetController' });
-	$routeProvider.when('/Target/EditTarget/:id', { templateUrl: '/templates/Target/Target/Edit.html', controller: 'EditTargetController' });
-	$routeProvider.when('/Target/TargetEmployee/:id', { templateUrl: '/templates/Target/Target/TargetEmployee.html', controller: 'TargetEmployeeController' });
-	$routeProvider.when('/Target/TargetKPI/:id', { templateUrl: '/templates/Target/Target/TargetKPI.html', controller: 'TargetKPIController' });
+	$routeProvider.when('/Target/EditTarget/:id', { templateUrl: '/templates/Target/Target/Edit.html', controller: 'TargetDetailAndEditController' });
+	$routeProvider.when('/Target/TargetEmployee/:id', { templateUrl: '/templates/Target/Target/Detail.html', controller: 'TargetDetailAndEditController' });
+	$routeProvider.when('/Target/TargetKPI/:id', { templateUrl: '/templates/Target/Target/Detail.html', controller: 'TargetDetailAndEditController' });
+	$routeProvider.when('/Target/TargetDetail/:id', { templateUrl: '/templates/Target/Target/Detail.html', controller: 'TargetDetailAndEditController' });
 });
 
 var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'ngResource'])

@@ -273,8 +273,8 @@
     <Content Include="Templates\TargetTemplate\Create.html" />
     <Content Include="Templates\TargetTemplate\Details.html" />
     <Content Include="Templates\Target\Target\Create.html" />
+    <Content Include="Templates\Target\Target\Detail.html" />
     <Content Include="Templates\Target\Target\Edit.html" />
-    <Content Include="Templates\Target\Target\TargetEmployee.html" />
     <Content Include="Templates\Target\Target\View.html" />
     <Content Include="Templates\TargetTemplate\Index.html" />
     <Content Include="Web.config">

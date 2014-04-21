@@ -69,11 +69,14 @@ targetModule.controller('ViewTargetController',
 
 		// edit target
 		$scope.edit = function (targetId) {
-			$location.path('Target/EditTarget/' + targetId);
+			$location.path('Target/EditTarget/' + targetId).search("isEditMode", true);
 		};
 
 		// delete target
-		$scope.openDeletePopup = function (targetId, targetName) {
+		$scope.openDeletePopup = function (target) {
+			var targetId = target.targetId;
+			var targetName = target.targetName;
+
 			var modalDeleteInstance = $modal.open({
 				templateUrl: '/templates/Common/modalConfirmContent.html',
 				controller: "ModalConfirmController",
@@ -92,7 +95,8 @@ targetModule.controller('ViewTargetController',
 				targetFactory.deleteTarget(targetId).success(function (response) {
 					if (response.isSuccessful === true) {
 						$scope.hasError = false;
-						$route.reload();
+						var index = $scope.targetList.indexOf(target);
+						$scope.targetList.splice(index, 1);
 					}
 					else {
 						$scope.hasError = true;
@@ -115,12 +119,17 @@ targetModule.controller('ViewTargetController',
 
 		// view target employee
 		$scope.viewTargetEmployee = function (targetId) {
-			$location.path("/Target/TargetEmployee/" + targetId);
+			$location.path("/Target/TargetEmployee/" + targetId).search("viewMembers", true);
 		};
 
 		// view target KPI
 		$scope.viewTargetKPI = function (targetId) {
-			$location.path("/Target/TargetKPI/" + targetId);
+			$location.path("/Target/TargetKPI/" + targetId).search("viewKPIs", true);
+		};
+
+		// view detail of Target
+		$scope.viewDetailTarget = function (targetId) {
+			$location.path("/Target/TargetDetail/" + targetId);
 		};
 	});
 
@@ -220,149 +229,163 @@ targetModule.controller("CreateTargetController",
 		$scope.backToView = function () {
 			$location.url('/Target/ViewTarget/');
 		};
-});
+	});
 
-targetModule.controller("EditTargetController",
-	function ($scope, $timeout, $location, $translate, $routeParams, $window,
-			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
+// View Detail of Target or Edit Target Controller
+	targetModule.controller("TargetDetailAndEditController",
+	function ($scope, $timeout, $location, $translate, $routeParams, $window, $route, $modal,
+			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository, commonFactory, ErrorService) {
 
 		var targetId = $routeParams.id;
+		var isEditMode = $routeParams.isEditMode ? true : false;
 
+		if (!isEditMode) {
+			var isMemberSelect = $routeParams.viewMembers ? true : false;
+			var isKPISelect = $routeParams.viewKPIs ? true : false;
+
+			if (isMemberSelect || isKPISelect) {
+				$scope.tabGeneralSelect = false;
+				$scope.tabMemberSelect = $routeParams.viewMembers ? true : false;
+				$scope.tabKPISelect = $routeParams.viewKPIs ? true : false;
+			}
+		}
+
+		// get Tab Heading
+		targetUtility.getTabHeading($scope);
+
+		// TAB : GENERAL INFORMATION
 		// get Target by ID
 		targetFactory.getTargetById(targetId).success(function (target) {
-			target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
-			target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
+			if (isEditMode) {
+				target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
+				target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
+			}
 
 			$scope.target = target;
 
-			if (target.targetType && target.targetType.targetTypeId) {
-				$scope.target.targetTypeId = target.targetType.targetTypeId;
-			}
+			if (isEditMode) {
+				if (target.targetType && target.targetType.targetTypeId) {
+					$scope.target.targetTypeId = target.targetType.targetTypeId;
+				}
 
-			if (target.project && target.project.projectId) {
-				$scope.formIsProject = true;
-				targetUtility.getAllProject($scope);
-				$scope.target.projectId = target.project.projectId;
+				if (target.project && target.project.projectId) {
+					$scope.formIsProject = true;
+					targetUtility.getAllProject($scope);
+					$scope.target.projectId = target.project.projectId;
 
-				if (target.milestone && target.milestone.milestoneId) {
-					$scope.isSelectedProject = true;
-					$scope.target.milestoneId = target.milestone.milestoneId;
-					targetUtility.getMilestone($scope.target.projectId, $scope);
+					if (target.milestone && target.milestone.milestoneId) {
+						$scope.isSelectedProject = true;
+						$scope.target.milestoneId = target.milestone.milestoneId;
+						targetUtility.getMilestone($scope.target.projectId, $scope);
+					}
 				}
 			}
 		}).error(function () {
 			targetUtility.showErrorMessage($scope);
 		});
 
-		// get Form options
-		targetUtility.getFormOptions($scope, KPICommonRepository);
+		if (isEditMode) {
+			// get Form options
+			targetUtility.getFormOptions($scope, KPICommonRepository);
 
-		// get Date Format
-		commonFactory.getDateFormat($scope);
+			// get Date Format
+			commonFactory.getDateFormat($scope);
 
-		// get Calendar Image
-		commonFactory.getSourceCalendarImage($scope);
+			// get Calendar Image
+			commonFactory.getSourceCalendarImage($scope);
 
-		// The onchange function of Form
-		$scope.formOnChange = function (targetTypeId) {
-			$scope.formIsProject = false;
-			$scope.isSelectedProject = false;
+			// The onchange function of Form
+			$scope.formOnChange = function (targetTypeId) {
+				$scope.formIsProject = false;
+				$scope.isSelectedProject = false;
 
-			if (targetTypeId === 2) {
-				$scope.formIsProject = true;
-				$scope.isSelectedProject = true;
-				targetUtility.getAllProject($scope);
-			}
-		};
+				if (targetTypeId === 2) {
+					$scope.formIsProject = true;
+					$scope.isSelectedProject = true;
+					targetUtility.getAllProject($scope);
+				}
+			};
 
-		// get all status
-		targetUtility.getAllStatus($scope);
+			// get all status
+			targetUtility.getAllStatus($scope);
 
-		// the onchange funtion of Project
-		$scope.projectOnChange = function (projectId) {
-			$scope.isSelectedProject = false;
+			// the onchange funtion of Project
+			$scope.projectOnChange = function (projectId) {
+				$scope.isSelectedProject = false;
 
-			if (projectId) {
-				$scope.isSelectedProject = true;
-				targetUtility.getMilestone(projectId, $scope);
-			}
-		};
+				if (projectId) {
+					$scope.isSelectedProject = true;
+					targetUtility.getMilestone(projectId, $scope);
+				}
+			};
 
-		// show start date calendar when click button start date
-		$scope.openPopupStartDate = function ($event) {
-			targetUtility.openPopupStartDate($event, $scope);
-		};
+			$scope.calendar = {
+				startDateOpened: false,
+				endDateOpened: false
+			};
 
-		// show end date calendar when click button end date
-		$scope.openPopupEndDate = function ($event) {
-			targetUtility.openPopupEndDate($event, $scope);
-		};
+			// show start date calendar when click button start date
+			$scope.openPopupStartDate = function ($event) {
+				targetUtility.openPopupStartDate($event, $scope);
+			};
 
-		// update target
-		$scope.save = function (target) {
-			$scope.submitted = true;
-			$scope.disabledSubmit = true;
+			// show end date calendar when click button end date
+			$scope.openPopupEndDate = function ($event) {
+				targetUtility.openPopupEndDate($event, $scope);
+			};
 
-			if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
-				var newTarget = angular.copy(target);
+			// update target
+			$scope.save = function (target) {
+				$scope.submitted = true;
+				$scope.disabledSubmit = true;
 
-				if (newTarget.targetTypeId !== 2) {
-					newTarget.projectId = null;
-					newTarget.milestoneId = null;
+				if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
+					var newTarget = angular.copy(target);
+
+					if (newTarget.targetTypeId !== 2) {
+						newTarget.projectId = null;
+						newTarget.milestoneId = null;
+					}
+
+					newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
+					newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
+
+					targetFactory.editTarget(newTarget).success(function (response) {
+						if (response.isSuccessful === true) {
+							$scope.success = true;
+							$translate("UpdatedSuccessfulMessage").then(function (message) {
+								$scope.successMessage = message;
+							});
+							$scope.disabledSubmit = false;
+							$timeout(function () {
+								$scope.success = false;
+							}, 2000);
+						}
+						else {
+							$scope.success = false;
+							$scope.errorMessage = response.message;
+							$scope.disabledSubmit = false;
+						}
+					})
+			.error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					targetUtility.showErrorMessage($scope);
 				}
 
-				newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
-				newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
-
-				targetFactory.editTarget(newTarget).success(function (response) {
-					if (response.isSuccessful === true) {
-						$scope.success = true;
-						$translate("UpdatedSuccessfulMessage").then(function (message) {
-							$scope.successMessage = message;
-						});
-						$timeout(function () {
-							$location.url('/Target/ViewTarget/');
-						}, 2000);
-					}
-					else {
-						$scope.success = false;
-						$scope.errorMessage = response.message;
-						$scope.disabledSubmit = false;
-					}
-				})
-				.error(function (response, status) {
-					if (status === 405) {
-						ErrorService.errorHandle(status);
-					}
-					else {
-						targetUtility.showErrorMessage($scope);
-					}
-
-					$scope.disabledSubmit = false;
-				});
-			}
-			else {
 				$scope.disabledSubmit = false;
-			}
-		};
+			});
+				}
+				else {
+					$scope.disabledSubmit = false;
+				}
+			};
+		}
 
-		// cancel
-		$scope.cancel = function () {
-			$window.history.back();
-		};
-
-		// back to view
-		$scope.backToView = function () {
-			$location.url('/Target/ViewTarget/');
-		};
-});
-
-// Target Employee Controller
-targetModule.controller("TargetEmployeeController",
-	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility, ErrorService) {
-		var targetId = $routeParams.id;
-
-		// get all employee by target Id
+		// TAB : MEMBERS 
+		// get all employee by target Id 
 		targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
 			$scope.employees = employees;
 		}).error(function () {
@@ -371,54 +394,25 @@ targetModule.controller("TargetEmployeeController",
 			}
 			else {
 				targetUtility.showErrorMessage($scope);
-			} 
+			}
 		});
 
-		// add employee
-		$scope.addEmployee = function (employeeId) {
-			var employee = {
-				targetId: targetId,
-				employeeId: employeeId
-			};
-			targetFactory.insertTargetEmployee(employee).success(function (response) {
-				if (response.isSuccessful) {
-					$route.reload();
-				}
-				else {
-					$scope.hasError = true;
-					$scope.errorMessage = response.message;
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorService.errorHandle(status);
-				}
-				else {
-					targetUtility.showErrorMessage($scope);
-				}
-			});
-		};
+		if (isEditMode) {
+			// add employee
+			$scope.addEmployee = function (employee) {
+				$scope.disabledSubmit = true;
 
-		// delete employee
-		$scope.openDeletePopup = function (employee) {
-			var modalDeleteInstance = $modal.open({
-				templateUrl: '/templates/Common/modalConfirmContent.html',
-				controller: "ModalConfirmController",
-				resolve: {
-					name: function () {
-						return employee.fullName;
-					},
-					action: function () {
-						return "delete";
-					}
-				},
-				windowClass: "modal-confirm-center"
-			});
+				var employeeInsert = {
+					targetId: targetId,
+					employeeId: employee.employeeId
+				};
 
-			modalDeleteInstance.result.then(function () {
-				targetFactory.deleteTargetEmployee(targetId, employee.employeeId).success(function (response) {
-					if (response.isSuccessful === true) {
+				targetFactory.insertTargetEmployee(employeeInsert).success(function (response) {
+					if (response.isSuccessful) {
 						$scope.hasError = false;
-						$route.reload();
+						employee.groupName = employee.group.name;
+						$scope.employees.push(employee);
+						$scope.disabledSubmit = false;
 					}
 					else {
 						$scope.hasError = true;
@@ -431,53 +425,95 @@ targetModule.controller("TargetEmployeeController",
 					else {
 						targetUtility.showErrorMessage($scope);
 					}
+
+					$scope.disabledSubmit = false;
 				});
+			};
+
+			// delete employee
+			$scope.openDeletePopup = function (employee) {
+				var modalDeleteInstance = $modal.open({
+					templateUrl: '/templates/Common/modalConfirmContent.html',
+					controller: "ModalConfirmController",
+					resolve: {
+						name: function () {
+							return employee.fullName;
+						},
+						action: function () {
+							return "delete";
+						}
+					},
+					windowClass: "modal-confirm-center"
+				});
+
+				modalDeleteInstance.result.then(function () {
+					targetFactory.deleteTargetEmployee(targetId, employee.employeeId).success(function (response) {
+						if (response.isSuccessful === true) {
+							$scope.hasError = false;
+							var index = $scope.employees.indexOf(employee);
+							$scope.employees.splice(index, 1);
+						}
+						else {
+							$scope.hasError = true;
+							$scope.errorMessage = response.message;
+						}
+					}).error(function (response, status) {
+						if (status === 405) {
+							ErrorService.errorHandle(status);
+						}
+						else {
+							targetUtility.showErrorMessage($scope);
+						}
+					});
+				});
+			};
+		}
+
+		// TAB : KPIs
+		if (!isEditMode) {
+			// get all KPI group
+			KPIGroupRepository.getAll().success(function (groupList) {
+				$scope.groupOptions = groupList;
 			});
+
+			// get KPI of Target
+			var getKPIByTargetId = function (targetId, groupId) {
+				$scope.disabledSubmitButton = true;
+
+				targetFactory.getKPIByTargetId(targetId, groupId).success(function (listKPI) {
+					$scope.listKPI = listKPI;
+					$scope.disabledSubmitButton = false;
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						targetUtility.showErrorMessage($scope);
+					}
+
+					$scope.disabledSubmitButton = false;
+				});
+			};
+
+			// get all KPI of Target when no filter
+			getKPIByTargetId(targetId, null);
+
+			// filter by group
+			$scope.filter = function (kpiGroupId) {
+				getKPIByTargetId(targetId, kpiGroupId);
+			};
+		}
+
+		// Edit Target
+		$scope.editTarget = function () {
+			$location.url('Target/EditTarget/' + targetId).search("isEditMode", true);
 		};
 
 		$scope.cancel = function () {
 			$window.history.back();
 		};
-});
 
-// Target KPI controller
-targetModule.controller("TargetKPIController",
-	function ($scope, $route, $routeParams, $modal, $window, targetFactory, targetUtility, KPIGroupRepository, ErrorService) {
-		var targetId = $routeParams.id;
-
-		// get all KPI group
-		KPIGroupRepository.getAll().success(function (groupList) {
-			$scope.groupOptions = groupList;
-		});
-
-		// get KPI of Target
-		var getKPIByTargetId = function (targetId, groupId) {
-			$scope.disabledSubmitButton = true;
-
-			targetFactory.getKPIByTargetId(targetId, groupId).success(function (listKPI) {
-				$scope.listKPI = listKPI;
-				$scope.disabledSubmitButton = false;
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorService.errorHandle(status);
-				}
-				else {
-					targetUtility.showErrorMessage($scope);
-				}
-
-				$scope.disabledSubmitButton = false;
-			});
-		};
-
-		// get all KPI of Target when no filter
-		getKPIByTargetId(targetId, null);
-
-		// filter by group
-		$scope.filter = function (kpiGroupId) {
-			getKPIByTargetId(targetId, kpiGroupId);
-		};
-
-		$scope.cancel = function () {
-			$window.history.back();
+		$scope.backToView = function () {
+			$location.url('Target/ViewTarget');
 		};
 	});

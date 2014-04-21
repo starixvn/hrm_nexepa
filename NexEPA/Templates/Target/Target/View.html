@@ -21,12 +21,12 @@
             </div>
             <div class="form-group">
                 <label data-translate="StartDate"></label>
-                <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}" is-open="startDateOpened" show-button-bar="false"/>
+                <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}" is-open="calendar.startDateOpened" show-button-bar="false"/>
                 <img class="calendar-image" ng-click="openPopupStartDate($event)" src="{{sourceCalendarImage}}"></img>
             </div>
             <div class="form-group">
                 <label data-translate="EndDate"></label>
-                <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup="{{dateFormat}}" is-open="endDateOpened" show-button-bar="false"/>
+                <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup="{{dateFormat}}" is-open="calendar.endDateOpened" show-button-bar="false"/>
                 <img class="calendar-image" ng-click="openPopupEndDate($event)" src="{{sourceCalendarImage}}" ></img>
             </div>
 
@@ -54,8 +54,9 @@
         <tbody>
             <tr ng-repeat="target in targetList">
                 <td class="count" ng-bind="$index + 1"></td>
-                <td ng-bind="target.name">
-                   <!-- <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target.targetId)"></a>-->
+                <td>
+                    <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target.targetId)" 
+                        title="View detail of '{{target.name}}'"></a>
                 </td>
                 <td class="form" ng-bind="target.targetType.name"></td>
                 <td ng-bind="target.project.name"></td>
@@ -75,8 +76,7 @@
                 <td class="end-date" ng-bind="target.endDate"></td>
                 <td class="action">
                     <a class="glyphicon glyphicon-edit icon-edit" title="Edit Target" href="" ng-click="edit(target.targetId)"/>
-                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete Target" href="" ng-click="openDeletePopup(target.targetId, target.name)"/>
-                    <a class="glyphicon glyphicon-plus icon-add" title="Add Member" href="" ng-click="viewTargetEmployee(target.targetId)" />
+                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete Target" href="" ng-click="openDeletePopup(target)"/>
                 </td>
             </tr>
             <tr ng-show="targetList == ''">

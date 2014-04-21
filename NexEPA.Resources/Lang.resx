@@ -368,5 +368,16 @@
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
+  <data name="TargetDetail" xml:space="preserve">
+    <value>Target Detail</value>
+  </data>
+  <data name="TargetInformations" xml:space="preserve">
+    <value>TARGET INFORMATIONS</value>
+  </data>
+  <data name="TargetKPI" xml:space="preserve">
+    <value>TARGET KPI</value>
+  </data>
+  <data name="TargetMembers" xml:space="preserve">
+    <value>TARGET MEMBERS</value>
   </data>
 </root>
