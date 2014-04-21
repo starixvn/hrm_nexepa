@@ -32,7 +32,7 @@
                     <option value="">-- All --</option>
                 </select>
                 </div>
-            <button ng-show="isViewAll" class="button button-icon" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
+            <button ng-show="isViewAll" class="button" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
                     ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
             <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </form>

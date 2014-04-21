@@ -30,7 +30,7 @@
                 <img class="calendar-image" ng-click="openPopupEndDate($event)" src="{{sourceCalendarImage}}" ></img>
             </div>
 
-            <button class="button button-icon" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>
+            <button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>
             <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
         </form>
     </div>

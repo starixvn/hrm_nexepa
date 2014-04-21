@@ -1,4 +1,7 @@
-﻿.error-message
+﻿@import "../variables.less";
+@import "../mixins.less";
+
+.error-message
 {
 	margin-left: 13px;
 	color: red;
@@ -82,14 +85,19 @@ span.popup-header
 
 .boxtitle
 {
-	background-color: #E5E5E5;
-	background-image: -moz-linear-gradient(center top , #EBEBEB, #E5E5E5);
-	border-top: 1px solid #FAFAFA;
-	padding: 12px 12px;
-	font-family: "Myriad Pro" , Tahoma, REZ, Arial;
-	font-size: 16px;
+	border-top: 1px solid #D2D2D2;
+	border-bottom: 1px solid #FAFAFA;
+	padding: 8px 12px;
+	font-family: @font-title;
+	font-size: @font-size + 1;
 	text-shadow: 0.05em 0.05em #fff;
 	color: #777;
+	cursor: pointer;
+	#gradient .vertical(#EBEBEB, #E5E5E5);
+
+	&.first {
+		border-top: 1px solid #FAFAFA;
+	}
 }
 
 .line
@@ -170,7 +178,7 @@ label.checkbox
 }
 /* Icon */
 .container.page a.icon-add-header {
-     color: #fff;
+	 color: #fff;
 }
 
 /**** My EPA ****/
