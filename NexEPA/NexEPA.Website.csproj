@@ -154,6 +154,7 @@
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
+    <Compile Include="Controllers\API\MyEPAController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMembersController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
@@ -268,8 +269,9 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
-    <Content Include="Templates\TargetTemplate\AddKPI.html" />
+    <Content Include="Templates\TargetTemplate\Edit.html" />
     <Content Include="Templates\TargetTemplate\Create.html" />
+    <Content Include="Templates\TargetTemplate\Details.html" />
     <Content Include="Templates\Target\Target\Create.html" />
     <Content Include="Templates\Target\Target\Edit.html" />
     <Content Include="Templates\Target\Target\TargetEmployee.html" />
@@ -321,6 +323,10 @@
       <Project>{80C95EAA-B6BC-4E4F-93B9-DF0312D0C425}</Project>
       <Name>NexEPA.Employee</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexEPA.MemberEPA\NexEPA.MemberEPA.csproj">
+      <Project>{1F538ED7-DEAB-4B01-AB0B-EFB91B0B7E0F}</Project>
+      <Name>NexEPA.MemberEPA</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexEPA.Project\NexEPA.Project.csproj">
       <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>
       <Name>NexEPA.Project</Name>
@@ -358,7 +364,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57577</DevelopmentServerPort>
+          <DevelopmentServerPort>55278</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

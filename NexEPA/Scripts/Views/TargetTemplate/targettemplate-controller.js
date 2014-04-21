@@ -27,41 +27,8 @@ targetTemplateModule.controller('TargetTemplateController', function ($scope, $m
 		return targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
 	};
 
-	var successUpdateTargetTemplate = function () {
-		targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
-	};
-
-	var errorUpdateTargetTemplate = function (response) { $scope.errors = response; };
-
-	// Success get List KPI of each Target Template.
-	var succesGetListKPI = function (data) {
-		$scope.lstKPI = data;
-		var modalInstance = $modal.open({
-			templateUrl: '../templates/TargetTemplate/AddKPI.html',
-			controller: "ModalViewKPIsController",
-			windowClass: 'app-modal-window',
-			resolve: {
-				lstKPI: function () {
-					return data;
-				},
-				editTemplate: function () {
-					return $scope.editTemplate;
-				},
-				tgTypes: function () {
-					return $scope.tgTypes;
-				}
-			}
-		});
-		modalInstance.result.then(modalConfirmAddKPI);
-	};
-
-
 	// Error notify when action failure.
 	var errorNotify = function (data) { notificationFactory.error(data); };
-
-	var modalConfirmAddKPI = function (editTemplate) {
-		targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
-	};
 
 	/**
 	* Initialize data to view Index.
@@ -92,51 +59,69 @@ targetTemplateModule.controller('TargetTemplateController', function ($scope, $m
 			targetTemplateFactory.deleteTargetTemplate(template.targetId).then(successDeleteTargetTemplate, errorNotify);
 		});
 	};
-
-	// Add KPI Popup
-	$scope.editTargetTemplate = function (targetId) {
-		targetTemplateFactory.getTargetTemplateById(targetId).then(function (data) {
-			$scope.editTemplate = data;
-			$scope.currentTargetTemplateName = data.name;
-			targetTemplateFactory.getKPI(targetId, null, null).then(succesGetListKPI);
-		});
-
-	};
-
 });
 
-targetTemplateModule.controller('ModalViewKPIsController', function ($scope, $modalInstance, lstKPI, editTemplate, tgTypes) {
+targetTemplateModule.controller('EditTargetTemplateController', function ($scope, $routeParams, $window, $location, targetTemplateFactory) {
+	/**
+	* Variables. 
+	*/
+	var targetId = $routeParams.targetId;
 	$scope.selection = [];
-	$scope.lstKPI = lstKPI;
-	$scope.editTemplate = editTemplate;
-	$scope.tgTypes = tgTypes;
 	$scope.lstAllData = [];
 
-	$scope.ok = function (editTemplate) {
-		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
-			var itemSelected = $scope.selection;
-			editTemplate.kpiIds = itemSelected.join(',');
-			$modalInstance.close(editTemplate);
-		}
-	};
+	/**
+	* Ajax event Loaded. 
+	*/
+	var succesGetListKPI = function (data) {
+		$scope.lstKPI = data;
 
-	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
-	};
-
-	$.each($scope.lstKPI, function (key) {
-		var data = $scope.lstKPI[key].kpiGroupItems;
-		$.each(data, function (k) {
-			$scope.lstAllData.push(data[k]);
+		$.each($scope.lstKPI, function (key) {
+			var data = $scope.lstKPI[key].kpiGroupItems;
+			$.each(data, function (k) {
+				$scope.lstAllData.push(data[k]);
+			});
 		});
+	};
+
+	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
+
+	var successUpdateTargetTemplate = function () {
+		$location.url('/TargetTemplate/Index');
+	};
+
+	var errorUpdateTargetTemplate = function (response) { $scope.errors = response; };
+
+	/**
+	* Initialize data to view Edit.
+	*/
+	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
+	targetTemplateFactory.getTargetTemplateById(targetId).then(function (data) {
+		$scope.editTemplate = data;
+		$scope.currentTargetTemplateName = data.name;
+		targetTemplateFactory.getKPI(targetId, null, null, false).then(succesGetListKPI);
 	});
 
+	// What for all list checkbox change.
 	$scope.$watch('lstAllData|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
 			return item.kpiId;
 		});
 	}, true);
+
+	/**
+	* Events. 
+	*/
+	$scope.cancel = function () { $window.history.back(); };
+
+	$scope.update = function (editTemplate) {
+		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
+			var itemSelected = $scope.selection;
+			editTemplate.kpiIds = itemSelected.join(',');
+			targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
+		}
+	};
 });
+
 
 targetTemplateModule.controller('CreateTargetTemplateController', function ($scope, $location, $window, targetTemplateFactory) {
 	/**
@@ -155,7 +140,7 @@ targetTemplateModule.controller('CreateTargetTemplateController', function ($sco
 	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
 
 	/**
-	* Event: Filter 
+	* Events 
 	*/
 	// Submit
 	$scope.addTargetType = function (template) {
@@ -164,4 +149,25 @@ targetTemplateModule.controller('CreateTargetTemplateController', function ($sco
 
 	// Cancel
 	$scope.cancel = function () { $window.history.back(); };
+});
+
+
+targetTemplateModule.controller('DetailTargetTemplateController', function ($scope, $routeParams, $window, targetTemplateFactory) {
+	var targetId = $routeParams.targetId;
+	var succesGetListKPI = function (data) {
+		$scope.lstKPI = data;
+	};
+
+	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
+
+	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
+
+	targetTemplateFactory.getTargetTemplateById(targetId).then(function (data) {
+		$scope.editTemplate = data;
+		$scope.currentTargetTemplateName = data.name;
+		targetTemplateFactory.getKPI(targetId, null, null, true).then(succesGetListKPI);
+	});
+
+	// Back
+	$scope.back = function () { $window.history.back(); };
 });

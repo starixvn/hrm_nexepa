@@ -48,6 +48,8 @@ var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'n
 	$routeProvider.when('/TargetTemplate/Index', { templateUrl: '../templates/TargetTemplate/Index.html', controller: 'TargetTemplateController' });
 	$routeProvider.when('/TargetTemplate/Create', { templateUrl: '../templates/TargetTemplate/Create.html', controller: 'CreateTargetTemplateController' });
 	$routeProvider.when('/TargetTemplate/Edit/:targetId', { templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
+	$routeProvider.when('/TargetTemplate/Details/:targetId', 
+	{ templateUrl: '/templates/TargetTemplate/Details.html', controller: 'DetailTargetTemplateController' });
 });
 
 var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])

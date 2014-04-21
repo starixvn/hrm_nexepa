@@ -1,0 +1,22 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="IMemberEPAService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Bradley.Mac" date="2014.4.21">Created</change>
+// </history>
+
+namespace NexEPA.MemberEPA.Services.Interfaces
+{
+    using NexEPA.MemberEPA.Criteria;
+    using NexEPA.MemberEPA.Models;
+
+    /// <summary>
+    /// Interface Member EPA Service.
+    /// </summary>
+    public interface IMemberEPAService
+    {
+        EPAInfoModel GetEPAInfo(GetEPAInfoCriteria criteria);
+    }
+}

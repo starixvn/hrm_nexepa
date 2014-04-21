@@ -73,11 +73,12 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Method Get KPI.
         /// </summary>
-        ///  <param name="targetId">Target Id.</param>
+        /// <param name="onlySelected">Filter only selected KPI.</param> 
+        /// <param name="targetId">Target Id.</param>
         /// <param name="targetTypeId">Target Type Id.</param>
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
-        public dynamic GetKPI(int? targetId = null, int? targetTypeId = null, int? groupId = null)
+        public dynamic GetKPI(bool onlySelected, int? targetId = null, int? targetTypeId = null, int? groupId = null)
         {
             var getKPIByGroupIdCriteria = new GetKPICriteria
             {
@@ -85,13 +86,21 @@ namespace NexEPA.Controllers.API
                 KPIGroupId = groupId
             };
 
+            dynamic data = null;
             List<KPIItem> lstKPI = _kpiServices.GetKPI(getKPIByGroupIdCriteria);
-
-            if (targetId != null)
+            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() { TargetId = targetId };
+            List<KPIModel> lstSelectedKPI = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria).ToList();
+            if (lstSelectedKPI != null)
             {
-                var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() { TargetId = targetId };
-                List<KPIModel> lstSelectedKPI = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria).ToList();
-                if (lstSelectedKPI != null)
+                if (onlySelected)
+                {
+                    lstKPI = lstKPI.Where(x => lstSelectedKPI.Select(y => y.KPIId).Contains(x.KPIId)).ToList();
+                    foreach (var item in lstKPI)
+                    {
+                        item.Selected = true;
+                    }
+                }
+                else
                 {
                     foreach (var item in lstKPI.Where(x => lstSelectedKPI.Select(y => y.KPIId).Contains(x.KPIId)))
                     {
@@ -100,13 +109,13 @@ namespace NexEPA.Controllers.API
                 }
             }
 
-            var data = (from kpi in lstKPI
-                        group kpi by kpi.KPIGroupName into item
-                        select new
-                        {
-                            KPIGroupName = item.Key,
-                            KPIGroupItems = item.ToList()
-                        }).ToList();
+            data = (from kpi in lstKPI
+                    group kpi by kpi.KPIGroupName into item
+                    select new
+                    {
+                        KPIGroupName = item.Key,
+                        KPIGroupItems = item.ToList()
+                    }).ToList();
 
             return data;
         }
