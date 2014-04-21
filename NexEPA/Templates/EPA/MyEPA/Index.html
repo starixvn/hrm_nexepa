@@ -1,171 +1,196 @@
 ﻿<div class="row sub-header ng-scope">
-	<ul class="breadcrumb list-inline pull-left">
-		<li><a href="#">EPA</a></li>
-		<li class="current">My EPA</li>
-	</ul>
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="#">EPA</a></li>
+        <li class="current">My EPA</li>
+    </ul>
 </div>
 <form class="epa-form" name="addProjectForm" novalidate>
 <div class="epa-box-header epa-boxtitle" data-translate="ppa">
 </div>
 <div class="col-sm-12 list-group-item criteria-area">
-	<div class="boxtitle" data-translate="GeneralInfo">
-	</div>
-	<div class="epa-boxcontent">
-		<div class="col-sm-6 line">
-			<span class="col-sm-4 control-label" data-translate="Employee" />
-			<label>
-				Trong Mac</label></div>
-		<div class="col-sm-6 line">
-			<span class="col-sm-4 control-label" data-translate="Team" />
-			<label>
-				Solaris</label></div>
-		<div class="col-sm-6 line">
-			<span class="col-sm-4 control-label" data-translate="Evaluator" />
-			<label>
-				Truong Van Thao</label>
-		</div>
-		<div class="col-sm-6 line">
-			<span class="col-sm-4 control-label" data-translate="Project" />
-			<label>
-				EPA</label></div>
-		<div class="col-sm-6 line">
-			<span class="col-sm-4 control-label" data-translate="Roles" />
-			<label>
-				Developer</label></div>
-		<div class="col-sm-6 line">
-			<span class="col-sm-4 control-label" data-translate="Milestone" />
-			<label>
-				Milestone 1</label></div>
-		<div class="col-sm-12 line">
-			<b>* Rating criteria:</b> please evaluate by point as this scale
-		</div>
-	</div>
+    <div class="boxtitle first" data-translate="GeneralInfo">
+    </div>
+    <div class="epa-boxcontent">
+        <div class="row row-item line">
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Employee">
+                </div>
+                <div class="col-sm-8">
+                    <strong>Trong Mac</strong></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Team">
+                </div>
+                <div class="col-sm-8">
+                    <strong>Solaris</strong></div>
+            </div>
+        </div>
+        <div class="row row-item line">
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Evaluator">
+                </div>
+                <div class="col-sm-8">
+                    <strong>Truong Van Thao</strong></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Project">
+                </div>
+                <div class="col-sm-8">
+                    <strong>EPA</strong></div>
+            </div>
+        </div>
+        <div class="row row-item line">
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Roles">
+                </div>
+                <div class="col-sm-8">
+                    <strong>Developer</strong></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Milestone">
+                </div>
+                <div class="col-sm-8">
+                    <strong>Milestone 1</strong></div>
+            </div>
+        </div>
+        <div class="row row-item line">
+            <span class="note">* Rating criteria:</span> please evaluate by point as this scale
+        </div>
+    </div>
 </div>
 <div class="col-sm-12 list-group-item">
-	<ol class="epa-criteria-ol" type="A">
-		<div class="col-sm-12 criteria-area">
-			<li class="boxtitle epa-criteria-name">CORE PERFORMANCE</li>
-			<div class="col-sm-12">
-				<ol type="1">
-					<div class="col-sm-12">
-						<div class="col-sm-12 criteria-title">
-							<li class="epa-criteria-name">Criteria 1</li>
-						</div>
-						<div class="col-sm-9 criteria-description">
-							Percentage of tasks has been done completely, accurately and in time, excluding
-							undo tasks. Percentage of tasks has been done completely, accurately and in time,
-							excluding undo tasks. Percentage of tasks has been done completely, accurately and
-							in time, excluding undo tasks. Percentage of tasks has been done completely, accurately
-							and in time, excluding undo tasks. Percentage of tasks has been done completely,
-							accurately and in time, excluding undo tasks. Percentage of tasks has been done
-							completely, accurately and in time, excluding undo tasks. Percentage of tasks has
-							been done completely, accurately and in time, excluding undo tasks.
-						</div>
-						<div class="col-sm-2 pull-right">
-							<rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, max)"
-								on-leave="hoveringLeave(rate)"></rating>
-						</div>
-						<div class="col-sm-9">
-							<textarea class="epa-textarea-comment criteria-comment"></textarea>
-						</div>
-					</div>
-					<div class="col-sm-12">
-						<div class="col-sm-12 criteria-title">
-							<li class="epa-criteria-name">Criteria 2</li>
-						</div>
-						<div class="col-sm-9 criteria-description">
-							Percentage of tasks has been done completely, accurately and in time, excluding
-							undo tasks.
-						</div>
-						<div class="col-sm-2 pull-right">
-							<rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
-								on-leave="hoveringLeave(rate)"></rating>
-						</div>
-					</div>
-					<div class="col-sm-12">
-						<div class="col-sm-12 criteria-title">
-							<li class="epa-criteria-name">Criteria 3</li>
-						</div>
-						<div class="col-sm-9 criteria-description">
-							Percentage of tasks has been done completely, accurately and in time, excluding
-							undo tasks.
-						</div>
-						<div class="col-sm-2 pull-right">
-							<rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
-								on-leave="hoveringLeave(rate)"></rating>
-						</div>
-					</div>
-				</ol>
-			</div>
-		</div>
-		<div class="col-sm-12 criteria-area">
-			<li class="boxtitle epa-criteria-name">ADDED VALUE</li>
-			<div class="col-sm-12">
-				<ol type="1">
-					<div class="col-sm-12">
-						<div class="col-sm-12 criteria-title">
-							<li class="epa-criteria-name">Criteria 1</li>
-						</div>
-						<div class="col-sm-9 criteria-description">
-							Percentage of tasks has been done completely, accurately and in time, excluding
-							undo tasks. Percentage of tasks has been done completely, accurately and in time,
-							excluding undo tasks. Percentage of tasks has been done completely, accurately and
-							in time, excluding undo tasks. Percentage of tasks has been done completely, accurately
-							and in time, excluding undo tasks. Percentage of tasks has been done completely,
-							accurately and in time, excluding undo tasks. Percentage of tasks has been done
-							completely, accurately and in time, excluding undo tasks. Percentage of tasks has
-							been done completely, accurately and in time, excluding undo tasks.
-						</div>
-						<div class="col-sm-2 pull-right">
-							<rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
-								on-leave="hoveringLeave(rate)"></rating>
-						</div>
-					</div>
-					<div class="col-sm-12">
-						<div class="col-sm-12 criteria-title">
-							<li class="epa-criteria-name">Criteria 2</li>
-						</div>
-						<div class="col-sm-9 criteria-description">
-							Percentage of tasks has been done completely, accurately and in time, excluding
-							undo tasks.
-						</div>
-						<div class="col-sm-2 pull-right">
-							<rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
-								on-leave="hoveringLeave(rate)"></rating>
-						</div>
-					</div>
-					<div class="col-sm-12">
-						<div class="col-sm-12 criteria-title">
-							<li class="epa-criteria-name">Criteria 3</li>
-						</div>
-						<div class="col-sm-9 criteria-description">
-							Percentage of tasks has been done completely, accurately and in time, excluding
-							undo tasks.
-						</div>
-						<div class="col-sm-2 pull-right">
-							<rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
-								on-leave="hoveringLeave(rate)"></rating>
-						</div>
-					</div>
-				</ol>
-			</div>
-		</div>
-	</ol>
+    <ol class="epa-criteria-ol" type="A">
+        <div class="col-sm-12 criteria-area">
+            <li class="boxtitle first epa-criteria-name">CORE PERFORMANCE</li>
+            <div class="col-sm-12">
+                <ol type="1">
+                    <div class="col-sm-12">
+                        <div class="row criteria-title">
+                            <li class="epa-criteria-name">Criteria 1</li>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 criteria-description">
+                                Percentage of tasks has been done completely, accurately and in time, excluding
+                                undo tasks. Percentage of tasks has been done completely, accurately and in time,
+                                excluding undo tasks. Percentage of tasks has been done completely, accurately and
+                                in time, excluding undo tasks. Percentage of tasks has been done completely, accurately
+                                and in time, excluding undo tasks. Percentage of tasks has been done completely,
+                                accurately and in time, excluding undo tasks. Percentage of tasks has been done
+                                completely, accurately and in time, excluding undo tasks. Percentage of tasks has
+                                been done completely, accurately and in time, excluding undo tasks.
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, max)"
+                                    on-leave="hoveringLeave(rate)"></rating>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <textarea class="col-sm-9 epa-textarea-comment criteria-comment"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row criteria-title">
+                            <li class="epa-criteria-name">Criteria 2</li>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 criteria-description">
+                                Percentage of tasks has been done completely, accurately and in time, excluding
+                                undo tasks.
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
+                                    on-leave="hoveringLeave(rate)"></rating>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row criteria-title">
+                            <li class="epa-criteria-name">Criteria 3</li>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 criteria-description">
+                                Percentage of tasks has been done completely, accurately and in time, excluding
+                                undo tasks.
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
+                                    on-leave="hoveringLeave(rate)"></rating>
+                            </div>
+                        </div>
+                    </div>
+                </ol>
+            </div>
+        </div>
+        <div class="col-sm-12 criteria-area">
+            <li class="boxtitle epa-criteria-name">ADDED VALUE</li>
+            <div class="col-sm-12">
+                <ol type="1">
+                    <div class="col-sm-12">
+                        <div class="row criteria-title">
+                            <li class="epa-criteria-name">Criteria 1</li>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 criteria-description">
+                                Percentage of tasks has been done completely, accurately and in time, excluding
+                                undo tasks. Percentage of tasks has been done completely, accurately and in time,
+                                excluding undo tasks. Percentage of tasks has been done completely, accurately and
+                                in time, excluding undo tasks. Percentage of tasks has been done completely, accurately
+                                and in time, excluding undo tasks. Percentage of tasks has been done completely,
+                                accurately and in time, excluding undo tasks. Percentage of tasks has been done
+                                completely, accurately and in time, excluding undo tasks. Percentage of tasks has
+                                been done completely, accurately and in time, excluding undo tasks.
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
+                                    on-leave="hoveringLeave(rate)"></rating>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row criteria-title">
+                            <li class="epa-criteria-name">Criteria 2</li>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 criteria-description">
+                                Percentage of tasks has been done completely, accurately and in time, excluding
+                                undo tasks.
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
+                                    on-leave="hoveringLeave(rate)"></rating>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row criteria-title">
+                            <li class="epa-criteria-name">Criteria 3</li>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 criteria-description">
+                                Percentage of tasks has been done completely, accurately and in time, excluding
+                                undo tasks.
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)"
+                                    on-leave="hoveringLeave(rate)"></rating>
+                            </div>
+                        </div>
+                    </div>
+                </ol>
+            </div>
+        </div>
+    </ol>
 </div>
 <div class="col-sm-12 list-group-item criteria-area ">
-	<div class="boxtitle epa-criteria-name">
-		COMMENTS</div>
-	<div>
-		<div class="col-sm-9">
-			<textarea class="epa-textarea-comment"></textarea>
-		</div>
-	</div>
+    <div class="boxtitle first epa-criteria-name">
+        COMMENTS</div>
+    <textarea class="col-sm-9 epa-textarea-comment"></textarea>
 </div>
 <div class="col-sm-12 epa-comment">
-	<button class="btn btn-primary" ng-disabled="addProjectForm.$invalid" ng-click="save(project)"
-		data-translate="Submit">
-	</button>
-	<button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
-	</button>
+    <button class="btn btn-primary" ng-disabled="addProjectForm.$invalid" ng-click="save(project)"
+        data-translate="Submit">
+    </button>
+    <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
+    </button>
 </div>
 </form>
