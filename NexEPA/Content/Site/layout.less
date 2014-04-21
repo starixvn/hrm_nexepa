@@ -52,7 +52,13 @@ body {
             }
         }
         
-        
+        &.button {
+            color: #fff;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
 
         &.icon-add-header {
             color: #fff;
@@ -202,31 +208,6 @@ body {
         float: left;
     }
 
-    /* Button */
-    .button {
-        #gradient .vertical(#5EB2D5, #308FB7);
-        border: 1px solid #256F8E;
-        border-color: #256F8E #256F8E #1B5066;
-        .border-radius(3px);
-        .box-shadow(1px 1px 0 rgba(255, 255, 255, 0.3) inset);
-        color: #FFFFFF;
-        display: inline-block;
-        font-size: 12px;
-        height: 27px;
-        line-height: 24px;
-        margin-right: 0;
-        padding: 0 15px 4px;
-        text-align: center;
-        text-decoration: none;
-        text-shadow: 0 -1px 0 #256F8E;
-        vertical-align: bottom;
-        cursor: pointer;
-
-        &:hover {
-            #gradient .vertical(#72BCDA, #369FCA);
-        }
-    }
-
     /* Filter form */
     .filter {
         background-color: #F4F4F4;
@@ -323,6 +304,7 @@ body {
             font-weight: normal;
             color: @font-color;
             margin-top: 3px;
+            text-align: left;
         }
 
         [class*="col-"] {
@@ -484,9 +466,87 @@ body {
     }
 }
 
+/* Button */
+.button {
+    #gradient .vertical(#5EB2D5, #308FB7);
+    border: 1px solid #256F8E;
+    border-color: #256F8E #256F8E #1B5066;
+    .border-radius(3px);
+    .box-shadow(1px 1px 0 rgba(255, 255, 255, 0.3) inset);
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 12px;
+    height: 27px;
+    line-height: 24px;
+    margin-right: 0;
+    padding: 0 15px 4px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #256F8E;
+    vertical-align: bottom;
+    cursor: pointer;
+
+    &:hover {
+        #gradient .vertical(#72BCDA, #369FCA);
+    }
+}
+
 /* Modal */
 .modal-dialog {
     width: 620px;
+
+    .modal-header {
+        padding: 8px 15px 10px;
+        border-bottom: 1px solid #979797;
+        #gradient .vertical(#EDEDED, #C4C4C4);
+        .border-radius( 3px 3px 0 0);
+
+        .popup-header {
+            font-size: @font-size + 1;
+            color: #4F4F4F;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        input[type="text"] {
+            height: 25px;
+            .border-radius(4px);
+            width: 30%;
+        }
+    }
+
+    .modal-body {
+        width: 100%;
+
+        label {
+            font-weight: normal;
+        }
+
+        .common-form {
+
+            .form-group {
+                .control-label {
+                    font-weight: normal;
+                    text-align: left;
+                }
+
+                .form-control {
+                    .border-radius(3px);
+                    border: 1px solid #C8C8C8;
+                    height: 30px;
+                    font-size: @font-size;
+                }
+
+                select.form-control {
+                    padding: 4px 5px; 
+                }
+            }
+        }
+    }
+
+    .modal-footer {
+        .border-radius( 0 0 3px 3px);
+        padding: 12px 20px;
+    }
 }
 
 /* Button of Bootstrap */

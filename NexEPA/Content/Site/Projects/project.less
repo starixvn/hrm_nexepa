@@ -33,25 +33,25 @@ span.popup-header
 	font-size: 22px;
 }
 
-.custom-textbox
+.custom-textbox, .custom-textarea
 {
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	.border-radius(3px);
 	width: 40%;
-	height: 32px;
+	height: 30px;
 	padding: 6px 12px;
 	margin-right: 6px;
+    border-color: C8C8C8;
+}
+
+select.custom-textbox {
+    padding: 4px 5px; 
 }
 
 .custom-textarea
 {
 	min-height: 80px;
 	max-width: 40%;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	padding: 6px 12px;
-	margin-right: 6px;
-	width: 40%;
 }
 
 .custom-width
@@ -174,7 +174,7 @@ label.checkbox
 
 .app-modal-window .modal-dialog
 { 
-  width: 80%;
+  width: 65%;
 }
 /* Icon */
 .container.page a.icon-add-header {
