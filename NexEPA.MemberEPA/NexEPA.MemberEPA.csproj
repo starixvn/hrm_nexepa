@@ -60,7 +60,6 @@
     <Compile Include="Models\EPAProjectRoleModel.cs" />
     <Compile Include="Models\GroupingKPIModel.cs" />
     <Compile Include="Models\MemberEPA\Evaluator.cs" />
-    <Compile Include="Models\MemberEPA\MemberEPAModel.cs" />
     <Compile Include="Models\MemberEPA\Milestone.cs" />
     <Compile Include="Models\MemberEPA\Project.cs" />
     <Compile Include="Models\MemberEPA\Target.cs" />
