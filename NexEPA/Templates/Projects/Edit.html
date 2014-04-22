@@ -1,95 +1,92 @@
 ﻿<div class="row sub-header">
-	<ul class="breadcrumb list-inline pull-left">
-		<li>
-			<a href="/Projects/Index">Project</a></li>
-		<li class="current">Edit Project - {{projectUpdate.name}}</li>
-	</ul>
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="/Projects/Index">Project</a></li>
+        <li class="current">Edit Project - {{projectUpdate.name}}</li>
+    </ul>
 </div>
-<form class="col-sm-11 common-form project-form" name="addProjectForm" novalidate>
-<div class="boxtitle first">
-	PROJECT INFORMATIONS
+<form class="row common-form project-form" name="addProjectForm" novalidate>
+<div class="row boxtitle first">
+    PROJECT INFORMATIONS
 </div>
-<div class="boxcontent">
-	<div class="line">
-		<div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
-			{{error}}
-		</div>
-	</div>
-	<div class="line">
-		<label class="col-sm-2 control-label" data-translate="ProjectName" />
-		<div class="row">
-			<input class="custom-textbox" type="text" name="projectname" ng-model="projectUpdate.name"
-				placeholder="Project Name" readonly />
-		</div>
-	</div>
-	<div class="line">
-		<label class="col-sm-2 control-label" data-translate="StartDate">
-		</label>
-		<div class="row">
-			<input type="text" class="custom-textbox" ng-model="projectUpdate.startDate" placeholder="Start Date"
-				datepicker-popup="dd MMMM, yyyy" id="startDate" readonly />
-		</div>
-	</div>
-	<div class="line">
-		<label class="col-sm-2 control-label" data-translate="EndDate">
-		</label>
-		<div class="row">
-			<input type="text" class="custom-textbox" ng-model="projectUpdate.endDate" placeholder="End Date"
-				datepicker-popup="dd-MMMM-yyyy" id="endDate" readonly />
-		</div>
-	</div>
-	<div class="line">
-		<label class="col-sm-2 control-label" data-translate="PM">
-		</label>
-		<div class="row">
-			<select class="custom-textbox" ng-options="pm.employeeId as pm.fullName for pm in pms"
-				ng-model="projectUpdate.projectManager">
-				<option style="display: none" value="">-- Select a Project Manager --</option>
-			</select>
-		</div>
-	</div>
-	<div class="line">
-		<label class="col-sm-2 control-label" data-translate="Status">
-		</label>
-		<div class="row">
-			<select class="custom-textbox" ng-options="s.id as s.name for s in status" ng-model="projectUpdate.status">
-				<option style="display: none" value="">-- Select a status --</option>
-			</select>
-		</div>
-	</div>
-	<div class="line">
-		<label class="col-sm-2 control-label" data-translate="Description">
-		</label>
-		<div class="row">
-			<textarea class="custom-textarea" ng-model="projectUpdate.description"></textarea>
-		</div>
-	</div>
+<div class="row boxcontent information">
+    <div>
+        <div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
+            {{error}}
+        </div>
+    </div>
+    <div class="col-sm-12 line">
+        <label class="col-sm-2 col-md-2" data-translate="ProjectName" />
+        <div class="col-sm-6 col-md-4">
+            <input class="custom-textbox" type="text" name="projectname" ng-model="projectUpdate.name"
+                placeholder="Project Name" readonly />
+        </div>
+    </div>
+    <div class="col-sm-12 line">
+        <label class="col-sm-2 col-md-2" data-translate="StartDate">
+        </label>
+        <div class="col-sm-6 col-md-4">
+            <input type="text" class="custom-textbox" ng-model="projectUpdate.startDate" placeholder="Start Date"
+                datepicker-popup="dd MMMM, yyyy" id="startDate" readonly />
+        </div>
+    </div>
+    <div class="col-sm-12 line">
+        <label class="col-sm-2 col-md-2" data-translate="EndDate">
+        </label>
+        <div class="col-sm-6 col-md-4">
+            <input type="text" class="custom-textbox" ng-model="projectUpdate.endDate" placeholder="End Date"
+                datepicker-popup="dd-MMMM-yyyy" id="endDate" readonly />
+        </div>
+    </div>
+    <div class="col-sm-12 line">
+        <label class="col-sm-2 col-md-2" data-translate="PM">
+        </label>
+        <div class="col-sm-6 col-md-4">
+            <select class="custom-textbox" ng-options="pm.employeeId as pm.fullName for pm in pms"
+                ng-model="projectUpdate.projectManager">
+                <option style="display: none" value="">-- Select a Project Manager --</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-12 line">
+        <label class="col-sm-2 col-md-2" data-translate="Status">
+        </label>
+        <div class="col-sm-6 col-md-4">
+            <select class="custom-textbox" ng-options="s.id as s.name for s in status" ng-model="projectUpdate.status">
+                <option style="display: none" value="">-- Select a status --</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-12 line">
+        <label class="col-sm-2 col-md-2" data-translate="Description">
+        </label>
+        <div class="col-sm-6 col-md-4">
+            <textarea class="custom-textarea" ng-model="projectUpdate.description"></textarea>
+        </div>
+    </div>
 </div>
-<div class="boxtitle">
-	PROJECT MILESTONES
+<div class="row boxtitle">
+    PROJECT MILESTONES
 </div>
-<div class="boxcontent">
-	<div class="line">
-		<div class="common-form project-form" ng-include src="'/Templates/Projects/ProjectMilestone.html'">
-		</div>
-	</div>
+<div class="row boxcontent">
+    <div class="line">
+        <div ng-include src="'/Templates/Projects/ProjectMilestone.html'">
+        </div>
+    </div>
 </div>
-<div class="boxtitle">
-	PROJECT MEMBERS
+<div class="row boxtitle">
+    PROJECT MEMBERS
 </div>
-<div class="boxcontent">
-	<div class="line">
-		<div class="common-form project-form" ng-include src="'/Templates/ProjectMembers/Index.html'">
-		</div>
-	</div>
+<div class="row boxcontent">
+    <div class="line">
+        <div ng-include src="'/Templates/ProjectMembers/Index.html'">
+        </div>
+    </div>
 </div>
-<div class="line">
-	<div class="col-sm-offset-5">
-		<button class="button button-icon" ng-disabled="addProjectForm.$invalid" ng-click="update(projectUpdate)"
-			data-translate="Submit">
-		</button>
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
+<div class="row action-button">
+    <button class="button" ng-disabled="addProjectForm.$invalid" ng-click="update(projectUpdate)"
+        data-translate="Submit">
+    </button>
+    <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+    </button>
 </div>
 </form>

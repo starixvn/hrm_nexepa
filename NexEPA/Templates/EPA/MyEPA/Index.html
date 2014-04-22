@@ -14,8 +14,6 @@
         <div class="row row-item line">
             <div class="col-sm-6">
                 <div class="col-sm-3" data-translate="Employee">
-		<div class="col-sm-12 line">
-			<div class="col-sm-6">
                 </div>
                 <div class="col-sm-8">
                     <strong>Trong Mac</strong></div>
@@ -81,9 +79,10 @@
                                 completely, accurately and in time, excluding undo tasks. Percentage of tasks has
                                 been done completely, accurately and in time, excluding undo tasks.
                             </div>
-                            <div class="col-sm-2 pull-right">
-                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, max)"
-                                    on-leave="hoveringLeave(rate)"></rating>
+                            <div class="col-sm-2
+pull-right">
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value,
+max)" on-leave="hoveringLeave(rate)"></rating>
                             </div>
                         </div>
                         <div class="row">
@@ -124,7 +123,8 @@
             </div>
         </div>
         <div class="col-sm-12 criteria-area">
-            <li class="boxtitle epa-criteria-name">ADDED VALUE</li>
+            <li class="boxtitle
+epa-criteria-name">ADDED VALUE</li>
             <div class="col-sm-12">
                 <ol type="1">
                     <div class="col-sm-12">
@@ -183,16 +183,16 @@
         </div>
     </ol>
 </div>
-<div class="col-sm-12 list-group-item criteria-area ">
+<div class="col-sm-12 list-group-item criteria-area">
     <div class="boxtitle first epa-criteria-name">
         COMMENTS</div>
     <textarea class="col-sm-9 epa-textarea-comment"></textarea>
 </div>
-<div class="col-sm-12 epa-comment">
-    <button class="btn btn-primary" ng-disabled="addProjectForm.$invalid" ng-click="save(project)"
+<div class="col-sm-12 action-button">
+    <button class="button" ng-disabled="addProjectForm.$invalid" ng-click="save(project)"
         data-translate="Submit">
     </button>
-    <button class="btn btn-primary" ng-click="cancel()" data-translate="Cancel">
+    <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
     </button>
 </div>
 </form>

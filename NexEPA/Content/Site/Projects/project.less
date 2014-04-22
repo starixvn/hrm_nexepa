@@ -37,12 +37,6 @@ select.custom-textbox {
 	padding: 4px 5px; 
 }
 
-.custom-textarea
-{
-	min-height: 80px;
-	max-width: 40%;
-}
-
 .custom-width
 {
 	width: 60%;
@@ -162,102 +156,121 @@ label.checkbox
 }
 
 .container.page {
-    a.icon-add-header {
-	     color: #fff;
-    }
+	a.icon-add-header {
+		 color: #fff;
+	}
 
-    .custom-textbox, .custom-textarea {
-	    border: 1px solid #ccc;
-	    .border-radius(3px);
-	    width: 40%;
-	    height: 30px;
-	    padding: 6px 12px;
-	    margin-right: 6px;
-	    border-color: C8C8C8;
-    }
+	.custom-textbox, .custom-textarea {
+		border: 1px solid #ccc;
+		.border-radius(3px);
+		width: 100%;
+		height: 30px;
+		padding: 3px 5px;
+		margin-right: 6px;
+		border-color: C8C8C8;
+		line-height: 30px;
+	}
 
-    /**** My EPA ****/
-    .epa-form {
-	    padding: 0px;
-	    margin: 10px 1%;
-	    width: 98%;
-	    margin: auto;
-    }
+	.custom-textarea {
+		min-height: 80px;
+		max-width: 100%;
+	}
 
-    .epa-box-header {
-	    font-size: @font-size + 2;
-	    background-color: #D3E5F1;
-	    margin: 10px 0;
-	    font-weight: bold;
-	    text-align: center;
-	    padding: 10px 12px;
-	    border-top: 1px solid #FAFAFA;
-	    text-shadow: none;
-	    color: #264457;
-    }
+	/**** My EPA ****/
+	.epa-form {
+		padding: 0px;
+		margin: 10px 1%;
+		width: 98%;
+		margin: auto;
+	}
 
-    .epa-boxcontent {
-	    padding: 3px 30px 8px;
+	.epa-box-header {
+		font-size: @font-size + 2;
+		background-color: #D3E5F1;
+		margin: 10px 0;
+		font-weight: bold;
+		text-align: center;
+		padding: 10px 12px;
+		border-top: 1px solid #FAFAFA;
+		text-shadow: none;
+		color: #264457;
+	}
 
-        .row-item {
-            padding: 5px 0;
-        }
+	.epa-boxcontent {
+		padding: 3px 30px 8px;
 
-        .note {
-            color: #df1501;
-        }
-    }
+		.row-item {
+			padding: 5px 0;
+		}
 
-    .criteria-area {
-	    margin-bottom: 15px;
+		.note {
+			color: #df1501;
+		}
+	}
 
-        .glyphicon {
-            color: #0687d8;
-        }
+	.criteria-area {
+		margin-bottom: 15px;
 
-        .epa-textarea-comment {
-	        height: 120px;
-	        border: 1px solid #ccc;
-	        border-radius: 4px;
-	        padding: 6px 12px;
-	        margin-right: 6px;
-	        resize: none;
-	        margin: 5px;
+		.glyphicon {
+			color: #0687d8;
+		}
 
-            &.criteria-comment {
-	            margin: 10px 0 10px 17px;
-	            height: 50px;
-            }
-        }
+		.epa-textarea-comment {
+			height: 120px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			padding: 6px 12px;
+			margin-right: 6px;
+			resize: none;
+			margin: 5px;
 
-        
-    }
+			&.criteria-comment {
+				margin: 10px 0 10px 17px;
+				height: 50px;
+			}
+		}
 
-    .epa-criteria-ol {
-	    -webkit-padding-start: 0px;
-	    padding-left: 0;
-	    list-style-position: inside;
-    }
+		
+	}
 
-    .boxcontent {
-	    padding-bottom: 10px;
+	.epa-criteria-ol {
+		-webkit-padding-start: 0px;
+		padding-left: 0;
+		list-style-position: inside;
+	}
 
-        .row-item {
-            border-bottom: 1px solid @border-light-color;
-        }
-    }
+	.boxcontent {
+		padding-bottom: 10px;
 
-    /****** Target Template *********/
-    .filter-kpi-textbox {
-	    width: auto;
-	    height: 25px;
-        margin-top: -3px;
-    }
+		.row-item {
+			border-bottom: 1px solid @border-light-color;
+		}
+	}
 
-    .action-button {
-	    margin-top: 10px;
-	    text-align: center;
-    }
+	/****** Target Template *********/
+	.filter-kpi-textbox {
+		width: auto;
+		height: 25px;
+		margin-top: -3px;
+	}
+
+	.action-button {
+		margin: 0px 0 15px;
+		text-align: center;
+	}
+
+	.project-form {
+		padding: 0px;
+		margin: 10px 1%;
+
+		&.common-form [class*="col-"] {
+			padding: 0 15px 4px;
+		}
+
+		.information {
+			padding: 10px 0 0;
+		}
+	}
 }
 
 .criteria-description
@@ -280,16 +293,6 @@ label.checkbox
 	text-align: center;
 	margin-top: -20px;
 }
-
-
-
-.epa-comment
-{
-	margin-top: 20px;
-	margin-bottom: 50px;
-}
-
-
 
 .top-buffer 
 {
