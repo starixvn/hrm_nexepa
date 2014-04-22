@@ -17,6 +17,7 @@ CREATE TABLE [dbo].[EPA](
 	[Comment] [nvarchar](max) NULL,
 	[MarkedBy] [int] NULL,
 	[MarkedDate] [datetime] NULL,
+	[Status] [tinyint] NULL,
  CONSTRAINT [PK_EPA] PRIMARY KEY CLUSTERED 
 (
 	[EPAId] ASC

@@ -1,15 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
 	<Function Name="Employee">
-		<Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="NexEPA" Plain="1" >
-		</Setting>
 		<Setting Key="Employee_GetByDomainUsername" SpName="Employee_GetByDomainUsername" DbName="NexEPA" Plain="1" >
-		</Setting>
-		<Setting Key="EmployeeGroup_GetById" SpName="EmployeeGroup_GetById" DbName="NexEPA" Plain="1" >
-		</Setting>
-		<Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="NexEPA" Plain="1" >
-		</Setting>
-		<Setting Key="Employee_Update" SpName="Employee_Update" DbName="NexEPA" Plain="1" >
 		</Setting>
 		<Setting Key="Employee_GetByRole" SpName="Employee_GetByRole" DbName="NexEPA" Plain="1" >
 		</Setting>
