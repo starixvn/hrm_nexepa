@@ -40,6 +40,11 @@ targetModule.controller('ViewTargetController',
 		// get Target
 		getTarget(null, $scope.filter.startDate, $scope.filter.endDate);
 
+		$scope.calendar = {
+			startDateOpened: false,
+			endDateOpened: false
+		};
+
 		// show start date calendar when click button start date
 		$scope.openPopupStartDate = function ($event) {
 			targetUtility.openPopupStartDate($event, $scope);
@@ -75,7 +80,7 @@ targetModule.controller('ViewTargetController',
 		// delete target
 		$scope.openDeletePopup = function (target) {
 			var targetId = target.targetId;
-			var targetName = target.targetName;
+			var targetName = target.name;
 
 			var modalDeleteInstance = $modal.open({
 				templateUrl: '/templates/Common/modalConfirmContent.html',
@@ -273,10 +278,11 @@ targetModule.controller("CreateTargetController",
 					targetUtility.getAllProject($scope);
 					$scope.target.projectId = target.project.projectId;
 
+					$scope.isSelectedProject = true;
+					targetUtility.getMilestone($scope.target.projectId, $scope);
+
 					if (target.milestone && target.milestone.milestoneId) {
-						$scope.isSelectedProject = true;
 						$scope.target.milestoneId = target.milestone.milestoneId;
-						targetUtility.getMilestone($scope.target.projectId, $scope);
 					}
 				}
 			}
