@@ -36,23 +36,25 @@
                     <th data-translate="Criteria"></th>
                     <th data-translate="Form"></th>
                     <th data-translate="Active"></th>
+                    <th data-translate="Description"></th>
                     <th data-translate="Action"></th>
                 </tr>
             </thead>
             <tr ng-repeat="group in KPIGroupList">
-                <td class="group" ng-bind="group.name"></td>
-                <td class="weight" ng-bind="group.weight"></td>
-                <td class="criteria">
+                <td class="KPI-group-name" ng-bind="group.name"></td>
+                <td class="KPI-group-weight" ng-bind="group.weight"></td>
+                <td class="KPI-group-criteria">
                     <a href="" ng-show="group.numberKPI > 0" ng-click="viewKPI(group.targetTypeId,group.kpiGroupID)" ng-bind="group.numberKPI"></a>
                     <span ng-show="group.numberKPI === 0" ng-bind="0"></span>
                     </td>
-                <td class="form" ng-bind="group.form"></td>
+                <td class="KPI-form" ng-bind="group.form"></td>
                 <td class="KPI-group-active">
                     <input type="checkbox" ng-checked="!group.isDisabled" ng-click="confirmActive(group)"/>
                 </td>
-                <td class="actionGroup">
+                <td class="KPI-group-description" ng-bind="group.description"></td>
+                <td class="KPI-group-action">
                     <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(group.kpiGroupID)"/>
-                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(group.kpiGroupID, group.name)"/>
+                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(group)"/>
                     <a class="glyphicon glyphicon-plus icon-add" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" />
                 </td>
             </tr>

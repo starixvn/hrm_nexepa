@@ -46,14 +46,16 @@
                 <th data-translate="Title"></th>
                 <th data-translate="Group"></th>
                 <th data-translate="Form"></th>
+                <th data-translate="Description"></th>
                 <th data-translate="Action"></th>
             </tr>
         </thead>
         <tr ng-repeat="item in KPIList">
-            <td ng-bind="item.name"></td>
-            <td ng-bind="item.kpiGroupName"></td>
-            <td class="form" ng-bind="item.targetTypeName"></td>
-            <td class="actionKPI">
+            <td class="KPI-title" ng-bind="item.name"></td>
+            <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
+            <td class="KPI-form" ng-bind="item.targetTypeName"></td>
+            <td class="KPI-description" ng-bind="item.description"></td>
+            <td class="KPI-action">
                 <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
                 <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
             </td>
@@ -69,14 +71,16 @@
                 <th data-translate="Title"></th>
                 <th data-translate="Group"></th>
                 <th data-translate="Form"></th>
+                <th data-translate="Description"></th>
                 <th data-translate="Action"></th>
             </tr>
         </thead>
         <tr ng-repeat="item in KPIList">
-            <td ng-bind="item.name"></td>
-            <td ng-bind="item.kpiGroupName"></td>
-            <td class="form" ng-bind="item.targetTypeName"></td>
-            <td class="actionKPI">
+            <td class="KPI-title" ng-bind="item.name"></td>
+            <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
+            <td class="KPI-form" ng-bind="item.targetTypeName"></td>
+            <td class="KPI-description" ng-bind="item.description"></td>
+            <td class="KPI-action">
                 <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
                 <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
             </td>

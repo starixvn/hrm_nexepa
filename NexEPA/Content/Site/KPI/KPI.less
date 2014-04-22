@@ -1,40 +1,62 @@
-﻿@width-150: 150px;
+﻿@width-80: 80px;
+@width-100: 100px;
+@width-150: 150px;
 @width-200: 200px;
 @width-300: 300px;
+@width-400: 400px;
+@width-500: 500px;
 
-.center {
+.KPI-center {
 	text-align: center;
+	vertical-align: middle!important;
 }
 
-.actionGroup {
-	.center;
-	width: @width-200;
+.KPI-group-action {
+	.KPI-center;
+	width: @width-100;
+} 
+
+.KPI-form {
+	.KPI-center;
+	width: @width-80;
 }
 
-.actionKPI {
-	.center;
-	width: @width-150;
-}
-
-.form {
-	.center
-}
-
-.criteria {
-	.center;
-	width: @width-150;
+.KPI-group-criteria {
+	.KPI-center;
+	width: @width-80;
 }
 
 .KPI-group-active {
-	.center;
-	width: @width-150;
+	.KPI-center;
+	width: @width-80;
 }
 
-.weight {
-	.center;
-	width: @width-150;
+.KPI-group-weight {
+	.KPI-center;
+	width: @width-100;
+}
+
+.KPI-group-description {
+	width: @width-400;
+}
+
+.KPI-group-name {
+	vertical-align: middle!important;
 }
 
 .table-KPI {
 	margin: 10px 1% !important;
+}
+
+.KPI-title, .KPI-group {
+	vertical-align: middle!important;
+}
+
+.KPI-description {
+	width: @width-500;
+}
+
+.KPI-action {
+	.KPI-center;
+	width: @width-100;
 }
