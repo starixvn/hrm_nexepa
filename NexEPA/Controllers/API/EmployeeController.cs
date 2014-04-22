@@ -55,5 +55,19 @@ namespace NexEPA.Controllers.API
             var criteria = new GetAllEmployeeGroupCriteria();
             return _employeeServices.GetAllEmployeeGroup(criteria);
         }
+
+        [HttpGet]
+        public List<EmployeeItem> GetEmployeeByProjectId(
+            int? projectId = null, 
+            string keyword = "")
+        {
+            var criteria = new GetEmployeeByProjectIdCriteria
+            {
+                ProjectId = projectId,
+                Keyword = keyword
+            };
+
+            return _employeeServices.GetEmployeeByProjectId(criteria);
+        }
     }
 }

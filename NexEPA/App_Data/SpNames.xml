@@ -7,6 +7,7 @@
 		</Setting>
 		<Setting Key="Employee_Get" SpName="Employee_Get" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EmployeeGroup_GetAll" SpName="EmployeeGroup_GetAll" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Employee_GetByProject" SpName="Employee_GetByProject" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="Project">

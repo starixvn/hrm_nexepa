@@ -134,6 +134,20 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 			});
 		};
 
+		utility.showErrorMessageOfMember = function ($scope) {
+			$scope.targetMemberSuccess = false;
+			$translate("ErrorMessage").then(function (errorMessage) {
+				$scope.memberErrorMessage = errorMessage;
+			});
+		};
+
+		utility.showErrorMessageOfTargetInformations = function ($scope) {
+			$scope.targetInfoSuccess = false;
+			$translate("ErrorMessage").then(function (errorMessage) {
+				$scope.infoErrorMessage = errorMessage;
+			});
+		};
+
 		utility.resetProjectInformation = function ($scope) {
 			$scope.formIsProject = false;
 			$scope.isSelectedProject = false;
@@ -184,33 +198,36 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 	} ]);
 
 // search employee auto-complete directive
-targetModule.directive('searchAutoComplete', function ($timeout, employeeRepository) {
-	return {
-		scope: { searchKey: "&searchKey", employee: "=employee" },
-		link: function (scope, iElement) {
-			iElement.autocomplete({
-				source: function (request, response) {
-					var searchKey = scope.searchKey();
-					employeeRepository.getAllEmployee(searchKey, null).success(function (employeeList) {
-						var data = [];
-						angular.forEach(employeeList, function (employee) {
-							data.push(
+	targetModule.directive('searchAutoComplete', function ($timeout, employeeRepository) {
+		return {
+			scope: { searchKey: "&searchKey", employee: "=employee", projectId: "&projectId" },
+			link: function (scope, iElement) {
+				iElement.autocomplete({
+					source: function (request, response) {
+						var searchKey = scope.searchKey(),
+							projectId = scope.projectId();
+
+						employeeRepository.getEmployeeByProjectId(projectId, searchKey).success(function (employeeList) {
+							var data = [];
+							angular.forEach(employeeList, function (employee) {
+								data.push(
 								{ value: employee.nickName + ' (' + employee.fullName + ')',
 									id: employee.employeeId,
 									employee: employee
 								});
+							});
+
+							response(data);
 						});
-					response(data);
-					});
-				},
-				select: function (event, ui) {
-					scope.employee = ui.item.employee;
-					$timeout(function () {
-						iElement.trigger('input');
-					}, 0);
-				}
-			});
-		}
-	};
-});
+					},
+					select: function (event, ui) {
+						scope.employee = ui.item.employee;
+						$timeout(function () {
+							iElement.trigger('input');
+						}, 0);
+					}
+				});
+			}
+		};
+	});
 

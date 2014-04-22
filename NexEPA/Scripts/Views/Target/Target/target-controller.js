@@ -73,8 +73,11 @@ targetModule.controller('ViewTargetController',
 		};
 
 		// edit target
-		$scope.edit = function (targetId) {
-			$location.path('Target/EditTarget/' + targetId).search("isEditMode", true);
+		$scope.edit = function (target) {
+			var targetId = target.targetId,
+				projectId = target.project.projectId;
+
+			$location.path('Target/EditTarget/' + targetId).search("projectId", projectId).search("isEditMode", true);
 		};
 
 		// delete target
@@ -241,8 +244,11 @@ targetModule.controller("CreateTargetController",
 	function ($scope, $timeout, $location, $translate, $routeParams, $window, $route, $modal,
 			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository, commonFactory, ErrorService) {
 
-		var targetId = $routeParams.id;
-		var isEditMode = $routeParams.isEditMode ? true : false;
+		var targetId = $routeParams.id,
+			projectId = $routeParams.projectId,
+			isEditMode = $routeParams.isEditMode ? true : false;
+
+		$scope.projectId = projectId;
 
 		if (!isEditMode) {
 			var isMemberSelect = $routeParams.viewMembers ? true : false;
@@ -287,7 +293,7 @@ targetModule.controller("CreateTargetController",
 				}
 			}
 		}).error(function () {
-			targetUtility.showErrorMessage($scope);
+			targetUtility.showErrorMessageOfTargetInformations($scope);
 		});
 
 		if (isEditMode) {
@@ -358,27 +364,26 @@ targetModule.controller("CreateTargetController",
 
 					targetFactory.editTarget(newTarget).success(function (response) {
 						if (response.isSuccessful === true) {
-							$scope.success = true;
+							$scope.targetInfoSuccess = true;
 							$translate("UpdatedSuccessfulMessage").then(function (message) {
-								$scope.successMessage = message;
-							});
-							$scope.disabledSubmit = false;
+								$scope.infoSuccessMessage = message;
+							});	
 							$timeout(function () {
 								$scope.success = false;
 							}, 2000);
 						}
 						else {
-							$scope.success = false;
-							$scope.errorMessage = response.message;
-							$scope.disabledSubmit = false;
+							$scope.targetInfoSuccess = false;
+							$scope.infoErrorMessage = response.message;
 						}
+						$scope.disabledSubmit = false;
 					})
 			.error(function (response, status) {
 				if (status === 405) {
 					ErrorService.errorHandle(status);
 				}
 				else {
-					targetUtility.showErrorMessage($scope);
+					targetUtility.showErrorMessageOfTargetInformations($scope);
 				}
 
 				$scope.disabledSubmit = false;
@@ -399,7 +404,7 @@ targetModule.controller("CreateTargetController",
 				ErrorService.errorHandle(status);
 			}
 			else {
-				targetUtility.showErrorMessage($scope);
+				targetUtility.showErrorMessageOfMember($scope);
 			}
 		});
 
@@ -415,21 +420,22 @@ targetModule.controller("CreateTargetController",
 
 				targetFactory.insertTargetEmployee(employeeInsert).success(function (response) {
 					if (response.isSuccessful) {
-						$scope.hasError = false;
+						$scope.targetMemberSuccess = true;
 						employee.groupName = employee.group.name;
 						$scope.employees.push(employee);
-						$scope.disabledSubmit = false;
 					}
 					else {
-						$scope.hasError = true;
-						$scope.errorMessage = response.message;
+						$scope.targetMemberSuccess = false;
+						$scope.memberErrorMessage = response.message;
 					}
+
+					$scope.disabledSubmit = false;
 				}).error(function (response, status) {
 					if (status === 405) {
 						ErrorService.errorHandle(status);
 					}
 					else {
-						targetUtility.showErrorMessage($scope);
+						targetUtility.showErrorMessageOfMember($scope);
 					}
 
 					$scope.disabledSubmit = false;
@@ -468,7 +474,7 @@ targetModule.controller("CreateTargetController",
 							ErrorService.errorHandle(status);
 						}
 						else {
-							targetUtility.showErrorMessage($scope);
+							targetUtility.showErrorMessageOfMember($scope);
 						}
 					});
 				});

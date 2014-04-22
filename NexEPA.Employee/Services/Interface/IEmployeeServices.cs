@@ -21,5 +21,7 @@ namespace NexEPA.Employee.Services.Interface
         List<EmployeeItem> GetAllEmployee(GetAllEmployeeCriteria criteria);
 
         List<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria);
+
+        List<EmployeeItem> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria);
     }
 }

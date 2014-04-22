@@ -101,5 +101,36 @@ namespace NexEPA.Employee.Services.Implement
 
             return employeesGroup;
         }
+
+        /// <summary>
+        /// Get employee by project ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The List Employee Item.</returns>
+        public List<EmployeeItem> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var employees = new List<EmployeeItem>();
+
+            if (criteria.IsValid())
+            {
+                IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetEmployeeByProjectId(criteria);
+
+                foreach (var rawEmployee in rawEmployees)
+                {
+                    var employee = new EmployeeItem
+                    {
+                        EmployeeId = rawEmployee.EmployeeId,
+                        FullName = rawEmployee.FullName,
+                        NickName = rawEmployee.NickName,
+                        Group = rawEmployee.Group
+                    };
+
+                    employees.Add(employee);
+                }
+            }
+
+            return employees;
+        }
     }
 }

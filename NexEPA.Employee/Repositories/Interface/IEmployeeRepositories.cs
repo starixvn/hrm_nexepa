@@ -19,5 +19,7 @@ namespace NexEPA.Employee.Repositories.Interface
     public interface IEmployeeRepositories
     {
         IEnumerable<EmployeeInfo> GetAllEmployee(ICriteria criteria);
+
+        IEnumerable<EmployeeInfo> GetEmployeeByProjectId(ICriteria criteria);
     }
 }

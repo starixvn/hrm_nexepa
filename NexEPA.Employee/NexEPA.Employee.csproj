@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Criteria\GetAllEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetAllEmployeeGroupCriteria.cs" />
+    <Compile Include="Criteria\GetEmployeeByProjectIdCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByRoleCriteria.cs" />
     <Compile Include="Models\EmployeeInfo.cs" />
     <Compile Include="Models\GroupInfo.cs" />

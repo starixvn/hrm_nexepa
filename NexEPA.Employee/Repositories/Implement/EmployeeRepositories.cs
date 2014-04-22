@@ -42,5 +42,25 @@ namespace NexEPA.Employee.Repositories.Implement
                     criteria.GetSpParams());
             }
         }
+
+        /// <summary>
+        /// Get employee by project ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The IEnumerable Employee Info.</returns>
+        public IEnumerable<EmployeeInfo> GetEmployeeByProjectId(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<EmployeeInfo, Group, EmployeeInfo>(
+                    (empIn, grIn) =>
+                    {
+                        empIn.Group = grIn;
+                        return empIn;
+                    },
+                    "GroupId",
+                    criteria.GetSpParams());
+            }
+        }
     }
 }

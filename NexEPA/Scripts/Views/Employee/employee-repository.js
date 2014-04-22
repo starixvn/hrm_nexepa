@@ -8,6 +8,9 @@ employeeModule.factory('employeeRepository', ['$http', function ($http) {
 		},
 		getAllGroup: function () {
 			return $http.get('/api/Employee/GetAllGroup');
+		},
+		getEmployeeByProjectId: function (projectId, keyword) {
+			return $http.get('/api/Employee/GetEmployeeByProjectId', { params: { projectId: projectId, keyword: keyword} });
 		}
 	};
 } ]);
