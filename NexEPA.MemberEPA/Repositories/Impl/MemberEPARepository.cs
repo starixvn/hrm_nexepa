@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Bradley.Mac" date="2014.4.21">Created</change>
+//   <change who="Josh.Phan" date="2014.4.22">Added - GetEPAByEmployee</change>
 // </history>
 
 namespace NexEPA.MemberEPA.Repositories.Impl
@@ -17,10 +18,11 @@ namespace NexEPA.MemberEPA.Repositories.Impl
     using NexEPA.KPI.Model.KPI;
     using NexEPA.KPI.Model.KPIGroup;
     using NexEPA.MemberEPA.Models;
+    using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Interfaces;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// The implement of Member EPA Repository.
     /// </summary>
     public class MemberEPARepository : IMemberEPARepository
     {
@@ -61,6 +63,29 @@ namespace NexEPA.MemberEPA.Repositories.Impl
             }
 
             return data;
+        }
+
+        /// <summary>
+        /// Get EPA by employee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The IENumerable EPAMemberModel.</returns>
+        public IEnumerable<MemberEPAModel> GetEPAByEmployee(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<MemberEPAModel, Target, Project, Milestone, Evaluator, MemberEPAModel>(
+                    (me, ta, pro, mi, ev) =>
+                    {
+                        me.Target = ta;
+                        me.Project = pro;
+                        me.Milestone = mi;
+                        me.Evaluator = ev;
+                        return me;
+                    },
+                    "TargetId,ProjectId,MilestoneId,EvaluatorId",
+                    criteria.GetSpParams());
+            }
         }
     }
 }

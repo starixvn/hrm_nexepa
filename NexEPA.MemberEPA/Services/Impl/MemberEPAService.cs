@@ -5,13 +5,16 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Bradley.Mac" date="2014.4.21">Created</change>
+//   <change who="Josh.Phan" date="2014.4.22">Added - GetEPAByEmployee</change>
 // </history>
 
 namespace NexEPA.MemberEPA.Services.Impl
 {
+    using System.Collections.Generic;
     using Fanex.Common.Helper;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
+    using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Impl;
     using NexEPA.MemberEPA.Repositories.Interfaces;
     using NexEPA.MemberEPA.Services.Interfaces;
@@ -38,6 +41,24 @@ namespace NexEPA.MemberEPA.Services.Impl
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Get EPA by employee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The List MemberEPAModel.</returns>
+        public List<MemberEPAModel> GetEPAByEmployee(GetEPAByEmployeeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var employeeEPAs = new List<MemberEPAModel>();
+
+            if (criteria.IsValid())
+            {
+                employeeEPAs = (List<MemberEPAModel>)_memberEPARepository.GetEPAByEmployee(criteria);
+            }
+
+            return employeeEPAs;
         }
     }
 }
