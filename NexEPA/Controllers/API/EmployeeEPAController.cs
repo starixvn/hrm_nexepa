@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="MyEPAController.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="EmployeeEPAController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -18,16 +18,16 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// MyEPA Controller.
     /// </summary>
-    public class MyEPAController : BaseController
+    public class EmployeeEPAController : BaseController
     {
         private readonly IMemberEPAService _memberEPAService;
 
-        public MyEPAController()
+        public EmployeeEPAController()
             : this(null)
         {
         }
 
-        public MyEPAController(IMemberEPAService memberEPAService)
+        public EmployeeEPAController(IMemberEPAService memberEPAService)
         {
             this._memberEPAService = memberEPAService ?? new MemberEPAService();
         }

@@ -49,7 +49,7 @@ var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'n
 
 var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
-	$routeProvider.when('/MyEPA/Index', { templateUrl: '../templates/EPA/MyEPA/Index.html', controller: 'MyEPAController' });
+	$routeProvider.when('/MyEPA/Index', { templateUrl: '../templates/EPA/MyEPA/Index.html', controller: 'EmployeeEPAController' });
 } ]);
 
 var employeeModule = angular.module("employeeModule", ['ngRoute', 'ngResource'])

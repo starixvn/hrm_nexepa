@@ -161,7 +161,7 @@
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
-    <Compile Include="Controllers\API\MyEPAController.cs" />
+    <Compile Include="Controllers\API\EmployeeEPAController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMembersController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />

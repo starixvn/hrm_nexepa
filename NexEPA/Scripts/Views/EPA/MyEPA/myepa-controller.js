@@ -1,7 +1,7 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.controller('MyEPAController',['$scope', 'myEPAFactory', function ($scope, myEPAFactory) {
+epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', function ($scope, employeeEPAFactory) {
 	$(".boxtitle").on("click", function () {
 		var header = $(this);
 		//getting the next element
@@ -11,7 +11,7 @@ epaModule.controller('MyEPAController',['$scope', 'myEPAFactory', function ($sco
 		});
 	});
 
-	myEPAFactory.getMyEPA(35).then(function (data) {
+	employeeEPAFactory.getMyEPA(35).then(function (data) {
 		$scope.myEPA = data;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
