@@ -11,7 +11,14 @@ epaModule.controller('MyEPAController', function ($scope, myEPAFactory) {
 		});
 	});
 
-	myEPAFactory.getMyEPA(6).then(function () {
+	myEPAFactory.getMyEPA(35).then(function (data) {
+		$scope.myEPA = data;
+		var roleArray = [];
+		$.each(data.projectRoles, function (i) {
+			roleArray.push(data.projectRoles[i].name);
+		});
+
+		$scope.employeeRole = roleArray.join(", ");
 	});
 
 	$scope.rate = 0;

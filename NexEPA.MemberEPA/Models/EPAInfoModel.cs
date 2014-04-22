@@ -41,6 +41,6 @@ namespace NexEPA.MemberEPA.Models
 
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }
 
-        public List<KPIInfo> KPIInfo { get; set; }
+        public List<GroupingKPIModel> KPIInfo { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace NexEPA.MemberEPA.Criteria
 
         public override bool IsValid()
         {
-            return true;
+            return TargetId > 0;
         }
 
         public override string GetSettingKey()

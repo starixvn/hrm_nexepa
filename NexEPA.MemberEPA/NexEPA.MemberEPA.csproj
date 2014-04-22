@@ -56,6 +56,7 @@
     <Compile Include="Criteria\GetEPAInfoCriteria.cs" />
     <Compile Include="Models\EPAInfoModel.cs" />
     <Compile Include="Models\EPAProjectRoleModel.cs" />
+    <Compile Include="Models\GroupingKPIModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\MemberEPARepository.cs" />
     <Compile Include="Repositories\Interfaces\IMemberEPARepository.cs" />

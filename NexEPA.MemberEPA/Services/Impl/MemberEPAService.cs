@@ -9,6 +9,7 @@
 
 namespace NexEPA.MemberEPA.Services.Impl
 {
+    using Fanex.Common.Helper;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Repositories.Impl;
@@ -29,7 +30,14 @@ namespace NexEPA.MemberEPA.Services.Impl
 
         public EPAInfoModel GetEPAInfo(GetEPAInfoCriteria criteria)
         {
-            return _memberEPARepository.GetEPAInfo(criteria);
+            EPAInfoModel result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            { 
+                result = _memberEPARepository.GetEPAInfo(criteria);
+            }
+
+            return result;
         }
     }
 }

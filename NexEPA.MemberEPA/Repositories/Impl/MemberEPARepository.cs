@@ -9,6 +9,7 @@
 
 namespace NexEPA.MemberEPA.Repositories.Impl
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
@@ -38,7 +39,7 @@ namespace NexEPA.MemberEPA.Repositories.Impl
                 {
                     data = multi.Read<EPAInfoModel>().FirstOrDefault();
                     data.ProjectRoles = multi.Read<EPAProjectRoleModel>().ToList();
-                    data.KPIInfo = multi.Read<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
+                    List<KPIInfo> kpis = multi.Read<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
                         (inf, gr, ta) =>
                         {
                             inf.Group = gr;
@@ -46,6 +47,16 @@ namespace NexEPA.MemberEPA.Repositories.Impl
                             return inf;
                         },
                         "KPIGroupId,TargetTypeId").ToList();
+
+                    List<GroupingKPIModel> groupData = (from kpi in kpis
+                                     group kpi by kpi.Group.Name into kpi
+                                     select new GroupingKPIModel()
+                                    {
+                                        KPIGroupName = kpi.Key,
+                                        KPIGroupItems = kpi.ToList()
+                                    }).ToList();
+
+                    data.KPIInfo = groupData;
                 }
             }
 

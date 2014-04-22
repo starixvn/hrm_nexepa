@@ -45,11 +45,8 @@ namespace NexEPA.Controllers.API
                 EmployeeId = this.CurrentUser.UserId,
                 TargetId = targetId
             };
-
-            if (targetId > 0)
-            {
-                data = _memberEPAService.GetEPAInfo(criteria);
-            }
+            
+            data = _memberEPAService.GetEPAInfo(criteria);
 
             return data;
         }
