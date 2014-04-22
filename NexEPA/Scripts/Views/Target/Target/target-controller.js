@@ -367,7 +367,7 @@ targetModule.controller("CreateTargetController",
 							$scope.targetInfoSuccess = true;
 							$translate("UpdatedSuccessfulMessage").then(function (message) {
 								$scope.infoSuccessMessage = message;
-							});	
+							});
 							$timeout(function () {
 								$scope.success = false;
 							}, 2000);
@@ -396,6 +396,10 @@ targetModule.controller("CreateTargetController",
 		}
 
 		// TAB : MEMBERS 
+		$scope.search = {
+			searchKey: ''
+		};
+
 		// get all employee by target Id 
 		targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
 			$scope.employees = employees;
@@ -420,6 +424,7 @@ targetModule.controller("CreateTargetController",
 
 				targetFactory.insertTargetEmployee(employeeInsert).success(function (response) {
 					if (response.isSuccessful) {
+						$scope.search.searchKey = '';
 						$scope.targetMemberSuccess = true;
 						employee.groupName = employee.group.name;
 						$scope.employees.push(employee);
