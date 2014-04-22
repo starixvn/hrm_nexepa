@@ -2,7 +2,8 @@
 /*global kpiSettingModule*/
 
 // View KPI
-kpiSettingModule.controller("ViewKPIController",
+kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', 
+'$location', '$modal', '$route', '$window', 'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
@@ -101,10 +102,11 @@ kpiSettingModule.controller("ViewKPIController",
 				$location.url('/KPI/ViewKPI/');
 			} 
 		};
-	});
+	}]);
 
 // Create New KPI
-	kpiSettingModule.controller('CreateNewKPIController',
+	kpiSettingModule.controller('CreateNewKPIController', ['$scope', '$routeParams', 
+	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -188,10 +190,11 @@ kpiSettingModule.controller("ViewKPIController",
 		$scope.cancel = function () {
 			$window.history.back();
 		};
-	});
+	}]);
 
 // Edit KPI
-	kpiSettingModule.controller("EditKPIController",
+	kpiSettingModule.controller("EditKPIController", ['$scope', '$routeParams', '$location', 
+	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository) {
 		var kpiId = $routeParams.id;
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -246,4 +249,4 @@ kpiSettingModule.controller("ViewKPIController",
 		$scope.cancel = function () {
 			$window.history.back();
 		};
-	});
+	}]);

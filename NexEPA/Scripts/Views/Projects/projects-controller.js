@@ -1,7 +1,9 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-projectsSettingModule.controller('ProjectController', function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService) {
+projectsSettingModule.controller('ProjectController', 
+['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService',
+function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService) {
     /**
     * Project Setting Cache. 
     */
@@ -73,9 +75,10 @@ projectsSettingModule.controller('ProjectController', function ($scope, $locatio
     $scope.getProjectList = function (filter) {
         projectDataFactory.filterData(filter).then(successFilterData);
     };
-});
+}]);
 
 projectsSettingModule.controller('CreateProjectController',
+['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache',
 function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
@@ -137,9 +140,11 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
 
 	// Cancel
 	$scope.cancel = function () { $window.history.back(); };
-});
+}]);
 
-projectsSettingModule.controller('EditProjectController', function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache) {
+projectsSettingModule.controller('EditProjectController', 
+['$scope', '$routeParams', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache',
+function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache) {
     /**
     * Scope variables. 
     */
@@ -210,9 +215,10 @@ projectsSettingModule.controller('EditProjectController', function ($scope, $rou
 		});
 	});
 
-});
+}]);
 
 projectsSettingModule.controller('MilestoneController',
+['$scope', '$routeParams', '$modal', 'projectMilestoneService', 'milestoneFactory', 'notificationFactory',
 function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactory, notificationFactory) {
 	/**
 	* Scope variables. 
@@ -314,4 +320,4 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 		});
 
 	};
-});
+}]);

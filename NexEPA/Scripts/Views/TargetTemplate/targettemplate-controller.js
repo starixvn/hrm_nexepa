@@ -11,7 +11,9 @@ var targetTemplateValidation = function (name, targetTypeId) {
 	return false;
 };
 
-targetTemplateModule.controller('TargetTemplateController', function ($scope, $modal, targetTemplateFactory, notificationFactory) {
+targetTemplateModule.controller('TargetTemplateController',
+['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory',
+function ($scope, $modal, targetTemplateFactory, notificationFactory) {
 	$("#targetTemplateValid").hide();
 	/**
 	* Ajax event Loaded. 
@@ -59,9 +61,11 @@ targetTemplateModule.controller('TargetTemplateController', function ($scope, $m
 			targetTemplateFactory.deleteTargetTemplate(template.targetId).then(successDeleteTargetTemplate, errorNotify);
 		});
 	};
-});
+} ]);
 
-targetTemplateModule.controller('EditTargetTemplateController', function ($scope, $routeParams, $window, $location, targetTemplateFactory) {
+targetTemplateModule.controller('EditTargetTemplateController', 
+['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory',
+function ($scope, $routeParams, $window, $location, targetTemplateFactory) {
 	/**
 	* Variables. 
 	*/
@@ -120,10 +124,12 @@ targetTemplateModule.controller('EditTargetTemplateController', function ($scope
 			targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
 		}
 	};
-});
+}]);
 
 
-targetTemplateModule.controller('CreateTargetTemplateController', function ($scope, $location, $window, targetTemplateFactory) {
+targetTemplateModule.controller('CreateTargetTemplateController',
+['$scope', '$location', '$window', 'targetTemplateFactory',
+function ($scope, $location, $window, targetTemplateFactory) {
 	/**
 	* Variables. 
 	*/
@@ -149,10 +155,12 @@ targetTemplateModule.controller('CreateTargetTemplateController', function ($sco
 
 	// Cancel
 	$scope.cancel = function () { $window.history.back(); };
-});
+}]);
 
 
-targetTemplateModule.controller('DetailTargetTemplateController', function ($scope, $routeParams, $window, targetTemplateFactory) {
+targetTemplateModule.controller('DetailTargetTemplateController',
+['$scope', '$routeParams', '$window', 'targetTemplateFactory',
+ function ($scope, $routeParams, $window, targetTemplateFactory) {
 	var targetId = $routeParams.targetId;
 	var succesGetListKPI = function (data) {
 		$scope.lstKPI = data;
@@ -170,4 +178,4 @@ targetTemplateModule.controller('DetailTargetTemplateController', function ($sco
 
 	// Back
 	$scope.back = function () { $window.history.back(); };
-});
+}]);

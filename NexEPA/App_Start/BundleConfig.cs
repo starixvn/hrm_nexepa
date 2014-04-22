@@ -29,12 +29,15 @@ namespace NexEPA
                 "~/Content/Common/toastr.css",
                 "~/Content/Common/bootstrap.css",
                 "~/Content/Common/bootstrap-theme.css",
-                "~/Content/Common/jquery-ui-1.10.4.custom.min.css",
+                "~/Content/Common/jquery-ui-1.10.4.custom.min.css"));
+
+            bundles.AddAndInclude(
+                "~/EPA/Less",
                 "~/Content/Site/layout.less",
                 "~/Content/Site/Employee/employee.less",
                 "~/Content/Site/Projects/project.less",
                 "~/Content/Site/KPI/KPI.less",
-                "~/Content/Site/Target/target.less"));
+                "~/Content/Site/Target/target.less");
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",
@@ -52,7 +55,6 @@ namespace NexEPA
                 "~/Scripts/Views/Resource/resource-repository.js",
                 "~/Scripts/Views/Resource/resource-controller.js",
                 "~/Scripts/Views/Employee/employee-controller.js",
-                "~/Scripts/Views/Employee/employee-repository.js",
                 "~/Scripts/Views/Employee/employee-repository.js",
                 "~/Scripts/Views/Projects/projects-controller.js",
                 "~/Scripts/Views/Projects/projects-repository.js",

@@ -1,7 +1,7 @@
 ﻿/*global $, registrationModule*/
 'use strict';
 
-registrationModule.filter('enumStatusText', function ($http) {
+registrationModule.filter('enumStatusText',['$http', function ($http) {
 	var statusEnum = [];
 	$http.get('/api/Project/RenderProjectStatusSelectList').success(function (data) {
 		statusEnum = data;
@@ -15,9 +15,9 @@ registrationModule.filter('enumStatusText', function ($http) {
 		});
 		return statusText;
 	};
-});
+}]);
 
-registrationModule.filter('targetType', function ($http) {
+registrationModule.filter('targetType',['$http', function ($http) {
 	var targetType = [];
 	$http.get('/api/targetTemplate/GetAllTargetType').success(function (data) {
 		targetType = data;
@@ -31,4 +31,4 @@ registrationModule.filter('targetType', function ($http) {
 		});
 		return typeText;
 	};
-});
+}]);

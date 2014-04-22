@@ -11,7 +11,8 @@ var memberValidation = function (employeeId, selected, joinDate) {
 	return false;
 };
 
-projectsSettingModule.controller("ProjectMembersController",
+projectsSettingModule.controller("ProjectMembersController",['$scope', '$routeParams', '$location', '$modal', 
+'ProjectSettingCache', 'projectMilestoneService','projectMembersFactory', 'notificationFactory', 'projectDataFactory',
 function ($scope, $routeParams, $location, $modal, ProjectSettingCache, projectMilestoneService,
 projectMembersFactory, notificationFactory, projectDataFactory) {
 	/**
@@ -192,9 +193,11 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 			projectMembersFactory.deleteMember(member).then(successDeleteMember, errorNotification);
 		});
 	};
-});
+}]);
 
-projectsSettingModule.controller('AddProjectMembersController', function ($scope, $modalInstance, lstMembers, roles, projectId) {
+projectsSettingModule.controller('AddProjectMembersController', 
+['$scope', '$modalInstance', 'lstMembers', 'roles', 'projectId',
+function ($scope, $modalInstance, lstMembers, roles, projectId) {
 	$scope.selection = [];
 	$scope.lstMembers = lstMembers;
 	$scope.roles = roles;
@@ -223,9 +226,10 @@ projectsSettingModule.controller('AddProjectMembersController', function ($scope
 			return item.projectRoleId;
 		});
 	}, true);
-});
+}]);
 
 projectsSettingModule.controller("EditProjectMembersController",
+['$scope', '$modalInstance', 'lstMembers', 'roles', 'editMember',
 function ($scope, $modalInstance, lstMembers, roles, editMember) {
 	$scope.lstMembers = lstMembers;
 	$scope.roles = roles;
@@ -252,4 +256,4 @@ function ($scope, $modalInstance, lstMembers, roles, editMember) {
 			return item.projectRoleId;
 		});
 	}, true);
-});
+}]);

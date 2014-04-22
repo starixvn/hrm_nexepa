@@ -1,7 +1,7 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-projectsSettingModule.factory('projectDataFactory', function ($http, $q) {
+projectsSettingModule.factory('projectDataFactory',['$http', '$q', function ($http, $q) {
 	var url = '/api/Project/';
 	return {
 		getEmployeeSelectList: function (roleId) {
@@ -52,9 +52,9 @@ projectsSettingModule.factory('projectDataFactory', function ($http, $q) {
 			return deferred.promise;
 		}
 	};
-});
+}]);
 
-projectsSettingModule.factory('milestoneFactory', function ($http, $q) {
+projectsSettingModule.factory('milestoneFactory',['$http', '$q', function ($http, $q) {
     var url = '/api/Milestone/';
     return {
         getMilestone: function (projectId) {
@@ -78,4 +78,4 @@ projectsSettingModule.factory('milestoneFactory', function ($http, $q) {
             return deferred.promise;
         }
     };
-});
+}]);

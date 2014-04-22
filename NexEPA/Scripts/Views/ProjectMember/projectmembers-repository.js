@@ -1,7 +1,7 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-projectsSettingModule.factory("projectMembersFactory", function ($http, $q) {
+projectsSettingModule.factory("projectMembersFactory",['$http', '$q', function ($http, $q) {
 	var url = '/api/ProjectMembers/';
 	return {
 		getMember: function (projectId, isShowDeletedMember, milestoneId) {
@@ -63,4 +63,4 @@ projectsSettingModule.factory("projectMembersFactory", function ($http, $q) {
 			return deferred.promise;
 		}
 	};
-});
+}]);

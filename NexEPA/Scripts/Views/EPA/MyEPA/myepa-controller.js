@@ -1,7 +1,7 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.controller('MyEPAController', function ($scope, myEPAFactory) {
+epaModule.controller('MyEPAController',['$scope', 'myEPAFactory', function ($scope, myEPAFactory) {
 	$(".boxtitle").on("click", function () {
 		var header = $(this);
 		//getting the next element
@@ -27,4 +27,4 @@ epaModule.controller('MyEPAController', function ($scope, myEPAFactory) {
 	$scope.percent = 0;
 
 
-});
+}]);

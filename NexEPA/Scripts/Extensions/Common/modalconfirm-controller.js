@@ -1,7 +1,8 @@
 ﻿/*global registrationModule*/
 'use strict';
 
-registrationModule.controller("ModalConfirmController", function ($scope, $modalInstance, name, action) {
+registrationModule.controller("ModalConfirmController",['$scope','$modalInstance','name', 'action',
+ function ($scope, $modalInstance, name, action) {
     $scope.name = name;
     $scope.action = action;
 
@@ -12,4 +13,4 @@ registrationModule.controller("ModalConfirmController", function ($scope, $modal
     $scope.cancel = function () {
         $modalInstance.dismiss("cancel");
     };
-});
+}]);

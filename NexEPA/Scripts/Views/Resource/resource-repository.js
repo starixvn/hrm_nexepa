@@ -1,7 +1,7 @@
-﻿/* global resourceModule */
+﻿/* global registrationModule */
 'use strict';
 
-resourceModule.factory('resourceRepository', function ($http, $q) {
+registrationModule.factory('resourceRepository', ['$http', '$q', function ($http, $q) {
     return function (options) {
         var deferred = $q.defer();
 
@@ -14,4 +14,4 @@ resourceModule.factory('resourceRepository', function ($http, $q) {
 
         return deferred.promise;
     };
-});
+}]);

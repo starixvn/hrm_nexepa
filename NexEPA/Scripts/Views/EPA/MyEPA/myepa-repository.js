@@ -1,7 +1,7 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.factory('myEPAFactory', function ($http, $q) {
+epaModule.factory('myEPAFactory',['$http', '$q', function ($http, $q) {
 	return {
 		getMyEPA: function (targetId) {
 			var deferred = $q.defer();
@@ -11,4 +11,4 @@ epaModule.factory('myEPAFactory', function ($http, $q) {
 			return deferred.promise;
 		}
 	};
-});
+}]);

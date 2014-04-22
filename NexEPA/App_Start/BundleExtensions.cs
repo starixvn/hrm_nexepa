@@ -13,6 +13,7 @@ namespace NexEPA
     using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
+    using dotless.Core;
 
     /// <summary>
     /// Bundle Extensions class.

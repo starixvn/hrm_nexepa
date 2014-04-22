@@ -1,8 +1,8 @@
-﻿/* global resourceModule */
+﻿/* global registrationModule */
 'use strict';
 
-resourceModule.controller("ResourceController", function ($scope, $translate) {
+registrationModule.controller("ResourceController", ['$scope', '$translate', function ($scope, $translate) {
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
     };
-});
+}]);

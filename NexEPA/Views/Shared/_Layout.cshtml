@@ -6,14 +6,15 @@
 <!--[if gt IE 8]><!-->
 <html data-ng-app="registrationModule">
 <head>
-    @Styles.Render("~/Content/css")
-    <title>EPA Site </title>
+	@Styles.Render("~/Content/css")
+	@Styles.Render("~/EPA/Less")
+	<title>EPA Site </title>
 </head>
 <body>
-    <div class="container page">
-        @RenderBody()
-    </div>
-    @Scripts.Render("~/bundles/vendor")
-    @Scripts.Render("~/bundles/app")
+	<div class="container page">
+		@RenderBody()
+	</div>
+	@Scripts.Render("~/bundles/vendor")
+	@Scripts.Render("~/bundles/app")
 </body>
 </html>

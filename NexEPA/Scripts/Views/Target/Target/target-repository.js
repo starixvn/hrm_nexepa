@@ -198,7 +198,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 	} ]);
 
 // search employee auto-complete directive
-	targetModule.directive('searchAutoComplete', function ($timeout, employeeRepository) {
+targetModule.directive('searchAutoComplete', ['$timeout','employeeRepository', function ($timeout, employeeRepository) {
 		return {
 			scope: { searchKey: "&searchKey", employee: "=employee", projectId: "&projectId" },
 			link: function (scope, iElement) {
@@ -229,5 +229,5 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 				});
 			}
 		};
-	});
+}]);
 

@@ -2,6 +2,8 @@
 /*global targetModule*/
 
 targetModule.controller('ViewTargetController',
+['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory', 
+'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $location, $translate, $modal, $route,
 		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
 
@@ -139,9 +141,11 @@ targetModule.controller('ViewTargetController',
 		$scope.viewDetailTarget = function (targetId) {
 			$location.path("/Target/TargetDetail/" + targetId);
 		};
-	});
+	}]);
 
-targetModule.controller("CreateTargetController",
+	targetModule.controller("CreateTargetController",
+['$scope', '$timeout', '$location', '$translate', '$window',
+'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $timeout, $location, $translate, $window,
 		targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
 
@@ -237,10 +241,13 @@ targetModule.controller("CreateTargetController",
 		$scope.backToView = function () {
 			$location.url('/Target/ViewTarget/');
 		};
-	});
+	}]);
 
 // View Detail of Target or Edit Target Controller
 	targetModule.controller("TargetDetailAndEditController",
+	['$scope', '$timeout', '$location', '$translate', '$routeParams', '$window', '$route', '$modal',
+	'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 
+	'KPIGroupRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $timeout, $location, $translate, $routeParams, $window, $route, $modal,
 			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository, commonFactory, ErrorService) {
 
@@ -533,4 +540,4 @@ targetModule.controller("CreateTargetController",
 		$scope.backToView = function () {
 			$location.url('Target/ViewTarget');
 		};
-	});
+	}]);

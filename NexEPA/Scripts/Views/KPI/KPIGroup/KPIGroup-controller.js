@@ -24,7 +24,8 @@ var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $transl
 };
 
 // View KPI Group
-kpiSettingModule.controller("GetAllKPIGroupController",
+kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '$route', 
+'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository',
 	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -154,10 +155,11 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		$scope.reload = function () {
 			$route.reload();
 		};
-	});
+	}]);
 
 // Create New KPI Group
-	kpiSettingModule.controller("CreateNewKPIGroupController",
+	kpiSettingModule.controller("CreateNewKPIGroupController",['$scope', '$location', '$timeout', 
+	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -216,10 +218,11 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		$scope.formOnChange = function (group) {
 			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
 		};
-	});
+	}]);
 
 // Edit KPI Group
-	kpiSettingModule.controller("EditKPIGroupController",
+	kpiSettingModule.controller("EditKPIGroupController",['$scope', '$location', 
+	'$routeParams', '$timeout', '$route', '$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var groupId = $routeParams.id;
 
@@ -284,4 +287,4 @@ kpiSettingModule.controller("GetAllKPIGroupController",
 		$scope.formOnChange = function (group) {
 			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
 		};
-	});
+	}]);

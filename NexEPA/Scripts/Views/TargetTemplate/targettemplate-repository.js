@@ -1,7 +1,7 @@
 ﻿/* global targetTemplateModule */
 'use strict';
 
-targetTemplateModule.factory("targetTemplateFactory", function ($http, $q) {
+targetTemplateModule.factory("targetTemplateFactory",['$http', '$q', function ($http, $q) {
 	var url = '/api/targetTemplate/';
 	return {
 		getTargetTemplateById: function (targetId) {
@@ -61,4 +61,4 @@ targetTemplateModule.factory("targetTemplateFactory", function ($http, $q) {
 			return deferred.promise;
 		}
 	};
-});
+}]);
