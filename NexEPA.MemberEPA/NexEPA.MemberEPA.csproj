@@ -56,6 +56,7 @@
     <Compile Include="Criteria\GetEPAByEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetEPAInfoCriteria.cs" />
     <Compile Include="Models\EPAInfoModel.cs" />
+    <Compile Include="Models\MemberEPA\MemberEPAModel.cs" />
     <Compile Include="Models\EPAProjectRoleModel.cs" />
     <Compile Include="Models\GroupingKPIModel.cs" />
     <Compile Include="Models\MemberEPA\Evaluator.cs" />
