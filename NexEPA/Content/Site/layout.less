@@ -145,7 +145,7 @@ body {
 
 	.breadcrumb {
 		background: none;
-		margin: 0;
+		margin: 0 20px 0 0;
 		font-family: BigNoodleTitling, @font-family;
 		font-size: @font-size + 9;
 		padding: 2px 1% 0;
@@ -166,7 +166,7 @@ body {
 	}
 
 	.button-icon {
-		margin: 4px 10px 0px 20px;
+		margin: 4px 10px 0 0px;
 		#gradient .vertical(#EEE, #C8C8C8);
 		.border-radius(3px);
 		border: 1px solid @border-color;
@@ -196,6 +196,20 @@ body {
 
 		&:hover {
 			#gradient .vertical(#FBFBFB, #D4D4D4);
+		}
+
+		.icon-edit, .icon-back {
+			color: #3394D3;
+			font-size: @font-size + 1;
+			font-weight: bold;
+			margin-right: 3px;
+			position: relative;
+			top: 2px;
+			left: 4px;
+		}
+
+		.icon-back {
+			font-weight: normal;
 		}
 	}
 
@@ -404,6 +418,10 @@ body {
 			box-shadow: none;
 			color: #CCC;
 			text-shadow: none;
+
+			&.btn-info {
+				background: #a7ddf7;
+			}
 		}
 
 		thead {
