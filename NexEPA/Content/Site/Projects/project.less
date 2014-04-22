@@ -229,8 +229,6 @@ label.checkbox
 				height: 50px;
 			}
 		}
-
-		
 	}
 
 	.epa-criteria-ol {
@@ -243,13 +241,13 @@ label.checkbox
 		padding-bottom: 10px;
 
 		.row-item {
-			border-bottom: 1px solid @border-light-color;
+			border-bottom: 1px solid #E5E3E3;
 		}
 	}
 
 	/****** Target Template *********/
 	.filter-kpi-textbox {
-		width: auto;
+		width: 30%;
 		height: 25px;
 		margin-top: -3px;
 	}
@@ -263,12 +261,35 @@ label.checkbox
 		padding: 0px;
 		margin: 10px 1%;
 
-		&.common-form [class*="col-"] {
-			padding: 0 15px 4px;
+		&.common-form {
+			[class*="col-"] {
+				padding: 0 15px 4px;
+			}
+
+			.kpi-list {
+				padding: 0 15px 10px;
+			}
 		}
 
 		.information {
-			padding: 10px 0 0;
+			padding: 10px 0 3px;
+		}
+
+		.title-list {
+			margin: 10px 0 5px;
+		}
+
+		.kpi-list {
+			li {
+				&.title-list {
+					margin-top: 0;
+				}
+
+				.icon-list {
+					color: #AEAEAE;
+					margin-right: 8px;
+				}
+			}
 		}
 	}
 }

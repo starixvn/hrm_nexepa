@@ -1,61 +1,56 @@
 ﻿<div class="row sub-header">
-	<ul class="breadcrumb list-inline pull-left">
-		<li>
-			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
-		<li class="current">Details Target Template - {{currentTargetTemplateName}}</li>
-	</ul>
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
+            <li class="current">Details Target Template - {{currentTargetTemplateName}}</li>
+    </ul>
 </div>
-
-<form class="col-sm-11 common-form project-form" name="detailTargetTemplate" id="detailTargetTemplate"
+<form class="row common-form project-form" name="detailTargetTemplate" id="detailTargetTemplate"
 novalidate>
 <div>
-	<div class="boxtitle">
-		TARGET TEMPLATE INFORMATIONS
-	</div>
-	<div class="boxcontent">
-		<div class="line top-buffer">
-			<label class="col-sm-2 control-label">
-				{{"Name" | translate}}</label>
-			<div class="row">
-				<input type="text" class="custom-textbox custom-width" ng-model="editTemplate.name"
-					placeholder="Name" readonly />
-			</div>
-		</div>
-		<div class="line">
-			<label class="col-sm-2 control-label">
-				{{"TargetType" | translate}}
-			</label>
-			<div class="row">
-				<select class="custom-textbox custom-width" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
-					ng-model="editTemplate.targetTypeId" disabled>
-					<option style="display: none" value="">-- Select a target type --</option>
-				</select>
-			</div>
-		</div>
-		<div class="line">
-			<label class="col-sm-2 control-label" data-translate="Description">
-			</label>
-			<div class="row">
-				<textarea class="custom-textarea custom-width" ng-model="editTemplate.description"
-					id="description" readonly></textarea>
-			</div>
-		</div>
-	</div>
-	<div class="boxtitle">
-		KPI LIST
-	</div>
-	<div class="boxcontent">
-		<ul class="col-sm-6 epa-criteria-ol" ng-repeat="kpi in lstKPI | filter: KPIName">
-			<strong>{{ kpi.kpiGroupName }}</strong> <span ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
-				<li>{{item.name}}</li>
-			</span>
-		</ul>
-	</div>
-	<div class="line">
-		<div class="col-sm-12 action-button">
-			<button class="btn btn-default customize" ng-click="back()" data-translate="Back">
-			</button>
-		</div>
-	</div>
+    <div class="row boxtitle first">
+        TARGET TEMPLATE INFORMATIONS
+    </div>
+    <div class="row boxcontent information">
+        <div class="col-sm-12 line">
+            <label class="col-sm-2 col-md-1">
+                {{"Name" | translate}}</label>
+            <div class="col-sm-6 col-md-4">
+                <input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-sm-12 line">
+            <label class="col-sm-2 col-md-1">
+                {{"TargetType" | translate}}
+            </label>
+            <div class="col-sm-6 col-md-4">
+                <select class="custom-textbox" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
+                    ng-model="editTemplate.targetTypeId" disabled>
+                    <option style="display: none" value="">-- Select a target type --</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-2 col-md-1" data-translate="Description">
+            </label>
+            <div class="col-sm-6 col-md-4">
+                <textarea class="custom-textarea" ng-model="editTemplate.description" id="description"
+                    readonly></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row boxtitle">
+        KPI LIST
+    </div>
+    <div class="row boxcontent">
+        <ul class="row-item col-sm-12 list-unstyled kpi-list" ng-repeat="kpi in lstKPI | filter: KPIName">
+            <li class="title-list"><strong>{{ kpi.kpiGroupName }}</strong></li>
+            <li ng-repeat="item in kpi.kpiGroupItems | filter: KPIName"><span class="glyphicon glyphicon-ok icon-list"></span>{{item.name}}</li>
+        </ul>
+    </div>
+    <div class="row action-button">
+        <button class="btn btn-default customize" ng-click="back()" data-translate="Back">
+        </button>
+    </div>
 </div>
 </form>
