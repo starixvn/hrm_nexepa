@@ -1,75 +1,71 @@
 ﻿<div class="row sub-header">
-	<ul class="col-xs-12  breadcrumb list-inline pull-left">
-		<li>
-			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
-		</li>
-		<li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
-	</ul>
+    <ul class="col-xs-12  breadcrumb list-inline pull-left">
+        <li><a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a></li>
+        <li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
+    </ul>
 </div>
 <form class="row common-form project-form" name="editTargetTemplate" novalidate>
 <div>
-	<div class="row boxtitle first">
-		TARGET TEMPLATE INFORMATIONS
-	</div>
-	<div class="row boxcontent information">
-		<div>
-			<div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
-				{{error}}
-			</div>
-			<div class="error-message hide-errormessage" id="targetTemplateValid">
-				Please input all required (*) fields.</div>
-		</div>
-		<div class="col-sm-12 line required">
-			<label class="col-sm-2 col-md-1">
-				{{"Name" | translate}}</label>
-			<div class="col-sm-6 col-md-5">
-				<input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name" />
-			</div>
-		</div>
-		<div class="col-sm-12 line required">
-			<label class="col-sm-2 col-md-1">
-				{{"TargetType" | translate}}
-			</label>
-			<div class="col-sm-6 col-md-5">
-				<select class="custom-textbox" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
-					ng-model="editTemplate.targetTypeId">
-					<option style="display: none" value="">-- Select a target type --</option>
-				</select>
-			</div>
-		</div>
-		<div class="col-sm-12">
-			<label class="col-sm-2 col-md-1" data-translate="Description">
-			</label>
-			<div class="col-sm-6 col-md-5">
-				<textarea class="custom-textarea" ng-model="editTemplate.description" id="description"></textarea>
-			</div>
-		</div>
-	</div>
-	<div class="row boxtitle">
-		KPI LIST
-		<input class="pull-right custom-textbox filter-kpi-textbox" type="text" ng-model="KPIName"
-			placeholder="filter kpi..." />
-	</div>
-	<div class="row boxcontent col-sm-12">
-		<div class="col-sm-6" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">
-			<div class="line">
-			</div>
-			<div class="row title-list">
-				<strong>{{ kpi.kpiGroupName}}</strong></div>
-			<div class="row" ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
-				<label class="group-checkbox">
-					<input type="checkbox" type="checkbox" value="{{item.name}}" ng-model="item.selected" />
-					{{item.name}}
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="row action-button">
-		<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
-			data-translate="Submit">
-		</button>
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
+    <div class="row boxtitle first">
+        TARGET TEMPLATE INFORMATIONS
+    </div>
+    <div class="row boxcontent information">
+        <div>
+            <div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
+                {{error}}
+            </div>
+            <div class="error-message hide-errormessage" id="targetTemplateValid">
+                Please input all required (*) fields.</div>
+        </div>
+        <div class="col-sm-12 line required">
+            <label class="col-sm-2 col-md-1">
+                {{"Name" | translate}}</label>
+            <div class="col-sm-6 col-md-5">
+                <input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name" />
+            </div>
+        </div>
+        <div class="col-sm-12 line required">
+            <label class="col-sm-2 col-md-1">
+                {{"TargetType" | translate}}
+            </label>
+            <div class="col-sm-6 col-md-5">
+                <select class="custom-textbox" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
+                    ng-model="editTemplate.targetTypeId">
+                    <option style="display: none" value="">-- Select a target type --</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-2 col-md-1" data-translate="Description">
+            </label>
+            <div class="col-sm-6 col-md-5">
+                <textarea class="custom-textarea" ng-model="editTemplate.description" id="description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row boxtitle">
+        KPI LIST
+        <input class="pull-right custom-textbox filter-kpi-textbox" type="text" ng-model="KPIName"
+            placeholder="filter kpi..." />
+    </div>
+    <div class="row boxcontent kpi-content">
+        <div class="col-sm-6 no-padding" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">
+            <div class="row title-list">
+                <strong>{{ kpi.kpiGroupName}}</strong></div>
+            <div class="row" ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
+                <label class="group-checkbox">
+                    <input type="checkbox" type="checkbox" value="{{item.name}}" ng-model="item.selected" />
+                    {{item.name}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row action-button">
+        <button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
+            data-translate="Submit">
+        </button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+        </button>
+    </div>
 </div>
 </form>

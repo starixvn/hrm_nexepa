@@ -244,6 +244,14 @@ label.checkbox
         .row-item {
             border-bottom: 1px solid #E5E3E3;
         }
+
+        &.kpi-content {
+            padding: 10px 15px;
+
+            label {
+                color: #333;
+            }
+        }
     }
 
     /****** Target Template *********/
@@ -270,7 +278,11 @@ label.checkbox
             }
 
             .kpi-list {
-                padding: 10px 15px 5px 0;
+                padding: 0px 15px 0 0;
+            }
+
+            [class*="col-"].no-padding {
+                padding: 0 0 4px;
             }
         }
 
@@ -279,11 +291,14 @@ label.checkbox
         }
 
         .title-list {
-            margin: 10px 0 5px;
+            margin: 7px 0 5px;
         }
 
         .kpi-list {
             li {
+                padding: 3px 0;
+                color: #333;
+
                 &.title-list {
                     margin-top: 0;
                 }
