@@ -2,7 +2,7 @@
 /*global targetModule*/
 
 targetModule.controller('ViewTargetController',
-['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory', 
+['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory',
 'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $location, $translate, $modal, $route,
 		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
@@ -36,6 +36,8 @@ targetModule.controller('ViewTargetController',
 				else {
 					targetUtility.showErrorMessage($scope);
 				}
+
+				$scope.submitted = false;
 			});
 		};
 
@@ -141,7 +143,7 @@ targetModule.controller('ViewTargetController',
 		$scope.viewDetailTarget = function (targetId) {
 			$location.path("/Target/TargetDetail/" + targetId);
 		};
-	}]);
+	} ]);
 
 	targetModule.controller("CreateTargetController",
 ['$scope', '$timeout', '$location', '$translate', '$window',
@@ -376,7 +378,7 @@ targetModule.controller('ViewTargetController',
 								$scope.infoSuccessMessage = message;
 							});
 							$timeout(function () {
-								$scope.success = false;
+								$scope.targetInfoSuccess = false;
 							}, 2000);
 						}
 						else {
