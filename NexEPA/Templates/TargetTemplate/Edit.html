@@ -2,10 +2,9 @@
 	<ul class="col-xs-12  breadcrumb list-inline pull-left">
 		<li>
 			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a></li>
-		<li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
+			<li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
 	</ul>
 </div>
-
 <form class="row common-form project-form" name="editTargetTemplate" novalidate>
 <div>
 	<div class="row boxtitle first">
@@ -23,8 +22,7 @@
 			<label class="col-sm-2 col-md-1">
 				{{"Name" | translate}}</label>
 			<div class="col-sm-6 col-md-4">
-				<input type="text" class="custom-textbox" ng-model="editTemplate.name"
-					placeholder="Name" />
+				<input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name" />
 			</div>
 		</div>
 		<div class="col-sm-12 line required">
@@ -42,8 +40,7 @@
 			<label class="col-sm-2 col-md-1" data-translate="Description">
 			</label>
 			<div class="col-sm-6 col-md-4">
-				<textarea class="custom-textarea" ng-model="editTemplate.description"
-					id="description"></textarea>
+				<textarea class="custom-textarea" ng-model="editTemplate.description" id="description"></textarea>
 			</div>
 		</div>
 	</div>
@@ -53,8 +50,9 @@
 			placeholder="filter kpi..." />
 	</div>
 	<div class="row boxcontent">
-		<div class="row-item col-sm-12" ng-repeat="kpi in lstKPI | filter: KPIName">
-			<div class="row title-list"><strong>{{ kpi.kpiGroupName }}</strong></div>
+		<div class="col-sm-6" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">
+			<div class="row title-list">
+				<strong>{{ kpi.kpiGroupName}}</strong></div>
 			<div class="row" ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
 				<label class="group-checkbox">
 					<input type="checkbox" type="checkbox" value="{{item.name}}" ng-model="item.selected" />
