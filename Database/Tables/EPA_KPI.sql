@@ -16,7 +16,8 @@ CREATE TABLE [dbo].[EPA_KPI](
 	[DisplayOrder] [int] NULL,
 	[KPIName] [nvarchar](50) NULL,
 	[KPIGroupName] [nvarchar](50) NULL,
-	[KPIGroupWeight] [int] NULL
+	[KPIGroupWeight] [int] NULL,
+	[IsRequireComment] [bit] NULL,
 CONSTRAINT [PK_EPAKPI] PRIMARY KEY CLUSTERED
 	(
 	EPAId,KPIId 
