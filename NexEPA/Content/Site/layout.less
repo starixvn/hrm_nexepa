@@ -260,41 +260,6 @@ body {
         }
     }
 
-    /* Table */
-    .table {
-        margin: 0 1% 10px;
-        width: 98%;
-        font-size: @font-size;
-        border: none;
-
-        thead {
-            th {
-                background: @header-bg repeat-x;
-                border-right: 1px solid @header-border-color;
-                color: @header-color;
-                height: 20px;
-                text-align: center;
-                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
-                text-transform: capitalize;
-            }
-        }
-
-        th, td {
-            padding: 5px 10px;
-        }
-
-        &.table-bordered {
-            td {
-                border-color: @table-border-color;
-            }
-        }
-
-        &.table-striped > tbody > tr:nth-child(2n+1) > td,
-        &.table-striped > tbody > tr:nth-child(2n+1) > th {
-            background-color: @odd-td-bg;
-        }
-    }
-
     /* Form */
 
     .common-form {
@@ -376,6 +341,41 @@ body {
     }
 }
 
+/* Table */
+.table {
+    margin: 0 1% 10px;
+    width: 98%;
+    font-size: @font-size;
+    border: none;
+
+    thead {
+        th {
+            background: @header-bg repeat-x;
+            border-right: 1px solid @header-border-color;
+            color: @header-color;
+            height: 20px;
+            text-align: center;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+            text-transform: capitalize;
+        }
+    }
+
+    th, td {
+        padding: 5px 10px;
+    }
+
+    &.table-bordered {
+        td {
+            border-color: @table-border-color;
+        }
+    }
+
+    &.table-striped > tbody > tr:nth-child(2n+1) > td,
+    &.table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: @odd-td-bg;
+    }
+}
+
 /* Calendar */
 
 .calendar-form-control {
@@ -400,11 +400,6 @@ body {
 
     .btn {
         padding: 0 10px 4px;
-
-        &:hover {
-            background: #1BA0E1;
-            span { color: #fff; }
-        }
     }
 
     .btn-group .btn, li .btn-success {
@@ -465,6 +460,11 @@ body {
         }
 
         tbody {
+            .btn:hover {
+                background: #1BA0E1;
+                span { color: #fff; }
+            }
+
             .ng-binding {
                 color: #0789D1;
 
@@ -573,7 +573,7 @@ body {
 /* Button of Bootstrap */
 
 .btn.customize {
-    font-size: 13px;
+    font-size: @font-size - 1;
     padding: 4px 15px 3px;
 }
 
