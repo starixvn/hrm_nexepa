@@ -17,8 +17,6 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Core.Model.Project;
     using NexEPA.Core.Utilities;
     using NexEPA.Project.Criteria.Milestone;
-    using NexEPA.Project.Criteria.Project;
-    using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
     using NexEPA.Target.Criteria.Target.Target;
@@ -102,16 +100,6 @@ namespace NexEPA.Controllers.Target
             };
 
             return _targetServices.Delete(criteria);
-        }
-
-        [HttpGet]
-        public IEnumerable<dynamic> GetAllProject()
-        {
-            var criteria = new GetAllProjectCriteria();
-            IEnumerable<ProjectModel> allProjectList = _projectService.GetAllProject(criteria);
-
-            IEnumerable<dynamic> projectOfTarget = allProjectList.Select(pro => new { pro.Name, pro.ProjectId });
-            return projectOfTarget;
         }
 
         [HttpGet]

@@ -75,6 +75,6 @@
 
 	<Function Name="MyEPA">
 		<Setting Key="EPA_GetInfo" SpName="EPA_GetInfo" DbName="NexEPA" Plain="1" ></Setting>
-    <Setting Key="EPA_GetByEmployeeo" SpName="EPA_GetByEmployee" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="EPA_GetByEmployee" SpName="EPA_GetByEmployee" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 </Functions>

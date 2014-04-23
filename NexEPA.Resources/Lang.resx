@@ -381,4 +381,22 @@
   <data name="TargetMembers" xml:space="preserve">
     <value>TARGET MEMBERS</value>
   </data>
+  <data name="EPA" xml:space="preserve">
+    <value>EPA</value>
+  </data>
+  <data name="EvaluateDate" xml:space="preserve">
+    <value>Evaluate Date</value>
+  </data>
+  <data name="EvaluatorTitle" xml:space="preserve">
+    <value>Evaluator</value>
+  </data>
+  <data name="ManageMyEPA" xml:space="preserve">
+    <value>Manage My EPA</value>
+  </data>
+  <data name="MyEPA" xml:space="preserve">
+    <value>My EPA</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score</value>
+  </data>
 </root>

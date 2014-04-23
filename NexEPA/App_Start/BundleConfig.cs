@@ -37,7 +37,8 @@ namespace NexEPA
                 "~/Content/Site/Employee/employee.less",
                 "~/Content/Site/Projects/project.less",
                 "~/Content/Site/KPI/KPI.less",
-                "~/Content/Site/Target/target.less");
+                "~/Content/Site/Target/target.less",
+                "~/Content/Site/EPA/EPA.less");
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",

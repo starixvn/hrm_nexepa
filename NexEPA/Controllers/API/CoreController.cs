@@ -10,11 +10,15 @@
 namespace NexEPA.Controllers.API
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
     using NexEPA.Core.Services;
-    using NexEPA.Web.Controllers;
+    using NexEPA.Project.Criteria.Project;
+    using NexEPA.Project.Models;
+    using NexEPA.Project.Services.Impl;
+    using NexEPA.Project.Services.Interfaces;
 
     /// <summary>
     /// Core controller.
@@ -22,15 +26,17 @@ namespace NexEPA.Controllers.API
     public class CoreController : ApiController
     {
         private EPAService _epaService;
+        private IProjectService _projectService;
 
         public CoreController()
-            : this(null)
+            : this(null, null)
         { 
         }
 
-        public CoreController(EPAService epaService)
+        public CoreController(EPAService epaService, ProjectService projectService)
         {
             _epaService = epaService ?? new EPAService();
+            _projectService = projectService ?? new ProjectService();
         }
 
         [HttpGet]
@@ -38,6 +44,16 @@ namespace NexEPA.Controllers.API
         {
             var criteria = new GetAllTargetTypeCriteria();
             return _epaService.GetAllTargetType(criteria);
+        }
+
+        [HttpGet]
+        public IEnumerable<dynamic> GetAllProject()
+        {
+            var criteria = new GetAllProjectCriteria();
+            IEnumerable<ProjectModel> allProjectList = _projectService.GetAllProject(criteria);
+
+            IEnumerable<dynamic> projectOfTarget = allProjectList.Select(pro => new { pro.Name, pro.ProjectId });
+            return projectOfTarget;
         }
     }
 }

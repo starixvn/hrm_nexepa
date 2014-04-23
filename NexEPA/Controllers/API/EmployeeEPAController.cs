@@ -56,14 +56,13 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        public List<MemberEPAModel> GetEPAByEmployee(
-            int employeeId,
+        public List<MemberEPAModel> GetEPAOfCurrentMember(
             int? projectId = null,
             int? status = null)
         {
             var criteria = new GetEPAByEmployeeCriteria
             {
-                EmployeeId = employeeId,
+                EmployeeId = this.CurrentUser.UserId,
                 ProjectId = projectId,
                 Status = status
             };

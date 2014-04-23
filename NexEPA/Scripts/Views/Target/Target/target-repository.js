@@ -20,7 +20,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http['delete']('/api/Target', { params: { targetId: targetId} });
 		},
 		getAllProject: function () {
-			return $http.get('/api/Target/GetAllProject');
+			return $http.get('/api/Core/GetAllProject');
 		},
 		getMilestoneOfProject: function (projectId) {
 			return $http.get('/api/Target/GetMilestoneByProjectId', { params: { projectId: projectId} });
