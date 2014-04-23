@@ -1,9 +1,8 @@
 ﻿<div ng-controller="MilestoneController">
+	<div class="error-message" ng-show="milestoneErrors.length > 0" id="addError" ng-repeat="error in milestoneErrors">
+		{{error}}
+	</div>
 	<table class="table table-bordered table-striped table-hover" id="milestone-table">
-		<div class="error-message" ng-show="milestoneErrors.length > 0" id="addError"
-			ng-repeat="error in milestoneErrors">
-			{{error}}
-		</div>
 		<thead>
 			<tr ng-show="addMode == false">
 				<th data-translate="Name">
@@ -41,11 +40,12 @@
 				<input type="text" class="form-control" ng-model="milestone.name" />
 			</td>
 			<td>
-				<input type="text" class="form-control custom-readonly" ng-model="milestone.startDate" datepicker-popup="dd-MMMM-yyyy" readonly/>
+				<input type="text" class="form-control custom-readonly" ng-model="milestone.startDate"
+					datepicker-popup="dd-MMMM-yyyy" readonly />
 			</td>
 			<td>
-				<input type="text" class="form-control custom-readonly" ng-model="milestone.endDate" datepicker-popup="dd-MMMM-yyyy"
-					readonly />
+				<input type="text" class="form-control custom-readonly" ng-model="milestone.endDate"
+					datepicker-popup="dd-MMMM-yyyy" readonly />
 			</td>
 			<td class="column-limit">
 				<input type="text" class="form-control" ng-model="milestone.description" />

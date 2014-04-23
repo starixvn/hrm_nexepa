@@ -6,77 +6,72 @@
 	</ul>
 </div>
 <div class="row">
-	<form class="col-sm-6 common-form project-form" name="addProjectForm" novalidate>
-	<div class="boxtitle">
-		PROJECT INFORMATIONS
+	<form class="col-sm-6 form-horizontal common-form" name="addProjectForm" novalidate>
+	<div class="col-sm-offset-3">
+		<div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
+			{{error}}
+		</div>
+		<span class="error-message hide-errormessage" id="projectValid">
+			Please input all required (*) fields.</span>
 	</div>
-	<div class="boxcontent">
-		<div class="line">
-			<div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
-				{{error}}
-			</div>
-			<div class="control-label error-message hide-errormessage" id="projectValid">
-				Please input all required (*) fields.</div>
+	<div class="form-group required">
+		<label class="col-sm-3 control-label" data-translate="ProjectName" />
+		<div class="col-sm-8">
+			<input class="form-control" type="text" name="projectname" ng-model="project.name"
+				placeholder="Project Name" required />
 		</div>
-		<div class="line required">
-			<label class="col-sm-3 control-label" data-translate="ProjectName" />
-			<div class="row">
-				<input class="custom-textbox custom-width" type="text" name="projectname" ng-model="project.name"
-					placeholder="Project Name" required />
-			</div>
+	</div>
+	<div class="form-group required">
+		<label class="col-sm-3 control-label" data-translate="StartDate">
+		</label>
+		<div class="col-sm-8">
+			<input type="text" class="custom-textbox custom-width custom-date" ng-model="project.startDate" placeholder="Start Date"
+				datepicker-popup="dd MMMM, yyyy" id="startDate" readonly required is-open="calendar.startDateOpened"/>
+				<img class="calendar-image" ng-click="openPopupStartDate($event)" src="{{sourceCalendarImage}}"></img>
 		</div>
-		<div class="line required">
-			<label class="col-sm-3 control-label" data-translate="StartDate">
-			</label>
-			<div class="row">
-				<input type="text" class="custom-textbox custom-width" ng-model="project.startDate"
-					placeholder="Start Date" datepicker-popup="dd MMMM, yyyy" id="startDate" readonly
-					required />
-			</div>
+	</div>
+	<div class="form-group required">
+		<label class="col-sm-3 control-label" data-translate="EndDate">
+		</label>
+		<div class="col-sm-8">
+			<input type="text" class="custom-textbox custom-width custom-date" ng-model="project.endDate" placeholder="End Date"
+				datepicker-popup="dd-MMMM-yyyy" id="endDate" readonly required is-open="calendar.endDateOpened"/>
+			<img class="calendar-image" ng-click="openPopupEndDate($event)" src="{{sourceCalendarImage}}"></img>
 		</div>
-		<div class="line required">
-			<label class="col-sm-3 control-label" data-translate="EndDate">
-			</label>
-			<div class="row">
-				<input type="text" class="custom-textbox custom-width" ng-model="project.endDate"
-					placeholder="End Date" datepicker-popup="dd-MMMM-yyyy" id="endDate" readonly
-					required />
-			</div>
+	</div>
+	<div class="form-group required">
+		<label class="col-sm-3 control-label" data-translate="PM">
+		</label>
+		<div class="col-sm-8">
+			<select class="form-control" ng-options="pm.employeeId as pm.fullName for pm in pms"
+				ng-model="project.projectManager" required>
+				<option style="display: none" value="">-- Select a Project Manager --</option>
+			</select>
 		</div>
-		<div class="line required">
-			<label class="col-sm-3 control-label" data-translate="PM">
-			</label>
-			<div class="row">
-				<select class="custom-textbox custom-width" ng-options="pm.employeeId as pm.fullName for pm in pms"
-					ng-model="project.projectManager" required>
-					<option style="display: none" value="">-- Select a Project Manager --</option>
-				</select>
-			</div>
+	</div>
+	<div class="form-group required">
+		<label class="col-sm-3 control-label" data-translate="Status">
+		</label>
+		<div class="col-sm-8">
+			<select class="form-control" ng-options="s.id as s.name for s in status" ng-model="project.status"
+				required>
+				<option style="display: none" value="">-- Select a status --</option>
+			</select>
 		</div>
-		<div class="line required">
-			<label class="col-sm-3 control-label" data-translate="Status">
-			</label>
-			<div class="row">
-				<select class="custom-textbox custom-width" ng-options="s.id as s.name for s in status"
-					ng-model="project.status" required>
-					<option style="display: none" value="">-- Select a status --</option>
-				</select>
-			</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" data-translate="Description">
+		</label>
+		<div class="col-sm-8">
+			<textarea class="form-control" ng-model="project.description"></textarea>
 		</div>
-		<div class="line">
-			<label class="col-sm-3 control-label" data-translate="Description">
-			</label>
-			<div class="row">
-				<textarea class="custom-textarea custom-width" ng-model="project.description"></textarea>
-			</div>
-		</div>
-		<div class="col-sm-offset-5">
-			<button class="button" ng-disabled="addProjectForm.$invalid" ng-click="save(project)"
-				data-translate="Submit">
-			</button>
-			<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-			</button>
-		</div>
+	</div>
+	<div class="col-sm-offset-5">
+		<button class="button" ng-click="save(project)"
+			data-translate="Submit">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
 	</div>
 	</form>
 </div>

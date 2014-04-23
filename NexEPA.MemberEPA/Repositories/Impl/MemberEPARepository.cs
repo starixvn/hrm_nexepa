@@ -41,22 +41,21 @@ namespace NexEPA.MemberEPA.Repositories.Impl
                 {
                     data = multi.Read<EPAInfoModel>().FirstOrDefault();
                     data.ProjectRoles = multi.Read<EPAProjectRoleModel>().ToList();
-                    List<KPIInfo> kpis = multi.Read<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
-                        (inf, gr, ta) =>
+                    List<KPIInfo> kpis = multi.Read<KPIInfo, KPIGroupInfo, KPIInfo>(
+                        (inf, gr) =>
                         {
                             inf.Group = gr;
-                            inf.TargetType = ta;
                             return inf;
                         },
-                        "KPIGroupId,TargetTypeId").ToList();
+                        "KPIGroupId").ToList();
 
                     List<GroupingKPIModel> groupData = (from kpi in kpis
-                                     group kpi by kpi.Group.Name into kpi
-                                     select new GroupingKPIModel()
-                                    {
-                                        KPIGroupName = kpi.Key,
-                                        KPIGroupItems = kpi.ToList()
-                                    }).ToList();
+                                                        group kpi by kpi.Group.Name into kpi
+                                                        select new GroupingKPIModel()
+                                                        {
+                                                            KPIGroupName = kpi.Key,
+                                                            KPIGroupItems = kpi.ToList()
+                                                        }).ToList();
 
                     data.KPIInfo = groupData;
                 }

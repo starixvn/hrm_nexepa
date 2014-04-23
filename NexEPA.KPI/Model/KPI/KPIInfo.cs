@@ -27,6 +27,14 @@ namespace NexEPA.KPI.Model.KPI
 
         public bool IsDisabled { get; set; }
 
+        public int Score { get; set; }
+
+        public int Percent { get; set; }
+
+        public string Comment { get; set; }
+
+        public string KPIGroupName { get; set; }
+
         public KPIGroupInfo Group { get; set; }
 
         public TargetType TargetType { get; set; }

@@ -12,6 +12,8 @@ namespace NexEPA.MemberEPA.Services.Impl
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
+    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Services;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
@@ -22,7 +24,7 @@ namespace NexEPA.MemberEPA.Services.Impl
     /// <summary>
     /// Member EPA Service.
     /// </summary>
-    public class MemberEPAService : IMemberEPAService
+    public class MemberEPAService : BaseService, IMemberEPAService
     {
         private readonly IMemberEPARepository _memberEPARepository;
 
@@ -59,6 +61,23 @@ namespace NexEPA.MemberEPA.Services.Impl
             }
 
             return employeeEPAs;
+        }
+
+        /// <summary>
+        /// Add or Update Employee EPA.
+        /// </summary>
+        /// <param name="criteria">AddOrUpdateEPAScore Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult AddOrUpdateEmployeeEPA(AddOrUpdateEPAScore criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Insert(criteria);
+            }
+
+            return result;
         }
     }
 }

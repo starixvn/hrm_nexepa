@@ -33,6 +33,7 @@ namespace NexEPA.Project.Models
         [Required(ErrorMessage = "The field Project Manager is required.")]
         public int? ProjectManager { get; set; }
 
+        [Required(ErrorMessage = "The field Status is required.")]
         public byte? Status { get; set; }
 
         public string StatusName { get; set; }

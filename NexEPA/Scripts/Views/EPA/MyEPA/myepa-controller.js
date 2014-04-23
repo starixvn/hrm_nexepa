@@ -1,18 +1,26 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', function ($scope, employeeEPAFactory) {
-	$(".boxtitle").on("click", function () {
-		var header = $(this);
-		//getting the next element
-		var content = header.next();
-		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
-		content.slideToggle(500, function () {
-		});
-	});
+epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory',
+function ($scope, employeeEPAFactory, notificationFactory) {
+	/**
+	* Scope variables. 
+	*/
+	$scope.max = 10;
+	$scope.isReadonly = false;
 
-	employeeEPAFactory.getMyEPA(39).then(function (data) {
-		$scope.myEPA = data;
+
+	/**
+	* Ajax event. 
+	*/
+	var successAddOrUpdateEPA = function () { notificationFactory.success(); };
+	var errorAddOrUpdateEPA = function (response) { notificationFactory.error(response); };
+
+	/**
+	* Initialize data to view Edit Project. 
+	*/
+	employeeEPAFactory.getEmployeeEPA(39).then(function (data) {
+		$scope.employeeEPA = data;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
 			roleArray.push(data.projectRoles[i].name);
@@ -21,10 +29,30 @@ epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', f
 		$scope.employeeRole = roleArray.join(", ");
 	});
 
-	$scope.rate = 0;
-	$scope.max = 10;
-	$scope.isReadonly = false;
-	$scope.percent = 0;
+	/**
+	* Events 
+	*/
+	$scope.save = function (employeeEPAResult) {
+		employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
+	};
+
+	$scope.hoveringOver = function (value, object) {
+		object.percent = (100 * value) / $scope.max;
+	};
+
+	$scope.hoveringLeave = function (rate, object) {
+		object.percent = (100 * rate) / $scope.max;
+	};
+
+
+	$(".boxtitle").on("click", function () {
+		var header = $(this);
+		//getting the next element
+		var content = header.next();
+		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+		content.slideToggle(500, function () {
+		});
+	});
 
 
 } ]);

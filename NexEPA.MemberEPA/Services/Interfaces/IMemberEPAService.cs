@@ -11,6 +11,7 @@
 namespace NexEPA.MemberEPA.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
@@ -23,5 +24,7 @@ namespace NexEPA.MemberEPA.Services.Interfaces
         EPAInfoModel GetEPAInfo(GetEPAInfoCriteria criteria);
 
         List<MemberEPAModel> GetEPAByEmployee(GetEPAByEmployeeCriteria criteria);
+
+        CommandResult AddOrUpdateEmployeeEPA(AddOrUpdateEPAScore criteria);
     }
 }

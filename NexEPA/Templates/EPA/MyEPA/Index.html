@@ -17,13 +17,13 @@
 				<div class="col-sm-3" data-translate="Employee">
 				</div>
 				<div class="col-sm-8">
-					<strong>{{myEPA.fullName}}</strong></div>
+					<strong>{{employeeEPA.fullName}}</strong></div>
 			</div>
 			<div class="col-sm-6">
 				<div class="col-sm-3" data-translate="Team">
 				</div>
 				<div class="col-sm-8">
-					<strong>{{myEPA.groupName}}</strong></div>
+					<strong>{{employeeEPA.groupName}}</strong></div>
 			</div>
 		</div>
 		<div class="row row-item line">
@@ -37,7 +37,7 @@
 				<div class="col-sm-3" data-translate="Project">
 				</div>
 				<div class="col-sm-8">
-					<strong>{{myEPA.projectName}}</strong></div>
+					<strong>{{employeeEPA.projectName}}</strong></div>
 			</div>
 		</div>
 		<div class="row row-item line">
@@ -51,7 +51,7 @@
 				<div class="col-sm-3" data-translate="Milestone">
 				</div>
 				<div class="col-sm-8">
-					<strong>{{myEPA.milestoneName}}</strong></div>
+					<strong>{{employeeEPA.milestoneName}}</strong></div>
 			</div>
 		</div>
 		<div class="row row-item line">
@@ -61,7 +61,7 @@
 </div>
 <div class="col-sm-12 list-group-item">
 	<ol class="epa-criteria-ol" type="A">
-		<div class="col-sm-12 criteria-area" ng-repeat="kpi in myEPA.kpiInfo">
+		<div class="col-sm-12 criteria-area" ng-repeat="kpi in employeeEPA.kpiInfo">
 			<li class="boxtitle first epa-criteria-name">{{kpi.kpiGroupName}}</li>
 			<div class="col-sm-12">
 				<ol type="1">
@@ -72,8 +72,10 @@
 						<div class="row">
 							<div class="col-sm-9 criteria-description">{{item.description}}</div>
 							<div class="col-sm-2 pull-right">
-								<rating value="rate" max="max" readonly="isReadonly" 
-								on-hover="hoveringOver(value, max)" on-leave="hoveringLeave(rate)"></rating>
+								<rating value="item.score" max="max" readonly="isReadonly" 
+								on-hover="hoveringOver(value, item)" on-leave="hoveringLeave(item.score, item)"></rating>
+								<span class="badge" ng-show="item.percent > 0">{{item.percent}} %</span>
+
 							</div>
 						</div>
 						<div class="row">
@@ -92,7 +94,7 @@
 	<textarea class="col-sm-9 epa-textarea-comment"></textarea>
 </div>
 <div class="col-sm-12 action-button">
-	<button class="button" ng-disabled="addProjectForm.$invalid" ng-click="save(project)"
+	<button class="button" ng-disabled="addProjectForm.$invalid" ng-click="save(employeeEPA)"
 		data-translate="Submit">
 	</button>
 	<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">

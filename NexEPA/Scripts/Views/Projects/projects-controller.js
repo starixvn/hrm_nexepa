@@ -78,12 +78,13 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 }]);
 
 projectsSettingModule.controller('CreateProjectController',
-['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache',
-function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
+['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', 'datePickerFactory',
+function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, datePickerFactory) {
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 	$scope.errors = [];
 	$("#projectValid").hide();
+
 	/**
 	* Ajax event. 
 	*/
@@ -124,6 +125,7 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
 		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
 	}
 
+	commonFactory.getSourceCalendarImage($scope);
 	/**
 	* Events 
 	*/
@@ -140,6 +142,17 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache) {
 
 	// Cancel
 	$scope.cancel = function () { $window.history.back(); };
+
+	// show start date calendar when click button start date
+	$scope.openPopupStartDate = function ($event) {
+		datePickerFactory.openPopupStartDate($event, $scope);
+	};
+
+	// show end date calendar when click button end date
+	$scope.openPopupEndDate = function ($event) {
+		datePickerFactory.openPopupEndDate($event, $scope);
+	};
+
 }]);
 
 projectsSettingModule.controller('EditProjectController', 
@@ -152,6 +165,7 @@ function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectS
     $scope.errors = [];
     var cacheListPM = ProjectSettingCache.get("CacheListPM");
     var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+
     /**
     * Ajax event. 
     */
@@ -320,4 +334,4 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 		});
 
 	};
-}]);
+} ]);

@@ -39,6 +39,8 @@ namespace NexEPA.MemberEPA.Models
 
         public string MilestoneName { get; set; }
 
+        public string Comment { get; set; }
+
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }
 
         public List<GroupingKPIModel> KPIInfo { get; set; }
