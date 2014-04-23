@@ -18,10 +18,17 @@
                 <select name="formSelect" ng-model="filter.targetTypeId" 
                     ng-options="opt.targetTypeId as opt.name for opt in formOptions" required class="form-control">
                     <option value="">-- All --</option>
-                    </select>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="filter-radio-active">
+                    <input type="radio" ng-model="activeFilter" value="active"/>
+                    <span data-translate="Active"></span>
+                    <input type="radio" ng-model="activeFilter" value="all"/>
+                    <span data-translate="All"></span>
+                </div>
             </div>
             <button class="button" ng-click="query(filter.targetTypeId)" ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
-            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </form>
     </div>
 </div>
@@ -31,16 +38,18 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th data-translate="SymbolCount"></th>
                     <th data-translate="Group"></th>
                     <th data-translate="Weight"></th>
-                    <th data-translate="Criteria"></th>
+                    <th data-translate="KPIs"></th>
                     <th data-translate="Form"></th>
                     <th data-translate="Active"></th>
                     <th data-translate="Description"></th>
                     <th data-translate="Action"></th>
                 </tr>
             </thead>
-            <tr ng-repeat="group in KPIGroupList">
+            <tr ng-repeat="group in KPIGroupList | filter: filterActive">
+                <td class="KPI-index" ng-bind="$index + 1"></td>
                 <td class="KPI-group-name" ng-bind="group.name"></td>
                 <td class="KPI-group-weight" ng-bind="group.weight"></td>
                 <td class="KPI-group-criteria">
@@ -63,6 +72,14 @@
             </tr>
         </table>
     </div>
+</div>
+
+<div class="msgbox info" ng-show="showInfoMessage" >
+    <div ng-bind="infoMessage"></div>
+</div>
+
+<div class="msgbox error" ng-show="showErrorMessage">
+    <div ng-bind="errorMessage"></div>
 </div>
 
 

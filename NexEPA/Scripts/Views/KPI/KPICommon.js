@@ -1,79 +1,120 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
-kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', function ($http, $q, $translate) {
-	var common = {};
+kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', '$timeout',
+	function ($http, $q, $translate, $timeout) {
+		var common = {};
 
-	common.getFormOptions = function () {
-		var deferred = $q.defer();
-		$http.get('/api/Core/AllTargetType').success(deferred.resolve).error(deferred.reject);
-		return deferred.promise;
-	};
+		common.getFormOptions = function () {
+			var deferred = $q.defer();
+			$http.get('/api/Core/AllTargetType').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		};
 
-	common.getGroupByTargetTypeId = function (targetTypeId) {
-		var deferred = $q.defer();
-		$http.get('/api/KPIGroup/GetGroupListByTargetTypeId', { params: { targetTypeId: targetTypeId} })
+		common.getGroupByTargetTypeId = function (targetTypeId) {
+			var deferred = $q.defer();
+			$http.get('/api/KPIGroup/GetGroupListByTargetTypeId', { params: { targetTypeId: targetTypeId} })
 			.success(deferred.resolve).error(deferred.reject);
-		return deferred.promise;
-	};
+			return deferred.promise;
+		};
 
-	common.validateGroup = function (group) {
-		if (group === undefined) {
-			return false;
-		}
-		else {
-			if (group.name === undefined) {
+		common.validateGroup = function (group) {
+			if (group === undefined) {
 				return false;
 			}
+			else {
+				if (group.name === undefined) {
+					return false;
+				}
 
-			if (group.weight === undefined || group.weight === null || isNaN(group.weight) ||
+				if (group.weight === undefined || group.weight === null || isNaN(group.weight) ||
 					group.weight < 0 || group.weight > 100) {
-				return false;
+					return false;
+				}
+
+				if (group.targetTypeId === undefined || group.targetTypeId === null) {
+					return false;
+				}
 			}
 
-			if (group.targetTypeId === undefined || group.targetTypeId === null) {
+			return true;
+		};
+
+		common.validateKPI = function (item) {
+			if (item === undefined) {
 				return false;
 			}
-		}
-
-		return true;
-	};
-
-	common.validateKPI = function (item) {
-		if (item === undefined) {
-			return false;
-		}
-		else {
-			if (item.name === undefined) {
-				return false;
+			else {
+				if (item.name === undefined) {
+					return false;
+				}
+				else if (item.targetTypeId === undefined || item.targetTypeId === null) {
+					return false;
+				}
+				else if (item.kpiGroupId === undefined || item.kpiGroupId === null) {
+					return false;
+				}
 			}
-			else if (item.targetTypeId === undefined || item.targetTypeId === null) {
-				return false;
+
+			return true;
+		};
+
+		common.showSuccessMessage = function ($scope, keyMessage) {
+			$scope.success = true;
+			$translate(keyMessage).then(function (message) {
+				$scope.successMessage = message;
+			});
+		};
+
+		common.showErrorMessage = function ($scope, keyMessage, message) {
+			$scope.success = false;
+
+			if (message === '' || message === null || message === undefined) {
+				$translate(keyMessage).then(function (errorMessage) {
+					$scope.errorMessage = errorMessage;
+				});
 			}
-			else if (item.kpiGroupId === undefined || item.kpiGroupId === null) {
-				return false;
+			else {
+				$scope.errorMessage = message;
 			}
-		}
+		};
 
-		return true;
-	};
+		common.showErrorMessageBox = function ($scope, keyMessage, message) {
+			$scope.showErrorMessage = true;
 
-	common.showSuccessMessage = function ($scope, keyMessage) {
-		$scope.success = true;
-		$translate(keyMessage).then(function (message) {
-			$scope.successMessage = message;
-		});
-	};
+			if (message === '' || message === null || message === undefined) {
+				$translate(keyMessage).then(function (errorMessage) {
+					$scope.errorMessage = errorMessage;
+				});
+			}
+			else {
+				$scope.errorMessage = message;
+			}
 
-	common.showErrorMessage = function ($scope, keyMessage) {
-		$scope.success = false;
-		$translate(keyMessage).then(function (errorMessage) {
-			$scope.errorMessage = errorMessage;
-		});
-	};
+			$timeout(function () {
+				$scope.showErrorMessage = false;
+			}, 5000);
+		};
 
-	return common;
-} ]);
+		common.showInfoMessage = function ($scope, keyMessage, message) {
+			$scope.showInfoMessage = true;
+
+			if (message === '' || message === null || message === undefined) {
+				$translate(keyMessage).then(function (infoMessage) {
+					$scope.infoMessage = infoMessage;
+				});
+			}
+			else {
+				$scope.infoMessage = message;
+			}
+
+			$timeout(function () {
+				$scope.showInfoMessage = false;
+			}, 3000);
+		};
+
+		return common;
+	} ]);
 
 kpiSettingModule.factory("CacheFactory", ['$cacheFactory', function ($cacheFactory) {
 	return $cacheFactory("KPICache");

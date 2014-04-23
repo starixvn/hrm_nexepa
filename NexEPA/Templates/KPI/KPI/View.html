@@ -11,7 +11,8 @@
             <span class="icon plus"></span><a href="" ng-click="create()" data-translate="CreateKPI"></a>
         </div>
         <div class="button-icon" ng-show="!isViewAll">
-            <span class=""></span><a href="" ng-click="back()" data-translate="BackToList"></a>
+            <span class="glyphicon glyphicon-arrow-left icon-back"></span>
+            <a href="" ng-click="back()" data-translate="BackToList"></a>
         </div>
     </div>
 
@@ -31,10 +32,18 @@
                     required class="form-control">
                     <option value="">-- All --</option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label data-translate="Active"></label>
+                <div class="filter-radio-active">
+                    <input type="radio" ng-model="activeFilter" value="active"/>
+                    <span data-translate="Active"></span>
+                    <input type="radio" ng-model="activeFilter" value="all"/>
+                    <span data-translate="All"></span>
                 </div>
+            </div>
             <button ng-show="isViewAll" class="button" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
                     ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
-            <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
         </form>
     </div>
 </div>
@@ -43,25 +52,31 @@
     <table ng-show="isViewAll" class="table table-bordered table-striped">
         <thead>
             <tr>
+                <th data-translate="SymbolCount"></th>
                 <th data-translate="Title"></th>
                 <th data-translate="Group"></th>
                 <th data-translate="Form"></th>
+                <th data-translate="Active"></th>
                 <th data-translate="Description"></th>
                 <th data-translate="Action"></th>
             </tr>
         </thead>
-        <tr ng-repeat="item in KPIList">
+        <tr ng-repeat="item in KPIList | filter:filterActive">
+            <td class="KPI-index" ng-bind="$index + 1"></td>
             <td class="KPI-title" ng-bind="item.name"></td>
             <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
             <td class="KPI-form" ng-bind="item.targetTypeName"></td>
+            <td class="KPI-group-active">
+                <input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)"/>
+            </td>
             <td class="KPI-description" ng-bind="item.description"></td>
             <td class="KPI-action">
                 <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
-                <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
+                <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)"/>
             </td>
         </tr>
         <tr ng-show="KPIList == ''">
-            <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
+            <td class="empty-result" colspan="6" data-translate="EmptyResult"></td>
         </tr>
     </table>
 
@@ -71,6 +86,7 @@
                 <th data-translate="Title"></th>
                 <th data-translate="Group"></th>
                 <th data-translate="Form"></th>
+                <th data-translate="Active"></th>
                 <th data-translate="Description"></th>
                 <th data-translate="Action"></th>
             </tr>
@@ -79,16 +95,27 @@
             <td class="KPI-title" ng-bind="item.name"></td>
             <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
             <td class="KPI-form" ng-bind="item.targetTypeName"></td>
+            <td class="KPI-group-active">
+                <input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)"/>
+            </td>
             <td class="KPI-description" ng-bind="item.description"></td>
             <td class="KPI-action">
                 <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"/>
-                <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item.kpiId, item.name)"/>
+                <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)"/>
             </td>
         </tr>
         <tr ng-show="KPIList == ''">
-            <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
+            <td class="empty-result" colspan="6" data-translate="EmptyResult"></td>
         </tr>
     </table>
+</div>
+
+<div class="msgbox info" ng-show="showInfoMessage" >
+    <div ng-bind="infoMessage"></div>
+</div>
+
+<div class="msgbox error" ng-show="showErrorMessage">
+    <div ng-bind="errorMessage"></div>
 </div>
 
 

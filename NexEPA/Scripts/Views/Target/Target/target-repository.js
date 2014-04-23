@@ -163,9 +163,9 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 				$scope.targetInformationsHeading = targetInformationsHeadingCache;
 			}
 			else {
-				$translate("TargetInformations").then(function (message) {
-					$scope.targetInformationsHeading = message;
-					targetCacheFactory.put("targetInformationsHeading", message);
+				$translate("TargetInformation").then(function (message) {
+					$scope.targetInformationHeading = message;
+					targetCacheFactory.put("targetInformationHeading", message);
 				});
 			}
 

@@ -372,8 +372,8 @@
   <data name="TargetDetail" xml:space="preserve">
     <value>Target Detail</value>
   </data>
-  <data name="TargetInformations" xml:space="preserve">
-    <value>TARGET INFORMATIONS</value>
+  <data name="TargetInformation" xml:space="preserve">
+    <value>TARGET INFORMATION</value>
   </data>
   <data name="TargetKPI" xml:space="preserve">
     <value>TARGET KPI</value>
@@ -398,5 +398,26 @@
   </data>
   <data name="Score" xml:space="preserve">
     <value>Score</value>
+  </data>
+  <data name="KPIs" xml:space="preserve">
+    <value>KPIs</value>
+  </data>
+  <data name="ActivationFail" xml:space="preserve">
+    <value>Activation Failed!</value>
+  </data>
+  <data name="ActivationSuccess" xml:space="preserve">
+    <value>Activation Succeeded!</value>
+  </data>
+  <data name="DeactivationFail" xml:space="preserve">
+    <value>Deactivation Failed!</value>
+  </data>
+  <data name="DeactivationSuccess" xml:space="preserve">
+    <value>Deactivation Succeeded!</value>
+  </data>
+  <data name="DeleteFail" xml:space="preserve">
+    <value>Delete Failed!</value>
+  </data>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Deletion Succeeded!</value>
   </data>
 </root>

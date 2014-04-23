@@ -16,7 +16,7 @@
 	width: @width-100;
 } 
 
-.KPI-count {
+.KPI-index {
 	.KPI-center;
 }
 
@@ -63,4 +63,47 @@
 .KPI-action {
 	.KPI-center;
 	width: @width-100;
+}
+
+.msgbox {
+	border: 1px solid #FFFFFF;
+	border-radius: 2px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	color: #333333;
+	font-weight: bold;
+	padding: 10px;
+}
+
+.msgbox.info {
+	position: fixed; 
+	width: auto; 
+	height: auto; 
+	overflow: auto; 
+	z-index: 9999; 
+	top: 42px; 
+	left: 45%; 
+	right: auto; 
+	bottom: auto;
+	background-color: #E6F1C9;
+	border-color: #CFE493;
+}
+
+.msgbox.error {
+	position: fixed; 
+	width: auto; 
+	height: auto;
+	overflow: auto; 
+	z-index: 9999; 
+	top: 42px; 
+	left: 40%;
+	right: auto; 
+	bottom: auto;
+	background-color: #FFAAAA;
+	border: 1px solid #AA0000;
+}
+
+.filter-radio-active {
+	display: inline-block;
+	vertical-align: middle;
+	width: auto;
 }

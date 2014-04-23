@@ -16,7 +16,7 @@ kpiSettingModule.factory('KPIRepository', ['$http', function ($http) {
 		createKPI: function (kpiItem) {
 			return $http.post(url, kpiItem);
 		},
-		editKPI: function (kpiItem) {
+		updateKPI: function (kpiItem) {
 			return $http.put(url, kpiItem);
 		},
 		deleteKPI: function (kpiId) {

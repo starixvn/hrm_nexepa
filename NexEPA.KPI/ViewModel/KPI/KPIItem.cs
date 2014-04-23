@@ -22,6 +22,8 @@ namespace NexEPA.KPI.ViewModel.KPI
 
         public bool IsRequireComment { get; set; }
 
+        public bool IsDisabled { get; set; }
+
         public int KPIGroupId { get; set; }
 
         public string KPIGroupName { get; set; }

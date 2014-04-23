@@ -70,6 +70,24 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activation Failed!.
+        /// </summary>
+        public static string ActivationFail {
+            get {
+                return ResourceManager.GetString("ActivationFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activation Succeeded!.
+        /// </summary>
+        public static string ActivationSuccess {
+            get {
+                return ResourceManager.GetString("ActivationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
@@ -241,11 +259,47 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deactivation Failed!.
+        /// </summary>
+        public static string DeactivationFail {
+            get {
+                return ResourceManager.GetString("DeactivationFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactivation Succeeded!.
+        /// </summary>
+        public static string DeactivationSuccess {
+            get {
+                return ResourceManager.GetString("DeactivationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Failed!.
+        /// </summary>
+        public static string DeleteFail {
+            get {
+                return ResourceManager.GetString("DeleteFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletion Succeeded!.
+        /// </summary>
+        public static string DeleteSuccess {
+            get {
+                return ResourceManager.GetString("DeleteSuccess", resourceCulture);
             }
         }
         
@@ -498,6 +552,15 @@ namespace NexEPA.Resources {
         public static string KPIGroup {
             get {
                 return ResourceManager.GetString("KPIGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KPIs.
+        /// </summary>
+        public static string KPIs {
+            get {
+                return ResourceManager.GetString("KPIs", resourceCulture);
             }
         }
         
@@ -781,11 +844,11 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TARGET INFORMATIONS.
+        ///   Looks up a localized string similar to TARGET INFORMATION.
         /// </summary>
-        public static string TargetInformations {
+        public static string TargetInformation {
             get {
-                return ResourceManager.GetString("TargetInformations", resourceCulture);
+                return ResourceManager.GetString("TargetInformation", resourceCulture);
             }
         }
         

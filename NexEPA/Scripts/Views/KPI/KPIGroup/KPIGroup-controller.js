@@ -24,7 +24,7 @@ var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $transl
 };
 
 // View KPI Group
-kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '$route', 
+kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', '$route',
 '$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository',
 	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -46,7 +46,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '
 					$scope.disabledSubmitButton = false;
 				})
 				.error(function () {
-					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessageBox($scope, "ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 		};
@@ -85,15 +85,13 @@ kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '
 			modalDeleteInstance.result.then(function () {
 				KPIGroupRepository.deleteGroup(groupId).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.success = true;
 						$route.reload();
 					}
 					else {
-						$scope.success = false;
-						$scope.errorMessage = response.message;
+						KPICommonRepository.showErrorMessageBox($scope, "DeleteFail", response.message);
 					}
 				}).error(function () {
-					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessageBox($scope, "DeleteFail");
 				});
 			});
 		};
@@ -134,31 +132,51 @@ kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '
 				windowClass: "modal-confirm-center"
 			});
 
+			var keyMessage = '';
+
 			modalConfirmInstance.result.then(function () {
 				KPIGroupRepository.updateGroup(newGroup).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.success = true;
+						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 					}
 					else {
-						$scope.success = false;
-						$scope.errorMessage = response.message;
+						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 					}
+
+					KPICommonRepository.showInfoMessage($scope, keyMessage);
 				}).error(function () {
-					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					KPICommonRepository.showInfoMessage($scope, keyMessage);
 				});
 			}, function () {
 				group.isDisabled = !newGroup.isDisabled;
 			});
 		};
 
+		// filter active group or not
+		$scope.activeFilter = 'all';
+
+		$scope.filterActive = function (group) {
+			if ($scope.activeFilter === 'all') {
+				return true;
+			}
+			else if ($scope.activeFilter === 'active') {
+				if (!group.isDisabled) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
 		// reload
 		$scope.reload = function () {
 			$route.reload();
 		};
-	}]);
+	} ]);
 
 // Create New KPI Group
-	kpiSettingModule.controller("CreateNewKPIGroupController",['$scope', '$location', '$timeout', 
+	kpiSettingModule.controller("CreateNewKPIGroupController", ['$scope', '$location', '$timeout',
 	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -190,8 +208,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '
 							}, 2000);
 						}
 						else {
-							$scope.success = false;
-							$scope.errorMessage = response.message;
+							KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
 							$scope.disabledSubmitButton = false;
 						}
 					})
@@ -218,7 +235,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '
 		$scope.formOnChange = function (group) {
 			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
 		};
-	}]);
+	} ]);
 
 // Edit KPI Group
 	kpiSettingModule.controller("EditKPIGroupController",['$scope', '$location', 
@@ -259,8 +276,7 @@ kpiSettingModule.controller("GetAllKPIGroupController",['$scope', '$location', '
 							}, 2000);
 						}
 						else {
-							$scope.success = false;
-							$scope.errorMessage = response.message;
+							KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
 							$scope.disabledSubmitButton = false;
 						}
 					})

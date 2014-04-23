@@ -2,11 +2,12 @@
 /*global kpiSettingModule*/
 
 // View KPI
-kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', 
+kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 '$location', '$modal', '$route', '$window', 'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory, KPICommonRepository) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
+		$scope.isActiveFilter = true;
 
 		if (groupId) {
 			$scope.back = function () {
@@ -56,7 +57,10 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 		};
 
 		// delete KPI
-		$scope.openDeletePopup = function (kpiId, kpiName) {
+		$scope.openDeletePopup = function (item) {
+			var kpiId = item.kpiId,
+				kpiName = item.name;
+
 			var modalDeleteInstance = $modal.open({
 				templateUrl: '/templates/Common/ModalConfirmContent.html',
 				controller: "ModalConfirmController",
@@ -74,15 +78,14 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 			modalDeleteInstance.result.then(function () {
 				KPIRepository.deleteKPI(kpiId).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.success = true;
-						$route.reload();
+						var index = $scope.KPIList.indexOf(item);
+						$scope.KPIList.splice(index, 1);
 					}
 					else {
-						$scope.success = false;
-						$scope.errorMessage = response.message;
+						KPICommonRepository.showErrorMessageBox($scope, "DeleteFail", response.message);
 					}
 				}).error(function () {
-					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+					KPICommonRepository.showErrorMessageBox($scope, "ErrorMessage");
 				});
 			});
 		};
@@ -93,6 +96,63 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 			$scope.disabledSubmitButton = true;
 		};
 
+		// confirm active
+		$scope.confirmActive = function (item) {
+			var action = !item.isDisabled ? "deactivate" : "activate";
+			var newItem = item;
+			newItem.isDisabled = !item.isDisabled;
+
+			var modalConfirmInstance = $modal.open({
+				templateUrl: '/templates/Common/modalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return newItem.name;
+					},
+					action: function () {
+						return action;
+					}
+				},
+				windowClass: "modal-confirm-center"
+			});
+
+			var keyMessage = '';
+
+			modalConfirmInstance.result.then(function () {
+				KPIRepository.updateKPI(newItem).success(function (response) {
+					if (response.isSuccessful === true) {
+						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+					}
+					else {
+						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					}
+
+					KPICommonRepository.showInfoMessage($scope, keyMessage);
+				}).error(function () {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					KPICommonRepository.showInfoMessage($scope, keyMessage);
+				});
+			}, function () {
+				item.isDisabled = !newItem.isDisabled;
+			});
+		};
+
+		// filter active KPI or not
+		$scope.activeFilter = 'all';
+
+		$scope.filterActive = function (item) {
+			if ($scope.activeFilter === 'all') {
+				return true;
+			}
+			else if ($scope.activeFilter === 'active') {
+				if (!item.isDisabled) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
 		// reload
 		$scope.reload = function () {
 			if ($scope.isViewAll) {
@@ -100,9 +160,9 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 			}
 			else {
 				$location.url('/KPI/ViewKPI/');
-			} 
+			}
 		};
-	}]);
+	} ]);
 
 // Create New KPI
 	kpiSettingModule.controller('CreateNewKPIController', ['$scope', '$routeParams', 
@@ -160,8 +220,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 
 			if (KPICommonRepository.validateKPI(item) === true) {
 				KPIRepository.createKPI(item).success(function (response) {
-					if (response.isSuccessful === true) {
-						$scope.success = true;
+					if (response.isSuccessful === true) { 
 						KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
 						$timeout(function () {
 							if (!$scope.isCreatedFromKPI) {
@@ -173,8 +232,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 						}, 2000);
 					}
 					else {
-						$scope.success = false;
-						$scope.errorMessage = response.message;
+						KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
 						$scope.disabledSubmitButton = false;
 					}
 				}).error(function () {
@@ -223,17 +281,15 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 			$scope.disabledSubmitButton = true;
 
 			if (KPICommonRepository.validateKPI(kpiItem) === true) {
-				KPIRepository.editKPI(kpiItem).success(function (response) {
+				KPIRepository.updateKPI(kpiItem).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.success = true;
 						KPICommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
 						$timeout(function () {
 							$window.history.back();
 						}, 2000);
 					}
 					else {
-						$scope.success = false;
-						$scope.errorMessage = response.message;
+						KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
 						$scope.disabledSubmitButton = false;
 					}
 				}).error(function () {
