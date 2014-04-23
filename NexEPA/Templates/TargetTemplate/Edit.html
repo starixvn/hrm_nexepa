@@ -1,8 +1,9 @@
 ﻿<div class="row sub-header">
 	<ul class="col-xs-12  breadcrumb list-inline pull-left">
 		<li>
-			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a></li>
-			<li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
+			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
+		</li>
+		<li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
 	</ul>
 </div>
 <form class="row common-form project-form" name="editTargetTemplate" novalidate>
@@ -49,8 +50,10 @@
 		<input class="pull-right custom-textbox filter-kpi-textbox" type="text" ng-model="KPIName"
 			placeholder="filter kpi..." />
 	</div>
-	<div class="row boxcontent">
+	<div class="row boxcontent col-sm-12">
 		<div class="col-sm-6" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">
+			<div class="line">
+			</div>
 			<div class="row title-list">
 				<strong>{{ kpi.kpiGroupName}}</strong></div>
 			<div class="row" ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">

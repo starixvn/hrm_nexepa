@@ -11,7 +11,7 @@ epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', f
 		});
 	});
 
-	employeeEPAFactory.getMyEPA(35).then(function (data) {
+	employeeEPAFactory.getMyEPA(39).then(function (data) {
 		$scope.myEPA = data;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
@@ -22,9 +22,9 @@ epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', f
 	});
 
 	$scope.rate = 0;
-	$scope.max = 5;
+	$scope.max = 10;
 	$scope.isReadonly = false;
 	$scope.percent = 0;
 
 
-}]);
+} ]);

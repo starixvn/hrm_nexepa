@@ -1,5 +1,5 @@
 ﻿<div class="row sub-header">
-    <ul class="col-xs-12 breadcrumb list-inline pull-left">
+	<ul class="col-xs-12 breadcrumb list-inline pull-left">
 		<li>
 			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
 			<li class="current">Details Target Template - {{currentTargetTemplateName}}</li>
@@ -45,6 +45,8 @@ novalidate>
 	</div>
 	<div class="row boxcontent">
 		<div class="col-sm-6" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">
+			<div class="line">
+			</div>
 			<ul class="col-sm-12 list-unstyled kpi-list">
 				<li class="title-list"><strong>{{ kpi.kpiGroupName }}</strong></li>
 				<li ng-repeat="item in kpi.kpiGroupItems | filter: KPIName"><span class="glyphicon glyphicon-ok icon-list">
