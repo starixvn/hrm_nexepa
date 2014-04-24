@@ -3,7 +3,6 @@
 
 registrationModule.factory('commonFactory', ['$translate', '$timeout', function ($translate, $timeout) {
 	var common = {};
-
 	common.getDateFormat = function ($scope) {
 		$scope.dateFormat = "dd MMM, yyyy";
 	};
@@ -46,8 +45,6 @@ registrationModule.factory('commonFactory', ['$translate', '$timeout', function 
 		}, 2000);
 	};
 
-	return common;
-}]);
 	common.openPopupStartDate = function ($event, $scope) {
 		$event.preventDefault();
 		$event.stopPropagation();
@@ -101,11 +98,9 @@ registrationModule.factory('commonFactory', ['$translate', '$timeout', function 
 		var propertyStart = 'editModeStartDateOpened'.concat(milestoneId);
 		var propertyEnd = 'editModeEndDateOpened'.concat(milestoneId);
 
-
 		$scope.calendar[propertyEnd] = true;
 		$scope.calendar[propertyStart] = false;
 	};
-
 	return common;
-});
+ } ]);
 
