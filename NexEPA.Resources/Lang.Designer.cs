@@ -286,7 +286,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete Failed!.
+        ///   Looks up a localized string similar to Deletion Failed!.
         /// </summary>
         public static string DeleteFail {
             get {
@@ -511,6 +511,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string Inactive {
+            get {
+                return ResourceManager.GetString("Inactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Job Title.
         /// </summary>
         public static string JobTitle {
@@ -588,6 +597,15 @@ namespace NexEPA.Resources {
         public static string ManageKPIGroup {
             get {
                 return ResourceManager.GetString("ManageKPIGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Member EPA.
+        /// </summary>
+        public static string ManageMemberEPA {
+            get {
+                return ResourceManager.GetString("ManageMemberEPA", resourceCulture);
             }
         }
         

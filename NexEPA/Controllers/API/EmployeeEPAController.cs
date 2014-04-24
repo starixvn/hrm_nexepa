@@ -110,6 +110,21 @@ namespace NexEPA.Controllers.API
             return _memberEPAService.GetEPAByEmployee(criteria);
         }
 
+        [HttpGet]
+        public List<MemberEPAModel> GetEPAOfEmployeeByManager(
+            int? projectId = null,
+            int? status = null)
+        {
+            var criteria = new GetEPAOfAllEmployeeByManagerCriteria
+            {
+                EmployeeId = this.CurrentUser.UserId,
+                ProjectId = projectId,
+                Status = status
+            };
+
+            return _memberEPAService.GetEPAOfEmployeeByManager(criteria);
+        }
+
         /// <summary>
         /// Method convert data to XML.
         /// </summary>

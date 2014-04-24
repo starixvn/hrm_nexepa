@@ -1,8 +1,8 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
-kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', '$timeout',
-	function ($http, $q, $translate, $timeout) {
+kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate',
+	function ($http, $q, $translate) {
 		var common = {};
 
 		common.getFormOptions = function () {
@@ -77,40 +77,6 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', '$
 			else {
 				$scope.errorMessage = message;
 			}
-		};
-
-		common.showErrorMessageBox = function ($scope, keyMessage, message) {
-			$scope.showErrorMessage = true;
-
-			if (message === '' || message === null || message === undefined) {
-				$translate(keyMessage).then(function (errorMessage) {
-					$scope.errorMessage = errorMessage;
-				});
-			}
-			else {
-				$scope.errorMessage = message;
-			}
-
-			$timeout(function () {
-				$scope.showErrorMessage = false;
-			}, 5000);
-		};
-
-		common.showInfoMessage = function ($scope, keyMessage, message) {
-			$scope.showInfoMessage = true;
-
-			if (message === '' || message === null || message === undefined) {
-				$translate(keyMessage).then(function (infoMessage) {
-					$scope.infoMessage = infoMessage;
-				});
-			}
-			else {
-				$scope.infoMessage = message;
-			}
-
-			$timeout(function () {
-				$scope.showInfoMessage = false;
-			}, 3000);
 		};
 
 		return common;

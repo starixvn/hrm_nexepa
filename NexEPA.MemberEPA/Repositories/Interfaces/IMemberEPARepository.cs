@@ -23,5 +23,7 @@ namespace NexEPA.MemberEPA.Repositories.Interfaces
         EPAInfoModel GetEPAInfo(ICriteria criteria);
 
         IEnumerable<MemberEPAModel> GetEPAByEmployee(ICriteria criteria);
+
+        IEnumerable<MemberEPAModel> GetEPAOfEmployeeByManager(ICriteria criteria);
     }
 }

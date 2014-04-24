@@ -415,9 +415,15 @@
     <value>Deactivation Succeeded!</value>
   </data>
   <data name="DeleteFail" xml:space="preserve">
-    <value>Delete Failed!</value>
+    <value>Deletion Failed!</value>
   </data>
   <data name="DeleteSuccess" xml:space="preserve">
     <value>Deletion Succeeded!</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="ManageMemberEPA" xml:space="preserve">
+    <value>Manage Member EPA</value>
   </data>
 </root>

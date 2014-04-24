@@ -2,9 +2,10 @@
 /*global kpiSettingModule*/
 
 // View KPI
-kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
-'$location', '$modal', '$route', '$window', 'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
-	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory, KPICommonRepository) {
+kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$location', '$modal', '$route', '$window',
+	'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'commonFactory',
+	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory, 
+		KPICommonRepository, commonFactory) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 		$scope.isActiveFilter = true;
@@ -80,12 +81,13 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 					if (response.isSuccessful === true) {
 						var index = $scope.KPIList.indexOf(item);
 						$scope.KPIList.splice(index, 1);
+						commonFactory.showInfoMessageBox($scope, "DeleteSuccess");
 					}
 					else {
-						KPICommonRepository.showErrorMessageBox($scope, "DeleteFail", response.message);
+						commonFactory.showErrorMessageBox($scope, "DeleteFail", response.message);
 					}
 				}).error(function () {
-					KPICommonRepository.showErrorMessageBox($scope, "ErrorMessage");
+					commonFactory.showErrorMessageBox($scope, "ErrorMessage");
 				});
 			});
 		};
@@ -127,10 +129,10 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 					}
 
-					KPICommonRepository.showInfoMessage($scope, keyMessage);
+					commonFactory.showInfoMessageBox($scope, keyMessage);
 				}).error(function () {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-					KPICommonRepository.showInfoMessage($scope, keyMessage);
+					commonFactory.showInfoMessageBox($scope, keyMessage);
 				});
 			}, function () {
 				item.isDisabled = !newItem.isDisabled;
@@ -146,6 +148,11 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams',
 			}
 			else if ($scope.activeFilter === 'active') {
 				if (!item.isDisabled) {
+					return true;
+				}
+			}
+			else if ($scope.activeFilter === 'inactive') {
+				if (item.isDisabled) {
 					return true;
 				}
 			}

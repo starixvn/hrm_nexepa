@@ -17,17 +17,31 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		},
 		getEPAOfCurrentMember: function (projectId, status) {
 			var deferred = $q.defer();
-			$http.get('/api/EmployeeEPA/GetEPAOfCurrentMember', 
-					{ params: {	projectId: projectId,
-								status: status 
+			$http.get('/api/EmployeeEPA/GetEPAOfCurrentMember',
+					{ params: { projectId: projectId,
+						status: status
 					}
-			}).success(deferred.resolve).error(deferred.reject);
+					}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
 		getAllProject: function () {
 			var deferred = $q.defer();
 			$http.get('/api/Core/GetAllProject').success(deferred.resolve).error(deferred.reject);
-			return deferred.promise; 
+			return deferred.promise;
+		},
+		getAllStatus: function() {
+			var deferred = $q.defer();
+			$http.get('/api/Core/GetAllStatus').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		getEPAOfEmployeeByManager: function (projectId, status) {
+			var deferred = $q.defer();
+			$http.get('/api/EmployeeEPA/GetEPAOfEmployeeByManager',
+					{ params: { projectId: projectId,
+						status: status
+					}
+					}).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

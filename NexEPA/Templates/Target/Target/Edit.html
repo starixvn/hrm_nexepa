@@ -5,11 +5,6 @@
             <li><a href="#" data-translate="Target" ng-click="backToView()"></a></li>
             <li class="current" data-translate="EditTarget"></li>
         </ul>
-        <div class="button-icon">
-            <span class="glyphicon glyphicon-arrow-left icon-back"></span>
-            <a href="" ng-click="cancel()" data-translate="BackToList">
-            </a>
-        </div>
     </div>
 </div>
 
@@ -34,7 +29,7 @@
                 <div class="form-group required">
                     <label class="col-sm-3 control-label" data-translate="Name"></label>
                     <div class="col-sm-8">
-                        <input class="form-control" name="targetName" ng-model="target.name" required type="text"/>
+                        <input class="form-control" maxlength="500" name="targetName" ng-model="target.name" required type="text"/>
                     </div>
                 </div>
 
@@ -54,7 +49,7 @@
                     <label class="col-sm-3 control-label" data-translate="Project"></label>
                     <div class="col-sm-8">
                          <select name="targetProjectSelect" ng-model="target.projectId"
-                            ng-options="opt.projectId as opt.name for opt in projectOptions"
+                            ng-options="opt.id as opt.name for opt in projectOptions"
                             ng-change="projectOnChange(target.projectId)"
                             required class="form-control">
                             <option value="">-- Select the project --</option>

@@ -10,13 +10,12 @@
 namespace NexEPA.Controllers.API
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Http;
     using NexEPA.Core.Criteria;
+    using NexEPA.Core.Model.Project;
     using NexEPA.Core.Model.Target;
     using NexEPA.Core.Services;
-    using NexEPA.Project.Criteria.Project;
-    using NexEPA.Project.Models;
+    using NexEPA.Core.Utilities;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
 
@@ -49,11 +48,14 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<dynamic> GetAllProject()
         {
-            var criteria = new GetAllProjectCriteria();
-            IEnumerable<ProjectModel> allProjectList = _projectService.GetAllProject(criteria);
+            var criteria = new GetAllProjectToFilterCriteria();
+            return _epaService.GetAllProjectToFilter(criteria);
+        }
 
-            IEnumerable<dynamic> projectOfTarget = allProjectList.Select(pro => new { pro.Name, pro.ProjectId });
-            return projectOfTarget;
+        [HttpGet]
+        public IEnumerable<SelectListModel> GetAllStatus()
+        {
+            return EnumStatus.GetAllStatus();
         }
     }
 }

@@ -53,12 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Criteria\GetAllProjectToFilterCriteria.cs" />
     <Compile Include="Criteria\GetAllTargetTypeCriteria.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\StatusProject.cs" />
     <Compile Include="Enums\RolesEnum.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Extensions\StringValueAttribute.cs" />
+    <Compile Include="Model\Project\ProjectFilterModel.cs" />
     <Compile Include="Model\Project\SelectListModel.cs" />
     <Compile Include="Model\Target\TargetType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

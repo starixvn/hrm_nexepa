@@ -265,6 +265,7 @@
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
     <Content Include="Templates\Employee\View.html" />
+    <Content Include="Templates\EPA\MemberEPA\ViewAllMemberOfManager.html" />
     <Content Include="Templates\EPA\MemberEPA\ViewCurrentMember.html" />
     <Content Include="Templates\EPA\MyEPA\Index.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />

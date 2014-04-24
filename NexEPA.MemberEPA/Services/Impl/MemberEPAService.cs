@@ -13,7 +13,9 @@ namespace NexEPA.MemberEPA.Services.Impl
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Enums;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Utilities;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
@@ -58,6 +60,11 @@ namespace NexEPA.MemberEPA.Services.Impl
             if (criteria.IsValid())
             {
                 employeeEPAs = (List<MemberEPAModel>)_memberEPARepository.GetEPAByEmployee(criteria);
+
+                foreach (var employeeEPA in employeeEPAs)
+                {
+                    employeeEPA.StatusName = EnumStatus.GetDescripton((Status)employeeEPA.Status);
+                }
             }
 
             return employeeEPAs;
@@ -78,6 +85,29 @@ namespace NexEPA.MemberEPA.Services.Impl
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Get EPA of employee by manager.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list MemberEPAModel.</returns>
+        public List<MemberEPAModel> GetEPAOfEmployeeByManager(GetEPAOfAllEmployeeByManagerCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var employees = new List<MemberEPAModel>();
+
+            if (criteria.IsValid())
+            {
+                employees = (List<MemberEPAModel>)_memberEPARepository.GetEPAOfEmployeeByManager(criteria);
+
+                foreach (var employee in employees)
+                {
+                    employee.StatusName = EnumStatus.GetDescripton((Status)employee.Status);
+                }
+            }
+
+            return employees;
         }
     }
 }

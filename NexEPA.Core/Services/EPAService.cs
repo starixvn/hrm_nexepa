@@ -10,7 +10,9 @@
 namespace NexEPA.Core.Services
 {
     using System.Collections.Generic;
+    using Fanex.Common.Helper;
     using NexEPA.Core.Criteria;
+    using NexEPA.Core.Model.Project;
     using NexEPA.Core.Model.Target;
 
     /// <summary>
@@ -26,6 +28,35 @@ namespace NexEPA.Core.Services
         public IEnumerable<TargetType> GetAllTargetType(GetAllTargetTypeCriteria criteria)
         {
             return GetData<TargetType>(criteria);
+        }
+
+        /// <summary>
+        /// Get all project to filter.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list SelectListModel.</returns>
+        public List<SelectListModel> GetAllProjectToFilter(GetAllProjectToFilterCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            List<SelectListModel> allProjects = new List<SelectListModel>();
+
+            if (criteria.IsValid())
+            {
+                var rawProjects = GetData<ProjectFilterModel>(criteria);
+
+                foreach (var rawProject in rawProjects)
+                {
+                    var projectSelectItem = new SelectListModel
+                    {
+                        Id = rawProject.ProjectId,
+                        Name = rawProject.Name
+                    };
+
+                    allProjects.Add(projectSelectItem);
+                }
+            }
+
+            return allProjects;
         }
     }
 }

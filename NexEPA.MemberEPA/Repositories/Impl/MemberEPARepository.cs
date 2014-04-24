@@ -68,8 +68,31 @@ namespace NexEPA.MemberEPA.Repositories.Impl
         /// Get EPA by employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The IENumerable EPAMemberModel.</returns>
+        /// <returns>The IENumerable MemberEPAModel.</returns>
         public IEnumerable<MemberEPAModel> GetEPAByEmployee(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<MemberEPAModel, Target, Project, Milestone, Evaluator, MemberEPAModel>(
+                    (me, ta, pro, mi, ev) =>
+                    {
+                        me.Target = ta;
+                        me.Project = pro;
+                        me.Milestone = mi;
+                        me.Evaluator = ev;
+                        return me;
+                    },
+                    "TargetId,ProjectId,MilestoneId,EvaluatorId",
+                    criteria.GetSpParams());
+            }
+        }
+
+        /// <summary>
+        /// Get EPA of employee by manager.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The IEnumerable MemberEPAModel.</returns>
+        public IEnumerable<MemberEPAModel> GetEPAOfEmployeeByManager(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

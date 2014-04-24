@@ -14,8 +14,6 @@ namespace NexEPA.Controllers.Target
     using System.Linq;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Model.Project;
-    using NexEPA.Core.Utilities;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
@@ -113,12 +111,6 @@ namespace NexEPA.Controllers.Target
 
             IEnumerable<dynamic> milestoneResult = milestoneList.Select(mi => new { mi.Name, mi.MilestoneId });
             return milestoneResult;
-        }
-
-        [HttpGet]
-        public IEnumerable<SelectListModel> GetAllStatus()
-        {
-            return EnumStatus.GetAllStatus();
         }
 
         [HttpGet]

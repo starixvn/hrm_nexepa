@@ -1,32 +1,10 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
-var calculateTotalWeightAndShowWarningMessage = function (group, $scope, $translate, KPICommonRepository) {
-	if (group.targetTypeId && group.weight) {
-		KPICommonRepository.getGroupByTargetTypeId(group.targetTypeId).then(function (groupList) {
-			var totalWeight = group.weight;
-
-			for (var i = 0; i < groupList.length; i++) {
-				totalWeight += groupList[i].weight;
-			}
-
-			if (totalWeight > 100) {
-				KPICommonRepository.showErrorMessage($scope, "WeightWarningMessage");
-			}
-			else {
-				$scope.success = true;
-				$scope.errorMessage = "";
-			}
-		});
-
-		return $scope;
-	}
-};
-
 // View KPI Group
 kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', '$route',
-'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository',
-	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository) {
+'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory',
+	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository, commonFactory) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -46,7 +24,7 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					$scope.disabledSubmitButton = false;
 				})
 				.error(function () {
-					KPICommonRepository.showErrorMessageBox($scope, "ErrorMessage");
+					commonFactory.showErrorMessageBox($scope, "ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 		};
@@ -85,13 +63,15 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 			modalDeleteInstance.result.then(function () {
 				KPIGroupRepository.deleteGroup(groupId).success(function (response) {
 					if (response.isSuccessful === true) {
-						$route.reload();
+						var index = $scope.KPIGroupList.indexOf(group);
+						$scope.KPIGroupList.splice(index, 1);
+						commonFactory.showInfoMessageBox($scope, "DeleteSuccess");
 					}
 					else {
-						KPICommonRepository.showErrorMessageBox($scope, "DeleteFail", response.message);
+						commonFactory.showErrorMessageBox($scope, "DeleteFail", response.message);
 					}
 				}).error(function () {
-					KPICommonRepository.showErrorMessageBox($scope, "DeleteFail");
+					commonFactory.showErrorMessageBox($scope, "DeleteFail");
 				});
 			});
 		};
@@ -143,10 +123,10 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 					}
 
-					KPICommonRepository.showInfoMessage($scope, keyMessage);
+					commonFactory.showInfoMessageBox($scope, keyMessage);
 				}).error(function () {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-					KPICommonRepository.showInfoMessage($scope, keyMessage);
+					commonFactory.showInfoMessageBox($scope, keyMessage);
 				});
 			}, function () {
 				group.isDisabled = !newGroup.isDisabled;
@@ -162,6 +142,11 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 			}
 			else if ($scope.activeFilter === 'active') {
 				if (!group.isDisabled) {
+					return true;
+				}
+			}
+			else if ($scope.activeFilter === 'inactive') {
+				if (group.isDisabled) {
 					return true;
 				}
 			}
@@ -225,16 +210,6 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 		$scope.cancel = function () {
 			$window.history.back();
 		};
-
-		// weight on change
-		$scope.weightOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
-		};
-
-		// form on change
-		$scope.formOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
-		};
 	} ]);
 
 // Edit KPI Group
@@ -292,15 +267,5 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 
 		$scope.cancel = function () {
 			$window.history.back();
-		};
-
-		// weight on change
-		$scope.weightOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
-		};
-
-		// form on change
-		$scope.formOnChange = function (group) {
-			calculateTotalWeightAndShowWarningMessage(group, $scope, $translate, KPICommonRepository);
-		};
+		}; 
 	}]);

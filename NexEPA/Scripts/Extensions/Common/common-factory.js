@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global registrationModule*/
 
-registrationModule.factory('commonFactory', function () {
+registrationModule.factory('commonFactory', ['$translate', '$timeout', function ($translate, $timeout) {
 	var common = {};
 
 	common.getDateFormat = function ($scope) {
@@ -12,6 +12,42 @@ registrationModule.factory('commonFactory', function () {
 		$scope.sourceCalendarImage = "/Content/Site/images/calendar.png";
 	};
 
+	common.showErrorMessageBox = function ($scope, keyMessage, message) {
+		$scope.showErrorMessage = true;
+
+		if (message === '' || message === null || message === undefined) {
+			$translate(keyMessage).then(function (errorMessage) {
+				$scope.errorMessage = errorMessage;
+			});
+		}
+		else {
+			$scope.errorMessage = message;
+		}
+
+		$timeout(function () {
+			$scope.showErrorMessage = false;
+		}, 5000);
+	};
+
+	common.showInfoMessageBox = function ($scope, keyMessage, message) {
+		$scope.showInfoMessage = true;
+
+		if (message === '' || message === null || message === undefined) {
+			$translate(keyMessage).then(function (infoMessage) {
+				$scope.infoMessage = infoMessage;
+			});
+		}
+		else {
+			$scope.infoMessage = message;
+		}
+
+		$timeout(function () {
+			$scope.showInfoMessage = false;
+		}, 2000);
+	};
+
+	return common;
+}]);
 	common.openPopupStartDate = function ($event, $scope) {
 		$event.preventDefault();
 		$event.stopPropagation();

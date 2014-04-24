@@ -1,10 +1,10 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Status.cs" company="Nexcel Solutions Vietnam">
+﻿// -----------------------------------------------------------------------
+// <copyright file="Status.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.3.19">Created</change>
+//   <change who="Josh.Phan" date="2014.04.24">Created</change>
 // </history>
 
 namespace NexEPA.Core.Enums
@@ -12,38 +12,20 @@ namespace NexEPA.Core.Enums
     using System.ComponentModel;
 
     /// <summary>
-    /// ENUM Status.
+    /// The ENUM Status.
     /// </summary>
     public enum Status
     {
         /// <summary>
-        /// New items.
+        /// Open items.
         /// </summary>
-        [Description("New")]
-        New = 0,
-
-        /// <summary>
-        /// In Progress item.
-        /// </summary>
-        [Description("In Progress")]
-        InProgress = 1,
-
-        /// <summary>
-        /// Pending item.
-        /// </summary>
-        [Description("Pending")]
-        Pending = 2,
-
-        /// <summary>
-        /// Resolved item.
-        /// </summary>
-        [Description("Resolved")]
-        Resolved = 3,
+        [Description("Open")]
+        Open = 0,
 
         /// <summary>
         /// Closed item.
         /// </summary>
         [Description("Closed")]
-        Closed = 4
+        Closed = 1,
     }
 }

@@ -59,11 +59,17 @@ function ($scope, employeeEPAFactory, notificationFactory) {
 
 // View EPA of Current Member Controller
 epaModule.controller('ViewCurrentMemberEPAController',
-	['$scope', '$location', 'employeeEPAFactory', 'commonFactory', 'ErrorService', 'targetUtility',
-	function ($scope, $location, employeeEPAFactory, commonFactory, ErrorService, targetUtility) {
+	['$scope', '$location', 'employeeEPAFactory', 'commonFactory', 'ErrorService',
+	function ($scope, $location, employeeEPAFactory, commonFactory, ErrorService) {
 
+		// get all project to filter
 		employeeEPAFactory.getAllProject().then(function (projectList) {
 			$scope.projectOptions = projectList;
+		});
+
+		// get all status to filter
+		employeeEPAFactory.getAllStatus().then(function (statusList) {
+			$scope.statusOptions = statusList;
 		});
 
 		var successGetEPA = function (listEPA) {
@@ -76,7 +82,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 				ErrorService.errorHandle(status);
 			}
 			else {
-				targetUtility.showErrorMessage($scope);
+				commonFactory.showErrorMessageBox($scope, 'ErrorMessage');
 			}
 
 			$scope.submitted = false;
@@ -91,9 +97,11 @@ epaModule.controller('ViewCurrentMemberEPAController',
 
 		// view detail of EPA
 		$scope.EPADetail = function (epaItem) {
-			var targetId = epaItem.target.targetId,
+			if (epaItem.target) {
+				var targetId = epaItem.target.targetId,
 				employeeId = epaItem.employeeId;
-			$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
+				$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
+			}
 		};
 
 		// filter EPA
@@ -108,3 +116,63 @@ epaModule.controller('ViewCurrentMemberEPAController',
 			}
 		};
 	} ]);
+
+// View EPA of Member by Manager Controller
+epaModule.controller('ViewMemberByManagerEPAController', [
+	'$scope', '$location', 'employeeEPAFactory', 'ErrorService', 'commonFactory',
+	function ($scope, $location, employeeEPAFactory, ErrorService, commonFactory) {
+
+		// get all project to filter
+		employeeEPAFactory.getAllProject().then(function (projectList) {
+			$scope.projectOptions = projectList;
+		});
+
+		// get all status to filter
+		employeeEPAFactory.getAllStatus().then(function (statusList) {
+			$scope.statusOptions = statusList;
+		});
+
+		var successGetEPA = function (listEPA) {
+			$scope.listEPA = listEPA;
+			$scope.submitted = false;
+		};
+
+		var errorHandle = function () {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				commonFactory.showErrorMessageBox($scope, 'ErrorMessage');
+			}
+
+			$scope.submitted = false;
+		};
+
+		// get EPA of Employee by manager
+		var getEPAOfEmployeeByManager = function (projectId, status) {
+			employeeEPAFactory.getEPAOfEmployeeByManager(projectId, status).then(successGetEPA, errorHandle);
+		};
+
+		getEPAOfEmployeeByManager(null, null);
+
+		// filter EPA
+		$scope.query = function (filter) {
+			$scope.submitted = true;
+
+			if (filter) {
+				getEPAOfEmployeeByManager(filter.projectId, filter.status);
+			}
+			else {
+				$scope.submitted = false;
+			}
+		};
+
+		// view detail of EPA
+		$scope.EPADetail = function (epaItem) {
+			if (epaItem.target) {
+				var targetId = epaItem.target.targetId,
+				employeeId = epaItem.employeeId;
+				$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
+			}
+		};
+} ]);

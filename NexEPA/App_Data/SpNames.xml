@@ -20,6 +20,7 @@
 		<Setting Key="Milestone_Insert" SpName="Milestone_Insert" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Milestone_Update" SpName="Milestone_Update" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Milestone_Delete" SpName="Milestone_Delete" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Project_GetAll" SpName="Project_GetAll" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="ProjectMembers">
@@ -75,7 +76,8 @@
 
 	<Function Name="MyEPA">
 		<Setting Key="EPA_GetInfo" SpName="EPA_GetInfo" DbName="NexEPA" Plain="1" ></Setting>
-    		<Setting Key="EPA_GetByEmployee" SpName="EPA_GetByEmployee" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="EPA_GetByEmployee" SpName="EPA_GetByEmployee" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPA_InsertOrUpdateScore" SpName="EPA_InsertOrUpdateScore" DbName="NexEPA" Plain="1" ></Setting>
-	</Function>
+    <Setting Key="EPA_GetMemberEPA" SpName="EPA_GetMemberEPA" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
 </Functions>

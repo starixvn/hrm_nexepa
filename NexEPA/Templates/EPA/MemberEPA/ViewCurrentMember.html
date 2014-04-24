@@ -11,12 +11,18 @@
             <div class="form-group">
                 <label data-translate="Project"></label>
                 <select ng-model="filter.projectId" 
-                    ng-options="opt.projectId as opt.name for opt in projectOptions" class="form-control">
+                    ng-options="opt.id as opt.name for opt in projectOptions" class="form-control">
                     <option value="">-- All --</option>
                  </select>
             </div>
+            <div class="form-group">
+                <label data-translate="Status"></label>
+                <select ng-model="filter.status" 
+                    ng-options="opt.id as opt.name for opt in statusOptions" class="form-control">
+                    <option value="">-- All --</option>
+                </select>
+            </div>
             <button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>
-            <div class="error" ng-show="hasError" ng-bind="errorMessage"></div>
         </form>
     </div>
 </div>
@@ -47,7 +53,11 @@
         </tr>
 
         <tr ng-show="listEPA == ''">
-            <td class="empty-result" colspan="6" data-translate="EmptyResult"></td>
+            <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
         </tr>
     </table>
+</div>
+
+<div class="msgbox error" ng-show="showErrorMessage">
+    <div ng-bind="errorMessage"></div>
 </div>

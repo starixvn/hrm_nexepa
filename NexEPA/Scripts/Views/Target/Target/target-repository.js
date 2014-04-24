@@ -26,7 +26,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http.get('/api/Target/GetMilestoneByProjectId', { params: { projectId: projectId} });
 		},
 		getAllStatus: function () {
-			return $http.get('/api/Target/GetAllStatus');
+			return $http.get('/api/Core/GetAllStatus');
 		},
 		getEmployeeByTargetId: function (targetId) {
 			return $http.get('/api/Target/GetEmployeeByTargetId', { params: { targetId: targetId} });
@@ -109,23 +109,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 			}
 
 			return true;
-		};
-
-		utility.openPopupStartDate = function ($event, $scope) {
-			$event.preventDefault();
-			$event.stopPropagation();
-
-			$scope.calendar.startDateOpened = true;
-			$scope.calendar.endDateOpened = false;
-		};
-
-		utility.openPopupEndDate = function ($event, $scope) {
-			$event.preventDefault();
-			$event.stopPropagation();
-
-			$scope.calendar.endDateOpened = true;
-			$scope.calendar.startDateOpened = false;
-		};
+		}; 
 
 		utility.showErrorMessage = function ($scope) {
 			$scope.hasError = true;

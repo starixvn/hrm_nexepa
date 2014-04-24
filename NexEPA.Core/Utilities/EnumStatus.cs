@@ -41,6 +41,18 @@ namespace NexEPA.Core.Utilities
             }
         }
 
+        public static IEnumerable<SelectListModel> GetAllStatusOfProject()
+        {
+            IEnumerable<StatusProject> statusList = Enum.GetValues(typeof(StatusProject)).Cast<StatusProject>();
+            IEnumerable<SelectListModel> allStatus = statusList.Select(x => new SelectListModel
+            {
+                Id = (int)x,
+                Name = GetDescripton((StatusProject)x)
+            });
+
+            return allStatus;
+        }
+
         public static IEnumerable<SelectListModel> GetAllStatus()
         {
             IEnumerable<Status> statusList = Enum.GetValues(typeof(Status)).Cast<Status>();

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="2014.4.22">Created</change>
+//   <change who="Josh.Phan" date="2014.04.22">Created</change>
 // </history>
 
 namespace NexEPA.MemberEPA.Models.MyEPA
@@ -27,6 +27,8 @@ namespace NexEPA.MemberEPA.Models.MyEPA
         public DateTime EvaluateDate { get; set; }
 
         public int Status { get; set; }
+
+        public string StatusName { get; set; }
 
         public Target Target { get; set; }
 

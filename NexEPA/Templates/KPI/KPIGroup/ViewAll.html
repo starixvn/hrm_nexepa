@@ -24,7 +24,8 @@
                 <label data-translate="Status"></label>
                 <select ng-model="activeFilter" class="form-control">
                     <option value="all">-- All --</option>
-                    <option value="active" data-translate="Active"></option>>
+                    <option value="active" data-translate="Active"></option>
+                    <option value="inactive" data-translate="Inactive"></option>
                 </select>
             </div>
             <button class="button" ng-click="query(filter.targetTypeId)" ng-disabled="disabledSubmitButton" data-translate="Submit"></button>

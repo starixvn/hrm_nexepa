@@ -37,7 +37,8 @@
                 <label data-translate="Status"></label>
                 <select ng-model="activeFilter" class="form-control">
                     <option value="all">-- All --</option>
-                    <option value="active" data-translate="Active"></option>>
+                    <option value="active" data-translate="Active"></option>
+                    <option value="inactive" data-translate="Inactive"></option>
                 </select>
             </div>
             <button ng-show="isViewAll" class="button" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
@@ -53,7 +54,6 @@
                 <th data-translate="SymbolCount"></th>
                 <th data-translate="Title"></th>
                 <th data-translate="Group"></th>
-                <th data-translate="Form"></th>
                 <th data-translate="Active"></th>
                 <th data-translate="Description"></th>
                 <th data-translate="Action"></th>
@@ -63,7 +63,6 @@
             <td class="KPI-index" ng-bind="$index + 1"></td>
             <td class="KPI-title" ng-bind="item.name"></td>
             <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
-            <td class="KPI-form" ng-bind="item.targetTypeName"></td>
             <td class="KPI-group-active">
                 <input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)"/>
             </td>
@@ -83,7 +82,6 @@
             <tr>
                 <th data-translate="Title"></th>
                 <th data-translate="Group"></th>
-                <th data-translate="Form"></th>
                 <th data-translate="Active"></th>
                 <th data-translate="Description"></th>
                 <th data-translate="Action"></th>
@@ -92,7 +90,6 @@
         <tr ng-repeat="item in KPIList">
             <td class="KPI-title" ng-bind="item.name"></td>
             <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
-            <td class="KPI-form" ng-bind="item.targetTypeName"></td>
             <td class="KPI-group-active">
                 <input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)"/>
             </td>
