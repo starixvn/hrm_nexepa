@@ -28,8 +28,7 @@ namespace NexEPA
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Common/toastr.css",
                 "~/Content/Common/bootstrap.css",
-                "~/Content/Common/bootstrap-theme.css",
-                "~/Content/Common/jquery-ui-1.10.4.custom.min.css"));
+                "~/Content/Common/bootstrap-theme.css"));
 
             bundles.AddAndInclude(
                 "~/EPA/Less",
