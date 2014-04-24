@@ -34,13 +34,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <label data-translate="Active"></label>
-                <div class="filter-radio-active">
-                    <input type="radio" ng-model="activeFilter" value="active"/>
-                    <span data-translate="Active"></span>
-                    <input type="radio" ng-model="activeFilter" value="all"/>
-                    <span data-translate="All"></span>
-                </div>
+                <label data-translate="Status"></label>
+                <select ng-model="activeFilter" class="form-control">
+                    <option value="all">-- All --</option>
+                    <option value="active" data-translate="Active"></option>>
+                </select>
             </div>
             <button ng-show="isViewAll" class="button" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
                     ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
