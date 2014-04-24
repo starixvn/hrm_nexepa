@@ -11,8 +11,8 @@ var memberValidation = function (employeeId, selected, joinDate) {
 	return false;
 };
 
-projectsSettingModule.controller("ProjectMembersController",['$scope', '$routeParams', '$location', '$modal', 
-'ProjectSettingCache', 'projectMilestoneService','projectMembersFactory', 'notificationFactory', 'projectDataFactory',
+projectsSettingModule.controller("ProjectMembersController", ['$scope', '$routeParams', '$location', '$modal',
+'ProjectSettingCache', 'projectMilestoneService', 'projectMembersFactory', 'notificationFactory', 'projectDataFactory',
 function ($scope, $routeParams, $location, $modal, ProjectSettingCache, projectMilestoneService,
 projectMembersFactory, notificationFactory, projectDataFactory) {
 	/**
@@ -23,7 +23,7 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 	var cacheListEmployee = ProjectSettingCache.get("CacheListEmployee");
 	$scope.currentProject = [];
 	$scope.roles = [];
-
+	
 	/**
 	* Ajax event loaded. 
 	*/
@@ -193,14 +193,21 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 			projectMembersFactory.deleteMember(member).then(successDeleteMember, errorNotification);
 		});
 	};
-}]);
+} ]);
 
-projectsSettingModule.controller('AddProjectMembersController', 
-['$scope', '$modalInstance', 'lstMembers', 'roles', 'projectId',
-function ($scope, $modalInstance, lstMembers, roles, projectId) {
+projectsSettingModule.controller('AddProjectMembersController',
+['$scope', '$modalInstance', 'commonFactory', 'lstMembers', 'roles', 'projectId',
+function ($scope, $modalInstance, commonFactory, lstMembers, roles, projectId) {
 	$scope.selection = [];
 	$scope.lstMembers = lstMembers;
 	$scope.roles = roles;
+	$scope.calendar = { opened: false };
+
+	// Get calendar button image.
+	commonFactory.getSourceCalendarImage($scope);
+
+	// get Date Format
+	commonFactory.getDateFormat($scope);
 
 	$scope.ok = function (employeeId, joinDate) {
 		var selected = $scope.selection;
@@ -220,21 +227,35 @@ function ($scope, $modalInstance, lstMembers, roles, projectId) {
 		$modalInstance.dismiss('cancel');
 	};
 
+	// show start date calendar when click button start date
+	$scope.open = function ($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.calendar.opened = true;
+	};
+
 	// Watch for checkboxlist change.
 	$scope.$watch('roles|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
 			return item.projectRoleId;
 		});
 	}, true);
-}]);
+} ]);
 
 projectsSettingModule.controller("EditProjectMembersController",
-['$scope', '$modalInstance', 'lstMembers', 'roles', 'editMember',
-function ($scope, $modalInstance, lstMembers, roles, editMember) {
+['$scope', '$modalInstance', 'lstMembers', 'roles', 'editMember', 'commonFactory',
+function ($scope, $modalInstance, lstMembers, roles, editMember, commonFactory) {
 	$scope.lstMembers = lstMembers;
 	$scope.roles = roles;
 	$scope.selection = [];
 	$scope.editMember = editMember;
+	$scope.calendar = { opened: false };
+
+	// Get calendar button image.
+	commonFactory.getSourceCalendarImage($scope);
+
+	// get Date Format
+	commonFactory.getDateFormat($scope);
 
 	$scope.ok = function (member) {
 		var selected = $scope.selection;
@@ -248,6 +269,13 @@ function ($scope, $modalInstance, lstMembers, roles, editMember) {
 
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
+	};
+
+	// show start date calendar when click button start date
+	$scope.open = function ($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.calendar.opened = true;
 	};
 
 	// Watch for checkboxlist change.

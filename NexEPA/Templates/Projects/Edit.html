@@ -26,16 +26,20 @@
 		<label class="col-sm-2 col-md-2" data-translate="StartDate">
 		</label>
 		<div class="col-sm-6 col-md-4">
-			<input type="text" class="custom-textbox" ng-model="projectUpdate.startDate" placeholder="Start Date"
-				datepicker-popup="dd MMMM, yyyy" id="startDate" readonly />
+			<input type="text" class="custom-textbox custom-date" ng-model="projectUpdate.startDate"
+				is-open="calendar.startDateOpened" datepicker-popup="{{dateFormat}}" placeholder="Start Date"
+				id="startDate" readonly />
+			<img class="calendar-image" ng-click="openPopupStartDate($event)" src="{{sourceCalendarImage}}"></img>
 		</div>
 	</div>
 	<div class="col-sm-12 line">
 		<label class="col-sm-2 col-md-2" data-translate="EndDate">
 		</label>
 		<div class="col-sm-6 col-md-4">
-			<input type="text" class="custom-textbox" ng-model="projectUpdate.endDate" placeholder="End Date"
-				datepicker-popup="dd-MMMM-yyyy" id="endDate" readonly />
+			<input type="text" class="custom-textbox custom-date" ng-model="projectUpdate.endDate"
+				is-open="calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{dateFormat}}"
+				id="endDate" readonly />
+			<img class="calendar-image" ng-click="openPopupEndDate($event)" src="{{sourceCalendarImage}}"></img>
 		</div>
 	</div>
 	<div class="col-sm-12 line">

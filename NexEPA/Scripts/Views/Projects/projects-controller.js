@@ -1,85 +1,85 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-projectsSettingModule.controller('ProjectController', 
+projectsSettingModule.controller('ProjectController',
 ['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService) {
-    /**
-    * Project Setting Cache. 
-    */
-    var cacheListPM = ProjectSettingCache.get("CacheListPM");
-    var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
-    var cacheListPeriod = ProjectSettingCache.get("CacheListPeriod");
-    /**
-    * Ajax event Loaded. 
-    */
-    // Get data to ProjectManager - Select List
-    var successGetEmployeeSelectList = function (data) {
-        $scope.pms = data;
-        ProjectSettingCache.put("CacheListPM", data);
-    };
+	/**
+	* Project Setting Cache. 
+	*/
+	var cacheListPM = ProjectSettingCache.get("CacheListPM");
+	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+	var cacheListPeriod = ProjectSettingCache.get("CacheListPeriod");
+	/**
+	* Ajax event Loaded. 
+	*/
+	// Get data to ProjectManager - Select List
+	var successGetEmployeeSelectList = function (data) {
+		$scope.pms = data;
+		ProjectSettingCache.put("CacheListPM", data);
+	};
 
-    // Get data to Status - Select List
-    var successGetProjectStatusSelectList = function (data) {
-        $scope.status = data;
-        ProjectSettingCache.put("CacheListStatus", data);
-    };
+	// Get data to Status - Select List
+	var successGetProjectStatusSelectList = function (data) {
+		$scope.status = data;
+		ProjectSettingCache.put("CacheListStatus", data);
+	};
 
-    // Get data to Period - Select List
-    var successGetPeriodSelectList = function (data) {
-        $scope.periods = data;
-        ProjectSettingCache.put("CacheListPeriod", data);
-    };
+	// Get data to Period - Select List
+	var successGetPeriodSelectList = function (data) {
+		$scope.periods = data;
+		ProjectSettingCache.put("CacheListPeriod", data);
+	};
 
-    // Filter data by criteria.
-    var successFilterData = function (data) {
-        $scope.projects = data;
-    };
+	// Filter data by criteria.
+	var successFilterData = function (data) {
+		$scope.projects = data;
+	};
 
-    var errorHandle = function (status) {
-        ErrorService.errorHandle(status);
-    };
+	var errorHandle = function (status) {
+		ErrorService.errorHandle(status);
+	};
 
-    /**
-    * Initialize data to view Index.
-    */
-    projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+	/**
+	* Initialize data to view Index.
+	*/
+	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 
-    // Check for list ProjectManager has cache data.
-    if (cacheListPM) {
-        $scope.pms = cacheListPM;
-    }
-    else {
-        projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
-    }
+	// Check for list ProjectManager has cache data.
+	if (cacheListPM) {
+		$scope.pms = cacheListPM;
+	}
+	else {
+		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+	}
 
-    // Check for list Status has cache data.
-    if (cacheListStatus) {
-        $scope.status = cacheListStatus;
-    }
-    else {
-        projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
-    }
+	// Check for list Status has cache data.
+	if (cacheListStatus) {
+		$scope.status = cacheListStatus;
+	}
+	else {
+		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
+	}
 
-    // Check for list Periods has cache data.
-    if (cacheListPeriod) {
-        $scope.periods = cacheListPeriod;
-    }
-    else {
-        projectDataFactory.getProjectPeriodSelectList().then(successGetPeriodSelectList);
-    }
+	// Check for list Periods has cache data.
+	if (cacheListPeriod) {
+		$scope.periods = cacheListPeriod;
+	}
+	else {
+		projectDataFactory.getProjectPeriodSelectList().then(successGetPeriodSelectList);
+	}
 
-    /**
-    * Event: Filter 
-    */
-    $scope.getProjectList = function (filter) {
-        projectDataFactory.filterData(filter).then(successFilterData);
-    };
-}]);
+	/**
+	* Event: Filter 
+	*/
+	$scope.getProjectList = function (filter) {
+		projectDataFactory.filterData(filter).then(successFilterData);
+	};
+} ]);
 
 projectsSettingModule.controller('CreateProjectController',
-['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', 'datePickerFactory',
-function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, datePickerFactory) {
+['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory',
+function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory) {
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 	$scope.errors = [];
@@ -125,7 +125,12 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
 	}
 
+	// Get calendar button image.
 	commonFactory.getSourceCalendarImage($scope);
+
+	// get Date Format
+	commonFactory.getDateFormat($scope);
+
 	/**
 	* Events 
 	*/
@@ -145,80 +150,96 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 	// show start date calendar when click button start date
 	$scope.openPopupStartDate = function ($event) {
-		datePickerFactory.openPopupStartDate($event, $scope);
+		commonFactory.openPopupStartDate($event, $scope);
 	};
 
 	// show end date calendar when click button end date
 	$scope.openPopupEndDate = function ($event) {
-		datePickerFactory.openPopupEndDate($event, $scope);
+		commonFactory.openPopupEndDate($event, $scope);
 	};
 
-}]);
+} ]);
 
-projectsSettingModule.controller('EditProjectController', 
-['$scope', '$routeParams', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache',
-function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache) {
-    /**
-    * Scope variables. 
-    */
-    var projectId = $routeParams.projectId;
-    $scope.errors = [];
-    var cacheListPM = ProjectSettingCache.get("CacheListPM");
-    var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+projectsSettingModule.controller('EditProjectController',
+['$scope', '$routeParams', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory',
+function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory) {
+	/**
+	* Scope variables. 
+	*/
+	var projectId = $routeParams.projectId;
+	$scope.errors = [];
+	var cacheListPM = ProjectSettingCache.get("CacheListPM");
+	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 
-    /**
-    * Ajax event. 
-    */
-    // Get data to ProjectManager - Select List
-    var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
+	/**
+	* Ajax event. 
+	*/
+	// Get data to ProjectManager - Select List
+	var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
 
-    // Get data to Status - Select List
-    var successGetProjectStatusSelectList = function (data) { $scope.status = data; };
+	// Get data to Status - Select List
+	var successGetProjectStatusSelectList = function (data) { $scope.status = data; };
 
-    // Get project by Id
-    var successGetProjectById = function (data) { $scope.projectUpdate = data; };
+	// Get project by Id
+	var successGetProjectById = function (data) { $scope.projectUpdate = data; };
 
-    // Update Project success callback.
-    var successUpdateProject = function () { $location.url('/Projects/Index'); };
+	// Update Project success callback.
+	var successUpdateProject = function () { $location.url('/Projects/Index'); };
 
-    // Update Project failure callback.
-    var errorUpdateProject = function (response) {
-        $scope.errors = response;
-    };
+	// Update Project failure callback.
+	var errorUpdateProject = function (response) {
+		$scope.errors = response;
+	};
 
-    /**
-    * Initialize data to view Edit Project. 
-    */
-    // Check for list ProjectManager has cache data.
-    if (cacheListPM) {
-        $scope.pms = cacheListPM;
-    }
-    else {
-        projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
-    }
+	/**
+	* Initialize data to view Edit Project. 
+	*/
+	// Check for list ProjectManager has cache data.
+	if (cacheListPM) {
+		$scope.pms = cacheListPM;
+	}
+	else {
+		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+	}
 
-    // Check for list Status has cache data.
-    if (cacheListStatus) {
-        $scope.status = cacheListStatus;
-    }
-    else {
-        projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
-    }
+	// Check for list Status has cache data.
+	if (cacheListStatus) {
+		$scope.status = cacheListStatus;
+	}
+	else {
+		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
+	}
 
-    projectDataFactory.getProjectById(projectId).then(successGetProjectById);
+	projectDataFactory.getProjectById(projectId).then(successGetProjectById);
 
-    /**
-    * Events 
-    */
-    // Update
-    $scope.update = function (project) {
-        projectDataFactory.updateProject(project).then(successUpdateProject, errorUpdateProject);
-    };
+	// Get calendar button image.
+	commonFactory.getSourceCalendarImage($scope);
 
-    // Cancel
-    $scope.cancel = function () {
-        $window.history.back();
-    };
+	// get Date Format
+	commonFactory.getDateFormat($scope);
+
+	/**
+	* Events 
+	*/
+	// Update
+	$scope.update = function (project) {
+		projectDataFactory.updateProject(project).then(successUpdateProject, errorUpdateProject);
+	};
+
+	// Cancel
+	$scope.cancel = function () {
+		$window.history.back();
+	};
+
+	// show start date calendar when click button start date
+	$scope.openPopupStartDate = function ($event) {
+		commonFactory.openPopupStartDate($event, $scope);
+	};
+
+	// show end date calendar when click button end date
+	$scope.openPopupEndDate = function ($event) {
+		commonFactory.openPopupEndDate($event, $scope);
+	};
 
 	$(".boxtitle").on("click", function () {
 		var header = $(this);
@@ -229,11 +250,11 @@ function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectS
 		});
 	});
 
-}]);
+} ]);
 
 projectsSettingModule.controller('MilestoneController',
-['$scope', '$routeParams', '$modal', 'projectMilestoneService', 'milestoneFactory', 'notificationFactory',
-function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactory, notificationFactory) {
+['$scope', '$routeParams', '$modal', 'projectMilestoneService', 'milestoneFactory', 'notificationFactory', 'commonFactory',
+function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactory, notificationFactory, commonFactory) {
 	/**
 	* Scope variables. 
 	*/
@@ -297,9 +318,35 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 	*/
 	milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
 
+	// Get calendar button image.
+	commonFactory.getSourceCalendarImage($scope);
+
+	// get Date Format
+	commonFactory.getDateFormat($scope);
 	/**
 	* Events 
 	*/
+
+	// show start date calendar when click button start date in Add Mode
+	$scope.openPopupAddModeStartDate = function ($event) {
+		commonFactory.openPopupAddModeStartDate($event, $scope);
+	};
+
+	// show end date calendar when click button end date in Add Mode
+	$scope.openPopupAddModeEndDate = function ($event) {
+		commonFactory.openPopupAddModeEndDate($event, $scope);
+	};
+
+	// show start date calendar when click button start date in Edit Mode
+	$scope.openPopupEditModeStartDate = function ($event, milestoneId) {
+		commonFactory.openPopupEditModeStartDate($event, $scope, milestoneId);
+	};
+
+	// show end date calendar when click button end date in Edit Mode.
+	$scope.openPopupEditModeEndDate = function ($event, milestoneId) {
+		commonFactory.openPopupEditModeEndDate($event, $scope, milestoneId);
+	};
+
 	// Add Milestone.
 	$scope.addMilestone = function () {
 		if ($scope.milestone == null) {

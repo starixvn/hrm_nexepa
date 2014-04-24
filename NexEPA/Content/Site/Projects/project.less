@@ -24,7 +24,7 @@ label.group-checkbox
 
 .modal-addKPI .modal-body
 {
-    max-height: 600px;
+	min-height: 350px;
     overflow-y: auto;
 }
 
@@ -35,12 +35,6 @@ span.popup-header
 
 select.custom-textbox {
     padding: 4px 5px; 
-}
-
-.custom-width
-{
-    width: 60%;
-    max-width: 60%;
 }
 
 .container-fluid > .sidebar
@@ -117,10 +111,21 @@ select.custom-textbox {
     width: 99%;
 }
 
-td.column-limit
+.column-limit
 {
     max-width: 200px;
     overflow: hidden;
+}
+
+.description-limit
+{
+    max-width: 250px;
+    overflow: hidden;
+}
+
+.member-limit
+{
+	max-width: 50px;
 }
 
 .custom-readonly[readonly]
@@ -169,7 +174,6 @@ label.checkbox
         padding: 3px 5px;
         margin-right: 6px;
         border-color: C8C8C8;
-        line-height: 30px;
     }
 
     .custom-textarea {
@@ -349,4 +353,26 @@ label.checkbox
 .custom-date
 {
 	margin-right: 0px !important;
+	max-width: 50%;
+}
+
+.custom-width
+{
+	width: 60%;
+	max-width: 60%;
+}
+
+.milestone-date-width
+{
+	max-width: 83%;
+}
+
+.custom-popup-textbox {
+    border: 1px solid #ccc;
+    .border-radius(3px);
+    width: 100%;
+    height: 30px;
+    padding: 3px 5px;
+    margin-right: 6px;
+    border-color: C8C8C8;
 }

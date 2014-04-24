@@ -29,7 +29,13 @@ namespace NexEPA.KPI.Model.KPI
 
         public int Score { get; set; }
 
-        public int Percent { get; set; }
+        public int Percent 
+        {
+            get
+            {
+                return Score * 10;
+            }
+        }
 
         public string Comment { get; set; }
 

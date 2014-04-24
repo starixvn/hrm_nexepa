@@ -19,7 +19,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory) {
 	* Ajax event Loaded. 
 	*/
 	// Success get all Target Template data.
-	var successGetAllTargetTemplate = function (data) { $scope.tgtemplates = data; };
+	var successGetAllTargetTemplate = function (data) { $scope.tgtemplates = data; debugger; };
 
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 

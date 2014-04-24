@@ -2,7 +2,7 @@
     <div class="form-group">
         <label data-translate="Milestone">
         </label>
-        <select class="form-control" ng-options="m.milestoneId as m.name for m in milestones"
+        <select class="form-control column-limit" ng-options="m.milestoneId as m.name for m in milestones"
             ng-model="milestone">
             <option value="">-- All --</option>
         </select>
