@@ -95,7 +95,7 @@ namespace NexEPA.Controllers.API
                     StartDate = TimeZone.CurrentTimeZone.ToLocalTime(project.StartDate.Value),
                     EndDate = TimeZone.CurrentTimeZone.ToLocalTime(project.EndDate.Value),
                     Status = project.Status,
-                    CreatedBy = 1,
+                    CreatedBy = this.CurrentUser.UserId,
                     CreatedDate = DateTime.Now.Date
                 };
 
@@ -133,7 +133,7 @@ namespace NexEPA.Controllers.API
                     StartDate = project.StartDate,
                     EndDate = project.EndDate,
                     Status = project.Status,
-                    ModifiedBy = 1,
+                    ModifiedBy = this.CurrentUser.UserId,
                     ModifiedDate = DateTime.Now.Date,
                     Description = project.Description
                 };

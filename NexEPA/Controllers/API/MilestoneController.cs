@@ -77,7 +77,7 @@ namespace NexEPA.Controllers.API
                     StartDate = TimeZone.CurrentTimeZone.ToLocalTime(milestone.StartDate.Value),
                     EndDate = TimeZone.CurrentTimeZone.ToLocalTime(milestone.EndDate.Value),
                     Status = milestone.Status,
-                    CreatedBy = 1,
+                    CreatedBy = this.CurrentUser.UserId,
                     CreatedDate = DateTime.Now.Date
                 };
 
@@ -107,7 +107,7 @@ namespace NexEPA.Controllers.API
                 DeleteMilestoneCriteria criteria = new DeleteMilestoneCriteria()
                 {
                     MilestoneId = milestoneId,
-                    ModifiedBy = 1,
+                    ModifiedBy = this.CurrentUser.UserId,
                     ModifiedDate = DateTime.Now.Date
                 };
 
@@ -144,7 +144,7 @@ namespace NexEPA.Controllers.API
                     StartDate = milestone.StartDate,
                     EndDate = milestone.EndDate,
                     Status = milestone.Status,
-                    ModifiedBy = 1,
+                    ModifiedBy = this.CurrentUser.UserId,
                     ModifiedDate = DateTime.Now.Date
                 };
 

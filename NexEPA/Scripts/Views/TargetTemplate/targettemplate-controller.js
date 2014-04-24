@@ -14,12 +14,11 @@ var targetTemplateValidation = function (name, targetTypeId) {
 targetTemplateModule.controller('TargetTemplateController',
 ['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory',
 function ($scope, $modal, targetTemplateFactory, notificationFactory) {
-	$("#targetTemplateValid").hide();
 	/**
 	* Ajax event Loaded. 
 	*/
 	// Success get all Target Template data.
-	var successGetAllTargetTemplate = function (data) { $scope.tgtemplates = data; debugger; };
+	var successGetAllTargetTemplate = function (data) { $scope.tgtemplates = data; };
 
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 
@@ -133,6 +132,7 @@ function ($scope, $location, $window, targetTemplateFactory) {
 	/**
 	* Variables. 
 	*/
+
 	$scope.errors = [];
 	/**
 	* Ajax event Loaded. 
@@ -149,13 +149,20 @@ function ($scope, $location, $window, targetTemplateFactory) {
 	* Events 
 	*/
 	// Submit
-	$scope.addTargetType = function (template) {
-		targetTemplateFactory.addTargetTemplate(template).then(successAddTargetTemplate, errorAddTargetTemplate);
+	$scope.addTargetTemplate = function (template) {
+		if (template == null) {
+			targetTemplateValidation(null, null);
+		}
+		else {
+			if (targetTemplateValidation(template.name, template.targetTypeId)) {
+				targetTemplateFactory.addTargetTemplate(template).then(successAddTargetTemplate, errorAddTargetTemplate);
+			}
+		}
 	};
 
 	// Cancel
 	$scope.cancel = function () { $window.history.back(); };
-}]);
+} ]);
 
 
 targetTemplateModule.controller('DetailTargetTemplateController',

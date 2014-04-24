@@ -85,7 +85,7 @@ namespace NexEPA.Controllers.API
                     ProjectId = member.ProjectId,
                     EmployeeId = member.EmployeeId,
                     ProjectRoleIds = member.ProjectRoleIds,
-                    AddedBy = 1,
+                    AddedBy = this.CurrentUser.UserId,
                     AddedDate = DateTime.Now.Date,
                     JoinDate = TimeZone.CurrentTimeZone.ToLocalTime(member.JoinDate.Value),
                 };
@@ -119,7 +119,7 @@ namespace NexEPA.Controllers.API
                 ProjectId = projectId,
                 EmployeeId = employeeId,
                 ProjectRoleId = projectRoleId,
-                ModifiedBy = 1,
+                ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now.Date
             };
 

@@ -39,12 +39,12 @@
 			<td class="column-limit">
 				<input type="text" class="form-control" ng-model="milestone.name" />
 			</td>
-			<td>
+			<td class="text-center">
 				<input type="text" class="custom-textbox custom-date milestone-date-width" ng-model="milestone.startDate"
 					is-open="calendar.addModeStartDateOpened" datepicker-popup="{{dateFormat}}" readonly />
 				<img class="calendar-image" ng-click="openPopupAddModeStartDate($event)" src="{{sourceCalendarImage}}"></img>
 			</td>
-			<td>
+			<td class="text-center">
 				<input type="text" class="custom-textbox custom-date milestone-date-width" ng-model="milestone.endDate"
 					is-open="calendar.addModeEndDateOpened" datepicker-popup="{{dateFormat}}" readonly />
 				<img class="calendar-image" ng-click="openPopupAddModeEndDate($event)" src="{{sourceCalendarImage}}"></img>
@@ -64,7 +64,7 @@
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.name}}</span>
 				<input ng-model="milestone.name" class="form-control" ng-show="milestone.editMode == true" />
 			</td>
-			<td>
+			<td class="text-center">
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.startDate
 					| date:'dd MMM, yyyy'}}</span>
 				<input ng-model="milestone.startDate" class="custom-textbox custom-date milestone-date-width"
@@ -73,7 +73,7 @@
 				<img ng-show="milestone.editMode == true" class="calendar-image" ng-click="openPopupEditModeStartDate($event, milestone.milestoneId)"
 					src="{{sourceCalendarImage}}"></img>
 			</td>
-			<td>
+			<td class="text-center">
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.endDate
 					| date:'dd MMM, yyyy'}}</span>
 				<input ng-model="milestone.endDate" class="custom-textbox custom-date milestone-date-width"

@@ -142,7 +142,7 @@ namespace NexEPA.Controllers.API
                     TargetTypeId = model.TargetTypeId,
                     Description = model.Description,
                     CreatedDate = DateTime.Now,
-                    CreatedBy = 1
+                    CreatedBy = this.CurrentUser.UserId
                 };
 
                 CommandResult result = this._targetTemplateService.InsertTargetTemplate(criteria);
@@ -174,7 +174,7 @@ namespace NexEPA.Controllers.API
                     TargetTypeId = model.TargetTypeId,
                     Description = model.Description,
                     ModifiedDate = DateTime.Now,
-                    ModifiedBy = 1,
+                    ModifiedBy = this.CurrentUser.UserId,
                     KPIIds = model.KPIIds
                 };
 
@@ -201,7 +201,7 @@ namespace NexEPA.Controllers.API
             DeleteTargetTemplateCriteria criteria = new DeleteTargetTemplateCriteria()
             {
                 TargetId = targetId,
-                ModifiedBy = 1,
+                ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now
             };
             CommandResult result = this._targetTemplateService.DeleteTargetTemplate(criteria);
@@ -228,7 +228,7 @@ namespace NexEPA.Controllers.API
                     TargetId = model.TargetId,
                     KPIIds = model.KPIIds,
                     AddedDate = DateTime.Now,
-                    AddedBy = 1
+                    AddedBy = this.CurrentUser.UserId
                 };
 
                 CommandResult result = this._targetTemplateService.AddKPIToTargetTemplate(criteria);
