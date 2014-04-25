@@ -3,9 +3,9 @@
 
 targetModule.controller('ViewTargetController',
 ['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory',
-'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService', 'datePickerFactory',
+'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $location, $translate, $modal, $route,
-		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService, datePickerFactory) {
+		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
 
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
@@ -51,12 +51,12 @@ targetModule.controller('ViewTargetController',
 
 		// show start date calendar when click button start date
 		$scope.openPopupStartDate = function ($event) {
-			datePickerFactory.openPopupStartDate($event, $scope);
+			commonFactory.openPopupStartDate($event, $scope);
 		};
 
 		// show end date calendar when click button end date
 		$scope.openPopupEndDate = function ($event) {
-			datePickerFactory.openPopupEndDate($event, $scope);
+			commonFactory.openPopupEndDate($event, $scope);
 		};
 
 		// filter data
@@ -146,9 +146,9 @@ targetModule.controller('ViewTargetController',
 
 	targetModule.controller("CreateTargetController",
 ['$scope', '$timeout', '$location', '$translate', '$window',
-'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService', 'datePickerFactory',
+'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $timeout, $location, $translate, $window,
-		targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService, datePickerFactory) {
+		targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
 
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
@@ -182,12 +182,12 @@ targetModule.controller('ViewTargetController',
 
 		// show start date calendar when click button start date
 		$scope.openPopupStartDate = function ($event) {
-			datePickerFactory.openPopupStartDate($event, $scope);
+			commonFactory.openPopupStartDate($event, $scope);
 		};
 
 		// show end date calendar when click button end date
 		$scope.openPopupEndDate = function ($event) {
-			datePickerFactory.openPopupEndDate($event, $scope);
+			commonFactory.openPopupEndDate($event, $scope);
 		};
 
 		// save target
@@ -248,10 +248,9 @@ targetModule.controller('ViewTargetController',
 	targetModule.controller("TargetDetailAndEditController",
 	['$scope', '$timeout', '$location', '$translate', '$routeParams', '$window', '$route', '$modal',
 	'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 
-	'KPIGroupRepository', 'commonFactory', 'ErrorService', 'datePickerFactory',
+	'KPIGroupRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $timeout, $location, $translate, $routeParams, $window, $route, $modal,
-			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository, commonFactory, ErrorService,
-			datePickerFactory) {
+			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository, commonFactory, ErrorService) {
 
 		var targetId = $routeParams.id,
 			projectId = $routeParams.projectId,
@@ -347,12 +346,12 @@ targetModule.controller('ViewTargetController',
 
 			// show start date calendar when click button start date
 			$scope.openPopupStartDate = function ($event) {
-				datePickerFactory.openPopupStartDate($event, $scope);
+				commonFactory.openPopupStartDate($event, $scope);
 			};
 
 			// show end date calendar when click button end date
 			$scope.openPopupEndDate = function ($event) {
-				datePickerFactory.openPopupEndDate($event, $scope);
+				commonFactory.openPopupEndDate($event, $scope);
 			};
 
 			// update target
