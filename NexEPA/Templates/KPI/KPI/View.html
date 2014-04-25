@@ -62,7 +62,11 @@
         <tr ng-repeat="item in KPIList | filter:filterActive">
             <td class="KPI-index" ng-bind="$index + 1"></td>
             <td class="KPI-title" ng-bind="item.name"></td>
-            <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
+            <td class="KPI-group">
+                <div ng-repeat="groupName in item.kpiGroupNames">
+                    <div ng-bind="groupName"></div>
+                </div>
+            </td>
             <td class="KPI-group-active">
                 <input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)"/>
             </td>

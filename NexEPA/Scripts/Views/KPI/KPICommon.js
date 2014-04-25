@@ -40,22 +40,53 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate',
 			return true;
 		};
 
-		common.validateKPI = function (item) {
+		common.validateKPI = function ($scope, item, numberGroup) {
 			if (item === undefined) {
 				return false;
 			}
 			else {
-				if (item.name === undefined) {
+				if (item.name === undefined) { 
 					return false;
 				}
 				else if (item.targetTypeId === undefined || item.targetTypeId === null) {
 					return false;
 				}
-				else if (item.kpiGroupId === undefined || item.kpiGroupId === null) {
+				else if (common.validateAndCreateStringKPIGroupId($scope, item, numberGroup) === false) {
 					return false;
 				}
 			}
 
+			return true;
+		};
+
+		common.validateAndCreateStringKPIGroupId = function ($scope, item, numberGroup) {
+			var listKPIGroupId = '';
+
+			for (var i = 0; i <= numberGroup; i++) {
+				var key = "kpiGroupId" + "_" + i;
+				var groupId = item[key];
+
+				if (groupId === null || groupId === undefined) {
+					common.showErrorMessage($scope, "GroupRequire");
+					return false;
+				}
+				else {
+					if (listKPIGroupId.search(groupId) !== -1) {
+						common.showErrorMessage($scope, "GroupDuplicate");
+						return false;
+					}
+					else {
+						if (listKPIGroupId === '') {
+							listKPIGroupId += groupId;
+						}
+						else {
+							listKPIGroupId += "," + groupId;
+						}
+					}
+				}
+			}
+
+			item.kpiGroupIds = listKPIGroupId;
 			return true;
 		};
 
@@ -104,6 +135,51 @@ kpiSettingModule.directive('numbersOnly', function () {
 
 				return transformedInput;
 			});
+		}
+	};
+});
+
+// Add new KPI Group when create new or edit KPI
+kpiSettingModule.directive('addNewGroup', ['$compile', function ($compile) {
+	return {
+		scope: true,
+		link: function (scope, iElement) {
+			scope.addGroup = function () {
+				var parentFormGroup = iElement.parent();
+				var numberGroup = scope.groupKPI.numberGroup + 1;
+
+				var groupTemplate = '<div class="form-group">\
+										<label class="col-sm-3 control-label"></label>\
+										<div class="col-sm-8">\
+											<select ng-model="item.kpiGroupId_' + numberGroup + '"\
+												ng-options="opt.kpiGroupID as opt.name for opt in groupOptions"\
+												ng-disabled="!isCreatedFromKPI" required class="form-control">\
+												<option value="">-- Select the group --</option>\
+											</select>\
+										</div>\
+										<a add-new-group class="glyphicon glyphicon-plus icon-add"\
+												href="" ng-click="addGroup()" ng-model="groupKPI.numberGroup"></a>\
+										<a remove-group class="glyphicon glyphicon-remove icon-remove"\
+												href="" ng-click="removeGroup()" ng-model="groupKPI.numberGroup"></a>\
+								</div>';
+
+				parentFormGroup.after($compile(groupTemplate)(scope));
+				scope.groupKPI.numberGroup = scope.groupKPI.numberGroup + 1;
+			};
+		}
+	};
+} ]);
+
+// Remove KPI Group when create or edit KPI
+kpiSettingModule.directive('removeGroup', function () {
+	return {
+		scope: true,
+		link: function (scope, iElement) {
+			scope.removeGroup = function () {
+				var parentFormGroup = iElement.parent();
+				parentFormGroup.remove();
+				scope.groupKPI.numberGroup = scope.groupKPI.numberGroup - 1;
+			};
 		}
 	};
 });

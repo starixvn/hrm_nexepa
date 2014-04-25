@@ -40,7 +40,6 @@
                 <tr>
                     <th data-translate="SymbolCount"></th>
                     <th data-translate="Group"></th>
-                    <th data-translate="Weight"></th>
                     <th data-translate="KPIs"></th>
                     <th data-translate="Form"></th>
                     <th data-translate="Active"></th>
@@ -51,7 +50,6 @@
             <tr ng-repeat="group in KPIGroupList | filter: filterActive">
                 <td class="KPI-index" ng-bind="$index + 1"></td>
                 <td class="KPI-group-name" ng-bind="group.name"></td>
-                <td class="KPI-group-weight" ng-bind="group.weight"></td>
                 <td class="KPI-group-criteria">
                     <a href="" ng-show="group.numberKPI > 0" ng-click="viewKPI(group.targetTypeId,group.kpiGroupID)" ng-bind="group.numberKPI"></a>
                     <span ng-show="group.numberKPI === 0" ng-bind="0"></span>

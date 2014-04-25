@@ -11,6 +11,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
@@ -46,10 +47,28 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
-                IEnumerable<KPIInfo> listKPIInfo = _kpiRepository.GetKPI(criteria);
+                List<KPIInfo> listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(criteria);
 
                 foreach (var infoKPI in listKPIInfo)
                 {
+                    List<KPIInfo> kpisSameGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId 
+                                                    && item.Group.KPIGroupId != infoKPI.Group.KPIGroupId).ToList<KPIInfo>();
+                    int numberKPISameGroup = kpisSameGroup.Count();
+                    List<int> kpiGroupIds = new List<int>();
+                    List<string> kpiGroupNames = new List<string>();
+
+                    if (numberKPISameGroup > 0)
+                    {
+                        kpisSameGroup.ForEach(item => 
+                        { 
+                            kpiGroupIds.Add(item.Group.KPIGroupId);
+                            kpiGroupNames.Add(item.Group.Name);
+                        });
+                    }
+
+                    kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
+                    kpiGroupNames.Add(infoKPI.Group.Name);
+
                     var itemKPI = new KPIItem
                     {
                         KPIId = infoKPI.KPIId,
@@ -57,8 +76,8 @@ namespace NexEPA.KPI.Services.Implement.KPI
                         Description = infoKPI.Description,
                         IsRequireComment = infoKPI.IsRequireComment,
                         IsDisabled = infoKPI.IsDisabled,
-                        KPIGroupId = infoKPI.Group.KPIGroupId,
-                        KPIGroupName = infoKPI.Group.Name,
+                        KPIGroupIds = kpiGroupIds,
+                        KPIGroupNames = kpiGroupNames,
                         TargetTypeId = infoKPI.TargetType.TargetTypeId,
                         TargetTypeName = infoKPI.TargetType.Name
                     };
@@ -90,8 +109,6 @@ namespace NexEPA.KPI.Services.Implement.KPI
                     Name = infoKPI.Name,
                     Description = infoKPI.Description,
                     IsRequireComment = infoKPI.IsRequireComment,
-                    KPIGroupId = infoKPI.Group.KPIGroupId,
-                    KPIGroupName = infoKPI.Group.Name,
                     TargetTypeId = infoKPI.TargetType.TargetTypeId,
                     TargetTypeName = infoKPI.TargetType.Name
                 };

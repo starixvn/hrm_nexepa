@@ -127,12 +127,14 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 					}
 					else {
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+						item.isDisabled = !newItem.isDisabled;
 					}
 
 					commonFactory.showInfoMessageBox($scope, keyMessage);
 				}).error(function () {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 					commonFactory.showInfoMessageBox($scope, keyMessage);
+					item.isDisabled = !newItem.isDisabled;
 				});
 			}, function () {
 				item.isDisabled = !newItem.isDisabled;
@@ -172,9 +174,13 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 	} ]);
 
 // Create New KPI
-	kpiSettingModule.controller('CreateNewKPIController', ['$scope', '$routeParams', 
+	kpiSettingModule.controller('CreateNewKPIController', ['$scope', '$routeParams',
 	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository) {
+
+		// it will increase 1 after add 1 new DOM group select , use to add after ng-model name of each group
+		$scope.groupKPI =  {numberGroup: 0 };
+
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -225,9 +231,9 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
 
-			if (KPICommonRepository.validateKPI(item) === true) {
+			if (KPICommonRepository.validateKPI($scope, item, $scope.groupKPI.numberGroup) === true) {
 				KPIRepository.createKPI(item).success(function (response) {
-					if (response.isSuccessful === true) { 
+					if (response.isSuccessful === true) {
 						KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
 						$timeout(function () {
 							if (!$scope.isCreatedFromKPI) {
@@ -255,7 +261,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		$scope.cancel = function () {
 			$window.history.back();
 		};
-	}]);
+	} ]);
 
 // Edit KPI
 	kpiSettingModule.controller("EditKPIController", ['$scope', '$routeParams', '$location', 

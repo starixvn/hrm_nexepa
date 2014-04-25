@@ -55,7 +55,6 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
                         KPIGroupID = group.KPIGroupId,
                         Name = group.Name,
                         Description = group.Description,
-                        Weight = group.Weight,
                         TargetTypeId = group.TargetType.TargetTypeId,
                         Form = group.TargetType.Name,
                         IsDisabled = group.IsDisabled,

@@ -121,12 +121,14 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					}
 					else {
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+						group.isDisabled = !newGroup.isDisabled;
 					}
 
 					commonFactory.showInfoMessageBox($scope, keyMessage);
 				}).error(function () {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 					commonFactory.showInfoMessageBox($scope, keyMessage);
+					group.isDisabled = !newGroup.isDisabled;
 				});
 			}, function () {
 				group.isDisabled = !newGroup.isDisabled;

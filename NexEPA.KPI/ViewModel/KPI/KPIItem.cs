@@ -8,7 +8,9 @@
 // </history>
 
 namespace NexEPA.KPI.ViewModel.KPI
-{ 
+{
+    using System.Collections.Generic;
+
     /// <summary>
     /// The view model of KPI.
     /// </summary>
@@ -24,9 +26,11 @@ namespace NexEPA.KPI.ViewModel.KPI
 
         public bool IsDisabled { get; set; }
 
-        public int KPIGroupId { get; set; }
+        public List<int> KPIGroupIds { get; set; }
 
         public string KPIGroupName { get; set; }
+
+        public List<string> KPIGroupNames { get; set; }
 
         public int TargetTypeId { get; set; }
 
