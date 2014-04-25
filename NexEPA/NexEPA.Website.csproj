@@ -269,6 +269,7 @@
     <Content Include="Templates\EPA\MemberEPA\ViewAllMemberOfManager.html" />
     <Content Include="Templates\EPA\MemberEPA\ViewCurrentMember.html" />
     <Content Include="Templates\EPA\MyEPA\Index.html" />
+    <Content Include="Templates\EPA\MyEPA\RatingScale.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />
     <Content Include="Templates\ProjectMembers\Create.html" />
     <Content Include="Templates\ProjectMembers\Index.html" />

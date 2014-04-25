@@ -56,6 +56,10 @@
 		</div>
 		<div class="row row-item line">
 			<span class="note">* Rating criteria:</span> please evaluate by point as this scale
+			<!--				<div class="col-sm-4" style="border-right:1px solid cyan;">Stars</div>
+				<div class="col-sm-8">Assessment</div>-->
+			<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
+			</div>
 		</div>
 	</div>
 </div>
@@ -70,19 +74,18 @@
 							<li class="epa-criteria-name">{{item.name}}</li>
 						</div>
 						<div class="row">
-							<div class="col-sm-9 criteria-description">{{item.description}}</div>
+							<div class="col-sm-9 criteria-description">
+								{{item.description}}</div>
 							<div class="col-sm-2 pull-right">
-								<rating value="item.score" max="max" readonly="isReadonly" 
-								on-hover="hoveringOver(value, item)" on-leave="hoveringLeave(item.score, item)"></rating>
+								<rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
+									on-leave="hoveringLeave(item.score, item)"></rating>
 								<span class="badge" ng-show="item.percent > 0">{{item.percent}} %</span>
-
 							</div>
 						</div>
 						<div class="row">
 							<textarea class="col-sm-9 epa-textarea-comment criteria-comment"></textarea>
 						</div>
 					</div>
-
 				</ol>
 			</div>
 		</div>
