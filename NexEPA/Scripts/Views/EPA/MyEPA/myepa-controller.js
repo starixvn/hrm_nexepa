@@ -15,19 +15,21 @@ function ($scope, employeeEPAFactory, notificationFactory) {
 	*/
 	var successAddOrUpdateEPA = function () { notificationFactory.success(); };
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error(response); };
-
-	/**
-	* Initialize data to view Edit Project. 
-	*/
-	employeeEPAFactory.getEmployeeEPA(39).then(function (data) {
+	var successGetEmployeeEPA = function (data) {
 		$scope.employeeEPA = data;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
 			roleArray.push(data.projectRoles[i].name);
 		});
-
 		$scope.employeeRole = roleArray.join(", ");
-	});
+	};
+
+	var errorGetEmployeeEPA = function (response) { notificationFactory.error(response); };
+
+	/**
+	* Initialize data to view Edit Project. 
+	*/
+	employeeEPAFactory.getEmployeeEPA(39).then(successGetEmployeeEPA, errorGetEmployeeEPA);
 
 	/**
 	* Events 

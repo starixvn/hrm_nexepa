@@ -11,9 +11,9 @@ var memberValidation = function (employeeId, selected, joinDate) {
 	return false;
 };
 
-projectsSettingModule.controller("ProjectMembersController", ['$scope', '$routeParams', '$location', '$modal',
+projectsSettingModule.controller("ProjectMembersController", ['$scope', '$routeParams', '$location', '$modal', '$window',
 'ProjectSettingCache', 'projectMilestoneService', 'projectMembersFactory', 'notificationFactory', 'projectDataFactory',
-function ($scope, $routeParams, $location, $modal, ProjectSettingCache, projectMilestoneService,
+function ($scope, $routeParams, $location, $modal,  $window, ProjectSettingCache, projectMilestoneService,
 projectMembersFactory, notificationFactory, projectDataFactory) {
 	/**
 	* Scope variable.
@@ -61,6 +61,8 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 	$scope.filterMember = function (isShowDeletedMember, milestone) {
 		projectMembersFactory.getMember(projectIdInUrl, isShowDeletedMember, milestone).then(successGetMembers);
 	};
+
+	$scope.cancel = function () { $window.history.back(); };
 
 	// Add New Member.
 	$scope.addMember = function () {

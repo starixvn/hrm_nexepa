@@ -2,8 +2,12 @@
 'use strict';
 
 projectsSettingModule.controller('ProjectController',
-['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService',
-function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService) {
+['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
+function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService) {
+	/**
+	* Variables. 
+	*/
+
 	/**
 	* Project Setting Cache. 
 	*/
@@ -75,6 +79,11 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	$scope.getProjectList = function (filter) {
 		projectDataFactory.filterData(filter).then(successFilterData);
 	};
+
+	$scope.memberSelected = function (data) {
+		tabService.setProperty(data);
+	};
+
 } ]);
 
 projectsSettingModule.controller('CreateProjectController',
@@ -161,13 +170,14 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 } ]);
 
 projectsSettingModule.controller('EditProjectController',
-['$scope', '$routeParams', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory',
-function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory) {
+['$scope', '$routeParams', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', 'tabService',
+function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, tabService) {
 	/**
 	* Scope variables. 
 	*/
 	var projectId = $routeParams.projectId;
 	$scope.errors = [];
+	$scope.dataTab = {};
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 
@@ -208,6 +218,14 @@ function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectS
 	}
 	else {
 		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
+	}
+
+	// Get Selected Tab in Edit Project Information Page.
+	if (tabService.getProperty() === true) {
+		$scope.dataTab.member = true;
+	}
+	else {
+		$scope.dataTab.information = true;
 	}
 
 	projectDataFactory.getProjectById(projectId).then(successGetProjectById);

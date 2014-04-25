@@ -25,7 +25,7 @@
 			</thead>
 			<tr ng-repeat="project in projects">
 				<td class="column-limit">
-					<a href="/Projects/Edit/{{project.projectId}}">{{project.name}} </a>
+					<a href="/Projects/Edit/{{project.projectId}}"  ng-click="memberSelected(false)">{{project.name}} </a>
 				</td>
 				<td class="column-limit">
 					{{project.milestone.name}}
@@ -34,7 +34,7 @@
 					{{project.fullName}}
 				</td>
 				<td class="text-center member-limit">
-					{{project.members}}
+					<a href="/Projects/Edit/{{project.projectId}}" ng-click="memberSelected(true)">{{project.members}}</a>
 				</td>
 				<td class="text-center">
 					{{project.status|enumStatusText}}

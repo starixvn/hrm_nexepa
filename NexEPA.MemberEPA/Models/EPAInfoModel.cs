@@ -39,6 +39,12 @@ namespace NexEPA.MemberEPA.Models
 
         public string MilestoneName { get; set; }
 
+        public int ProjectManagerId { get; set; }
+
+        public string PMNickName { get; set; }
+
+        public string PMFullName { get; set; }
+
         public string Comment { get; set; }
 
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }
