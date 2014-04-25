@@ -12,7 +12,6 @@ namespace NexEPA.Web.Models
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// Current Session.
