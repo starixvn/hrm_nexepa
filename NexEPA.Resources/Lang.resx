@@ -426,4 +426,10 @@
   <data name="ManageMemberEPA" xml:space="preserve">
     <value>Manage Member EPA</value>
   </data>
+  <data name="KPIList" xml:space="preserve">
+    <value>KPI List</value>
+  </data>
+  <data name="KPIGroupWeight" xml:space="preserve">
+    <value>Weight</value>
+  </data>
 </root>

@@ -21,7 +21,7 @@
 					<label class="col-sm-2 col-md-2" data-translate="ProjectName" />
 					<div class="col-sm-6 col-md-4">
 						<input class="custom-textbox" type="text" name="projectname" ng-model="projectUpdate.name"
-							placeholder="Project Name" />
+							maxlength="200" placeholder="Project Name" />
 					</div>
 				</div>
 				<div class="col-sm-12 line">
@@ -67,7 +67,7 @@
 					<label class="col-sm-2 col-md-2" data-translate="Description">
 					</label>
 					<div class="col-sm-6 col-md-4">
-						<textarea class="custom-textarea" ng-model="projectUpdate.description"></textarea>
+						<textarea class="custom-textarea" ng-model="projectUpdate.description" maxlength="500"></textarea>
 					</div>
 				</div>
 			</div>

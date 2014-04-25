@@ -224,6 +224,7 @@
     <Content Include="Content\Site\KPI\KPI.less" />
     <Content Include="Content\Site\Projects\project.less" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Extensions\Directives\dropdownlist-directives.js" />
     <Content Include="Scripts\Extensions\Services\error-service.js" />
     <Content Include="Scripts\Extensions\Common\common-factory.js" />
     <Content Include="Scripts\Extensions\Common\modalconfirm-controller.js" />
@@ -282,6 +283,7 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
+    <Content Include="Templates\TargetTemplate\AddKPIGroup.html" />
     <Content Include="Templates\TargetTemplate\Edit.html" />
     <Content Include="Templates\TargetTemplate\Create.html" />
     <Content Include="Templates\TargetTemplate\Details.html" />

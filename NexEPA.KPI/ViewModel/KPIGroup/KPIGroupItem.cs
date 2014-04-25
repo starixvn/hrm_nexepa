@@ -39,5 +39,7 @@ namespace NexEPA.KPI.ViewModel.KPIGroup
         public bool IsDisabled { get; set; }
 
         public int NumberKPI { get; set; }
+
+        public bool Selected { get; set; }
     }
 }

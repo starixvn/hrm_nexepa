@@ -62,9 +62,9 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory) {
 	};
 } ]);
 
-targetTemplateModule.controller('EditTargetTemplateController', 
-['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory',
-function ($scope, $routeParams, $window, $location, targetTemplateFactory) {
+targetTemplateModule.controller('EditTargetTemplateController',
+['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'KPIGroupRepository',
+function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, KPIGroupRepository) {
 	/**
 	* Variables. 
 	*/
@@ -77,6 +77,7 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory) {
 	*/
 	var succesGetListKPI = function (data) {
 		$scope.lstKPI = data;
+		debugger;
 
 		$.each($scope.lstKPI, function (key) {
 			var data = $scope.lstKPI[key].kpiGroupItems;
@@ -123,7 +124,76 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory) {
 			targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
 		}
 	};
-}]);
+
+	$scope.addKPIGroup = function () {
+
+		var successGetAllKPIGroup = function (response) {
+			var addModalInstance = $modal.open({
+				templateUrl: '/templates/TargetTemplate/AddKPIGroup.html',
+				controller: "AddKPIGroup",
+				windowClass: 'app-modal-window',
+				resolve: {
+					KPIGroups: function () {
+						return response.data;
+					}
+				}
+			});
+			addModalInstance.result.then(function () {
+				// TODO: Save Data selection Here 
+
+				// TODO: Update $scope.lstKPI : 
+				// targetTemplateFactory.getKPI(targetId, null, null, false).then(succesGetListKPI);
+			});
+		};
+
+		/**
+		* Initialize Data. 
+		*/
+		KPIGroupRepository.getAll(null).then(successGetAllKPIGroup);
+	};
+
+} ]);
+
+targetTemplateModule.controller('AddKPIGroup', ['$scope', '$modalInstance', 'KPIGroups',
+function ($scope, $modalInstance, KPIGroups) {
+	/**
+	* Variables. 
+	*/
+	$scope.selectedAll = false;
+	$scope.KPIGroups = KPIGroups;
+	$scope.selection = [];
+
+	/**
+	* Event. 
+	*/
+	$scope.ok = function () {
+		$modalInstance.close($scope.selection);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+
+	/**
+	* Check all KPI Group. 
+	*/
+	$scope.checkAll = function (status) {
+		angular.forEach($scope.KPIGroups, function (item) {
+			item.selected = !status;
+		});
+	};
+
+	$scope.$watch('KPIGroups|filter:{selected:true}', function (selectedItems) {
+		$scope.selection = selectedItems.map(function (item) {
+			var object = {};
+			object.kpiGroupId = item.kpiGroupID;
+			object.weight = item.weight;
+			return object;
+		});
+	}, true);
+
+
+} ]);
 
 
 targetTemplateModule.controller('CreateTargetTemplateController',
@@ -167,7 +237,7 @@ function ($scope, $location, $window, targetTemplateFactory) {
 
 targetTemplateModule.controller('DetailTargetTemplateController',
 ['$scope', '$routeParams', '$window', 'targetTemplateFactory',
- function ($scope, $routeParams, $window, targetTemplateFactory) {
+function ($scope, $routeParams, $window, targetTemplateFactory) {
 	var targetId = $routeParams.targetId;
 	var succesGetListKPI = function (data) {
 		$scope.lstKPI = data;
@@ -185,4 +255,4 @@ targetTemplateModule.controller('DetailTargetTemplateController',
 
 	// Back
 	$scope.back = function () { $window.history.back(); };
-}]);
+} ]);

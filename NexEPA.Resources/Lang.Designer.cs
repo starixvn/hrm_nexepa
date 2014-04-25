@@ -565,6 +565,24 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weight.
+        /// </summary>
+        public static string KPIGroupWeight {
+            get {
+                return ResourceManager.GetString("KPIGroupWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KPI List.
+        /// </summary>
+        public static string KPIList {
+            get {
+                return ResourceManager.GetString("KPIList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to KPIs.
         /// </summary>
         public static string KPIs {
