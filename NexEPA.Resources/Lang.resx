@@ -428,6 +428,7 @@
   </data>
   <data name="KPIList" xml:space="preserve">
     <value>KPI List</value>
+  </data>
   <data name="GroupDuplicate" xml:space="preserve">
     <value>Duplicate Group! Please choose another one!</value>
   </data>
