@@ -49,26 +49,29 @@ namespace NexEPA.KPI.Services.Implement.KPI
             {
                 List<KPIInfo> listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(criteria);
 
-                foreach (var infoKPI in listKPIInfo)
+                for (int i = 0; i < listKPIInfo.Count; i++)
                 {
-                    List<KPIInfo> kpisSameGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId 
+                    KPIInfo infoKPI = listKPIInfo[i];
+                    List<KPIInfo> kpisSameGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId
                                                     && item.Group.KPIGroupId != infoKPI.Group.KPIGroupId).ToList<KPIInfo>();
+
                     int numberKPISameGroup = kpisSameGroup.Count();
+
                     List<int> kpiGroupIds = new List<int>();
                     List<string> kpiGroupNames = new List<string>();
 
                     if (numberKPISameGroup > 0)
                     {
-                        kpisSameGroup.ForEach(item => 
-                        { 
+                        kpisSameGroup.ForEach(item =>
+                        {
                             kpiGroupIds.Add(item.Group.KPIGroupId);
                             kpiGroupNames.Add(item.Group.Name);
+                            listKPIInfo.Remove(item);
                         });
                     }
 
                     kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
                     kpiGroupNames.Add(infoKPI.Group.Name);
-
                     var itemKPI = new KPIItem
                     {
                         KPIId = infoKPI.KPIId,
@@ -101,16 +104,27 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
-                KPIInfo infoKPI = _kpiRepository.GetKPIById(criteria);
+                List<KPIInfo> infoKPIs = (List<KPIInfo>)_kpiRepository.GetKPIById(criteria);
+
+                List<int> kpiGroupIds = new List<int>();
+                List<string> kpiGroupNames = new List<string>();
+
+                foreach (var infoKPI in infoKPIs)
+                {
+                    kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
+                    kpiGroupNames.Add(infoKPI.Group.Name);
+                }
 
                 kpiItem = new KPIItem
                 {
-                    KPIId = infoKPI.KPIId,
-                    Name = infoKPI.Name,
-                    Description = infoKPI.Description,
-                    IsRequireComment = infoKPI.IsRequireComment,
-                    TargetTypeId = infoKPI.TargetType.TargetTypeId,
-                    TargetTypeName = infoKPI.TargetType.Name
+                    KPIId = infoKPIs[0].KPIId,
+                    Name = infoKPIs[0].Name,
+                    Description = infoKPIs[0].Description,
+                    IsRequireComment = infoKPIs[0].IsRequireComment,
+                    KPIGroupIds = kpiGroupIds,
+                    KPIGroupNames = kpiGroupNames,
+                    TargetTypeId = infoKPIs[0].TargetType.TargetTypeId,
+                    TargetTypeName = infoKPIs[0].TargetType.Name
                 };
             }
 

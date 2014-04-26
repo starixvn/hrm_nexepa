@@ -47,7 +47,7 @@
 	margin: 10px 1% !important;
 }
 
-.KPI-title, .KPI-group {
+.KPI-title {
 	vertical-align: middle!important;
 }
 
@@ -58,6 +58,40 @@
 .KPI-action {
 	.KPI-center;
 	width: @width-100;
+}
+
+.KPI-group {
+	vertical-align: middle!important;
+	padding-right: 20px;
+
+	ul {
+		list-style-type: none;
+
+		li {
+			padding: 5px 0;
+		}
+	}
+
+	.group-toggle-show {
+		position: relative;
+
+		.group-toggle-icon {
+			height: 15px;
+			width: 15px;
+			position:absolute;
+			right:0px;
+			padding-left: 5px;
+		}
+	}
+
+	.group-toggle-item {
+		border: 1px solid #AAAAAA;
+		border-radius: 3px;
+		box-shadow: 1px 1px 0 #DDDDDD inset, 1px 1px 0 #FFFFFF;
+		margin: 10px 0 0;
+		padding: 5px 10px;
+	}
+
 }
 
 .msgbox {
@@ -102,3 +136,19 @@
 	vertical-align: middle;
 	width: auto;
 }
+
+.form-group .chosen-container .chosen-choices {
+	background-color: #FFF;
+	background-image: none;
+	border: 1px solid #CCC;
+	border-radius: 4px;
+
+	.search-field input[type="text"] {
+		height: auto;
+	} 
+}
+
+
+
+
+

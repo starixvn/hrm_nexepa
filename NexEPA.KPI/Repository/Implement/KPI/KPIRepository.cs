@@ -47,12 +47,12 @@ namespace NexEPA.KPI.Repository.Implement.KPI
         /// Get KPI by ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The KPI Info.</returns>
-        public KPIInfo GetKPIById(ICriteria criteria)
+        /// <returns>The IEnumerable KPI Info.</returns>
+        public IEnumerable<KPIInfo> GetKPIById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
+                return db.Query<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
                     (inf, gr, ta) =>
                     {
                         inf.Group = gr;

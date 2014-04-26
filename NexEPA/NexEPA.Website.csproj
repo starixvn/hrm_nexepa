@@ -185,7 +185,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\SpNames.xml" />
+    <Content Include="Content\Common\chosen.min.css" />
     <Content Include="Content\Common\Images\animated-overlay.gif" />
+    <Content Include="Content\Common\chosen-sprite.png" />
     <Content Include="Content\Common\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\Common\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\Common\Images\ui-bg_flat_10_000000_40x100.png" />
@@ -238,6 +240,7 @@
     <Content Include="Scripts\Libs\angular-translate.js" />
     <Content Include="Scripts\Libs\bootstrap.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
+    <Content Include="Scripts\Libs\chosen.jquery.min.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />

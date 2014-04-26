@@ -28,7 +28,8 @@ namespace NexEPA
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Common/toastr.css",
                 "~/Content/Common/bootstrap.css",
-                "~/Content/Common/bootstrap-theme.css"));
+                "~/Content/Common/bootstrap-theme.css",
+                "~/Content/Common/chosen.min.css"));
 
             bundles.AddAndInclude(
                 "~/EPA/Less",
@@ -48,7 +49,8 @@ namespace NexEPA
                 "~/Scripts/Libs/angular-resource.js",
                 "~/Scripts/Libs/angular-route.js",
                 "~/Scripts/Libs/toastr.js",
-                "~/Scripts/Libs/angular-translate.js"));
+                "~/Scripts/Libs/angular-translate.js",
+                "~/Scripts/Libs/chosen.jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/registration-module.js",

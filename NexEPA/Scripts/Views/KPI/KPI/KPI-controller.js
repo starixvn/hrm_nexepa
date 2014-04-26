@@ -4,11 +4,12 @@
 // View KPI
 kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$location', '$modal', '$route', '$window',
 	'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'commonFactory',
-	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory, 
+	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory,
 		KPICommonRepository, commonFactory) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 		$scope.isActiveFilter = true;
+		$scope.isCollapsed = true;
 
 		if (groupId) {
 			$scope.back = function () {
@@ -178,9 +179,6 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository) {
 
-		// it will increase 1 after add 1 new DOM group select , use to add after ng-model name of each group
-		$scope.groupKPI =  {numberGroup: 0 };
-
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -231,7 +229,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
 
-			if (KPICommonRepository.validateKPI($scope, item, $scope.groupKPI.numberGroup) === true) {
+			if (KPICommonRepository.validateKPI(item) === true) {
 				KPIRepository.createKPI(item).success(function (response) {
 					if (response.isSuccessful === true) {
 						KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
@@ -264,7 +262,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 	} ]);
 
 // Edit KPI
-	kpiSettingModule.controller("EditKPIController", ['$scope', '$routeParams', '$location', 
+	kpiSettingModule.controller("EditKPIController", ['$scope', '$routeParams', '$location',
 	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository',
 	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository) {
 		var kpiId = $routeParams.id;
@@ -318,4 +316,4 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		$scope.cancel = function () {
 			$window.history.back();
 		};
-	}]);
+	} ]);

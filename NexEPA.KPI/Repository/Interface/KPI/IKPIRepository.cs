@@ -20,6 +20,6 @@ namespace NexEPA.KPI.Repository.Interface.KPI
     {
         IEnumerable<KPIInfo> GetKPI(ICriteria criteria);
 
-        KPIInfo GetKPIById(ICriteria criteria);
+        IEnumerable<KPIInfo> GetKPIById(ICriteria criteria);
     }
 }

@@ -23,8 +23,6 @@ namespace NexEPA.KPI.Criteria.KPIGroup
 
         public string Description { get; set; }
 
-        public int Weight { get; set; }
-
         public bool IsDisabled { get; set; }
 
         public short TargetTypeId { get; set; }

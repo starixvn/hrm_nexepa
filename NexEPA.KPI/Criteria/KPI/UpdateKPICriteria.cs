@@ -23,7 +23,7 @@ namespace NexEPA.KPI.Criteria.KPI
 
         public string Description { get; set; }
 
-        public int KPIGroupId { get; set; }
+        public string KPIGroupIds { get; set; }
 
         public bool IsRequireComment { get; set; }
 

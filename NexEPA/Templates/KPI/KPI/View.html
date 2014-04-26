@@ -4,7 +4,7 @@
             <li><a href="#" data-translate="KPI" ng-click="reload()"></a></li>
             <li class="current">
                  <span data-translate="ManageKPI"></span>
-                 <span ng-show="!isViewAll && KPIList">of "{{KPIList[0].kpiGroupName}}"</span>
+                 <span ng-show="!isViewAll && KPIList">of "{{KPIList[0].kpiGroupNames[0]}}"</span>
             </li>
         </ul>
         <div class="button-icon">
@@ -63,8 +63,17 @@
             <td class="KPI-index" ng-bind="$index + 1"></td>
             <td class="KPI-title" ng-bind="item.name"></td>
             <td class="KPI-group">
-                <div ng-repeat="groupName in item.kpiGroupNames">
-                    <div ng-bind="groupName"></div>
+                <div class="group-toggle-show">
+                    <span ng-bind="item.kpiGroupNames[0]"></span>
+                    <a class="glyphicon glyphicon-plus-sign group-toggle-icon" ng-click="isCollapsed = !isCollapsed" 
+                        ng-show="item.kpiGroupNames.length > 1 && isCollapsed == true" href="" title="View Other Groups"></a>
+                    <a class="glyphicon glyphicon-minus-sign group-toggle-icon" ng-click="isCollapsed = !isCollapsed" 
+                        ng-show="item.kpiGroupNames.length > 1 && isCollapsed == false" href="" title="Close"></a>
+                </div>
+                <div ng-show="item.kpiGroupNames.length > 1">
+                   <ul collapse="isCollapsed" class="group-toggle-item">
+                        <li ng-repeat="groupName in item.kpiGroupNames"" ng-show="!$first" ng-bind="groupName"></li>
+                    </ul>
                 </div>
             </td>
             <td class="KPI-group-active">
@@ -93,7 +102,11 @@
         </thead>
         <tr ng-repeat="item in KPIList">
             <td class="KPI-title" ng-bind="item.name"></td>
-            <td class="KPI-group" ng-bind="item.kpiGroupName"></td>
+            <td class="KPI-group">
+                <div ng-repeat="groupName in item.kpiGroupNames">
+                    <div ng-bind="groupName"></div>
+                </div>
+            </td>
             <td class="KPI-group-active">
                 <input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)"/>
             </td>

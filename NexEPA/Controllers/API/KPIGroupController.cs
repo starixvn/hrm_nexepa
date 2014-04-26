@@ -17,6 +17,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.Services.Implement.KPIGroup;
     using NexEPA.KPI.Services.Interface.KPIGroup;
     using NexEPA.KPI.ViewModel.KPIGroup;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -37,6 +38,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        [ApiAuthorize(Roles = "SA")]
         public List<KPIGroupItem> GetAll(int? targetTypeId = null)
         {
             var criteria = new GetAllKPIGroupCriteria
@@ -48,6 +50,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        [ApiAuthorize(Roles = "SA")]
         public KPIGroupItem GetUserById(int id)
         {
             var criteria = new GetKPIGroupByIdCriteria
@@ -58,11 +61,13 @@ namespace NexEPA.Controllers.API
             return _kpiGroupServices.GetKPIGroupById(criteria);
         }
 
+        [ApiAuthorize(Roles = "SA")]
         public CommandResult Post(InsertKPIGroupCriteria criteria)
         {
             return _kpiGroupServices.InsertKPIGroup(criteria);
         }
 
+        [ApiAuthorize(Roles = "SA")]
         public CommandResult Put(UpdateKPIGroupCriteria criteria)
         {
             return _kpiGroupServices.UpdateKPIGroup(criteria);
@@ -73,6 +78,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="id">The KPI Group ID.</param>
         /// <returns>Command Result.</returns>
+        [ApiAuthorize(Roles = "SA")]
         public CommandResult Delete(int id)
         {
             var criteria = new DeleteKPIGroupCriteria
