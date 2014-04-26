@@ -12,13 +12,13 @@ CREATE TABLE [dbo].[KPI](
 	[KPIId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](500) NOT NULL,
 	[Description] [nvarchar](max) NULL,
-	[KPIGroupId] [int] NOT NULL,
 	[IsRequireComment] [bit] NULL,
 	[IsDisabled] [bit] NULL,
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NULL,
 	[ModifiedBy] [int] NULL,
-	[ModifiedDate] [datetime] NULL
+	[ModifiedDate] [datetime] NULL,
+	[LogNo] [varchar(20)] NULL,
 CONSTRAINT [PK_KPIId] PRIMARY KEY CLUSTERED 
 (
 	[KPIId] ASC

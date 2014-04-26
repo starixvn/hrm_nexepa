@@ -19,6 +19,7 @@ CREATE TABLE [dbo].[KPIGroup](
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL,
 	[TargetTypeId] [tinyint] NULL,
+	[LogNo] [varchar(20)] NULL,
  CONSTRAINT [PK_KPIGroupId] PRIMARY KEY CLUSTERED 
 (
 	[KPIGroupId] ASC
