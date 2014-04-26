@@ -8,7 +8,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[TargetSetting](
+CREATE TABLE [dbo].[TargetSettingPeriod](
 	[TargetType] [tinyint] NOT NULL,
 	[DepartmentId] [int] NULL,
 	[EmployeeLevelId] [int] NULL,

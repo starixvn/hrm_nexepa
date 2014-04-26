@@ -8,13 +8,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+DROP TABLE [dbo].[TargetTemplate]
+
 CREATE TABLE [dbo].[TargetTemplate](
-	[TargetId] [int] IDENTITY(1,1) NOT NULL,
+	[TargetTemplateId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](200) NOT NULL,
 	[Description] [nvarchar](max) NULL,
 	[TargetTypeId] [tinyint] NOT NULL,
-	[ScoreTypeId] [tinyint] NOT NULL,
-	[ProcessGroupId] [int] NOT NULL,
 	[IsDisabled] [bit] NULL,
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NULL,
@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[TargetTemplate](
 	
 CONSTRAINT [PK_TargetTemplateId] PRIMARY KEY CLUSTERED 
 (
-	[TargetId] ASC
+	[TargetTemplateId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
