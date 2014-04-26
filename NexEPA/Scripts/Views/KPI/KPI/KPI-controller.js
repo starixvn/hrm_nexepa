@@ -122,24 +122,29 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			var keyMessage = '';
 
 			modalConfirmInstance.result.then(function () {
-				KPIRepository.updateKPI(newItem).success(function (response) {
-					if (response.isSuccessful === true) {
-						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
-						notificationFactory.success(keyMessage);
-					}
-					else {
+				if (KPICommonRepository.validateKPI(newItem) === true) {
+					KPIRepository.updateKPI(newItem).success(function (response) {
+						if (response.isSuccessful === true) {
+							keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+							notificationFactory.success(keyMessage);
+						}
+						else {
+							keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+							item.isDisabled = !newItem.isDisabled;
+							notificationFactory.error('', keyMessage);
+						}
+					}).error(function () {
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-						item.isDisabled = !newItem.isDisabled;
 						notificationFactory.error('', keyMessage);
-					}
-				}).error(function () {
-					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-					notificationFactory.error('', keyMessage);
+						item.isDisabled = !newItem.isDisabled;
+					});
+				}
+				else {
 					item.isDisabled = !newItem.isDisabled;
-				});
+				}
 			}, function () {
 				item.isDisabled = !newItem.isDisabled;
-			});
+			})
 		};
 
 		// filter active KPI or not
