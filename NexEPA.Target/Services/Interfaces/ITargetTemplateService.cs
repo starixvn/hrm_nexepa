@@ -13,6 +13,7 @@ namespace NexEPA.Target.Services.Interfaces
     using Fanex.NAP.Framework.Data;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
+using NexEPA.Target.Models.Target;
 
     /// <summary>
     /// Interface Target Template Service.
@@ -34,5 +35,7 @@ namespace NexEPA.Target.Services.Interfaces
         CommandResult AddKPIGroupWeight(AddKPIGroupWeightCriteria criteria);
 
         IEnumerable<KPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria);
+
+        IEnumerable<TargetKPIGroup> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria);
     }
 }

@@ -28,5 +28,7 @@ namespace NexEPA.KPI.Services.Interface.KPI
         CommandResult UpdateKPI(UpdateKPICriteria criteria);
 
         CommandResult DeleteKPI(DeleteKPICriteria criteria);
+
+        IEnumerable<KPIItem> GetAllKPIByKPIGroup(GetAllKPIByKPIGroupCriteria criteria);
     }
 }

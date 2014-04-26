@@ -174,5 +174,22 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             return commandResult;
         }
+
+        /// <summary>
+        /// Get All KPI By KPIGroup.
+        /// </summary>
+        /// <param name="criteria">GetAllKPIByKPIGroup Criteria.</param>
+        /// <returns>KPIItem items.</returns>
+        public IEnumerable<KPIItem> GetAllKPIByKPIGroup(GetAllKPIByKPIGroupCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<KPIItem> kpis = null;
+            if (criteria.IsValid())
+            {
+                kpis = GetData<KPIItem>(criteria);
+            }
+
+            return kpis;
+        }
     }
 }

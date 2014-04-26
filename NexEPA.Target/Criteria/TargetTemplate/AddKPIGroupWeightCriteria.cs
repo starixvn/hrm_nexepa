@@ -9,6 +9,7 @@
 
 namespace NexEPA.Target.Criteria.TargetTemplate
 {
+    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -16,7 +17,13 @@ namespace NexEPA.Target.Criteria.TargetTemplate
     /// </summary>
     public class AddKPIGroupWeightCriteria : CriteriaBase
     {
-        public string KPIGroupWeightXML { get; set; }
+        public int TargetTemplateId { get; set; }
+
+        public string KPIGroups { get; set; }
+
+        public int ModifiedBy { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
 
         public override bool IsValid()
         {
@@ -25,7 +32,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
 
         public override string GetSettingKey()
         {
-            return "KPIGroup_AddWeight";
+            return "TargetTemplate_SetKPIGroup";
         }
     }
 }

@@ -17,5 +17,7 @@ namespace NexEPA.Target.Models.Target
         public int KPIGroupId { get; set; }
 
         public string Name { get; set; }
+
+        public int Weight { get; set; }
     }
 }

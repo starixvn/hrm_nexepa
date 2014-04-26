@@ -9,13 +9,16 @@
 
 namespace NexEPA.Target.Models
 {
+    using System.Collections.Generic;
+    using NexEPA.Target.Models.Target;
+
     /// <summary>
     /// Target KPI Group Weight.
     /// </summary>
     public class TargetKPIGroupWeight
     {
-        public int KPIGroupId { get; set; }
+        public int TargetTemplateId { get; set; }
 
-        public int Weight { get; set; }
+        public List<TargetKPIGroup> KPIGroups { get; set; }
     }
 }

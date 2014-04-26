@@ -17,7 +17,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
     /// </summary>
     public class UpdateTargetTemplateCriteria : CriteriaBase
     {
-        public int TargetId { get; set; }
+        public int TargetTemplateId { get; set; }
 
         public string Name { get; set; }
 
@@ -29,7 +29,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
 
         public int? TargetTypeId { get; set; }
 
-        public string KPIIds { get; set; }
+        public string KPIs { get; set; }
 
         public override bool IsValid()
         {

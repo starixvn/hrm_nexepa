@@ -16,7 +16,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
     /// </summary>
     public class GetListKPIByTargetTemplateIdCriteria : CriteriaBase
     {
-        public int? TargetId { get; set; }
+        public int? TargetTemplateId { get; set; }
 
         public override bool IsValid()
         {

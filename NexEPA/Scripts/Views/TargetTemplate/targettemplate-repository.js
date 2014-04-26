@@ -1,7 +1,7 @@
 ﻿/* global targetTemplateModule */
 'use strict';
 
-targetTemplateModule.factory("targetTemplateFactory",['$http', '$q', function ($http, $q) {
+targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function ($http, $q) {
 	var url = '/api/targetTemplate/';
 	return {
 		getTargetTemplateById: function (targetId) {
@@ -20,22 +20,28 @@ targetTemplateModule.factory("targetTemplateFactory",['$http', '$q', function ($
 			$http.get('/api/targetTemplate/Get').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
-		getKPI: function (targetId, targetTypeId, groupId, onlySelected) {
+		getKPI: function (targetTemplateId, targetTypeId, groupId, onlySelected) {
 			var deferred = $q.defer();
 			$http.get('/api/targetTemplate/GetKPI/', { params: {
-				targetId: targetId,
+				targetTemplateId: targetTemplateId,
 				targetTypeId: targetTypeId,
 				groupId: groupId,
 				onlySelected: onlySelected
-			} 
+			}
 			})
             .success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
-		getSelectedKPIByTargetTemplate: function (targetId) {
+		getSelectedKPIByTargetTemplate: function (targetTemplateId) {
 			var deferred = $q.defer();
-			$http.get('/api/targetTemplate/GetSelectedKPIByTargetTemplate/', { params: { targetId: targetId} })
+			$http.get('/api/targetTemplate/GetSelectedKPIByTargetTemplate/', { params: { targetTemplateId: targetTemplateId} })
             .success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		getSelectedKPIGroupByTargetTemplate: function (targetTemplateId) {
+			var deferred = $q.defer();
+			$http.get('/api/targetTemplate/GetSelectedKPIGroupByTargetTemplate', { params: { targetTemplateId: targetTemplateId} })
+			.success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
 		addTargetTemplate: function (template) {
@@ -46,6 +52,12 @@ targetTemplateModule.factory("targetTemplateFactory",['$http', '$q', function ($
 		addKPI: function (objectKPI) {
 			var deferred = $q.defer();
 			$http.post('/api/targetTemplate/AddKPI/', objectKPI)
+            .success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		addKPIGroups: function (objectKPIGroup) {
+			var deferred = $q.defer();
+			$http.post('/api/targetTemplate/AddKPIGroupWeight/', objectKPIGroup)
             .success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
@@ -61,4 +73,4 @@ targetTemplateModule.factory("targetTemplateFactory",['$http', '$q', function ($
 			return deferred.promise;
 		}
 	};
-}]);
+} ]);

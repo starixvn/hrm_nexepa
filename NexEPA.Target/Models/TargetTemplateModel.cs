@@ -17,7 +17,7 @@ namespace NexEPA.Target.Models
     /// </summary>
     public class TargetTemplateModel
     {
-        public int TargetId { get; set; }
+        public int TargetTemplateId { get; set; }
 
         [Required(ErrorMessage = "The field Name is required.")]
         public string Name { get; set; }

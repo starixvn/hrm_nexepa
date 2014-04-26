@@ -15,6 +15,7 @@ namespace NexEPA.Target.Services.Impl
     using NexEPA.Core.Services;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
+    using NexEPA.Target.Models.Target;
     using NexEPA.Target.Services.Interfaces;
 
     /// <summary>
@@ -116,6 +117,18 @@ namespace NexEPA.Target.Services.Impl
             }
 
             return lstKPI;
+        }
+
+        public IEnumerable<TargetKPIGroup> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<TargetKPIGroup> groups = null;
+            if (criteria.IsValid())
+            {
+                groups = GetData<TargetKPIGroup>(criteria);
+            }
+
+            return groups;
         }
     }
 }

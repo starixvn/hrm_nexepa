@@ -60,6 +60,7 @@
     <Compile Include="Criteria\KPIGroup\InsertKPIGroupCriteria.cs" />
     <Compile Include="Criteria\KPIGroup\UpdateKPIGroupCriteria.cs" />
     <Compile Include="Criteria\KPI\DeleteKPICriteria.cs" />
+    <Compile Include="Criteria\KPI\GetAllKPIByKPIGroupCriteria.cs" />
     <Compile Include="Criteria\KPI\GetKPIByIdCriteria.cs" />
     <Compile Include="Criteria\KPI\GetKPICriteria.cs" />
     <Compile Include="Criteria\KPI\InsertKPICriteria.cs" />

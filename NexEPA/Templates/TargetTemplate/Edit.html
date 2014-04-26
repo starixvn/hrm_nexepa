@@ -23,7 +23,7 @@
 				<div class="col-sm-12 line required">
 					<label class="col-sm-2 col-md-1">
 						{{"Name" | translate}}</label>
-					<div class="col-sm-6 col-md-5">
+					<div class="col-sm-5">
 						<input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name"
 							maxlength="200" />
 					</div>
@@ -32,7 +32,7 @@
 					<label class="col-sm-2 col-md-1">
 						{{"TargetType" | translate}}
 					</label>
-					<div class="col-sm-6 col-md-5">
+					<div class="col-sm-5">
 						<select class="custom-textbox" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
 							ng-model="editTemplate.targetTypeId">
 							<option style="display: none" value="">-- Select a target type --</option>
@@ -42,7 +42,7 @@
 				<div class="col-sm-12">
 					<label class="col-sm-2 col-md-1" data-translate="Description">
 					</label>
-					<div class="col-sm-6 col-md-5">
+					<div class="col-sm-5">
 						<textarea class="custom-textarea" ng-model="editTemplate.description" id="Textarea1"
 							maxlength="500"></textarea>
 					</div>

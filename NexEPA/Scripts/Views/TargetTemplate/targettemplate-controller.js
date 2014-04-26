@@ -68,12 +68,12 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 } ]);
 
 targetTemplateModule.controller('EditTargetTemplateController',
-['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'KPIGroupRepository', 'tabService',
-function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, KPIGroupRepository, tabService) {
+['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'tabService', 'notificationFactory',
+function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, tabService, notificationFactory) {
 	/**
 	* Variables. 
 	*/
-	var targetId = $routeParams.targetId;
+	var targetTemplateId = $routeParams.targetTemplateId;
 	$scope.selection = [];
 	$scope.lstAllData = [];
 	$scope.dataTab = {};
@@ -83,8 +83,6 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	*/
 	var succesGetListKPI = function (data) {
 		$scope.lstKPI = data;
-		debugger;
-
 		$.each($scope.lstKPI, function (key) {
 			var data = $scope.lstKPI[key].kpiGroupItems;
 			$.each(data, function (k) {
@@ -105,10 +103,10 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	* Initialize data to view Edit.
 	*/
 	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
-	targetTemplateFactory.getTargetTemplateById(targetId).then(function (data) {
+	targetTemplateFactory.getTargetTemplateById(targetTemplateId).then(function (data) {
 		$scope.editTemplate = data;
 		$scope.currentTargetTemplateName = data.name;
-		targetTemplateFactory.getKPI(targetId, null, null, false).then(succesGetListKPI);
+		targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
 	});
 
 	// Get Selected Tab in Edit Target Template Page.
@@ -141,29 +139,34 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 
 	$scope.addKPIGroup = function () {
 
-		var successGetAllKPIGroup = function (response) {
+		var successAddKPIGroups = function () { notificationFactory.success(); };
+		var errorAddKPIGroups = function (data) { notificationFactory.error(data); };
+		var successGetAllKPIGroup = function (data) {
+			debugger;
 			var addModalInstance = $modal.open({
 				templateUrl: '/templates/TargetTemplate/AddKPIGroup.html',
 				controller: "AddKPIGroup",
 				windowClass: 'app-modal-window',
 				resolve: {
 					KPIGroups: function () {
-						return response.data;
+						return data;
 					}
 				}
 			});
-			addModalInstance.result.then(function () {
-				// TODO: Save Data selection Here 
-
-				// TODO: Update $scope.lstKPI : 
-				// targetTemplateFactory.getKPI(targetId, null, null, false).then(succesGetListKPI);
+			addModalInstance.result.then(function (selectedGroup) {
+				var object = {};
+				object.TargetTemplateId = targetTemplateId;
+				object.KPIGroups = selectedGroup;
+				targetTemplateFactory.addKPIGroups(object).then(successAddKPIGroups, errorAddKPIGroups);
+				// Refresh List KPI. 
+				targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
 			});
 		};
 
 		/**
 		* Initialize Data. 
 		*/
-		KPIGroupRepository.getAll(null).then(successGetAllKPIGroup);
+		targetTemplateFactory.getSelectedKPIGroupByTargetTemplate(targetTemplateId).then(successGetAllKPIGroup);
 	};
 
 } ]);
@@ -252,7 +255,7 @@ function ($scope, $location, $window, targetTemplateFactory) {
 targetTemplateModule.controller('DetailTargetTemplateController',
 ['$scope', '$routeParams', '$window', 'targetTemplateFactory',
 function ($scope, $routeParams, $window, targetTemplateFactory) {
-	var targetId = $routeParams.targetId;
+	var targetTemplateId = $routeParams.targetTemplateId;
 	var succesGetListKPI = function (data) {
 		$scope.lstKPI = data;
 	};
@@ -261,10 +264,10 @@ function ($scope, $routeParams, $window, targetTemplateFactory) {
 
 	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
 
-	targetTemplateFactory.getTargetTemplateById(targetId).then(function (data) {
+	targetTemplateFactory.getTargetTemplateById(targetTemplateId).then(function (data) {
 		$scope.editTemplate = data;
 		$scope.currentTargetTemplateName = data.name;
-		targetTemplateFactory.getKPI(targetId, null, null, true).then(succesGetListKPI);
+		targetTemplateFactory.getKPI(targetTemplateId, null, null, true).then(succesGetListKPI);
 	});
 
 	// Back

@@ -28,7 +28,7 @@
 		<tbody>
 			<tr ng-repeat="tgtemplate in tgtemplates">
 				<td class="column-limit">
-					<a href="/TargetTemplate/Details/{{tgtemplate.targetId}}">{{tgtemplate.name}}</a>
+					<a href="/TargetTemplate/Details/{{tgtemplate.targetTemplateId}}">{{tgtemplate.name}}</a>
 				</td>
 				<td class="text-center">
 					{{tgtemplate.targetTypeId | targetType}}
@@ -42,7 +42,7 @@
 				</td>
 				<td class="text-center">
 					<div class="btn-group">
-						<a href="/TargetTemplate/Edit/{{tgtemplate.targetId}}" class="glyphicon glyphicon-edit icon-edit"
+						<a href="/TargetTemplate/Edit/{{tgtemplate.targetTemplateId}}" class="glyphicon glyphicon-edit icon-edit"
 							title="Edit" ng-click="kpiSelected(false)"></a>
 						<a href="javascript:;" class="glyphicon glyphicon-remove icon-remove" ng-click="deleteTemplate(tgtemplate)"
 							title="Delete"></a>

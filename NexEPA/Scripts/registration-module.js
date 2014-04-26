@@ -41,17 +41,23 @@ var targetModule = angular.module("targetModule", ['ngRoute', 'ngResource'])
 var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/TargetTemplate/Index', { templateUrl: '../templates/TargetTemplate/Index.html', controller: 'TargetTemplateController' });
+
 	$routeProvider.when('/TargetTemplate/Create', { templateUrl: '../templates/TargetTemplate/Create.html', controller: 'CreateTargetTemplateController' });
-	$routeProvider.when('/TargetTemplate/Edit/:targetId', { templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
-	$routeProvider.when('/TargetTemplate/Details/:targetId',
+
+	$routeProvider.when('/TargetTemplate/Edit/:targetTemplateId',
+	{ templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
+
+	$routeProvider.when('/TargetTemplate/Details/:targetTemplateId',
 	{ templateUrl: '/templates/TargetTemplate/Details.html', controller: 'DetailTargetTemplateController' });
 } ]);
 
 var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/MyEPA/Index', { templateUrl: '../templates/EPA/MyEPA/Index.html', controller: 'EmployeeEPAController' });
-	$routeProvider.when('/MemberEPA/ViewCurrentMember', 
+
+	$routeProvider.when('/MemberEPA/ViewCurrentMember',
 		{ templateUrl: '/templates/EPA/MemberEPA/ViewCurrentMember.html', controller: 'ViewCurrentMemberEPAController' });
+
 	$routeProvider.when('/MemberEPA/ViewMember',
 		{ templateUrl: '/templates/EPA/MemberEPA/ViewAllMemberOfManager.html', controller: 'ViewMemberByManagerEPAController' });
 } ]);
