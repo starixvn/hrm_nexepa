@@ -61,8 +61,8 @@ function ($scope, employeeEPAFactory, notificationFactory) {
 
 // View EPA of Current Member Controller
 epaModule.controller('ViewCurrentMemberEPAController',
-	['$scope', '$location', 'employeeEPAFactory', 'commonFactory', 'ErrorService',
-	function ($scope, $location, employeeEPAFactory, commonFactory, ErrorService) {
+	['$scope', '$location', 'employeeEPAFactory', 'commonFactory', 'ErrorService', 'notificationFactory',
+	function ($scope, $location, employeeEPAFactory, commonFactory, ErrorService, notificationFactory) {
 
 		// get all project to filter
 		employeeEPAFactory.getAllProject().then(function (projectList) {
@@ -84,7 +84,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 				ErrorService.errorHandle(status);
 			}
 			else {
-				commonFactory.showErrorMessageBox($scope, 'ErrorMessage');
+				notificationFactory.error('', "ErrorMessage");
 			}
 
 			$scope.submitted = false;
@@ -121,8 +121,8 @@ epaModule.controller('ViewCurrentMemberEPAController',
 
 // View EPA of Member by Manager Controller
 epaModule.controller('ViewMemberByManagerEPAController', [
-	'$scope', '$location', 'employeeEPAFactory', 'ErrorService', 'commonFactory',
-	function ($scope, $location, employeeEPAFactory, ErrorService, commonFactory) {
+	'$scope', '$location', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory',
+	function ($scope, $location, employeeEPAFactory, ErrorService, commonFactory, notificationFactory) {
 
 		// get all project to filter
 		employeeEPAFactory.getAllProject().then(function (projectList) {
@@ -144,7 +144,7 @@ epaModule.controller('ViewMemberByManagerEPAController', [
 				ErrorService.errorHandle(status);
 			}
 			else {
-				commonFactory.showErrorMessageBox($scope, 'ErrorMessage');
+				notificationFactory.error('', "ErrorMessage");
 			}
 
 			$scope.submitted = false;

@@ -3,8 +3,8 @@
 
 // View KPI Group
 kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', '$route',
-'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory',
-	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository, commonFactory) {
+'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory',
+	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository, commonFactory, notificationFactory) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -24,7 +24,7 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					$scope.disabledSubmitButton = false;
 				})
 				.error(function () {
-					commonFactory.showErrorMessageBox($scope, "ErrorMessage");
+					notificationFactory.error('', "ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 		};
@@ -65,13 +65,13 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					if (response.isSuccessful === true) {
 						var index = $scope.KPIGroupList.indexOf(group);
 						$scope.KPIGroupList.splice(index, 1);
-						commonFactory.showInfoMessageBox($scope, "DeleteSuccess");
+						notificationFactory.success("DeleteSuccess");
 					}
 					else {
-						commonFactory.showErrorMessageBox($scope, "DeleteFail", response.message);
+						notificationFactory.error(response.message, "DeleteFail");
 					}
 				}).error(function () {
-					commonFactory.showErrorMessageBox($scope, "DeleteFail");
+					notificationFactory.error('', "DeleteFail");
 				});
 			});
 		};
@@ -118,16 +118,17 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 				KPIGroupRepository.updateGroup(newGroup).success(function (response) {
 					if (response.isSuccessful === true) {
 						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+						notificationFactory.success(keyMessage);
 					}
 					else {
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 						group.isDisabled = !newGroup.isDisabled;
+						notificationFactory.error('', keyMessage);
 					}
 
-					commonFactory.showInfoMessageBox($scope, keyMessage);
 				}).error(function () {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-					commonFactory.showInfoMessageBox($scope, keyMessage);
+					notificationFactory.error('', keyMessage);
 					group.isDisabled = !newGroup.isDisabled;
 				});
 			}, function () {

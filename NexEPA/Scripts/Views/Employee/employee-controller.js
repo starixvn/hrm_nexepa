@@ -1,18 +1,16 @@
 ﻿/* global employeeModule */
 'use strict';
 
-employeeModule.controller("ViewAllEmployeeController", ['$scope', '$translate', '$route', 'employeeRepository', 'employeeCacheFactory', 
-function ($scope, $translate, $route, employeeRepository, employeeCacheFactory) {
+employeeModule.controller("ViewAllEmployeeController", ['$scope', '$translate', '$route', 'employeeRepository', 
+	'employeeCacheFactory', 'notificationFactory',
+function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, notificationFactory) {
 
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
 			$scope.disabledSubmitButton = false;
 		}).error(function () {
-			$scope.hasError = true;
-			$translate("ErrorMessage").then(function (errorMessage) {
-				$scope.errorMessage = errorMessage;
-			});
+			notificationFactory.error('', "ErrorMessage");
 		});
 	};
 

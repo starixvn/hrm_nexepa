@@ -1,13 +1,27 @@
 ﻿/*global registrationModule, toastr*/
 'use strict';
 
-registrationModule.factory('notificationFactory', function () {
-    return {
-        success: function () {
-            toastr.success("Success");
-        },
-        error: function (text) {
-            toastr.error(text.join("<br />"), "Error!");
-        }
-    };
-});
+registrationModule.factory('notificationFactory', ['$translate', function ($translate) {
+	return {
+		success: function (keyMessage, message) {
+			if (message === '' || message === null || message === undefined) {
+				$translate(keyMessage).then(function (responseMessage) {
+					toastr.success(responseMessage);
+				});
+			}
+			else {
+				toastr.success(message);
+			}
+		},
+		error: function (text, keyMessage) {
+			if (text === '' || text === null || text === undefined) {
+				$translate(keyMessage).then(function (responseMessage) {
+					toastr.error(responseMessage);
+				});
+			}
+			else {
+				toastr.error(text.join("<br />"), "Error!");
+			}
+		}
+	};
+}]);

@@ -3,9 +3,9 @@
 
 targetModule.controller('ViewTargetController',
 ['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory',
-'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
+'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory',
 	function ($scope, $location, $translate, $modal, $route,
-		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
+		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
 
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
@@ -34,7 +34,7 @@ targetModule.controller('ViewTargetController',
 					ErrorService.errorHandle(status);
 				}
 				else {
-					commonFactory.showErrorMessageBox($scope, "ErrorMessage");
+					notificationFactory.error('', "ErrorMessage");
 				}
 
 				$scope.submitted = false;
@@ -108,17 +108,17 @@ targetModule.controller('ViewTargetController',
 					if (response.isSuccessful === true) {
 						var index = $scope.targetList.indexOf(target);
 						$scope.targetList.splice(index, 1);
-						commonFactory.showInfoMessageBox($scope, "DeleteSuccess");
+						notificationFactory.error("DeleteSuccess");
 					}
 					else {
-						commonFactory.showErrorMessageBox($scope, "DeleteFail", response.message);
+						notificationFactory.error(response.message, "DeleteFail");
 					}
 				}).error(function (response, status) {
 					if (status === 405) {
 						ErrorService.errorHandle(status);
 					}
 					else {
-						commonFactory.showErrorMessageBox($scope, "DeleteFail");
+						notificationFactory.error('', "DeleteFail");
 					}
 				});
 			});

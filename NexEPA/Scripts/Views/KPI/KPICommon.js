@@ -27,11 +27,6 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate',
 					return false;
 				}
 
-				if (group.weight === undefined || group.weight === null || isNaN(group.weight) ||
-					group.weight < 0 || group.weight > 100) {
-					return false;
-				}
-
 				if (group.targetTypeId === undefined || group.targetTypeId === null) {
 					return false;
 				}

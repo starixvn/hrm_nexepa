@@ -3,9 +3,9 @@
 
 // View KPI
 kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$location', '$modal', '$route', '$window',
-	'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'commonFactory',
+	'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'commonFactory', 'notificationFactory',
 	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory,
-		KPICommonRepository, commonFactory) {
+		KPICommonRepository, commonFactory, notificationFactory) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 		$scope.isActiveFilter = true;
@@ -40,7 +40,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 				$scope.KPIList = KPIList;
 				$scope.disabledSubmitButton = false;
 			}).error(function () {
-				KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+				notificationFactory.error('', "ErrorMessage");
 				$scope.disabledSubmitButton = false;
 			});
 		};
@@ -82,13 +82,13 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 					if (response.isSuccessful === true) {
 						var index = $scope.KPIList.indexOf(item);
 						$scope.KPIList.splice(index, 1);
-						commonFactory.showInfoMessageBox($scope, "DeleteSuccess");
+						notificationFactory.success("DeleteSuccess");
 					}
 					else {
-						commonFactory.showErrorMessageBox($scope, "DeleteFail", response.message);
+						notificationFactory.error(response.message, "DeleteFail");
 					}
 				}).error(function () {
-					commonFactory.showErrorMessageBox($scope, "ErrorMessage");
+					notificationFactory.error('', "ErrorMessage");
 				});
 			});
 		};
@@ -125,16 +125,16 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 				KPIRepository.updateKPI(newItem).success(function (response) {
 					if (response.isSuccessful === true) {
 						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+						notificationFactory.success(keyMessage);
 					}
 					else {
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 						item.isDisabled = !newItem.isDisabled;
+						notificationFactory.error('', keyMessage);
 					}
-
-					commonFactory.showInfoMessageBox($scope, keyMessage);
 				}).error(function () {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-					commonFactory.showInfoMessageBox($scope, keyMessage);
+					notificationFactory.error('', keyMessage);
 					item.isDisabled = !newItem.isDisabled;
 				});
 			}, function () {

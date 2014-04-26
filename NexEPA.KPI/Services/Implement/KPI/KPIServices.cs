@@ -106,26 +106,29 @@ namespace NexEPA.KPI.Services.Implement.KPI
             {
                 List<KPIInfo> infoKPIs = (List<KPIInfo>)_kpiRepository.GetKPIById(criteria);
 
-                List<int> kpiGroupIds = new List<int>();
-                List<string> kpiGroupNames = new List<string>();
-
-                foreach (var infoKPI in infoKPIs)
+                if (infoKPIs != null && infoKPIs.Count > 0)
                 {
-                    kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
-                    kpiGroupNames.Add(infoKPI.Group.Name);
+                    List<int> kpiGroupIds = new List<int>();
+                    List<string> kpiGroupNames = new List<string>();
+
+                    foreach (var infoKPI in infoKPIs)
+                    {
+                        kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
+                        kpiGroupNames.Add(infoKPI.Group.Name);
+                    }
+
+                    kpiItem = new KPIItem
+                    {
+                        KPIId = infoKPIs[0].KPIId,
+                        Name = infoKPIs[0].Name,
+                        Description = infoKPIs[0].Description,
+                        IsRequireComment = infoKPIs[0].IsRequireComment,
+                        KPIGroupIds = kpiGroupIds,
+                        KPIGroupNames = kpiGroupNames,
+                        TargetTypeId = infoKPIs[0].TargetType.TargetTypeId,
+                        TargetTypeName = infoKPIs[0].TargetType.Name
+                    };
                 }
-
-                kpiItem = new KPIItem
-                {
-                    KPIId = infoKPIs[0].KPIId,
-                    Name = infoKPIs[0].Name,
-                    Description = infoKPIs[0].Description,
-                    IsRequireComment = infoKPIs[0].IsRequireComment,
-                    KPIGroupIds = kpiGroupIds,
-                    KPIGroupNames = kpiGroupNames,
-                    TargetTypeId = infoKPIs[0].TargetType.TargetTypeId,
-                    TargetTypeName = infoKPIs[0].TargetType.Name
-                };
             }
 
             return kpiItem;
