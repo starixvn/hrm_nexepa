@@ -121,7 +121,7 @@
 					hideEasing: 'swing',
 					onHidden: undefined,
 
-					extendedTimeOut: 1000,
+					extendedTimeOut: 100000,
 					iconClasses: {
 						error: 'toast-error',
 						info: 'toast-info',
@@ -130,7 +130,7 @@
 					},
 					iconClass: 'toast-info',
 					positionClass: 'toast-top-right',
-					timeOut: 2000, // Set timeOut and extendedTimeout to 0 to make it sticky
+					timeOut: 100000, // Set timeOut and extendedTimeout to 0 to make it sticky
 					titleClass: 'toast-title',
 					messageClass: 'toast-message',
 					target: 'body',
