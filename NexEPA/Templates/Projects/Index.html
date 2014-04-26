@@ -25,7 +25,8 @@
 			</thead>
 			<tr ng-repeat="project in projects">
 				<td class="column-limit">
-					<a href="/Projects/Edit/{{project.projectId}}"  ng-click="memberSelected(false)">{{project.name}} </a>
+					<a href="/Projects/Edit/{{project.projectId}}" ng-click="memberSelected(false)">{{project.name}}
+					</a>
 				</td>
 				<td class="column-limit">
 					{{project.milestone.name}}
@@ -44,6 +45,10 @@
 				</td>
 				<td class="text-center">
 					{{project.endDate|date:'dd MMM, yyyy'}}
+				</td>
+			</tr>
+			<tr ng-show="projects == ''">
+				<td class="empty-result" colspan="7" data-translate="EmptyResult">
 				</td>
 			</tr>
 		</table>

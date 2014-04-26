@@ -14,6 +14,7 @@ namespace NexEPA.Controllers.API
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Text;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
@@ -33,6 +34,9 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class TargetTemplateController : BaseController
     {
+        private const string _KPIGroup = "<KPIGroup GroupId='{0}' Weight='{1}'></KPIGroup>";
+        private const string _BeginRootTag = "<ROOT>";
+        private const string _EndRootTag = "</ROOT>";
         private readonly ITargetTemplateService _targetTemplateService;
         private readonly EPAService _epaService;
         private readonly IKPIServices _kpiServices;
@@ -244,6 +248,36 @@ namespace NexEPA.Controllers.API
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
+        }
+
+        /// <summary>
+        /// Method Add KPI Group Weight.
+        /// </summary>
+        /// <param name="groupWeight">List TargetKPIGroupWeight.</param>
+        /// <returns>Http Response Message.</returns>
+        public HttpResponseMessage AddKPIGroupWeight(List<TargetKPIGroupWeight> groupWeight)
+        {
+            string dataKPIGroupWeightXML = ConvertKPIGroupWeightToXML(groupWeight);
+            AddKPIGroupWeightCriteria criteria = new AddKPIGroupWeightCriteria() { KPIGroupWeightXML = dataKPIGroupWeightXML };
+            CommandResult result = this._targetTemplateService.AddKPIGroupWeight(criteria);
+            if (result.Code != 0)
+            {
+                List<string> errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        private string ConvertKPIGroupWeightToXML(List<TargetKPIGroupWeight> groupWeight)
+        {
+            var value = new StringBuilder(_BeginRootTag);
+            foreach (var item in groupWeight)
+            {
+                value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight);
+            }
+
+            return value.Append(_EndRootTag).ToString();
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

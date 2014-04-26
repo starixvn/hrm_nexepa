@@ -12,8 +12,8 @@ var targetTemplateValidation = function (name, targetTypeId) {
 };
 
 targetTemplateModule.controller('TargetTemplateController',
-['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory',
-function ($scope, $modal, targetTemplateFactory, notificationFactory) {
+['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'tabService',
+function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService) {
 	/**
 	* Ajax event Loaded. 
 	*/
@@ -41,6 +41,11 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory) {
 	/**
 	* Event: Filter 
 	*/
+	// Tab Selected
+	$scope.kpiSelected = function (data) {
+		tabService.setProperty(data);
+	};
+
 	// Delete
 	$scope.deleteTemplate = function (template) {
 		var deleteModalInstance = $modal.open({
@@ -63,14 +68,15 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory) {
 } ]);
 
 targetTemplateModule.controller('EditTargetTemplateController',
-['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'KPIGroupRepository',
-function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, KPIGroupRepository) {
+['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'KPIGroupRepository', 'tabService',
+function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, KPIGroupRepository, tabService) {
 	/**
 	* Variables. 
 	*/
 	var targetId = $routeParams.targetId;
 	$scope.selection = [];
 	$scope.lstAllData = [];
+	$scope.dataTab = {};
 
 	/**
 	* Ajax event Loaded. 
@@ -104,6 +110,14 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 		$scope.currentTargetTemplateName = data.name;
 		targetTemplateFactory.getKPI(targetId, null, null, false).then(succesGetListKPI);
 	});
+
+	// Get Selected Tab in Edit Target Template Page.
+	if (tabService.getProperty() === true) {
+		$scope.dataTab.kpi = true;
+	}
+	else {
+		$scope.dataTab.information = true;
+	}
 
 	// What for all list checkbox change.
 	$scope.$watch('lstAllData|filter:{selected:true}', function (selectedItems) {

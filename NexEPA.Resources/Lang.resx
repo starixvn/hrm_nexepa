@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,380 +59,380 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Action" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="Add" xml:space="preserve">
+	<data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
-  <data name="AddMember" xml:space="preserve">
+	<data name="AddMember" xml:space="preserve">
     <value>Add Member</value>
   </data>
-  <data name="CreateProject" xml:space="preserve">
+	<data name="CreateProject" xml:space="preserve">
     <value>Create Project</value>
   </data>
-  <data name="BUTTON_TEXT_DE" xml:space="preserve">
+	<data name="BUTTON_TEXT_DE" xml:space="preserve">
     <value>german</value>
   </data>
-  <data name="BUTTON_TEXT_EN" xml:space="preserve">
+	<data name="BUTTON_TEXT_EN" xml:space="preserve">
     <value>english</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+	<data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Code" xml:space="preserve">
+	<data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
-  <data name="Delete" xml:space="preserve">
+	<data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Description" xml:space="preserve">
+	<data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="Edit" xml:space="preserve">
+	<data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="Email" xml:space="preserve">
+	<data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="EndDate" xml:space="preserve">
+	<data name="EndDate" xml:space="preserve">
     <value>End Date</value>
   </data>
-  <data name="Evaluation" xml:space="preserve">
+	<data name="Evaluation" xml:space="preserve">
     <value>Evaluation</value>
   </data>
-  <data name="EvaluationDate" xml:space="preserve">
+	<data name="EvaluationDate" xml:space="preserve">
     <value>Evaluation Date</value>
   </data>
-  <data name="FullName" xml:space="preserve">
+	<data name="FullName" xml:space="preserve">
     <value>Full Name</value>
   </data>
-  <data name="Members" xml:space="preserve">
+	<data name="Members" xml:space="preserve">
     <value>Members</value>
   </data>
-  <data name="Milestone" xml:space="preserve">
+	<data name="Milestone" xml:space="preserve">
     <value>Milestone</value>
   </data>
-  <data name="Name" xml:space="preserve">
+	<data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="NickName" xml:space="preserve">
+	<data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
   </data>
-  <data name="Period" xml:space="preserve">
+	<data name="Period" xml:space="preserve">
     <value>Period</value>
   </data>
-  <data name="PM" xml:space="preserve">
+	<data name="PM" xml:space="preserve">
     <value>PM</value>
   </data>
-  <data name="ProjectManager" xml:space="preserve">
+	<data name="ProjectManager" xml:space="preserve">
     <value>Project Manager</value>
   </data>
-  <data name="ProjectName" xml:space="preserve">
+	<data name="ProjectName" xml:space="preserve">
     <value>Project Name</value>
   </data>
-  <data name="Role" xml:space="preserve">
+	<data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
-  <data name="Roles" xml:space="preserve">
+	<data name="Roles" xml:space="preserve">
     <value>Role(s)</value>
   </data>
-  <data name="Save" xml:space="preserve">
+	<data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="Skype" xml:space="preserve">
+	<data name="Skype" xml:space="preserve">
     <value>Skype</value>
   </data>
-  <data name="StartDate" xml:space="preserve">
+	<data name="StartDate" xml:space="preserve">
     <value>Start Date</value>
   </data>
-  <data name="Status" xml:space="preserve">
+	<data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="Submit" xml:space="preserve">
+	<data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
-  <data name="User" xml:space="preserve">
+	<data name="User" xml:space="preserve">
     <value>User</value>
   </data>
-  <data name="ShowDeletedMembers" xml:space="preserve">
+	<data name="ShowDeletedMembers" xml:space="preserve">
     <value>Show deleted members</value>
   </data>
-  <data name="KPIGroup" xml:space="preserve">
+	<data name="KPIGroup" xml:space="preserve">
     <value>KPI Group</value>
   </data>
-  <data name="ManageKPIGroup" xml:space="preserve">
+	<data name="ManageKPIGroup" xml:space="preserve">
     <value>Manage Group</value>
   </data>
-  <data name="CreateKPIGroup" xml:space="preserve">
+	<data name="CreateKPIGroup" xml:space="preserve">
     <value>Create KPI Group</value>
   </data>
-  <data name="EditKPIGroup" xml:space="preserve">
+	<data name="EditKPIGroup" xml:space="preserve">
     <value>Edit KPI Group</value>
   </data>
-  <data name="Form" xml:space="preserve">
+	<data name="Form" xml:space="preserve">
     <value>Form</value>
   </data>
-  <data name="Group" xml:space="preserve">
+	<data name="Group" xml:space="preserve">
     <value>Group</value>
   </data>
-  <data name="Weight" xml:space="preserve">
+	<data name="Weight" xml:space="preserve">
     <value>Weight (%)</value>
   </data>
-  <data name="Criteria" xml:space="preserve">
+	<data name="Criteria" xml:space="preserve">
     <value>Criteria</value>
   </data>
-  <data name="Active" xml:space="preserve">
+	<data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
-  <data name="BackToList" xml:space="preserve">
+	<data name="BackToList" xml:space="preserve">
     <value>Back to list</value>
   </data>
-  <data name="Create" xml:space="preserve">
+	<data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="KPI" xml:space="preserve">
+	<data name="KPI" xml:space="preserve">
     <value>KPI</value>
   </data>
-  <data name="ManageKPI" xml:space="preserve">
+	<data name="ManageKPI" xml:space="preserve">
     <value>Manage KPI</value>
   </data>
-  <data name="CreateKPI" xml:space="preserve">
+	<data name="CreateKPI" xml:space="preserve">
     <value>Create KPI</value>
   </data>
-  <data name="EditKPI" xml:space="preserve">
+	<data name="EditKPI" xml:space="preserve">
     <value>Edit KPI</value>
   </data>
-  <data name="Title" xml:space="preserve">
+	<data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="RequireComment" xml:space="preserve">
+	<data name="RequireComment" xml:space="preserve">
     <value>Require evaluatee's comment</value>
   </data>
-  <data name="NameRequire" xml:space="preserve">
+	<data name="NameRequire" xml:space="preserve">
     <value>Please fill out the Name!</value>
   </data>
-  <data name="WeightRequire" xml:space="preserve">
+	<data name="WeightRequire" xml:space="preserve">
     <value>Please fill out the Weight!</value>
   </data>
-  <data name="WeightRangeRequire" xml:space="preserve">
+	<data name="WeightRangeRequire" xml:space="preserve">
     <value>The value of Weight must be in range 0 to 100!</value>
   </data>
-  <data name="FormRequire" xml:space="preserve">
+	<data name="FormRequire" xml:space="preserve">
     <value>Please choose the Form!</value>
   </data>
-  <data name="GroupRequire" xml:space="preserve">
+	<data name="GroupRequire" xml:space="preserve">
     <value>Please choose the Group!</value>
   </data>
-  <data name="TitleRequire" xml:space="preserve">
+	<data name="TitleRequire" xml:space="preserve">
     <value>Please fill out the Title!</value>
   </data>
-  <data name="CreateTarget" xml:space="preserve">
+	<data name="CreateTarget" xml:space="preserve">
     <value>Create Target</value>
   </data>
-  <data name="EditTarget" xml:space="preserve">
+	<data name="EditTarget" xml:space="preserve">
     <value>Edit Target</value>
   </data>
-  <data name="ManageTarget" xml:space="preserve">
+	<data name="ManageTarget" xml:space="preserve">
     <value>Manage Target</value>
   </data>
-  <data name="Project" xml:space="preserve">
+	<data name="Project" xml:space="preserve">
     <value>Project</value>
   </data>
-  <data name="Target" xml:space="preserve">
+	<data name="Target" xml:space="preserve">
     <value>Target</value>
   </data>
-  <data name="ErrorMessage" xml:space="preserve">
+	<data name="ErrorMessage" xml:space="preserve">
     <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
   </data>
-  <data name="CreatedSuccessfulMessage" xml:space="preserve">
+	<data name="CreatedSuccessfulMessage" xml:space="preserve">
     <value>Created successful!</value>
   </data>
-  <data name="ProjectRequire" xml:space="preserve">
+	<data name="ProjectRequire" xml:space="preserve">
     <value>Please choose the Project!</value>
   </data>
-  <data name="UpdatedSuccessfulMessage" xml:space="preserve">
+	<data name="UpdatedSuccessfulMessage" xml:space="preserve">
     <value>Updated successful!</value>
   </data>
-  <data name="SymbolCount" xml:space="preserve">
+	<data name="SymbolCount" xml:space="preserve">
     <value>#</value>
   </data>
-  <data name="EmptyResult" xml:space="preserve">
+	<data name="EmptyResult" xml:space="preserve">
     <value>There are no information!</value>
   </data>
-  <data name="CreateTargetTemplate" xml:space="preserve">
+	<data name="CreateTargetTemplate" xml:space="preserve">
     <value>Create Target Template</value>
   </data>
-  <data name="TargetTemplate" xml:space="preserve">
+	<data name="TargetTemplate" xml:space="preserve">
     <value>Target Template</value>
   </data>
-  <data name="TargetType" xml:space="preserve">
+	<data name="TargetType" xml:space="preserve">
     <value>Target Type</value>
   </data>
-  <data name="WeightWarningMessage" xml:space="preserve">
+	<data name="WeightWarningMessage" xml:space="preserve">
     <value>The total weight of all Groups in the Form is greater than 100%!</value>
   </data>
-  <data name="JobTitle" xml:space="preserve">
+	<data name="JobTitle" xml:space="preserve">
     <value>Job Title</value>
   </data>
-  <data name="Team" xml:space="preserve">
+	<data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
-  <data name="JoinedDate" xml:space="preserve">
+	<data name="JoinedDate" xml:space="preserve">
     <value>Joined Date</value>
   </data>
-  <data name="Employee" xml:space="preserve">
+	<data name="Employee" xml:space="preserve">
     <value>Employee</value>
   </data>
-  <data name="ManageEmployee" xml:space="preserve">
+	<data name="ManageEmployee" xml:space="preserve">
     <value>Manage Employee</value>
   </data>
-  <data name="Keyword" xml:space="preserve">
+	<data name="Keyword" xml:space="preserve">
     <value>Keyword</value>
   </data>
-  <data name="AllTeam" xml:space="preserve">
+	<data name="AllTeam" xml:space="preserve">
     <value>All teams</value>
   </data>
-  <data name="Details" xml:space="preserve">
+	<data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
-  <data name="DatePPA" xml:space="preserve">
+	<data name="DatePPA" xml:space="preserve">
     <value>Date of PPA</value>
   </data>
-  <data name="Evaluator" xml:space="preserve">
+	<data name="Evaluator" xml:space="preserve">
     <value>Evaluator / PM</value>
   </data>
-  <data name="GeneralInfo" xml:space="preserve">
+	<data name="GeneralInfo" xml:space="preserve">
     <value>GENERAL INFORMATION</value>
   </data>
-  <data name="ppa" xml:space="preserve">
+	<data name="ppa" xml:space="preserve">
     <value>PROJECT PERFORMANCE APPRAISAL (PPA)</value>
   </data>
-  <data name="Back" xml:space="preserve">
+	<data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="TargetDetail" xml:space="preserve">
+	<data name="TargetDetail" xml:space="preserve">
     <value>Target Detail</value>
   </data>
-  <data name="TargetInformation" xml:space="preserve">
+	<data name="TargetInformation" xml:space="preserve">
     <value>TARGET INFORMATION</value>
   </data>
-  <data name="TargetKPI" xml:space="preserve">
+	<data name="TargetKPI" xml:space="preserve">
     <value>TARGET KPI</value>
   </data>
-  <data name="TargetMembers" xml:space="preserve">
+	<data name="TargetMembers" xml:space="preserve">
     <value>TARGET MEMBERS</value>
   </data>
-  <data name="EPA" xml:space="preserve">
+	<data name="EPA" xml:space="preserve">
     <value>EPA</value>
   </data>
-  <data name="EvaluateDate" xml:space="preserve">
+	<data name="EvaluateDate" xml:space="preserve">
     <value>Evaluate Date</value>
   </data>
-  <data name="EvaluatorTitle" xml:space="preserve">
+	<data name="EvaluatorTitle" xml:space="preserve">
     <value>Evaluator</value>
   </data>
-  <data name="ManageMyEPA" xml:space="preserve">
+	<data name="ManageMyEPA" xml:space="preserve">
     <value>Manage My EPA</value>
   </data>
-  <data name="MyEPA" xml:space="preserve">
+	<data name="MyEPA" xml:space="preserve">
     <value>My EPA</value>
   </data>
-  <data name="Score" xml:space="preserve">
+	<data name="Score" xml:space="preserve">
     <value>Score</value>
   </data>
-  <data name="KPIs" xml:space="preserve">
+	<data name="KPIs" xml:space="preserve">
     <value>KPIs</value>
   </data>
-  <data name="ActivationFail" xml:space="preserve">
+	<data name="ActivationFail" xml:space="preserve">
     <value>Activation Failed!</value>
   </data>
-  <data name="ActivationSuccess" xml:space="preserve">
+	<data name="ActivationSuccess" xml:space="preserve">
     <value>Activation Succeeded!</value>
   </data>
-  <data name="DeactivationFail" xml:space="preserve">
+	<data name="DeactivationFail" xml:space="preserve">
     <value>Deactivation Failed!</value>
   </data>
-  <data name="DeactivationSuccess" xml:space="preserve">
+	<data name="DeactivationSuccess" xml:space="preserve">
     <value>Deactivation Succeeded!</value>
   </data>
-  <data name="DeleteFail" xml:space="preserve">
+	<data name="DeleteFail" xml:space="preserve">
     <value>Deletion Failed!</value>
   </data>
-  <data name="DeleteSuccess" xml:space="preserve">
+	<data name="DeleteSuccess" xml:space="preserve">
     <value>Deletion Succeeded!</value>
   </data>
-  <data name="Inactive" xml:space="preserve">
+	<data name="Inactive" xml:space="preserve">
     <value>Inactive</value>
   </data>
-  <data name="ManageMemberEPA" xml:space="preserve">
+	<data name="ManageMemberEPA" xml:space="preserve">
     <value>Manage Member EPA</value>
   </data>
-  <data name="KPIList" xml:space="preserve">
+	<data name="KPIList" xml:space="preserve">
     <value>KPI List</value>
   </data>
-  <data name="GroupDuplicate" xml:space="preserve">
+	<data name="GroupDuplicate" xml:space="preserve">
     <value>Duplicate Group! Please choose another one!</value>
   </data>
-  <data name="KPIGroupWeight" xml:space="preserve">
+	<data name="KPIGroupWeight" xml:space="preserve">
     <value>Weight</value>
   </data>
 </root>

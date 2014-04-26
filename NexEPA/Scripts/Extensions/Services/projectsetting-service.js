@@ -1,4 +1,4 @@
-﻿/*global projectsSettingModule*/
+﻿/*global projectsSettingModule, registrationModule*/
 'use strict';
 
 projectsSettingModule.service('projectMilestoneService', function () {
@@ -13,7 +13,7 @@ projectsSettingModule.service('projectMilestoneService', function () {
 	};
 });
 
-projectsSettingModule.service('tabService', function () {
+registrationModule.service('tabService', function () {
 	var property;
 	return {
 		getProperty: function () {

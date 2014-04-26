@@ -94,6 +94,18 @@ namespace NexEPA.Target.Services.Impl
             return result;
         }
 
+        public CommandResult AddKPIGroupWeight(AddKPIGroupWeightCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Insert(criteria);
+            }
+
+            return result;
+        }
+
         public IEnumerable<KPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

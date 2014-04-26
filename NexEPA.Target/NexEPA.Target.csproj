@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\TargetTemplate\AddKPIGroupWeightCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\AddKPIToTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\AddTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\DeleteTargetTemplateCriteria.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Criteria\Target\Target\GetTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\InsertTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetCriteria.cs" />
+    <Compile Include="Models\TargetKPIGroupWeight.cs" />
     <Compile Include="Models\Target\Milestone.cs" />
     <Compile Include="Models\Target\Project.cs" />
     <Compile Include="Models\Target\TargetEmployeeInfo.cs" />

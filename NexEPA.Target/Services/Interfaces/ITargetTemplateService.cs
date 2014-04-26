@@ -31,6 +31,8 @@ namespace NexEPA.Target.Services.Interfaces
 
         CommandResult AddKPIToTargetTemplate(AddKPIToTargetTemplateCriteria criteria);
 
+        CommandResult AddKPIGroupWeight(AddKPIGroupWeightCriteria criteria);
+
         IEnumerable<KPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria);
     }
 }

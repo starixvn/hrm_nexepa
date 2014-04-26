@@ -37,15 +37,20 @@
 					{{tgtemplate.description}}
 				</td>
 				<td class="text-center">
-					{{tgtemplate.kpIs}}
+					<a href="/TargetTemplate/Edit/{{tgtemplate.targetId}}" ng-click="kpiSelected(true)">
+						{{tgtemplate.kpIs}}</a>
 				</td>
 				<td class="text-center">
 					<div class="btn-group">
 						<a href="/TargetTemplate/Edit/{{tgtemplate.targetId}}" class="glyphicon glyphicon-edit icon-edit"
-							title="Edit"></a>
+							title="Edit" ng-click="kpiSelected(false)"></a>
 						<a href="javascript:;" class="glyphicon glyphicon-remove icon-remove" ng-click="deleteTemplate(tgtemplate)"
 							title="Delete"></a>
 					</div>
+				</td>
+			</tr>
+			<tr ng-show="tgtemplates == ''">
+				<td class="empty-result" colspan="5" data-translate="EmptyResult">
 				</td>
 			</tr>
 		</tbody>
