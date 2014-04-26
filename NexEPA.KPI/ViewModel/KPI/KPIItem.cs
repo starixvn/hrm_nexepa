@@ -43,7 +43,11 @@ namespace NexEPA.KPI.ViewModel.KPI
 
         public int TargetTypeId { get; set; }
 
+        public int KPIGroupId { get; set; }
+
         public string TargetTypeName { get; set; }
+
+        public int Weight { get; set; }
 
         public bool? Selected { get; set; }
     }

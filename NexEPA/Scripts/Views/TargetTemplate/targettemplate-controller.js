@@ -120,7 +120,8 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	// What for all list checkbox change.
 	$scope.$watch('lstAllData|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
-			return item.kpiId;
+			var object = { KPIId: item.kpiId, KPIGroupId: item.kpiGroupId, Weight: item.weight };
+			return object;
 		});
 	}, true);
 
@@ -131,8 +132,7 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 
 	$scope.update = function (editTemplate) {
 		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
-			var itemSelected = $scope.selection;
-			editTemplate.kpiIds = itemSelected.join(',');
+			editTemplate.kpiIds = $scope.selection;
 			targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
 		}
 	};
@@ -142,7 +142,6 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 		var successAddKPIGroups = function () { notificationFactory.success(); };
 		var errorAddKPIGroups = function (data) { notificationFactory.error(data); };
 		var successGetAllKPIGroup = function (data) {
-			debugger;
 			var addModalInstance = $modal.open({
 				templateUrl: '/templates/TargetTemplate/AddKPIGroup.html',
 				controller: "AddKPIGroup",

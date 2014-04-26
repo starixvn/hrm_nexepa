@@ -10,6 +10,7 @@
 namespace NexEPA.Target.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
@@ -37,6 +38,6 @@ namespace NexEPA.Target.Models
 
         public int ModifiedBy { get; set; }
 
-        public string KPIIds { get; set; }
+        public List<KPIModel> KPIIds { get; set; }
     }
 }

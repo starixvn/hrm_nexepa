@@ -40,6 +40,7 @@ namespace NexEPA.Controllers.API
     public class TargetTemplateController : BaseController
     {
         private const string _KPIGroup = "<KPIGroup KPIGroupId='{0}' Weight='{1}'></KPIGroup>";
+        private const string _KPIItem = "<KPI KPIId='{0}' KPIGroupId='{1}' Weight='{2}'></KPI>";
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
         private readonly ITargetTemplateService _targetTemplateService;
@@ -123,7 +124,15 @@ namespace NexEPA.Controllers.API
                 {
                     foreach (var item in lstKPI.Where(x => lstSelectedKPI.Select(y => y.KPIId).Contains(x.KPIId)))
                     {
-                        item.Selected = true;
+                        var kpis = lstSelectedKPI.Where(x => x.KPIId == item.KPIId).ToList();
+                        foreach (var kpi in kpis)
+                        {
+                            if (kpi.KPIGroupId == item.KPIGroupId)
+                            {
+                                item.Selected = true;
+                                item.Weight = kpi.Weight;
+                            }
+                        }
                     }
                 }
             }
@@ -219,7 +228,7 @@ namespace NexEPA.Controllers.API
                     Description = model.Description,
                     ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.UserId,
-                    KPIs = model.KPIIds
+                    KPIs = ConvertKPIItemToXML(model.KPIIds)
                 };
 
                 CommandResult result = this._targetTemplateService.UpdateTargetTemplate(criteria);
@@ -321,6 +330,17 @@ namespace NexEPA.Controllers.API
             foreach (var item in kpiGroups)
             {
                 value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight);
+            }
+
+            return value.Append(_EndRootTag).ToString();
+        }
+
+        private string ConvertKPIItemToXML(List<KPIModel> kpis)
+        {
+            var value = new StringBuilder(_BeginRootTag);
+            foreach (var item in kpis)
+            {
+                value.AppendFormat(_KPIItem, item.KPIId, item.KPIGroupId, item.Weight);
             }
 
             return value.Append(_EndRootTag).ToString();

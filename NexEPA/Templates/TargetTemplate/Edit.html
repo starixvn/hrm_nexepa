@@ -62,11 +62,13 @@
 				<div class="col-sm-6 no-padding" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">
 					<div class="row title-list">
 						<strong>{{ kpi.kpiGroupName}}</strong></div>
-					<div class="row" ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
-						<label class="group-checkbox">
+					<div class="row col-sm-12" ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
+						<label class="group-checkbox" class="col-sm-9">
 							<input type="checkbox" value="{{item.name}}" ng-model="item.selected" />
 							{{item.name}}
 						</label>
+						<input type="text" class="custom-form-control input-weight"
+							ng-model="item.weight" ng-show="item.selected == true" />
 					</div>
 				</div>
 			</div>
