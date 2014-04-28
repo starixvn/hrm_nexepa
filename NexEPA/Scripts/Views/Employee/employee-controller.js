@@ -10,7 +10,7 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 			$scope.employees = employees;
 			$scope.disabledSubmitButton = false;
 		}).error(function () {
-			notificationFactory.error('', "ErrorMessage");
+			notificationFactory.error("ErrorMessage");
 		});
 	};
 

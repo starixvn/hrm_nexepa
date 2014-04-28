@@ -13,14 +13,14 @@ registrationModule.factory('notificationFactory', ['$translate', function ($tran
 				toastr.success(message);
 			}
 		},
-		error: function (text, keyMessage) {
-			if (text === '' || text === null || text === undefined) {
+		error: function (keyMessage, message) {
+			if (message === '' || message === null || message === undefined) {
 				$translate(keyMessage).then(function (responseMessage) {
 					toastr.error(responseMessage);
 				});
 			}
 			else {
-				toastr.error(text.join("<br />"), "Error!");
+				toastr.error(message.join("<br />"), "Error!");
 			}
 		}
 	};

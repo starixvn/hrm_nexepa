@@ -24,7 +24,7 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					$scope.disabledSubmitButton = false;
 				})
 				.error(function () {
-					notificationFactory.error('', "ErrorMessage");
+					notificationFactory.error("ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 		};
@@ -68,10 +68,10 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 						notificationFactory.success("DeleteSuccess");
 					}
 					else {
-						notificationFactory.error(response.message, "DeleteFail");
+						notificationFactory.error("DeleteFail", response.message);
 					}
 				}).error(function () {
-					notificationFactory.error('', "DeleteFail");
+					notificationFactory.error("DeleteFail");
 				});
 			});
 		};
@@ -123,12 +123,12 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					else {
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 						group.isDisabled = !newGroup.isDisabled;
-						notificationFactory.error('', keyMessage);
+						notificationFactory.error(keyMessage);
 					}
 
 				}).error(function () {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-					notificationFactory.error('', keyMessage);
+					notificationFactory.error(keyMessage);
 					group.isDisabled = !newGroup.isDisabled;
 				});
 			}, function () {

@@ -34,7 +34,7 @@ targetModule.controller('ViewTargetController',
 					ErrorService.errorHandle(status);
 				}
 				else {
-					notificationFactory.error('', "ErrorMessage");
+					notificationFactory.error("ErrorMessage");
 				}
 
 				$scope.submitted = false;
@@ -111,14 +111,14 @@ targetModule.controller('ViewTargetController',
 						notificationFactory.error("DeleteSuccess");
 					}
 					else {
-						notificationFactory.error(response.message, "DeleteFail");
+						notificationFactory.error("DeleteFail", response.message);
 					}
 				}).error(function (response, status) {
 					if (status === 405) {
 						ErrorService.errorHandle(status);
 					}
 					else {
-						notificationFactory.error('', "DeleteFail");
+						notificationFactory.error("DeleteFail");
 					}
 				});
 			});
