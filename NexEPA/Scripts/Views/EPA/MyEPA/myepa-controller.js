@@ -29,7 +29,7 @@ function ($scope, employeeEPAFactory, notificationFactory) {
 	/**
 	* Initialize data to view Edit Project. 
 	*/
-	employeeEPAFactory.getEmployeeEPA(39).then(successGetEmployeeEPA, errorGetEmployeeEPA);
+	employeeEPAFactory.getEmployeeEPA(6).then(successGetEmployeeEPA, errorGetEmployeeEPA);
 
 	/**
 	* Events 

@@ -56,9 +56,9 @@ namespace NexEPA.Controllers.API
         {
             AddOrUpdateEPAScore criteria = new AddOrUpdateEPAScore()
             {
-                TargetId = 39,
+                TargetId = 6,
                 EmployeeId = model.EmployeeId,
-                EvaluatorId = 5,
+                EvaluatorId = 125,
                 Comment = model.Comment,
                 Score = 100,
                 KPIs = ConvertToXML(model.KPIInfo),
