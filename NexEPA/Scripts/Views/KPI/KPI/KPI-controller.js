@@ -144,7 +144,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 				}
 			}, function () {
 				item.isDisabled = !newItem.isDisabled;
-			})
+			});
 		};
 
 		// filter active KPI or not
