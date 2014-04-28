@@ -27,6 +27,8 @@ namespace NexEPA.KPI.Criteria.KPI
 
         public bool IsRequireComment { get; set; }
 
+        public bool IsDisabled { get; set; }
+
         public int ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }

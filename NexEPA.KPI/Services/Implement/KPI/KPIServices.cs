@@ -123,6 +123,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
                         Name = infoKPIs[0].Name,
                         Description = infoKPIs[0].Description,
                         IsRequireComment = infoKPIs[0].IsRequireComment,
+                        IsDisabled = infoKPIs[0].IsDisabled,
                         KPIGroupIds = kpiGroupIds,
                         KPIGroupNames = kpiGroupNames,
                         TargetTypeId = infoKPIs[0].TargetType.TargetTypeId,
