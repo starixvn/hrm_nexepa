@@ -1,21 +1,24 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory',
-function ($scope, employeeEPAFactory, notificationFactory) {
+epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', '$routeParams',
+function ($scope, employeeEPAFactory, notificationFactory, $routeParams) {
 	/**
 	* Scope variables. 
 	*/
 	$scope.max = 10;
 	$scope.isReadonly = false;
+	var targetId = $routeParams.targetId;
+	debugger;
 
 
 	/**
 	* Ajax event. 
 	*/
-	var successAddOrUpdateEPA = function () { notificationFactory.success(); };
-	var errorAddOrUpdateEPA = function (response) { notificationFactory.error(response); };
+	var successAddOrUpdateEPA = function () { notificationFactory.success('SuccessSaveData', ''); };
+	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
+		debugger;
 		$scope.employeeEPA = data;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
@@ -24,12 +27,12 @@ function ($scope, employeeEPAFactory, notificationFactory) {
 		$scope.employeeRole = roleArray.join(", ");
 	};
 
-	var errorGetEmployeeEPA = function (response) { notificationFactory.error(response); };
+	var errorGetEmployeeEPA = function (response) { notificationFactory.error('', response); };
 
 	/**
 	* Initialize data to view Edit Project. 
 	*/
-	employeeEPAFactory.getEmployeeEPA(6).then(successGetEmployeeEPA, errorGetEmployeeEPA);
+	employeeEPAFactory.getEmployeeEPA(targetId).then(successGetEmployeeEPA, errorGetEmployeeEPA);
 
 	/**
 	* Events 

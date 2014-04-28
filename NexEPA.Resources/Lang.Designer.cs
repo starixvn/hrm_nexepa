@@ -889,6 +889,24 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data deleted successfully !.
+        /// </summary>
+        public static string SuccessDeleteData {
+            get {
+                return ResourceManager.GetString("SuccessDeleteData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data saved successfully !.
+        /// </summary>
+        public static string SuccessSaveData {
+            get {
+                return ResourceManager.GetString("SuccessSaveData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #.
         /// </summary>
         public static string SymbolCount {

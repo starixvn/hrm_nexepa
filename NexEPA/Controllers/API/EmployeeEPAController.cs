@@ -29,7 +29,7 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class EmployeeEPAController : BaseController
     {
-        private const string _EmployeeEPAScore = "<KPI KPIId='{0}' ScoreId='{1}' Comment='{2}'></KPI>";
+        private const string _EmployeeEPAScore = "<KPI KPIId='{0}' KPIGroupId='{1}' ScoreId='{2}' Comment='{3}'></KPI>";
 
         private const string _BeginRootTag = "<ROOT>";
 
@@ -137,7 +137,7 @@ namespace NexEPA.Controllers.API
             {
                 foreach (var item in kpi.KPIGroupItems)
                 {
-                    value.AppendFormat(_EmployeeEPAScore, item.KPIId, item.Score, item.Comment);
+                    value.AppendFormat(_EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, item.Score, item.Comment);
                 }
             }
 

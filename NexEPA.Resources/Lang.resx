@@ -444,4 +444,10 @@
   <data name="KPIName" xml:space="preserve">
     <value>KPI Name</value>
   </data>
+  <data name="SuccessSaveData" xml:space="preserve">
+    <value>Data saved successfully !</value>
+  </data>
+  <data name="SuccessDeleteData" xml:space="preserve">
+    <value>Data deleted successfully !</value>
+  </data>
 </root>

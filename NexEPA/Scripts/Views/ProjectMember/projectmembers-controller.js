@@ -35,10 +35,10 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 	};
 
 	var successDeleteMember = function () {
-		notificationFactory.success();
+		notificationFactory.success('SuccessDeleteData', '');
 		return projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers, errorNotification);
 	};
-	var errorNotification = function (data) { notificationFactory.error(data); };
+	var errorNotification = function (data) { notificationFactory.error('', data); };
 
 	/**
 	* Initialize data to view Index.
@@ -70,7 +70,7 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 		* Ajax event loaded. 
 		*/
 		var successAddProjectMember = function () {
-			notificationFactory.success();
+			notificationFactory.success('SuccessSaveData', '');
 			projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
 		};
 
@@ -123,7 +123,7 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 	// Update Member.
 	$scope.updateMember = function (employeeId, joinDate) {
 		var successUpdateProjectMember = function () {
-			notificationFactory.success();
+			notificationFactory.success('SuccessSaveData', '');
 			projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
 		};
 		var successGetEmployeeSelectList = function (data) {

@@ -286,12 +286,12 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 	*/
 	// Notify error popup when action is failure.
 	var errorNotification = function (data) {
-		notificationFactory.error(data);
+		notificationFactory.error('', data);
 	};
 
 	// Notify success popup when action is succeed.
 	var successNotification = function () {
-		notificationFactory.success();
+		notificationFactory.success('SuccessSaveData', '');
 		return milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
 	};
 
