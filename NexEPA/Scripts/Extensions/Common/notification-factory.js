@@ -20,7 +20,7 @@ registrationModule.factory('notificationFactory', ['$translate', function ($tran
 				});
 			}
 			else {
-				toastr.error(message.join("<br />"), "Error!");
+				toastr.error(message);
 			}
 		}
 	};

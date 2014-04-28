@@ -156,12 +156,22 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
             return commandResult;
         }
 
-        public List<KPIGroupItem> GetGroupListByTargetTypeId(int targetTypeId)
+        /// <summary>
+        ///  Get list Group by Target Type ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List KPIGroupItem.</returns>
+        public List<KPIGroupItem> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria)
         {
-            var criteria = new GetAllKPIGroupCriteria();
-            List<KPIGroupItem> allGroup = this.GetAllKPIGroup(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            List<KPIGroupItem> allGroup = new List<KPIGroupItem>();
 
-            return allGroup.FindAll(s => s.TargetTypeId == targetTypeId);
+            if (criteria.IsValid())
+            {
+                allGroup = this.GetAllKPIGroup(criteria);
+            }
+
+            return allGroup;
         }
     }
 }

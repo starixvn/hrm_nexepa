@@ -1,7 +1,7 @@
 ﻿/* global employeeModule */
 'use strict';
 
-employeeModule.controller("ViewAllEmployeeController", ['$scope', '$translate', '$route', 'employeeRepository', 
+employeeModule.controller("ViewAllEmployeeController", ['$scope', '$translate', '$route', 'employeeRepository',
 	'employeeCacheFactory', 'notificationFactory',
 function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, notificationFactory) {
 
@@ -11,6 +11,7 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 			$scope.disabledSubmitButton = false;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
+			$scope.disabledSubmitButton = true;
 		});
 	};
 
@@ -25,14 +26,15 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 	else {
 		employeeRepository.getAllGroup().success(function (groupList) {
 			$scope.groupOptions = groupList;
-		}).error();
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
 	}
 
 	// when filter data
 	$scope.query = function (filter) {
 		if (filter) {
 			getEmployee(filter.keyword, filter.groupId);
-			$scope.disabledSubmitButton = true;
 		}
 		else {
 			$scope.disabledSubmitButton = false;
@@ -43,4 +45,4 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 	$scope.reload = function () {
 		$route.reload();
 	};
-}]);
+} ]);

@@ -94,7 +94,9 @@ namespace NexEPA.Controllers.Target
         {
             var criteria = new DeleteTargetCriteria
             {
-                TargetId = targetId
+                TargetId = targetId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
             };
 
             return _targetServices.Delete(criteria);

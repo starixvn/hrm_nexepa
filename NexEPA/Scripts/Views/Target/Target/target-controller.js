@@ -248,9 +248,10 @@ targetModule.controller('ViewTargetController',
 	targetModule.controller("TargetDetailAndEditController",
 	['$scope', '$timeout', '$location', '$translate', '$routeParams', '$window', '$route', '$modal',
 	'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 
-	'KPIGroupRepository', 'commonFactory', 'ErrorService',
+	'KPIGroupRepository', 'commonFactory', 'ErrorService', 'notificationFactory',
 	function ($scope, $timeout, $location, $translate, $routeParams, $window, $route, $modal,
-			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository, commonFactory, ErrorService) {
+			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository,
+			commonFactory, ErrorService, notificationFactory) {
 
 		var targetId = $routeParams.id,
 			projectId = $routeParams.projectId,
@@ -433,13 +434,11 @@ targetModule.controller('ViewTargetController',
 				targetFactory.insertTargetEmployee(employeeInsert).success(function (response) {
 					if (response.isSuccessful) {
 						$scope.search.searchKey = '';
-						$scope.targetMemberSuccess = true;
 						employee.groupName = employee.group.name;
 						$scope.employees.push(employee);
 					}
 					else {
-						$scope.targetMemberSuccess = false;
-						$scope.memberErrorMessage = response.message;
+						notificationFactory.error('', response.message);
 					}
 
 					$scope.disabledSubmit = false;
@@ -448,7 +447,7 @@ targetModule.controller('ViewTargetController',
 						ErrorService.errorHandle(status);
 					}
 					else {
-						targetUtility.showErrorMessageOfMember($scope);
+						notificationFactory.error("ErrorMessage");
 					}
 
 					$scope.disabledSubmit = false;
@@ -474,20 +473,19 @@ targetModule.controller('ViewTargetController',
 				modalDeleteInstance.result.then(function () {
 					targetFactory.deleteTargetEmployee(targetId, employee.employeeId).success(function (response) {
 						if (response.isSuccessful === true) {
-							$scope.hasError = false;
 							var index = $scope.employees.indexOf(employee);
 							$scope.employees.splice(index, 1);
+							notificationFactory.success("DeleteSuccess");
 						}
 						else {
-							$scope.hasError = true;
-							$scope.errorMessage = response.message;
+							notificationFactory.error("DeleteFail", response.message);
 						}
 					}).error(function (response, status) {
 						if (status === 405) {
 							ErrorService.errorHandle(status);
 						}
 						else {
-							targetUtility.showErrorMessageOfMember($scope);
+							notificationFactory.error("ErrorMessage");
 						}
 					});
 				});

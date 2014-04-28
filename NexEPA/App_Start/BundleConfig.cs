@@ -29,6 +29,7 @@ namespace NexEPA
                 "~/Content/Common/toastr.css",
                 "~/Content/Common/bootstrap.css",
                 "~/Content/Common/bootstrap-theme.css",
+                "~/Content/Common/jquery-ui-1.10.4.custom.min.css",
                 "~/Content/Common/chosen.min.css"));
 
             bundles.AddAndInclude(

@@ -93,7 +93,12 @@ namespace NexEPA.Controllers.API
 
         public List<KPIGroupItem> GetGroupListByTargetTypeId(int targetTypeId)
         {
-            return _kpiGroupServices.GetGroupListByTargetTypeId(targetTypeId);
+            var criteria = new GetAllKPIGroupCriteria
+            {
+                TargetTypeId = targetTypeId
+            };
+
+            return _kpiGroupServices.GetGroupListByTargetTypeId(criteria);
         }
     }
 }

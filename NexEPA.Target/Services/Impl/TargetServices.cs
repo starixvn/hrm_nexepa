@@ -137,7 +137,7 @@ namespace NexEPA.Target.Services.Impl.Target
             {
                 criteria.CreatedBy = SessionManager.CurrentUser.UserId;
                 criteria.CreatedDate = DateTime.Now;
-                //// default new status when create the new target
+                //// default status is New when create the new target
                 criteria.Status = (int)Status.Open;
 
                 commandResult = _Repository.Insert(criteria);
@@ -178,8 +178,6 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Delete(criteria);
             }
 

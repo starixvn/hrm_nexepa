@@ -29,6 +29,6 @@ namespace NexEPA.KPI.Services.Interface.KPIGroup
 
         CommandResult DeleteKPIGroup(DeleteKPIGroupCriteria criteria);
 
-        List<KPIGroupItem> GetGroupListByTargetTypeId(int targetTypeId);
+        List<KPIGroupItem> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria);
     }
 }

@@ -59,6 +59,8 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
                     List<int> kpiGroupIds = new List<int>();
                     List<string> kpiGroupNames = new List<string>();
+                    kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
+                    kpiGroupNames.Add(infoKPI.Group.Name);
 
                     if (numberKPISameGroup > 0)
                     {
@@ -70,8 +72,6 @@ namespace NexEPA.KPI.Services.Implement.KPI
                         });
                     }
 
-                    kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
-                    kpiGroupNames.Add(infoKPI.Group.Name);
                     var itemKPI = new KPIItem
                     {
                         KPIId = infoKPI.KPIId,
