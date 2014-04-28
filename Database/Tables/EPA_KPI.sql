@@ -7,17 +7,19 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE TABLE [dbo].[EPA_KPI](
+DROP TABLE [dbo].[EPADetail]
+CREATE TABLE [dbo].[EPADetail] (
 	[EPAId] [int] NOT NULL,
 	[KPIId] [int] NOT NULL,
+	[KPIGroupId] [int] NOT NULL,
 	[ScoreId] [int] NULL,
 	[Comment] [nvarchar](max) NULL,
-	[DisplayOrder] [int] NULL,
-	[KPIName] [nvarchar](50) NULL,
-	[KPIGroupName] [nvarchar](50) NULL,
-	[KPIGroupWeight] [int] NULL,
 	[IsRequireComment] [bit] NULL,
+	[KPIWeight] [int] NULL,
+	[KPIGroupWeight] [int] NULL,
+	[KPILogNo] [varchar](20) NULL,
+	[KPIGroupLogNo] [varchar](20) NULL,
+	[DisplayOrder] [int] NULL
 CONSTRAINT [PK_EPAKPI] PRIMARY KEY CLUSTERED
 	(
 	EPAId,KPIId 
