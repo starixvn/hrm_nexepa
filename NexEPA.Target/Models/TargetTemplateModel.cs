@@ -32,6 +32,8 @@ namespace NexEPA.Target.Models
 
         public int CreatedBy { get; set; }
 
+        public bool IsDisabled { get; set; }
+
         public int KPIs { get; set; }
 
         public DateTime? ModifiedDate { get; set; }

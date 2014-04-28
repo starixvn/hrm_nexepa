@@ -1,16 +1,17 @@
 ﻿@import "../variables.less";
 @import "../mixins.less";
 
-.center {
-    text-align: center;
+.target-center {
+	text-align: center;
+	vertical-align: middle!important;
 }
 
 .target-col-sm-6 {
-    width: 50% !important;
+	width: 50% !important;
 }
 
 .start-date, .end-date, .status, .action, .form, .count, .target-member, .target-kpi {
-    .center;
+    .target-center;
 }
 
 .container.page {
@@ -81,4 +82,8 @@
             margin-top: 10px;
         }
     }
+}
+
+.target-template-index, .target-template-name, .target-template-type, .target-template-kpi, .target-template-active, .target-template-action {
+	.target-center;
 }

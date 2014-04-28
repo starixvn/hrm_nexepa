@@ -95,6 +95,54 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 			targetTemplateFactory.deleteTargetTemplate(template.targetId).then(successDeleteTargetTemplate, errorNotify);
 		});
 	};
+
+	// Confirm Active or not
+	$scope.confirmActive = function (template) {
+		var action = !template.isDisabled ? "deactivate" : "activate";
+		var newTemplate = template;
+		newTemplate.isDisabled = !template.isDisabled;
+
+		var modalConfirmInstance = $modal.open({
+			templateUrl: '/templates/Common/modalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return newTemplate.name;
+				},
+				action: function () {
+					return action;
+				}
+			},
+			windowClass: "modal-confirm-center"
+		});
+
+		var keyMessage = '';
+
+		modalConfirmInstance.result.then(function () {
+			if (targetTemplateValidation(newTemplate.name, newTemplate.targetTypeId)) {
+				targetTemplateFactory.updateTargetTemplate(newTemplate).then(function (response) {
+					if (response.isSuccessful === true) {
+						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+						notificationFactory.success(keyMessage);
+					}
+					else {
+						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+						template.isDisabled = !newTemplate.isDisabled;
+						notificationFactory.error(keyMessage);
+					}
+				}, function () {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					notificationFactory.error(keyMessage);
+					template.isDisabled = !newTemplate.isDisabled;
+				});
+			}
+			else {
+				template.isDisabled = !newTemplate.isDisabled;
+			}
+		}, function () {
+			template.isDisabled = !newTemplate.isDisabled;
+		});
+	};
 } ]);
 
 targetTemplateModule.controller('EditTargetTemplateController',

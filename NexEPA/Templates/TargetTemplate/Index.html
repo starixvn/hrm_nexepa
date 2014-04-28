@@ -13,6 +13,8 @@
 	<table class="table table-bordered table-striped table-hover list-target-template">
 		<thead>
 			<tr>
+                <th data-translate="SymbolCount">
+                </th>
 				<th data-translate="Name">
 				</th>
 				<th data-translate="TargetType">
@@ -21,26 +23,32 @@
 				</th>
 				<th data-translate="KPIs">
 				</th>
+                <th data-translate="Active">
+                </th>
 				<th data-translate="Action">
 				</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="tgtemplate in tgtemplates">
-				<td class="column-limit">
+                <td class="target-template-index" ng-bind="$index + 1"></td>
+				<td class="target-template-name column-limit">
 					<a href="/TargetTemplate/Details/{{tgtemplate.targetTemplateId}}">{{tgtemplate.name}}</a>
 				</td>
-				<td class="text-center">
+				<td class="target-template-type text-center">
 					{{tgtemplate.targetTypeId | targetType}}
 				</td>
 				<td class="description-limit">
 					{{tgtemplate.description}}
 				</td>
-				<td class="text-center">
+				<td class="target-template-kpi text-center">
 					<a href="/TargetTemplate/Edit/{{tgtemplate.targetTemplateId}}" ng-click="kpiSelected(true)">
 						{{tgtemplate.kpIs}}</a>
 				</td>
-				<td class="text-center">
+                <td class="target-template-active">
+                    <input type="checkbox" ng-checked="!tgtemplate.isDisabled" ng-click="confirmActive(tgtemplate)"/>
+                </td>
+				<td class="target-template-action text-center">
 					<div class="btn-group">
 						<a href="/TargetTemplate/Edit/{{tgtemplate.targetTemplateId}}" class="glyphicon glyphicon-edit icon-edit"
 							title="Edit" ng-click="kpiSelected(false)"></a>
