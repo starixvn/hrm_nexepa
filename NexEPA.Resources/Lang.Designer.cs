@@ -106,6 +106,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add KPI Group.
+        /// </summary>
+        public static string AddKPIGroup {
+            get {
+                return ResourceManager.GetString("AddKPIGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Member.
         /// </summary>
         public static string AddMember {
@@ -457,6 +466,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter KPI.
+        /// </summary>
+        public static string FilterKPI {
+            get {
+                return ResourceManager.GetString("FilterKPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Form.
         /// </summary>
         public static string Form {
@@ -588,6 +606,15 @@ namespace NexEPA.Resources {
         public static string KPIList {
             get {
                 return ResourceManager.GetString("KPIList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KPI Name.
+        /// </summary>
+        public static string KPIName {
+            get {
+                return ResourceManager.GetString("KPIName", resourceCulture);
             }
         }
         

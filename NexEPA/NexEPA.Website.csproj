@@ -227,7 +227,7 @@
     <Content Include="Content\Site\KPI\KPI.less" />
     <Content Include="Content\Site\Projects\project.less" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\Extensions\Directives\dropdownlist-directives.js" />
+    <Content Include="Scripts\Extensions\Directives\numberonly-directive.js" />
     <Content Include="Scripts\Extensions\Services\error-service.js" />
     <Content Include="Scripts\Extensions\Common\common-factory.js" />
     <Content Include="Scripts\Extensions\Common\modalconfirm-controller.js" />

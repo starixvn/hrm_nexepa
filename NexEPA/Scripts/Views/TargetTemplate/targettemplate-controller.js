@@ -168,7 +168,21 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 		targetTemplateFactory.getSelectedKPIGroupByTargetTemplate(targetTemplateId).then(successGetAllKPIGroup);
 	};
 
+	angular.element(document).ready(function () {
+		// Validate Textbox
+		var textbox = $("input[type='text'].percentage");
+		console.log(textbox);
+		textbox.keyup(function () {
+			debugger;
+		});
+
+	});
+
+
+
 } ]);
+
+
 
 targetTemplateModule.controller('AddKPIGroup', ['$scope', '$modalInstance', 'KPIGroups',
 function ($scope, $modalInstance, KPIGroups) {
