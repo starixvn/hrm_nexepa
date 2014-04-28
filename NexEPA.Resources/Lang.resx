@@ -328,7 +328,7 @@
     <value>Target Type</value>
   </data>
   <data name="WeightWarningMessage" xml:space="preserve">
-    <value>The total weight of all Groups in the Form is greater than 100%!</value>
+    <value>The total weight of all KPIs in the KPI Group must be equal or less  than 100%!</value>
   </data>
   <data name="JobTitle" xml:space="preserve">
     <value>Job Title</value>

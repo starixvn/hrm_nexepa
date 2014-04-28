@@ -11,6 +11,31 @@ var targetTemplateValidation = function (name, targetTypeId) {
 	return false;
 };
 
+// Show warning message if total Weight of all KPI in KPI Group is greater than 100 %
+var showWarningWeightMessage = function (kpiIds, notificationFactory) {
+	var totalWeight = 0;
+
+	if (kpiIds) {
+		var numberKPI = kpiIds.length;
+		var kpiGroupId = kpiIds[0].KPIGroupId;
+
+		for (var i = 0; i < numberKPI; i++) {
+			if (kpiIds[i].KPIGroupId === kpiGroupId) {
+				totalWeight += kpiIds[i].Weight;
+
+				if (totalWeight > 100) {
+					var message = 'The total weight of all KPI in the KPI Group "' + kpiIds[i].KPIGroupName + '" must be equal or less than 100%!';
+					notificationFactory.warning('', message);
+				}
+			}
+			else {
+				kpiGroupId = kpiIds[i].KPIGroupId;
+				totalWeight = kpiIds[i].Weight;
+			}
+		}
+	}
+};
+
 targetTemplateModule.controller('TargetTemplateController',
 ['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'tabService',
 function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService) {
@@ -68,8 +93,8 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 } ]);
 
 targetTemplateModule.controller('EditTargetTemplateController',
-['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'tabService', 'notificationFactory',
-function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, tabService, notificationFactory) {
+['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'tabService', 'notificationFactory', '$timeout',
+function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, tabService, notificationFactory, $timeout) {
 	/**
 	* Variables. 
 	*/
@@ -94,7 +119,9 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 
 	var successUpdateTargetTemplate = function () {
-		$location.url('/TargetTemplate/Index');
+		$timeout(function () {
+			$location.url('/TargetTemplate/Index');
+		}, 3000); 
 	};
 
 	var errorUpdateTargetTemplate = function (response) { $scope.errors = response; };
@@ -120,7 +147,7 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	// What for all list checkbox change.
 	$scope.$watch('lstAllData|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
-			var object = { KPIId: item.kpiId, KPIGroupId: item.kpiGroupId, Weight: item.weight };
+			var object = { KPIId: item.kpiId, KPIGroupId: item.kpiGroupId, KPIGroupName: item.kpiGroupName, Weight: parseInt(item.weight) };
 			return object;
 		});
 	}, true);
@@ -133,6 +160,7 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	$scope.update = function (editTemplate) {
 		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
 			editTemplate.kpiIds = $scope.selection;
+			showWarningWeightMessage(editTemplate.kpiIds, notificationFactory);
 			targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
 		}
 	};

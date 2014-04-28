@@ -22,6 +22,16 @@ registrationModule.factory('notificationFactory', ['$translate', function ($tran
 			else {
 				toastr.error(message);
 			}
+		},
+		warning: function (keyMessage, message) {
+			if (message === '' || message === null || message === undefined) {
+				$translate(keyMessage).then(function (responseMessage) {
+					toastr.warning(responseMessage);
+				});
+			}
+			else {
+				toastr.warning(message);
+			}
 		}
 	};
-}]);
+} ]);
