@@ -531,6 +531,20 @@ body {
             font-weight: bold;
             color: #4F4F4F;
             text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+
+            .close-popup {
+                background: url(images/icon_sprite.png);
+                height: 15px;
+                width: 16px;
+                position: absolute;
+                right: 10px;
+                top: 9px;
+                cursor: pointer;
+
+                &:hover {
+                    background-position: -16px 0;
+                }
+            }
         }
 
         input[type="text"] {
