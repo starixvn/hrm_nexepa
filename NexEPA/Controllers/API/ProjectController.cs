@@ -34,17 +34,17 @@ namespace NexEPA.Controllers.API
     public class ProjectController : BaseController
     {
         private readonly IProjectService _projectService;
-        private readonly EmployeeServices _employeeService;
+        private readonly EmployeeService _employeeService;
 
         public ProjectController()
             : this(null, null)
         {
         }
 
-        public ProjectController(IProjectService projectService, EmployeeServices employeeService)
+        public ProjectController(IProjectService projectService, EmployeeService employeeService)
         {
             this._projectService = projectService ?? new ProjectService();
-            this._employeeService = employeeService ?? new EmployeeServices();
+            this._employeeService = employeeService ?? new EmployeeService();
         }
 
         /// <summary>

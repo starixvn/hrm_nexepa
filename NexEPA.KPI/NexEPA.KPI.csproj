@@ -59,29 +59,29 @@
     <Compile Include="Criteria\KPIGroup\GetKPIGroupByIdCriteria.cs" />
     <Compile Include="Criteria\KPIGroup\InsertKPIGroupCriteria.cs" />
     <Compile Include="Criteria\KPIGroup\UpdateKPIGroupCriteria.cs" />
+    <Compile Include="Criteria\KPIGroup\UpdateKPIGroupStatusCriteria.cs" />
     <Compile Include="Criteria\KPI\DeleteKPICriteria.cs" />
     <Compile Include="Criteria\KPI\GetAllKPIByKPIGroupCriteria.cs" />
     <Compile Include="Criteria\KPI\GetKPIByIdCriteria.cs" />
     <Compile Include="Criteria\KPI\GetKPICriteria.cs" />
     <Compile Include="Criteria\KPI\InsertKPICriteria.cs" />
     <Compile Include="Criteria\KPI\UpdateKPICriteria.cs" />
-    <Compile Include="Model\KPIGroup\KPIGroupInfo.cs" />
-    <Compile Include="Model\KPI\KPIInfo.cs" />
+    <Compile Include="Criteria\KPI\UpdateKPIStatusCriteria.cs" />
+    <Compile Include="Model\KPIGroupInfo.cs" />
+    <Compile Include="Model\KPIInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Implement\KPIGroup\KPIGroupRepository.cs" />
-    <Compile Include="Repository\Implement\KPI\KPIRepository.cs" />
-    <Compile Include="Repository\Interface\KPIGroup\IKPIGroupRepository.cs" />
-    <Compile Include="Repository\Interface\KPI\IKPIRepository.cs" />
-    <Compile Include="Services\Implement\KPIGroup\KPIGroupServices.cs">
+    <Compile Include="Repositories\Implement\KPIGroupRepository.cs" />
+    <Compile Include="Repositories\Implement\KPIRepository.cs" />
+    <Compile Include="Repositories\Interface\IKPIGroupRepository.cs" />
+    <Compile Include="Repositories\Interface\IKPIRepository.cs" />
+    <Compile Include="Services\Implement\KPIGroupService.cs" />
+    <Compile Include="Services\Implement\KPIService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Services\Implement\KPI\KPIServices.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Services\Interface\KPIGroup\IKPIGroupServices.cs" />
-    <Compile Include="Services\Interface\KPI\IKPIServices.cs" />
-    <Compile Include="ViewModel\KPIGroup\KPIGroupItem.cs" />
-    <Compile Include="ViewModel\KPI\KPIItem.cs" />
+    <Compile Include="Services\Interface\IKPIGroupService.cs" />
+    <Compile Include="Services\Interface\IKPIService.cs" />
+    <Compile Include="ViewModels\KPIGroupItem.cs" />
+    <Compile Include="ViewModels\KPIItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

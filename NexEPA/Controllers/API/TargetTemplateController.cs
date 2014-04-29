@@ -15,6 +15,7 @@ namespace NexEPA.Controllers.API
     using System.Net;
     using System.Net.Http;
     using System.Text;
+    using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Model.Target;
@@ -25,8 +26,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.Services.Implement.KPIGroup;
     using NexEPA.KPI.Services.Interface.KPI;
     using NexEPA.KPI.Services.Interface.KPIGroup;
-    using NexEPA.KPI.ViewModel.KPI;
-    using NexEPA.KPI.ViewModel.KPIGroup;
+    using NexEPA.KPI.ViewModels;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
     using NexEPA.Target.Models.Target;
@@ -45,8 +45,8 @@ namespace NexEPA.Controllers.API
         private const string _EndRootTag = "</ROOT>";
         private readonly ITargetTemplateService _targetTemplateService;
         private readonly EPAService _epaService;
-        private readonly IKPIServices _kpiServices;
-        private readonly IKPIGroupServices _kpiGroupServices;
+        private readonly IKPIService _kpiServices;
+        private readonly IKPIGroupService _kpiGroupServices;
 
         public TargetTemplateController()
             : this(null, null, null, null)
@@ -56,13 +56,13 @@ namespace NexEPA.Controllers.API
         public TargetTemplateController(
             ITargetTemplateService targetTemplateService,
             EPAService epaService,
-            IKPIServices kpiServices,
-            IKPIGroupServices kpiGroupServices)
+            IKPIService kpiServices,
+            IKPIGroupService kpiGroupServices)
         {
             this._targetTemplateService = targetTemplateService ?? new TargetTemplateService();
             _epaService = epaService ?? new EPAService();
-            _kpiServices = kpiServices ?? new KPIServices();
-            _kpiGroupServices = kpiGroupServices ?? new KPIGroupServices();
+            _kpiServices = kpiServices ?? new KPIService();
+            _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
         }
 
         public IEnumerable<TargetTemplateModel> Get()
@@ -322,6 +322,23 @@ namespace NexEPA.Controllers.API
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Update Target Template Status.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        [HttpPut]
+        public CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _targetTemplateService.UpdateTargetTemplateStatus(criteria);
         }
 
         private string ConvertKPIGroupWeightToXML(List<TargetKPIGroup> kpiGroups)

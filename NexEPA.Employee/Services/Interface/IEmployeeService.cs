@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IEmployeeServices.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="IEmployeeService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace NexEPA.Employee.Services.Interface
     /// <summary>
     /// The interface of Employee services.
     /// </summary>
-    public interface IEmployeeServices
+    public interface IEmployeeService
     {
         List<EmployeeItem> GetAllEmployee(GetAllEmployeeCriteria criteria);
 

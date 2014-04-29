@@ -11,7 +11,6 @@ namespace NexEPA.MemberEPA.Models
 {
     using System.Collections.Generic;
     using System.Linq;
-    using NexEPA.KPI.Model.KPI;
 
     /// <summary>
     /// Grouping KPI Model.

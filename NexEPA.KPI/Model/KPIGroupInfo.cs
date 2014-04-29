@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KPIGroupItem.cs" company="Nexcel Solution Viet Nam">
+// <copyright file="KPIGroupInfo.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,24 +7,17 @@
 //   <change who="Josh.Phan" date="2014.03.17">Created</change>
 // </history>
 
-namespace NexEPA.KPI.ViewModel.KPIGroup
+namespace NexEPA.KPI.Model
 {
-    using System.Collections.Generic;
-    using NexEPA.KPI.ViewModel.KPI;
+    using System;
+    using NexEPA.Core.Model.Target;
 
     /// <summary>
-    /// The view model of KPI Group.
+    /// The model of KPI Group.
     /// </summary>
-    public class KPIGroupItem
+    public class KPIGroupInfo
     {
-        public KPIGroupItem()
-        {
-            Name = string.Empty;
-            Description = string.Empty;
-            Form = string.Empty;
-        }
-
-        public int KPIGroupID { get; set; }
+        public int KPIGroupId { get; set; }
 
         public string Name { get; set; }
 
@@ -32,14 +25,10 @@ namespace NexEPA.KPI.ViewModel.KPIGroup
 
         public int Weight { get; set; }
 
-        public int TargetTypeId { get; set; }
-
-        public string Form { get; set; }
-
         public bool IsDisabled { get; set; }
 
         public int NumberKPI { get; set; }
 
-        public bool Selected { get; set; }
+        public TargetType TargetType { get; set; }
     }
 }

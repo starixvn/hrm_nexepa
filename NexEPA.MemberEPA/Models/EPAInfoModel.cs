@@ -10,7 +10,7 @@
 namespace NexEPA.MemberEPA.Models
 {
     using System.Collections.Generic;
-    using NexEPA.KPI.Model.KPI;
+    using NexEPA.KPI.Model;
 
     /// <summary>
     /// EPA Info Model.

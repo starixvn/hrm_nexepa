@@ -99,15 +99,18 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 	// Confirm Active or not
 	$scope.confirmActive = function (template) {
 		var action = !template.isDisabled ? "deactivate" : "activate";
-		var newTemplate = template;
-		newTemplate.isDisabled = !template.isDisabled;
+		var newTemplate = {
+			targetTemplateId: template.targetTemplateId,
+			isDisabled: !template.isDisabled
+		};
+		template.isDisabled = !template.isDisabled;
 
 		var modalConfirmInstance = $modal.open({
 			templateUrl: '/templates/Common/modalConfirmContent.html',
 			controller: "ModalConfirmController",
 			resolve: {
 				name: function () {
-					return newTemplate.name;
+					return template.name;
 				},
 				action: function () {
 					return action;
@@ -119,8 +122,8 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 		var keyMessage = '';
 
 		modalConfirmInstance.result.then(function () {
-			if (targetTemplateValidation(newTemplate.name, newTemplate.targetTypeId)) {
-				targetTemplateFactory.updateTargetTemplate(newTemplate).then(function (response) {
+			if (newTemplate) {
+				targetTemplateFactory.updateTargetTemplateStatus(newTemplate).then(function (response) {
 					if (response.isSuccessful === true) {
 						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 						notificationFactory.success(keyMessage);

@@ -63,13 +63,18 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 		},
 		updateTargetTemplate: function (template) {
 			var deferred = $q.defer();
-			$http.put(url, template).success(deferred.resolve).error(deferred.reject);
+			$http.put('/api/TargetTemplate/Put', template).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
 		deleteTargetTemplate: function (targetId) {
 			var deferred = $q.defer();
 			$http['delete'](url, { params: { targetId: targetId} })
             .success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		updateTargetTemplateStatus: function (template) {
+			var deferred = $q.defer();
+			$http.put('/api/TargetTemplate/UpdateTargetTemplateStatus', template).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
 	};

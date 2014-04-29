@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TargetServices.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="TargetService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -30,11 +30,11 @@ namespace NexEPA.Target.Services.Impl.Target
     /// <summary>
     /// The implement of Target Services.
     /// </summary>
-    public class TargetServices : BaseService, ITargetServices
+    public class TargetService : BaseService, ITargetServices
     {
         private ITargetRepositories _targetRepositories;
 
-        public TargetServices()
+        public TargetService()
         {
             _targetRepositories = new TargetRepositories();
         }
@@ -53,7 +53,7 @@ namespace NexEPA.Target.Services.Impl.Target
             {
                 IEnumerable<TargetInfo> rawTargets = _targetRepositories.GetTarget(criteria);
 
-                foreach (var rawTarget in rawTargets)
+                foreach (TargetInfo rawTarget in rawTargets)
                 {
                     string startDate = rawTarget.StartDate != null 
                         ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
@@ -198,7 +198,7 @@ namespace NexEPA.Target.Services.Impl.Target
             {
                 IEnumerable<TargetEmployeeInfo> rawEmployees = GetData<TargetEmployeeInfo>(criteria);
 
-                foreach (var rawEmployee in rawEmployees)
+                foreach (TargetEmployeeInfo rawEmployee in rawEmployees)
                 {
                     var employeeItem = new TargetEmployeeItem
                     {
@@ -268,7 +268,7 @@ namespace NexEPA.Target.Services.Impl.Target
             {
                 IEnumerable<TargetKPIInfo> rawKPIsInfo = _targetRepositories.GetKPIByTargetId(criteria);
 
-                foreach (var kpiInfo in rawKPIsInfo)
+                foreach (TargetKPIInfo kpiInfo in rawKPIsInfo)
                 {
                     var kpiItem = new TargetKPIItem
                     {

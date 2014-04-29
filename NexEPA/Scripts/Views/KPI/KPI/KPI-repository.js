@@ -7,8 +7,10 @@ kpiSettingModule.factory('KPIRepository', ['$http', function ($http) {
 	return {
 		viewKPI: function (targetTypeId, groupId) {
 			return $http.get('/api/KPI/ViewKPI',
-				{ params: { targetTypeId: targetTypeId, 
-							groupId: groupId} });
+				{ params: { targetTypeId: targetTypeId,
+					groupId: groupId
+				}
+				});
 		},
 		getKPIById: function (kpiId) {
 			return $http.get('/api/KPI/GetKPIById', { params: { kpiId: kpiId} });
@@ -17,10 +19,13 @@ kpiSettingModule.factory('KPIRepository', ['$http', function ($http) {
 			return $http.post(url, kpiItem);
 		},
 		updateKPI: function (kpiItem) {
-			return $http.put(url, kpiItem);
+			return $http.put('/api/KPI/Put', kpiItem);
 		},
 		deleteKPI: function (kpiId) {
 			return $http['delete'](url, { params: { kpiId: kpiId} });
+		},
+		updateKPIStatus: function (kpiItem) {
+			return $http.put('/api/KPI/UpdateKPIStatus', kpiItem);
 		}
 	};
-}]);
+} ]);

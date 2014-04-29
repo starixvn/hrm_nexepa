@@ -40,10 +40,10 @@ namespace NexEPA.Controllers.Target
         }
 
         public TargetController(
-            TargetServices targetServices, 
+            TargetService targetServices, 
             ProjectService projectService)
         {
-            _targetServices = targetServices ?? new TargetServices();
+            _targetServices = targetServices ?? new TargetService();
             _projectService = projectService ?? new ProjectService();
         }
 

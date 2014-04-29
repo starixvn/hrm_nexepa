@@ -95,15 +95,18 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 		// confirm active group or not
 		$scope.confirmActive = function (group) {
 			var action = !group.isDisabled ? "deactivate" : "activate";
-			var newGroup = group;
-			newGroup.isDisabled = !group.isDisabled;
+			var newGroup = {
+				kpiGroupId: group.kpiGroupID,
+				isDisabled: !group.isDisabled
+			};
+			group.isDisabled = !group.isDisabled;
 
 			var modalConfirmInstance = $modal.open({
 				templateUrl: '/templates/Common/modalConfirmContent.html',
 				controller: "ModalConfirmController",
 				resolve: {
 					name: function () {
-						return newGroup.name;
+						return group.name;
 					},
 					action: function () {
 						return action;
@@ -115,7 +118,7 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 			var keyMessage = '';
 
 			modalConfirmInstance.result.then(function () {
-				KPIGroupRepository.updateGroup(newGroup).success(function (response) {
+				KPIGroupRepository.updateGroupStatus(newGroup).success(function (response) {
 					if (response.isSuccessful === true) {
 						keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 						notificationFactory.success(keyMessage);

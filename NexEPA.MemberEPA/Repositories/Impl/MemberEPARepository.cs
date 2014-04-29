@@ -15,8 +15,7 @@ namespace NexEPA.MemberEPA.Repositories.Impl
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Model.Target;
-    using NexEPA.KPI.Model.KPI;
-    using NexEPA.KPI.Model.KPIGroup;
+    using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Interfaces;

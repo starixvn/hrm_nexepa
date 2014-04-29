@@ -16,7 +16,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Services.Implement.KPIGroup;
     using NexEPA.KPI.Services.Interface.KPIGroup;
-    using NexEPA.KPI.ViewModel.KPIGroup;
+    using NexEPA.KPI.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
@@ -25,16 +25,16 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class KPIGroupController : BaseController
     {
-        private IKPIGroupServices _kpiGroupServices;
+        private IKPIGroupService _kpiGroupServices;
 
         public KPIGroupController()
             : this(null)
         {
         }
 
-        public KPIGroupController(KPIGroupServices kpiGroupServices)
+        public KPIGroupController(KPIGroupService kpiGroupServices)
         {
-            _kpiGroupServices = kpiGroupServices ?? new KPIGroupServices();
+            _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
         }
 
         [HttpGet]
@@ -68,6 +68,7 @@ namespace NexEPA.Controllers.API
         }
 
         [ApiAuthorize(Roles = "SA")]
+        [HttpPut]
         public CommandResult Put(UpdateKPIGroupCriteria criteria)
         {
             return _kpiGroupServices.UpdateKPIGroup(criteria);
@@ -99,6 +100,12 @@ namespace NexEPA.Controllers.API
             };
 
             return _kpiGroupServices.GetGroupListByTargetTypeId(criteria);
+        }
+
+        [HttpPut]
+        public CommandResult UpdateKPIGroupStatus(UpdateKPIGroupStatusCriteria criteria)
+        {
+            return _kpiGroupServices.UpdateKPIGroupStatus(criteria);
         }
     }
 }

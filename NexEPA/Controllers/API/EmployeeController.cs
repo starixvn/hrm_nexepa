@@ -21,16 +21,16 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class EmployeeController : ApiController
     {
-        private IEmployeeServices _employeeServices;
+        private IEmployeeService _employeeServices;
 
         public EmployeeController()
             : this(null)
         {
         }
 
-        public EmployeeController(EmployeeServices employeeServices)
+        public EmployeeController(EmployeeService employeeServices)
         {
-            _employeeServices = employeeServices ?? new EmployeeServices();
+            _employeeServices = employeeServices ?? new EmployeeService();
         }
 
         [HttpGet]

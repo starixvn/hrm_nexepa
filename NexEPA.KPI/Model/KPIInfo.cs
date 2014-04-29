@@ -7,10 +7,9 @@
 //   <change who="Josh.Phan" date="2014.03.18">Created</change>
 // </history>
 
-namespace NexEPA.KPI.Model.KPI
+namespace NexEPA.KPI.Model
 {
     using NexEPA.Core.Model.Target;
-    using NexEPA.KPI.Model.KPIGroup;
 
     /// <summary>
     /// The information of KPI.

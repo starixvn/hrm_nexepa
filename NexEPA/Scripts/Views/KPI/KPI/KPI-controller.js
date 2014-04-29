@@ -102,15 +102,18 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		// confirm active
 		$scope.confirmActive = function (item) {
 			var action = !item.isDisabled ? "deactivate" : "activate";
-			var newItem = item;
-			newItem.isDisabled = !item.isDisabled;
+			var newItem = {
+				kpiID: item.kpiId,
+				isDisabled: !item.isDisabled
+			};
+			item.isDisabled = newItem.isDisabled;
 
 			var modalConfirmInstance = $modal.open({
 				templateUrl: '/templates/Common/modalConfirmContent.html',
 				controller: "ModalConfirmController",
 				resolve: {
 					name: function () {
-						return newItem.name;
+						return item.name;
 					},
 					action: function () {
 						return action;
@@ -122,8 +125,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			var keyMessage = '';
 
 			modalConfirmInstance.result.then(function () {
-				if (KPICommonRepository.validateKPI(newItem) === true) {
-					KPIRepository.updateKPI(newItem).success(function (response) {
+				if (newItem) {
+					KPIRepository.updateKPIStatus(newItem).success(function (response) {
 						if (response.isSuccessful === true) {
 							keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 							notificationFactory.success(keyMessage);
@@ -135,8 +138,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 						}
 					}).error(function () {
 						keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-						notificationFactory.error(keyMessage);
 						item.isDisabled = !newItem.isDisabled;
+						notificationFactory.error(keyMessage);
 					});
 				}
 				else {

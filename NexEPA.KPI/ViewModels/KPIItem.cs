@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.03.18">Created</change>
 // </history>
 
-namespace NexEPA.KPI.ViewModel.KPI
+namespace NexEPA.KPI.ViewModels
 {
     using System.Collections.Generic;
 

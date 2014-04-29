@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EmployeeServices.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="EmployeeService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -24,11 +24,11 @@ namespace NexEPA.Employee.Services.Implement
     /// <summary>
     /// The implement of Employee services.
     /// </summary>
-    public class EmployeeServices : BaseService, IEmployeeServices
+    public class EmployeeService : BaseService, IEmployeeService
     {
         private IEmployeeRepositories _employeeRepositories;
 
-        public EmployeeServices()
+        public EmployeeService()
         {
             _employeeRepositories = new EmployeeRepositories();
         }
@@ -47,7 +47,7 @@ namespace NexEPA.Employee.Services.Implement
             {
                 IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetAllEmployee(criteria);
 
-                foreach (var employee in rawEmployees)
+                foreach (EmployeeInfo employee in rawEmployees)
                 {
                     string joinedDate = employee.JoinedDate != null
                         ? ((DateTime)employee.JoinedDate).ToString(Constants.ShortDateStringFormat)
@@ -87,7 +87,7 @@ namespace NexEPA.Employee.Services.Implement
             {
                 IEnumerable<GroupInfo> rawGroups = GetData<GroupInfo>(criteria);
 
-                foreach (var group in rawGroups)
+                foreach (GroupInfo group in rawGroups)
                 {
                     var groupItem = new Group
                     {
@@ -116,7 +116,7 @@ namespace NexEPA.Employee.Services.Implement
             {
                 IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetEmployeeByProjectId(criteria);
 
-                foreach (var rawEmployee in rawEmployees)
+                foreach (EmployeeInfo rawEmployee in rawEmployees)
                 {
                     var employee = new EmployeeItem
                     {

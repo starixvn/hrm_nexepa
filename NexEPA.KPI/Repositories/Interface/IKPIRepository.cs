@@ -7,11 +7,11 @@
 //   <change who="Josh.Phan" date="2014.03.31">Created</change>
 // </history>
 
-namespace NexEPA.KPI.Repository.Interface.KPI
+namespace NexEPA.KPI.Repositories.Interface.KPI
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.KPI.Model.KPI;
+    using NexEPA.KPI.Model;
 
     /// <summary>
     /// The interface of KPI repository.

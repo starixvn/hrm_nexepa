@@ -63,8 +63,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\EmployeeRepositories.cs" />
     <Compile Include="Repositories\Interface\IEmployeeRepositories.cs" />
-    <Compile Include="Services\Implement\EmployeeServices.cs" />
-    <Compile Include="Services\Interface\IEmployeeServices.cs" />
+    <Compile Include="Services\Implement\EmployeeService.cs" />
+    <Compile Include="Services\Interface\IEmployeeService.cs" />
     <Compile Include="ViewModels\EmployeeItem.cs" />
   </ItemGroup>
   <ItemGroup>

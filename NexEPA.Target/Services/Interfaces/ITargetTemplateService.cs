@@ -37,5 +37,7 @@ using NexEPA.Target.Models.Target;
         IEnumerable<KPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria);
 
         IEnumerable<TargetKPIGroup> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria);
+
+        CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KPIServices.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="KPIService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -16,21 +16,21 @@ namespace NexEPA.KPI.Services.Implement.KPI
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Criteria.KPI;
-    using NexEPA.KPI.Model.KPI;
-    using NexEPA.KPI.Repository.Implement.KPI;
-    using NexEPA.KPI.Repository.Interface.KPI;
+    using NexEPA.KPI.Model;
+    using NexEPA.KPI.Repositories.Implement;
+    using NexEPA.KPI.Repositories.Interface.KPI;
     using NexEPA.KPI.Services.Interface.KPI;
-    using NexEPA.KPI.ViewModel.KPI;
+    using NexEPA.KPI.ViewModels;
     using NexEPA.Web.Models;
 
     /// <summary>
     /// The implement of KPI service.
     /// </summary>
-    public class KPIServices : BaseService, IKPIServices 
+    public class KPIService : BaseService, IKPIService 
     {
         private IKPIRepository _kpiRepository;
 
-        public KPIServices()
+        public KPIService()
         {
             _kpiRepository = new KPIRepository();
         }
@@ -111,7 +111,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
                     List<int> kpiGroupIds = new List<int>();
                     List<string> kpiGroupNames = new List<string>();
 
-                    foreach (var infoKPI in infoKPIs)
+                    foreach (KPIInfo infoKPI in infoKPIs)
                     {
                         kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
                         kpiGroupNames.Add(infoKPI.Group.Name);
@@ -208,6 +208,26 @@ namespace NexEPA.KPI.Services.Implement.KPI
             }
 
             return kpis;
+        }
+
+        /// <summary>
+        /// Update status of KPI.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateKPIStatus(UpdateKPIStatusCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

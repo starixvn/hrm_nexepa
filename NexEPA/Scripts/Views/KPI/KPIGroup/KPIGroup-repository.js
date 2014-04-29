@@ -6,7 +6,7 @@ kpiSettingModule.factory('KPIGroupRepository', ['$http', function ($http) {
 
 	return {
 		getAll: function (targetTypeId) {
-			return $http.get('/api/KPIGroup/GetAll', { params: { targetTypeId: targetTypeId } });
+			return $http.get('/api/KPIGroup/GetAll', { params: { targetTypeId: targetTypeId} });
 		},
 		getGroupById: function (groupId) {
 			return $http.get('/api/KPIGroup/GetUserById', { params: { id: groupId} });
@@ -15,10 +15,13 @@ kpiSettingModule.factory('KPIGroupRepository', ['$http', function ($http) {
 			return $http.post(url, group);
 		},
 		updateGroup: function (group) {
-			return $http.put(url, group);
+			return $http.put('/api/KPIGroup/Put', group);
 		},
 		deleteGroup: function (groupId) {
 			return $http['delete'](url, { params: { id: groupId} });
+		},
+		updateGroupStatus: function (group) {
+			return $http.put('/api/KPIGroup/UpdateKPIGroupStatus', group);
 		}
 	};
 } ]);

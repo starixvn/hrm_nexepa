@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IKPIServices.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="IKPIService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,12 +12,12 @@ namespace NexEPA.KPI.Services.Interface.KPI
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using NexEPA.KPI.Criteria.KPI;
-    using NexEPA.KPI.ViewModel.KPI;
+    using NexEPA.KPI.ViewModels;
 
     /// <summary>
     /// The interface of KPI services.
     /// </summary>
-    public interface IKPIServices
+    public interface IKPIService
     {
         List<KPIItem> GetKPI(GetKPICriteria criteria);
 
@@ -30,5 +30,7 @@ namespace NexEPA.KPI.Services.Interface.KPI
         CommandResult DeleteKPI(DeleteKPICriteria criteria);
 
         IEnumerable<KPIItem> GetAllKPIByKPIGroup(GetAllKPIByKPIGroupCriteria criteria);
+
+        CommandResult UpdateKPIStatus(UpdateKPIStatusCriteria criteria);
     }
 }

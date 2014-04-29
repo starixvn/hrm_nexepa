@@ -37,11 +37,13 @@
 		<Setting Key="KPIGroup_Insert" SpName="KPIGroup_Insert" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPIGroup_Update" SpName="KPIGroup_Update" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPIGroup_Delete" SpName="KPIGroup_Delete" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="KPIGroup_UpdateStatus" SpName="KPIGroup_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPI_Get" SpName="KPI_Get" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPI_GetById" SpName="KPI_GetById" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPI_Insert" SpName="KPI_Insert" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPI_Update" SpName="KPI_Update" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPI_Delete" SpName="KPI_Delete" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="KPI_UpdateStatus" SpName="KPI_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="TargetTemplate">
@@ -55,7 +57,8 @@
 		<Setting Key="TargetTemplate_SetKPIGroup" SpName="TargetTemplate_SetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
-	</Function>
+    <Setting Key="TargetTemplate_UpdateStatus" SpName="TargetTemplate_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
 
 	<Function Name="Target">
 		<Setting Key="TargetType_GetAll" SpName="TargetType_GetAll" DbName="NexEPA" Plain="1" ></Setting>

@@ -16,7 +16,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Services.Implement.KPI;
     using NexEPA.KPI.Services.Interface.KPI;
-    using NexEPA.KPI.ViewModel.KPI;
+    using NexEPA.KPI.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
@@ -25,16 +25,16 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class KPIController : BaseController
     {
-        private IKPIServices _kpiServices;
+        private IKPIService _kpiServices;
 
         public KPIController()
             : this(null)
         {
         }
 
-        public KPIController(KPIServices kpiServices)
+        public KPIController(KPIService kpiServices)
         {
-            _kpiServices = kpiServices ?? new KPIServices();
+            _kpiServices = kpiServices ?? new KPIService();
         }
 
         [HttpGet]
@@ -69,6 +69,7 @@ namespace NexEPA.Controllers.API
         }
 
         [ApiAuthorize(Roles = "SA")]
+        [HttpPut]
         public CommandResult Put(UpdateKPICriteria criteria)
         {
             return _kpiServices.UpdateKPI(criteria);
@@ -85,6 +86,13 @@ namespace NexEPA.Controllers.API
             };
 
             return _kpiServices.DeleteKPI(criteria);
+        }
+
+        [ApiAuthorize(Roles = "SA")]
+        [HttpPut]
+        public CommandResult UpdateKPIStatus(UpdateKPIStatusCriteria criteria)
+        {
+            return _kpiServices.UpdateKPIStatus(criteria);
         }
     }
 }
