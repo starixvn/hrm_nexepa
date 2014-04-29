@@ -11,7 +11,9 @@ namespace NexEPA.Core.Repositories.Implements
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Criteria;
@@ -48,9 +50,9 @@ namespace NexEPA.Core.Repositories.Implements
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var hash = criteria.GetSpParams();
+                Hashtable hash = criteria.GetSpParams();
                 hash = (new ResultCriteria()).AddSpParams(hash);
-                var result = db.ExecuteNonQuery(hash);
+                int result = db.ExecuteNonQuery(hash);
                 if (result == 1 && hasGetOutputParams)
                 {
                     SetValueForOutputProperty(criteria, hash);
@@ -79,10 +81,10 @@ namespace NexEPA.Core.Repositories.Implements
         /// <param name="hash">The Hash table.</param>
         private void SetValueForOutputProperty(ICriteria criteria, Hashtable hash)
         {
-            var properties = criteria.GetType().GetProperties().Where(
-                prop => Attribute.IsDefined(prop, typeof(OutputAttribute))).ToList();
+            IEnumerable<PropertyInfo> properties = criteria.GetType().GetProperties().Where(
+                prop => Attribute.IsDefined(prop, typeof(OutputAttribute)));
 
-            foreach (var property in properties)
+            foreach (PropertyInfo property in properties)
             {
                 if (property.CanWrite)
                 {

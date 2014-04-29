@@ -31,7 +31,7 @@ namespace NexEPA.Web.Repositories.Impl
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var user = multi.Read<UserSession>().FirstOrDefault();
+                    UserSession user = multi.Read<UserSession>().FirstOrDefault();
                     user.Roles = multi.Read<UserRole>().ToList();
 
                     return user;

@@ -33,7 +33,7 @@ namespace NexEPA.Web.Services.Impl
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var user = this._commonRepository.GetUserByDomainUsername(criteria);
+                UserSession user = this._commonRepository.GetUserByDomainUsername(criteria);
                 return user;
             }
 

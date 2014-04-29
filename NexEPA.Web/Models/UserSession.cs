@@ -37,7 +37,7 @@ namespace NexEPA.Web.Models
 
         public bool HasRole(short roleId)
         {
-            var hasRole = Roles.Any(t => t.RoleId == roleId);
+            bool hasRole = Roles.Any(t => t.RoleId == roleId);
             return hasRole;
         }
 
@@ -53,7 +53,7 @@ namespace NexEPA.Web.Models
                 return false;
             }
 
-            var userRoles = System.Web.Security.Roles.GetRolesForUser();
+            string[] userRoles = System.Web.Security.Roles.GetRolesForUser();
             return roles.Any(role => userRoles.Contains(role));
         }
     }

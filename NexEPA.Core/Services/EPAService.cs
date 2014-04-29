@@ -38,13 +38,13 @@ namespace NexEPA.Core.Services
         public List<SelectListModel> GetAllProjectToFilter(GetAllProjectToFilterCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            List<SelectListModel> allProjects = new List<SelectListModel>();
+            var allProjects = new List<SelectListModel>();
 
             if (criteria.IsValid())
             {
-                var rawProjects = GetData<ProjectFilterModel>(criteria);
+                IEnumerable<ProjectFilterModel> rawProjects = GetData<ProjectFilterModel>(criteria);
 
-                foreach (var rawProject in rawProjects)
+                foreach (ProjectFilterModel rawProject in rawProjects)
                 {
                     var projectSelectItem = new SelectListModel
                     {

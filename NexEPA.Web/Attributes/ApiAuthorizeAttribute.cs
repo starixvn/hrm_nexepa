@@ -9,6 +9,7 @@
 
 namespace NexEPA.Web.Attributes
 {
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -42,7 +43,7 @@ namespace NexEPA.Web.Attributes
             var currentUser = SessionManager.CurrentUser;
             if (currentUser != null)
             {
-                var attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
+                Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
                 foreach (AuthorizeAttribute item in attributes)
                 {
                     if (!string.IsNullOrWhiteSpace(item.Roles)
