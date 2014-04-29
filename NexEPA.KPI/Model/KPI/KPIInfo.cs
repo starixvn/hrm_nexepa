@@ -39,6 +39,8 @@ namespace NexEPA.KPI.Model.KPI
 
         public string Comment { get; set; }
 
+        public int Weight { get; set; }
+
         public string KPIGroupName { get; set; }
 
         public KPIGroupInfo Group { get; set; }

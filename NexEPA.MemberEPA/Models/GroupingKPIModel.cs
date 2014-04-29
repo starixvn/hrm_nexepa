@@ -10,6 +10,7 @@
 namespace NexEPA.MemberEPA.Models
 {
     using System.Collections.Generic;
+    using System.Linq;
     using NexEPA.KPI.Model.KPI;
 
     /// <summary>
@@ -20,5 +21,19 @@ namespace NexEPA.MemberEPA.Models
         public string KPIGroupName { get; set; }
 
         public List<KPIInfo> KPIGroupItems { get; set; }
+
+        public int KPIGroupWeight
+        {
+            get
+            {
+                if (KPIGroupItems != null)
+                {
+                    var firstItem = KPIGroupItems.FirstOrDefault();
+                    return firstItem.Group.Weight;
+                }
+
+                return 0;
+            }
+        }
     }
 }

@@ -47,6 +47,8 @@ namespace NexEPA.MemberEPA.Models
 
         public string Comment { get; set; }
 
+        public decimal TotalScore { get; set; }
+
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }
 
         public List<GroupingKPIModel> KPIInfo { get; set; }

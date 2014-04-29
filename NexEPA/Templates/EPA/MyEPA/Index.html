@@ -66,12 +66,12 @@
 <div class="col-sm-12 list-group-item">
 	<ol class="epa-criteria-ol" type="A">
 		<div class="col-sm-12 criteria-area" ng-repeat="kpi in employeeEPA.kpiInfo">
-			<li class="boxtitle first epa-criteria-name">{{kpi.kpiGroupName}}</li>
+			<li class="boxtitle first epa-criteria-name">{{kpi.kpiGroupName}} ( {{kpi.kpiGroupWeight}}% )</li>
 			<div class="col-sm-12">
 				<ol type="1">
 					<div class="col-sm-12" ng-repeat="item in kpi.kpiGroupItems">
 						<div class="row criteria-title">
-							<li class="epa-criteria-name">{{item.name}}</li>
+							<li class="epa-criteria-name">{{item.name}} ( {{item.weight}}% )</li>
 						</div>
 						<div class="row">
 							<div class="col-sm-9 criteria-description">
@@ -94,7 +94,8 @@
 <div class="col-sm-12 list-group-item criteria-area">
 	<div class="boxtitle first epa-criteria-name">
 		COMMENTS</div>
-	<textarea class="col-sm-9 epa-textarea-comment"></textarea>
+	<textarea class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>
+	<div class="col-sm-2 list-group-item pull-right">{{finalScore}}</div>
 </div>
 <div class="col-sm-12 action-button">
 	<button class="button" ng-disabled="addProjectForm.$invalid" ng-click="save(employeeEPA)"

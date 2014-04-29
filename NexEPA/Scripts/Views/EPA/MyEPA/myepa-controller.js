@@ -1,16 +1,15 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', '$routeParams',
-function ($scope, employeeEPAFactory, notificationFactory, $routeParams) {
+epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', '$routeParams', '$window',
+function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window) {
 	/**
 	* Scope variables. 
 	*/
 	$scope.max = 10;
 	$scope.isReadonly = false;
 	var targetId = $routeParams.targetId;
-	debugger;
-
+	$scope.finalScore = 0;
 
 	/**
 	* Ajax event. 
@@ -18,7 +17,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams) {
 	var successAddOrUpdateEPA = function () { notificationFactory.success('SuccessSaveData', ''); };
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
-		debugger;
 		$scope.employeeEPA = data;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
@@ -38,8 +36,11 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams) {
 	* Events 
 	*/
 	$scope.save = function (employeeEPAResult) {
+		employeeEPAResult.totalScore = $scope.totalScore;
 		employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
 	};
+
+	$scope.cancel = function () { $window.history.back(); };
 
 	$scope.hoveringOver = function (value, object) {
 		object.percent = (100 * value) / $scope.max;
@@ -47,8 +48,40 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams) {
 
 	$scope.hoveringLeave = function (rate, object) {
 		object.percent = (100 * rate) / $scope.max;
-	};
 
+		var kpiInfo = $scope.employeeEPA.kpiInfo;
+		var totalGroupScore = 0;
+		var totalGroupWeight = 0;
+		$scope.finalScore = 0;
+
+		$.each(kpiInfo, function (item) {
+			var kpiGroupItem = kpiInfo[item].kpiGroupItems;
+			var kpiGroupWeight = kpiInfo[item].kpiGroupWeight;
+			var totalItemScore = 0;
+			var totalItemWeight = 0;
+			$.each(kpiGroupItem, function (i) {
+				var currentItem = kpiGroupItem[i];
+				if (currentItem.score > 0) {
+					totalItemWeight += currentItem.weight;
+					totalItemScore += currentItem.score * currentItem.weight;
+				}
+			});
+
+			var temp = (totalItemScore / totalItemWeight) * kpiGroupWeight;
+			if (isNaN(temp)) {
+				totalGroupScore += 0;
+			}
+			else {
+				totalGroupScore += temp;
+			}
+			if (totalGroupScore > 0) {
+				totalGroupWeight += kpiGroupWeight;
+			}
+		});
+
+		$scope.finalScore = (totalGroupScore / totalGroupWeight) * 10;
+
+	};
 
 	$(".boxtitle").on("click", function () {
 		var header = $(this);
