@@ -129,18 +129,24 @@ targetModule.controller('ViewTargetController',
 		};
 
 		// view target employee
-		$scope.viewTargetEmployee = function (targetId) {
-			$location.path("/Target/TargetEmployee/" + targetId).search("viewMembers", true);
+		$scope.viewTargetEmployee = function (target) {
+			var targetId = target.targetId,
+				projectId = target.project ? target.project.projectId : null;
+			$location.path("/Target/TargetEmployee/" + targetId).search("projectId", projectId).search("viewMembers", true);
 		};
 
 		// view target KPI
-		$scope.viewTargetKPI = function (targetId) {
-			$location.path("/Target/TargetKPI/" + targetId).search("viewKPIs", true);
+		$scope.viewTargetKPI = function (target) {
+			var targetId = target.targetId,
+				projectId = target.project ? target.project.projectId : null;
+			$location.path("/Target/TargetKPI/" + targetId).search("projectId", projectId).search("viewKPIs", true);
 		};
 
 		// view detail of Target
-		$scope.viewDetailTarget = function (targetId) {
-			$location.path("/Target/TargetDetail/" + targetId);
+		$scope.viewDetailTarget = function (target) {
+			var targetId = target.targetId,
+				projectId = target.project ? target.project.projectId : null;
+			$location.path("/Target/TargetDetail/" + targetId).search("projectId", projectId);
 		};
 	} ]);
 
@@ -247,17 +253,15 @@ targetModule.controller('ViewTargetController',
 // View Detail of Target or Edit Target Controller
 	targetModule.controller("TargetDetailAndEditController",
 	['$scope', '$timeout', '$location', '$translate', '$routeParams', '$window', '$route', '$modal',
-	'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 
-	'KPIGroupRepository', 'commonFactory', 'ErrorService', 'notificationFactory',
+	'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository',
+	'KPIGroupRepository', 'commonFactory', 'ErrorService', 'notificationFactory', 'employeeRepository',
 	function ($scope, $timeout, $location, $translate, $routeParams, $window, $route, $modal,
 			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository,
-			commonFactory, ErrorService, notificationFactory) {
+			commonFactory, ErrorService, notificationFactory, employeeRepository) {
 
-		var targetId = $routeParams.id,
-			projectId = $routeParams.projectId,
+		var targetId = parseInt($routeParams.id),
+			projectId = parseInt($routeParams.projectId),
 			isEditMode = $routeParams.isEditMode ? true : false;
-
-		$scope.projectId = projectId;
 
 		if (!isEditMode) {
 			var isMemberSelect = $routeParams.viewMembers ? true : false;
@@ -422,6 +426,16 @@ targetModule.controller('ViewTargetController',
 		});
 
 		if (isEditMode) {
+			$scope.searchEmployees = [];
+
+			// get employee by projectID and search key
+			$scope.getEmployee = function (searchKey) {
+				employeeRepository.getEmployeeByProjectId(projectId, searchKey).success(function (employeeList) {
+					$scope.searchEmployees = employeeList;
+					$scope.$apply;
+				});
+			};
+
 			// add employee
 			$scope.addEmployee = function (employee) {
 				$scope.disabledSubmit = true;
@@ -529,7 +543,7 @@ targetModule.controller('ViewTargetController',
 
 		// Edit Target
 		$scope.editTarget = function () {
-			$location.url('Target/EditTarget/' + targetId).search("isEditMode", true);
+			$location.url('Target/EditTarget/' + targetId).search("projectId", projectId).search("isEditMode", true);
 		};
 
 		$scope.cancel = function () {
@@ -539,4 +553,4 @@ targetModule.controller('ViewTargetController',
 		$scope.backToView = function () {
 			$location.url('Target/ViewTarget');
 		};
-	}]);
+	} ]);

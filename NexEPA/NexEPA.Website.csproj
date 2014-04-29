@@ -280,6 +280,7 @@
     <Content Include="Templates\ProjectMembers\Create.html" />
     <Content Include="Templates\ProjectMembers\Index.html" />
     <Content Include="Templates\Projects\Create.html" />
+    <Content Include="Templates\Projects\Detail.html" />
     <Content Include="Templates\Projects\Edit.html" />
     <Content Include="Templates\Projects\Index.html" />
     <Content Include="Templates\Projects\ProjectFilterPanel.html" />

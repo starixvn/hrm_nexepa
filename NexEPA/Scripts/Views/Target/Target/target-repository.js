@@ -182,27 +182,24 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 	} ]);
 
 // search employee auto-complete directive
-targetModule.directive('searchAutoComplete', ['$timeout','employeeRepository', function ($timeout, employeeRepository) {
+	targetModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
 		return {
-			scope: { searchKey: "&searchKey", employee: "=employee", projectId: "&projectId" },
+			scope: { employee: "=employee", searchEmployees: "&searchEmployees" },
 			link: function (scope, iElement) {
 				iElement.autocomplete({
 					source: function (request, response) {
-						var searchKey = scope.searchKey(),
-							projectId = scope.projectId();
+						var employees = scope.searchEmployees();
+						var data = [];
 
-						employeeRepository.getEmployeeByProjectId(projectId, searchKey).success(function (employeeList) {
-							var data = [];
-							angular.forEach(employeeList, function (employee) {
-								data.push(
-								{ value: employee.nickName + ' (' + employee.fullName + ')',
-									id: employee.employeeId,
-									employee: employee
-								});
+						angular.forEach(employees, function (employee) {
+							data.push(
+							{ value: employee.nickName + ' (' + employee.fullName + ')',
+								id: employee.employeeId,
+								employee: employee
 							});
-
-							response(data);
 						});
+
+						response(data);
 					},
 					select: function (event, ui) {
 						scope.employee = ui.item.employee;
@@ -213,5 +210,5 @@ targetModule.directive('searchAutoComplete', ['$timeout','employeeRepository', f
 				});
 			}
 		};
-}]);
+	} ]);
 

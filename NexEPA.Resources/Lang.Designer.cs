@@ -358,6 +358,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Project.
+        /// </summary>
+        public static string EditProject {
+            get {
+                return ResourceManager.GetString("EditProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Target.
         /// </summary>
         public static string EditTarget {
@@ -673,6 +682,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Project.
+        /// </summary>
+        public static string ManageProject {
+            get {
+                return ResourceManager.GetString("ManageProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Target.
         /// </summary>
         public static string ManageTarget {
@@ -772,11 +790,47 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project Detail.
+        /// </summary>
+        public static string ProjectDetail {
+            get {
+                return ResourceManager.GetString("ProjectDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PROJECT INFORMATION.
+        /// </summary>
+        public static string ProjectInformation {
+            get {
+                return ResourceManager.GetString("ProjectInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Manager.
         /// </summary>
         public static string ProjectManager {
             get {
                 return ResourceManager.GetString("ProjectManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PROJECT MEMBERS.
+        /// </summary>
+        public static string ProjectMember {
+            get {
+                return ResourceManager.GetString("ProjectMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PROJECT MILESTONES.
+        /// </summary>
+        public static string ProjectMilestone {
+            get {
+                return ResourceManager.GetString("ProjectMilestone", resourceCulture);
             }
         }
         

@@ -43,6 +43,11 @@ namespace NexEPA
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
+               name: "ProjectsDetail",
+               url: "Projects/Detail/{Id}",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                name: "Get all KPI Group",
                url: "KPI/GetAllKPIGroup/{id}",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });

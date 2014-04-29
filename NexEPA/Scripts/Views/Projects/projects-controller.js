@@ -81,10 +81,15 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		projectDataFactory.filterData(filter).then(successFilterData);
 	};
 
-	$scope.memberSelected = function (data) {
+	$scope.memberSelected = function (data, project) {
+		$location.path('/Projects/Edit/' + project.projectId).search('isEditMode', true);
 		tabService.setProperty(data);
 	};
 
+	// View detail of project
+	$scope.detailProject = function (project) {
+		$location.path('/Projects/Detail/' + project.projectId);
+	};
 } ]);
 
 projectsSettingModule.controller('CreateProjectController',
@@ -170,13 +175,14 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 } ]);
 
-projectsSettingModule.controller('EditProjectController',
+projectsSettingModule.controller('ViewDetailAndEditProjectController',
 ['$scope', '$routeParams', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', 'tabService',
 function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, tabService) {
 	/**
 	* Scope variables. 
 	*/
-	var projectId = $routeParams.projectId;
+	var projectId = parseInt($routeParams.projectId);
+	$scope.isEditMode = $routeParams.isEditMode ? true : false;
 	$scope.errors = [];
 	$scope.dataTab = {};
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
@@ -250,6 +256,11 @@ function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectS
 		$window.history.back();
 	};
 
+	$scope.calendar = {
+		endDateOpened: false,
+		startDateOpened: false
+	};
+
 	// show start date calendar when click button start date
 	$scope.openPopupStartDate = function ($event) {
 		commonFactory.openPopupStartDate($event, $scope);
@@ -278,6 +289,7 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 	* Scope variables. 
 	*/
 	var projectId = $routeParams.projectId;
+	$scope.isEditMode = $routeParams.isEditMode ? true : false;
 	$scope.milestones = [];
 	$scope.milestoneErrors = [];
 	$scope.addMode = false;

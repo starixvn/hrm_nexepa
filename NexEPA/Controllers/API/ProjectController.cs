@@ -159,7 +159,7 @@ namespace NexEPA.Controllers.API
         {
             GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
             IEnumerable<EmployeeInfo> employees = _employeeService.GetData<EmployeeInfo>(criteria);
-            var selectListEmployee = employees.Select(x => new { x.FullName, x.EmployeeId });
+            var selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId });
 
             return selectListEmployee;
         }

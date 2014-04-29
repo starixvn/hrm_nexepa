@@ -117,7 +117,7 @@
                         <div class="form-group">
                             <label data-translate="Employee"></label>
                             <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name"
-                                    search-auto-complete search-key="search.searchKey" project-id="projectId" employee="employee"/>
+                                    search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(search.searchKey)" employee="employee"/>
                         </div>
                         <button class="button" ng-click="addEmployee(employee)" ng-disabled="disabledSubmit" data-translate="Add"></button>
                         <div class="error" ng-show="!targetMemberSuccess" ng-bind="memberErrorMessage"></div>

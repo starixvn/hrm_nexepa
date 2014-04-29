@@ -54,19 +54,19 @@
             <tr ng-repeat="target in targetList">
                 <td class="count" ng-bind="$index + 1"></td>
                 <td>
-                    <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target.targetId)" 
+                    <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target)" 
                         title="View detail of '{{target.name}}'"></a>
                 </td>
                 <td class="form" ng-bind="target.targetType.name"></td>
                 <td ng-bind="target.project.name"></td>
                 <td ng-bind="target.milestone.name"></td>
                 <td class="target-member">
-                    <a href="" ng-bind="target.numberMember" ng-click="viewTargetEmployee(target.targetId)" ng-show="target.numberMember > 0"
+                    <a href="" ng-bind="target.numberMember" ng-click="viewTargetEmployee(target)" ng-show="target.numberMember > 0"
                          title="View Members of '{{target.name}}'"></a>
                     <span ng-show="target.numberMember === 0" ng-bind="0"></span>
                 </td>
                 <td class="target-kpi">
-                    <a href="" ng-bind="target.numberKPI" ng-click="viewTargetKPI(target.targetId)" ng-show="target.numberKPI > 0"
+                    <a href="" ng-bind="target.numberKPI" ng-click="viewTargetKPI(target)" ng-show="target.numberKPI > 0"
                         title="View KPIs of '{{target.name}}'"></a>
                     <span ng-show="target.numberKPI === 0" ng-bind="0"></span>
                 </td>
