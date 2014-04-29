@@ -48,6 +48,7 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	* Initialize data to view Index.
 	*/
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+	//milestoneFactory.getMilestone
 
 	// Check for list ProjectManager has cache data.
 	if (cacheListPM) {

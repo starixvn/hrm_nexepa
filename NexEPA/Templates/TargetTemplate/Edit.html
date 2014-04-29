@@ -43,6 +43,14 @@
 						maxlength="500"></textarea>
 				</div>
 			</div>
+			<div class="col-sm-offset-5">
+				<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
+					data-translate="Submit">
+				</button>
+				<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+				</button>
+			</div>
+
 		</form>
 	</tab>
 
@@ -87,15 +95,14 @@
 				    </tr>
 			    </tbody>
 		    </table>
+			<div class="col-sm-offset-5">
+				<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
+					data-translate="Submit">
+				</button>
+				<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+				</button>
+			</div>
         </div>
 	</tab>
 </tabset>
-<div>
-	<div class="row action-button self-clear" class="col-sm-12">
-		<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
-			data-translate="Submit">
-		</button>
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
-</div>
+
