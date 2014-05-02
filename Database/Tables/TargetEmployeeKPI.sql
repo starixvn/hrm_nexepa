@@ -16,6 +16,8 @@ CREATE TABLE [dbo].[TargetEmployeeKPI](
 	[EmployeeId] [int] NOT NULL,
 	[KPIId] [int] NOT NULL,
 	[KPIGroupId] [int] NOT NULL,
+	[KPIWeight] [int] NULL,
+	[KPIGroupWeight] [int] NULL,
 	[KPILogNo] [varchar](20) NULL,
 	[KPIGroupLogNo] [varchar](20) NULL,
  CONSTRAINT [PK_TargetEmployeeKPI] PRIMARY KEY CLUSTERED 
