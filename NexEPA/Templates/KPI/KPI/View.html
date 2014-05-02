@@ -35,13 +35,13 @@
             </div>
             <div class="form-group">
                 <label data-translate="Status"></label>
-                <select ng-model="activeFilter" class="form-control">
-                    <option value="all">-- All --</option>
-                    <option value="active" data-translate="Active"></option>
-                    <option value="inactive" data-translate="Inactive"></option>
+                <select ng-model="filter.active" class="form-control">
+                    <option selected value="">-- All --</option>
+                    <option value="true" data-translate="Active"></option>
+                    <option value="false" data-translate="Inactive"></option>
                 </select>
             </div>
-            <button ng-show="isViewAll" class="button" ng-click="query(filter.targetTypeId, filter.kpiGroupId)" 
+            <button ng-show="isViewAll" class="button" ng-click="query(filter)" 
                     ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
         </form>
     </div>
@@ -59,20 +59,16 @@
                 <th data-translate="Action"></th>
             </tr>
         </thead>
-        <tr ng-repeat="item in KPIList | filter:filterActive">
+        <tr ng-repeat="item in KPIList">
             <td class="KPI-index" ng-bind="$index + 1"></td>
             <td class="KPI-title" ng-bind="item.name"></td>
             <td class="KPI-group">
-                <div class="group-toggle-show">
+                <div ng-show="item.kpiGroupNames.length == 1">
                     <span ng-bind="item.kpiGroupNames[0]"></span>
-                    <a class="glyphicon glyphicon-plus-sign group-toggle-icon" ng-click="isCollapsed = !isCollapsed" 
-                        ng-show="item.kpiGroupNames.length > 1 && isCollapsed == true" href="" title="View Other Groups"></a>
-                    <a class="glyphicon glyphicon-minus-sign group-toggle-icon" ng-click="isCollapsed = !isCollapsed" 
-                        ng-show="item.kpiGroupNames.length > 1 && isCollapsed == false" href="" title="Close"></a>
                 </div>
                 <div ng-show="item.kpiGroupNames.length > 1">
-                   <ul collapse="isCollapsed" class="group-toggle-item">
-                        <li ng-repeat="groupName in item.kpiGroupNames"" ng-show="!$first" ng-bind="groupName"></li>
+                    <ul class="group-toggle-item">
+                        <li ng-repeat="groupName in item.kpiGroupNames"" ng-bind="groupName"></li>
                     </ul>
                 </div>
             </td>

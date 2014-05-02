@@ -11,6 +11,7 @@ namespace NexEPA.Target.Services.Impl.Target
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Constants;
@@ -259,30 +260,53 @@ namespace NexEPA.Target.Services.Impl.Target
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List Target KPI Item.</returns>
-        public List<TargetKPIItem> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
+        public List<TargetKPIGroupItem> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var kpiItemList = new List<TargetKPIItem>();
+            var kpiGroupItemList = new List<TargetKPIGroupItem>();
 
             if (criteria.IsValid())
             {
-                IEnumerable<TargetKPIInfo> rawKPIsInfo = _targetRepositories.GetKPIByTargetId(criteria);
+                var rawKPIsInfo = (List<TargetKPIInfo>)_targetRepositories.GetKPIByTargetId(criteria);
 
-                foreach (TargetKPIInfo kpiInfo in rawKPIsInfo)
+                for (int i = 0; i < rawKPIsInfo.Count; i++) 
                 {
+                    TargetKPIInfo rawKPIInfo = rawKPIsInfo[i];
                     var kpiItem = new TargetKPIItem
                     {
-                        KPIId = kpiInfo.KPIId,
-                        Name = kpiInfo.Name,
-                        GroupId = kpiInfo.Group.KPIGroupId,
-                        GroupName = kpiInfo.Group.Name
+                        KPIId = rawKPIInfo.KPIId,
+                        Name = rawKPIInfo.Name,
+                        Weight = rawKPIInfo.Weight
                     };
 
-                    kpiItemList.Add(kpiItem);
+                    var kpiGroupItem = new TargetKPIGroupItem
+                    {
+                        Group = rawKPIInfo.Group
+                    };
+
+                    kpiGroupItem.KPIs.Add(kpiItem);
+
+                    List<TargetKPIInfo> kpiSameGroup = rawKPIsInfo.Where(item => item.Group.KPIGroupId == rawKPIInfo.Group.KPIGroupId
+                                            && item.KPIId != rawKPIInfo.KPIId).ToList();
+
+                    foreach (TargetKPIInfo kpiInfo in kpiSameGroup)
+                    {
+                        var kpiItemSameGroup = new TargetKPIItem
+                        {
+                            KPIId = kpiInfo.KPIId,
+                            Name = kpiInfo.Name,
+                            Weight = kpiInfo.Weight
+                        };
+
+                        kpiGroupItem.KPIs.Add(kpiItemSameGroup);
+                        rawKPIsInfo.Remove(kpiInfo);
+                    }
+
+                    kpiGroupItemList.Add(kpiGroupItem);
                 }
             }
 
-            return kpiItemList;
+            return kpiGroupItemList;
         }
     }
 }

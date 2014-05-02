@@ -6,6 +6,10 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 '$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory',
 	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository, commonFactory, notificationFactory) {
 		var formOptionsCache = CacheFactory.get("formOptions");
+		$scope.filter = {
+			targetTypeId: "",
+			active: ""
+		};
 
 		if (formOptionsCache) {
 			$scope.formOptions = formOptionsCache;
@@ -17,8 +21,8 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 			});
 		}
 
-		var getAllGroup = function (targetTypeId) {
-			KPIGroupRepository.getAll(targetTypeId)
+		var getAllGroup = function (targetTypeId, isDisabled) {
+			KPIGroupRepository.getAll(targetTypeId, isDisabled)
 				.success(function (groupList) {
 					$scope.KPIGroupList = groupList;
 					$scope.disabledSubmitButton = false;
@@ -29,7 +33,7 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 				});
 		};
 
-		getAllGroup(null);
+		getAllGroup(null, null);
 
 		// create new KPI group
 		$scope.create = function () {
@@ -87,9 +91,20 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 		};
 
 		// query data when filter
-		$scope.query = function (targetTypeId) {
-			$scope.disabledSubmitButton = true;
-			getAllGroup(targetTypeId);
+		$scope.query = function (filter) {
+			if (filter) {
+				var isDisabled = "";
+
+				if (filter.active) {
+					isDisabled = filter.active === 'true' ? false : true;
+				}
+
+				getAllGroup(filter.targetTypeId, isDisabled);
+				$scope.disabledSubmitButton = true;
+			}
+			else {
+				$scope.disabledSubmitButton = false;
+			}
 		};
 
 		// confirm active group or not

@@ -156,7 +156,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
-        public List<TargetKPIItem> GetKPIByTargetId(int targetId, int? groupId = null)
+        public List<TargetKPIGroupItem> GetKPIByTargetId(int targetId, int? groupId = null)
         {
             var criteria = new GetKPIByTargetIdCriteria
             {

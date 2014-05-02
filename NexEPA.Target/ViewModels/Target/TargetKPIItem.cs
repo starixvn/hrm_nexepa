@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="2014.04.17">Created</change>
+//   <change who="Josh.Phan" date="2014.05.02">Created</change>
 // </history>
 
 namespace NexEPA.Target.ViewModels.Target
@@ -18,8 +18,6 @@ namespace NexEPA.Target.ViewModels.Target
 
         public string Name { get; set; }
 
-        public int GroupId { get; set; }
-
-        public string GroupName { get; set; }
+        public int Weight { get; set; }
     }
 }

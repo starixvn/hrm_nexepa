@@ -108,7 +108,7 @@ targetModule.controller('ViewTargetController',
 					if (response.isSuccessful === true) {
 						var index = $scope.targetList.indexOf(target);
 						$scope.targetList.splice(index, 1);
-						notificationFactory.error("DeleteSuccess");
+						notificationFactory.success("DeleteSuccess");
 					}
 					else {
 						notificationFactory.error("DeleteFail", response.message);
@@ -150,7 +150,8 @@ targetModule.controller('ViewTargetController',
 		};
 	} ]);
 
-	targetModule.controller("CreateTargetController",
+// Create Target Controller
+targetModule.controller("CreateTargetController",
 ['$scope', '$timeout', '$location', '$translate', '$window',
 'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
 	function ($scope, $timeout, $location, $translate, $window,
@@ -248,10 +249,10 @@ targetModule.controller('ViewTargetController',
 		$scope.backToView = function () {
 			$location.url('/Target/ViewTarget/');
 		};
-	}]);
+}]);
 
 // View Detail of Target or Edit Target Controller
-	targetModule.controller("TargetDetailAndEditController",
+targetModule.controller("TargetDetailAndEditController",
 	['$scope', '$timeout', '$location', '$translate', '$routeParams', '$window', '$route', '$modal',
 	'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository',
 	'KPIGroupRepository', 'commonFactory', 'ErrorService', 'notificationFactory', 'employeeRepository',
@@ -517,8 +518,8 @@ targetModule.controller('ViewTargetController',
 			var getKPIByTargetId = function (targetId, groupId) {
 				$scope.disabledSubmitButton = true;
 
-				targetFactory.getKPIByTargetId(targetId, groupId).success(function (listKPI) {
-					$scope.listKPI = listKPI;
+				targetFactory.getKPIByTargetId(targetId, groupId).success(function (listGroupKPI) {
+					$scope.listGroupKPI = listGroupKPI;
 					$scope.disabledSubmitButton = false;
 				}).error(function (response, status) {
 					if (status === 405) {

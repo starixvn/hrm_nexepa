@@ -8,8 +8,11 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		KPICommonRepository, commonFactory, notificationFactory) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
-		$scope.isActiveFilter = true;
-		$scope.isCollapsed = true;
+		$scope.filter = {
+			targetTypeId: "",
+			kpiGroupId: "",
+			active: ""
+		};
 
 		if (groupId) {
 			$scope.back = function () {
@@ -35,8 +38,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			});
 		}
 
-		var getKPI = function (targetTypeId, groupId) {
-			KPIRepository.viewKPI(targetTypeId, groupId).success(function (KPIList) {
+		var getKPI = function (targetTypeId, groupId, isDisabled) {
+			KPIRepository.viewKPI(targetTypeId, groupId, isDisabled).success(function (KPIList) {
 				$scope.KPIList = KPIList;
 				$scope.disabledSubmitButton = false;
 			}).error(function () {
@@ -46,7 +49,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		};
 
 		// get KPI
-		getKPI(null, groupId);
+		getKPI(null, groupId, null);
 
 		// add new KPI
 		$scope.create = function () {
@@ -94,9 +97,20 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		};
 
 		// query data when filter
-		$scope.query = function (targetTypeId, groupId) {
-			getKPI(targetTypeId, groupId);
-			$scope.disabledSubmitButton = true;
+		$scope.query = function (filter) {
+			if (filter) {
+				var isDisabled = "";
+
+				if (filter.active) {
+					isDisabled = filter.active === 'true' ? false : true;
+				}
+
+				getKPI(filter.targetTypeId, filter.groupId, isDisabled);
+				$scope.disabledSubmitButton = true;
+			}
+			else {
+				$scope.disabledSubmitButton = false;
+			}
 		};
 
 		// confirm active
@@ -148,27 +162,6 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			}, function () {
 				item.isDisabled = !newItem.isDisabled;
 			});
-		};
-
-		// filter active KPI or not
-		$scope.activeFilter = 'all';
-
-		$scope.filterActive = function (item) {
-			if ($scope.activeFilter === 'all') {
-				return true;
-			}
-			else if ($scope.activeFilter === 'active') {
-				if (!item.isDisabled) {
-					return true;
-				}
-			}
-			else if ($scope.activeFilter === 'inactive') {
-				if (item.isDisabled) {
-					return true;
-				}
-			}
-
-			return false;
 		};
 
 		// reload

@@ -20,6 +20,8 @@ namespace NexEPA.Target.Models.Target
 
         public string Name { get; set; }
 
+        public int Weight { get; set; }
+
         public string Description { get; set; }
 
         public bool IsRequireComment { get; set; }

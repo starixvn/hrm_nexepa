@@ -5,10 +5,11 @@ kpiSettingModule.factory('KPIRepository', ['$http', function ($http) {
 	var url = '/api/KPI/';
 
 	return {
-		viewKPI: function (targetTypeId, groupId) {
+		viewKPI: function (targetTypeId, groupId, isDisabled) {
 			return $http.get('/api/KPI/ViewKPI',
 				{ params: { targetTypeId: targetTypeId,
-					groupId: groupId
+					groupId: groupId,
+					isDisabled: isDisabled
 				}
 				});
 		},

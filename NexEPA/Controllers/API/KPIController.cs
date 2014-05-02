@@ -39,12 +39,16 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(Roles = "SA")]
-        public List<KPIItem> ViewKPI(int? targetTypeId = null, int? groupId = null)
+        public List<KPIItem> ViewKPI(
+            int? targetTypeId = null, 
+            int? groupId = null, 
+            bool? isDisabled = null)
         {
             var getKPIByGroupIdCriteria = new GetKPICriteria
             {
                 TargetTypeId = targetTypeId,
-                KPIGroupId = groupId
+                KPIGroupId = groupId,
+                IsDisabled = isDisabled
             };
 
             return _kpiServices.GetKPI(getKPIByGroupIdCriteria);
