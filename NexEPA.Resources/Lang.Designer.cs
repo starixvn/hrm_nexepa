@@ -124,6 +124,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Project.
+        /// </summary>
+        public static string AddProject {
+            get {
+                return ResourceManager.GetString("AddProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All teams.
         /// </summary>
         public static string AllTeam {

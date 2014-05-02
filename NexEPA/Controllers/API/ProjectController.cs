@@ -14,6 +14,7 @@ namespace NexEPA.Controllers.API
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Text.RegularExpressions;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Model.Project;
@@ -154,12 +155,29 @@ namespace NexEPA.Controllers.API
             }
         }
 
+        /// <summary>
+        /// Render Employee Select list.
+        /// </summary>
+        /// <param name="roleId">The roleID.</param>
+        /// <param name="searchKey">The keyword to search employee.</param>
+        /// <returns>IEnumerable employee.</returns>
         [HttpGet]
-        public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null)
+        public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
         {
             GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
             IEnumerable<EmployeeInfo> employees = _employeeService.GetData<EmployeeInfo>(criteria);
-            var selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId });
+
+            if (!string.IsNullOrEmpty(searchKey))
+            {
+                employees = GetEmployeeBySearchKey(employees, searchKey);
+            }
+
+            IEnumerable<dynamic> selectListEmployee = null;
+
+            if (employees != null)
+            {
+                selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId });
+            }
 
             return selectListEmployee;
         }
@@ -236,6 +254,47 @@ namespace NexEPA.Controllers.API
             }
 
             return startDate;
+        }
+
+        /// <summary>
+        /// Get employee by search keyword.
+        /// </summary>
+        /// <param name="employees">The list employee.</param>
+        /// <param name="searchKey">The keyword to get employee.</param>
+        /// <returns>The IEnumerable Employee Info.</returns>
+        private IEnumerable<EmployeeInfo> GetEmployeeBySearchKey(IEnumerable<EmployeeInfo> employees, string searchKey)
+        {
+            List<EmployeeInfo> searchEmployees = new List<EmployeeInfo>();
+
+            foreach (EmployeeInfo employee in employees)
+            {
+                if (CheckMatchSearchKey(employee.NickName, searchKey) || CheckMatchSearchKey(employee.FullName, searchKey))
+                {
+                    searchEmployees.Add(employee);
+                }
+            }
+
+            return (IEnumerable<EmployeeInfo>)searchEmployees;
+        }
+
+        /// <summary>
+        /// Check name of employee matches with search key.
+        /// </summary>
+        /// <param name="name">The full name or nick name of employee.</param>
+        /// <param name="searchKey">The search keyword.</param>
+        /// <returns>True or false.</returns>
+        private bool CheckMatchSearchKey(string name, string searchKey)
+        {
+            string pattern = @"\A" + searchKey;
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match match = regex.Match(name);
+
+            if (match.Success)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

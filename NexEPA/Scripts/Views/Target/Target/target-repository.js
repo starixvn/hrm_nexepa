@@ -206,7 +206,8 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 						$timeout(function () {
 							iElement.trigger('input');
 						}, 0);
-					}
+					},
+					appendTo: iElement.parent()
 				});
 			}
 		};

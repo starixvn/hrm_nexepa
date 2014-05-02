@@ -56,8 +56,7 @@ projectsSettingModule.factory("projectMembersFactory",['$http', '$q', function (
 			var deferred = $q.defer();
 			$http['delete'](url, { params: {
 				projectId: member.projectId,
-				employeeId: member.employeeId,
-				projectRoleId: member.projectRoleId
+				employeeId: member.employeeId
 			}
 			}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;

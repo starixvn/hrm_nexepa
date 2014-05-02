@@ -468,4 +468,7 @@
   <data name="ProjectMilestone" xml:space="preserve">
     <value>PROJECT MILESTONES</value>
   </data>
+  <data name="AddProject" xml:space="preserve">
+    <value>Add Project</value>
+  </data>
 </root>

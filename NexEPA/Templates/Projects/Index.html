@@ -27,7 +27,7 @@
 			</thead>
 			<tr ng-repeat="project in projects">
 				<td class="column-limit">
-					<a href="" ng-click="detailProject(project)">{{project.name}}
+					<a href="" ng-click="detailProject(project,false)">{{project.name}}
 					</a>
 				</td>
 				<td class="column-limit">
@@ -40,7 +40,7 @@
 					{{project.fullName}}
 				</td>
 				<td class="text-center member-limit">
-					<a href="/Projects/Edit/{{project.projectId}}" ng-click="memberSelected(true)">{{project.members}}</a>
+					<a href="" ng-click="detailProject(project,true)">{{project.members}}</a>
 				</td>
 				<td class="text-center">
 					{{project.status|enumStatusText}}
@@ -51,8 +51,8 @@
 				<td class="text-center">
 					{{project.endDate|date:'dd MMM, yyyy'}}
 				</td>
-                <td>
-                    <a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="" ng-click="memberSelected(false, project)"/>
+                <td class="text-center">
+                    <a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="" ng-click="editProject(project.projectId)"/>
                     <a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="" ng-click="openDeletePopup(project)"/>
                 </td>
 			</tr>

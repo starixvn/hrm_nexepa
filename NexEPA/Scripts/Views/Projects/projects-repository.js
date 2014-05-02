@@ -4,10 +4,10 @@
 projectsSettingModule.factory('projectDataFactory',['$http', '$q', function ($http, $q) {
 	var url = '/api/Project/';
 	return {
-		getEmployeeSelectList: function (roleId) {
+		getEmployeeSelectList: function (roleId, searchKey) {
 			var deferred = $q.defer();
 			$http.get('/api/Project/RenderEmployeeSelectList', {
-				params: { roleId: roleId }
+				params: { roleId: roleId, searchKey: searchKey }
 			}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},

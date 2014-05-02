@@ -10,6 +10,7 @@
 namespace NexEPA.Project.Services.Impl
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
@@ -46,16 +47,24 @@ namespace NexEPA.Project.Services.Impl
             return result;
         }
 
-        public IEnumerable<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria)
+        /// <summary>
+        /// Get all project members.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The model of project member.</returns>
+        public List<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria)
         {
-            IEnumerable<ProjectMembersModel> lstProjectMembers = null;
+            List<ProjectMembersModel> projectMembers = new List<ProjectMembersModel>();
             Check.Argument.IsNotNull(criteria, "criteria");
+
             if (criteria.IsValid())
             {
-                lstProjectMembers = this.GetData<ProjectMembersModel>(criteria);
+                var rawProjectMembers = (List<ProjectMembersModel>)this.GetData<ProjectMembersModel>(criteria);
+
+                projectMembers = GroupProjectMembersSameRole(rawProjectMembers, projectMembers);
             }
 
-            return lstProjectMembers;
+            return projectMembers;
         }
 
         public IEnumerable<ProjectMembersModel> GetMemberRoleInProject(GetMemberRoleInProjectCriteria criteria)
@@ -80,6 +89,40 @@ namespace NexEPA.Project.Services.Impl
             }
 
             return lstProjectRole;
+        }
+
+        /// <summary>
+        /// Group project members have same role.
+        /// </summary>
+        /// <param name="rawProjectMembers">The list project members before group.</param>
+        /// <param name="projectMembers">The list project members after group.</param>
+        /// <returns>The list project member.</returns>
+        private List<ProjectMembersModel> GroupProjectMembersSameRole(
+            List<ProjectMembersModel> rawProjectMembers,
+            List<ProjectMembersModel> projectMembers)
+        {
+            for (int i = 0; i < rawProjectMembers.Count; i++)
+            {
+                ProjectMembersModel projectMember = rawProjectMembers[i];
+
+                List<ProjectMembersModel> membersSameIdDifferentRole = rawProjectMembers.Where(mem => mem.EmployeeId == projectMember.EmployeeId
+                                                                && mem.Name != projectMember.Name).ToList();
+
+                int numberMemberSameIdDifferentRole = membersSameIdDifferentRole.Count;
+
+                if (numberMemberSameIdDifferentRole > 0)
+                {
+                    membersSameIdDifferentRole.ForEach(item =>
+                    {
+                        projectMember.Name += ", " + item.Name;
+                        rawProjectMembers.Remove(item);
+                    });
+                }
+
+                projectMembers.Add(projectMember);
+            }
+
+            return projectMembers;
         }
     }
 }

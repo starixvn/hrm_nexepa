@@ -1,15 +1,14 @@
 ﻿<div class="row sub-header">
 	<ul class="col-xs-12 breadcrumb list-inline pull-left">
 		<li>
-			<a href="/Projects/Index">Project</a></li>
+			<a href="/Projects/Index" data-translate="Project"></a></li>
 		<li class="current">Edit Project - {{projectUpdate.name}}</li>
 	</ul>
 </div>
 <tabset class="top-buffer" id="projectInfoTab">
 	<tab heading="GENERAL INFORMATION" class="tab-cursor" active="dataTab.information">
 		<form class="row common-form project-form" name="addProjectForm" novalidate>
-			<div class="row boxtitle first">
-				PROJECT INFORMATION
+			<div class="row boxtitle first" data-translate="ProjectInformation">
 			</div>
 			<div class="row boxcontent information">
 				<div class="col-sm-offset-2">
@@ -71,8 +70,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row boxtitle">
-				PROJECT MILESTONES
+			<div class="row boxtitle" data-translate="ProjectMilestone">
 			</div>
 			<div class="row boxcontent">
 				<div class="line">
@@ -92,15 +90,8 @@
 	</tab>
 
 	<tab heading="PROJECT MEMBERS" class="tab-cursor" active="dataTab.member">
-		<form class="row common-form project-form" name="projectMember" novalidate>
-			<div class="row boxtitle">PROJECT MEMBERS</div>
-			<div class="row boxcontent">
-				<div class="line">
-					<div ng-include src="'/Templates/ProjectMembers/Index.html'">
-					</div>
-				</div>
-			</div>
-		</form>
+		<div ng-include src="'/Templates/ProjectMembers/Index.html'">
+		</div>
 	</tab>
 
 </tabset>

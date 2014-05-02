@@ -7,7 +7,7 @@
 </div>-->
 <div class="modal-addKPI" id="modal-addKPI">
 	<div class="modal-header">
-		<div class="popup-header">Project Members <span class="close-popup"></span></div>
+		<div class="popup-header" data-translate="ProjectMember"><span class="close-popup"></span></div>
 	</div>
 	<div class="modal-body">
 		<form class="col-sm-11 form-horizontal common-form project-form" name="addMemberForm" novalidate>
@@ -22,10 +22,8 @@
 			<label class="col-sm-3 control-label">
 				{{"User" | translate}}</label>
 			<div class="col-sm-8">
-				<select class="form-control" ng-options="member.employeeId as member.fullName for member in lstMembers"
-					ng-model="editMember.employeeId" required>
-					<option style="display: none" value="">-- Select a member --</option>
-				</select>
+                <input class="form-control" ng-model="searchKey" placeholder="full name or nick name"
+                    search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchKey)" employee="employee"/>
 			</div>
 		</div>
 		<div class="form-group popup-required">

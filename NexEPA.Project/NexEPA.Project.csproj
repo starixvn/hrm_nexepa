@@ -75,7 +75,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\ProjectRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProjectRepository.cs" />
-    <Compile Include="Services\Impl\ProjectMemberService.cs" />
+    <Compile Include="Services\Impl\ProjectMemberService.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Services\Impl\ProjectService.cs" />
     <Compile Include="Services\Interfaces\IProjectMemberService.cs" />
     <Compile Include="Services\Interfaces\IProjectService.cs" />

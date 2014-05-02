@@ -110,15 +110,13 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="projectId">Project id.</param>
         /// <param name="employeeId">Employee Id.</param>
-        /// <param name="projectRoleId">Project role id.</param>
         /// <returns>Http response message.</returns>
-        public HttpResponseMessage Delete(int projectId, int employeeId, int projectRoleId)
+        public HttpResponseMessage Delete(int projectId, int employeeId)
         {
             DeleteMemberCriteria criteria = new DeleteMemberCriteria()
             {
                 ProjectId = projectId,
                 EmployeeId = employeeId,
-                ProjectRoleId = projectRoleId,
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now.Date
             };

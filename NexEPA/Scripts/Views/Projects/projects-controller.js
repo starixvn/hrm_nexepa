@@ -81,14 +81,14 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		projectDataFactory.filterData(filter).then(successFilterData);
 	};
 
-	$scope.memberSelected = function (data, project) {
-		$location.path('/Projects/Edit/' + project.projectId).search('isEditMode', true);
-		tabService.setProperty(data);
+	$scope.editProject = function (projectId) {
+		$location.path('/Projects/Edit/' + projectId).search('isEditMode', true);
 	};
 
 	// View detail of project
-	$scope.detailProject = function (project) {
+	$scope.detailProject = function (project, isMemberSelected) {
 		$location.path('/Projects/Detail/' + project.projectId);
+		tabService.setProperty(isMemberSelected);
 	};
 } ]);
 
@@ -176,8 +176,9 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 } ]);
 
 projectsSettingModule.controller('ViewDetailAndEditProjectController',
-['$scope', '$routeParams', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', 'tabService',
-function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, tabService) {
+['$scope', '$routeParams', '$location', '$window', '$modal','projectDataFactory', 'ProjectSettingCache', 
+'commonFactory', 'tabService', 
+function ($scope, $routeParams, $location, $window, $modal, projectDataFactory, ProjectSettingCache, commonFactory, tabService) {
 	/**
 	* Scope variables. 
 	*/
@@ -280,6 +281,10 @@ function ($scope, $routeParams, $location, $window, projectDataFactory, ProjectS
 		});
 	});
 
+	// Edit project
+	$scope.editProject = function () {
+		$location.path('/Projects/Edit/' + projectId).search('isEditMode', true);
+	};
 } ]);
 
 projectsSettingModule.controller('MilestoneController',

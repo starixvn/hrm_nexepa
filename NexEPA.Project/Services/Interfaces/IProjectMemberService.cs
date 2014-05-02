@@ -23,7 +23,7 @@ namespace NexEPA.Project.Services.Interfaces
 
         CommandResult DeleteMember(DeleteMemberCriteria criteria);
 
-        IEnumerable<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria);
+        List<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria);
 
         IEnumerable<ProjectMembersModel> GetMemberRoleInProject(GetMemberRoleInProjectCriteria criteria);
 

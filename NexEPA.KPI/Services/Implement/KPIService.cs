@@ -49,44 +49,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
             {
                 List<KPIInfo> listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(criteria);
 
-                for (int i = 0; i < listKPIInfo.Count; i++)
-                {
-                    KPIInfo infoKPI = listKPIInfo[i];
-                    List<KPIInfo> kpisSameGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId
-                                                    && item.Group.KPIGroupId != infoKPI.Group.KPIGroupId).ToList<KPIInfo>();
-
-                    int numberKPISameGroup = kpisSameGroup.Count();
-
-                    List<int> kpiGroupIds = new List<int>();
-                    List<string> kpiGroupNames = new List<string>();
-                    kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
-                    kpiGroupNames.Add(infoKPI.Group.Name);
-
-                    if (numberKPISameGroup > 0)
-                    {
-                        kpisSameGroup.ForEach(item =>
-                        {
-                            kpiGroupIds.Add(item.Group.KPIGroupId);
-                            kpiGroupNames.Add(item.Group.Name);
-                            listKPIInfo.Remove(item);
-                        });
-                    }
-
-                    var itemKPI = new KPIItem
-                    {
-                        KPIId = infoKPI.KPIId,
-                        Name = infoKPI.Name,
-                        Description = infoKPI.Description,
-                        IsRequireComment = infoKPI.IsRequireComment,
-                        IsDisabled = infoKPI.IsDisabled,
-                        KPIGroupIds = kpiGroupIds,
-                        KPIGroupNames = kpiGroupNames,
-                        TargetTypeId = infoKPI.TargetType.TargetTypeId,
-                        TargetTypeName = infoKPI.TargetType.Name
-                    };
-
-                    listKPI.Add(itemKPI);
-                }
+                listKPI = GroupKPISameKPIGroup(listKPI, listKPIInfo);
             }
 
             return listKPI; 
@@ -228,6 +191,57 @@ namespace NexEPA.KPI.Services.Implement.KPI
             }
 
             return commandResult;
+        }
+
+        /// <summary>
+        /// Group KPIs has belong to same KPI Group.
+        /// </summary>
+        /// <param name="listKPI">The list KPI after group.</param>
+        /// <param name="listKPIInfo">The list KPI before group.</param>
+        /// <returns>The list KPI.</returns>
+        private static List<KPIItem> GroupKPISameKPIGroup(List<KPIItem> listKPI, List<KPIInfo> listKPIInfo)
+        {
+            for (int i = 0; i < listKPIInfo.Count; i++)
+            {
+                KPIInfo infoKPI = listKPIInfo[i];
+                List<KPIInfo> kpisSameGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId
+                                                && item.Group.KPIGroupId != infoKPI.Group.KPIGroupId).ToList<KPIInfo>();
+
+                int numberKPISameGroup = kpisSameGroup.Count();
+
+                List<int> kpiGroupIds = new List<int>();
+                List<string> kpiGroupNames = new List<string>();
+
+                kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
+                kpiGroupNames.Add(infoKPI.Group.Name);
+
+                if (numberKPISameGroup > 0)
+                {
+                    kpisSameGroup.ForEach(item =>
+                    {
+                        kpiGroupIds.Add(item.Group.KPIGroupId);
+                        kpiGroupNames.Add(item.Group.Name);
+                        listKPIInfo.Remove(item);
+                    });
+                }
+
+                var itemKPI = new KPIItem
+                {
+                    KPIId = infoKPI.KPIId,
+                    Name = infoKPI.Name,
+                    Description = infoKPI.Description,
+                    IsRequireComment = infoKPI.IsRequireComment,
+                    IsDisabled = infoKPI.IsDisabled,
+                    KPIGroupIds = kpiGroupIds,
+                    KPIGroupNames = kpiGroupNames,
+                    TargetTypeId = infoKPI.TargetType.TargetTypeId,
+                    TargetTypeName = infoKPI.TargetType.Name
+                };
+
+                listKPI.Add(itemKPI);
+            }
+
+            return listKPI;
         }
     }
 }

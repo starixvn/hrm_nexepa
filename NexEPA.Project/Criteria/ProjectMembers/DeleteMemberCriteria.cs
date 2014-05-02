@@ -19,9 +19,7 @@ namespace NexEPA.Project.Criteria.ProjectMembers
     {
         public int ProjectId { get; set; }
 
-        public int? EmployeeId { get; set; }
-
-        public int ProjectRoleId { get; set; }
+        public int EmployeeId { get; set; }
 
         public int ModifiedBy { get; set; }
 
@@ -34,7 +32,7 @@ namespace NexEPA.Project.Criteria.ProjectMembers
 
         public override string GetSettingKey()
         {
-            return "ProjectMember_DeleteMemberRole";
+            return "ProjectMember_DeleteMember";
         }
     }
 }

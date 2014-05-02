@@ -1,67 +1,68 @@
-﻿<!--<div class="row sub-header">
-	<ul class="breadcrumb list-inline pull-left">
-		<li>
-			<a href="/Projects/Index">Project</a></li>
-		<li class="current">Project member - {{currentProject.name}}</li>
-	</ul>
-	<div class="button-icon">
-		<span class="icon plus"></span>
-		<a href="/ProjectMembers/Create/{{currentProject.projectId}}" data-translate="AddMember">
-		</a>
-	</div>
-</div>-->
-<div ng-controller="ProjectMembersController">
-	<div class="row">
-		<div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
-		</div>
-	</div>
-	<div class="row">
-		<div class="span10">
-			<table class="table table-bordered table-striped table-hover" id="member-table">
-				<thead>
-					<tr>
-						<th data-translate="Members">
-						</th>
-						<th data-translate="Roles">
-						</th>
-						<th data-translate="JoinedDate">
-						</th>
-						<th class="text-center" ng-show="isEditMode">
-							<a href="javascript:;" ng-click="addMember()" class="glyphicon glyphicon-plus icon-add-header"
-								title="Add" />
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="member in members">
-						<td>
-							{{member.fullName}} ({{member.nickName}})
-						</td>
-						<td>
-							{{member.name}}
-						</td>
-						<td class="text-center">
-							{{member.joinDate | date: 'dd MMM, yyyy'}}
-						</td>
-						<td class="text-center" ng-show="isEditMode">
-							<div class="btn-group">
-								<a href="javascript:;" ng-click="updateMember(member.employeeId, member.joinDate)"
-									class="glyphicon glyphicon-edit icon-edit" title="Edit"></a>
-								<a href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"
-									ng-click="deleteMember(member)" title="Delete"></a>
-							</div>
-						</td>
-					</tr>
-					<tr ng-show="members == ''">
-						<td class="empty-result" colspan="4" data-translate="EmptyResult">
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="row action-button top-buffer" ng-show="isEditMode">
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
-</div>
+﻿<div ng-controller="ProjectMembersController">
+    <form class="row common-form project-form" name="projectMember" novalidate>
+	    <div class="row boxtitle">
+            <span data-translate="ProjectMember"></span>
+            <div class="button-icon" style="margin-left: 30px;">
+                <span class="icon plus"></span>
+                <a href="" data-translate="AddMember" ng-click="addMember()"></a>
+            </div>
+        </div>
+	    <div class="row boxcontent">
+		    <div class="line">
+	            <div class="row">
+		            <div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
+		            </div>
+	            </div>
+
+	            <div class="row">
+		            <div class="span10">
+			            <table class="table table-bordered table-striped table-hover" id="member-table">
+				            <thead>
+					            <tr>
+						            <th data-translate="Members">
+						            </th>
+						            <th data-translate="Roles">
+						            </th>
+						            <th data-translate="JoinedDate">
+						            </th>
+						            <th data-translate="Action">
+						            </th>
+					            </tr>
+				            </thead>
+				            <tbody>
+					            <tr ng-repeat="member in members">
+						            <td>
+							            {{member.fullName}} ({{member.nickName}})
+						            </td>
+						            <td>
+							            {{member.name}}
+						            </td>
+						            <td class="text-center">
+							            {{member.joinDate | date: 'dd MMM, yyyy'}}
+						            </td>
+						            <td class="text-center" ng-show="isEditMode">
+							            <div class="btn-group">
+								            <a href="javascript:;" ng-click="updateMember(member)"
+									            class="glyphicon glyphicon-edit icon-edit" title="Edit"></a>
+								            <a href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"
+									            ng-click="deleteMember(member)" title="Delete"></a>
+							            </div>
+						            </td>
+					            </tr>
+					            <tr ng-show="members == ''">
+						            <td class="empty-result" colspan="4" data-translate="EmptyResult">
+						            </td>
+					            </tr>
+				            </tbody>
+			            </table>
+		            </div>
+	            </div>
+
+	            <div class="row action-button top-buffer" ng-show="isEditMode">
+		            <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		            </button>
+	            </div>
+		    </div>
+	    </div>
+    </form>
+ </div>

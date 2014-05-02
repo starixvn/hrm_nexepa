@@ -26,7 +26,7 @@
 	<Function Name="ProjectMembers">
 		<Setting Key="ProjectMember_Get" SpName="ProjectMember_Get" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="ProjectMember_GetMemberRole" SpName="ProjectMember_GetMemberRole" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="ProjectMember_DeleteMemberRole" SpName="ProjectMember_DeleteMemberRole" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="ProjectMember_DeleteMember" SpName="ProjectMember_DeleteMember" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="ProjectMember_AddMemberRole" SpName="ProjectMember_AddMemberRole" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="ProjectRole_GetAll" SpName="ProjectRole_GetAll" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
