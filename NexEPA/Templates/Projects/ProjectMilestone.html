@@ -11,6 +11,8 @@
 				</th>
 				<th data-translate="EndDate">
 				</th>
+				<th data-translate="Status">
+				</th>
 				<th data-translate="Description">
 				</th>
 				<th class="text-center" ng-show="isEditMode">
@@ -26,6 +28,8 @@
 				<th class="control-label" data-translate="StartDate">
 				</th>
 				<th class="control-label" data-translate="EndDate">
+				</th>
+				<th data-translate="Status">
 				</th>
 				<th data-translate="Description">
 				</th>
@@ -48,6 +52,11 @@
 				<input type="text" class="custom-textbox custom-date milestone-date-width" ng-model="milestone.endDate"
 					is-open="calendar.addModeEndDateOpened" datepicker-popup="{{dateFormat}}" readonly />
 				<img class="calendar-image" ng-click="openPopupAddModeEndDate($event)" src="{{sourceCalendarImage}}"></img>
+			</td>
+			<td>
+				<select class="custom-textbox" ng-options="s.id as s.name for s in milestoneStatus" ng-model="milestone.status">
+					<option style="display: none" value="">-- Select a status --</option>
+				</select>
 			</td>
 			<td class="column-limit">
 				<input type="text" class="form-control" ng-model="milestone.description" />
@@ -81,6 +90,13 @@
 					datepicker-popup="{{dateFormat}}" readonly id="end1" />
 				<img ng-show="milestone.editMode == true" class="calendar-image" ng-click="openPopupEditModeEndDate($event, milestone.milestoneId)"
 					src="{{sourceCalendarImage}}"></img>
+			</td>
+			<td class="column-limit text-center">
+				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.status|enumStatusText}}</span>
+				<select class="custom-textbox" ng-options="s.id as s.name for s in milestoneStatus" 
+				ng-model="milestone.status" ng-show="milestone.editMode == true">
+					<option style="display: none" value="">-- Select a status --</option>
+				</select>
 			</td>
 			<td class="column-limit">
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.description}}</span>

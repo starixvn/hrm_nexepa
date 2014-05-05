@@ -72,13 +72,13 @@
 				    </th>
 				    <th data-translate="KPIName">
 				    </th>
-				    <th data-translate="Weight">
+				    <th data-translate="KPIGroupWeight">
 				    </th>
 			    </thead>
 			    <tbody ng-repeat="kpi in lstKPI | filter: KPIName">
 				    <tr>
 					    <td class="text-center row-highlight">
-						    <input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)"/>
+						    <input type="checkbox" ng-model="kpi.groupSelected" ng-click="checkAllGroup(kpi.groupSelected, kpi)"/>
 					    </td>
 					    <td colspan="2" class="criteria-title row-highlight">{{ kpi.kpiGroupName}}</td>
 				    </tr>
@@ -89,7 +89,7 @@
 					    </td>
 					    <td>{{item.name}}</td>
 					    <td class="column-weight-max">
-						    <input type="text" class="custom-form-control percentage"
+						    <input type="text" class="custom-form-control text-center"
 							    ng-model="item.weight" ng-show="item.selected == true" percentage/>
 					    </td>
 				    </tr>

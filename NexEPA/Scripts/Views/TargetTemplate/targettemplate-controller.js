@@ -158,6 +158,7 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	$scope.selection = [];
 	$scope.lstAllData = [];
 	$scope.dataTab = {};
+	$scope.checkAll = false;
 
 	/**
 	* Ajax event Loaded. 
@@ -251,6 +252,20 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 		* Initialize Data. 
 		*/
 		targetTemplateFactory.getSelectedKPIGroupByTargetTemplate(targetTemplateId).then(successGetAllKPIGroup);
+	};
+
+	$scope.checkAllGroup = function (status, kpi) {
+		angular.forEach(kpi.kpiGroupItems, function (item) {
+			item.selected = !status;
+		});
+	};
+	$scope.checkAll = function (status) {
+		angular.forEach($scope.lstKPI, function (kpi) {
+			kpi.groupSelected = !status;
+			angular.forEach(kpi.kpiGroupItems, function (item) {
+				item.selected = !status;
+			});
+		});
 	};
 
 } ]);

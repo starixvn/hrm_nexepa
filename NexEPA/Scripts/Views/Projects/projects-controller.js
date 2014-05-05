@@ -288,8 +288,10 @@ function ($scope, $routeParams, $location, $window, $modal, projectDataFactory, 
 } ]);
 
 projectsSettingModule.controller('MilestoneController',
-['$scope', '$routeParams', '$modal', 'projectMilestoneService', 'milestoneFactory', 'notificationFactory', 'commonFactory',
-function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactory, notificationFactory, commonFactory) {
+['$scope', '$routeParams', '$modal', 'projectMilestoneService', 'projectDataFactory',
+'milestoneFactory', 'notificationFactory', 'commonFactory', 'ProjectSettingCache',
+function ($scope, $routeParams, $modal, projectMilestoneService, projectDataFactory, milestoneFactory, notificationFactory,
+commonFactory, ProjectSettingCache) {
 	/**
 	* Scope variables. 
 	*/
@@ -298,6 +300,7 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 	$scope.milestones = [];
 	$scope.milestoneErrors = [];
 	$scope.addMode = false;
+	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 
 	/**
 	* Ajax event. 
@@ -332,6 +335,12 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 		$scope.milestoneErrors = data;
 	};
 
+	// Get data to Status - Select List
+	var successGetMilestoneStatusSelectList = function (data) {
+		$scope.milestoneStatus = data;
+		ProjectSettingCache.put("CacheListStatus", data);
+	};
+
 	/**
 	* Switch mode Add/Update/Normal
 	*/
@@ -353,6 +362,14 @@ function ($scope, $routeParams, $modal, projectMilestoneService, milestoneFactor
 	* Initialize data to view Project Milestone 
 	*/
 	milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
+
+	// Check for list Status has cache data.
+	if (cacheListStatus) {
+		$scope.milestoneStatus = cacheListStatus;
+	}
+	else {
+		projectDataFactory.getProjectStatusSelectList().then(successGetMilestoneStatusSelectList);
+	}
 
 	// Get calendar button image.
 	commonFactory.getSourceCalendarImage($scope);
