@@ -1,15 +1,16 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', '$routeParams', '$window',
-function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window) {
+epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', 
+'$routeParams', '$window', 'ErrorService',
+function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService) {
 	/**
 	* Scope variables. 
 	*/
 	$scope.max = 10;
 	$scope.isReadonly = false;
 	var targetId = $routeParams.targetId;
-	$scope.finalScore = 0;
+	var employeeId = $routeParams.employeeId;
 
 	/**
 	* Ajax event. 
@@ -18,6 +19,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
 		$scope.employeeEPA = data;
+		$scope.finalScore = data.finalScore;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
 			roleArray.push(data.projectRoles[i].name);
@@ -25,30 +27,10 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		$scope.employeeRole = roleArray.join(", ");
 	};
 
-	var errorGetEmployeeEPA = function (response) { notificationFactory.error('', response); };
-
 	/**
-	* Initialize data to view Edit Project. 
+	* Function Calculate Total Score. 
 	*/
-	employeeEPAFactory.getEmployeeEPA(targetId).then(successGetEmployeeEPA, errorGetEmployeeEPA);
-
-	/**
-	* Events 
-	*/
-	$scope.save = function (employeeEPAResult) {
-		employeeEPAResult.totalScore = $scope.totalScore;
-		employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
-	};
-
-	$scope.cancel = function () { $window.history.back(); };
-
-	$scope.hoveringOver = function (value, object) {
-		object.percent = (100 * value) / $scope.max;
-	};
-
-	$scope.hoveringLeave = function (rate, object) {
-		object.percent = (100 * rate) / $scope.max;
-
+	var calculateScore = function () {
 		var kpiInfo = $scope.employeeEPA.kpiInfo;
 		var totalGroupScore = 0;
 		var totalGroupWeight = 0;
@@ -79,9 +61,98 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			}
 		});
 
-		$scope.finalScore = (totalGroupScore / totalGroupWeight) * 10;
+		$scope.finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
+
+		if (isNaN($scope.finalScore)) {
+			$scope.finalScore = 0;
+		}
+	};
+
+	var errorGetEmployeeEPA = function (status) {
+		notificationFactory.error('', status);
+		ErrorService.errorHandle(status);
+	};
+
+	/**
+	* Initialize data to view Edit Project. 
+	*/
+	employeeEPAFactory.getEmployeeEPA(targetId, employeeId).then(successGetEmployeeEPA, errorGetEmployeeEPA);
+
+	/**
+	* Events 
+	*/
+	$scope.save = function (employeeEPAResult) {
+		employeeEPAResult.finalScore = $scope.finalScore;
+		employeeEPAResult.targetId = targetId;
+		employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
+	};
+
+	$scope.cancelRating = function (item) {
+		item.score = 0;
+		calculateScore();
+	};
+
+	$scope.cancel = function () { $window.history.back(); };
+
+	$scope.hoveringOver = function (value, object) {
+		object.percent = (100 * value) / $scope.max;
+	};
+
+	$scope.hoveringLeave = function (item) {
+		item.percent = (100 * item.score) / $scope.max;
+		calculateScore();
+
 
 	};
+
+	$(".boxtitle").on("click", function () {
+		var header = $(this);
+		//getting the next element
+		var content = header.next();
+		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+		content.slideToggle(500, function () {
+		});
+	});
+
+
+} ]);
+
+
+epaModule.controller('MyEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', '$routeParams', '$window',
+function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window) {
+	/**
+	* Scope variables. 
+	*/
+	$scope.max = 10;
+	$scope.isReadonly = true;
+	var targetId = $routeParams.targetId;
+	var employeeId = $routeParams.employeeId;
+
+	/**
+	* Ajax event. 
+	*/
+	var successGetEmployeeEPA = function (data) {
+		$scope.employeeEPA = data;
+		$scope.finalScore = data.finalScore;
+		var roleArray = [];
+		$.each(data.projectRoles, function (i) {
+			roleArray.push(data.projectRoles[i].name);
+		});
+		$scope.employeeRole = roleArray.join(", ");
+	};
+
+	var errorGetEmployeeEPA = function (response) { notificationFactory.error('', response); };
+
+	/**
+	* Initialize data to view Edit Project. 
+	*/
+	employeeEPAFactory.getMyEPA(targetId, employeeId).then(successGetEmployeeEPA, errorGetEmployeeEPA);
+
+	/**
+	* Events 
+	*/
+
+	$scope.cancel = function () { $window.history.back(); };
 
 	$(".boxtitle").on("click", function () {
 		var header = $(this);
@@ -210,7 +281,7 @@ epaModule.controller('ViewMemberByManagerEPAController', [
 			if (epaItem.target) {
 				var targetId = epaItem.target.targetId,
 				employeeId = epaItem.employeeId;
-				$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
+				$location.path('/EmployeeEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
 			}
 		};
 } ]);

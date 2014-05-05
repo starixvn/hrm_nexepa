@@ -22,6 +22,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Services.Impl;
     using NexEPA.MemberEPA.Services.Interfaces;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -52,15 +53,16 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">EPA Info Model.</param>
         /// <returns>Http Response.</returns>
+        [ApiAuthorize(Roles = "PM,SA")]
         public HttpResponseMessage Post(EPAInfoModel model)
         {
             AddOrUpdateEPAScore criteria = new AddOrUpdateEPAScore()
             {
-                TargetId = 6,
+                TargetId = model.TargetId,
                 EmployeeId = model.EmployeeId,
-                EvaluatorId = 125,
+                EvaluatorId = model.ProjectManagerId,
                 Comment = model.Comment,
-                Score = 100,
+                Score = model.FinalScore,
                 KPIs = ConvertToXML(model.KPIInfo),
                 MarkedBy = this.CurrentUser.UserId,
                 MarkedDate = DateTime.Now
@@ -76,23 +78,17 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        /// <summary>
-        /// Get My EPa.
-        /// </summary>
-        /// <param name="targetId">Target id.</param>
-        /// <returns>EPAInfo Model.</returns>
-        public EPAInfoModel GetMyEPA(int targetId)
+        public EPAInfoModel GetMyEPA(int targetId, int employeeId)
         {
-            EPAInfoModel data = null;
-            GetEPAInfoCriteria criteria = new GetEPAInfoCriteria()
-            {
-                EmployeeId = this.CurrentUser.UserId,
-                TargetId = targetId
-            };
+            EPAInfoModel epaInfo = GetEPAInformation(targetId, employeeId);
+            return epaInfo;
+        }
 
-            data = _memberEPAService.GetEPAInfo(criteria);
-
-            return data;
+        [ApiAuthorize(Roles = "PM,SA")]
+        public EPAInfoModel GetEmployeeEPA(int targetId, int employeeId)
+        {
+            EPAInfoModel epaInfo = GetEPAInformation(targetId, employeeId);
+            return epaInfo;
         }
 
         [HttpGet]
@@ -142,6 +138,26 @@ namespace NexEPA.Controllers.API
             }
 
             return value.Append(_EndRootTag).ToString();
+        }
+
+        /// <summary>
+        /// Method Get EPAInfo.
+        /// </summary>
+        /// <param name="targetId">Target Id.</param>
+        /// <param name="employeeId">Employee Id.</param>
+        /// <returns>EPAInfo Model.</returns>
+        private EPAInfoModel GetEPAInformation(int targetId, int employeeId)
+        {
+            EPAInfoModel data = null;
+            GetEPAInfoCriteria criteria = new GetEPAInfoCriteria()
+            {
+                EmployeeId = employeeId,
+                TargetId = targetId
+            };
+
+            data = _memberEPAService.GetEPAInfo(criteria);
+
+            return data;
         }
     }
 }

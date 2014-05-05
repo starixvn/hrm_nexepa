@@ -30,9 +30,9 @@
                 <li class="dropdown">
                     <a id="drop2" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">EPA <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop1">
+					<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/MemberEPA/ViewCurrentMember">EPA</a></li>
                     @if (Roles.IsUserInRole("SA") || Roles.IsUserInRole("PM") || Roles.IsUserInRole("Leader"))
                     {
-                        <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/MemberEPA/ViewCurrentMember">EPA</a></li>
                         <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/MemberEPA/ViewMember">Member EPA</a></li> 
                     }
                     </ul>

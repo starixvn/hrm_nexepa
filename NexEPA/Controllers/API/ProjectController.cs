@@ -83,7 +83,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "PM")]
+        [ApiAuthorize(Roles = "PM,SA")]
         public HttpResponseMessage Post(ProjectModel project)
         {
             if (ModelState.IsValid)
@@ -121,7 +121,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Message Response.</returns>
-        [ApiAuthorize(Roles = "PM")]
+        [ApiAuthorize(Roles = "PM,SA")]
         public HttpResponseMessage Put(ProjectModel project)
         {
             if (ModelState.IsValid)

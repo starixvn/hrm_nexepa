@@ -17,6 +17,8 @@ namespace NexEPA.MemberEPA.Models
     /// </summary>
     public class EPAInfoModel
     {
+        public int TargetId { get; set; }
+
         public int EmployeeId { get; set; }
 
         public string Code { get; set; }
@@ -47,7 +49,7 @@ namespace NexEPA.MemberEPA.Models
 
         public string Comment { get; set; }
 
-        public decimal TotalScore { get; set; }
+        public decimal FinalScore { get; set; }
 
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }
 

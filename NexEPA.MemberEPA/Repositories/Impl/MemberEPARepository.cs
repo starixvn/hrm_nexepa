@@ -39,24 +39,27 @@ namespace NexEPA.MemberEPA.Repositories.Impl
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     data = multi.Read<EPAInfoModel>().FirstOrDefault();
-                    data.ProjectRoles = multi.Read<EPAProjectRoleModel>().ToList();
-                    List<KPIInfo> kpis = multi.Read<KPIInfo, KPIGroupInfo, KPIInfo>(
-                        (inf, gr) =>
-                        {
-                            inf.Group = gr;
-                            return inf;
-                        },
-                        "KPIGroupId").ToList();
+                    if (data != null)
+                    {
+                        data.ProjectRoles = multi.Read<EPAProjectRoleModel>().ToList();
+                        List<KPIInfo> kpis = multi.Read<KPIInfo, KPIGroupInfo, KPIInfo>(
+                            (inf, gr) =>
+                            {
+                                inf.Group = gr;
+                                return inf;
+                            },
+                            "KPIGroupId").ToList();
 
-                    List<GroupingKPIModel> groupData = (from kpi in kpis
-                                                        group kpi by kpi.Group.Name into kpi
-                                                        select new GroupingKPIModel()
-                                                        {
-                                                            KPIGroupName = kpi.Key,
-                                                            KPIGroupItems = kpi.ToList()
-                                                        }).ToList();
+                        List<GroupingKPIModel> groupData = (from kpi in kpis
+                                                            group kpi by kpi.Group.Name into kpi
+                                                            select new GroupingKPIModel()
+                                                            {
+                                                                KPIGroupName = kpi.Key,
+                                                                KPIGroupItems = kpi.ToList()
+                                                            }).ToList();
 
-                    data.KPIInfo = groupData;
+                        data.KPIInfo = groupData;
+                    }
                 }
             }
 

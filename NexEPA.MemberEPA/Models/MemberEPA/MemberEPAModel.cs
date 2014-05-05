@@ -22,7 +22,7 @@ namespace NexEPA.MemberEPA.Models.MyEPA
 
         public string FullName { get; set; }
 
-        public int Score { get; set; }
+        public decimal Score { get; set; }
 
         public DateTime EvaluateDate { get; set; }
 
