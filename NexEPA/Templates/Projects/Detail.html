@@ -77,17 +77,9 @@
 		    </form>
 	    </tab>
 
-	    <tab heading="PROJECT MEMBERS" class="tab-cursor" active="dataTab.member">
-		    <form class="row common-form project-form" name="projectMember" novalidate>
-			    <div class="row boxtitle" data-translate="ProjectMember"></div>
-			    <div class="row boxcontent">
-				    <div class="line">
-					    <div ng-include src="'/Templates/ProjectMembers/Index.html'">
-					    </div>
-				    </div>
-			    </div>
-		    </form>
+	    <tab heading="PROJECT MEMBERS" class="tab-cursor" active="dataTab.member"> 
+			<div ng-include src="'/Templates/ProjectMembers/Index.html'">
+			</div>
 	    </tab>
-
     </tabset>
 </div>

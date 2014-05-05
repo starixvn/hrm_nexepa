@@ -2,7 +2,7 @@
     <form class="row common-form project-form" name="projectMember" novalidate>
 	    <div class="row boxtitle">
             <span data-translate="ProjectMember"></span>
-            <div class="button-icon" style="margin-left: 30px;">
+            <div class="button-icon" style="margin-left: 30px;" ng-show="isEditMode">
                 <span class="icon plus"></span>
                 <a href="" data-translate="AddMember" ng-click="addMember()"></a>
             </div>
@@ -25,7 +25,7 @@
 						            </th>
 						            <th data-translate="JoinedDate">
 						            </th>
-						            <th data-translate="Action">
+						            <th data-translate="Action" ng-show="isEditMode">
 						            </th>
 					            </tr>
 				            </thead>
