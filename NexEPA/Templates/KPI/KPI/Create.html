@@ -9,20 +9,6 @@
 
 <div class="row">
     <form novalidate name="form" class="col-sm-5 form-horizontal common-form" role="form">
-         <div class="form-group">
-             <label class="col-sm-3"></label>
-             <div class="col-sm-8">
-                <div ng-show="submitted && form.$invalid">
-                    <div class="error" ng-show="form.itemFormSelect.$error.required" data-translate="FormRequire" ></div>
-                    <div class="error" ng-show="form.itemFormSelect.$valid && form.itemGroupSelect.$error.required" data-translate="GroupRequire"></div>
-                    <div class="error" ng-show="form.itemFormSelect.$valid && form.itemGroupSelect.$valid &&
-                            form.itemName.$error.required" data-translate="TitleRequire"></div>
-                </div>
-                <div class="success" ng-show="success" ng-bind="successMessage"></div>
-                <div class="error" ng-show="!success" ng-bind="errorMessage"></div>
-            </div>
-        </div>
-
         <div class="form-group required">
             <label class="col-sm-3 control-label" data-translate="Form"></label>
             <div class="col-sm-8">

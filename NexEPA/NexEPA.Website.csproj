@@ -298,6 +298,8 @@
     <Content Include="Templates\Target\Create.html" />
     <Content Include="Templates\Target\Detail.html" />
     <Content Include="Templates\Target\Edit.html" />
+    <Content Include="Templates\Target\TargetGeneralInformation.html" />
+    <Content Include="Templates\Target\TargetMembers.html" />
     <Content Include="Templates\Target\View.html" />
     <Content Include="Templates\TargetTemplate\Index.html" />
     <Content Include="Web.config">

@@ -48,15 +48,15 @@ targetModule.factory('targetCacheFactory', ['$cacheFactory', function ($cacheFac
 	return $cacheFactory('targetCache');
 }]);
 
-targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCacheFactory',
-	function ($translate, targetFactory, targetCacheFactory) {
+targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCacheFactory', 'notificationFactory',
+	function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
 		var utility = {};
 
 		utility.getAllProject = function ($scope) {
 			targetFactory.getAllProject().success(function (projectList) {
 				$scope.projectOptions = projectList;
 			}).error(function () {
-				utility.showErrorMessage($scope);
+				notificationFactory.error("ErrorMessage");
 			});
 		};
 
@@ -64,7 +64,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 			targetFactory.getMilestoneOfProject(projectId).success(function (milestoneList) {
 				$scope.milestoneOptions = milestoneList;
 			}).error(function () {
-				utility.showErrorMessage($scope);
+				notificationFactory.error("ErrorMessage");
 			});
 		};
 
@@ -86,7 +86,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 			targetFactory.getAllStatus().success(function (statusList) {
 				$scope.statusOptions = statusList;
 			}).error(function () {
-				utility.showErrorMessage($scope);
+				notificationFactory.error("ErrorMessage");
 			});
 		};
 
@@ -111,25 +111,24 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 			return true;
 		}; 
 
-		utility.showErrorMessage = function ($scope) {
-			$scope.hasError = true;
-			$translate("ErrorMessage").then(function (errorMessage) {
-				$scope.errorMessage = errorMessage;
-			});
-		};
+		utility.showMessageAfterValidate = function ($scope) {
+			$scope.$watchCollection('[submitted, createForm.$invalid, createForm.targetName.$error.required, \
+				createForm.targetFormSelect.$error.required, \
+				formIsProject, createForm.targetProjectSelect.$error.required ]', function (newVals) {
+					if (newVals[0] === true && newVals[1] === true) {
+						if (newVals[4] === true && newVals[5] === true) {
+							notificationFactory.error("ProjectRequire");
+						}
+						if (newVals[3] === true) {
+							notificationFactory.error("FormRequire");
+						}
+						if (newVals[2] === true) {
+							notificationFactory.error("NameRequire");
+						}
 
-		utility.showErrorMessageOfMember = function ($scope) {
-			$scope.targetMemberSuccess = false;
-			$translate("ErrorMessage").then(function (errorMessage) {
-				$scope.memberErrorMessage = errorMessage;
-			});
-		};
-
-		utility.showErrorMessageOfTargetInformations = function ($scope) {
-			$scope.targetInfoSuccess = false;
-			$translate("ErrorMessage").then(function (errorMessage) {
-				$scope.infoErrorMessage = errorMessage;
-			});
+						$scope.submitted = false;
+					}
+				});
 		};
 
 		utility.resetProjectInformation = function ($scope) {

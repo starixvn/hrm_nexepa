@@ -177,8 +177,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 // Create New KPI
 	kpiSettingModule.controller('CreateNewKPIController', ['$scope', '$routeParams',
-	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository',
-	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository) {
+	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
+	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory) {
 
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -226,6 +226,9 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			$scope.item.kpiGroupId = "";
 		};
 
+		// validation
+		KPICommonRepository.showMessageAfterValidateKPI($scope);
+
 		$scope.save = function (item) {
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
@@ -233,7 +236,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			if (KPICommonRepository.validateKPI(item) === true) {
 				KPIRepository.createKPI(item).success(function (response) {
 					if (response.isSuccessful === true) {
-						KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
+						notificationFactory.success("CreatedSuccessfulMessage");
 						$timeout(function () {
 							if (!$scope.isCreatedFromKPI) {
 								$window.history.back();
@@ -244,11 +247,12 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 						}, 2000);
 					}
 					else {
-						KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
-						$scope.disabledSubmitButton = false;
+						notificationFactory.error('', response.message);
 					}
+
+					$scope.disabledSubmitButton = false;
 				}).error(function () {
-					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+					notificationFactory.error("ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 			}
@@ -264,8 +268,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 // Edit KPI
 	kpiSettingModule.controller("EditKPIController", ['$scope', '$routeParams', '$location',
-	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository',
-	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository) {
+	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
+	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory) {
 		var kpiId = $routeParams.id;
 		var formOptionsCache = CacheFactory.get("formOptions");
 
@@ -285,8 +289,11 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 				$scope.groupOptions = groupList;
 			});
 		}).error(function () {
-			KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+			notificationFactory.error("ErrorMessage");
 		});
+
+		// validation
+		KPICommonRepository.showMessageAfterValidateKPI($scope);
 
 		$scope.save = function (kpiItem) {
 			$scope.submitted = true;
@@ -295,17 +302,17 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			if (KPICommonRepository.validateKPI(kpiItem) === true) {
 				KPIRepository.updateKPI(kpiItem).success(function (response) {
 					if (response.isSuccessful === true) {
-						KPICommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
+						notificationFactory.success("UpdatedSuccessfulMessage");
 						$timeout(function () {
 							$window.history.back();
 						}, 2000);
 					}
 					else {
-						KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
+						notificationFactory.error("", response.message);
 						$scope.disabledSubmitButton = false;
 					}
 				}).error(function () {
-					KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+					notificationFactory.error("ErrorMessage");
 					$scope.disabledSubmitButton = false;
 				});
 			}

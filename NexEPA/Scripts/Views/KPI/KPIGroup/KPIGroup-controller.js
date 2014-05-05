@@ -183,8 +183,8 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 
 // Create New KPI Group
 	kpiSettingModule.controller("CreateNewKPIGroupController", ['$scope', '$location', '$timeout',
-	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
-	function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository) {
+	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
+	function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository, notificationFactory) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -197,6 +197,9 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 			});
 		}
 
+		// validation
+		KPICommonRepository.showMessageAfterValidateKPIGroup($scope);
+
 		//save new KPI group
 		$scope.save = function (group) {
 			$scope.submitted = true;
@@ -208,18 +211,19 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 				KPIGroupRepository.addGroup(group)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							KPICommonRepository.showSuccessMessage($scope, "CreatedSuccessfulMessage");
+							notificationFactory.success("CreatedSuccessfulMessage");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
 						}
 						else {
-							KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
-							$scope.disabledSubmitButton = false;
+							notificationFactory.error("", response.message);
 						}
+
+						$scope.disabledSubmitButton = false;
 					})
 					.error(function () {
-						KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+						notificationFactory.error("ErrorMessage");
 						$scope.disabledSubmitButton = false;
 					});
 			}
@@ -234,9 +238,10 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 	} ]);
 
 // Edit KPI Group
-	kpiSettingModule.controller("EditKPIGroupController",['$scope', '$location', 
-	'$routeParams', '$timeout', '$route', '$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository',
-	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository) {
+kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$routeParams', '$timeout', '$route',
+	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
+	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository,
+	CacheFactory, KPICommonRepository, notificationFactory) {
 		var groupId = $routeParams.id;
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
@@ -255,6 +260,9 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 			});
 		}
 
+		// validation
+		KPICommonRepository.showMessageAfterValidateKPIGroup($scope);
+
 		$scope.update = function (group) {
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
@@ -266,18 +274,18 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 				KPIGroupRepository.updateGroup(newGroup)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							KPICommonRepository.showSuccessMessage($scope, "UpdatedSuccessfulMessage");
+							notificationFactory.success("UpdatedSuccessfulMessage");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
 						}
 						else {
-							KPICommonRepository.showErrorMessage($scope, "ErrorMessage", response.message);
+							notificationFactory.error("", response.message);
 							$scope.disabledSubmitButton = false;
 						}
 					})
 					.error(function () {
-						KPICommonRepository.showErrorMessage($scope, "ErrorMessage");
+						notificationFactory.error("ErrorMessage");
 						$scope.disabledSubmitButton = false;
 					});
 			}

@@ -151,11 +151,11 @@ targetModule.controller('ViewTargetController',
 	} ]);
 
 // Create Target Controller
-targetModule.controller("CreateTargetController",
-['$scope', '$timeout', '$location', '$translate', '$window',
-'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService',
-	function ($scope, $timeout, $location, $translate, $window,
-		targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService) {
+	targetModule.controller("CreateTargetController",
+['$scope', '$timeout', '$location', '$translate', '$window', 'targetFactory', 'targetUtility', 'targetCacheFactory',
+ 'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory',
+	function ($scope, $timeout, $location, $translate, $window, targetFactory, targetUtility, targetCacheFactory,
+  KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
 
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
@@ -210,26 +210,23 @@ targetModule.controller("CreateTargetController",
 
 				targetFactory.createTarget(newTarget).success(function (response) {
 					if (response.isSuccessful === true) {
-						$scope.success = true;
-						$translate("CreatedSuccessfulMessage").then(function (message) {
-							$scope.successMessage = message;
-						});
+						notificationFactory.success("CreatedSuccessfulMessage");
 						$timeout(function () {
 							$location.url('/Target/ViewTarget/');
 						}, 2000);
 					}
 					else {
-						$scope.success = false;
-						$scope.errorMessage = response.message;
-						$scope.disabledSubmit = false;
+						notificationFactory.error('', response.message);
 					}
+
+					$scope.disabledSubmit = false;
 				})
 				.error(function (response, status) {
 					if (status === 405) {
 						ErrorService.errorHandle(status);
 					}
 					else {
-						targetUtility.showErrorMessage($scope);
+						notificationFactory.error("ErrorMessage");
 					}
 
 					$scope.disabledSubmit = false;
@@ -240,6 +237,9 @@ targetModule.controller("CreateTargetController",
 			}
 		};
 
+		// validation
+		targetUtility.showMessageAfterValidate($scope);
+
 		// cancel
 		$scope.cancel = function () {
 			$window.history.back();
@@ -249,16 +249,12 @@ targetModule.controller("CreateTargetController",
 		$scope.backToView = function () {
 			$location.url('/Target/ViewTarget/');
 		};
-}]);
+	} ]);
 
 // View Detail of Target or Edit Target Controller
 targetModule.controller("TargetDetailAndEditController",
-	['$scope', '$timeout', '$location', '$translate', '$routeParams', '$window', '$route', '$modal',
-	'targetFactory', 'targetUtility', 'targetCacheFactory', 'KPICommonRepository',
-	'KPIGroupRepository', 'commonFactory', 'ErrorService', 'notificationFactory', 'employeeRepository',
-	function ($scope, $timeout, $location, $translate, $routeParams, $window, $route, $modal,
-			targetFactory, targetUtility, targetCacheFactory, KPICommonRepository, KPIGroupRepository,
-			commonFactory, ErrorService, notificationFactory, employeeRepository) {
+	['$scope', '$location', '$routeParams', '$window', 'targetFactory', 'targetUtility', 'KPIGroupRepository', 'ErrorService', 'notificationFactory',
+	function ($scope, $location, $routeParams, $window, targetFactory, targetUtility, KPIGroupRepository, ErrorService, notificationFactory) {
 
 		var targetId = parseInt($routeParams.id),
 			projectId = parseInt($routeParams.projectId),
@@ -277,235 +273,6 @@ targetModule.controller("TargetDetailAndEditController",
 
 		// get Tab Heading
 		targetUtility.getTabHeading($scope);
-
-		// TAB : GENERAL INFORMATION
-		// get Target by ID
-		targetFactory.getTargetById(targetId).success(function (target) {
-			if (isEditMode) {
-				target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
-				target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
-			}
-
-			$scope.target = target;
-
-			if (isEditMode) {
-				if (target.targetType && target.targetType.targetTypeId) {
-					$scope.target.targetTypeId = target.targetType.targetTypeId;
-				}
-
-				if (target.project && target.project.projectId) {
-					$scope.formIsProject = true;
-					targetUtility.getAllProject($scope);
-					$scope.target.projectId = target.project.projectId;
-
-					$scope.isSelectedProject = true;
-					targetUtility.getMilestone($scope.target.projectId, $scope);
-
-					if (target.milestone && target.milestone.milestoneId) {
-						$scope.target.milestoneId = target.milestone.milestoneId;
-					}
-				}
-			}
-		}).error(function () {
-			targetUtility.showErrorMessageOfTargetInformations($scope);
-		});
-
-		if (isEditMode) {
-			// get Form options
-			targetUtility.getFormOptions($scope, KPICommonRepository);
-
-			// get Date Format
-			commonFactory.getDateFormat($scope);
-
-			// get Calendar Image
-			commonFactory.getSourceCalendarImage($scope);
-
-			// The onchange function of Form
-			$scope.formOnChange = function (targetTypeId) {
-				$scope.formIsProject = false;
-				$scope.isSelectedProject = false;
-
-				if (targetTypeId === 2) {
-					$scope.formIsProject = true;
-					$scope.isSelectedProject = true;
-					targetUtility.getAllProject($scope);
-				}
-			};
-
-			// get all status
-			targetUtility.getAllStatus($scope);
-
-			// the onchange funtion of Project
-			$scope.projectOnChange = function (projectId) {
-				$scope.isSelectedProject = false;
-
-				if (projectId) {
-					$scope.isSelectedProject = true;
-					targetUtility.getMilestone(projectId, $scope);
-				}
-			};
-
-			$scope.calendar = {
-				startDateOpened: false,
-				endDateOpened: false
-			};
-
-			// show start date calendar when click button start date
-			$scope.openPopupStartDate = function ($event) {
-				commonFactory.openPopupStartDate($event, $scope);
-			};
-
-			// show end date calendar when click button end date
-			$scope.openPopupEndDate = function ($event) {
-				commonFactory.openPopupEndDate($event, $scope);
-			};
-
-			// update target
-			$scope.save = function (target) {
-				$scope.submitted = true;
-				$scope.disabledSubmit = true;
-
-				if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
-					var newTarget = angular.copy(target);
-
-					if (newTarget.targetTypeId !== 2) {
-						newTarget.projectId = null;
-						newTarget.milestoneId = null;
-					}
-
-					newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
-					newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
-
-					targetFactory.editTarget(newTarget).success(function (response) {
-						if (response.isSuccessful === true) {
-							$scope.targetInfoSuccess = true;
-							$translate("UpdatedSuccessfulMessage").then(function (message) {
-								$scope.infoSuccessMessage = message;
-							});
-							$timeout(function () {
-								$scope.targetInfoSuccess = false;
-							}, 2000);
-						}
-						else {
-							$scope.targetInfoSuccess = false;
-							$scope.infoErrorMessage = response.message;
-						}
-						$scope.disabledSubmit = false;
-					})
-			.error(function (response, status) {
-				if (status === 405) {
-					ErrorService.errorHandle(status);
-				}
-				else {
-					targetUtility.showErrorMessageOfTargetInformations($scope);
-				}
-
-				$scope.disabledSubmit = false;
-			});
-				}
-				else {
-					$scope.disabledSubmit = false;
-				}
-			};
-		}
-
-		// TAB : MEMBERS 
-		$scope.search = {
-			searchKey: ''
-		};
-
-		// get all employee by target Id 
-		targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
-			$scope.employees = employees;
-		}).error(function () {
-			if (status === 405) {
-				ErrorService.errorHandle(status);
-			}
-			else {
-				targetUtility.showErrorMessageOfMember($scope);
-			}
-		});
-
-		if (isEditMode) {
-			$scope.searchEmployees = [];
-
-			// get employee by projectID and search key
-			$scope.getEmployee = function (searchKey) {
-				employeeRepository.getEmployeeByProjectId(projectId, searchKey).success(function (employeeList) {
-					$scope.searchEmployees = employeeList;
-					$scope.$apply;
-				});
-			};
-
-			// add employee
-			$scope.addEmployee = function (employee) {
-				$scope.disabledSubmit = true;
-
-				var employeeInsert = {
-					targetId: targetId,
-					employeeId: employee.employeeId
-				};
-
-				targetFactory.insertTargetEmployee(employeeInsert).success(function (response) {
-					if (response.isSuccessful) {
-						$scope.search.searchKey = '';
-						employee.groupName = employee.group.name;
-						$scope.employees.push(employee);
-					}
-					else {
-						notificationFactory.error('', response.message);
-					}
-
-					$scope.disabledSubmit = false;
-				}).error(function (response, status) {
-					if (status === 405) {
-						ErrorService.errorHandle(status);
-					}
-					else {
-						notificationFactory.error("ErrorMessage");
-					}
-
-					$scope.disabledSubmit = false;
-				});
-			};
-
-			// delete employee
-			$scope.openDeletePopup = function (employee) {
-				var modalDeleteInstance = $modal.open({
-					templateUrl: '/templates/Common/modalConfirmContent.html',
-					controller: "ModalConfirmController",
-					resolve: {
-						name: function () {
-							return employee.fullName;
-						},
-						action: function () {
-							return "delete";
-						}
-					},
-					windowClass: "modal-confirm-center"
-				});
-
-				modalDeleteInstance.result.then(function () {
-					targetFactory.deleteTargetEmployee(targetId, employee.employeeId).success(function (response) {
-						if (response.isSuccessful === true) {
-							var index = $scope.employees.indexOf(employee);
-							$scope.employees.splice(index, 1);
-							notificationFactory.success("DeleteSuccess");
-						}
-						else {
-							notificationFactory.error("DeleteFail", response.message);
-						}
-					}).error(function (response, status) {
-						if (status === 405) {
-							ErrorService.errorHandle(status);
-						}
-						else {
-							notificationFactory.error("ErrorMessage");
-						}
-					});
-				});
-			};
-		}
 
 		// TAB : KPIs
 		if (!isEditMode) {
@@ -526,7 +293,7 @@ targetModule.controller("TargetDetailAndEditController",
 						ErrorService.errorHandle(status);
 					}
 					else {
-						targetUtility.showErrorMessage($scope);
+						notificationFactory.error("ErrorMessage");
 					}
 
 					$scope.disabledSubmitButton = false;
@@ -555,3 +322,249 @@ targetModule.controller("TargetDetailAndEditController",
 			$location.url('Target/ViewTarget');
 		};
 	} ]);
+
+// Target General Information Controller
+targetModule.controller('TargetGeneralInformationController', ['$scope', '$routeParams', '$timeout', 'targetFactory', 'targetUtility',
+	'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
+	function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
+
+		var targetId = parseInt($routeParams.id),
+		isEditMode = $routeParams.isEditMode ? true : false;
+		$scope.isEditMode = isEditMode;
+
+		// TAB : GENERAL INFORMATION 
+		// get Target by ID
+		targetFactory.getTargetById(targetId).success(function (target) {
+			if (isEditMode) {
+				target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
+				target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
+			}
+
+		$scope.target = target;
+
+		if (target.targetType && target.targetType.targetTypeId) {
+			$scope.target.targetTypeId = target.targetType.targetTypeId;
+		}
+
+		if (target.project && target.project.projectId) {
+			$scope.formIsProject = true;
+			targetUtility.getAllProject($scope);
+			$scope.target.projectId = target.project.projectId;
+
+			$scope.isSelectedProject = true;
+			targetUtility.getMilestone($scope.target.projectId, $scope);
+
+			if (target.milestone && target.milestone.milestoneId) {
+				$scope.target.milestoneId = target.milestone.milestoneId;
+			}
+		}
+
+		}).error(function () {
+			notificationFactory.error('ErrorMessage');
+		});
+
+		// get Form options
+		targetUtility.getFormOptions($scope, KPICommonRepository);
+
+		// get Date Format
+		commonFactory.getDateFormat($scope);
+
+		// get Calendar Image
+		commonFactory.getSourceCalendarImage($scope);
+
+		// The onchange function of Form
+		$scope.formOnChange = function (targetTypeId) {
+			$scope.formIsProject = false;
+			$scope.isSelectedProject = false;
+
+			if (targetTypeId === 2) {
+				$scope.formIsProject = true;
+				$scope.isSelectedProject = true;
+				targetUtility.getAllProject($scope);
+			}
+		};
+
+		// get all status
+		targetUtility.getAllStatus($scope);
+
+		// the onchange funtion of Project
+		$scope.projectOnChange = function (projectId) {
+			$scope.isSelectedProject = false;
+
+			if (projectId) {
+				$scope.isSelectedProject = true;
+				targetUtility.getMilestone(projectId, $scope);
+			}
+		};
+
+		$scope.calendar = {
+			startDateOpened: false,
+			endDateOpened: false
+		};
+
+		// show start date calendar when click button start date
+		$scope.openPopupStartDate = function ($event) {
+			commonFactory.openPopupStartDate($event, $scope);
+		};
+
+		// show end date calendar when click button end date
+		$scope.openPopupEndDate = function ($event) {
+			commonFactory.openPopupEndDate($event, $scope);
+		};
+
+		// validation
+		targetUtility.showMessageAfterValidate($scope);
+
+		// update target
+		$scope.save = function (target) {
+			$scope.submitted = true;
+			$scope.disabledSubmit = true;
+
+			if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
+				var newTarget = angular.copy(target);
+
+				if (newTarget.targetTypeId !== 2) {
+					newTarget.projectId = null;
+					newTarget.milestoneId = null;
+				}
+
+				newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
+				newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
+
+				targetFactory.editTarget(newTarget).success(function (response) {
+					if (response.isSuccessful === true) {
+						notificationFactory.success("UpdatedSuccessfulMessage");
+						$timeout(function () {
+							$scope.targetInfoSuccess = false;
+						}, 2000);
+					}
+					else {
+						notificationFactory.error('', response.message);
+					}
+
+					$scope.disabledSubmit = false;
+				})
+		.error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error('ErrorMessage');
+			}
+
+			$scope.disabledSubmit = false;
+		});
+			}
+			else {
+				$scope.disabledSubmit = false;
+			}
+		}; 
+	} ]);
+
+// Target Members Controller
+targetModule.controller('TargetMembersController', ['$scope', '$modal', '$routeParams', 'targetFactory', 'ErrorService', 'targetUtility',
+'employeeRepository', 'notificationFactory',
+function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtility, employeeRepository, notificationFactory) {
+
+	var targetId = parseInt($routeParams.id),
+		projectId = parseInt($routeParams.projectId),
+		isEditMode = $routeParams.isEditMode ? true : false;
+	$scope.isEditMode = isEditMode;
+	// TAB : MEMBERS 
+	$scope.search = {
+		searchKey: ''
+	};
+
+	// get all employee by target Id 
+	targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
+		$scope.employees = employees;
+	}).error(function () {
+		if (status === 405) {
+			ErrorService.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
+	});
+
+	if (isEditMode) {
+		$scope.searchEmployees = [];
+
+		// get employee by projectID and search key
+		$scope.getEmployee = function (searchKey) {
+			employeeRepository.getEmployeeByProjectId(projectId, searchKey).success(function (employeeList) {
+				$scope.searchEmployees = employeeList;
+				$scope.$apply;
+			});
+		};
+
+		// add employee
+		$scope.addEmployee = function (employee) {
+			$scope.disabledSubmit = true;
+
+			var employeeInsert = {
+				targetId: targetId,
+				employeeId: employee.employeeId
+			};
+
+			targetFactory.insertTargetEmployee(employeeInsert).success(function (response) {
+				if (response.isSuccessful) {
+					$scope.search.searchKey = '';
+					employee.groupName = employee.group.name;
+					$scope.employees.push(employee);
+				}
+				else {
+					notificationFactory.error('', response.message);
+				}
+
+				$scope.disabledSubmit = false;
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+
+				$scope.disabledSubmit = false;
+			});
+		};
+
+		// delete employee
+		$scope.openDeletePopup = function (employee) {
+			var modalDeleteInstance = $modal.open({
+				templateUrl: '/templates/Common/modalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return employee.fullName;
+					},
+					action: function () {
+						return "delete";
+					}
+				},
+				windowClass: "modal-confirm-center"
+			});
+
+			modalDeleteInstance.result.then(function () {
+				targetFactory.deleteTargetEmployee(targetId, employee.employeeId).success(function (response) {
+					if (response.isSuccessful === true) {
+						var index = $scope.employees.indexOf(employee);
+						$scope.employees.splice(index, 1);
+						notificationFactory.success("DeleteSuccess");
+					}
+					else {
+						notificationFactory.error("DeleteFail", response.message);
+					}
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+				});
+			});
+		};
+	}
+} ]);

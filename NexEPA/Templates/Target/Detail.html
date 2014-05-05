@@ -13,83 +13,13 @@
 <div class="row target-tabset">
     <tabset>
         <tab active="tabGeneralSelect" heading="{{targetInformationHeading}}">
-           <form class="col-sm-5 form-horizontal common-form">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" data-translate="Name"></label>
-                    <div class="col-sm-8">
-                        <input class="form-control" disabled name="targetName" ng-model="target.name" type="text"/>
-                    </div>
-                </div>
-
-                 <div class="form-group">
-                    <label class="col-sm-3 control-label" data-translate="Form"></label>
-                    <div class="col-sm-8">
-                        <input class="form-control" disabled ng-model="target.targetType.name" type="text"/>
-                    </div>
-                </div>
-
-                <div class="form-group" ng-show="target.project.name">
-                    <label class="col-sm-3 control-label" data-translate="Project"></label>
-                    <div class="col-sm-8">
-                        <input class="form-control" disabled ng-model="target.project.name" type="text"/>
-                    </div>
-                </div>
-
-                <div class="form-group" ng-show="target.milestone.name">
-                    <label class="col-sm-3 control-label" data-translate="Milestone"></label>
-                    <div class="col-sm-8">
-                        <input class="form-control" disabled ng-model="target.milestone.name" type="text"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" data-translate="Status"></label>
-                    <div class="col-sm-8">
-                        <input class="form-control" disabled ng-model="target.statusName" type="text"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" data-translate="StartDate"></label>
-                    <div class="col-sm-8">
-                        <input class="calendar-form-control" type="text" ng-model="target.startDate" datepicker-popup="{{dateFormat}}" disabled/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" data-translate="EndDate"></label>
-                    <div class="col-sm-8">
-                        <input class="calendar-form-control" type="text" ng-model="target.endDate" datepicker-popup="{{dateFormat}}" disabled/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" data-translate="Description"></label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control" disabled ng-model="target.description"></textarea>
-                    </div>
-                </div>
-            </form>
+           <div ng-include src="'/Templates/Target/TargetGeneralInformation.html'">
+           </div>
         </tab>
 
         <tab active="tabMemberSelect" heading="{{targetMembersHeading}}">
-            <table class="table table-bordered table-striped target-member-table">
-                <thead>
-                    <th data-translate="SymbolCount"></th>
-                    <th data-translate="FullName"></th>
-                    <th data-translate="NickName"></th>
-                    <th data-translate="Team"></th>
-                </thead>
-                <tr ng-repeat="employee in employees">
-                    <td class="index" ng-bind="$index + 1"></td>
-                    <td ng-bind="employee.fullName"></td>
-                    <td ng-bind="employee.nickName"></td>
-                    <td ng-bind="employee.groupName"></td>
-                </tr>
-                <tr ng-show="employees == ''">
-                    <td class="empty-result" colspan="5" data-translate="EmptyResult"></td>
-                </tr> 
-            </table>
+           <div ng-include src="'/Templates/Target/TargetMembers.html'">
+           </div>
         </tab>
 
         <tab active="tabKPISelect" heading="{{targetKPIHeading}}">

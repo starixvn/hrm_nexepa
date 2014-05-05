@@ -1,8 +1,8 @@
 ﻿'use strict';
 /*global kpiSettingModule*/
 
-kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate',
-	function ($http, $q, $translate) {
+kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'notificationFactory',
+	function ($http, $q, $translate, notificationFactory) {
 		var common = {};
 
 		common.getFormOptions = function () {
@@ -63,24 +63,39 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate',
 			return true;
 		};
 
-		common.showSuccessMessage = function ($scope, keyMessage) {
-			$scope.success = true;
-			$translate(keyMessage).then(function (message) {
-				$scope.successMessage = message;
-			});
+		common.showMessageAfterValidateKPI = function ($scope) {
+			$scope.$watchCollection('[submitted, form.$invalid, form.itemFormSelect.$error.required, \
+				form.itemGroupSelect.$error.required, form.itemName.$error.required ]', function (newVals) {
+					if (newVals[0] === true && newVals[1] === true) {
+						if (newVals[4] === true) {
+							notificationFactory.error("TitleRequire");
+						}
+						if (newVals[3] === true) {
+							notificationFactory.error("GroupRequire");
+						}
+						if (newVals[2] === true) {
+							notificationFactory.error("FormRequire");
+						}
+
+						$scope.submitted = false;
+					}
+				});
 		};
 
-		common.showErrorMessage = function ($scope, keyMessage, message) {
-			$scope.success = false;
+		common.showMessageAfterValidateKPIGroup = function ($scope) {
+			$scope.$watchCollection('[submitted, form.$invalid, form.groupName.$error.required, form.groupSelect.$error.required ]',
+			function (newVals) {
+				if (newVals[0] === true && newVals[1] === true) {
+					if (newVals[3] === true) {
+						notificationFactory.error("FormRequire");
+					}
+					if (newVals[2] === true) {
+						notificationFactory.error("NameRequire");
+					}
 
-			if (message === '' || message === null || message === undefined) {
-				$translate(keyMessage).then(function (errorMessage) {
-					$scope.errorMessage = errorMessage;
-				});
-			}
-			else {
-				$scope.errorMessage = message;
-			}
+					$scope.submitted = false;
+				}
+			});
 		};
 
 		return common;
