@@ -22,6 +22,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implement;
+    using NexEPA.Employee.Services.Interface;
     using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
@@ -35,14 +36,14 @@ namespace NexEPA.Controllers.API
     public class ProjectController : BaseController
     {
         private readonly IProjectService _projectService;
-        private readonly EmployeeService _employeeService;
+        private readonly IEmployeeService _employeeService;
 
         public ProjectController()
             : this(null, null)
         {
         }
 
-        public ProjectController(IProjectService projectService, EmployeeService employeeService)
+        public ProjectController(IProjectService projectService, IEmployeeService employeeService)
         {
             this._projectService = projectService ?? new ProjectService();
             this._employeeService = employeeService ?? new EmployeeService();
@@ -165,7 +166,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
         {
             GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
-            IEnumerable<EmployeeInfo> employees = _employeeService.GetData<EmployeeInfo>(criteria);
+            IList<EmployeeInfo> employees = _employeeService.GetEmployeeByRole(criteria);
 
             if (!string.IsNullOrEmpty(searchKey))
             {
@@ -262,7 +263,7 @@ namespace NexEPA.Controllers.API
         /// <param name="employees">The list employee.</param>
         /// <param name="searchKey">The keyword to get employee.</param>
         /// <returns>The IEnumerable Employee Info.</returns>
-        private IEnumerable<EmployeeInfo> GetEmployeeBySearchKey(IEnumerable<EmployeeInfo> employees, string searchKey)
+        private IList<EmployeeInfo> GetEmployeeBySearchKey(IList<EmployeeInfo> employees, string searchKey)
         {
             List<EmployeeInfo> searchEmployees = new List<EmployeeInfo>();
 
@@ -274,7 +275,7 @@ namespace NexEPA.Controllers.API
                 }
             }
 
-            return (IEnumerable<EmployeeInfo>)searchEmployees;
+            return searchEmployees;
         }
 
         /// <summary>

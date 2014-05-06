@@ -22,8 +22,8 @@ namespace NexEPA.Target.Services.Impl.Target
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
     using NexEPA.Target.Models.Target;
-    using NexEPA.Target.Repositories.Implement.Target;
-    using NexEPA.Target.Repositories.Interface.Target;
+    using NexEPA.Target.Repositories.Implement;
+    using NexEPA.Target.Repositories.Interfaces;
     using NexEPA.Target.Services.Interfaces;
     using NexEPA.Target.ViewModels.Target;
     using NexEPA.Web.Models;
@@ -33,11 +33,11 @@ namespace NexEPA.Target.Services.Impl.Target
     /// </summary>
     public class TargetService : BaseService, ITargetServices
     {
-        private ITargetRepositories _targetRepositories;
+        private ITargetRepository _targetRepository;
 
-        public TargetService()
+        public TargetService(ITargetRepository targetRepository = null)
         {
-            _targetRepositories = new TargetRepositories();
+            _targetRepository = targetRepository ?? new TargetRepository();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                IEnumerable<TargetInfo> rawTargets = _targetRepositories.GetTarget(criteria);
+                IEnumerable<TargetInfo> rawTargets = _targetRepository.GetTarget(criteria);
 
                 foreach (TargetInfo rawTarget in rawTargets)
                 {
@@ -97,7 +97,7 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                TargetInfo rawTarget = _targetRepositories.GetTargetById(criteria);
+                TargetInfo rawTarget = _targetRepository.GetTargetById(criteria);
 
                 string startDate = rawTarget.StartDate != null 
                     ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
@@ -267,7 +267,7 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                var rawKPIsInfo = (List<TargetKPIInfo>)_targetRepositories.GetKPIByTargetId(criteria);
+                var rawKPIsInfo = (List<TargetKPIInfo>)_targetRepository.GetKPIByTargetId(criteria);
 
                 for (int i = 0; i < rawKPIsInfo.Count; i++) 
                 {

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TargetRepositories.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="TargetRepository.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,19 +7,19 @@
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
 // </history>
 
-namespace NexEPA.Target.Repositories.Implement.Target
+namespace NexEPA.Target.Repositories.Implement
 {
     using System.Collections.Generic;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Model.Target;
     using NexEPA.Target.Models.Target;
-    using NexEPA.Target.Repositories.Interface.Target;
+    using NexEPA.Target.Repositories.Interfaces;
 
     /// <summary>
     /// The implement of Target Repository.
     /// </summary>
-    public class TargetRepositories : ITargetRepositories
+    public class TargetRepository : ITargetRepository
     {
         /// <summary>
         /// Get target.

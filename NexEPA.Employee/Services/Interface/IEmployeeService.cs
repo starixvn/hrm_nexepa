@@ -11,6 +11,7 @@ namespace NexEPA.Employee.Services.Interface
 {
     using System.Collections.Generic;
     using NexEPA.Employee.Criteria;
+    using NexEPA.Employee.Models;
     using NexEPA.Employee.ViewModels;
 
     /// <summary>
@@ -23,5 +24,7 @@ namespace NexEPA.Employee.Services.Interface
         List<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria);
 
         List<EmployeeItem> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria);
+
+        IList<EmployeeInfo> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria);
     }
 }

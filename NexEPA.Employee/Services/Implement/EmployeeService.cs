@@ -11,6 +11,7 @@ namespace NexEPA.Employee.Services.Implement
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Services;
@@ -26,11 +27,11 @@ namespace NexEPA.Employee.Services.Implement
     /// </summary>
     public class EmployeeService : BaseService, IEmployeeService
     {
-        private IEmployeeRepositories _employeeRepositories;
+        private IEmployeeRepository _employeeRepository;
 
-        public EmployeeService()
+        public EmployeeService(IEmployeeRepository employeeRepository = null)
         {
-            _employeeRepositories = new EmployeeRepositories();
+            _employeeRepository = employeeRepository ?? new EmployeeRepository();
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace NexEPA.Employee.Services.Implement
 
             if (criteria.IsValid())
             {
-                IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetAllEmployee(criteria);
+                IEnumerable<EmployeeInfo> rawEmployees = _employeeRepository.GetAllEmployee(criteria);
 
                 foreach (EmployeeInfo employee in rawEmployees)
                 {
@@ -114,7 +115,7 @@ namespace NexEPA.Employee.Services.Implement
 
             if (criteria.IsValid())
             {
-                IEnumerable<EmployeeInfo> rawEmployees = _employeeRepositories.GetEmployeeByProjectId(criteria);
+                IEnumerable<EmployeeInfo> rawEmployees = _employeeRepository.GetEmployeeByProjectId(criteria);
 
                 foreach (EmployeeInfo rawEmployee in rawEmployees)
                 {
@@ -128,6 +129,24 @@ namespace NexEPA.Employee.Services.Implement
 
                     employees.Add(employee);
                 }
+            }
+
+            return employees;
+        }
+
+        /// <summary>
+        /// Get employees by role.
+        /// </summary>
+        /// <param name="criteria">GetEmployeeByRole Criteria.</param>
+        /// <returns>The list employees.</returns>
+        public IList<EmployeeInfo> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<EmployeeInfo> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = _employeeRepository.GetAllEmployee(criteria).ToList();
             }
 
             return employees;

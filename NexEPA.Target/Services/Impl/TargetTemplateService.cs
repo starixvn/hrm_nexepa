@@ -139,7 +139,7 @@ namespace NexEPA.Target.Services.Impl
         public CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {

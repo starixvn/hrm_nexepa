@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EmployeeRepositories.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="EmployeeRepository.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -20,7 +20,7 @@ namespace NexEPA.Employee.Repositories.Implement
     /// <summary>
     /// The implement of Employee Repositories.
     /// </summary>
-    public class EmployeeRepositories : IEmployeeRepositories
+    public class EmployeeRepository : IEmployeeRepository
     {
         /// <summary>
         /// Get all employee.

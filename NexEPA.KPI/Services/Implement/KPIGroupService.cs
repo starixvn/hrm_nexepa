@@ -29,9 +29,9 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
     {
         private IKPIGroupRepository _kpiGroupRepository;
 
-        public KPIGroupService()
+        public KPIGroupService(IKPIGroupRepository kpiGroupRepository = null)
         {
-            _kpiGroupRepository = new KPIGroupRepository();
+            _kpiGroupRepository = kpiGroupRepository ?? new KPIGroupRepository();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
             {
                 IEnumerable<KPIGroupInfo> groupInfoList = _kpiGroupRepository.GetAllKPIGroup(criteria);
 
-                foreach (var group in groupInfoList)
+                foreach (KPIGroupInfo group in groupInfoList)
                 {
                     var groupItem = new KPIGroupItem
                     {
@@ -106,7 +106,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         public CommandResult InsertKPIGroup(InsertKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -126,7 +126,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         public CommandResult UpdateKPIGroup(UpdateKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -146,7 +146,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         public CommandResult DeleteKPIGroup(DeleteKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -164,7 +164,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         public List<KPIGroupItem> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            List<KPIGroupItem> allGroup = new List<KPIGroupItem>();
+            var allGroup = new List<KPIGroupItem>();
 
             if (criteria.IsValid())
             {
@@ -182,7 +182,7 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         public CommandResult UpdateKPIGroupStatus(UpdateKPIGroupStatusCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {

@@ -25,14 +25,14 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class KPIController : BaseController
     {
-        private IKPIService _kpiServices;
+        private readonly IKPIService _kpiServices;
 
         public KPIController()
             : this(null)
         {
         }
 
-        public KPIController(KPIService kpiServices)
+        public KPIController(IKPIService kpiServices)
         {
             _kpiServices = kpiServices ?? new KPIService();
         }

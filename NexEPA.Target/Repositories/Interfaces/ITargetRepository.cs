@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ITargetRepositories.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="ITargetRepository.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
 // </history>
 
-namespace NexEPA.Target.Repositories.Interface.Target
+namespace NexEPA.Target.Repositories.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
@@ -16,7 +16,7 @@ namespace NexEPA.Target.Repositories.Interface.Target
     /// <summary>
     /// The interface of Target Repository.
     /// </summary>
-    public interface ITargetRepositories
+    public interface ITargetRepository
     {
         IEnumerable<TargetInfo> GetTarget(ICriteria criteria);
 

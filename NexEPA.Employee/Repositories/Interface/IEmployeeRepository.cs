@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IEmployeeRepositories.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="IEmployeeRepository.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace NexEPA.Employee.Repositories.Interface
     /// <summary>
     /// The interface of Employee Repositories.
     /// </summary>
-    public interface IEmployeeRepositories
+    public interface IEmployeeRepository
     {
         IEnumerable<EmployeeInfo> GetAllEmployee(ICriteria criteria);
 

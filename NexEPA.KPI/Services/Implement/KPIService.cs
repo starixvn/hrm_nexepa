@@ -30,9 +30,9 @@ namespace NexEPA.KPI.Services.Implement.KPI
     {
         private IKPIRepository _kpiRepository;
 
-        public KPIService()
+        public KPIService(IKPIRepository kpiRepository = null)
         {
-            _kpiRepository = new KPIRepository();
+            _kpiRepository = kpiRepository ?? new KPIRepository();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
-                List<KPIInfo> listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(criteria);
+                var listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(criteria);
 
                 listKPI = GroupKPISameKPIGroup(listKPI, listKPIInfo);
             }
@@ -67,12 +67,12 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
-                List<KPIInfo> infoKPIs = (List<KPIInfo>)_kpiRepository.GetKPIById(criteria);
+                var infoKPIs = (List<KPIInfo>)_kpiRepository.GetKPIById(criteria);
 
                 if (infoKPIs != null && infoKPIs.Count > 0)
                 {
-                    List<int> kpiGroupIds = new List<int>();
-                    List<string> kpiGroupNames = new List<string>();
+                    var kpiGroupIds = new List<int>();
+                    var kpiGroupNames = new List<string>();
 
                     foreach (KPIInfo infoKPI in infoKPIs)
                     {
@@ -106,7 +106,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
         public CommandResult InsertKPI(InsertKPICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -126,7 +126,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
         public CommandResult UpdateKPI(UpdateKPICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -146,7 +146,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
         public CommandResult DeleteKPI(DeleteKPICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -181,7 +181,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
         public CommandResult UpdateKPIStatus(UpdateKPIStatusCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -199,7 +199,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// <param name="listKPI">The list KPI after group.</param>
         /// <param name="listKPIInfo">The list KPI before group.</param>
         /// <returns>The list KPI.</returns>
-        private static List<KPIItem> GroupKPISameKPIGroup(List<KPIItem> listKPI, List<KPIInfo> listKPIInfo)
+        private List<KPIItem> GroupKPISameKPIGroup(List<KPIItem> listKPI, List<KPIInfo> listKPIInfo)
         {
             for (int i = 0; i < listKPIInfo.Count; i++)
             {
@@ -209,8 +209,8 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
                 int numberKPISameGroup = kpisSameGroup.Count();
 
-                List<int> kpiGroupIds = new List<int>();
-                List<string> kpiGroupNames = new List<string>();
+                var kpiGroupIds = new List<int>();
+                var kpiGroupNames = new List<string>();
 
                 kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
                 kpiGroupNames.Add(infoKPI.Group.Name);

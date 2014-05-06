@@ -54,7 +54,7 @@ namespace NexEPA.Project.Services.Impl
         /// <returns>The model of project member.</returns>
         public List<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria)
         {
-            List<ProjectMembersModel> projectMembers = new List<ProjectMembersModel>();
+            var projectMembers = new List<ProjectMembersModel>();
             Check.Argument.IsNotNull(criteria, "criteria");
 
             if (criteria.IsValid())
