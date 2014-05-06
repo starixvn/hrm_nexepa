@@ -45,5 +45,7 @@ namespace NexEPA.KPI.Model
         public KPIGroupInfo Group { get; set; }
 
         public TargetType TargetType { get; set; }
+
+        public bool CheckNullComment { get; set; }
     }
 }

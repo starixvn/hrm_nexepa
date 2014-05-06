@@ -1,7 +1,7 @@
 ﻿/* global epaModule */
 'use strict';
 
-epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', 
+epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory',
 '$routeParams', '$window', 'ErrorService',
 function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService) {
 	/**
@@ -82,13 +82,38 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	* Events 
 	*/
 	$scope.save = function (employeeEPAResult) {
-		employeeEPAResult.finalScore = $scope.finalScore;
-		employeeEPAResult.targetId = targetId;
-		employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
+		var allowSubmit = true;
+		if (employeeEPAResult.comment === "") {
+			allowSubmit = false;
+			employeeEPAResult.checkNullComment = true;
+		}
+		else {
+			employeeEPAResult.checkNullComment = false;
+			$.each(employeeEPAResult.kpiInfo, function (item) {
+				var kpiGroupItem = employeeEPAResult.kpiInfo[item].kpiGroupItems;
+				$.each(kpiGroupItem, function (i) {
+					var currentItem = kpiGroupItem[i];
+					if (currentItem.isRequireComment && currentItem.comment === "") {
+						currentItem.checkNullComment = true;
+						allowSubmit = false;
+					}
+					else {
+						currentItem.checkNullComment = false;
+					}
+				});
+			});
+		}
+
+		if (allowSubmit) {
+			employeeEPAResult.finalScore = $scope.finalScore;
+			employeeEPAResult.targetId = targetId;
+			employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
+		}
 	};
 
 	$scope.cancelRating = function (item) {
 		item.score = 0;
+		item.percent = 0;
 		calculateScore();
 	};
 
