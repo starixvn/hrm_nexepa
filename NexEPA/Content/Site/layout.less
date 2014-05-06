@@ -66,6 +66,10 @@ body {
         }
     }
 
+    select option {
+        padding: 4px 10px;
+    }
+
     .header {
         #gradient .vertical(#E4E4E4, #DCDCDC);
         padding: 0;
@@ -390,14 +394,15 @@ body {
 }
 
 .calendar-form-control[disabled] {
-	background-color: #EEEEEE;
-	cursor: not-allowed;
-	opacity: 1;
+    background-color: #EEEEEE;
+    cursor: not-allowed;
+    opacity: 1;
 }
 
 .calendar-image {
     vertical-align: top;
     margin-top: 3px;
+    cursor: pointer;
 }
 
 .dropdown-menu.ng-valid-date {
