@@ -355,6 +355,10 @@
       <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>
       <Name>NexEPA.Project</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Report\NexEPA.Report.csproj">
+      <Project>{9FDD57E5-031E-4813-B836-A444F8C3A111}</Project>
+      <Name>NexEPA.Report</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexEPA.Resources\NexEPA.Resources.csproj">
       <Project>{ED674458-9368-45CF-AB91-63280F79CBA5}</Project>
       <Name>NexEPA.Resources</Name>

@@ -1,6 +1,6 @@
 ﻿'use strict';
 /*global homeModule*/
 
-homeModule.controller('ViewHomePageController', ['$scope', function ($scope) {
-	$scope.test = '';
+homeModule.controller('ViewHomePageController', ['$scope', 'homeFactory', function ($scope, homeFactory) {
+	homeFactory.getGeneralInformationOfCurrentEmployee();
 } ]);

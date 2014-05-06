@@ -9,17 +9,40 @@
 
 namespace NexEPA.Controllers.API
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
+    using NexEPA.Report.Criteria;
+    using NexEPA.Report.Services.Implement;
+    using NexEPA.Report.Services.Interface;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// Home Controller.
     /// </summary>
     public class HomeController : BaseController
     {
+        private IReportService _reportService;
+
+        public HomeController()
+            : this(null)
+        {
+        }
+
+        public HomeController(IReportService reportService)
+        {
+            _reportService = reportService ?? new ReportService();
+        }
+
+        [HttpGet]
+        public List<object> GetGeneralInformationOfCurrentEmployee()
+        {
+            var criteria = new GetGeneralInformationOfCurrentEmployeeCriteria
+            {
+                EmployeeId = SessionManager.CurrentUser.UserId
+            };
+
+            return _reportService.GetGeneralInformationOfCurrentEmployee(criteria);
+        }
     }
 }
