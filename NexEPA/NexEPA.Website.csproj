@@ -267,8 +267,8 @@
     <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-repository.js" />
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-controller.js" />
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-repository.js" />
-    <Content Include="Scripts\Views\Target\Target\target-controller.js" />
-    <Content Include="Scripts\Views\Target\Target\target-repository.js" />
+    <Content Include="Scripts\Views\Target\target-controller.js" />
+    <Content Include="Scripts\Views\Target\target-repository.js" />
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
     <Content Include="Templates\Employee\View.html" />

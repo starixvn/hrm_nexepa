@@ -77,8 +77,8 @@ namespace NexEPA
                 "~/Scripts/Views/KPI/KPICommon.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-controller.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-repository.js",
-                "~/Scripts/Views/Target/Target/target-controller.js",
-                "~/Scripts/Views/Target/Target/target-repository.js",
+                "~/Scripts/Views/Target/target-controller.js",
+                "~/Scripts/Views/Target/target-repository.js",
                 "~/Scripts/Views/EPA/MyEPA/myepa-controller.js",
                 "~/Scripts/Views/EPA/MyEPA/myepa-repository.js"));
         }
