@@ -168,6 +168,11 @@ namespace NexEPA
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
+              name: "Home Page",
+              url: "Home",
+              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });

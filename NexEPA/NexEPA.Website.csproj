@@ -160,6 +160,7 @@
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
+    <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
     <Compile Include="Controllers\API\EmployeeEPAController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
@@ -248,6 +249,8 @@
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />
     <Content Include="Scripts\Views\EPA\MyEPA\myepa-controller.js" />
     <Content Include="Scripts\Views\EPA\MyEPA\myepa-repository.js" />
+    <Content Include="Scripts\Views\Home\home-controller.js" />
+    <Content Include="Scripts\Views\Home\home-repository.js" />
     <Content Include="Scripts\Views\Resource\resource-controller.js" />
     <Content Include="Scripts\Views\Resource\resource-repository.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
@@ -276,6 +279,7 @@
     <Content Include="Templates\EPA\MemberEPA\ViewCurrentMember.html" />
     <Content Include="Templates\EPA\MyEPA\Index.html" />
     <Content Include="Templates\EPA\MyEPA\RatingScale.html" />
+    <Content Include="Templates\Home\View.html" />
     <Content Include="Templates\ProjectMembers\Edit.html" />
     <Content Include="Templates\ProjectMembers\Create.html" />
     <Content Include="Templates\ProjectMembers\Index.html" />

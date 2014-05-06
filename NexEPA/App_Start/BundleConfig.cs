@@ -80,7 +80,9 @@ namespace NexEPA
                 "~/Scripts/Views/Target/target-controller.js",
                 "~/Scripts/Views/Target/target-repository.js",
                 "~/Scripts/Views/EPA/MyEPA/myepa-controller.js",
-                "~/Scripts/Views/EPA/MyEPA/myepa-repository.js"));
+                "~/Scripts/Views/EPA/MyEPA/myepa-repository.js",
+                "~/Scripts/Views/Home/home-controller.js",
+                "~/Scripts/Views/Home/home-repository.js"));
         }
     }
 }

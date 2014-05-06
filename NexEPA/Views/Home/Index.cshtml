@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
                 <ul class="nav navbar-nav">
                 <li>
-                    <a href="~/Home/Index">Home</a>
+                    <a href="~/">Home</a>
                 </li>
                 <li>
                     <a href="/Employee/GetAllEmployee">Employees</a>
@@ -18,7 +18,6 @@
                 @if (Roles.IsUserInRole("PM") || Roles.IsUserInRole("SA"))
                 { 
                 <li class="dropdown">
-                    @*<a href="#">Project</a>*@
                     <a id="drop1" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="button" aria-labelledby="drop1">
                     
@@ -45,42 +44,19 @@
                 <li class="dropdown">
                     <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop2">
-                    @*<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Employee/GetAllEmployee">Employee list</a></li>*@
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/KPI/ViewKPI">KPI</a></li>
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/KPI/GetAllKPIGroup">KPI Group</a></li>
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/TargetTemplate/Index">Target Template</a></li>
-                    @*<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="#">Target Setting</a></li>*@
-                    </ul>
+                   </ul>
                 </li>
                 }
                 </ul>
-                @*<ul class="nav navbar-nav navbar-right info">
-                <li id="fat-menu" class="dropdown">
-                    <a href="#" id="drop3" role="button" class="dropdown-toggle no-bg" data-toggle="dropdown">Lê Thị Thùy Dương - Alice.Le <b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Logout</a></li>
-                    </ul>
-                </li>
-                </ul>*@
             </div>
         </nav>
         <ul class="list-inline info">
             <li><span class="glyphicon glyphicon-user"></span>@ViewBag.User</li>
-            @*<li><span class="glyphicon glyphicon-user"></span>Lê Thị Thùy Dương - Alice.Le</li>*@
-            @*<li>|</li>*@
-            @*<li><span class="glyphicon glyphicon-log-out"></span><a href="#">Logout</a></li>*@
         </ul>
     </div>
 </div>
-@*<div class="row sub-header">
-    <ul class="breadcrumb list-inline pull-left">
-        <li><a href="#">Project</a></li>
-        <li class="current">Project 1</li>
-    </ul>
-    <div class="button-icon">
-        <span class="icon plus"></span><a href="/Projects/Create" data-translate="AddProject">
-        </a>
-    </div>
-</div>*@
 <div class="row" data-ng-view>
 </div>

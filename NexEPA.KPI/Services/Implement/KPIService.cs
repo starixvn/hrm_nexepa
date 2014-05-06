@@ -49,7 +49,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
             {
                 var listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(criteria);
 
-                listKPI = GroupKPISameKPIGroup(listKPI, listKPIInfo);
+                listKPI = GroupKPIGroupsSameKPI(listKPI, listKPIInfo);
             }
 
             return listKPI; 
@@ -194,20 +194,20 @@ namespace NexEPA.KPI.Services.Implement.KPI
         }
 
         /// <summary>
-        /// Group KPIs has belong to same KPI Group.
+        /// Group KPIGroup that they have same KPI.
         /// </summary>
-        /// <param name="listKPI">The list KPI after group.</param>
-        /// <param name="listKPIInfo">The list KPI before group.</param>
+        /// <param name="listKPI">The list KPIs after group.</param>
+        /// <param name="listKPIInfo">The list KPIs before group.</param>
         /// <returns>The list KPI.</returns>
-        private List<KPIItem> GroupKPISameKPIGroup(List<KPIItem> listKPI, List<KPIInfo> listKPIInfo)
+        private List<KPIItem> GroupKPIGroupsSameKPI(List<KPIItem> listKPI, List<KPIInfo> listKPIInfo)
         {
             for (int i = 0; i < listKPIInfo.Count; i++)
             {
                 KPIInfo infoKPI = listKPIInfo[i];
-                List<KPIInfo> kpisSameGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId
+                List<KPIInfo> kpisSameKPIDifferentGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId
                                                 && item.Group.KPIGroupId != infoKPI.Group.KPIGroupId).ToList<KPIInfo>();
 
-                int numberKPISameGroup = kpisSameGroup.Count();
+                int numberKPISameKPIDifferentGroup = kpisSameKPIDifferentGroup.Count();
 
                 var kpiGroupIds = new List<int>();
                 var kpiGroupNames = new List<string>();
@@ -215,9 +215,9 @@ namespace NexEPA.KPI.Services.Implement.KPI
                 kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
                 kpiGroupNames.Add(infoKPI.Group.Name);
 
-                if (numberKPISameGroup > 0)
+                if (numberKPISameKPIDifferentGroup > 0)
                 {
-                    kpisSameGroup.ForEach(item =>
+                    kpisSameKPIDifferentGroup.ForEach(item =>
                     {
                         kpiGroupIds.Add(item.Group.KPIGroupId);
                         kpiGroupNames.Add(item.Group.Name);
