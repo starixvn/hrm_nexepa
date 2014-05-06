@@ -1,14 +1,12 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetTemplateKPI]    Script Date: 4/26/2014 9:34:55 AM ******/
+/****** Object:  Table [dbo].[TargetTemplateKPI]    Script Date: 5/6/2014 3:24:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
-DROP TABLE [dbo].[TargetTemplateKPI]
 
 CREATE TABLE [dbo].[TargetTemplateKPI](
 	[TargetTemplateId] [int] NOT NULL,
@@ -35,5 +33,4 @@ GO
 
 ALTER TABLE [dbo].[TargetTemplateKPI] ADD  CONSTRAINT [DF_TargetTemplateKPI_DisplayOrder]  DEFAULT ((100)) FOR [DisplayOrder]
 GO
-
 

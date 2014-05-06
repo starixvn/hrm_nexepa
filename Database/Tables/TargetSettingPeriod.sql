@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetSetting]    Script Date: 3/5/2014 2:47:53 PM ******/
+/****** Object:  Table [dbo].[TargetSettingPeriod]    Script Date: 5/6/2014 3:23:24 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[TargetSettingPeriod](
 	[TargetType] [tinyint] NOT NULL,
 	[DepartmentId] [int] NULL,
 	[EmployeeLevelId] [int] NULL,
-	[TargetId] [int] NOT NULL,
+	[TargetTemplateId] [int] NOT NULL,
 	[RefNo] [int] IDENTITY(1,1) NOT NULL,
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL

@@ -1,17 +1,19 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[EmployeeRole]    Script Date: 3/5/2014 1:10:17 PM ******/
+/****** Object:  Table [dbo].[EmployeePermisson]    Script Date: 5/6/2014 3:15:36 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[EmployeeRole](
+CREATE TABLE [dbo].[EmployeePermisson](
 	[EmployeeId] [int] NOT NULL,
 	[RoleId] [int] NOT NULL,
- CONSTRAINT [PK_EmployeeRole] PRIMARY KEY CLUSTERED 
+	[IsAllow] [bit] NULL,
+	[IsDeny] [bit] NULL,
+ CONSTRAINT [PK_EmployeePermisson] PRIMARY KEY CLUSTERED 
 (
 	[EmployeeId] ASC,
 	[RoleId] ASC

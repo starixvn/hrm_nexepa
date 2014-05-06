@@ -1,14 +1,12 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetTemplateKPIGroup]    Script Date: 4/26/2014 9:39:42 AM ******/
+/****** Object:  Table [dbo].[TargetTemplateKPIGroup]    Script Date: 5/6/2014 3:24:23 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
-DROP TABLE [dbo].[TargetTemplateKPIGroup]
 
 CREATE TABLE [dbo].[TargetTemplateKPIGroup](
 	[TargetTemplateId] [int] NOT NULL,

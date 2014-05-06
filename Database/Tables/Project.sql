@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[Project]    Script Date: 3/5/2014 2:18:56 PM ******/
+/****** Object:  Table [dbo].[Project]    Script Date: 5/6/2014 3:19:53 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,11 +16,11 @@ CREATE TABLE [dbo].[Project](
 	[EndDate] [datetime] NULL,
 	[ProjectManager] [int] NOT NULL,
 	[Status] [tinyint] NULL,
-	[CreateBy] [int] NULL,
+	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NULL,
 	[ModifiedBy] [int] NULL,
-	[ModifiedDate] [datetime] NULL
-CONSTRAINT [PK_ProjectId] PRIMARY KEY CLUSTERED 
+	[ModifiedDate] [datetime] NULL,
+ CONSTRAINT [PK_ProjectId] PRIMARY KEY CLUSTERED 
 (
 	[ProjectId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

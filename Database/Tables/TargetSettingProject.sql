@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetSettingProject]    Script Date: 4/26/2014 9:50:46 AM ******/
+/****** Object:  Table [dbo].[TargetSettingProject]    Script Date: 5/6/2014 3:23:52 PM ******/
 SET ANSI_NULLS ON
 GO
 

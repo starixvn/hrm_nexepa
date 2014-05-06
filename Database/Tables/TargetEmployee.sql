@@ -1,21 +1,20 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetEmployee]    Script Date: 3/5/2014 2:40:27 PM ******/
+/****** Object:  Table [dbo].[TargetEmployee]    Script Date: 5/6/2014 3:22:45 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-DROP TABLE [dbo].[TargetEmployee]
 CREATE TABLE [dbo].[TargetEmployee](
 	[TargetId] [int] NOT NULL,
 	[EmployeeId] [int] NOT NULL,
 	[TargetTemplateId] [int] NOT NULL,
 	[AddedBy] [int] NULL,
-	[AddedDate] [datetime] NULL
-CONSTRAINT [PK_TargetEmployee] PRIMARY KEY CLUSTERED 
+	[AddedDate] [datetime] NULL,
+ CONSTRAINT [PK_TargetEmployee] PRIMARY KEY CLUSTERED 
 (
 	[TargetId] ASC,
 	[EmployeeId] ASC

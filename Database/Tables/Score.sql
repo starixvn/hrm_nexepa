@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[Score]    Script Date: 3/5/2014 2:02:52 PM ******/
+/****** Object:  Table [dbo].[Score]    Script Date: 5/6/2014 3:21:23 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,8 +16,8 @@ CREATE TABLE [dbo].[Score](
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NULL,
 	[ModifiedBy] [int] NULL,
-	[ModifiedDate] [datetime] NULL
-CONSTRAINT [PK_ScoreId] PRIMARY KEY CLUSTERED 
+	[ModifiedDate] [datetime] NULL,
+ CONSTRAINT [PK_ScoreId] PRIMARY KEY CLUSTERED 
 (
 	[ScoreId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

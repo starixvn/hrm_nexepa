@@ -1,14 +1,12 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetTemplate]    Script Date: 3/5/2014 2:55:46 PM ******/
+/****** Object:  Table [dbo].[TargetTemplate]    Script Date: 5/6/2014 3:24:04 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
-DROP TABLE [dbo].[TargetTemplate]
 
 CREATE TABLE [dbo].[TargetTemplate](
 	[TargetTemplateId] [int] IDENTITY(1,1) NOT NULL,
@@ -19,13 +17,12 @@ CREATE TABLE [dbo].[TargetTemplate](
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NULL,
 	[ModifiedBy] [int] NULL,
-	[ModifiedDate] [datetime] NULL
-	
-CONSTRAINT [PK_TargetTemplateId] PRIMARY KEY CLUSTERED 
+	[ModifiedDate] [datetime] NULL,
+ CONSTRAINT [PK_TargetTemplateId] PRIMARY KEY CLUSTERED 
 (
 	[TargetTemplateId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
 
