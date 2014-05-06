@@ -12,10 +12,20 @@
         margin-top: 10px;
     }
 
-    .action-button {
+    .action-button.epa {
         background: #F3F3F3;
         border: 1px solid #DDD;
         padding: 15px 0;
+    }
+
+    a.glyphicon.remove-star {
+        color: #888;
+        margin-right: 3px;
+        cursor: pointer;
+
+        &:hover, &:focus {
+            text-decoration: none;
+        }
     }
 }
 
@@ -45,6 +55,17 @@
 
 .list-star {
     text-align: right;
+
+    .glyphicon-star {
+        cursor: pointer;
+    }
+
+    .badge.percent {
+        background-color: #DBEAF9;
+        border: 1px solid #DDD;
+        padding: 4px 10px;
+        color: #0687D8;
+    }
 }
 
 .comment {
