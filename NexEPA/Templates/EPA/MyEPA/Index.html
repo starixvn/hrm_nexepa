@@ -1,121 +1,121 @@
 ﻿<div class="row sub-header ng-scope">
-	<ul class="col-xs-12 breadcrumb list-inline pull-left">
-		<li>
-			<a href="#">EPA</a></li>
-		<li class="current">My EPA</li>
-	</ul>
+    <ul class="col-xs-12 breadcrumb list-inline pull-left">
+        <li>
+            <a href="#">EPA</a></li>
+        <li class="current">My EPA</li>
+    </ul>
 </div>
 <form class="epa-form" name="addProjectForm" novalidate>
 <div class="epa-box-header epa-boxtitle" data-translate="ppa">
 </div>
 <div class="col-sm-12 list-group-item criteria-area">
-	<div class="boxtitle first" data-translate="GeneralInfo">
-	</div>
-	<div class="epa-boxcontent">
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Employee">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.fullName}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Team">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.groupName}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Evaluator">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.pmFullName}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Project">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.projectName}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Roles">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeRole}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Milestone">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.milestoneName}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line rating">
-			<span class="note">* Rating criteria:</span> please evaluate by point as this scale
-			<!--				<div class="col-sm-4" style="border-right:1px solid cyan;">Stars</div>
-				<div class="col-sm-8">Assessment</div>-->
-			<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
-			</div>
-		</div>
-	</div>
+    <div class="boxtitle first" data-translate="GeneralInfo">
+    </div>
+    <div class="epa-boxcontent">
+        <div class="row row-item line">
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Employee">
+                </div>
+                <div class="col-sm-8 txt-value">
+                    <strong>{{employeeEPA.fullName}}</strong></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Team">
+                </div>
+                <div class="col-sm-8 txt-value">
+                    <strong>{{employeeEPA.groupName}}</strong></div>
+            </div>
+        </div>
+        <div class="row row-item line">
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Evaluator">
+                </div>
+                <div class="col-sm-8 txt-value">
+                    <strong>{{employeeEPA.pmFullName}}</strong></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Project">
+                </div>
+                <div class="col-sm-8 txt-value">
+                    <strong>{{employeeEPA.projectName}}</strong></div>
+            </div>
+        </div>
+        <div class="row row-item line">
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Roles">
+                </div>
+                <div class="col-sm-8 txt-value">
+                    <strong>{{employeeRole}}</strong></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-3" data-translate="Milestone">
+                </div>
+                <div class="col-sm-8 txt-value">
+                    <strong>{{employeeEPA.milestoneName}}</strong></div>
+            </div>
+        </div>
+        <div class="row row-item line rating">
+            <span class="note">* Rating criteria:</span> please evaluate by point as this scale
+            <!--				<div class="col-sm-4" style="border-right:1px solid cyan;">Stars</div>
+                <div class="col-sm-8">Assessment</div>-->
+            <div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
+            </div>
+        </div>
+    </div>
 </div>
 <div class="col-sm-12 list-group-item">
-	<ol class="epa-criteria-ol" type="A">
-		<div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo">
-			<li class="boxtitle epa-criteria-name">{{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)</li>
-			<div class="col-sm-12">
-				<ol type="1" class="list-item">
-					<div class="col-sm-12" ng-repeat="item in kpi.kpiGroupItems">
-						<div class="row criteria-title">
-							<li class="epa-criteria-name">{{item.name}} ({{item.weight}}%)</li>
-						</div>
-						<div class="row">
-							<div class="col-sm-9 criteria-description">
-								{{item.description}}</div>
-							<div class="col-sm-3 list-star">
-								<a ng-show="!isReadonly" class="glyphicon glyphicon-remove-circle remove-star"
-								title="Cancel" href="javascript:;" ng-click="cancelRating(item)"></a>
-								<rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
-									ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(item)"></rating>
-								<span class="badge percent" ng-show="item.percent > 0">{{item.percent}}%</span>
-								<span class="badge percent" ng-show="item.percent <= 0">N/A</span>
-							</div>
-						</div>
-						<div class="row">
-							<textarea class="col-sm-9 epa-textarea-comment criteria-comment" 
-							ng-model="item.comment" ng-show="item.isRequireComment">{{item.comment}}</textarea>
-						</div>
-					</div>
-				</ol>
-			</div>
-		</div>
-	</ol>
+    <ol class="epa-criteria-ol" type="A">
+        <div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo">
+            <li class="boxtitle epa-criteria-name">{{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)</li>
+            <div class="col-sm-12">
+                <ol type="1" class="list-item">
+                    <div class="col-sm-12" ng-repeat="item in kpi.kpiGroupItems">
+                        <div class="row criteria-title">
+                            <li class="epa-criteria-name">{{item.name}} ({{item.weight}}%)</li>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 criteria-description">
+                                {{item.description}}</div>
+                            <div class="col-sm-3 list-star">
+                                <a ng-show="!isReadonly" class="glyphicon glyphicon-remove-circle remove-star"
+                                title="Cancel" href="javascript:;" ng-click="cancelRating(item)"></a>
+                                <rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
+                                    ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(item)"></rating>
+                                <span class="badge percent" ng-show="item.percent > 0">{{item.percent}}%</span>
+                                <span class="badge percent" ng-show="item.percent <= 0">N/A</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <textarea class="col-sm-9 epa-textarea-comment criteria-comment" 
+                            ng-model="item.comment" ng-show="item.isRequireComment">{{item.comment}}</textarea>
+                        </div>
+                    </div>
+                </ol>
+            </div>
+        </div>
+    </ol>
 </div>
 <div class="col-sm-12 list-group-item">
-	<div class="boxtitle first epa-criteria-name">
-		COMMENTS</div>
+    <div class="boxtitle first epa-criteria-name">
+        COMMENTS</div>
     <div class="row comment">
         <textarea class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>
-	    <div class="col-sm-3">
+        <div class="col-sm-3">
             <div class="total">
                 <p>Total</p> 
-		        <p class="finalscore">
-			        {{finalScore}}
-		        </p>
+                <p class="finalscore">
+                    {{finalScore}}
+                </p>
             </div>
-	    </div>
+        </div>
     </div>
-	
+    
 </div>
 <div class="col-sm-12 action-button epa">
-	<button class="button" ng-show="!isReadonly" ng-click="save(employeeEPA)"
-		data-translate="Submit">
-	</button>
-	<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-	</button>
+    <button class="button" ng-show="!isReadonly" ng-click="save(employeeEPA)"
+        data-translate="Submit">
+    </button>
+    <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+    </button>
 </div>
 </form>
