@@ -10,6 +10,7 @@
 namespace NexEPA.Project.Repositories.Impl
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Project.Models;
@@ -25,7 +26,7 @@ namespace NexEPA.Project.Repositories.Impl
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Enumerable of Project Model.</returns>
-        public IEnumerable<ProjectModel> GetAllProject(ICriteria criteria)
+        public dynamic GetAllProject(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -38,7 +39,32 @@ namespace NexEPA.Project.Repositories.Impl
                     "MilestoneId",
                     criteria.GetSpParams());
 
-                return entity;
+                var groupProject = entity.GroupBy(
+                    x => new
+                {
+                    x.ProjectId,
+                    x.Name,
+                    x.ProjectManager,
+                    x.FullName,
+                    x.Members,
+                    x.StartDate,
+                    x.EndDate,
+                    x.Status
+                },
+                x => x.Milestone).Select(y => new ProjectInformationModel
+                {
+                    Name = y.Key.Name,
+                    ProjectId = y.Key.ProjectId,
+                    ProjectManager = y.Key.ProjectManager.Value,
+                    FullName = y.Key.FullName,
+                    Members = y.Key.Members.Value,
+                    StartDate = y.Key.StartDate.Value,
+                    EndDate = y.Key.EndDate.Value,
+                    Status = y.Key.Status.Value,
+                    Milestones = y.ToList()
+                }).ToList();
+
+                return groupProject;
             }
         }
     }

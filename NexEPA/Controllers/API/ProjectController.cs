@@ -58,8 +58,9 @@ namespace NexEPA.Controllers.API
         /// <returns>List Project Model.</returns>
         ////[ApiAuthorize(Roles = "HR")]
         [ApiAuthorize(Roles = "PM,SA")]
-        public IEnumerable<ProjectModel> Get(int? projectManager = null, int? status = null, int? period = null)
+        public dynamic Get(int? projectManager = null, int? status = null, int? period = null)
         {
+            dynamic projects = null;
             DateTime? startDate = null;
             if (period != null)
             {
@@ -74,9 +75,9 @@ namespace NexEPA.Controllers.API
                     EndDate = DateTime.Now.Date
                 };
 
-            IEnumerable<ProjectModel> lstProject = _projectService.GetAllProject(criteria);
+            projects = _projectService.GetAllProject(criteria);
 
-            return lstProject;
+            return projects;
         }
 
         /// <summary>

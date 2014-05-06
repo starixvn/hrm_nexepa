@@ -22,7 +22,7 @@ namespace NexEPA.Project.Services.Interfaces
     {
         ProjectModel GetById(GetProjectByIdCriteria criteria);
 
-        IEnumerable<ProjectModel> GetAllProject(GetAllProjectCriteria criteria);
+        dynamic GetAllProject(GetAllProjectCriteria criteria);
 
         CommandResult InsertProject(AddProjectCriteria criteria);
 

@@ -54,9 +54,9 @@ namespace NexEPA.Project.Services.Impl
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List Project Model.</returns>
-        public IEnumerable<ProjectModel> GetAllProject(GetAllProjectCriteria criteria)
+        public dynamic GetAllProject(GetAllProjectCriteria criteria)
         {
-            IEnumerable<ProjectModel> lstProject = null;
+            dynamic lstProject = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {

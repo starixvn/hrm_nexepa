@@ -68,6 +68,7 @@
     <Compile Include="Criteria\Project\UpdateProjectCriteria.cs" />
     <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\MilestoneModel.cs" />
+    <Compile Include="Models\ProjectInformationModel.cs" />
     <Compile Include="Models\ProjectManagerModel.cs" />
     <Compile Include="Models\ProjectMembersModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />

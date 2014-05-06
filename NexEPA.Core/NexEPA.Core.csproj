@@ -63,6 +63,7 @@
     <Compile Include="Extensions\StringValueAttribute.cs" />
     <Compile Include="Model\Project\ProjectFilterModel.cs" />
     <Compile Include="Model\Project\SelectListModel.cs" />
+    <Compile Include="Model\Project\TreeViewModel.cs" />
     <Compile Include="Model\Target\TargetType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\BaseRepository.cs" />

@@ -48,7 +48,6 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	* Initialize data to view Index.
 	*/
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
-	//milestoneFactory.getMilestone
 
 	// Check for list ProjectManager has cache data.
 	if (cacheListPM) {
@@ -90,6 +89,7 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		$location.path('/Projects/Detail/' + project.projectId);
 		tabService.setProperty(isMemberSelected);
 	};
+
 } ]);
 
 projectsSettingModule.controller('CreateProjectController',
@@ -176,8 +176,8 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 } ]);
 
 projectsSettingModule.controller('ViewDetailAndEditProjectController',
-['$scope', '$routeParams', '$location', '$window', '$modal','projectDataFactory', 'ProjectSettingCache', 
-'commonFactory', 'tabService', 
+['$scope', '$routeParams', '$location', '$window', '$modal', 'projectDataFactory', 'ProjectSettingCache',
+'commonFactory', 'tabService',
 function ($scope, $routeParams, $location, $window, $modal, projectDataFactory, ProjectSettingCache, commonFactory, tabService) {
 	/**
 	* Scope variables. 
@@ -285,6 +285,7 @@ function ($scope, $routeParams, $location, $window, $modal, projectDataFactory, 
 	$scope.editProject = function () {
 		$location.path('/Projects/Edit/' + projectId).search('isEditMode', true);
 	};
+
 } ]);
 
 projectsSettingModule.controller('MilestoneController',

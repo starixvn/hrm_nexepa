@@ -1,8 +1,7 @@
 ﻿/*global registrationModule*/
 'use strict';
 
-
-registrationModule.module('angularTreeview', []).directive('treeModel', ['$compile', function ($compile) {
+registrationModule.directive('treeModel', ['$compile', function ($compile) {
 	return {
 		restrict: 'A',
 		link: function (scope, element, attrs) {
@@ -25,17 +24,19 @@ registrationModule.module('angularTreeview', []).directive('treeModel', ['$compi
 			var template =
 					'<ul>' +
 						'<li data-ng-repeat="node in ' + treeModel + '">' +
-							'<i class="collapsed" data-ng-show="node.' + nodeChildren +
-							'.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
-							'<i class="expanded" data-ng-show="node.' + nodeChildren + 
-							'.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
-							'<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
-							'<span data-ng-class="node.selected" data-ng-click="' +
-							treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
-							'<div data-ng-hide="node.collapsed" data-tree-id="' + treeId + 
-							'" data-tree-model="node.' + nodeChildren + '" data-node-id=' +
-							nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' +
-							nodeChildren + '></div>' +
+							'<i class="collapsed" data-ng-show="node.'
+							+ nodeChildren + '.length && node.collapsed" data-ng-click="'
+							+ treeId + '.selectNodeHead(node)"></i>'
+							+ '<i class="expanded" data-ng-show="node.'
+							+ nodeChildren + '.length && !node.collapsed" data-ng-click="'
+							+ treeId + '.selectNodeHead(node)"></i>' + '<i class="normal" data-ng-hide="node.'
+							+ nodeChildren + '.length"></i> ' +
+							'<span data-ng-class="node.selected" data-ng-click="'
+							+ treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
+							'<div data-ng-hide="!node.collapsed" data-tree-id="'
+							+ treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id='
+							+ nodeId + ' data-node-label=' + nodeLabel + ' data-node-children='
+							+ nodeChildren + '></div>' +
 						'</li>' +
 					'</ul>';
 
@@ -48,11 +49,10 @@ registrationModule.module('angularTreeview', []).directive('treeModel', ['$compi
 
 					//create tree object if not exists
 					scope[treeId] = scope[treeId] || {};
-
 					//if node head clicks,
 					scope[treeId].selectNodeHead = scope[treeId].selectNodeHead || function (selectedNode) {
-
 						//Collapse or Expand
+
 						selectedNode.collapsed = !selectedNode.collapsed;
 					};
 
