@@ -1,5 +1,5 @@
 ﻿<div ng-controller="MilestoneController">
-	<div class="error-message" ng-show="milestoneErrors.length > 0" id="addError" ng-repeat="error in milestoneErrors">
+	<div class="error-message buffer-error-message" ng-show="milestoneErrors.length > 0" id="addError" ng-repeat="error in milestoneErrors">
 		{{error}}
 	</div>
 	<table class="table-project table table-bordered table-striped table-hover">
@@ -118,7 +118,7 @@
 			</td>
 		</tr>
 		<tr ng-show="milestones == ''">
-			<td class="empty-result" colspan="5" data-translate="EmptyResult">
+			<td class="empty-result" colspan="6" data-translate="EmptyResult">
 			</td>
 		</tr>
 	</table>

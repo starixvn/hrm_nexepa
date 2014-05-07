@@ -53,7 +53,7 @@
 						ng-model="project.status" ng-change="updateProjectStatus(project)">
 					</select>
 					<a class="glyphicon glyphicon-trash pull-right top-buffer" ng-show="project.isUpdateStatus"
-						href="javascript:;" ng-click="cancelEditStatus(project)"></a>
+						href="javascript:;" ng-click="toogleEditStatus(project)" title="Cancel"></a>
 				</td>
 				<td class="text-center">
 					{{project.startDate|date:'dd MMM, yyyy'}}
@@ -62,9 +62,9 @@
 					{{project.endDate|date:'dd MMM, yyyy'}}
 				</td>
 				<td class="text-center">
-					<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="" ng-click="editProject(project.projectId)" />
-					<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href=""
-						ng-click="openDeletePopup(project)" />
+					<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="javascript:;" ng-click="editProject(project.projectId)" />
+					<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="javascript:;"
+						ng-click="deleteProject(project)" />
 				</td>
 			</tr>
 			<tr ng-show="projects == ''">

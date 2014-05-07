@@ -86,7 +86,7 @@ namespace NexEPA.Controllers.API
         /// <param name="project">Project Model.</param>
         /// <returns>Http Response Message.</returns>
         [ApiAuthorize(Roles = "PM,SA")]
-        public HttpResponseMessage Post(ProjectModel project)
+        public HttpResponseMessage AddProject(ProjectModel project)
         {
             if (ModelState.IsValid)
             {
@@ -174,6 +174,32 @@ namespace NexEPA.Controllers.API
             };
 
             CommandResult result = _projectService.UpdateProjectStatus(criteria);
+
+            if (result.Code != 0)
+            {
+                List<string> errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Delete Project.
+        /// </summary>
+        /// <param name="projectId">Project Id.</param>
+        /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "PM,SA")]
+        public HttpResponseMessage DeleteProject(int projectId)
+        {
+            var criteria = new DeleteProjectCriteria
+            {
+                ProjectId = projectId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            CommandResult result = _projectService.DeleteProject(criteria);
 
             if (result.Code != 0)
             {

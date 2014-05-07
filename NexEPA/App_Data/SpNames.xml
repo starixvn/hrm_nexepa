@@ -22,6 +22,7 @@
 		<Setting Key="Milestone_Delete" SpName="Milestone_Delete" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Project_GetAll" SpName="Project_GetAll" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Project_UpdateStatus" SpName="Project_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Project_Delete" SpName="Project_Delete" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="ProjectMembers">

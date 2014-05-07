@@ -37,5 +37,7 @@ namespace NexEPA.Project.Services.Interfaces
         CommandResult InsertMilestone(AddMilestoneCriteria criteria);
 
         CommandResult DeleteMilestone(DeleteMilestoneCriteria criteria);
+
+        CommandResult DeleteProject(DeleteProjectCriteria criteria);
     }
 }

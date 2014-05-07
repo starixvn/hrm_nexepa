@@ -2,8 +2,8 @@
 'use strict';
 
 projectsSettingModule.controller('ProjectController',
-['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService', 'notificationFactory',
-function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService, notificationFactory) {
+['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService', 'notificationFactory', '$modal',
+function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService, notificationFactory, $modal) {
 	/**
 	* Variables. 
 	*/
@@ -49,7 +49,12 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	};
 
-	var errorUpdateProjectStatus = function (response) { notificationFactory.error('', response); };
+	var successDeleteProject = function () {
+		notificationFactory.success('SuccessDeleteData', '');
+		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+	};
+
+	var errorNotification = function (response) { notificationFactory.error('', response); };
 
 	/**
 	* Initialize data to view Index.
@@ -101,12 +106,29 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		project.isUpdateStatus = !project.isUpdateStatus;
 	};
 
-	$scope.cancelEditStatus = function () {
-		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
-	};
 	$scope.updateProjectStatus = function (project) {
 		projectDataFactory.updateProjectStatus(project)
-		.then(successUpdateProjectStatus, errorUpdateProjectStatus);
+		.then(successUpdateProjectStatus, errorNotification);
+	};
+
+	// Delete Milestone.
+	$scope.deleteProject = function (project) {
+		debugger;
+		var deleteModalInstance = $modal.open({
+			templateUrl: '/templates/Common/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return project.name;
+				},
+				action: function () {
+					return "delete";
+				}
+			}
+		});
+		deleteModalInstance.result.then(function () {
+			projectDataFactory.deleteProject(project.projectId).then(successDeleteProject, errorNotification);
+		});
 	};
 
 } ]);
@@ -355,6 +377,11 @@ commonFactory, ProjectSettingCache) {
 		$scope.milestoneErrors = data;
 	};
 
+	var successDeleteMilestone = function () {
+		notificationFactory.success('SuccessDeleteData', '');
+		return milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
+	};
+
 	// Get data to Status - Select List
 	var successGetMilestoneStatusSelectList = function (data) {
 		$scope.milestoneStatus = data;
@@ -450,8 +477,7 @@ commonFactory, ProjectSettingCache) {
 			}
 		});
 		deleteModalInstance.result.then(function () {
-			milestoneFactory.deleteMilestone(milestone.milestoneId).then(successNotification, errorNotification);
+			milestoneFactory.deleteMilestone(milestone.milestoneId).then(successDeleteMilestone, errorNotification);
 		});
-
 	};
 } ]);

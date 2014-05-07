@@ -61,6 +61,7 @@
     <Compile Include="Criteria\ProjectMembers\GetMemberRoleInProjectCriteria.cs" />
     <Compile Include="Criteria\Project\AddProjectCriteria.cs" />
     <Compile Include="Criteria\Milestone\DeleteMilestoneCriteria.cs" />
+    <Compile Include="Criteria\Project\DeleteProjectCriteria.cs" />
     <Compile Include="Criteria\Project\GetAllProjectCriteria.cs" />
     <Compile Include="Criteria\Milestone\GetMilestoneByProjectIdCriteria.cs" />
     <Compile Include="Criteria\Project\GetProjectByIdCriteria.cs" />

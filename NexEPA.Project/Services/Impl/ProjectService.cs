@@ -184,5 +184,22 @@ namespace NexEPA.Project.Services.Impl
 
             return result;
         }
+
+        /// <summary>
+        /// Delete Project.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult DeleteProject(DeleteProjectCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Delete(criteria);
+            }
+
+            return result;
+        }
     }
 }

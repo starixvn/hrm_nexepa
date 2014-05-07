@@ -38,7 +38,7 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
 		},
 		addProject: function (project) {
 			var deferred = $q.defer();
-			$http.post(url, project).success(deferred.resolve).error(function (data) {
+			$http.post('/api/Project/AddProject', project).success(deferred.resolve).error(function (data) {
 				deferred.reject(data);
 			});
 			return deferred.promise;
@@ -54,6 +54,11 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
 				deferred.reject(status);
 			});
 
+			return deferred.promise;
+		},
+		deleteProject: function (projectId) {
+			var deferred = $q.defer();
+			$http['delete'](url, { params: { projectId: projectId} }).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
 	};
