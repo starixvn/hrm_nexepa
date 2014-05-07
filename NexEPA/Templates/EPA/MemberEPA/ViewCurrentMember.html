@@ -50,7 +50,7 @@
             </td>
             <td class="epa-status" ng-bind="epaItem.statusName"></td>
             <td ng-bind="epaItem.evaluator.evaluatorFullName"></td>
-            <td class="epa-evaluate-date">{{epaItem.evaluateDate | date: 'dd MMM, yyyy'}}</td>
+            <td class="epa-evaluate-date">{{epaItem.evaluateDate | customDate }}</td>
         </tr>
 
         <tr ng-show="listEPA == ''">

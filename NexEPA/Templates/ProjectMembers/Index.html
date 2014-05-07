@@ -35,7 +35,7 @@
 									{{member.name}}
 								</td>
 								<td class="text-center">
-									{{member.joinDate | date: 'dd MMM, yyyy'}}
+									{{member.joinDate | customDate }}
 								</td>
 								<td class="text-center" ng-show="isEditMode">
 									<div class="btn-group">

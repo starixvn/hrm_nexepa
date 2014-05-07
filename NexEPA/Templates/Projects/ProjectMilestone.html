@@ -1,5 +1,6 @@
 ﻿<div ng-controller="MilestoneController">
-	<div class="error-message buffer-error-message" ng-show="milestoneErrors.length > 0" id="addError" ng-repeat="error in milestoneErrors">
+	<div class="error-message buffer-error-message" ng-show="milestoneErrors.length > 0"
+		id="addError" ng-repeat="error in milestoneErrors">
 		{{error}}
 	</div>
 	<table class="table-project table table-bordered table-striped table-hover">
@@ -54,7 +55,8 @@
 				<img class="calendar-image" ng-click="openPopupAddModeEndDate($event)" src="{{sourceCalendarImage}}"></img>
 			</td>
 			<td>
-				<select class="custom-textbox" ng-options="s.id as s.name for s in milestoneStatus" ng-model="milestone.status">
+				<select class="custom-textbox" ng-options="s.id as s.name for s in milestoneStatus"
+					ng-model="milestone.status">
 					<option style="display: none" value="">-- Select a status --</option>
 				</select>
 			</td>
@@ -75,7 +77,7 @@
 			</td>
 			<td class="text-center">
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.startDate
-					| date:'dd MMM, yyyy'}}</span>
+					| customDate}}</span>
 				<input ng-model="milestone.startDate" class="custom-textbox custom-date milestone-date-width"
 					ng-show="milestone.editMode == true" is-open="calendar.editModeStartDateOpened{{milestone.milestoneId}}"
 					datepicker-popup="{{dateFormat}}" readonly id="start1" />
@@ -83,8 +85,8 @@
 					src="{{sourceCalendarImage}}"></img>
 			</td>
 			<td class="text-center">
-				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.endDate
-					| date:'dd MMM, yyyy'}}</span>
+				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.endDate|
+					customDate }}</span>
 				<input ng-model="milestone.endDate" class="custom-textbox custom-date milestone-date-width"
 					ng-show="milestone.editMode == true" is-open="calendar.editModeEndDateOpened{{milestone.milestoneId}}"
 					datepicker-popup="{{dateFormat}}" readonly id="end1" />
@@ -93,8 +95,8 @@
 			</td>
 			<td class="column-limit text-center">
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.status|enumStatusText}}</span>
-				<select class="custom-textbox" ng-options="s.id as s.name for s in milestoneStatus" 
-				ng-model="milestone.status" ng-show="milestone.editMode == true">
+				<select class="custom-textbox" ng-options="s.id as s.name for s in milestoneStatus"
+					ng-model="milestone.status" ng-show="milestone.editMode == true">
 					<option style="display: none" value="">-- Select a status --</option>
 				</select>
 			</td>
