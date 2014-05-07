@@ -126,19 +126,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	$scope.hoveringLeave = function (item) {
 		item.percent = (100 * item.score) / $scope.max;
 		calculateScore();
-
-
 	};
-
-	$(".boxtitle").on("click", function () {
-		var header = $(this);
-		//getting the next element
-		var content = header.next();
-		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
-		content.slideToggle(500, function () {
-		});
-	});
-
 
 } ]);
 
@@ -178,16 +166,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	*/
 
 	$scope.cancel = function () { $window.history.back(); };
-
-	$(".boxtitle").on("click", function () {
-		var header = $(this);
-		//getting the next element
-		var content = header.next();
-		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
-		content.slideToggle(500, function () {
-		});
-	});
-
 
 } ]);
 

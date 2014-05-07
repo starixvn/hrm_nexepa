@@ -56,8 +56,6 @@
 		</div>
 		<div class="row row-item line rating">
 			<span class="note">* Rating criteria:</span> please evaluate by point as this scale
-			<!--				<div class="col-sm-4" style="border-right:1px solid cyan;">Stars</div>
-                <div class="col-sm-8">Assessment</div>-->
 			<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
 			</div>
 		</div>
@@ -65,7 +63,7 @@
 </div>
 <div class="col-sm-12 list-group-item">
 	<ol class="epa-criteria-ol" type="A">
-		<div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo">
+		<div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo" ng-repeat-loaded>
 			<li class="boxtitle epa-criteria-name">{{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)</li>
 			<div class="col-sm-12">
 				<ol type="1" class="list-item">
