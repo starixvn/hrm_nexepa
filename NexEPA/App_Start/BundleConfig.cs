@@ -63,7 +63,7 @@ namespace NexEPA
                 "~/Scripts/Views/Projects/projects-repository.js",
                 "~/Scripts/Views/ProjectMember/projectmember-controller.js",
                 "~/Scripts/Views/ProjectMember/projectmember-repository.js",
-                "~/Scripts/Extensions/Filters/projectstatus-filter.js",
+                "~/Scripts/Extensions/Filters/epa-filter.js",
                 "~/Scripts/Extensions/Directives/epa-directive.js",
                 "~/Scripts/Extensions/Services/projectsetting-service.js",
                 "~/Scripts/Extensions/Common/notification-factory.js",

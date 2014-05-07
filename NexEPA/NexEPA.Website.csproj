@@ -237,7 +237,7 @@
     <Content Include="Scripts\Extensions\Common\common-factory.js" />
     <Content Include="Scripts\Extensions\Common\modalconfirm-controller.js" />
     <Content Include="Scripts\Extensions\Common\notification-factory.js" />
-    <Content Include="Scripts\Extensions\Filters\projectstatus-filter.js" />
+    <Content Include="Scripts\Extensions\Filters\epa-filter.js" />
     <Content Include="Scripts\Extensions\Services\projectsetting-service.js" />
     <Content Include="Scripts\Libs\angular.js" />
     <Content Include="Scripts\Libs\angular-resource.js" />

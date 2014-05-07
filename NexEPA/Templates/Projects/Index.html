@@ -56,10 +56,10 @@
 						href="javascript:;" ng-click="toogleEditStatus(project)" title="Cancel"></a>
 				</td>
 				<td class="text-center">
-					{{project.startDate|date:'dd MMM, yyyy'}}
+					{{project.startDate | customDate}}
 				</td>
 				<td class="text-center">
-					{{project.endDate|date:'dd MMM, yyyy'}}
+					{{project.endDate| customDate}}
 				</td>
 				<td class="text-center">
 					<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="javascript:;" ng-click="editProject(project.projectId)" />
