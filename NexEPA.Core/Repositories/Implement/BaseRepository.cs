@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2014.3.11">Created</change>
 // </history>
 
-namespace NexEPA.Core.Repositories.Implements
+namespace NexEPA.Core.Repositories.Implement
 {
     using System;
     using System.Collections;
@@ -18,7 +18,7 @@ namespace NexEPA.Core.Repositories.Implements
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Extensions;
-    using NexEPA.Core.Repositories.Interfaces;
+    using NexEPA.Core.Repositories.Interface;
 
     /// <summary>
     /// Repository Base.

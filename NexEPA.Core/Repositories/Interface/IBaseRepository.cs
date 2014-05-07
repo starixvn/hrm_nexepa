@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2014.3.18">Created</change>
 // </history>
 
-namespace NexEPA.Core.Repositories.Interfaces
+namespace NexEPA.Core.Repositories.Interface
 {
     using Fanex.NAP.Framework.Data;
 

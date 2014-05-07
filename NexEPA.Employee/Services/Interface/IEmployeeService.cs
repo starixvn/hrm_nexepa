@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.03">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Services.Interfaces
+namespace NexEPA.Employee.Services.Interface
 {
     using System.Collections.Generic;
     using NexEPA.Employee.Criteria;

@@ -7,13 +7,13 @@
 //   <change who="Josh.Phan" date="2014.04.08">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Repositories.Implements
+namespace NexEPA.Employee.Repositories.Implement
 {
     using System.Collections.Generic;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Employee.Models;
-    using NexEPA.Employee.Repositories.Interfaces;
+    using NexEPA.Employee.Repositories.Interface;
 
     /// <summary>
     /// The implement of Employee Repositories.

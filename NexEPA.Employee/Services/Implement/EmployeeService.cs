@@ -7,16 +7,16 @@
 //   <change who="Josh.Phan" date="2014.04.03">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Services.Implements
+namespace NexEPA.Employee.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
-    using NexEPA.Employee.Repositories.Implements;
-    using NexEPA.Employee.Repositories.Interfaces;
-    using NexEPA.Employee.Services.Interfaces;
+    using NexEPA.Employee.Repositories.Implement;
+    using NexEPA.Employee.Repositories.Interface;
+    using NexEPA.Employee.Services.Interface;
 
     /// <summary>
     /// The implement of Employee services.

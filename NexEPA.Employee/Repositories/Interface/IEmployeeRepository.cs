@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.08">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Repositories.Interfaces
+namespace NexEPA.Employee.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
