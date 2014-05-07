@@ -10,6 +10,7 @@
 namespace NexEPA.Employee.Models
 {
     using NexEPA.Core.Models;
+
     /// <summary>
     /// The Job Title model.
     /// </summary>
