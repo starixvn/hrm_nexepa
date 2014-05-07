@@ -1,0 +1,44 @@
+﻿<div ng-controller="HistoryProjectController">
+    <div class="row">
+        <div class="home-tab colons">
+            <span class="home-label" data-translate="ProjectHistory" ng-click="collapseTable()"></span>
+        </div>
+    </div>
+
+    <div class="row" collapse="isCollapsed">
+        <table class="table table-bordered table-striped home-table">
+            <thead>
+                <th data-translate="SymbolCount"></th>
+                <th data-translate="Project"></th>
+                <th data-translate="ProjectManager"></th>
+                <th data-translate="StartDate"></th>
+                <th data-translate="EndDate"></th>
+                <th data-translate="AverageScore"></th>
+                <th data-translate="Role"></th>
+                <th data-translate="ProjectManagerComment"></th>
+            </thead>
+            <tbody ng-repeat="historyProject in dashboradInformation.historyProjects">
+                <tr>
+                    <td class="home-index" ng-bind="$index + 1"></td>
+                    <td ng-bind="historyProject.project.name" ng-click="showMilestone(historyProject.project.projectId)"></td>
+                    <td ng-bind="historyProject.evaluator.fullName"></td>
+                    <td class="home-start-date">{{historyProject.project.startDate | date: 'dd MMM, yyyy'}}</td>
+                    <td class="home-end-date">{{historyProject.project.endDate | date: 'dd MMM, yyyy'}}</td>
+                    <td class="home-score" ng-bind="historyProject.score"></td>
+                    <td class="home-role" ng-bind="historyProject.roles"></td>
+                    <td ng-bind="historyProject.comment"></td>
+                </tr>
+                <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
+                    <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
+                    <td ng-bind="milestone.name"></td>
+                    <td></td>
+                    <td class="home-start-date">{{milestone.startDate | date: 'dd MMM, yyyy'}}</td>
+                    <td class="home-end-date">{{milestone.endDate | date: 'dd MMM, yyyy'}}</td>
+                    <td class="home-score" ng-bind="milestone.score"></td>
+                    <td></td>
+                    <td ng-bind="milestone.comment"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

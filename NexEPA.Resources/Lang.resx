@@ -471,4 +471,37 @@
   <data name="AddProject" xml:space="preserve">
     <value>Add Project</value>
   </data>
+  <data name="AverageScore" xml:space="preserve">
+    <value>Average score</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MyKPIs" xml:space="preserve">
+    <value>My KPIs</value>
+  </data>
+  <data name="MySpace" xml:space="preserve">
+    <value>My space</value>
+  </data>
+  <data name="OpenProject" xml:space="preserve">
+    <value>Open Projects</value>
+  </data>
+  <data name="Personal" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="ProjectHistory" xml:space="preserve">
+    <value>Project History</value>
+  </data>
+  <data name="ProjectInProgress" xml:space="preserve">
+    <value>Project in progress</value>
+  </data>
+  <data name="ProjectManagerComment" xml:space="preserve">
+    <value>Project Manager's comment</value>
+  </data>
+  <data name="TotalFinishedProject" xml:space="preserve">
+    <value>Total finished projects</value>
+  </data>
+  <data name="AverageWeight" xml:space="preserve">
+    <value>Average weight</value>
+  </data>
 </root>

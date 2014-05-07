@@ -1,0 +1,28 @@
+﻿<div ng-controller="OpenProjectController">
+    <div class="row">
+        <div class="home-tab colons">
+             <span class="home-label" data-translate="OpenProject" ng-click="collapseTable()"></span>
+        </div>
+    </div>
+
+    <div class="row" collapse="isCollapsed">
+        <table class="table table-bordered table-striped target-member-table">
+            <thead>
+                <th data-translate="SymbolCount"></th>
+                <th data-translate="Project"></th>
+                <th data-translate="ProjectManager"></th>
+                <th data-translate="StartDate"></th>
+                <th data-translate="EndDate"></th>
+                <th data-translate="Role"></th>
+            </thead>
+            <tr ng-repeat="openProject in dashboradInformation.openProjects">
+                <td class="home-index" ng-bind="$index + 1"></td>
+                <td ng-bind="openProject.project.name"></td>
+                <td ng-bind="openProject.evaluator.fullName"></td>
+                <td class="home-start-date">{{openProject.project.startDate | date: 'dd MMM, yyyy'}}</td>
+                <td class="home-end-date">{{openProject.project.endDate | date: 'dd MMM, yyyy'}}</td>
+                <td class="home-role" ng-bind="openProject.roles"></td>
+            </tr>
+        </table>
+    </div>
+</div>

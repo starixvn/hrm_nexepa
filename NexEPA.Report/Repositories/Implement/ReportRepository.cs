@@ -28,12 +28,13 @@ namespace NexEPA.Report.Repositories.Implement
         public List<object> GetGeneralInformationOfCurrentEmployee(ICriteria criteria)
         {
             var result = new List<object>();
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    result.Add(multi.Read<GeneralInformationOfProjectModel>());
+                    var generalInformationList = (List<GeneralInformationOfProjectModel>)multi.Read<GeneralInformationOfProjectModel>();
+                    var generalInformation = generalInformationList.Count > 0 ? generalInformationList[0] : new GeneralInformationOfProjectModel();
+                    result.Add(generalInformation);
 
                     IEnumerable<OpenProjectModel> openProjects = multi.Read<OpenProjectModel, ProjectModel, EvaluatorModel, OpenProjectModel>(
                         (opPro, pro, eva) =>
@@ -57,7 +58,9 @@ namespace NexEPA.Report.Repositories.Implement
                         "ProjectId,EmployeeId,MilestoneId");
                     result.Add(historyProjects);
 
-                    result.Add(multi.Read<KPIInformationModel>());
+                    var listKPIs = (List<KPIInformationModel>)multi.Read<KPIInformationModel>();
+                    var listKPI = listKPIs.Count > 0 ? listKPIs[0] : new KPIInformationModel();
+                    result.Add(listKPI);
                 }
             }
 

@@ -20,6 +20,10 @@ namespace NexEPA.Report.Models.Dashboard
 
         public string Roles { get; set; }
 
+        public int Score { get; set; }
+
+        public string Comment { get; set; }
+
         public ProjectModel Project { get; set; }
 
         public EvaluatorModel Evaluator { get; set; }

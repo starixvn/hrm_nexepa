@@ -17,11 +17,18 @@ namespace NexEPA.Report.ViewModels
     /// </summary>
     public class HistoryProjectViewModel
     {
+        public HistoryProjectViewModel()
+        {
+            Milestones = new List<MilestoneModel>();
+        }
+
         public int TargetId { get; set; }
 
         public string Roles { get; set; }
 
         public int Score { get; set; }
+
+        public string Comment { get; set; }
 
         public ProjectModel Project { get; set; }
 
