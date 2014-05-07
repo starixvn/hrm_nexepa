@@ -12,7 +12,6 @@ namespace NexEPA.Employee.Models
 {
     using System;
     using NexEPA.Core.Models;
-    using NexEPA.Employee.ViewModels;
 
     /// <summary>
     /// Employee class.

@@ -54,7 +54,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
-    <Compile Include="ViewModels\JobTitle.cs" />
+    <Compile Include="Models\JobTitle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\EmployeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />

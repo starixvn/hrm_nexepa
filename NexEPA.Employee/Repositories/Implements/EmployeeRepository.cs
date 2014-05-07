@@ -10,12 +10,10 @@
 namespace NexEPA.Employee.Repositories.Implements
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Repositories.Interfaces;
-    using NexEPA.Employee.ViewModels;
 
     /// <summary>
     /// The implement of Employee Repositories.

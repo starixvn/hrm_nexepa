@@ -7,12 +7,13 @@
 //   <change who="Josh.Phan" date="2014.04.08">Created</change>
 // </history>
 
-namespace NexEPA.Employee.ViewModels
+namespace NexEPA.Employee.Models
 {
+    using NexEPA.Core.Models;
     /// <summary>
     /// The Job Title model.
     /// </summary>
-    public class JobTitle
+    public class JobTitle : IModel
     {
         public int? JobTitleId { get; set; }
 
