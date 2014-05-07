@@ -12,12 +12,12 @@ namespace NexEPA.Controllers.API
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using NexEPA.Core.Models;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implements;
     using NexEPA.Employee.Services.Interfaces;
     using NexEPA.Employee.ViewModels;
-    using NexEPA.Core.Models;
 
     /// <summary>
     /// Employee controller.
@@ -39,10 +39,10 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Function to get all employees.
         /// </summary>
-        /// <param name="keyword"></param>
-        /// <param name="groupId"></param>
-        /// <param name="isDisabled"></param>
-        /// <returns></returns>
+        /// <param name="keyword">The keyword.</param>
+        /// <param name="groupId">The Group Id.</param>
+        /// <param name="isDisabled">Is Disabled.</param>
+        /// <returns>Employee list.</returns>
         [HttpGet]
         public IList<EmployeeViewModel> GetAllEmployee(string keyword = "", int? groupId = null, bool? isDisabled = null)
         {
@@ -69,6 +69,12 @@ namespace NexEPA.Controllers.API
             return selectListGroups;
         }
 
+        /// <summary>
+        /// Function to get employees by project.
+        /// </summary>
+        /// <param name="projectId">Project Id.</param>
+        /// <param name="keyword">The keyword.</param>
+        /// <returns>Employee list.</returns>
         [HttpGet]
         public IList<EmployeeViewModel> GetEmployeeByProjectId(int? projectId = null, string keyword = "")
         {
