@@ -7,14 +7,14 @@
 //   <change who="Josh.Phan" date="2014.04.08">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Repositories.Implement
+namespace NexEPA.Employee.Repositories.Implements
 {
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Employee.Models;
-    using NexEPA.Employee.Repositories.Interface;
+    using NexEPA.Employee.Repositories.Interfaces;
     using NexEPA.Employee.ViewModels;
 
     /// <summary>
@@ -27,11 +27,11 @@ namespace NexEPA.Employee.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The List Employee Info.</returns>
-        public IEnumerable<EmployeeInfo> GetAllEmployee(ICriteria criteria)
+        public IEnumerable<Employee> GetAllEmployee(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<EmployeeInfo, Group, JobTitle, EmployeeInfo>(
+                return db.Query<Employee, Group, JobTitle, Employee>(
                     (emp, gr, jb) =>
                     {
                         emp.Group = gr;
@@ -48,11 +48,11 @@ namespace NexEPA.Employee.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The IEnumerable Employee Info.</returns>
-        public IEnumerable<EmployeeInfo> GetEmployeeByProjectId(ICriteria criteria)
+        public IEnumerable<Employee> GetEmployeeByProjectId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<EmployeeInfo, Group, EmployeeInfo>(
+                return db.Query<Employee, Group, Employee>(
                     (empIn, grIn) =>
                     {
                         empIn.Group = grIn;

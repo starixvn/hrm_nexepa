@@ -10,34 +10,41 @@
 namespace NexEPA.Controllers.API
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using NexEPA.Employee.Criteria;
-    using NexEPA.Employee.Services.Implement;
-    using NexEPA.Employee.Services.Interface;
+    using NexEPA.Employee.Models;
+    using NexEPA.Employee.Services.Implements;
+    using NexEPA.Employee.Services.Interfaces;
     using NexEPA.Employee.ViewModels;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// Employee controller.
     /// </summary>
     public class EmployeeController : ApiController
     {
-        private IEmployeeService _employeeServices;
+        private IEmployeeService _employeeService;
 
         public EmployeeController()
             : this(null)
         {
         }
 
-        public EmployeeController(EmployeeService employeeServices)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeServices = employeeServices ?? new EmployeeService();
+            _employeeService = employeeService ?? new EmployeeService();
         }
 
+        /// <summary>
+        /// Function to get all employees.
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="groupId"></param>
+        /// <param name="isDisabled"></param>
+        /// <returns></returns>
         [HttpGet]
-        public List<EmployeeItem> GetAllEmployee(
-            string keyword = "", 
-            int? groupId = null, 
-            bool? isDisabled = null)
+        public IList<EmployeeViewModel> GetAllEmployee(string keyword = "", int? groupId = null, bool? isDisabled = null)
         {
             var criteria = new GetAllEmployeeCriteria
             {
@@ -46,20 +53,24 @@ namespace NexEPA.Controllers.API
                 GroupId = groupId
             };
 
-            return _employeeServices.GetAllEmployee(criteria);
+            IEnumerable<Employee> rawEmployees = _employeeService.GetAllEmployee(criteria);
+            IList<EmployeeViewModel> employee = rawEmployees.Select(t => new EmployeeViewModel(t)).ToList();
+            
+            return employee;
         }
 
         [HttpGet]
-        public List<Group> GetAllGroup()
+        public IList<SelectListModel> GetAllGroup()
         {
             var criteria = new GetAllEmployeeGroupCriteria();
-            return _employeeServices.GetAllEmployeeGroup(criteria);
+            IEnumerable<Group> groups = _employeeService.GetAllEmployeeGroup(criteria);
+            IList<SelectListModel> selectListGroups = groups.Select(t => new SelectListModel { Id = t.GroupId, Name = t.Name }).ToList();
+            
+            return selectListGroups;
         }
 
         [HttpGet]
-        public List<EmployeeItem> GetEmployeeByProjectId(
-            int? projectId = null, 
-            string keyword = "")
+        public IList<EmployeeViewModel> GetEmployeeByProjectId(int? projectId = null, string keyword = "")
         {
             var criteria = new GetEmployeeByProjectIdCriteria
             {
@@ -67,7 +78,10 @@ namespace NexEPA.Controllers.API
                 Keyword = keyword
             };
 
-            return _employeeServices.GetEmployeeByProjectId(criteria);
+            IEnumerable<Employee> rawEmployees = _employeeService.GetEmployeeByProjectId(criteria);
+            IList<EmployeeViewModel> employee = rawEmployees.Select(t => new EmployeeViewModel(t)).ToList();
+
+            return employee;
         }
     }
 }

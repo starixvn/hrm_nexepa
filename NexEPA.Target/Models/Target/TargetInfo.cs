@@ -11,7 +11,7 @@ namespace NexEPA.Target.Models.Target
 {
     using System;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// The model of Target.

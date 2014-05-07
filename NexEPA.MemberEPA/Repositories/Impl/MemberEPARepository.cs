@@ -14,7 +14,7 @@ namespace NexEPA.MemberEPA.Repositories.Impl
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
     using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;

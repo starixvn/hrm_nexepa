@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.24">Created</change>
 // </history>
 
-namespace NexEPA.Core.Model.Project
+namespace NexEPA.Core.Models
 {
     using System;
 

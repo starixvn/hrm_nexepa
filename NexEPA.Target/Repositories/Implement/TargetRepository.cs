@@ -12,7 +12,7 @@ namespace NexEPA.Target.Repositories.Implement
     using System.Collections.Generic;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
     using NexEPA.Target.Models.Target;
     using NexEPA.Target.Repositories.Interfaces;
 

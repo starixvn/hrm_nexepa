@@ -12,7 +12,7 @@ namespace NexEPA.Project.Models
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using NexEPA.Core.Model.Project;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// Project Information Model.

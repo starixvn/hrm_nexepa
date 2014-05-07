@@ -1,20 +1,20 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TargetType.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="SelectListModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="2014.03.20">Created</change>
+//   <change who="Bradley.Mac" date="2014.4.11">Created</change>
 // </history>
 
-namespace NexEPA.Core.Model.Target
+namespace NexEPA.Core.Models
 {
     /// <summary>
-    /// Target Type model.
+    /// Select List Model.
     /// </summary>
-    public class TargetType
+    public class SelectListModel
     {
-        public int TargetTypeId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
     }

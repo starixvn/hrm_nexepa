@@ -12,8 +12,7 @@ namespace NexEPA.Controllers.API
     using System.Collections.Generic;
     using System.Web.Http;
     using NexEPA.Core.Criteria;
-    using NexEPA.Core.Model.Project;
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Core.Utilities;
     using NexEPA.Project.Services.Impl;

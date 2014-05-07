@@ -15,7 +15,7 @@ namespace NexEPA.Core.Utilities
     using System.Linq;
     using System.Reflection;
     using NexEPA.Core.Enums;
-    using NexEPA.Core.Model.Project;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// ENUM Status.

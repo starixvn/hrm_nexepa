@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.08">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Repositories.Interface
+namespace NexEPA.Employee.Repositories.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
@@ -18,8 +18,8 @@ namespace NexEPA.Employee.Repositories.Interface
     /// </summary>
     public interface IEmployeeRepository
     {
-        IEnumerable<EmployeeInfo> GetAllEmployee(ICriteria criteria);
+        IEnumerable<Employee> GetAllEmployee(ICriteria criteria);
 
-        IEnumerable<EmployeeInfo> GetEmployeeByProjectId(ICriteria criteria);
+        IEnumerable<Employee> GetEmployeeByProjectId(ICriteria criteria);
     }
 }

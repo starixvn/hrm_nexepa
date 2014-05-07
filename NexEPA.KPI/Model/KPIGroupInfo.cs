@@ -10,7 +10,7 @@
 namespace NexEPA.KPI.Model
 {
     using System;
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// The model of KPI Group.

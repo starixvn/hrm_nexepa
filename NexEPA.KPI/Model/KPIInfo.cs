@@ -9,7 +9,7 @@
 
 namespace NexEPA.KPI.Model
 {
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// The information of KPI.

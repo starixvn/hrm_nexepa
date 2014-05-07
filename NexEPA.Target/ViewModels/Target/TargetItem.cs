@@ -9,7 +9,7 @@
 
 namespace NexEPA.Target.ViewModels.Target
 {
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
     using NexEPA.Target.Models.Target;
 
     /// <summary>

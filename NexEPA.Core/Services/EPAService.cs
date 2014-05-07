@@ -12,8 +12,7 @@ namespace NexEPA.Core.Services
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using NexEPA.Core.Criteria;
-    using NexEPA.Core.Model.Project;
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// EPA services.

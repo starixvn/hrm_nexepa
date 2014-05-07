@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.03">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Services.Interface
+namespace NexEPA.Employee.Services.Interfaces
 {
     using System.Collections.Generic;
     using NexEPA.Employee.Criteria;
@@ -19,12 +19,12 @@ namespace NexEPA.Employee.Services.Interface
     /// </summary>
     public interface IEmployeeService
     {
-        List<EmployeeItem> GetAllEmployee(GetAllEmployeeCriteria criteria);
+        IEnumerable<Employee> GetAllEmployee(GetAllEmployeeCriteria criteria);
 
-        List<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria);
+        IEnumerable<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria);
 
-        List<EmployeeItem> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria);
+        IEnumerable<Employee> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria);
 
-        IList<EmployeeInfo> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria);
+        IEnumerable<Employee> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria);
     }
 }

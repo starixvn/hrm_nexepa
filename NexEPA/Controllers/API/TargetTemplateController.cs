@@ -18,7 +18,7 @@ namespace NexEPA.Controllers.API
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Criteria;
-    using NexEPA.Core.Model.Target;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Criteria.KPIGroup;

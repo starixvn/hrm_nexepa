@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeInfo.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="Employee.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,12 +11,13 @@
 namespace NexEPA.Employee.Models
 {
     using System;
+    using NexEPA.Core.Models;
     using NexEPA.Employee.ViewModels;
 
     /// <summary>
     /// Employee class.
     /// </summary>
-    public class EmployeeInfo
+    public class Employee : IModel
     {
         public int EmployeeId { get; set; }
 
@@ -24,9 +25,9 @@ namespace NexEPA.Employee.Models
 
         public string DomainUsername { get; set; }
 
-        public string FullName { get; set; } 
+        public string FullName { get; set; }
 
-        public string NickName { get; set; } 
+        public string NickName { get; set; }
 
         public string Email { get; set; }
 

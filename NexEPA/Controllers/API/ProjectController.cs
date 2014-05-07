@@ -17,12 +17,12 @@ namespace NexEPA.Controllers.API
     using System.Text.RegularExpressions;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Model.Project;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
-    using NexEPA.Employee.Services.Implement;
-    using NexEPA.Employee.Services.Interface;
+    using NexEPA.Employee.Services.Implements;
+    using NexEPA.Employee.Services.Interfaces;
     using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Impl;
@@ -220,7 +220,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
         {
             GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
-            IList<EmployeeInfo> employees = _employeeService.GetEmployeeByRole(criteria);
+            IEnumerable<Employee> employees = _employeeService.GetEmployeeByRole(criteria);
 
             if (!string.IsNullOrEmpty(searchKey))
             {
@@ -317,11 +317,11 @@ namespace NexEPA.Controllers.API
         /// <param name="employees">The list employee.</param>
         /// <param name="searchKey">The keyword to get employee.</param>
         /// <returns>The IEnumerable Employee Info.</returns>
-        private IList<EmployeeInfo> GetEmployeeBySearchKey(IList<EmployeeInfo> employees, string searchKey)
+        private IEnumerable<Employee> GetEmployeeBySearchKey(IEnumerable<Employee> employees, string searchKey)
         {
-            List<EmployeeInfo> searchEmployees = new List<EmployeeInfo>();
+            List<Employee> searchEmployees = new List<Employee>();
 
-            foreach (EmployeeInfo employee in employees)
+            foreach (Employee employee in employees)
             {
                 if (CheckMatchSearchKey(employee.NickName, searchKey) || CheckMatchSearchKey(employee.FullName, searchKey))
                 {

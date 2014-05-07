@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.5.6">Created</change>
 // </history>
 
-namespace NexEPA.Core.Model.Project
+namespace NexEPA.Core.Models
 {
     using System.Collections.Generic;
 

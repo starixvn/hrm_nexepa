@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GroupInfo.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="Group.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -9,10 +9,12 @@
 
 namespace NexEPA.Employee.Models
 {
+    using NexEPA.Core.Models;
+
     /// <summary>
     /// The Group Info model.
     /// </summary>
-    public class GroupInfo
+    public class Group : IModel
     {
         public int GroupId { get; set; }
 
