@@ -2,8 +2,8 @@
 'use strict';
 
 projectsSettingModule.controller('ProjectController',
-['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
-function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService) {
+['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService', 'notificationFactory',
+function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService, notificationFactory) {
 	/**
 	* Variables. 
 	*/
@@ -43,6 +43,13 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	var errorHandle = function (status) {
 		ErrorService.errorHandle(status);
 	};
+
+	var successUpdateProjectStatus = function () {
+		notificationFactory.success('SuccessSaveData', '');
+		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+	};
+
+	var errorUpdateProjectStatus = function (response) { notificationFactory.error('', response); };
 
 	/**
 	* Initialize data to view Index.
@@ -88,6 +95,18 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	$scope.detailProject = function (project, isMemberSelected) {
 		$location.path('/Projects/Detail/' + project.projectId);
 		tabService.setProperty(isMemberSelected);
+	};
+
+	$scope.toogleEditStatus = function (project) {
+		project.isUpdateStatus = !project.isUpdateStatus;
+	};
+
+	$scope.cancelEditStatus = function () {
+		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+	};
+	$scope.updateProjectStatus = function (project) {
+		projectDataFactory.updateProjectStatus(project)
+		.then(successUpdateProjectStatus, errorUpdateProjectStatus);
 	};
 
 } ]);

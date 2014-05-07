@@ -56,7 +56,7 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "PM,SA")]
         public HttpResponseMessage Post(EPAInfoModel model)
         {
-            AddOrUpdateEPAScore criteria = new AddOrUpdateEPAScore()
+            var criteria = new AddOrUpdateEPAScoreCriteria()
             {
                 TargetId = model.TargetId,
                 EmployeeId = model.EmployeeId,

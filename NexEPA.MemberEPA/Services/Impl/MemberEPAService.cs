@@ -75,7 +75,7 @@ namespace NexEPA.MemberEPA.Services.Impl
         /// </summary>
         /// <param name="criteria">AddOrUpdateEPAScore Criteria.</param>
         /// <returns>Command Result.</returns>
-        public CommandResult AddOrUpdateEmployeeEPA(AddOrUpdateEPAScore criteria)
+        public CommandResult AddOrUpdateEmployeeEPA(AddOrUpdateEPAScoreCriteria criteria)
         {
             CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");

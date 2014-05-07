@@ -26,7 +26,7 @@ namespace NexEPA.Project.Repositories.Impl
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Enumerable of Project Model.</returns>
-        public dynamic GetAllProject(ICriteria criteria)
+        public List<ProjectInformationModel> GetAllProject(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

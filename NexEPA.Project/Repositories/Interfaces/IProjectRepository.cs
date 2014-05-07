@@ -18,6 +18,6 @@ namespace NexEPA.Project.Repositories.Interfaces
     /// </summary>
     public interface IProjectRepository
     {
-        dynamic GetAllProject(ICriteria criteria);
+        List<ProjectInformationModel> GetAllProject(ICriteria criteria);
     }
 }

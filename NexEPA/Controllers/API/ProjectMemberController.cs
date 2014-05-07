@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ProjectMembersController.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ProjectMemberController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -25,16 +25,16 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// Project Members Controller.
     /// </summary>
-    public class ProjectMembersController : BaseController
+    public class ProjectMemberController : BaseController
     {
         private readonly IProjectMemberService _projectMemberService;
 
-        public ProjectMembersController()
+        public ProjectMemberController()
             : this(null)
         {
         }
 
-        public ProjectMembersController(IProjectMemberService projectMemberService)
+        public ProjectMemberController(IProjectMemberService projectMemberService)
         {
             this._projectMemberService = projectMemberService ?? new ProjectMemberService();
         }

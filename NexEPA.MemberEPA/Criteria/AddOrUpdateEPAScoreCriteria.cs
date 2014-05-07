@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="AddOrUpdateEPAScore.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="AddOrUpdateEPAScoreCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -13,9 +13,9 @@ namespace NexEPA.MemberEPA.Criteria
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// Add Or Update EPA Score.
+    /// Add Or Update EPA Score Criteria.
     /// </summary>
-    public class AddOrUpdateEPAScore : CriteriaBase
+    public class AddOrUpdateEPAScoreCriteria : CriteriaBase
     {
         public int TargetId { get; set; }
 

@@ -54,7 +54,7 @@ namespace NexEPA.Project.Services.Impl
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List Project Model.</returns>
-        public dynamic GetAllProject(GetAllProjectCriteria criteria)
+        public List<ProjectInformationModel> GetAllProject(GetAllProjectCriteria criteria)
         {
             dynamic lstProject = null;
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -89,6 +89,23 @@ namespace NexEPA.Project.Services.Impl
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Command Result.</returns>
         public CommandResult UpdateProject(UpdateProjectCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Update Project Status.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateProjectStatus(UpdateProjectStatusCriteria criteria)
         {
             CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");

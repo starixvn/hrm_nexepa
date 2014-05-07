@@ -1,7 +1,7 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-projectsSettingModule.factory('projectDataFactory',['$http', '$q', function ($http, $q) {
+projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($http, $q) {
 	var url = '/api/Project/';
 	return {
 		getEmployeeSelectList: function (roleId, searchKey) {
@@ -31,6 +31,11 @@ projectsSettingModule.factory('projectDataFactory',['$http', '$q', function ($ht
 			$http.put(url, project).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
+		updateProjectStatus: function (project) {
+			var deferred = $q.defer();
+			$http.post('/api/Project/UpdateProjectStatus', project).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
 		addProject: function (project) {
 			var deferred = $q.defer();
 			$http.post(url, project).success(deferred.resolve).error(function (data) {
@@ -52,30 +57,30 @@ projectsSettingModule.factory('projectDataFactory',['$http', '$q', function ($ht
 			return deferred.promise;
 		}
 	};
-}]);
+} ]);
 
-projectsSettingModule.factory('milestoneFactory',['$http', '$q', function ($http, $q) {
-    var url = '/api/Milestone/';
-    return {
-        getMilestone: function (projectId) {
-            var deferred = $q.defer();
-            $http.get('/api/Milestone/GetMilestones', { params: { projectId: projectId} }).success(deferred.resolve).error(deferred.reject);
-            return deferred.promise;
-        },
-        addMilestone: function (milestone) {
-            var deferred = $q.defer();
-            $http.post(url, milestone).success(deferred.resolve).error(deferred.reject);
-            return deferred.promise;
-        },
-        deleteMilestone: function (milestoneId) {
-            var deferred = $q.defer();
-            $http['delete'](url, { params: { milestoneId: milestoneId} }).success(deferred.resolve).error(deferred.reject);
-            return deferred.promise;
-        },
-        updateMilestone: function (milestone) {
-            var deferred = $q.defer();
-            $http.put(url, milestone).success(deferred.resolve).error(deferred.reject);
-            return deferred.promise;
-        }
-    };
-}]);
+projectsSettingModule.factory('milestoneFactory', ['$http', '$q', function ($http, $q) {
+	var url = '/api/Milestone/';
+	return {
+		getMilestone: function (projectId) {
+			var deferred = $q.defer();
+			$http.get('/api/Milestone/GetMilestones', { params: { projectId: projectId} }).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		addMilestone: function (milestone) {
+			var deferred = $q.defer();
+			$http.post(url, milestone).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		deleteMilestone: function (milestoneId) {
+			var deferred = $q.defer();
+			$http['delete'](url, { params: { milestoneId: milestoneId} }).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		updateMilestone: function (milestone) {
+			var deferred = $q.defer();
+			$http.put(url, milestone).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		}
+	};
+} ]);

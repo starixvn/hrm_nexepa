@@ -58,7 +58,7 @@ namespace NexEPA.Controllers.API
         /// <returns>List Project Model.</returns>
         ////[ApiAuthorize(Roles = "HR")]
         [ApiAuthorize(Roles = "PM,SA")]
-        public dynamic Get(int? projectManager = null, int? status = null, int? period = null)
+        public List<ProjectInformationModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
             dynamic projects = null;
             DateTime? startDate = null;
@@ -155,6 +155,33 @@ namespace NexEPA.Controllers.API
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
             }
+        }
+
+        /// <summary>
+        /// Method update project status.
+        /// </summary>
+        /// <param name="model">Project Information Model.</param>
+        /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "PM,SA")]
+        public HttpResponseMessage UpdateProjectStatus(ProjectInformationModel model)
+        {
+            UpdateProjectStatusCriteria criteria = new UpdateProjectStatusCriteria
+            {
+                Status = model.Status,
+                ProjectId = model.ProjectId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            CommandResult result = _projectService.UpdateProjectStatus(criteria);
+
+            if (result.Code != 0)
+            {
+                List<string> errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         /// <summary>

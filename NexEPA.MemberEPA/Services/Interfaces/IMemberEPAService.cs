@@ -25,7 +25,7 @@ namespace NexEPA.MemberEPA.Services.Interfaces
 
         List<MemberEPAModel> GetEPAByEmployee(GetEPAByEmployeeCriteria criteria);
 
-        CommandResult AddOrUpdateEmployeeEPA(AddOrUpdateEPAScore criteria);
+        CommandResult AddOrUpdateEmployeeEPA(AddOrUpdateEPAScoreCriteria criteria);
 
         List<MemberEPAModel> GetEPAOfEmployeeByManager(GetEPAOfAllEmployeeByManagerCriteria criteria);
     }

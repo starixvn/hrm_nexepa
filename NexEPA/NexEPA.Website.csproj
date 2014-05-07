@@ -164,7 +164,7 @@
     <Compile Include="Controllers\API\MilestoneController.cs" />
     <Compile Include="Controllers\API\EmployeeEPAController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
-    <Compile Include="Controllers\API\ProjectMembersController.cs" />
+    <Compile Include="Controllers\API\ProjectMemberController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\CoreController.cs" />
     <Compile Include="Controllers\API\KPIController.cs" />
@@ -257,8 +257,8 @@
     <Content Include="Scripts\Views\Resource\resource-repository.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
     <Content Include="Scripts\Views\Employee\employee-repository.js" />
-    <Content Include="Scripts\Views\ProjectMember\projectmembers-repository.js" />
-    <Content Include="Scripts\Views\ProjectMember\projectmembers-controller.js" />
+    <Content Include="Scripts\Views\ProjectMember\projectmember-repository.js" />
+    <Content Include="Scripts\Views\ProjectMember\projectmember-controller.js" />
     <Content Include="Scripts\Views\Projects\projects-controller.js" />
     <Content Include="Scripts\Views\Projects\projects-repository.js" />
     <Content Include="Scripts\Libs\jquery-2.1.0-vsdoc.js" />

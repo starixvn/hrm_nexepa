@@ -22,11 +22,13 @@ namespace NexEPA.Project.Services.Interfaces
     {
         ProjectModel GetById(GetProjectByIdCriteria criteria);
 
-        dynamic GetAllProject(GetAllProjectCriteria criteria);
+        List<ProjectInformationModel> GetAllProject(GetAllProjectCriteria criteria);
 
         CommandResult InsertProject(AddProjectCriteria criteria);
 
         CommandResult UpdateProject(UpdateProjectCriteria criteria);
+
+        CommandResult UpdateProjectStatus(UpdateProjectStatusCriteria criteria);
 
         IEnumerable<MilestoneModel> GetMilestoneByProjectId(GetMilestoneByProjectIdCriteria criteria);
 

@@ -2,7 +2,7 @@
 'use strict';
 
 projectsSettingModule.factory("projectMembersFactory",['$http', '$q', function ($http, $q) {
-	var url = '/api/ProjectMembers/';
+	var url = '/api/ProjectMember/';
 	return {
 		getMember: function (projectId, isShowDeletedMember, milestoneId) {
 			var deferred = $q.defer();
@@ -16,7 +16,7 @@ projectsSettingModule.factory("projectMembersFactory",['$http', '$q', function (
 		},
 		getProjectRole: function (projectId, employeeId) {
 			var deferred = $q.defer();
-			$http.get('/api/ProjectMembers/ProjectRole', { params:
+			$http.get('/api/ProjectMember/ProjectRole', { params:
 			{
 				projectId: projectId,
 				employeeId: employeeId
@@ -26,7 +26,7 @@ projectsSettingModule.factory("projectMembersFactory",['$http', '$q', function (
 		},
 		getMemberRoles: function (projectId, employeeId) {
 			var deferred = $q.defer();
-			$http.get('/api/ProjectMembers/GetMemberRoleInProject/', { params: {
+			$http.get('/api/ProjectMember/GetMemberRoleInProject/', { params: {
 				projectId: projectId, employeeId: employeeId
 			}
 			}).success(deferred.resolve).error(deferred.reject);

@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Criteria\AddOrUpdateEPAScore.cs" />
+    <Compile Include="Criteria\AddOrUpdateEPAScoreCriteria.cs" />
     <Compile Include="Criteria\GetEPAByEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetEPAInfoCriteria.cs" />
     <Compile Include="Criteria\GetEPAOfAllEmployeeByManagerCriteria.cs" />
