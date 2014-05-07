@@ -8,101 +8,109 @@
 </div>
 <tabset class="top-buffer" id="TargetTemplateTab">
 	<tab heading="GENERAL INORMATION" class="tab-cursor" active="dataTab.information">
-		<form class="col-sm-8 form-horizontal common-form" name="editTargetTemplate" novalidate>
-			<div class="col-sm-offset-1">
-				<div class="error-message buffer-error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
-					{{error}}
+		<form class="col-sm-8 form-horizontal common-form project-form" name="editTargetTemplate" novalidate>
+		<div class="row first boxtitle">
+			<span>{{"TargetTemplate" | translate | uppercase}}</span>
+		</div>
+		<div class="row boxcontent">
+			<div class="line">
+				<div class="col-sm-offset-1">
+					<div class="error-message buffer-error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
+						{{error}}
+					</div>
+					<div class="error-message hide-errormessage buffer-error-message" id="Div1">
+						Please input all required (*) fields.</div>
 				</div>
-				<div class="error-message hide-errormessage buffer-error-message" id="Div1">
-					Please input all required (*) fields.</div>
-			</div>
-			<div class="form-group required">
-				<label class="col-sm-2">
-					{{"Name" | translate}}</label>
-				<div class="col-sm-8">
-					<input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name"
-						maxlength="200" />
+				<div class="form-group required top-buffer">
+					<label class="col-sm-2">
+						{{"Name" | translate}}</label>
+					<div class="col-sm-8">
+						<input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name"
+							maxlength="200" />
+					</div>
+				</div>
+				<div class="form-group required top-buffer">
+					<label class="col-sm-2">
+						{{"TargetType" | translate}}
+					</label>
+					<div class="col-sm-8">
+						<select class="custom-textbox" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
+							ng-model="editTemplate.targetTypeId">
+							<option style="display: none" value="">-- Select a target type --</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group top-buffer">
+					<label class="col-sm-2" data-translate="Description">
+					</label>
+					<div class="col-sm-8">
+						<textarea class="custom-textarea textarea-height" ng-model="editTemplate.description" id="Textarea1"
+							maxlength="500"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-offset-5 top-buffer">
+					<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
+						data-translate="Submit">
+					</button>
+					<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+					</button>
 				</div>
 			</div>
-			<div class="form-group required">
-				<label class="col-sm-2">
-					{{"TargetType" | translate}}
-				</label>
-				<div class="col-sm-8">
-					<select class="custom-textbox" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
-						ng-model="editTemplate.targetTypeId">
-						<option style="display: none" value="">-- Select a target type --</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2" data-translate="Description">
-				</label>
-				<div class="col-sm-8">
-					<textarea class="custom-textarea" ng-model="editTemplate.description" id="Textarea1"
-						maxlength="500"></textarea>
-				</div>
-			</div>
-			<div class="col-sm-offset-5">
-				<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
-					data-translate="Submit">
-				</button>
-				<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-				</button>
-			</div>
-
+		</div>
 		</form>
 	</tab>
 
-	<tab  heading="TARGET KPI LIST" class="tab-cursor" active="dataTab.kpi">
-        <div class="row">
-        	<form class="row form-inline filter" role="form">
-			    <div class="form-group">
-				    <label data-translate="FilterKPI"></label>
-				    <input  class="form-control" type="text" ng-model="KPIName" />
-			    </div>
-			    <button class="button" data-translate="AddKPIGroup" title="Add KPI Group" ng-click="addKPIGroup()"></button>
-		    </form>
-        </div>
-        <div class="row">
-        	<table class="table table-bordered table-striped table-hover">
-			    <thead>
-				    <th>
-					    <input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)"/>
-				    </th>
-				    <th data-translate="KPIName">
-				    </th>
-				    <th data-translate="KPIGroupWeight">
-				    </th>
-			    </thead>
-			    <tbody ng-repeat="kpi in lstKPI | filter: KPIName">
-				    <tr>
-					    <td class="text-center row-highlight">
-						    <input type="checkbox" ng-model="kpi.groupSelected" ng-click="checkAllGroup(kpi.groupSelected, kpi)"/>
-					    </td>
-					    <td colspan="2" class="criteria-title row-highlight">{{ kpi.kpiGroupName}}</td>
-				    </tr>
+	<tab heading="TARGET KPI LIST" class="tab-cursor" active="dataTab.kpi">
+	<form class="col-sm-10 form-horizontal common-form project-form" novalidate>
+		<div class="row first boxtitle">
+			<a class="button-icon" title="Add KPI Group" ng-click="addKPIGroup()">
+				<span class="icon plus"></span>Add KPI Group</a>
+				<input class="search-textbox pull-right" placeholder="filter kpi..." type="text" ng-model="KPIName" />
+		</div>
+			<div class="row boxcontent">
+				<div class="line top-buffer">
+					<div class="row">
+						<table class="table table-bordered table-striped table-hover">
+							<thead>
+								<th>
+									<input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)"/>
+								</th>
+								<th data-translate="KPIName">
+								</th>
+								<th data-translate="KPIGroupWeight">
+								</th>
+							</thead>
+							<tbody ng-repeat="kpi in lstKPI | filter: KPIName">
+								<tr>
+									<td class="text-center row-highlight">
+										<input type="checkbox" ng-model="kpi.groupSelected" ng-click="checkAllGroup(kpi.groupSelected, kpi)"/>
+									</td>
+									<td colspan="2" class="criteria-title row-highlight">{{ kpi.kpiGroupName}}</td>
+								</tr>
 
-				    <tr ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
-					    <td class="text-center">
-						    <input type="checkbox" value="{{item.name}}" ng-model="item.selected" />
-					    </td>
-					    <td>{{item.name}}</td>
-					    <td class="column-weight-max">
-						    <input type="text" class="custom-form-control text-center"
-							    ng-model="item.weight" ng-show="item.selected == true" percentage/>
-					    </td>
-				    </tr>
-			    </tbody>
-		    </table>
-			<div class="col-sm-offset-5">
-				<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
-					data-translate="Submit">
-				</button>
-				<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-				</button>
+								<tr ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
+									<td class="text-center">
+										<input type="checkbox" value="{{item.name}}" ng-model="item.selected" />
+									</td>
+									<td>{{item.name}}</td>
+									<td class="column-weight-max">
+										<input type="text" class="custom-form-control text-center"
+											ng-model="item.weight" ng-show="item.selected == true" percentage/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="col-sm-offset-5 top-buffer">
+							<button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
+								data-translate="Submit">
+							</button>
+							<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
-        </div>
+	</form>
+
 	</tab>
 </tabset>
-
