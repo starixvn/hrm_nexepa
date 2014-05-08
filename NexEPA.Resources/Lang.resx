@@ -316,7 +316,7 @@
     <value>#</value>
   </data>
   <data name="EmptyResult" xml:space="preserve">
-    <value>There are no information!</value>
+    <value>No information available!</value>
   </data>
   <data name="CreateTargetTemplate" xml:space="preserve">
     <value>Create Target Template</value>

@@ -9,3 +9,22 @@ homeModule.factory('homeFactory', ['$http', function ($http) {
 	};
 } ]);
 
+homeModule.directive('truncate', function () {
+	return {
+		scope: { comment: '=ngBind', originalComment: '&originalComment' },
+		link: function (scope) {
+			var comment = scope.originalComment(),
+				length = 60;
+
+			if (comment.length <= length) {
+				scope.comment = comment;
+			}
+			else {
+				scope.comment = String(comment).substring(0, length);
+			}
+		}
+	};
+});
+
+
+

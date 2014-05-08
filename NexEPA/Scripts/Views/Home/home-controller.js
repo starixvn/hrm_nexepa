@@ -39,6 +39,7 @@ homeModule.controller('HistoryProjectController', ['$scope', '$location', functi
 	$scope.isCollapsed = false;
 	$scope.collapse = {};
 	$scope.isMilestoneCollapsed = false;
+	$scope.originalComment = '';
 
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;

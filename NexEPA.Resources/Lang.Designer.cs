@@ -421,7 +421,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no information!.
+        ///   Looks up a localized string similar to No information available!.
         /// </summary>
         public static string EmptyResult {
             get {

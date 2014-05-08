@@ -36,7 +36,7 @@
                     <td class="home-center">{{historyProject.project.endDate | date: 'dd MMM, yyyy'}}</td>
                     <td class="home-score" ng-bind="historyProject.score"></td>
                     <td class="home-role" ng-bind="historyProject.roles"></td>
-                    <td class="home-comment" ng-bind="historyProject.comment"></td>
+                    <td class="home-comment" ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></td>
                 </tr>
                 <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
@@ -48,7 +48,7 @@
                     <td class="home-center">{{milestone.endDate | date: 'dd MMM, yyyy'}}</td>
                     <td class="home-score" ng-bind="milestone.score"></td>
                     <td></td>
-                    <td class="home-comment" ng-bind="milestone.comment"></td>
+                    <td class="home-comment" ng-bind="truncateComment" original-comment="milestone.comment" truncate tooltip={{milestone.comment}}></td>
                 </tr>
                 <tr ng-show="dashboradInformation.historyProjects == ''">
                     <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
