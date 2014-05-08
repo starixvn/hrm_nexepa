@@ -90,6 +90,7 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 				}
 			});
 			addModalInstance.result.then(function (member) {
+				member.joinDate = member.joinDate ? member.joinDate.toDateString() : null;
 				projectMembersFactory.addMember(member).then(successAddProjectMember, errorNotification);
 			});
 		};

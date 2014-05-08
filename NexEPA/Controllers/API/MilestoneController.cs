@@ -74,8 +74,8 @@ namespace NexEPA.Controllers.API
                     Description = milestone.Description,
                     Name = milestone.Name,
                     ProjectId = milestone.ProjectId,
-                    StartDate = TimeZone.CurrentTimeZone.ToLocalTime(milestone.StartDate.Value),
-                    EndDate = TimeZone.CurrentTimeZone.ToLocalTime(milestone.EndDate.Value),
+                    StartDate = milestone.StartDate.Value,
+                    EndDate = milestone.EndDate.Value,
                     Status = milestone.Status,
                     CreatedBy = this.CurrentUser.UserId,
                     CreatedDate = DateTime.Now.Date

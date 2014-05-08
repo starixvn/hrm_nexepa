@@ -55,8 +55,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			}
 			else {
 				totalGroupScore += temp;
-			}
-			if (totalGroupScore > 0) {
 				totalGroupWeight += kpiGroupWeight;
 			}
 		});

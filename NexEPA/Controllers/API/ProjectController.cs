@@ -95,8 +95,8 @@ namespace NexEPA.Controllers.API
                     Name = project.Name,
                     Description = project.Description,
                     ProjectManager = project.ProjectManager,
-                    StartDate = TimeZone.CurrentTimeZone.ToLocalTime(project.StartDate.Value),
-                    EndDate = TimeZone.CurrentTimeZone.ToLocalTime(project.EndDate.Value),
+                    StartDate = project.StartDate.Value,
+                    EndDate = project.EndDate.Value,
                     Status = project.Status,
                     CreatedBy = this.CurrentUser.UserId,
                     CreatedDate = DateTime.Now.Date

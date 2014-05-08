@@ -133,8 +133,8 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 } ]);
 
 projectsSettingModule.controller('CreateProjectController',
-['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory',
-function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory) {
+['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', '$timeout', 'notificationFactory',
+function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, $timeout, notificationFactory) {
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 	$scope.errors = [];
@@ -156,7 +156,12 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 	};
 
 	// Success add new project callback.
-	var successAddProject = function () { $location.url('/Projects/Index'); };
+	var successAddProject = function () {
+		notificationFactory.success('SuccessSaveData', '');
+		$timeout(function () {
+			$location.url('/Projects/Index');
+		}, 2000);
+	};
 
 	// Errors occur during Add process.
 	var errorAddProject = function (response) { $scope.errors = response; };
@@ -196,6 +201,8 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 		}
 		else {
 			$("#projectValid").hide();
+			project.startDate = project.startDate ? project.startDate.toDateString() : null;
+			project.endDate = project.endDate ? project.endDate.toDateString() : null;
 			projectDataFactory.addProject(project).then(successAddProject, errorAddProject);
 		}
 	};
@@ -217,8 +224,9 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 projectsSettingModule.controller('ViewDetailAndEditProjectController',
 ['$scope', '$routeParams', '$location', '$window', '$modal', 'projectDataFactory', 'ProjectSettingCache',
-'commonFactory', 'tabService',
-function ($scope, $routeParams, $location, $window, $modal, projectDataFactory, ProjectSettingCache, commonFactory, tabService) {
+'commonFactory', 'tabService', 'notificationFactory',
+function ($scope, $routeParams, $location, $window, $modal, projectDataFactory,
+ProjectSettingCache, commonFactory, tabService, notificationFactory) {
 	/**
 	* Scope variables. 
 	*/
@@ -242,7 +250,7 @@ function ($scope, $routeParams, $location, $window, $modal, projectDataFactory, 
 	var successGetProjectById = function (data) { $scope.projectUpdate = data; };
 
 	// Update Project success callback.
-	var successUpdateProject = function () { $location.url('/Projects/Index'); };
+	var successUpdateProject = function () { notificationFactory.success('SuccessSaveData', ''); };
 
 	// Update Project failure callback.
 	var errorUpdateProject = function (response) {
@@ -444,8 +452,11 @@ commonFactory, ProjectSettingCache) {
 			$scope.milestoneErrors = errorMessage.split(',');
 		}
 		else {
-			$scope.milestone.projectId = projectId;
-			milestoneFactory.addMilestone($scope.milestone).then(successAddMilestone, errorAddUpdateMilestone);
+			var milestone = $scope.milestone;
+			milestone.projectId = projectId;
+			milestone.startDate = milestone.startDate ? milestone.startDate.toDateString() : null;
+			milestone.endDate = milestone.endDate ? milestone.endDate.toDateString() : null;
+			milestoneFactory.addMilestone(milestone).then(successAddMilestone, errorAddUpdateMilestone);
 		}
 	};
 	// Update Milestone.

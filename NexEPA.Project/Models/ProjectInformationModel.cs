@@ -48,15 +48,23 @@ namespace NexEPA.Project.Models
                 if (Milestones.FirstOrDefault() != null)
                 {
                     lstTree = new List<TreeViewModel>();
-                    milestoneTree = new TreeViewModel() { Id = ProjectId, Label = Name, Children = new List<TreeViewModel>() };
-                    foreach (var item in Milestones)
+                    if (Milestones.Count == 1)
                     {
-                        if (item != null)
+                        var item = Milestones[0];
+                        milestoneTree = new TreeViewModel() { Id = ProjectId, Label = item.Name, Children = new List<TreeViewModel>() };
+                    }
+                    else
+                    {
+                        milestoneTree = new TreeViewModel() { Id = ProjectId, Label = Name, Children = new List<TreeViewModel>() };
+                        foreach (var item in Milestones)
                         {
-                            TreeViewModel child = new TreeViewModel();
-                            child.Id = item.MilestoneId;
-                            child.Label = item.Name;
-                            milestoneTree.Children.Add(child);
+                            if (item != null)
+                            {
+                                TreeViewModel child = new TreeViewModel();
+                                child.Id = item.MilestoneId;
+                                child.Label = item.Name;
+                                milestoneTree.Children.Add(child);
+                            }
                         }
                     }
 
