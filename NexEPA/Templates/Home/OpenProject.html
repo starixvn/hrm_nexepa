@@ -19,8 +19,8 @@
                 <td class="home-index" ng-bind="$index + 1"></td>
                 <td ng-bind="openProject.project.name"></td>
                 <td ng-bind="openProject.evaluator.fullName"></td>
-                <td class="home-center">{{openProject.project.startDate | date: 'dd MMM, yyyy'}}</td>
-                <td class="home-center">{{openProject.project.endDate | date: 'dd MMM, yyyy'}}</td>
+                <td class="home-center">{{openProject.project.startDate | customDate}}</td>
+                <td class="home-center">{{openProject.project.endDate | customDate}}</td>
                 <td class="home-role" ng-bind="openProject.roles"></td>
             </tr>
             <tr ng-show="dashboradInformation.openProjects == ''">
