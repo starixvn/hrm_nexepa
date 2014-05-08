@@ -30,6 +30,10 @@ namespace NexEPA.Report.ViewModels
 
         public string Comment { get; set; }
 
+        public bool ProjectEvaluation { get; set; }
+
+        public bool MilestoneEvaluation { get; set; }
+
         public ProjectModel Project { get; set; }
 
         public EvaluatorModel Evaluator { get; set; }

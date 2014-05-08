@@ -1,4 +1,4 @@
-﻿<div ng-controller="HomeKPIController" ng-show="!dashboradInformation.listKPIs.length > 0">
+﻿<div ng-controller="HomeKPIController">
     <div class="row" ng-click="collapseTable()">
         <div class="home-tab colons">
              <span class="home-label" data-translate="MyKPI"></span>
@@ -18,6 +18,9 @@
                 <td ng-bind="KPIItem.name"></td>
                 <td class="home-weight" ng-bind="KPIItem.weight"></td>
                 <td class="home-score" ng-bind="KPIItem.score"></td>
+            </tr>
+            <tr ng-show="dashboradInformation.listKPIs == ''">
+                <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
             </tr>
         </table>
     </div>

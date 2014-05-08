@@ -59,8 +59,7 @@ namespace NexEPA.Report.Repositories.Implement
                     result.Add(historyProjects);
 
                     var listKPIs = (List<KPIInformationModel>)multi.Read<KPIInformationModel>();
-                    var listKPI = listKPIs.Count > 0 ? listKPIs[0] : new KPIInformationModel();
-                    result.Add(listKPI);
+                    result.Add(listKPIs);
                 }
             }
 

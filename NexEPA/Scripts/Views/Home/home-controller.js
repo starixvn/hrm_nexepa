@@ -35,17 +35,24 @@ homeModule.controller('OpenProjectController', ['$scope', function ($scope) {
 	};
 } ]);
 
-homeModule.controller('HistoryProjectController', ['$scope', function ($scope) {
+homeModule.controller('HistoryProjectController', ['$scope', '$location', function ($scope, $location) {
 	$scope.isCollapsed = false;
 	$scope.collapse = {};
+	$scope.isMilestoneCollapsed = false;
 
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;
 	};
 
-	$scope.showMilestone = function (projectId) {
+	$scope.showHideMilestone = function (historyProject) {
+		var projectId = historyProject.project.projectId;
 		var property = 'isCollapsed' + projectId;
 		$scope.collapse[property] = !$scope.collapse[property];
+	};
+
+	$scope.EPADetail = function (targetId) {
+		var employeeId = 248; // TODO : get employeeId of current user
+		$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
 	};
 } ]);
 

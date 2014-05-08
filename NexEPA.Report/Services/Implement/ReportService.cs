@@ -130,6 +130,7 @@ namespace NexEPA.Report.Services.Implement
             historyProjectItem.Roles = rawHistoryProjectItem.Roles;
             historyProjectItem.Score = rawHistoryProjectItem.Score;
             historyProjectItem.Comment = rawHistoryProjectItem.Comment;
+            historyProjectItem.ProjectEvaluation = true;
             historyProjectItem.Project = rawHistoryProjectItem.Project;
             historyProjectItem.Evaluator = rawHistoryProjectItem.Evaluator;
 
@@ -166,6 +167,7 @@ namespace NexEPA.Report.Services.Implement
             {
                 var milestoneItem = new MilestoneModel
                 {
+                    TargetId = milestoneRow.TargetId,
                     MilestoneId = milestoneRow.Milestone.MilestoneId,
                     Name = milestoneRow.Milestone.Name,
                     StartDate = milestoneRow.Milestone.StartDate,
@@ -210,11 +212,13 @@ namespace NexEPA.Report.Services.Implement
 
             historyProjectItem.TargetId = sameProjectRows[0].TargetId;
             historyProjectItem.Roles = sameProjectRows[0].Roles;
+            historyProjectItem.MilestoneEvaluation = true;
             historyProjectItem.Project = sameProjectRows[0].Project;
             historyProjectItem.Evaluator = sameProjectRows[0].Evaluator;
 
             foreach (HistoryProjectModel milestone in sameProjectRows)
             {
+                milestone.Milestone.TargetId = milestone.TargetId;
                 milestone.Milestone.Score = milestone.Score;
                 milestone.Milestone.Comment = milestone.Comment;
                 historyProjectItem.Milestones.Add(milestone.Milestone);
