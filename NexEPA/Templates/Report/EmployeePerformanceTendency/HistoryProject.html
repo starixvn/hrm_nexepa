@@ -1,0 +1,59 @@
+﻿ <div ng-controller="EmployeeHistoryProjectController" ng-show="report.historyProjects != ''">
+    <div class="row">
+        <div class="home-tab colons">
+            <span class="home-label" data-translate="ByProject" ng-click="collapseTable()"></span>
+        </div>
+    </div>
+
+    <div class="row" collapse="isCollapsed">
+        <table class="table table-bordered table-striped home-table">
+            <thead>
+                <th data-translate="SymbolCount"></th>
+                <th data-translate="Project"></th>
+                <th data-translate="ProjectManager"></th>
+                <th data-translate="StartDate"></th>
+                <th data-translate="EndDate"></th>
+                <th data-translate="AverageScore"></th>
+                <th data-translate="Role"></th>
+                <th data-translate="ProjectManagerComment"></th>
+            </thead>
+            <tbody ng-repeat="historyProject in report.historyProjects">
+                <tr>
+                    <td class="home-index" ng-bind="$index + 1"></td>
+                    <td class="home-center">
+                        <i class="home-collapsed" ng-click="showHideMilestone(historyProject)" 
+                            ng-show="historyProject.milestones.length > 0 && !collapse.isCollapsed{{historyProject.project.projectId}}">
+                        </i>
+                        <i class="home-expanded"  ng-click="showHideMilestone(historyProject)"
+                            ng-show="historyProject.milestones.length > 0 && collapse.isCollapsed{{historyProject.project.projectId}}"></i>
+                        <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" 
+                            ng-show="!historyProject.projectEvaluation && !historyProject.milestoneEvaluation"/>
+                        <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" ng-show="historyProject.projectEvaluation" />
+                        <span ng-bind="historyProject.project.name" ng-show="historyProject.milestoneEvaluation"></span>
+                    </td>
+                    <td class="home-center" ng-bind="historyProject.evaluator.fullName"></td>
+                    <td class="home-center">{{historyProject.project.startDate | customDate}}</td>
+                    <td class="home-center">{{historyProject.project.endDate | customDate}}</td>
+                    <td class="home-score" ng-bind="historyProject.score"></td>
+                    <td class="home-role" ng-bind="historyProject.roles"></td>
+                    <td class="home-comment" ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></td>
+                </tr>
+                <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
+                    <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
+                    <td class="home-center">
+                        <a href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)"/>
+                    </td>
+                    <td></td>
+                    <td class="home-center">{{milestone.startDate | customDate}}</td>
+                    <td class="home-center">{{milestone.endDate | customDate}}</td>
+                    <td class="home-score" ng-bind="milestone.score"></td>
+                    <td></td>
+                    <td class="home-comment" ng-bind="truncateComment" original-comment="milestone.comment" truncate tooltip={{milestone.comment}}></td>
+                </tr>
+                <tr ng-show="dashboradInformation.historyProjects == ''">
+                    <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>

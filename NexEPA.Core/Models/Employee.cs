@@ -8,10 +8,9 @@
 //   <change who="Josh.Phan" date="2014.04.03">Changed</change>
 // </history>
 
-namespace NexEPA.Employee.Models
+namespace NexEPA.Core.Models
 {
     using System;
-    using NexEPA.Core.Models;
 
     /// <summary>
     /// Employee class.
@@ -31,6 +30,8 @@ namespace NexEPA.Employee.Models
         public string Email { get; set; }
 
         public string Skype { get; set; }
+
+        public string Roles { get; set; }
 
         public int EmployeeLevelId { get; set; }
 

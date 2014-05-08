@@ -10,9 +10,8 @@
 namespace NexEPA.Employee.Services.Interface
 {
     using System.Collections.Generic;
+    using NexEPA.Core.Models;
     using NexEPA.Employee.Criteria;
-    using NexEPA.Employee.Models;
-    using NexEPA.Employee.ViewModels;
 
     /// <summary>
     /// The interface of Employee services.

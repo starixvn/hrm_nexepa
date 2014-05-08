@@ -20,7 +20,6 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Models;
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Criteria;
-    using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implement;
     using NexEPA.Employee.Services.Interface;
     using NexEPA.Project.Criteria.Project;

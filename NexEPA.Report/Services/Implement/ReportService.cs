@@ -13,8 +13,10 @@ namespace NexEPA.Report.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Core.Service.Impl;
+    using NexEPA.Core.Models;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
+    using NexEPA.Report.Models.EmployeePerformanceTendance;
     using NexEPA.Report.Repositories.Implement;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;
@@ -65,6 +67,35 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return generalInformation;
+        }
+
+        /// <summary>
+        /// Get employee performance tendency report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list object.</returns>
+        public List<object> GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var employeePerformaceReport = new List<object>();
+
+            if (criteria.IsValid())
+            {
+                List<object> rawsEmployeePerformaceReport = _reportRepository.GetEmployeePerformanceTendancyReport(criteria);
+
+                if (rawsEmployeePerformaceReport != null && rawsEmployeePerformaceReport.Count >= 1)
+                {
+                    // Get Employee Information
+                    ReportEmployeeModel employee = GetEmployeeGeneralInformation((Employee)rawsEmployeePerformaceReport[0]);
+                    employeePerformaceReport.Add(employee);
+
+                    // Get History Project
+                    List<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawsEmployeePerformaceReport[1]);
+                    employeePerformaceReport.Add(projectHistoryList);
+                }
+            }
+
+            return employeePerformaceReport;
         }
 
         /// <summary>
@@ -231,6 +262,28 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return historyProjectItem;
+        }
+
+        /// <summary>
+        /// Get general information of employee.
+        /// </summary>
+        /// <param name="rawEmployee">The raw employee.</param>
+        /// <returns>The ReportEmployeeModel.</returns>
+        private ReportEmployeeModel GetEmployeeGeneralInformation(Employee rawEmployee)
+        {
+            var employee = new ReportEmployeeModel
+            {
+                EmployeeId = rawEmployee.EmployeeId,
+                Code = rawEmployee.Code,
+                DomainUserName = rawEmployee.DomainUsername,
+                FullName = rawEmployee.FullName,
+                NickName = rawEmployee.NickName,
+                JobTitle = rawEmployee.JobTitle.Name,
+                Roles = rawEmployee.Roles,
+                TeamName = rawEmployee.Group.Name
+            };
+
+            return employee;
         }
     }
 }

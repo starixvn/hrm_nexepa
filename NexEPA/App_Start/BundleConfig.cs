@@ -40,7 +40,8 @@ namespace NexEPA
                 "~/Content/Site/KPI/KPI.less",
                 "~/Content/Site/Target/target.less",
                 "~/Content/Site/EPA/EPA.less",
-                "~/Content/Site/Home/home.less");
+                "~/Content/Site/Home/home.less",
+                "~/Content/Site/Report/report.less");
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",
@@ -83,7 +84,9 @@ namespace NexEPA
                 "~/Scripts/Views/EPA/MyEPA/myepa-controller.js",
                 "~/Scripts/Views/EPA/MyEPA/myepa-repository.js",
                 "~/Scripts/Views/Home/home-controller.js",
-                "~/Scripts/Views/Home/home-repository.js"));
+                "~/Scripts/Views/Home/home-repository.js",
+                 "~/Scripts/Views/Report/report-controller.js",
+                "~/Scripts/Views/Report/report-repository.js"));
         }
     }
 }

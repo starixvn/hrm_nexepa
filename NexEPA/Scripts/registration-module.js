@@ -1,5 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule, epaModule*/
-/* exported employeeModule, homeModule*/
+/* exported employeeModule, homeModule, reportModule*/
 /*global angular*/
 'use strict';
 
@@ -75,9 +75,15 @@ var homeModule = angular.module("homeModule", ['ngRoute', 'ngResource'])
 	$routeProvider.when('/', { templateUrl: '/templates/Home/View.html', controller: 'ViewHomePageController' });
 } ]);
 
+var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
+.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider.when('/Report/EmployeePerformanceTendency', 
+		{ templateUrl: '/templates/Report/EmployeePerformanceTendency/View.html', controller: 'ViewEmployeePerformanceTendencyController' });
+} ]);
+
 var registrationModule = angular.module("registrationModule",
 ['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule',
-'epaModule', 'homeModule', 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
+'epaModule', 'homeModule', 'reportModule', 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig, datepickerPopupConfig) {
 	$translateProvider.useLoader('resourceRepository', {});

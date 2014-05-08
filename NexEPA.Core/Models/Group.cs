@@ -7,10 +7,8 @@
 //   <change who="Josh.Phan" date="2014.04.03">Created</change>
 // </history>
 
-namespace NexEPA.Employee.Models
+namespace NexEPA.Core.Models
 {
-    using NexEPA.Core.Models;
-
     /// <summary>
     /// The Group Info model.
     /// </summary>

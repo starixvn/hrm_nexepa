@@ -165,6 +165,7 @@
     <Compile Include="Controllers\API\EmployeeEPAController.cs" />
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMemberController.cs" />
+    <Compile Include="Controllers\API\ReportController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\CoreController.cs" />
     <Compile Include="Controllers\API\KPIController.cs" />
@@ -253,6 +254,8 @@
     <Content Include="Scripts\Views\EPA\MyEPA\myepa-repository.js" />
     <Content Include="Scripts\Views\Home\home-controller.js" />
     <Content Include="Scripts\Views\Home\home-repository.js" />
+    <Content Include="Scripts\Views\Report\report-controller.js" />
+    <Content Include="Scripts\Views\Report\report-repository.js" />
     <Content Include="Scripts\Views\Resource\resource-controller.js" />
     <Content Include="Scripts\Views\Resource\resource-repository.js" />
     <Content Include="Scripts\Views\Employee\employee-controller.js" />
@@ -300,6 +303,9 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
+    <Content Include="Templates\Report\EmployeePerformanceTendency\GeneralInformation.html" />
+    <Content Include="Templates\Report\EmployeePerformanceTendency\HistoryProject.html" />
+    <Content Include="Templates\Report\EmployeePerformanceTendency\View.html" />
     <Content Include="Templates\TargetTemplate\AddKPIGroup.html" />
     <Content Include="Templates\TargetTemplate\Edit.html" />
     <Content Include="Templates\TargetTemplate\Create.html" />
@@ -337,6 +343,7 @@
     <Content Include="Content\Site\layout.less" />
     <Content Include="Content\Site\Target\target.less" />
     <None Include="Content\Site\Home\home.less" />
+    <None Include="Content\Site\Report\report.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

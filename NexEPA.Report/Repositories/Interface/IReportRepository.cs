@@ -19,5 +19,7 @@ namespace NexEPA.Report.Repositories.Interface
     public interface IReportRepository
     {
         List<object> GetGeneralInformationOfCurrentEmployee(ICriteria criteria);
+
+        List<object> GetEmployeePerformanceTendancyReport(ICriteria criteria);
     }
 }

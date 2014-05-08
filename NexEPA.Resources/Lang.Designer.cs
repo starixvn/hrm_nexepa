@@ -196,6 +196,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By projects.
+        /// </summary>
+        public static string ByProject {
+            get {
+                return ResourceManager.GetString("ByProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -426,6 +435,15 @@ namespace NexEPA.Resources {
         public static string Employee {
             get {
                 return ResourceManager.GetString("Employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Performance Tendency.
+        /// </summary>
+        public static string EmployeePerformanceTendency {
+            get {
+                return ResourceManager.GetString("EmployeePerformanceTendency", resourceCulture);
             }
         }
         
@@ -961,6 +979,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report.
+        /// </summary>
+        public static string Report {
+            get {
+                return ResourceManager.GetString("Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Require evaluatee&apos;s comment.
         /// </summary>
         public static string RequireComment {
@@ -1020,6 +1047,15 @@ namespace NexEPA.Resources {
         public static string Skype {
             get {
                 return ResourceManager.GetString("Skype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Staff ID.
+        /// </summary>
+        public static string StaffId {
+            get {
+                return ResourceManager.GetString("StaffId", resourceCulture);
             }
         }
         

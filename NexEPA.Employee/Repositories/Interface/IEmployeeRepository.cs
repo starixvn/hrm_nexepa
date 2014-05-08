@@ -11,7 +11,7 @@ namespace NexEPA.Employee.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Employee.Models;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// The interface of Employee Repositories.

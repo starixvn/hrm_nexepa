@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeViewModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="EmployeeModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -12,14 +12,13 @@ namespace NexEPA.Employee.ViewModels
     using NexEPA.Core.Constants;
     using NexEPA.Core.Models;
     using NexEPA.Core.ViewModels;
-    using NexEPA.Employee.Models;
 
     /// <summary>
     /// Employee ViewModel.
     /// </summary>
-    public class EmployeeViewModel : IViewModel
+    public class EmployeeModel : IViewModel
     {
-        public EmployeeViewModel(IModel model)
+        public EmployeeModel(IModel model)
         {
             this.SetInfo(model);
         }

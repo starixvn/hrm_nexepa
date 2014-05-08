@@ -11,9 +11,9 @@ namespace NexEPA.Employee.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Employee.Criteria;
-    using NexEPA.Employee.Models;
     using NexEPA.Employee.Repositories.Implement;
     using NexEPA.Employee.Repositories.Interface;
     using NexEPA.Employee.Services.Interface;

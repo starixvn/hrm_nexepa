@@ -51,10 +51,7 @@
     <Compile Include="Criteria\GetAllEmployeeGroupCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByProjectIdCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByRoleCriteria.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Group.cs" />
-    <Compile Include="ViewModels\EmployeeViewModel.cs" />
-    <Compile Include="Models\JobTitle.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\EmployeeRepository.cs" />
     <Compile Include="Repositories\Interface\IEmployeeRepository.cs" />
