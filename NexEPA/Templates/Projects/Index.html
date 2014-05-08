@@ -46,7 +46,7 @@
 				<td class="text-center member-limit">
 					<a href="" ng-click="detailProject(project,true)">{{project.members}}</a>
 				</td>
-				<td class="text-center">
+				<td class="text-center status-limit">
 					<a ng-show="!project.isUpdateStatus" ng-click="toogleEditStatus(project)" href="javascript:;">
 						{{project.status|enumStatusText}}</a>
 					<select class="inline-status" ng-show="project.isUpdateStatus" ng-options="s.id as s.name for s in status"
