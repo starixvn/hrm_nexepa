@@ -44,5 +44,11 @@ namespace NexEPA.Controllers.API
 
             return _reportService.GetGeneralInformationOfCurrentEmployee(criteria);
         }
+
+        [HttpGet]
+        public int GetCurrentEmployeeId()
+        {
+            return this.CurrentUser.UserId;
+        }
     }
 }

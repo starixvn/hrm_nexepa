@@ -5,6 +5,9 @@ homeModule.factory('homeFactory', ['$http', function ($http) {
 	return {
 		getGeneralInformationOfCurrentEmployee: function () {
 			return $http.get('/api/Home/GetGeneralInformationOfCurrentEmployee');
+		},
+		getCurrentEmployeeId: function () {
+			return $http.get('/api/Home/GetCurrentEmployeeId');
 		}
 	};
 } ]);
