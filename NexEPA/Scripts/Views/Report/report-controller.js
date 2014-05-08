@@ -45,9 +45,9 @@ function ($scope, $route, reportFactory, employeeRepository, notificationFactory
 	};
 } ]);
 
-reportModule.controller('EmployeeGeneralInformationController', [function () {
+reportModule.controller('EmployeeGeneralInformationController', function () {
 
-} ]);
+} );
 
 reportModule.controller('EmployeeHistoryProjectController', ['$scope', '$location', 'homeFactory',
 function ($scope, $location, homeFactory) {
