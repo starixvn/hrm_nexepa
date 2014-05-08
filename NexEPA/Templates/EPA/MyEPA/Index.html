@@ -2,7 +2,8 @@
 	<ul class="col-xs-12 breadcrumb list-inline pull-left">
 		<li>
 			<a href="#">EPA</a></li>
-		<li class="current">My EPA</li>
+		<li ng-show="isReadonly" class="current">My EPA</li>
+		<li ng-show="!isReadonly" class="current">Member EPA</li>
 	</ul>
 </div>
 <form class="epa-form" name="addProjectForm" novalidate>

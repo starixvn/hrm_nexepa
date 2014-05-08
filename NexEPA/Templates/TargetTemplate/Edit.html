@@ -85,7 +85,7 @@
 									<td class="text-center row-highlight">
 										<input type="checkbox" ng-model="kpi.groupSelected" ng-click="checkAllGroup(kpi.groupSelected, kpi)"/>
 									</td>
-									<td colspan="2" class="criteria-title row-highlight">{{ kpi.kpiGroupName}}</td>
+									<td colspan="2" class="criteria-title row-highlight">{{ kpi.kpiGroupName}} ({{kpi.kpiGroupItems[0].kpiGroupWeight}}%)</td>
 								</tr>
 
 								<tr ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">

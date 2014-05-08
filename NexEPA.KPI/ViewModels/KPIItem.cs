@@ -45,6 +45,8 @@ namespace NexEPA.KPI.ViewModels
 
         public int KPIGroupId { get; set; }
 
+        public int KPIGroupWeight { get; set; }
+
         public string TargetTypeName { get; set; }
 
         public int Weight { get; set; }

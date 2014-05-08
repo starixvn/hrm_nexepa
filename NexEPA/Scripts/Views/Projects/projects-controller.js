@@ -113,7 +113,6 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 
 	// Delete Milestone.
 	$scope.deleteProject = function (project) {
-		debugger;
 		var deleteModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
