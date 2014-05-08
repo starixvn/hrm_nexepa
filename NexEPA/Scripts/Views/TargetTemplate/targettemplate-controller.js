@@ -22,7 +22,7 @@ var showWarningWeightMessage = function (kpiIds, notificationFactory) {
 
 		for (var i = 0; i < numberKPI; i++) {
 			if (kpiIds[i].KPIGroupId === kpiGroupId) {
-				totalWeight += kpiIds[i].Weight;
+				totalWeight += parseInt(kpiIds[i].Weight);
 
 				if (totalWeight > 100 && (!kpiIds[i + 1] || kpiIds[i + 1] && kpiIds[i + 1].KPIGroupId !== kpiGroupId)) {
 					var message = 'The total weight of all KPI in the KPI Group "' +
@@ -176,6 +176,7 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 
 	var successUpdateTargetTemplate = function () {
+		notificationFactory.success('SuccessSaveData', '');
 		$timeout(function () {
 			$location.url('/TargetTemplate/Index');
 		}, 3000);
@@ -224,7 +225,6 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	};
 
 	$scope.addKPIGroup = function () {
-
 		var successAddKPIGroups = function () { notificationFactory.success(); };
 		var errorAddKPIGroups = function (data) { notificationFactory.error(data); };
 		var successGetAllKPIGroup = function (data) {
@@ -268,12 +268,30 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 		});
 	};
 
+	$scope.scoreSpread = function (kpi) {
+		var kpiGroupItems = kpi.kpiGroupItems;
+		var totalItemChecked = 0;
+		$.each(kpiGroupItems, function (i) {
+			if (kpiGroupItems[i].selected) {
+				totalItemChecked += 1;
+			}
+		});
+
+		if (totalItemChecked > 0) {
+			var average = 100 / totalItemChecked;
+			$.each(kpiGroupItems, function (i) {
+				var item = kpiGroupItems[i];
+				if (item.selected) {
+					item.weight = average;
+				}
+			});
+		}
+	};
+
 } ]);
 
-
-
-targetTemplateModule.controller('AddKPIGroup', ['$scope', '$modalInstance', 'KPIGroups',
-function ($scope, $modalInstance, KPIGroups) {
+targetTemplateModule.controller('AddKPIGroup', ['$scope', '$modalInstance', 'KPIGroups', 'notificationFactory',
+function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 	/**
 	* Variables. 
 	*/
@@ -285,7 +303,20 @@ function ($scope, $modalInstance, KPIGroups) {
 	* Event. 
 	*/
 	$scope.ok = function () {
-		$modalInstance.close($scope.selection);
+		var selectedItems = $scope.selection;
+		var totalWeight = 0;
+		$.each(selectedItems, function (i) {
+			totalWeight += parseInt(selectedItems[i].weight);
+		});
+		debugger;
+		if (totalWeight > 100) {
+			notificationFactory.error('', 'Total Weight must be equal or less than 100');
+		}
+		else {
+			$modalInstance.close($scope.selection);
+		}
+
+
 	};
 
 	$scope.cancel = function () {
