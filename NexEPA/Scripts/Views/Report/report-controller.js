@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('ViewEmployeePerformanceTendencyController',
-['$scope', 'reportFactory', 'employeeRepository', 'notificationFactory',
-function ($scope, reportFactory, employeeRepository, notificationFactory) {
+['$scope', '$route', 'reportFactory', 'employeeRepository', 'notificationFactory',
+function ($scope, $route, reportFactory, employeeRepository, notificationFactory) {
 
 	$scope.report = {
 		generalInformation: '',
@@ -45,7 +45,7 @@ function ($scope, reportFactory, employeeRepository, notificationFactory) {
 	};
 } ]);
 
-reportModule.controller('EmployeeGeneralInformationController', [function ($scope) {
+reportModule.controller('EmployeeGeneralInformationController', [function () {
 
 } ]);
 
