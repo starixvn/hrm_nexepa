@@ -23,7 +23,7 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 				return false;
 			}
 			else {
-				if (group.name === undefined) {
+				if (group.name === undefined || group.name === null) {
 					return false;
 				}
 
@@ -40,7 +40,7 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 				return false;
 			}
 			else {
-				if (item.name === undefined) {
+				if (item.name === undefined || item.name === null) {
 					return false;
 				}
 				else if (item.targetTypeId === undefined || item.targetTypeId === null) {

@@ -229,7 +229,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		// validation
 		KPICommonRepository.showMessageAfterValidateKPI($scope);
 
-		$scope.save = function (item) {
+		$scope.save = function (item, isCreateAndContinued) {
 			$scope.submitted = true;
 			$scope.disabledSubmitButton = true;
 
@@ -237,14 +237,23 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 				KPIRepository.createKPI(item).success(function (response) {
 					if (response.isSuccessful === true) {
 						notificationFactory.success("CreatedSuccessfulMessage");
-						$timeout(function () {
-							if (!$scope.isCreatedFromKPI) {
-								$window.history.back();
-							}
-							else {
-								$location.url('/KPI/ViewKPI/');
-							}
-						}, 2000);
+
+						if (isCreateAndContinued) {
+							$scope.submitted = false;
+							item.name = null;
+							item.description = null;
+							item.isRequireComment = false;
+						}
+						else {
+							$timeout(function () {
+								if (!$scope.isCreatedFromKPI) {
+									$window.history.back();
+								}
+								else {
+									$location.url('/KPI/ViewKPI/');
+								}
+							}, 2000);
+						}
 					}
 					else {
 						notificationFactory.error('', response.message);

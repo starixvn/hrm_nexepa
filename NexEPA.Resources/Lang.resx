@@ -504,4 +504,7 @@
   <data name="AverageWeight" xml:space="preserve">
     <value>Average weight</value>
   </data>
+  <data name="CreateAndContinue" xml:space="preserve">
+    <value>Create and continue</value>
+  </data>
 </root>

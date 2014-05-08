@@ -223,6 +223,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create and continue.
+        /// </summary>
+        public static string CreateAndContinue {
+            get {
+                return ResourceManager.GetString("CreateAndContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created successful!.
         /// </summary>
         public static string CreatedSuccessfulMessage {
