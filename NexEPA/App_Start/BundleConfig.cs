@@ -65,18 +65,11 @@ namespace NexEPA
                 "~/Scripts/Views/Projects/projects-repository.js",
                 "~/Scripts/Views/ProjectMember/projectmember-controller.js",
                 "~/Scripts/Views/ProjectMember/projectmember-repository.js",
-                "~/Scripts/Extensions/Filters/epa-filter.js",
-                "~/Scripts/Extensions/Directives/epa-directive.js",
-                "~/Scripts/Extensions/Services/projectsetting-service.js",
-                "~/Scripts/Extensions/Common/notification-factory.js",
-                "~/Scripts/Extensions/Services/error-service.js",
                 "~/Scripts/Extensions/Common/modalconfirm-controller.js",
-                "~/Scripts/Extensions/Common/common-factory.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-controller.js",
                 "~/Scripts/Views/KPI/KPIGroup/KPIGroup-repository.js",
                 "~/Scripts/Views/KPI/KPI/KPI-controller.js",
                 "~/Scripts/Views/KPI/KPI/KPI-repository.js",
-                "~/Scripts/Views/KPI/KPICommon.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-controller.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-repository.js",
                 "~/Scripts/Views/Target/target-controller.js",
@@ -86,7 +79,18 @@ namespace NexEPA
                 "~/Scripts/Views/Home/home-controller.js",
                 "~/Scripts/Views/Home/home-repository.js",
                  "~/Scripts/Views/Report/report-controller.js",
-                "~/Scripts/Views/Report/report-repository.js"));
+                "~/Scripts/Views/Report/report-repository.js",
+                "~/Scripts/Views/Setting/generalsetting-controller.js",
+                "~/Scripts/Views/Setting/generalsetting-repository.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/epa-extension").Include(
+                "~/Scripts/Extensions/Filters/epa-filter.js",
+                "~/Scripts/Extensions/Directives/epa-directive.js",
+                 "~/Scripts/Extensions/Services/projectsetting-service.js",
+                 "~/Scripts/Extensions/Services/error-service.js",
+                 "~/Scripts/Extensions/Common/notification-factory.js",
+                 "~/Scripts/Extensions/Common/common-factory.js",
+                 "~/Scripts/Views/KPI/KPICommon.js"));
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			KPI Group <span class="close-popup"></span>
+		</div>
+	</div>
+	<div class="modal-body"  style="min-height: 100px;">
+		<form class="col-sm-8  form-horizontal common-form" name="defaultTargetTemplate"
+		novalidate>
+		<div class="row boxcontent">
+			<div class="form-group required top-buffer">
+				<label class="col-sm-3">
+					{{"TargetType" | translate}}
+				</label>
+				<div class="col-sm-5">
+					<select class="custom-textbox" ng-options="tg.targetTemplateId as tg.name for tg in targetTemplates"
+						ng-model="selectedId">
+						<option style="display: none" value="">-- Select a target type --</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="button" ng-click="ok(selectedId)">
+			OK</button>
+		<button class="btn btn-default customize" ng-click="cancel()">
+			Cancel</button>
+	</div>
+</div>

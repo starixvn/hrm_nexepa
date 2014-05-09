@@ -1,5 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule, epaModule*/
-/* exported employeeModule, homeModule, reportModule*/
+/* exported employeeModule, homeModule, reportModule, generalSettingModule*/
 /*global angular*/
 'use strict';
 
@@ -65,6 +65,11 @@ var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
 		{ templateUrl: '/templates/EPA/MemberEPA/ViewAllMemberOfManager.html', controller: 'ViewMemberByManagerEPAController' });
 } ]);
 
+var generalSettingModule = angular.module("generalSettingModule", ['ngRoute', 'ngResource'])
+.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider.when('/Setting/Index', { templateUrl: '../templates/Setting/Index.html', controller: 'GeneralSettingController' });
+} ]);
+
 var employeeModule = angular.module("employeeModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/Employee/GetAllEmployee', { templateUrl: '/templates/Employee/View.html', controller: 'ViewAllEmployeeController' });
@@ -84,7 +89,7 @@ var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
 } ]);
 
 var registrationModule = angular.module("registrationModule",
-['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule',
+['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'generalSettingModule',
 'epaModule', 'homeModule', 'reportModule', 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig, datepickerPopupConfig) {
