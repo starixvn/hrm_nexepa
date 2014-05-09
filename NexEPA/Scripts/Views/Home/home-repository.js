@@ -19,11 +19,13 @@ homeModule.directive('truncate', function () {
 			var comment = scope.originalComment(),
 				length = 60;
 
-			if (comment.length <= length) {
-				scope.comment = comment;
-			}
-			else {
-				scope.comment = String(comment).substring(0, length);
+			if (comment) {
+				if (comment.length <= length) {
+					scope.comment = comment;
+				}
+				else {
+					scope.comment = String(comment).substring(0, length);
+				}
 			}
 		}
 	};

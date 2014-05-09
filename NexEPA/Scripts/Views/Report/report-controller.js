@@ -102,7 +102,6 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 		fromDate: fromDate,
 		toDate: new Date(),
 		groupId: null,
-		employeeId: null,
 		projectId: null
 	};
 
@@ -160,17 +159,17 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 	// Get employee performance by team report
 	var getEmployeePerformanceByTeamReport = function (filter) {
 		var fromDate = filter.fromDate,
-			toDate = filter.toDate;
+			toDate = filter.toDate,
+			employeeId = null;
 
 		fromDate = fromDate ? fromDate.toDateString() : null;
 		toDate = toDate ? toDate.toDateString() : null;
 
 		if ($scope.employee) {
-			filter.employeeId = $scope.employee.employeeId;
-			$scope.employee = null;
+			employeeId = $scope.employee.employeeId;
 		}
 
-		reportFactory.getEmployeePerformanceByTeamReport(filter, fromDate, toDate).success(function (report) {
+		reportFactory.getEmployeePerformanceByTeamReport(filter, fromDate, toDate, employeeId).success(function (report) {
 			$scope.employeeReport = report;
 			$scope.disabledSubmit = false;
 		}).error(function () {
@@ -191,6 +190,12 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 	$scope.viewEmployeeTendency = function (employeeId) {
 		$location.path('Report/EmployeePerformanceTendency').search('employeeId', employeeId);
 	};
+
+	$scope.$watch('search.searchKey', function (newValue) {
+		if (newValue == "") {
+			$scope.employee = null;
+		}
+	});
 
 	$scope.reload = function () {
 		$route.reload();
