@@ -336,8 +336,8 @@
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Content\Common\bootstrap-theme.css.map" />
-    <None Include="Content\Common\bootstrap.css.map" />
+    <Content Include="Content\Common\bootstrap-theme.css.map" />
+    <Content Include="Content\Common\bootstrap.css.map" />
     <Content Include="Content\Site\mixins.less" />
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\layout.less" />
