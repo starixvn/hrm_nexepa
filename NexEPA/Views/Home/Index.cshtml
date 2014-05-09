@@ -36,6 +36,8 @@
                     }
                     </ul>
                 </li>
+                @if (Roles.IsUserInRole("SA") || Roles.IsUserInRole("PM") || Roles.IsUserInRole("Leader"))
+                {
                 <li class="dropdown">
                     <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Report <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop2">
@@ -43,6 +45,7 @@
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Report/EmployeePerformanceByTeam">Employee Performance By Team</a></li>
                    </ul>
                 </li>
+                }
                 @if (Roles.IsUserInRole("SA"))
                 { 
                 <li class="dropdown">

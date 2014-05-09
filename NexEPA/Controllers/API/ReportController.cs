@@ -16,6 +16,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Services.Implement;
     using NexEPA.Report.Services.Interface;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -36,6 +37,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        [ApiAuthorize(Roles = "PM,SA,Leader")]
         public List<object> GetEmployeePerformanceTendencyReport(int employeeId)
         {
             var criteria = new GetEmployeePerformanceTendencyReportCriteria
@@ -56,6 +58,7 @@ namespace NexEPA.Controllers.API
         /// <param name="projectId">The project ID.</param>
         /// <returns>The List ReportEmployeeByTeamModel.</returns>
         [HttpGet]
+        [ApiAuthorize(Roles = "PM,SA,Leader")]
         public IEnumerable<ReportEmployeeByTeamModel> GetEmployeePerformanceByTeamReport(
             DateTime fromDate,
             DateTime toDate,
