@@ -8,12 +8,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[EmployeePermisson](
+CREATE TABLE [dbo].[EmployeePermission](
 	[EmployeeId] [int] NOT NULL,
 	[RoleId] [int] NOT NULL,
 	[IsAllow] [bit] NULL,
 	[IsDeny] [bit] NULL,
- CONSTRAINT [PK_EmployeePermisson] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_EmployeePermission] PRIMARY KEY CLUSTERED 
 (
 	[EmployeeId] ASC,
 	[RoleId] ASC
