@@ -1,8 +1,6 @@
-﻿ <div ng-controller="EmployeeHistoryProjectController" ng-show="report.historyProjects != ''">
-    <div class="row">
-        <div class="home-tab colons">
-            <span class="home-label" data-translate="ByProject" ng-click="collapseTable()"></span>
-        </div>
+﻿ <div class="common-form container-content" ng-controller="EmployeeHistoryProjectController" ng-show="report.historyProjects != ''">
+    <div class="row boxtitle first" ng-click="collapseTable()">
+       <span class="home-label" data-translate="ByProject"></span>
     </div>
 
     <div class="row" collapse="isCollapsed">
