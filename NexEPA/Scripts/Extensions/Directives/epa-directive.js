@@ -32,6 +32,13 @@ registrationModule.directive('percentage', function () {
 registrationModule.directive('ngRepeatLoaded', function () {
 	return function (scope) {
 		if (scope.$last) {
+			var ratingScale = $("#ratingScale");
+			if (ratingScale.length > 0) {
+				var ratingScaleContent = ratingScale.next();
+				ratingScaleContent.slideToggle(500, function () {
+				});
+			}
+
 			$(".boxtitle").on("click", function () {
 				var header = $(this);
 				//getting the next element

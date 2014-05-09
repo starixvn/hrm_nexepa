@@ -519,4 +519,7 @@
   <data name="ByProject" xml:space="preserve">
     <value>By projects</value>
   </data>
+  <data name="RatingScale" xml:space="preserve">
+    <value>RATING SCALE</value>
+  </data>
 </root>

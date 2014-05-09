@@ -55,6 +55,12 @@
 					<strong>{{employeeEPA.milestoneName}}</strong></div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="col-sm-12 list-group-item criteria-area">
+	<div class="boxtitle first" data-translate="RatingScale" id="ratingScale">
+	</div>
+	<div class="epa-boxcontent">
 		<div class="row row-item line rating">
 			<span class="note">* Rating criteria:</span> please evaluate by point as this scale
 			<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
@@ -70,21 +76,20 @@
 				<ol type="1" class="list-item">
 					<div class="col-sm-12" ng-repeat="item in kpi.kpiGroupItems">
 						<div class="row criteria-title">
-							<span class="epa-criteria-name col-sm-9">
-							{{$index + 1}}. {{item.name}} ({{item.weight}}%)</span>
+							<span class="epa-criteria-name col-sm-9 kpi-custom-font">{{$index + 1}}. {{item.name}}
+								({{item.weight}}%)</span>
 							<div class="col-sm-3 list-star epa-criteria-name">
-								<a ng-show="!isReadonly" class="glyphicon glyphicon-remove-circle remove-star" title="Cancel"
-									href="javascript:;" ng-click="cancelRating(item)"></a>
 								<rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
 									ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(item)"></rating>
 								<span class="badge percent" ng-show="item.percent > 0">{{item.percent}}%</span>
 								<span class="badge percent" ng-show="item.percent <= 0">N/A</span>
+								<a ng-show="!isReadonly && item.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
+									title="Cancel" href="javascript:;" ng-click="cancelRating(item)"></a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-9 criteria-description" ng-show="item.description!=''">
 								{{item.description}}</div>
-							
 						</div>
 						<div class="row">
 							<div class="epa-error-message" ng-show="item.checkNullComment">
