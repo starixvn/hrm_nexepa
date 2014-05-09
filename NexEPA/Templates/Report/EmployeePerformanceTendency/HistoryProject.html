@@ -27,30 +27,35 @@
                         <i class="home-expanded"  ng-click="showHideMilestone(historyProject)"
                             ng-show="historyProject.milestones.length > 0 && collapse.isCollapsed{{historyProject.project.projectId}}"></i>
                         <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" 
-                            ng-show="!historyProject.projectEvaluation && !historyProject.milestoneEvaluation"/>
-                        <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" ng-show="historyProject.projectEvaluation" />
-                        <span ng-bind="historyProject.project.name" ng-show="historyProject.milestoneEvaluation"></span>
+                            ng-show="!historyProject.projectEvaluation && !historyProject.milestoneEvaluation" title="View detail EPA"/>
+                        <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" 
+                            ng-show="historyProject.projectEvaluation" title="View detail EPA"/>
+                        <span ng-bind="historyProject.project.name" ng-show="historyProject.milestoneEvaluation" title="View detail EPA"></span>
                     </td>
                     <td class="home-center" ng-bind="historyProject.evaluator.fullName"></td>
                     <td class="home-center">{{historyProject.project.startDate | customDate}}</td>
                     <td class="home-center">{{historyProject.project.endDate | customDate}}</td>
                     <td class="home-score" ng-bind="historyProject.score"></td>
                     <td class="home-role" ng-bind="historyProject.roles"></td>
-                    <td class="home-comment" ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></td>
+                    <td class="home-comment">
+                        <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></span>
+                    </td>
                 </tr>
                 <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
                     <td class="home-center">
-                        <a href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)"/>
+                        <a href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)" title="View detail EPA"/>
                     </td>
                     <td></td>
                     <td class="home-center">{{milestone.startDate | customDate}}</td>
                     <td class="home-center">{{milestone.endDate | customDate}}</td>
                     <td class="home-score" ng-bind="milestone.score"></td>
                     <td></td>
-                    <td class="home-comment" ng-bind="truncateComment" original-comment="milestone.comment" truncate tooltip={{milestone.comment}}></td>
+                    <td class="home-comment">
+                        <span ng-bind="truncateComment" original-comment="milestone.comment" truncate tooltip={{milestone.comment}}></span>
+                    </td>
                 </tr>
-                <tr ng-show="dashboradInformation.historyProjects == ''">
+                <tr ng-show="report.historyProjects == ''">
                     <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
                 </tr>
             </tbody>

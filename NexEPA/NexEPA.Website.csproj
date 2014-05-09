@@ -303,6 +303,7 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
+    <Content Include="Templates\Report\EmployeePerformanceByTeam\View.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\GeneralInformation.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\HistoryProject.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\View.html" />

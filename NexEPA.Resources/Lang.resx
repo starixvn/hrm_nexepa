@@ -521,5 +521,16 @@
   </data>
   <data name="RatingScale" xml:space="preserve">
     <value>RATING SCALE</value>
+  <data name="EmployeePerformanceByTeam" xml:space="preserve">
+    <value>Employee Performance By Team</value>
+  </data>
+  <data name="EPACount" xml:space="preserve">
+    <value>EPA Count</value>
+  </data>
+  <data name="ProjectCount" xml:space="preserve">
+    <value>Project Count</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>Team Member</value>
   </data>
 </root>

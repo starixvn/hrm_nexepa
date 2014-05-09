@@ -14,6 +14,7 @@ namespace NexEPA.Report.Repositories.Implement
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
     using NexEPA.Report.Models.Dashboard;
+    using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Repositories.Interface;
 
     /// <summary>
@@ -106,6 +107,33 @@ namespace NexEPA.Report.Repositories.Implement
                         },
                         "ProjectId,EmployeeId,MilestoneId");
                     result.Add(historyProjects);
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get employee performance by team report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list object.</returns>
+        public List<object> GetEmployeePerformanceByTeamReport(ICriteria criteria)
+        {
+            var result = new List<object>();
+
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var employeePerformanceByTeamReport = multi.Read<ReportEmployeeByTeamModel, Group, ReportEmployeeByTeamModel>(
+                        (re, gr) => 
+                        {
+                            re.Group = gr;
+                            return re;
+                        },
+                        "GroupId");
+                    result.Add(employeePerformanceByTeamReport);
                 }
             }
 

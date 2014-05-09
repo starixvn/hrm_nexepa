@@ -91,5 +91,6 @@
   <Function Name="Report">
     <Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
 </Functions>

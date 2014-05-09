@@ -16,7 +16,8 @@ namespace NexEPA.Report.Services.Implement
     using NexEPA.Core.Models;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
-    using NexEPA.Report.Models.EmployeePerformanceTendance;
+    using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Repositories.Implement;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;
@@ -96,6 +97,29 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return employeePerformaceReport;
+        }
+
+        /// <summary>
+        /// Get employee performance by team report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list ReportEmployeeByTeamModel.</returns>
+        public IEnumerable<ReportEmployeeByTeamModel> GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<ReportEmployeeByTeamModel> employeePerformanceByTeamReport = null;
+
+            if (criteria.IsValid())
+            {
+                List<object> rawsEmployeeByTeamReport = _reportRepository.GetEmployeePerformanceByTeamReport(criteria);
+
+                if (rawsEmployeeByTeamReport != null && rawsEmployeeByTeamReport.Count >= 1)
+                {
+                    employeePerformanceByTeamReport = (IEnumerable<ReportEmployeeByTeamModel>)rawsEmployeeByTeamReport[0];
+                }
+            }
+
+            return employeePerformanceByTeamReport;
         }
 
         /// <summary>

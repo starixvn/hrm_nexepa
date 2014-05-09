@@ -1,4 +1,4 @@
-﻿<div ng-controller="HistoryProjectController" ng-show="dashboradInformation.historyProjects.length > 0">
+﻿<div ng-controller="HistoryProjectController">
     <div class="row">
         <div class="home-tab colons">
             <span class="home-label" data-translate="ProjectHistory" ng-click="collapseTable()"></span>
@@ -36,7 +36,9 @@
                     <td class="home-center">{{historyProject.project.endDate | customDate}}</td>
                     <td class="home-score" ng-bind="historyProject.score"></td>
                     <td class="home-role" ng-bind="historyProject.roles"></td>
-                    <td class="home-comment" ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></td>
+                    <td class="home-comment">
+                        <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></span>
+                    </td>
                 </tr>
                 <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
@@ -48,7 +50,9 @@
                     <td class="home-center">{{milestone.endDate | customDate}}</td>
                     <td class="home-score" ng-bind="milestone.score"></td>
                     <td></td>
-                    <td class="home-comment" ng-bind="truncateComment" original-comment="milestone.comment" truncate tooltip={{milestone.comment}}></td>
+                    <td class="home-comment">
+                        <span ng-bind="truncateComment" original-comment="milestone.comment" truncate tooltip={{milestone.comment}}></span>
+                    </td>
                 </tr>
                 <tr ng-show="dashboradInformation.historyProjects == ''">
                     <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>

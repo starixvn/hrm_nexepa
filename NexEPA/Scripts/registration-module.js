@@ -79,6 +79,8 @@ var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/Report/EmployeePerformanceTendency', 
 		{ templateUrl: '/templates/Report/EmployeePerformanceTendency/View.html', controller: 'ViewEmployeePerformanceTendencyController' });
+	$routeProvider.when('/Report/EmployeePerformanceByTeam',
+		{ templateUrl: '/templates/Report/EmployeePerformanceByTeam/View.html', controller: 'ViewEmployeePerformanceByTeamController' });
 } ]);
 
 var registrationModule = angular.module("registrationModule",

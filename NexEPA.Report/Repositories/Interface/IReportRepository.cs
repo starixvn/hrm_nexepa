@@ -11,7 +11,7 @@ namespace NexEPA.Report.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Report.Models.Dashboard;
+    using NexEPA.Report.Models.EmployeePerformanceByTeam;
 
     /// <summary>
     /// The interface of Report Repository.
@@ -21,5 +21,7 @@ namespace NexEPA.Report.Repositories.Interface
         List<object> GetGeneralInformationOfCurrentEmployee(ICriteria criteria);
 
         List<object> GetEmployeePerformanceTendancyReport(ICriteria criteria);
+
+        List<object> GetEmployeePerformanceByTeamReport(ICriteria criteria);
     }
 }

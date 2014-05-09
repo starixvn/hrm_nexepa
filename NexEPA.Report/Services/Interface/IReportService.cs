@@ -11,7 +11,7 @@ namespace NexEPA.Report.Services.Interface
 {
     using System.Collections.Generic;
     using NexEPA.Report.Criteria;
-    using NexEPA.Report.ViewModels;
+    using NexEPA.Report.Models.EmployeePerformanceByTeam;
 
     /// <summary>
     /// The interface of Report Service.
@@ -21,5 +21,7 @@ namespace NexEPA.Report.Services.Interface
         List<object> GetGeneralInformationOfCurrentEmployee(GetGeneralInformationOfCurrentEmployeeCriteria criteria);
 
         List<object> GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria);
+
+        IEnumerable<ReportEmployeeByTeamModel> GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria);
     }
 }

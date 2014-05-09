@@ -9,9 +9,11 @@
 
 namespace NexEPA.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using NexEPA.Report.Criteria;
+    using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Services.Implement;
     using NexEPA.Report.Services.Interface;
     using NexEPA.Web.Controllers;
@@ -42,6 +44,37 @@ namespace NexEPA.Controllers.API
             };
 
             return _reportService.GetEmployeePerformanceTendancyReport(criteria);
+        }
+
+        /// <summary>
+        /// Get employee performance by team report.
+        /// </summary>
+        /// <param name="actorUserId">The current user ID.</param>
+        /// <param name="fromDate">The From Date.</param>
+        /// <param name="toDate">The To Date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="projectId">The project ID.</param>
+        /// <returns>The List ReportEmployeeByTeamModel.</returns>
+        [HttpGet]
+        public IEnumerable<ReportEmployeeByTeamModel> GetEmployeePerformanceByTeamReport(
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            int? projectId = null)
+        {
+            var criteria = new GetEmployeePerformanceByTeamCriteria
+            {
+                ActorUserId = this.CurrentUser.UserId,
+                FromDate = fromDate,
+                ToDate = toDate,
+                EmployeeId = employeeId,
+                GroupId = groupId,
+                ProjectId = projectId
+            };
+
+            return _reportService.GetEmployeePerformanceByTeamReport(criteria);
         }
     }
 }

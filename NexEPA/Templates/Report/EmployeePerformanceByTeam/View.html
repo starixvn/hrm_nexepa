@@ -1,0 +1,78 @@
+﻿<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="Report" ng-click="reload()"></a></li>
+            <li class="current" data-translate="EmployeePerformanceByTeam"></li>
+        </ul>
+    </div>
+
+    <div class="form-inline filter">
+        <form novalidate class="form-inline">
+            <div class="form-group">
+                <label data-translate="Team"></label>
+                <select ng-model="filter.groupId" 
+                    ng-options="opt.id as opt.name for opt in groupOptions" class="form-control">
+                    <option value="" data-translate="AllTeam"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-translate="Project"></label>
+                <select ng-model="filter.projectId" 
+                    ng-options="opt.id as opt.name for opt in projectOptions" class="form-control">
+                    <option value="">-- All --</option>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label data-translate="Employee"></label>
+                <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
+                        search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee"/>
+            </div>
+            <div class="form-group">
+                <label data-translate="From"></label>
+                <input class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup="{{dateFormat}}" is-open="calendar.startDateOpened" show-button-bar="false"/>
+                <img class="calendar-image" ng-click="openPopupStartDate($event)" src="{{sourceCalendarImage}}"></img>
+            </div>
+            <div class="form-group">
+                <label data-translate="To"></label>
+                <input class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup="{{dateFormat}}" is-open="calendar.endDateOpened" show-button-bar="false"/>
+                <img class="calendar-image" ng-click="openPopupEndDate($event)" src="{{sourceCalendarImage}}" ></img>
+            </div>
+            <button class="button" ng-click="getReport(filter)" ng-disabled="disabledSubmit" data-translate="Submit"></button>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="home-tab colons">
+        <span class="home-label" data-translate="ByProject" ng-click="collapseTable()"></span>
+    </div>
+</div>
+
+<div class="row" collapse="isCollapsed">
+    <table class="table table-bordered table-striped home-table">
+        <thead>
+            <th data-translate="SymbolCount"></th>
+            <th data-translate="TeamMember"></th>
+            <th data-translate="Team"></th>
+            <th data-translate="ProjectCount"></th>
+            <th data-translate="EPACount"></th>
+            <th data-translate="JoinedDate"></th>
+            <th data-translate="AverageScore"></th>
+        </thead>
+        <tr ng-repeat="employee in employeeReport">
+            <td class="home-index" ng-bind="$index + 1"></td>
+            <td>
+                <a ng-bind="employee.nickName + ' - ' + employee.fullName" href="" ng-click="viewEmployeeTendency(employee.employeeId)"/>
+            </td>
+            <td ng-bind="employee.group.name"></td>
+            <td class="report-project-count" ng-bind="employee.projectCount"></td>
+            <td class="report-epa-count" ng-bind="employee.epaCount"></td>
+            <td class="report-joined-date" ng-bind="employee.joinedDate | customDate"></td>
+            <td class="report-average-score" ng-bind="employee.averageScore"></td>
+        </tr>
+        <tr ng-show="employeeReport == ''">
+            <td class="empty-result" colspan="7" data-translate="EmptyResult"></td>
+        </tr>
+    </table>
+</div>
+

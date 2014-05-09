@@ -439,6 +439,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Performance By Team.
+        /// </summary>
+        public static string EmployeePerformanceByTeam {
+            get {
+                return ResourceManager.GetString("EmployeePerformanceByTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee Performance Tendency.
         /// </summary>
         public static string EmployeePerformanceTendency {
@@ -471,6 +480,15 @@ namespace NexEPA.Resources {
         public static string EPA {
             get {
                 return ResourceManager.GetString("EPA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EPA Count.
+        /// </summary>
+        public static string EPACount {
+            get {
+                return ResourceManager.GetString("EPACount", resourceCulture);
             }
         }
         
@@ -889,6 +907,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project Count.
+        /// </summary>
+        public static string ProjectCount {
+            get {
+                return ResourceManager.GetString("ProjectCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Detail.
         /// </summary>
         public static string ProjectDetail {
@@ -1191,6 +1218,15 @@ namespace NexEPA.Resources {
         public static string Team {
             get {
                 return ResourceManager.GetString("Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team Member.
+        /// </summary>
+        public static string TeamMember {
+            get {
+                return ResourceManager.GetString("TeamMember", resourceCulture);
             }
         }
         

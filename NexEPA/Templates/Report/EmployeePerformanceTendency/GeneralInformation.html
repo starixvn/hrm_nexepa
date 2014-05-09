@@ -1,37 +1,37 @@
 ﻿<div ng-controller="EmployeeGeneralInformationController" ng-show="report.generalInformation != ''">
-     <form class="col-sm-5 form-horizontal common-form" role="form">
+     <form class="col-sm-3 form-horizontal common-form" role="form">
         <div class="form-group">
-            <label class="col-sm-3 control-label"></label>
+            <label class="col-sm-4 control-label"></label>
             <div class="col-sm-8">
                 <span ng-bind="report.generalInformation.fullName"></span>
             </div>
          </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label"></label>
+            <label class="col-sm-4 control-label"></label>
             <div class="col-sm-8">
                 <span ng-bind="report.generalInformation.domainUserName"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label" data-translate="StaffId"></label>
+        <div class="form-group colons">
+            <label class="col-sm-4 control-label" data-translate="StaffId"></label>
             <div class="col-sm-8">
                 <span ng-bind="report.generalInformation.code"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label" data-translate="JobTitle"></label>
+        <div class="form-group colons">
+            <label class="col-sm-4 control-label" data-translate="JobTitle"></label>
             <div class="col-sm-8">
                 <span ng-bind="report.generalInformation.jobTitle"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label" data-translate="Team"></label>
+        <div class="form-group colons">
+            <label class="col-sm-4 control-label" data-translate="Team"></label>
             <div class="col-sm-8">
                 <span ng-bind="report.generalInformation.teamName"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label" data-translate="Role"></label>
+        <div class="form-group colons">
+            <label class="col-sm-4 control-label" data-translate="Role"></label>
             <div class="col-sm-8">
                 <span ng-bind="report.generalInformation.roles"></span>
             </div>

@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.05.08">Created</change>
 // </history>
 
-namespace NexEPA.Report.Models.EmployeePerformanceTendance
+namespace NexEPA.Report.Models.EmployeePerformanceTendency
 {
     /// <summary>
     /// The model of employee in report.
