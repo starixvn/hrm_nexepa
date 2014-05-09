@@ -1,34 +1,6 @@
-﻿<table class="table table-bordered table-striped target-member-table">
-    <thead>
-        <th data-translate="SymbolCount">
-        </th>
-        <th data-translate="KPI">
-        </th>
-        <th data-translate="AverageWeight">
-        </th>
-        <th data-translate="AverageScore">
-        </th>
-    </thead>
-    <tr ng-repeat="KPIItem in dashboradInformation.listKPIs">
-        <td class="home-index" ng-bind="$index + 1">
-        </td>
-        <td ng-bind="KPIItem.name">
-        </td>
-        <td class="home-weight" ng-bind="KPIItem.weight">
-        </td>
-        <td class="home-score" ng-bind="KPIItem.score">
-        </td>
-    </tr>
-    <tr ng-show="dashboradInformation.listKPIs == ''">
-        <td class="empty-result" colspan="4" data-translate="EmptyResult">
-        </td>
-    </tr>
-</table>
-<!--<div ng-controller="HomeKPIController">
-    <div class="row" ng-click="collapseTable()">
-        <div class="home-tab colons">
-            <span class="home-label" data-translate="MyKPI"></span>
-        </div>
+﻿<div ng-controller="HomeKPIController">
+    <div class="row boxtitle" ng-click="collapseTable()">
+        <span class="home-label" data-translate="MyKPI"></span>
     </div>
     <div class="row" collapse="isCollapsed">
         <table class="table table-bordered table-striped target-member-table">
@@ -59,4 +31,3 @@
         </table>
     </div>
 </div>
--->
