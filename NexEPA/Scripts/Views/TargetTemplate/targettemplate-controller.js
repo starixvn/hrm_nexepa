@@ -55,7 +55,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 	// Success delete target template.
 	var successDeleteTargetTemplate = function () {
 		notificationFactory.success();
-		return targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
+		return targetTemplateFactory.getAllTargetTemplate(null).then(successGetAllTargetTemplate);
 	};
 
 	// Error notify when action failure.
@@ -64,7 +64,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 	/**
 	* Initialize data to view Index.
 	*/
-	targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
+	targetTemplateFactory.getAllTargetTemplate(null).then(successGetAllTargetTemplate);
 	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
 
 

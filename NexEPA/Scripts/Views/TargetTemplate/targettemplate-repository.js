@@ -15,9 +15,10 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 			$http.get('/api/targetTemplate/GetAllTargetType').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
-		getAllTargetTemplate: function () {
+		getAllTargetTemplate: function (targetTypeId) {
 			var deferred = $q.defer();
-			$http.get('/api/targetTemplate/Get').success(deferred.resolve).error(deferred.reject);
+			$http.get('/api/targetTemplate/Get', { params: { targetTypeId: targetTypeId} })
+			.success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
 		getKPI: function (targetTemplateId, targetTypeId, groupId, onlySelected) {

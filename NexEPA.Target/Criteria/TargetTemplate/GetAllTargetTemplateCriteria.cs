@@ -16,6 +16,8 @@ namespace NexEPA.Target.Criteria.TargetTemplate
     /// </summary>
     public class GetAllTargetTemplateCriteria : CriteriaBase
     {
+        public int? TargetTypeId { get; set; }
+
         public override bool IsValid()
         {
             return true;

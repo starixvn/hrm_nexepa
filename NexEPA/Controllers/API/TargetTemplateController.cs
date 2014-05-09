@@ -66,9 +66,9 @@ namespace NexEPA.Controllers.API
             _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
         }
 
-        public IEnumerable<TargetTemplateModel> Get()
+        public IEnumerable<TargetTemplateModel> Get(int? targetTypeId = null)
         {
-            GetAllTargetTemplateCriteria criteria = new GetAllTargetTemplateCriteria();
+            GetAllTargetTemplateCriteria criteria = new GetAllTargetTemplateCriteria() { TargetTypeId = targetTypeId };
             var data = this._targetTemplateService.GetAllTargetTemplate(criteria);
             return data;
         }

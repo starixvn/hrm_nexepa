@@ -45,9 +45,9 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 	var errorNotification = function (response) { notificationFactory.success('', response); };
 	// Popup Add New Memeber.
 
-	$scope.defaultTargetTemplate = function (targetTemplateId) {
+	$scope.defaultTargetTemplate = function (targetTemplateId, targetTypeId) {
 		$scope.currentTargetTemplate = { targetTemplateId: targetTemplateId };
-		targetTemplateFactory.getAllTargetTemplate().then(successGetAllTargetTemplate);
+		targetTemplateFactory.getAllTargetTemplate(targetTypeId).then(successGetAllTargetTemplate);
 
 	};
 
