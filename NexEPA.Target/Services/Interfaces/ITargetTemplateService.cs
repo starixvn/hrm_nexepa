@@ -41,5 +41,7 @@ namespace NexEPA.Target.Services.Interfaces
         CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria);
 
         IEnumerable<TargetSettingModel> GetTargetSetting(GetTargetSettingCriteria criteria);
+
+        CommandResult SetDefaultTargetTemplate(SetTargetSettingCriteria criteria);
     }
 }

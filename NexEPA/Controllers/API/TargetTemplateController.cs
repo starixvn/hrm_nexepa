@@ -349,6 +349,28 @@ namespace NexEPA.Controllers.API
             return targetSettings;
         }
 
+        /// <summary>
+        /// Method Set Default Target Template.
+        /// </summary>
+        /// <param name="model">Model contains target id and target template id.</param>
+        /// <returns>Http Response Message.</returns>
+        public HttpResponseMessage SetDefaultTargetTemplate(dynamic model)
+        {
+            var criteria = new SetTargetSettingCriteria() 
+            {
+                TargetTypeId = model.targetTypeId,
+                TargetTemplateId = model.targetTemplateId
+            };
+            CommandResult result = this._targetTemplateService.SetDefaultTargetTemplate(criteria);
+            if (result.Code != 0)
+            {
+                List<string> errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
         private string ConvertKPIGroupWeightToXML(List<TargetKPIGroup> kpiGroups)
         {
             var value = new StringBuilder(_BeginRootTag);

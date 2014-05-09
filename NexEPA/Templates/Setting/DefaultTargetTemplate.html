@@ -4,18 +4,22 @@
 			KPI Group <span class="close-popup"></span>
 		</div>
 	</div>
-	<div class="modal-body"  style="min-height: 100px;">
+	<div class="modal-body" style="min-height: 100px;">
 		<form class="col-sm-8  form-horizontal common-form" name="defaultTargetTemplate"
 		novalidate>
+		<div class="col-sm-offset-4">
+			<div class="epa-error-message hide-errormessage left-buffer" id="memberValid">
+				The field Target Template is required!</div>
+		</div>
 		<div class="row boxcontent">
 			<div class="form-group required top-buffer">
-				<label class="col-sm-3">
-					{{"TargetType" | translate}}
+				<label class="col-sm-4 required">
+					{{"TargetTemplate" | translate}}
 				</label>
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<select class="custom-textbox" ng-options="tg.targetTemplateId as tg.name for tg in targetTemplates"
-						ng-model="selectedId">
-						<option style="display: none" value="">-- Select a target type --</option>
+						ng-model="currentTargetTemplate.targetTemplateId">
+						<option style="display: none" value="">-- Select a target template --</option>
 					</select>
 				</div>
 			</div>
@@ -23,7 +27,7 @@
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button class="button" ng-click="ok(selectedId)">
+		<button class="button" ng-click="ok(currentTargetTemplate.targetTemplateId, targetTemplates[0].targetTypeId)">
 			OK</button>
 		<button class="btn btn-default customize" ng-click="cancel()">
 			Cancel</button>

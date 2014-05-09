@@ -13,14 +13,20 @@
 			</th>
 			<th data-translate="Name">
 			</th>
+			<th data-translate="Action">
+			</th>
 		</thead>
 		<tbody>
-			<tr>
+			<tr ng-repeat="setting in targetSettings">
 				<td class="text-center">
-					1
+					{{setting.name}}
 				</td>
 				<td>
-					<a href="javascript:;" ng-click="defaultTargetTemplate()">Default Target Template</a>
+					{{setting.targetTemplate.name}}
+				</td>
+				<td class="text-center">
+					<a class="glyphicon glyphicon-edit icon-edit" href="javascript:;" ng-click="defaultTargetTemplate(setting.targetTemplate.targetTemplateId)">
+					</a>
 				</td>
 			</tr>
 		</tbody>

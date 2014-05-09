@@ -174,5 +174,22 @@ namespace NexEPA.Target.Services.Impl
 
             return targetSettings;
         }
+
+        /// <summary>
+        /// Set Default Target Template.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command results.</returns>
+        public CommandResult SetDefaultTargetTemplate(SetTargetSettingCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var commandResult = new CommandResult();
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
     }
 }

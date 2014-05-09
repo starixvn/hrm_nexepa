@@ -308,7 +308,7 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 		$.each(selectedItems, function (i) {
 			totalWeight += parseInt(selectedItems[i].weight);
 		});
-		debugger;
+
 		if (totalWeight > 100) {
 			notificationFactory.error('', 'Total Weight must be equal or less than 100');
 		}

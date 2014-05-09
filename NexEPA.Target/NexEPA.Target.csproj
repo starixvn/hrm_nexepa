@@ -68,6 +68,7 @@
     <Compile Include="Criteria\TargetTemplate\GetListKPIByTargetTemplateIdCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetSelectedKPIGroupCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetTargetTemplateByIdCriteria.cs" />
+    <Compile Include="Criteria\TargetTemplate\SetTargetSettingCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\UpdateTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\UpdateTargetTemplateStatusCriteria.cs" />
     <Compile Include="Criteria\Target\TargetEmployee\AddTargetEmployeeCriteria.cs" />
