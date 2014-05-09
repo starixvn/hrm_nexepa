@@ -41,7 +41,7 @@
                 <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
                     <td class="sub-item">
-                        <a href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)"/>
+                        <a class="home-milestone" href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)"/>
                     </td>
                     <td></td>
                     <td class="home-center">{{milestone.startDate | customDate}}</td>

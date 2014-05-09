@@ -13,11 +13,12 @@ namespace NexEPA.Core.Services
     using Fanex.Common.Helper;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Models;
+    using NexEPA.Core.Services.Interface;
 
     /// <summary>
     /// EPA services.
     /// </summary>
-    public class EPAService : BaseService
+    public class EPAService : BaseService, IEPAService
     {
         /// <summary>
         /// Get all Target Type.

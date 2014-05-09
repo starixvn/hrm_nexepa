@@ -20,6 +20,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Services.Interface;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Services.Implement.KPI;
@@ -44,7 +45,7 @@ namespace NexEPA.Controllers.API
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
         private readonly ITargetTemplateService _targetTemplateService;
-        private readonly EPAService _epaService;
+        private readonly IEPAService _epaService;
         private readonly IKPIService _kpiServices;
         private readonly IKPIGroupService _kpiGroupServices;
 

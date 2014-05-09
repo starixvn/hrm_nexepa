@@ -14,6 +14,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
@@ -23,7 +24,7 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class CoreController : ApiController
     {
-        private EPAService _epaService;
+        private IEPAService _epaService;
         private IProjectService _projectService;
 
         public CoreController()

@@ -534,4 +534,7 @@
   <data name="TeamMember" xml:space="preserve">
     <value>Team Member</value>
   </data>
+  <data name="MyKPI" xml:space="preserve">
+    <value>My KPIs</value>
+  </data>
 </root>

@@ -810,6 +810,15 @@ namespace NexEPA.Resources {
         /// <summary>
         ///   Looks up a localized string similar to My KPIs.
         /// </summary>
+        public static string MyKPI {
+            get {
+                return ResourceManager.GetString("MyKPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My KPIs.
+        /// </summary>
         public static string MyKPIs {
             get {
                 return ResourceManager.GetString("MyKPIs", resourceCulture);
