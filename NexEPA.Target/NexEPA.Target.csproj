@@ -64,6 +64,7 @@
     <Compile Include="Criteria\TargetTemplate\AddTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\DeleteTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetAllTargetTemplateCriteria.cs" />
+    <Compile Include="Criteria\TargetTemplate\GetTargetSettingCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetListKPIByTargetTemplateIdCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetSelectedKPIGroupCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetTargetTemplateByIdCriteria.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Criteria\Target\Target\InsertTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetCriteria.cs" />
     <Compile Include="Models\TargetKPIGroupWeight.cs" />
+    <Compile Include="Models\TargetSettingModel.cs" />
     <Compile Include="Models\Target\Milestone.cs" />
     <Compile Include="Models\Target\Project.cs" />
     <Compile Include="Models\Target\TargetEmployeeInfo.cs" />
@@ -90,7 +92,9 @@
     <Compile Include="Models\Target\TargetKPIInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\TargetRepository.cs" />
+    <Compile Include="Repositories\Implement\TargetTemplateRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITargetRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITargetTemplateRepository.cs" />
     <Compile Include="Services\Impl\TargetService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>

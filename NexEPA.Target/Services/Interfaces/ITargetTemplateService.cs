@@ -13,7 +13,7 @@ namespace NexEPA.Target.Services.Interfaces
     using Fanex.NAP.Framework.Data;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
-using NexEPA.Target.Models.Target;
+    using NexEPA.Target.Models.Target;
 
     /// <summary>
     /// Interface Target Template Service.
@@ -39,5 +39,7 @@ using NexEPA.Target.Models.Target;
         IEnumerable<TargetKPIGroup> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria);
 
         CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria);
+
+        IEnumerable<TargetSettingModel> GetTargetSetting(GetTargetSettingCriteria criteria);
     }
 }

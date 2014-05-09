@@ -60,6 +60,7 @@
 		<Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="TargetTemplate_UpdateStatus" SpName="TargetTemplate_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="TargetSetting_Get" SpName="TargetSetting_Get" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
 
 	<Function Name="Target">

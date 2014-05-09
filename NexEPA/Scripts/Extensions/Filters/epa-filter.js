@@ -33,10 +33,10 @@ registrationModule.filter('targetType',['$http', function ($http) {
 	};
 } ]);
 
-registrationModule.filter('customDate', function ($filter) {
+registrationModule.filter('customDate',['$filter', function ($filter) {
 	return function (input) {
 		if (input == null) { return ""; }
 		var _date = $filter('date')(new Date(input), 'dd MMM, yyyy');
 		return _date;
 	};
-});
+}]);

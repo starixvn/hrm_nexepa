@@ -16,6 +16,8 @@ namespace NexEPA.Target.Services.Impl
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
     using NexEPA.Target.Models.Target;
+    using NexEPA.Target.Repositories.Implement;
+    using NexEPA.Target.Repositories.Interfaces;
     using NexEPA.Target.Services.Interfaces;
 
     /// <summary>
@@ -23,6 +25,13 @@ namespace NexEPA.Target.Services.Impl
     /// </summary>
     public class TargetTemplateService : BaseService, ITargetTemplateService
     {
+        private ITargetTemplateRepository _targetTemplateRepository;
+
+        public TargetTemplateService(ITargetTemplateRepository targetTemplateRepository = null)
+        {
+            _targetTemplateRepository = targetTemplateRepository ?? new TargetTemplateRepository();
+        }
+
         public TargetTemplateModel GetTargetTemplateById(GetTargetTemplateByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -147,6 +156,23 @@ namespace NexEPA.Target.Services.Impl
             }
 
             return commandResult;
+        }
+
+        /// <summary>
+        /// Get Target Setting.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>TargetSetting Models.</returns>
+        public IEnumerable<TargetSettingModel> GetTargetSetting(GetTargetSettingCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<TargetSettingModel> targetSettings = null;
+            if (criteria.IsValid())
+            {
+                targetSettings = _targetTemplateRepository.GetTargetSetting(criteria);
+            }
+
+            return targetSettings;
         }
     }
 }

@@ -341,6 +341,14 @@ namespace NexEPA.Controllers.API
             return _targetTemplateService.UpdateTargetTemplateStatus(criteria);
         }
 
+        public IEnumerable<TargetSettingModel> GetTargetSetting()
+        {
+            var getTargetSettingCriteria = new GetTargetSettingCriteria();
+            var targetSettings = _targetTemplateService.GetTargetSetting(getTargetSettingCriteria);
+
+            return targetSettings;
+        }
+
         private string ConvertKPIGroupWeightToXML(List<TargetKPIGroup> kpiGroups)
         {
             var value = new StringBuilder(_BeginRootTag);
