@@ -37,21 +37,45 @@
     }
 
     .home-expanded {
-        background-image: url("../images/toggle_expanded.png");
-        background-repeat: no-repeat;
+        background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
         cursor: pointer;
-        padding: 1px 10px;
+        padding: 1px 7px;
     }
 
     .home-collapsed {
-        background-image: url("../images/toggle_collapsed.png");
-        background-repeat: no-repeat;
+        background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
         cursor: pointer;
-        padding: 1px 10px;
+        padding: 1px 7px;
     }
 
     .container-content {
         padding: 0;
+
+        .table.history-table {
+            margin-top: 10px;
+
+            tbody tr td {
+                background-color: #ECECEC;
+            }
+
+            tbody + tbody {
+                border-top: 0;
+            }
+
+            .odd td {
+                background-color: #fff;
+            }
+
+            .even td {
+                background-color: #f2f6fa;
+            }
+
+            .sub-item {
+                padding-left: 20px;
+            }
+        }
+
+
     }
 
     .statistic-project {

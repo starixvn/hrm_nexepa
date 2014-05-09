@@ -4,7 +4,7 @@
     </div>
 
     <div class="row" collapse="isCollapsed">
-        <table class="table table-bordered table-striped home-table">
+        <table class="table table-bordered history-table">
             <thead>
                 <th data-translate="SymbolCount"></th>
                 <th data-translate="Project"></th>
@@ -18,7 +18,7 @@
             <tbody ng-repeat="historyProject in dashboradInformation.historyProjects">
                 <tr>
                     <td class="home-index" ng-bind="$index + 1"></td>
-                    <td class="home-center">
+                    <td>
                         <i class="home-collapsed" ng-click="showHideMilestone(historyProject)" 
                             ng-show="historyProject.milestones.length > 0 && !collapse.isCollapsed{{historyProject.project.projectId}}">
                         </i>
@@ -40,7 +40,7 @@
                 </tr>
                 <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
-                    <td class="home-center">
+                    <td class="sub-item">
                         <a href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)"/>
                     </td>
                     <td></td>
