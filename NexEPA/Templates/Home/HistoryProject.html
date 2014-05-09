@@ -38,10 +38,11 @@
                         <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></span>
                     </td>
                 </tr>
-                <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
+                <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}"
+                    ng-class="{odd: ($index % 2 == 0), even: ($index % 2 != 0)}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
-                    <td class="sub-item">
-                        <a class="home-milestone" href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)"/>
+                    <td>
+                        <a class="sub-item" href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)"/>
                     </td>
                     <td></td>
                     <td class="home-center">{{milestone.startDate | customDate}}</td>
