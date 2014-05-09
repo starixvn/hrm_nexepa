@@ -1,39 +1,28 @@
-﻿<div class="row">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
-            <li><a href="#" data-translate="Home" ng-click="reload()"></a></li>
-            <li class="current" data-translate="Personal"></li>
-        </ul>
+﻿<div class="row sub-header">
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="#" data-translate="Home" ng-click="reload()"></a></li>
+        <li class="current" data-translate="Personal"></li>
+    </ul>
+    <ul class="list-inline list-unstyled statistic-project pull-right">
+        <li class="colons"><span class="home-label" data-translate="TotalFinishedProject"></span>
+            <span class="number" ng-bind="dashboradInformation.generalInformation.totalFinishProject"></span>
+        </li>
+        <li class="colons"><span class="home-label" data-translate="ProjectInProgress"></span>
+            <span class="number" ng-bind="dashboradInformation.generalInformation.totalInProgressProject"></span>
+        </li>
+    </ul>
+</div>
+<div class="row container-content common-form">
+    <div class="row boxtitle first" data-translate="OpenProject">
+    </div>
+    <div class="row" ng-include src="'/Templates/Home/OpenProject.html'">
+    </div>
+    <div class="row boxtitle" data-translate="ProjectHistory">
+    </div>
+    <div class="row" ng-include src="'/Templates/Home/HistoryProject.html'">
+    </div>
+    <div class="row boxtitle" data-translate="MyKPI">
+    </div>
+    <div class="row" ng-include src="'/Templates/Home/KPI.html'">
     </div>
 </div>
-
-<div class="row">
-    <div class="home-tab">
-        <h2 data-translate="MySpace"></h2>
-        <div class="colons">
-            <span class="home-label" data-translate="TotalFinishedProject"></span>
-            <span ng-bind="dashboradInformation.generalInformation.totalFinishProject"></span>
-        </div>
-        <div class="colons">
-            <span class="home-label" data-translate="ProjectInProgress"></span>
-            <span ng-bind="dashboradInformation.generalInformation.totalInProgressProject"></span>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div ng-include src="'/Templates/Home/OpenProject.html'">
-    </div>
-</div>
-
-<div class="row">
-    <div ng-include src="'/Templates/Home/HistoryProject.html'">
-    </div>
-</div>
-
-<div class="row">
-    <div ng-include src="'/Templates/Home/KPI.html'">
-    </div>
-</div>
-
-
