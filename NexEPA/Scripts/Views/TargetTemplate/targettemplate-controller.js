@@ -392,10 +392,6 @@ function ($scope, $routeParams, $window, targetTemplateFactory) {
 		$scope.lstKPI = data;
 	};
 
-	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
-
-	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
-
 	targetTemplateFactory.getTargetTemplateById(targetTemplateId).then(function (data) {
 		$scope.editTemplate = data;
 		$scope.currentTargetTemplateName = data.name;

@@ -28,6 +28,8 @@ namespace NexEPA.Target.Models
         [Required(ErrorMessage = "The field Target Type is required.")]
         public byte? TargetTypeId { get; set; }
 
+        public string TargetTypeName { get; set; }
+
         public DateTime? CreatedDate { get; set; }
 
         public int CreatedBy { get; set; }
@@ -41,5 +43,13 @@ namespace NexEPA.Target.Models
         public int ModifiedBy { get; set; }
 
         public List<KPIModel> KPIIds { get; set; }
+
+        public string CreatedNickName { get; set; }
+
+        public string CreatedFullName { get; set; }
+
+        public string ModifiedNickName { get; set; }
+
+        public string ModifiedFullName { get; set; }
     }
 }

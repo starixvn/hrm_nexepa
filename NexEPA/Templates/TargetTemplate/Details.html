@@ -12,31 +12,54 @@ novalidate>
 		TARGET TEMPLATE INFORMATIONS
 	</div>
 	<div class="row boxcontent information">
-		<div class="col-sm-12 line">
-			<label class="col-sm-2 col-md-1">
+		<div class="col-sm-6 line">
+			<label class="col-sm-4 label-bold">
 				{{"Name" | translate}}</label>
-			<div class="col-sm-6 col-md-5">
-				<input type="text" class="custom-textbox custom-textbox-disabled" ng-model="editTemplate.name"
-					placeholder="Name" readonly />
+			<div class="col-sm-8">
+				<span>{{editTemplate.name}}</span>
 			</div>
 		</div>
-		<div class="col-sm-12 line">
-			<label class="col-sm-2 col-md-1">
+		<div class="col-sm-6 line">
+			<label class="col-sm-4 label-bold">
 				{{"TargetType" | translate}}
 			</label>
-			<div class="col-sm-6 col-md-5">
-				<select class="custom-textbox custom-textbox-disabled" ng-options="tgType.targetTypeId as tgType.name for tgType in tgTypes"
-					ng-model="editTemplate.targetTypeId" disabled>
-					<option style="display: none" value="">-- Select a target type --</option>
-				</select>
+			<div class="col-sm-8">
+				<span>{{editTemplate.targetTypeName}}</span>
+			</div>
+		</div>
+		<div class="col-sm-6 line">
+			<label class="col-sm-4 label-bold">
+				{{"CreatedBy" | translate}}</label>
+			<div class="col-sm-8">
+				<span>{{editTemplate.createdFullName}} ({{editTemplate.createdNickName}})</span>
+			</div>
+		</div>
+		<div class="col-sm-6 line">
+			<label class="col-sm-4 label-bold">
+				{{"LastModifyBy" | translate}}</label>
+			<div class="col-sm-8">
+				<span>{{editTemplate.modifiedFullName}} ({{editTemplate.modifiedNickName}})</span>
+			</div>
+		</div>
+		<div class="col-sm-6 line">
+			<label class="col-sm-4 label-bold">
+				{{"CreatedDate" | translate}}</label>
+			<div class="col-sm-8">
+				<span>{{editTemplate.createdDate | customDate}}</span>
+			</div>
+		</div>
+		<div class="col-sm-6 line">
+			<label class="col-sm-4 label-bold">
+				{{"LastModifyDate" | translate}}</label>
+			<div class="col-sm-8">
+				<span>{{editTemplate.modifiedDate | customDate}}</span>
 			</div>
 		</div>
 		<div class="col-sm-12">
-			<label class="col-sm-2 col-md-1" data-translate="Description">
+			<label class="col-sm-2 label-bold" data-translate="Description">
 			</label>
-			<div class="col-sm-6 col-md-5">
-				<textarea class="custom-textarea custom-textarea-disabled" ng-model="editTemplate.description"
-					id="description" readonly></textarea>
+			<div class="col-sm-6">
+				<span class="positive-margin">{{editTemplate.description}}</span>
 			</div>
 		</div>
 	</div>

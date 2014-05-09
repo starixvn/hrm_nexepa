@@ -537,4 +537,16 @@
   <data name="MyKPI" xml:space="preserve">
     <value>My KPIs</value>
   </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created date</value>
+  </data>
+  <data name="LastModifyBy" xml:space="preserve">
+    <value>Last modified by</value>
+  </data>
+  <data name="LastModifyDate" xml:space="preserve">
+    <value>Last modified date</value>
+  </data>
 </root>
