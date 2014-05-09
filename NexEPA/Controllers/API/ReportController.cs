@@ -49,7 +49,6 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Get employee performance by team report.
         /// </summary>
-        /// <param name="actorUserId">The current user ID.</param>
         /// <param name="fromDate">The From Date.</param>
         /// <param name="toDate">The To Date.</param>
         /// <param name="employeeId">The employee ID.</param>
