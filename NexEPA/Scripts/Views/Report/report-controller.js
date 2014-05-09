@@ -192,7 +192,7 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 	};
 
 	$scope.$watch('search.searchKey', function (newValue) {
-		if (newValue == "") {
+		if (newValue === "") {
 			$scope.employee = null;
 		}
 	});
