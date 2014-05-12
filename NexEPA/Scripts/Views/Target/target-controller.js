@@ -370,7 +370,7 @@ targetModule.controller("TargetDetailAndEditController",
 	} ]);
 
 // Target General Information Controller
-targetModule.controller('TargetGeneralInformationController', ['$scope', '$routeParams', '$timeout', 'targetFactory', 'targetUtility',
+	targetModule.controller('TargetGeneralInformationController', ['$scope', '$routeParams', '$timeout', 'targetFactory', 'targetUtility',
 	'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
 	function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 
@@ -386,24 +386,24 @@ targetModule.controller('TargetGeneralInformationController', ['$scope', '$route
 				target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
 			}
 
-		$scope.target = target;
+			$scope.target = target;
 
-		if (target.targetType && target.targetType.targetTypeId) {
-			$scope.target.targetTypeId = target.targetType.targetTypeId;
-		}
-
-		if (target.project && target.project.projectId) {
-			$scope.formIsProject = true;
-			targetUtility.getAllProject($scope);
-			$scope.target.projectId = target.project.projectId;
-
-			$scope.isSelectedProject = true;
-			targetUtility.getMilestone($scope.target.projectId, $scope);
-
-			if (target.milestone && target.milestone.milestoneId) {
-				$scope.target.milestoneId = target.milestone.milestoneId;
+			if (target.targetType && target.targetType.targetTypeId) {
+				$scope.target.targetTypeId = target.targetType.targetTypeId;
 			}
-		}
+
+			if (target.project && target.project.projectId) {
+				$scope.formIsProject = true;
+				targetUtility.getAllProject($scope);
+				$scope.target.projectId = target.project.projectId;
+
+				$scope.isSelectedProject = true;
+				targetUtility.getMilestone($scope.target.projectId, $scope);
+
+				if (target.milestone && target.milestone.milestoneId) {
+					$scope.target.milestoneId = target.milestone.milestoneId;
+				}
+			}
 
 		}).error(function () {
 			notificationFactory.error('ErrorMessage');
@@ -438,6 +438,10 @@ targetModule.controller('TargetGeneralInformationController', ['$scope', '$route
 			$scope.isSelectedProject = false;
 
 			if (projectId) {
+				if ($scope.target) {
+					$scope.target.milestoneId = '';
+				}
+
 				$scope.isSelectedProject = true;
 				targetUtility.getMilestone(projectId, $scope);
 			}
@@ -480,9 +484,6 @@ targetModule.controller('TargetGeneralInformationController', ['$scope', '$route
 				targetFactory.editTarget(newTarget).success(function (response) {
 					if (response.isSuccessful === true) {
 						notificationFactory.success("UpdatedSuccessfulMessage");
-						$timeout(function () {
-							$scope.targetInfoSuccess = false;
-						}, 2000);
 					}
 					else {
 						notificationFactory.error('', response.message);
@@ -504,7 +505,7 @@ targetModule.controller('TargetGeneralInformationController', ['$scope', '$route
 			else {
 				$scope.disabledSubmit = false;
 			}
-		}; 
+		};
 	} ]);
 
 // Target Members Controller
