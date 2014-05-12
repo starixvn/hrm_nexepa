@@ -13,6 +13,16 @@
         </li>
     </ul>
 </div>
+
+<div class="row" ng-show="isSimulatedLoginUser" style="margin: 10px 1%;">
+    <form>
+        <label>Login as another user: </label>
+        <input class="form-controler" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
+                search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee"/>
+        <button class="button" ng-click="loginAsAnotherUser(employee)">Login</button>
+    </form>
+</div>
+
 <div class="row container-content common-form">
     <div class="row" ng-include src="'/Templates/Home/OpenProject.html'">
     </div>

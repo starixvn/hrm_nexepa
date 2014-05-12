@@ -8,6 +8,12 @@ homeModule.factory('homeFactory', ['$http', function ($http) {
 		},
 		getCurrentEmployeeId: function () {
 			return $http.get('/api/Home/GetCurrentEmployeeId');
+		},
+		getIsSimulatedLoginUser: function () {
+			return $http.get('/api/Home/GetIsSimulatedLoginUser');
+		},
+		loginAsAnotherUser: function (domainUsername) {
+			return $http.get('/api/Home/LoginAsAnotherUser', { params: { domainUsername: domainUsername } });
 		}
 	};
 } ]);

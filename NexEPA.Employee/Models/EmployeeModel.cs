@@ -27,6 +27,8 @@ namespace NexEPA.Employee.ViewModels
 
         public string Code { get; set; }
 
+        public string DomainUsername { get; set; }
+
         public string FullName { get; set; }
 
         public string NickName { get; set; }
@@ -50,6 +52,7 @@ namespace NexEPA.Employee.ViewModels
             var employee = (Employee)model;
             EmployeeId = employee.EmployeeId;
             Code = employee.Code;
+            DomainUsername = employee.DomainUsername;
             FullName = employee.FullName;
             NickName = employee.NickName;
             Email = employee.Email;
