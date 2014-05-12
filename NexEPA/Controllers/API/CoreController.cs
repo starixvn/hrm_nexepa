@@ -25,17 +25,15 @@ namespace NexEPA.Controllers.API
     public class CoreController : ApiController
     {
         private IEPAService _epaService;
-        private IProjectService _projectService;
 
         public CoreController()
-            : this(null, null)
+            : this(null)
         { 
         }
 
-        public CoreController(EPAService epaService, ProjectService projectService)
+        public CoreController(IEPAService epaService)
         {
             _epaService = epaService ?? new EPAService();
-            _projectService = projectService ?? new ProjectService();
         }
 
         [HttpGet]
