@@ -5,24 +5,27 @@
             <li class="current" data-translate="EmployeePerformanceTendency"></li>
         </ul>
     </div>
-
-    <div class="form-inline filter">
-        <form novalidate class="form-inline">
-            <div class="form-group">
-                <label data-translate="Employee"></label>
-                <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
-                        search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee"/>
-            </div>
-            <button class="button" ng-click="getReport(employee)" ng-disabled="disabledSubmit" data-translate="Submit"></button>
+    <div class="row form-inline filter filter-tendency col-xs-10 col-sm-7 col-md-6">
+        <form novalidate class="col-sm-10 col-md-9 form-inline">
+        <div class="col-sm-9 col-md-8 form-group">
+            <label data-translate="Employee" class="col-sm-3 col-md-3">
+            </label>
+            <input class="form-control col-sm-9 col-md-9 txt-search" ng-model="search.searchKey" placeholder="full name or nick name"
+                ng-change="getEmployee(search.searchKey)" search-auto-complete search-key="search.searchKey"
+                search-employees="searchEmployees" employee="employee" />
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <button class="button" ng-click="getReport(employee)" ng-disabled="disabledSubmit"
+                data-translate="Submit">
+            </button>
+        </div>
         </form>
     </div>
 </div>
-
 <div class="row">
     <div ng-include src="'/Templates/Report/EmployeePerformanceTendency/GeneralInformation.html'">
     </div>
 </div>
-
 <div class="row">
     <div ng-include src="'/Templates/Report/EmployeePerformanceTendency/HistoryProject.html'">
     </div>
