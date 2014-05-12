@@ -545,14 +545,17 @@ div[data-tree-model] li i, div[data-tree-model] li span {
   cursor: auto;
 }
 
-.tbl-member {
-    position: relative;
 
-    .button-icon.btn-addMember {
+.container.page {
+    .tbl-member {
+        position: relative;
+    }
+
+    .button-icon.btn-addMember, .button-icon.btn-boxTitle {
         position: absolute;
         right: 4px;
         top: -40px;
-       #gradient .vertical(#5EB2D5, #308FB7);
+        #gradient .vertical(#5EB2D5, #308FB7);
         border: 1px solid #256F8E;
         border-color: #256F8E #256F8E #1B5066;
         .box-shadow(1px 1px 0 rgba(255, 255, 255, 0.3) inset);
@@ -567,4 +570,11 @@ div[data-tree-model] li i, div[data-tree-model] li span {
             #gradient .vertical(#72BCDA, #369FCA);
         }
     }
+
+    .button-icon.btn-boxTitle {
+        left: 1%;
+        right: auto;
+        top: 6px;
+    }
 }
+
