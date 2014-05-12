@@ -23,6 +23,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 		var addModalInstance = $modal.open({
 			templateUrl: '/templates/Setting/DefaultTargetTemplate.html',
 			controller: "AddDefaultTargetTemplate",
+			backdrop: 'static',
 			resolve: {
 				targetTemplates: function () {
 					return $scope.tgtemplates;

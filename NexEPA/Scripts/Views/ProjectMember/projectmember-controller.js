@@ -82,6 +82,7 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 			var addModalInstance = $modal.open({
 				templateUrl: '/templates/ProjectMembers/Create.html',
 				controller: "AddProjectMembersController",
+				backdrop: 'static',
 				resolve: {
 					roles: function () {
 						return roles;
@@ -120,6 +121,7 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 			var addModalInstance = $modal.open({
 				templateUrl: '/templates/ProjectMembers/Edit.html',
 				controller: "EditProjectMembersController",
+				backdrop: 'static',
 				resolve: {
 					roles: function () {
 						return roles;

@@ -52,7 +52,7 @@
 					<select class="inline-status" ng-show="project.isUpdateStatus" ng-options="s.id as s.name for s in status"
 						ng-model="project.status" ng-change="updateProjectStatus(project)">
 					</select>
-					<a class="glyphicon glyphicon-trash pull-right top-buffer" ng-show="project.isUpdateStatus"
+					<a class="glyphicon glyphicon-minus-sign pull-right top-buffer icon-delete" ng-show="project.isUpdateStatus"
 						href="javascript:;" ng-click="toogleEditStatus(project)" title="Cancel"></a>
 				</td>
 				<td class="text-center">
