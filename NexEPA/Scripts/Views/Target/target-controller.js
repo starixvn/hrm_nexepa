@@ -13,9 +13,6 @@ targetModule.controller('ViewTargetController',
 		// get Date Format
 		commonFactory.getDateFormat($scope);
 
-		// get Calendar Image
-		commonFactory.getSourceCalendarImage($scope);
-
 		// get all status
 		targetUtility.getAllStatus($scope);
 
@@ -208,9 +205,6 @@ targetModule.controller('ViewTargetController',
 
 		// get Date Format
 		commonFactory.getDateFormat($scope);
-
-		// get Calendar Image
-		commonFactory.getSourceCalendarImage($scope);
 
 		// The onchange function of Form dropdown list
 		$scope.formOnChange = function (targetTypeId) {
@@ -414,9 +408,6 @@ targetModule.controller("TargetDetailAndEditController",
 
 		// get Date Format
 		commonFactory.getDateFormat($scope);
-
-		// get Calendar Image
-		commonFactory.getSourceCalendarImage($scope);
 
 		// The onchange function of Form
 		$scope.formOnChange = function (targetTypeId) {

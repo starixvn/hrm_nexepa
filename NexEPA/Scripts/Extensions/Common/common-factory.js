@@ -9,10 +9,6 @@ registrationModule.factory('commonFactory', function () {
 		$scope.dateFormat = "dd MMM, yyyy";
 	};
 
-	common.getSourceCalendarImage = function ($scope) {
-		$scope.sourceCalendarImage = "/Content/Site/images/calendar.png";
-	};
-
 	common.maxLengthDescription = function ($scope) {
 		$scope.maxLengthDescription = limitNumber;
 	};

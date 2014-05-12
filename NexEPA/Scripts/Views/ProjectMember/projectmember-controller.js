@@ -171,9 +171,6 @@ function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFa
 	$scope.roles = roles;
 	$scope.calendar = { opened: false };
 
-	// Get calendar button image.
-	commonFactory.getSourceCalendarImage($scope);
-
 	// get Date Format
 	commonFactory.getDateFormat($scope);
 
@@ -227,8 +224,6 @@ function ($scope, $modalInstance, roles, editMember, commonFactory, projectDataF
 	$scope.editMember = editMember;
 	$scope.calendar = { opened: false };
 	$scope.searchKey = editMember.nickName + " (" + editMember.fullName + ")";
-	// Get calendar button image.
-	commonFactory.getSourceCalendarImage($scope);
 
 	// get Date Format
 	commonFactory.getDateFormat($scope);

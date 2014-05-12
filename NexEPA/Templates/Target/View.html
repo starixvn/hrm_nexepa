@@ -22,12 +22,12 @@
             <div class="form-group">
                 <label data-translate="StartDate"></label>
                 <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}" is-open="calendar.startDateOpened" show-button-bar="false"/>
-                <img class="calendar-image" ng-click="openPopupStartDate($event)" src="{{sourceCalendarImage}}"></img>
+                <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
             </div>
             <div class="form-group">
                 <label data-translate="EndDate"></label>
                 <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup="{{dateFormat}}" is-open="calendar.endDateOpened" show-button-bar="false"/>
-                <img class="calendar-image" ng-click="openPopupEndDate($event)" src="{{sourceCalendarImage}}" ></img>
+                <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
             </div>
 
             <button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>

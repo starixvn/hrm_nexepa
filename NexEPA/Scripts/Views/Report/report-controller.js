@@ -126,9 +126,6 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 	// get Date Format
 	commonFactory.getDateFormat($scope);
 
-	// get Calendar Image
-	commonFactory.getSourceCalendarImage($scope);
-
 	// get all Group
 	employeeRepository.getAllGroup().success(function (groupList) {
 		$scope.groupOptions = groupList;
