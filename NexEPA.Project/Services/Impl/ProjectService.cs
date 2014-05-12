@@ -56,7 +56,7 @@ namespace NexEPA.Project.Services.Impl
         /// <returns>List Project Model.</returns>
         public List<ProjectInformationModel> GetAllProject(GetAllProjectCriteria criteria)
         {
-            dynamic lstProject = null;
+            List<ProjectInformationModel> lstProject = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
