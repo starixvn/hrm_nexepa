@@ -25,7 +25,7 @@ namespace NexEPA
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/Common/css").Include(
                 "~/Content/Common/toastr.css",
                 "~/Content/Common/bootstrap.css",
                 "~/Content/Common/bootstrap-theme.css",
