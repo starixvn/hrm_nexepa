@@ -1,5 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule, epaModule*/
-/* exported employeeModule, homeModule, reportModule, generalSettingModule*/
+/* exported employeeModule, homeModule, reportModule, generalSettingModule, testModule*/
 /*global angular*/
 'use strict';
 
@@ -88,9 +88,15 @@ var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
 		{ templateUrl: '/templates/Report/EmployeePerformanceByTeam/View.html', controller: 'ViewEmployeePerformanceByTeamController' });
 } ]);
 
+var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
+.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider.when('/Test/LoginAsAnotherUser',
+		{ templateUrl: '/templates/Test/LoginAsAnotherUser.html', controller: 'LoginAsAnotherUserController' });
+} ]);
+
 var registrationModule = angular.module("registrationModule",
 ['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'generalSettingModule',
-'epaModule', 'homeModule', 'reportModule', 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
+'epaModule', 'homeModule', 'reportModule', 'testModule', 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig, datepickerPopupConfig) {
 	$translateProvider.useLoader('resourceRepository', {});

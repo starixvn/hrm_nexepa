@@ -173,6 +173,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Controllers\API\TargetTemplateController.cs" />
+    <Compile Include="Controllers\API\TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -279,7 +280,10 @@
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-repository.js" />
     <Content Include="Scripts\Views\Target\target-controller.js" />
     <Content Include="Scripts\Views\Target\target-repository.js" />
+    <Content Include="Scripts\Views\Test\test-controller.js" />
+    <Content Include="Scripts\Views\Test\test-repository.js" />
     <Content Include="Templates\Common\AccessDenied.html" />
+    <Content Include="Templates\Test\LoginAsAnotherUser.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
     <Content Include="Templates\Employee\View.html" />
     <Content Include="Templates\EPA\MemberEPA\ViewAllMemberOfManager.html" />

@@ -81,7 +81,9 @@ namespace NexEPA
                  "~/Scripts/Views/Report/report-controller.js",
                 "~/Scripts/Views/Report/report-repository.js",
                 "~/Scripts/Views/Setting/generalsetting-controller.js",
-                "~/Scripts/Views/Setting/generalsetting-repository.js"));
+                "~/Scripts/Views/Setting/generalsetting-repository.js",
+                "~/Scripts/Views/Test/test-controller.js",
+                "~/Scripts/Views/Test/test-repository.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/epa-extension").Include(
                 "~/Scripts/Extensions/Filters/epa-filter.js",
