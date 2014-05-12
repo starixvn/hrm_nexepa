@@ -1,77 +1,94 @@
-﻿
-<div class="row">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
-            <li><a href="#" data-translate="KPIGroup" ng-click="reload()"></a></li>
-            <li class="current" data-translate="ManageKPIGroup"></li>
-        </ul>
-        <div class="button-icon">
-            <span class="icon plus"></span><a href="" ng-click="create()" data-translate="CreateKPIGroup">
-            </a>
-        </div>
-    </div>
-
-    <div class="form-inline filter">
-        <form novalidate class="form-inline">
-            <div class="form-group">
-                <label data-translate="Form"></label>
-                <select name="formSelect" ng-model="filter.targetTypeId" 
-                    ng-options="opt.targetTypeId as opt.name for opt in formOptions" required class="form-control">
-                    <option value="">-- All --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label data-translate="Status"></label>
-                <select ng-model="filter.active" class="form-control">
-                    <option value="""">-- All --</option>
-                    <option value="true" data-translate="Active"></option>
-                    <option value="false" data-translate="Inactive"></option>
-                </select>
-            </div>
-            <button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton" data-translate="Submit"></button>
-        </form>
-    </div>
+﻿<div class="row">
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li>
+				<a href="#" data-translate="KPIGroup" ng-click="reload()"></a>
+			</li>
+			<li class="current" data-translate="ManageKPIGroup"></li>
+		</ul>
+		<div class="button-icon">
+			<span class="icon plus"></span>
+			<a href="" ng-click="create()" data-translate="CreateKPIGroup"></a>
+		</div>
+	</div>
+	<div class="form-inline filter">
+		<form novalidate class="form-inline">
+		<div class="form-group">
+			<label data-translate="Form">
+			</label>
+			<select name="formSelect" ng-model="filter.targetTypeId" ng-options="opt.targetTypeId as opt.name for opt in formOptions"
+				required class="form-control">
+				<option value="">-- All --</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label data-translate="Status">
+			</label>
+			<select ng-model="filter.active" class="form-control">
+				<option value="">-- All --</option>
+				<option value="true" data-translate="Active"></option>
+				<option value="false" data-translate="Inactive"></option>
+			</select>
+		</div>
+		<button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton"
+			data-translate="Submit">
+		</button>
+		</form>
+	</div>
 </div>
-
 <div class="row">
-    <div class="span10">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th data-translate="SymbolCount"></th>
-                    <th data-translate="Group"></th>
-                    <th data-translate="KPIs"></th>
-                    <th data-translate="Form"></th>
-                    <th data-translate="Active"></th>
-                    <th data-translate="Description"></th>
-                    <th data-translate="Action"></th>
-                </tr>
-            </thead>
-            <tr ng-repeat="group in KPIGroupList | filter: filterActive">
-                <td class="KPI-index" ng-bind="$index + 1"></td>
-                <td class="KPI-group-name" ng-bind="group.name"></td>
-                <td class="KPI-group-criteria">
-                    <a href="" ng-show="group.numberKPI > 0" ng-click="viewKPI(group.targetTypeId,group.kpiGroupID)" ng-bind="group.numberKPI"></a>
-                    <span ng-show="group.numberKPI === 0" ng-bind="0"></span>
-                    </td>
-                <td class="KPI-form" ng-bind="group.form"></td>
-                <td class="KPI-group-active">
-                    <input type="checkbox" ng-checked="!group.isDisabled" ng-click="confirmActive(group)"/>
-                </td>
-                <td class="KPI-group-description" ng-bind="group.description"></td>
-                <td class="KPI-group-action">
-                    <a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(group.kpiGroupID)"/>
-                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(group)"/>
-                    <a class="glyphicon glyphicon-plus icon-add" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" />
-                </td>
-            </tr>
-            <tr ng-show="KPIGroupList == ''">
-                <td class="empty-result" colspan="7" data-translate="EmptyResult"></td>
-            </tr>
-        </table>
-    </div>
+	<div class="span10">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th data-translate="SymbolCount">
+					</th>
+					<th data-translate="Group">
+					</th>
+					<th data-translate="KPIs">
+					</th>
+					<th data-translate="Form">
+					</th>
+					<th data-translate="Active">
+					</th>
+					<th data-translate="Description">
+					</th>
+					<th data-translate="Action">
+					</th>
+				</tr>
+			</thead>
+			<tr ng-repeat="group in KPIGroupList | filter: filterActive">
+				<td class="KPI-index" ng-bind="$index + 1">
+				</td>
+				<td class="KPI-group-name" ng-bind="group.name">
+				</td>
+				<td class="KPI-group-criteria">
+					<a href="" ng-show="group.numberKPI > 0" ng-click="viewKPI(group.targetTypeId,group.kpiGroupID)"
+						ng-bind="group.numberKPI"></a>
+					<span ng-show="group.numberKPI === 0" ng-bind="0"></span>
+				</td>
+				<td class="KPI-form" ng-bind="group.form">
+				</td>
+				<td class="KPI-group-active">
+					<input type="checkbox" ng-checked="!group.isDisabled" ng-click="confirmActive(group)" />
+				</td>
+				<td class="KPI-group-description">
+					{{group.description | limitTo:group.numLimit > 0 ? group.numLimit : maxLengthDescription}}
+					<a ng-show="!group.showReadMore && (group.description.length > 99)" href="javascript:;"
+						ng-click="readMore(group)" data-translate="ReadMore"></a>
+					<a ng-show="group.showReadMore" href="javascript:;" ng-click="readLess(group)" data-translate="ReadLess">
+					</a>
+				</td>
+				<td class="KPI-group-action">
+					<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(group.kpiGroupID)" />
+					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(group)" />
+					<a class="glyphicon glyphicon-plus icon-add" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" />
+				</td>
+			</tr>
+			<tr ng-show="KPIGroupList == ''">
+				<td class="empty-result" colspan="7" data-translate="EmptyResult">
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
-
-
-
-

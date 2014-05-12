@@ -173,6 +173,17 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 				$location.url('/KPI/ViewKPI/');
 			}
 		};
+
+		// Event read more / less text.
+		commonFactory.maxLengthDescription($scope);
+
+		$scope.readMore = function (item) {
+			commonFactory.readMore(item);
+		};
+
+		$scope.readLess = function (item) {
+			commonFactory.readLess(item);
+		};
 	} ]);
 
 // Create New KPI

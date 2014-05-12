@@ -179,6 +179,17 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 		$scope.reload = function () {
 			$route.reload();
 		};
+
+		// Event read more / less text.
+		commonFactory.maxLengthDescription($scope);
+
+		$scope.readMore = function (item) {
+			commonFactory.readMore(item);
+		};
+
+		$scope.readLess = function (item) {
+			commonFactory.readLess(item);
+		};
 	} ]);
 
 // Create New KPI Group

@@ -555,4 +555,10 @@
   <data name="RatingInstruction" xml:space="preserve">
     <value>RATING INSTRUCTIONS</value>
   </data>
+  <data name="ReadLess" xml:space="preserve">
+    <value>less</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>more</value>
+  </data>
 </root>

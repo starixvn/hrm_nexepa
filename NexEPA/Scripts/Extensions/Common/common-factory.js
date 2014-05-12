@@ -3,12 +3,28 @@
 
 registrationModule.factory('commonFactory', function () {
 	var common = {};
+	var limitNumber = 100;
+
 	common.getDateFormat = function ($scope) {
 		$scope.dateFormat = "dd MMM, yyyy";
 	};
 
 	common.getSourceCalendarImage = function ($scope) {
 		$scope.sourceCalendarImage = "/Content/Site/images/calendar.png";
+	};
+
+	common.maxLengthDescription = function ($scope) {
+		$scope.maxLengthDescription = limitNumber;
+	};
+
+	common.readMore = function (item) {
+		item.numLimit = 10000;
+		item.showReadMore = true;
+	};
+
+	common.readLess = function (item) {
+		item.numLimit = limitNumber;
+		item.showReadMore = false;
 	};
 
 	common.openPopupStartDate = function ($event, $scope) {
@@ -68,5 +84,5 @@ registrationModule.factory('commonFactory', function () {
 		$scope.calendar[propertyStart] = false;
 	};
 	return common;
- });
+});
 

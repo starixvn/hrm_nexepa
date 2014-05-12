@@ -42,8 +42,8 @@ var showWarningWeightMessage = function (kpiIds, notificationFactory) {
 };
 
 targetTemplateModule.controller('TargetTemplateController',
-['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'tabService',
-function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService) {
+['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'tabService', 'commonFactory',
+function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService, commonFactory) {
 	/**
 	* Ajax event Loaded. 
 	*/
@@ -66,7 +66,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 	*/
 	targetTemplateFactory.getAllTargetTemplate(null).then(successGetAllTargetTemplate);
 	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
-
+	commonFactory.maxLengthDescription($scope);
 
 	/**
 	* Event: Filter 
@@ -146,6 +146,15 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 			template.isDisabled = !newTemplate.isDisabled;
 		});
 	};
+
+	// Event read more / less text.
+	$scope.readMore = function (tgtemplate) {
+		commonFactory.readMore(tgtemplate);
+	};
+	$scope.readLess = function (tgtemplate) {
+		commonFactory.readLess(tgtemplate);
+	};
+
 } ]);
 
 targetTemplateModule.controller('EditTargetTemplateController',
