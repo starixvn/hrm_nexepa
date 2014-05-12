@@ -1285,6 +1285,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Performance Appraisal.
+        /// </summary>
+        public static string Titlepage {
+            get {
+                return ResourceManager.GetString("Titlepage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please fill out the Title!.
         /// </summary>
         public static string TitleRequire {

@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row header">
-    <a href="#" class="col-sm-2 logo">
+    <a href="~/" class="col-sm-2 logo">
         <img src="~/content/site/images/logo.png" title="NexEPA" alt="NexEPA" />
     </a>
     <div class="col-sm-10">
@@ -13,7 +13,7 @@
                     <a href="~/">Home</a>
                 </li>
                 <li>
-                    <a href="/Employee/GetAllEmployee">Employee</a>
+                    <a href="~/Employee/GetAllEmployee">Employee</a>
                 </li>
                 @if (Roles.IsUserInRole("PM") || Roles.IsUserInRole("SA"))
                 { 
