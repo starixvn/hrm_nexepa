@@ -4,7 +4,7 @@
     </div>
 
     <div class="row" collapse="isCollapsed">
-        <table class="table table-bordered table-striped home-table">
+        <table class="table table-bordered history-table">
             <thead>
                 <th data-translate="SymbolCount"></th>
                 <th data-translate="Project"></th>
@@ -18,7 +18,7 @@
             <tbody ng-repeat="historyProject in report.historyProjects">
                 <tr>
                     <td class="home-index" ng-bind="$index + 1"></td>
-                    <td class="home-center">
+                    <td>
                         <i class="home-collapsed" ng-click="showHideMilestone(historyProject)" 
                             ng-show="historyProject.milestones.length > 0 && !collapse.isCollapsed{{historyProject.project.projectId}}">
                         </i>
@@ -39,10 +39,11 @@
                         <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></span>
                     </td>
                 </tr>
-                <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}">
+                <tr ng-repeat="milestone in historyProject.milestones" ng-show="collapse.isCollapsed{{historyProject.project.projectId}}"
+                    ng-class="{odd: ($index % 2 == 0), even: ($index % 2 != 0)}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
-                    <td class="home-center">
-                        <a href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)" title="View detail EPA"/>
+                    <td>
+                        <a  class="sub-item" href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)" title="View detail EPA"/>
                     </td>
                     <td></td>
                     <td class="home-center">{{milestone.startDate | customDate}}</td>
