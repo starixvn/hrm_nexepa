@@ -544,3 +544,27 @@ div[data-tree-model] li .normal {
 div[data-tree-model] li i, div[data-tree-model] li span {
   cursor: auto;
 }
+
+.tbl-member {
+    position: relative;
+
+    .button-icon.btn-addMember {
+        position: absolute;
+        right: 4px;
+        top: -40px;
+       #gradient .vertical(#5EB2D5, #308FB7);
+        border: 1px solid #256F8E;
+        border-color: #256F8E #256F8E #1B5066;
+        .box-shadow(1px 1px 0 rgba(255, 255, 255, 0.3) inset);
+        color: #FFF;
+        text-shadow: 0 -1px 0 #256F8E;
+
+        .icon.plus {
+            background-position: -198px -190px;
+        }
+
+        &:hover {
+            #gradient .vertical(#72BCDA, #369FCA);
+        }
+    }
+}
