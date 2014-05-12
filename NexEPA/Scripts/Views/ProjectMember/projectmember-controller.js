@@ -1,9 +1,11 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-var memberValidation = function (employeeId, selected, joinDate) {
+var projectMemberValidation = function (employeeId, selected, joinDate) {
+	debugger;
 	var error = $("#memberValid");
-	if (selected.length > 0 && employeeId != null && joinDate != null) {
+	debugger;
+	if (selected.length > 0 && employeeId != null && joinDate !== undefined) {
 		error.hide();
 		return true;
 	}
@@ -178,7 +180,9 @@ function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFa
 	$scope.ok = function (employeeId, joinDate) {
 		var selected = $scope.selection;
 		var member = {};
-		if (memberValidation(employeeId, selected, joinDate)) {
+		var check = projectMemberValidation(employeeId, selected, joinDate);
+		if (check) {
+
 			var projectRolesIds = selected.join(',');
 			$scope.errors = [];
 			member.projectId = projectId;
@@ -231,7 +235,7 @@ function ($scope, $modalInstance, roles, editMember, commonFactory, projectDataF
 
 	$scope.ok = function (member) {
 		var selected = $scope.selection;
-		if (memberValidation(member.employeeId, selected, member.joinDate)) {
+		if (projectMemberValidation(member.employeeId, selected, member.joinDate)) {
 			var projectRolesIds = selected.join(',');
 			$scope.errors = [];
 			member.projectRoleIds = projectRolesIds;
