@@ -75,7 +75,7 @@
                          <a class="dropdown-toggle" href="" ng-bind="target.statusName">
                          </a>
                          <ul class="dropdown-menu dropdown-menu-width">
-                            <li ng-repeat="status in statusOptions">
+                            <li ng-repeat="status in statusOptions | filter:{name:'!'+target.statusName}">
                                 <a href="" ng-bind="status.name" ng-click="updateStatus(target, status)">
                                 </a>
                             </li>
