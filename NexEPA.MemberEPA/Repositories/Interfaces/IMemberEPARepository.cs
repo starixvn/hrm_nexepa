@@ -16,7 +16,7 @@ namespace NexEPA.MemberEPA.Repositories.Interfaces
     using NexEPA.MemberEPA.Models.MyEPA;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Interface Member EPA Repository.
     /// </summary>
     public interface IMemberEPARepository
     {

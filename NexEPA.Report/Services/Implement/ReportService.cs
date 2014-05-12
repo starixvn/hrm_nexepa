@@ -24,7 +24,7 @@ namespace NexEPA.Report.Services.Implement
     using NexEPA.Report.ViewModels;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Report Service.
     /// </summary>
     public class ReportService : BaseService, IReportService
     {

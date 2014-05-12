@@ -9,7 +9,7 @@
 <form class="epa-form" name="addProjectForm" novalidate>
 <div class="epa-box-header epa-boxtitle" data-translate="ppa">
 </div>
-<div class="col-sm-12 list-group-item criteria-area">
+<div class="col-sm-12 list-group-item bottom-buffer">
 	<div class="boxtitle first" data-translate="GeneralInfo">
 	</div>
 	<div class="epa-boxcontent">
@@ -57,8 +57,9 @@
 		</div>
 	</div>
 </div>
-<div class="col-sm-12 list-group-item criteria-area">
-	<div class="boxtitle first" data-translate="RatingScale" id="ratingScale">
+<div class="col-sm-12 list-group-item bottom-buffer">
+	<div class="boxtitle first" id="ratingScale">
+		<span data-translate="RatingInstruction"></span>
 	</div>
 	<div class="epa-boxcontent">
 		<div class="row row-item line rating">
@@ -71,14 +72,13 @@
 <div class="col-sm-12 list-group-item">
 	<ol class="epa-criteria-ol" type="A">
 		<div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo" ng-repeat-loaded>
-			<li class="boxtitle epa-criteria-name">{{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)</li>
+			<li class="boxtitle bottom-buffer">{{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)</li>
 			<div class="col-sm-12">
 				<ol type="1" class="list-item">
-					<div class="col-sm-12" ng-repeat="item in kpi.kpiGroupItems">
+					<div class="col-sm-12 bottom-buffer" ng-repeat="item in kpi.kpiGroupItems">
 						<div class="row criteria-title">
-							<span class="epa-criteria-name col-sm-9 kpi-custom-font">{{$index + 1}}. {{item.name}}
-								({{item.weight}}%)</span>
-							<div class="col-sm-3 list-star epa-criteria-name">
+							<span class="col-sm-9 kpi-custom-font">{{$index + 1}}. {{item.name}} ({{item.weight}}%)</span>
+							<div class="col-sm-3 list-star">
 								<rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
 									ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(item)"></rating>
 								<span class="badge percent" ng-show="item.percent > 0">{{item.percent}}%</span>
@@ -105,7 +105,7 @@
 	</ol>
 </div>
 <div class="col-sm-12 list-group-item">
-	<div class="boxtitle first epa-criteria-name">
+	<div class="boxtitle first">
 		COMMENTS</div>
 	<div class="row comment">
 		<div class="epa-error-message" ng-show="employeeEPA.checkNullComment">

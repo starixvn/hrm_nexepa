@@ -552,4 +552,7 @@
   <data name="Titlepage" xml:space="preserve">
     <value>Employee Performance Appraisal</value>
   </data>
+  <data name="RatingInstruction" xml:space="preserve">
+    <value>RATING INSTRUCTIONS</value>
+  </data>
 </root>

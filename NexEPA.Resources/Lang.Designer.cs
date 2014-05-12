@@ -1051,6 +1051,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RATING INSTRUCTIONS.
+        /// </summary>
+        public static string RatingInstruction {
+            get {
+                return ResourceManager.GetString("RatingInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RATING SCALE.
         /// </summary>
         public static string RatingScale {
