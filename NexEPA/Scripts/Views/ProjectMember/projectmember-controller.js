@@ -2,9 +2,7 @@
 'use strict';
 
 var projectMemberValidation = function (employeeId, selected, joinDate) {
-	debugger;
 	var error = $("#memberValid");
-	debugger;
 	if (selected.length > 0 && employeeId != null && joinDate !== undefined) {
 		error.hide();
 		return true;

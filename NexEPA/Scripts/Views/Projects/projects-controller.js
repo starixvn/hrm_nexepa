@@ -102,11 +102,8 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		tabService.setProperty(isMemberSelected);
 	};
 
-	$scope.toogleEditStatus = function (project) {
-		project.isUpdateStatus = !project.isUpdateStatus;
-	};
-
-	$scope.updateProjectStatus = function (project) {
+	$scope.updateProjectStatus = function (project, status) {
+		project.status = status;
 		projectDataFactory.updateProjectStatus(project)
 		.then(successUpdateProjectStatus, errorNotification);
 	};
@@ -128,6 +125,12 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		deleteModalInstance.result.then(function () {
 			projectDataFactory.deleteProject(project.projectId).then(successDeleteProject, errorNotification);
 		});
+	};
+
+	$scope.toggleDropdown = function ($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.status.isopen = !$scope.status.isopen;
 	};
 
 } ]);

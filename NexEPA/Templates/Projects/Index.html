@@ -46,14 +46,15 @@
 				<td class="text-center member-limit">
 					<a href="" ng-click="detailProject(project,true)">{{project.members}}</a>
 				</td>
-				<td class="text-center status-limit">
-					<a ng-show="!project.isUpdateStatus" ng-click="toogleEditStatus(project)" href="javascript:;">
-						{{project.status|enumStatusText}}</a>
-					<select class="inline-status" ng-show="project.isUpdateStatus" ng-options="s.id as s.name for s in status"
-						ng-model="project.status" ng-change="updateProjectStatus(project)">
-					</select>
-					<a class="glyphicon glyphicon-minus-sign pull-right top-buffer icon-delete" ng-show="project.isUpdateStatus"
-						href="javascript:;" ng-click="toogleEditStatus(project)" title="Cancel"></a>
+				<td class="text-center">
+					<span class="dropdown" on-toggle="toggled(open)">
+						<a href class="dropdown-toggle">{{project.status|enumStatusText}}</a>
+						<ul class="dropdown-menu dropdown-menu-width">
+							<li ng-repeat="item in status">
+								<a ng-click="updateProjectStatus(project, item.id)" href="javascript:;">{{item.name}}</a>
+							</li>
+						</ul>
+					</span>
 				</td>
 				<td class="text-center">
 					{{project.startDate | customDate}}
@@ -62,7 +63,8 @@
 					{{project.endDate| customDate}}
 				</td>
 				<td class="text-center">
-					<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="javascript:;" ng-click="editProject(project.projectId)" />
+					<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="javascript:;"
+						ng-click="editProject(project.projectId)" />
 					<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="javascript:;"
 						ng-click="deleteProject(project)" />
 				</td>
