@@ -103,9 +103,24 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	};
 
 	$scope.updateProjectStatus = function (project, status) {
-		project.status = status;
-		projectDataFactory.updateProjectStatus(project)
+
+		var updateModalInstance = $modal.open({
+			templateUrl: '/templates/Common/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return project.name;
+				},
+				action: function () {
+					return "update status";
+				}
+			}
+		});
+		updateModalInstance.result.then(function () {
+			project.status = status;
+			projectDataFactory.updateProjectStatus(project)
 		.then(successUpdateProjectStatus, errorNotification);
+		});
 	};
 
 	// Delete Milestone.

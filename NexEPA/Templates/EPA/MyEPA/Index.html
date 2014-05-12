@@ -55,6 +55,50 @@
 					<strong>{{employeeEPA.milestoneName}}</strong></div>
 			</div>
 		</div>
+		<div class="row row-item line">
+			<div class="col-sm-6">
+				<div class="col-sm-3" data-translate="StartDate">
+				</div>
+				<div class="col-sm-8 txt-value">
+					<strong>{{employeeEPA.startDate|customDate}}</strong></div>
+			</div>
+			<div class="col-sm-6">
+				<div class="col-sm-3" data-translate="EndDate">
+				</div>
+				<div class="col-sm-8 txt-value">
+					<strong>{{employeeEPA.endDate|customDate}}</strong></div>
+			</div>
+		</div>
+		<div class="row row-item line" ng-show="employeeEPA.modifiedBy > 0 && employeeEPA.modifiedDate != null">
+			<div class="col-sm-6">
+				<div class="col-sm-3" data-translate="LastModifyBy">
+				</div>
+				<div class="col-sm-8 txt-value">
+					<strong>{{employeeEPA.modifiedBy}}</strong></div>
+			</div>
+			<div class="col-sm-6">
+				<div class="col-sm-3" data-translate="LastModifyDate">
+				</div>
+				<div class="col-sm-8 txt-value">
+					<strong>{{employeeEPA.modifiedDate|customDate}}</strong></div>
+			</div>
+		</div>
+		<div class="row row-item line">
+			<div class="col-sm-6">
+				<div class="col-sm-3" data-translate="Status">
+				</div>
+				<div class="col-sm-8 txt-value">
+					<span class="dropdown" on-toggle="toggled(open)">
+						<a href class="dropdown-toggle">{{employeeEPA.status|epaStatus}}</a>
+						<ul class="dropdown-menu dropdown-menu-width">
+							<li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
+								<a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
+							</li>
+						</ul>
+					</span><strong ng-show="isReadonly">{{employeeEPA.status|epaStatus}}</strong>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="col-sm-12 list-group-item bottom-buffer">

@@ -1,7 +1,7 @@
 ﻿/*global $, registrationModule*/
 'use strict';
 
-registrationModule.filter('enumStatusText',['$http', function ($http) {
+registrationModule.filter('enumStatusText', ['$http', function ($http) {
 	var statusEnum = [];
 	$http.get('/api/Project/RenderProjectStatusSelectList').success(function (data) {
 		statusEnum = data;
@@ -15,9 +15,9 @@ registrationModule.filter('enumStatusText',['$http', function ($http) {
 		});
 		return statusText;
 	};
-}]);
+} ]);
 
-registrationModule.filter('targetType',['$http', function ($http) {
+registrationModule.filter('targetType', ['$http', function ($http) {
 	var targetType = [];
 	$http.get('/api/targetTemplate/GetAllTargetType').success(function (data) {
 		targetType = data;
@@ -33,10 +33,25 @@ registrationModule.filter('targetType',['$http', function ($http) {
 	};
 } ]);
 
-registrationModule.filter('customDate',['$filter', function ($filter) {
+registrationModule.filter('customDate', ['$filter', function ($filter) {
 	return function (input) {
 		if (input == null) { return ""; }
 		var _date = $filter('date')(new Date(input), 'dd MMM, yyyy');
 		return _date;
 	};
-}]);
+} ]);
+
+registrationModule.filter('epaStatus', function () {
+	return function (input) {
+		var statusText;
+		switch (input) {
+			case 0:
+				statusText = "Open";
+				break;
+			case 1:
+				statusText = "Closed";
+				break;
+		}
+		return statusText;
+	};
+});

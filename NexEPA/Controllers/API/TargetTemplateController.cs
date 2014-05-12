@@ -80,9 +80,9 @@ namespace NexEPA.Controllers.API
             return data;
         }
 
-        public TargetTemplateModel GetTargetTemplateById(int targetId)
+        public TargetTemplateModel GetTargetTemplateById(int targetTemplateId)
         {
-            GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria() { TargetId = targetId };
+            GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria() { TargetTemplateId = targetTemplateId };
             var data = this._targetTemplateService.GetTargetTemplateById(criteria);
             return data;
         }

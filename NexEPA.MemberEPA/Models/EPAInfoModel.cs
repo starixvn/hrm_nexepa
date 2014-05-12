@@ -9,8 +9,8 @@
 
 namespace NexEPA.MemberEPA.Models
 {
+    using System;
     using System.Collections.Generic;
-    using NexEPA.KPI.Model;
 
     /// <summary>
     /// EPA Info Model.
@@ -48,6 +48,16 @@ namespace NexEPA.MemberEPA.Models
         public string PMFullName { get; set; }
 
         public string Comment { get; set; }
+
+        public int Status { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
+
+        public int? ModifiedBy { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
 
         public decimal FinalScore { get; set; }
 

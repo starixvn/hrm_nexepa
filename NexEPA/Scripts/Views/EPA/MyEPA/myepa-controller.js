@@ -126,6 +126,13 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		calculateScore();
 	};
 
+	$scope.epaStatus = [{ name: 'Open', id: 0 }, { name: 'Closed', id: 1}];
+	$scope.toggleDropdown = function ($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.status.isopen = !$scope.status.isopen;
+	};
+
 } ]);
 
 
