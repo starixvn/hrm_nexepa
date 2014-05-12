@@ -28,7 +28,6 @@
 			<input type="text" class="custom-textbox custom-date" ng-model="project.startDate"
 				is-open="calendar.startDateOpened" placeholder="Start Date" datepicker-popup="{{dateFormat}}"
 				id="startDate" readonly required />
-			<!--<img class="calendar-image" ng-click="openPopupStartDate($event)" src="{{sourceCalendarImage}}"></img>-->
 			<calendar-image ng-click="openPopupStartDate($event)"></calendar-image>
 		</div>
 	</div>
@@ -39,7 +38,6 @@
 			<input type="text" class="custom-textbox custom-date" ng-model="project.endDate"
 				is-open="calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{dateFormat}}"
 				id="endDate" readonly required />
-			<!--<img class="calendar-image" ng-click="openPopupEndDate($event)" src="{{sourceCalendarImage}}"></img>-->
 			<calendar-image ng-click="openPopupEndDate($event)"></calendar-image>
 		</div>
 	</div>

@@ -185,9 +185,6 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
 	}
 
-	// Get calendar button image.
-	commonFactory.getSourceCalendarImage($scope);
-
 	// get Date Format
 	commonFactory.getDateFormat($scope);
 
@@ -285,9 +282,6 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory) {
 	}
 
 	projectDataFactory.getProjectById(projectId).then(successGetProjectById);
-
-	// Get calendar button image.
-	commonFactory.getSourceCalendarImage($scope);
 
 	// get Date Format
 	commonFactory.getDateFormat($scope);
@@ -415,9 +409,6 @@ commonFactory, ProjectSettingCache) {
 	else {
 		projectDataFactory.getProjectStatusSelectList().then(successGetMilestoneStatusSelectList);
 	}
-
-	// Get calendar button image.
-//	commonFactory.getSourceCalendarImage($scope);
 
 	// get Date Format
 	commonFactory.getDateFormat($scope);

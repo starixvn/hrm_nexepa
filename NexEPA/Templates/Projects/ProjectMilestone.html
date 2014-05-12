@@ -47,12 +47,12 @@
 			<td class="text-center">
 				<input type="text" class="custom-textbox custom-date milestone-date-width" ng-model="milestone.startDate"
 					is-open="calendar.addModeStartDateOpened" datepicker-popup="{{dateFormat}}" readonly />
-				<img class="calendar-image" ng-click="openPopupAddModeStartDate($event)" src="{{sourceCalendarImage}}"></img>
+				<calendar-image ng-click="openPopupAddModeStartDate($event)"></calendar-image>
 			</td>
 			<td class="text-center">
 				<input type="text" class="custom-textbox custom-date milestone-date-width" ng-model="milestone.endDate"
 					is-open="calendar.addModeEndDateOpened" datepicker-popup="{{dateFormat}}" readonly />
-				<img class="calendar-image" ng-click="openPopupAddModeEndDate($event)" src="{{sourceCalendarImage}}"></img>
+				<calendar-image ng-click="openPopupAddModeEndDate($event)"></calendar-image>
 			</td>
 			<td>
 				<select class="custom-textbox" ng-options="s.id as s.name for s in milestoneStatus"
@@ -81,8 +81,7 @@
 				<input ng-model="milestone.startDate" class="custom-textbox custom-date milestone-date-width"
 					ng-show="milestone.editMode == true" is-open="calendar.editModeStartDateOpened{{milestone.milestoneId}}"
 					datepicker-popup="{{dateFormat}}" readonly id="start1" />
-				<img ng-show="milestone.editMode == true" class="calendar-image" ng-click="openPopupEditModeStartDate($event, milestone.milestoneId)"
-					src="{{sourceCalendarImage}}"></img>
+				<calendar-image ng-show="milestone.editMode == true" ng-click="openPopupEditModeStartDate($event, milestone.milestoneId)"></calendar-image>
 			</td>
 			<td class="text-center">
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.endDate|
@@ -90,8 +89,7 @@
 				<input ng-model="milestone.endDate" class="custom-textbox custom-date milestone-date-width"
 					ng-show="milestone.editMode == true" is-open="calendar.editModeEndDateOpened{{milestone.milestoneId}}"
 					datepicker-popup="{{dateFormat}}" readonly id="end1" />
-				<img ng-show="milestone.editMode == true" class="calendar-image" ng-click="openPopupEditModeEndDate($event, milestone.milestoneId)"
-					src="{{sourceCalendarImage}}"></img>
+				<calendar-image ng-show="milestone.editMode == true" ng-click="openPopupEditModeEndDate($event, milestone.milestoneId)"></calendar-image>
 			</td>
 			<td class="column-limit text-center">
 				<span ng-show="milestone.editMode == null || milestone.editMode == false">{{milestone.status|enumStatusText}}</span>
