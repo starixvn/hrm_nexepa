@@ -310,7 +310,7 @@
     <value>Please choose the Project!</value>
   </data>
   <data name="UpdatedSuccessfulMessage" xml:space="preserve">
-    <value>Updated successful!</value>
+    <value>Updated successfully!</value>
   </data>
   <data name="SymbolCount" xml:space="preserve">
     <value>#</value>

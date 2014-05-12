@@ -16,6 +16,9 @@ targetModule.controller('ViewTargetController',
 		// get Calendar Image
 		commonFactory.getSourceCalendarImage($scope);
 
+		// get all status
+		targetUtility.getAllStatus($scope);
+
 		// set default date is today
 		$scope.filter = {
 			startDate: new Date(),
@@ -147,6 +150,49 @@ targetModule.controller('ViewTargetController',
 			var targetId = target.targetId,
 				projectId = target.project ? target.project.projectId : null;
 			$location.path("/Target/TargetDetail/" + targetId).search("projectId", projectId);
+		};
+
+		// Update Status
+		$scope.updateStatus = function (target, status) {
+			if (target && status) {
+				var targetStatus = {
+					targetId: target.targetId,
+					status: status.id
+				};
+
+				var modalUpdateStatusInstance = $modal.open({
+					templateUrl: '/templates/Common/modalConfirmContent.html',
+					controller: "ModalConfirmController",
+					resolve: {
+						name: function () {
+							return "";
+						},
+						action: function () {
+							return status.name;
+						}
+					},
+					windowClass: "modal-confirm-center"
+				});
+
+				modalUpdateStatusInstance.result.then(function () {
+					targetFactory.updateTargetStatus(targetStatus).success(function (response) {
+						if (response.isSuccessful === true) {
+							target.statusName = status.name;
+							notificationFactory.success("UpdatedSuccessfulMessage");
+						}
+						else {
+							notificationFactory.error("", response.message);
+						}
+					}).error(function (response, status) {
+						if (status === 405) {
+							ErrorService.errorHandle(status);
+						}
+						else {
+							notificationFactory.error("ErrorMessage");
+						}
+					});
+				});
+			}
 		};
 	} ]);
 

@@ -75,6 +75,7 @@
     <Compile Include="Criteria\Target\TargetEmployee\DeleteTargetEmployeeCriteria.cs" />
     <Compile Include="Criteria\Target\TargetEmployee\GetAllEmployeeByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\TargetKPI\GetKPIByTargetIdCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\UpdateTargetStatusCriteria.cs" />
     <Compile Include="Models\KPIModel.cs" />
     <Compile Include="Criteria\Target\Target\DeleteTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetByIdCriteria.cs" />

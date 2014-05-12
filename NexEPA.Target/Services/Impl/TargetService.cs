@@ -168,6 +168,26 @@ namespace NexEPA.Target.Services.Impl.Target
         }
 
         /// <summary>
+        /// Update Target Status.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
         /// Delete Target.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

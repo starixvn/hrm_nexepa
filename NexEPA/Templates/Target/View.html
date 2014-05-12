@@ -70,7 +70,18 @@
                         title="View KPIs of '{{target.name}}'"></a>
                     <span ng-show="target.numberKPI === 0" ng-bind="0"></span>
                 </td>
-                <td class="status" ng-bind="target.statusName"></td>
+                <td class="status">
+                    <span class="dropdown">
+                         <a class="dropdown-toggle" href="" ng-bind="target.statusName">
+                         </a>
+                         <ul class="dropdown-menu">
+                            <li ng-repeat="status in statusOptions">
+                                <a href="" ng-bind="status.name" ng-click="updateStatus(target, status)">
+                                </a>
+                            </li>
+                         </ul>
+                    </span>
+                </td>
                 <td class="start-date" ng-bind="target.startDate"></td>
                 <td class="end-date" ng-bind="target.endDate"></td>
                 <td class="action">

@@ -84,9 +84,17 @@ namespace NexEPA.Controllers.Target
         }
 
         [ApiAuthorize(Roles = "PM,SA")]
+        [HttpPut]
         public CommandResult Put(UpdateTargetCriteria criteria)
         {
             return _targetServices.Update(criteria);
+        }
+
+        [ApiAuthorize(Roles = "PM,SA")]
+        [HttpPut]
+        public CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria)
+        {
+            return _targetServices.UpdateStatus(criteria);
         }
 
         [ApiAuthorize(Roles = "PM,SA")]

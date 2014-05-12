@@ -14,7 +14,10 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http.post('/api/Target/InsertTarget', target);
 		},
 		editTarget: function (target) {
-			return $http.put('/api/Target/', target);
+			return $http.put('/api/Target/Put', target);
+		},
+		updateTargetStatus: function (targetStatus) {
+			return $http.put('/api/Target/UpdateStatus', targetStatus);
 		},
 		deleteTarget: function (targetId) {
 			return $http['delete']('/api/Target', { params: { targetId: targetId} });
@@ -39,7 +42,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 				{ params: { targetId: targetId, employeeId: employeeId} });
 		},
 		getKPIByTargetId: function (targetId, groupId) {
-			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId } });
+			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId} });
 		}
 	};
 } ]);

@@ -38,5 +38,7 @@ namespace NexEPA.Target.Services.Interfaces
         CommandResult DeleteTargetEmployee(DeleteTargetEmployeeCriteria criteria);
 
         List<TargetKPIGroupItem> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria);
+
+        CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria);
     }
 }
