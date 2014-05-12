@@ -129,3 +129,11 @@ registrationModule.directive('treeModel', ['$compile', function ($compile) {
 		}
 	};
 } ]);
+
+registrationModule.directive('calendarImage', function () {
+	return {
+		restrict: 'AE',
+		replace: 'true',
+		template: '<img class="calendar-image" src="/Content/Site/images/calendar.png"></img>'
+	};
+});

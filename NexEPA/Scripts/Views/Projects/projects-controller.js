@@ -417,7 +417,7 @@ commonFactory, ProjectSettingCache) {
 	}
 
 	// Get calendar button image.
-	commonFactory.getSourceCalendarImage($scope);
+//	commonFactory.getSourceCalendarImage($scope);
 
 	// get Date Format
 	commonFactory.getDateFormat($scope);
