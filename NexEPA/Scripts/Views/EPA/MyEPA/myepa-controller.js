@@ -1,6 +1,50 @@
 ﻿/* global epaModule */
 'use strict';
 
+var calculateScore = function ($scope, kpiInfo) {
+	var totalGroupScore = 0;
+	var totalGroupWeight = 0;
+	$scope.finalScore = 0;
+
+	$.each(kpiInfo, function (item) {
+		var kpiGroupItem = kpiInfo[item].kpiGroupItems;
+		var kpiGroupWeight = kpiInfo[item].kpiGroupWeight;
+		var totalItemScore = 0;
+		var totalItemWeight = 0;
+		$.each(kpiGroupItem, function (i) {
+			var currentItem = kpiGroupItem[i];
+			if (currentItem.score > 0) {
+				totalItemWeight += currentItem.weight;
+				totalItemScore += currentItem.score * currentItem.weight;
+			}
+		});
+
+		var temp = (totalItemScore / totalItemWeight) * kpiGroupWeight;
+		if (isNaN(temp)) {
+			totalGroupScore += 0;
+		}
+		else {
+			totalGroupScore += temp;
+			totalGroupWeight += kpiGroupWeight;
+		}
+
+		kpiInfo[item].kpiGroupScore = temp;
+		debugger;
+		//kpiInfo[item].groupFinalScore = ((temp / kpiGroupWeight) * 10).toFixed(1);
+	});
+
+	$.each(kpiInfo, function (item) {
+		var currentKPIInfo = kpiInfo[item];
+		currentKPIInfo.groupFinalScore = ((currentKPIInfo.kpiGroupScore / totalGroupWeight) * 10).toFixed(1);
+	});
+
+	$scope.finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
+
+	if (isNaN($scope.finalScore)) {
+		$scope.finalScore = 0;
+	}
+};
+
 epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory',
 '$routeParams', '$window', 'ErrorService', '$modal',
 function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService, $modal) {
@@ -32,53 +76,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var errorUpdateEPAStatus = function (response) {
 		$scope.employeeEPA.status = currentEPAStatus;
 		notificationFactory.error('', response);
-	};
-
-	/**
-	* Function Calculate Total Score. 
-	*/
-	var calculateScore = function () {
-		var kpiInfo = $scope.employeeEPA.kpiInfo;
-		var totalGroupScore = 0;
-		var totalGroupWeight = 0;
-		$scope.finalScore = 0;
-
-		$.each(kpiInfo, function (item) {
-			var kpiGroupItem = kpiInfo[item].kpiGroupItems;
-			var kpiGroupWeight = kpiInfo[item].kpiGroupWeight;
-			var totalItemScore = 0;
-			var totalItemWeight = 0;
-			$.each(kpiGroupItem, function (i) {
-				var currentItem = kpiGroupItem[i];
-				if (currentItem.score > 0) {
-					totalItemWeight += currentItem.weight;
-					totalItemScore += currentItem.score * currentItem.weight;
-				}
-			});
-
-			var temp = (totalItemScore / totalItemWeight) * kpiGroupWeight;
-			if (isNaN(temp)) {
-				totalGroupScore += 0;
-			}
-			else {
-				totalGroupScore += temp;
-				totalGroupWeight += kpiGroupWeight;
-			}
-
-			kpiInfo[item].kpiGroupScore = temp;
-			//kpiInfo[item].groupFinalScore = ((temp / kpiGroupWeight) * 10).toFixed(1);
-		});
-
-		$.each(kpiInfo, function (item) {
-			var currentKPIInfo = kpiInfo[item];
-			currentKPIInfo.groupFinalScore = ((currentKPIInfo.kpiGroupScore / totalGroupWeight) * 10).toFixed(1);
-		});
-
-		$scope.finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
-
-		if (isNaN($scope.finalScore)) {
-			$scope.finalScore = 0;
-		}
 	};
 
 	var errorGetEmployeeEPA = function (status) {
@@ -127,7 +124,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	$scope.cancelRating = function (item) {
 		item.score = 0;
 		item.percent = 0;
-		calculateScore();
+		calculateScore($scope, $scope.employeeEPA.kpiInfo);
 	};
 
 	$scope.cancel = function () { $window.history.back(); };
@@ -138,7 +135,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 	$scope.hoveringLeave = function (item) {
 		item.percent = (100 * item.score) / $scope.max;
-		calculateScore();
+		calculateScore($scope, $scope.employeeEPA.kpiInfo);
 	};
 
 	// EPA Status Context Menu
@@ -171,9 +168,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	};
 
 
-
 } ]);
-
 
 epaModule.controller('MyEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', '$routeParams', '$window',
 function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window) {
@@ -196,6 +191,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			roleArray.push(data.projectRoles[i].name);
 		});
 		$scope.employeeRole = roleArray.join(", ");
+
+		calculateScore($scope, data.kpiInfo);
 	};
 
 	var errorGetEmployeeEPA = function (response) { notificationFactory.error('', response); };
@@ -210,7 +207,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	*/
 
 	$scope.cancel = function () { $window.history.back(); };
-
+	
 } ]);
 
 // View EPA of Current Member Controller
