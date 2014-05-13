@@ -86,7 +86,8 @@ function ($scope, $location, homeFactory) {
 	};
 
 	$scope.EPADetail = function (targetId) {
-		$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', $scope.employeeId);
+		$scope.viewEPADetailUrl = '/MyEPA/Index' + '?targetId=' + targetId + '&employeeId=' + $scope.employeeId;
+		//$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', $scope.employeeId);
 	};
 } ]);
 
@@ -185,7 +186,8 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 	};
 
 	$scope.viewEmployeeTendency = function (employeeId) {
-		$location.path('Report/EmployeePerformanceTendency').search('employeeId', employeeId);
+		$scope.viewEmployeeTendencyUrl = '/Report/EmployeePerformanceTendency' + '?employeeId=' + employeeId;
+		//$location.path('Report/EmployeePerformanceTendency').search('employeeId', employeeId);
 	};
 
 	$scope.$watch('search.searchKey', function (newValue) {

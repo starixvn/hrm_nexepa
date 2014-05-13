@@ -58,7 +58,7 @@ homeModule.controller('HistoryProjectController', ['$scope', '$location', 'homeF
 	};
 
 	$scope.EPADetail = function (targetId) {
-		$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', $scope.employeeId);
+		$scope.viewEPADetailUrl = '/MyEPA/Index' + '?targetId=' + targetId + '&employeeId=' + $scope.employeeId;
 	};
 } ]);
 

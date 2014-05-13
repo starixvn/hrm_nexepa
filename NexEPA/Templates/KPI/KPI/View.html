@@ -9,11 +9,11 @@
 		</ul>
 		<div class="button-icon">
 			<span class="icon plus"></span>
-			<a href="" ng-click="create()" data-translate="CreateKPI"></a>
+			<a href="" ng-click="create()" data-translate="CreateKPI" ng-href={{createKPIUrl}}></a>
 		</div>
 		<div class="button-icon" ng-show="!isViewAll">
 			<span class="glyphicon glyphicon-arrow-left icon-back"></span>
-			<a href="" ng-click="back()" data-translate="BackToList"></a>
+			<a href="" ng-click="backToList()" data-translate="BackToList"></a>
 		</div>
 	</div>
 	<div class="form-inline filter" ng-show="isViewAll">
@@ -93,7 +93,7 @@
 				</a>
 			</td>
 			<td class="KPI-action">
-				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)" />
+				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)" ng-href={{editKPIUrl}} />
 				<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
 			</td>
 		</tr>
@@ -137,7 +137,7 @@
 				</a>
 			</td>
 			<td class="KPI-action">
-				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)" />
+				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)" ng-href={{editKPIUrl}} />
 				<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
 			</td>
 		</tr>

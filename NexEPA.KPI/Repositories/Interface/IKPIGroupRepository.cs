@@ -7,14 +7,14 @@
 //   <change who="Josh.Phan" date="2014.03.20">Created</change>
 // </history>
 
-namespace NexEPA.KPI.Repositories.Interface.KPIGroup
+namespace NexEPA.KPI.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using NexEPA.KPI.Model;
 
     /// <summary>
-    /// The interface of KPI Group repository..
+    /// The interface of KPI Group repository.
     /// </summary>
     public interface IKPIGroupRepository
     {

@@ -25,8 +25,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Services.Implement.KPI;
     using NexEPA.KPI.Services.Implement.KPIGroup;
-    using NexEPA.KPI.Services.Interface.KPI;
-    using NexEPA.KPI.Services.Interface.KPIGroup;
+    using NexEPA.KPI.Services.Interface;
     using NexEPA.KPI.ViewModels;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;

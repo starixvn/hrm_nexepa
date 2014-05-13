@@ -73,15 +73,14 @@ targetModule.controller('ViewTargetController',
 
 		// create target
 		$scope.create = function () {
-			$location.url('Target/CreateTarget');
+			$scope.createTargetUrl = '/Target/CreateTarget';
 		};
 
 		// edit target
 		$scope.edit = function (target) {
 			var targetId = target.targetId,
 				projectId = target.project ? target.project.projectId : null;
-
-			$location.path('Target/EditTarget/' + targetId).search("projectId", projectId).search("isEditMode", true);
+			$scope.editTargetUrl = '/Target/EditTarget/' + targetId + '?projectId=' + projectId + '&isEditMode';
 		};
 
 		// delete target
@@ -132,21 +131,21 @@ targetModule.controller('ViewTargetController',
 		$scope.viewTargetEmployee = function (target) {
 			var targetId = target.targetId,
 				projectId = target.project ? target.project.projectId : null;
-			$location.path("/Target/TargetEmployee/" + targetId).search("projectId", projectId).search("viewMembers", true);
+			$scope.viewTargetEmployeeUrl = '/Target/TargetEmployee/' + targetId + '?projectId=' + projectId + '&viewMembers';
 		};
 
 		// view target KPI
 		$scope.viewTargetKPI = function (target) {
 			var targetId = target.targetId,
 				projectId = target.project ? target.project.projectId : null;
-			$location.path("/Target/TargetKPI/" + targetId).search("projectId", projectId).search("viewKPIs", true);
+			$scope.viewTargetKPIUrl = '/Target/TargetKPI/' + targetId + '?projectId=' + projectId + '&viewKPIs';
 		};
 
 		// view detail of Target
 		$scope.viewDetailTarget = function (target) {
 			var targetId = target.targetId,
 				projectId = target.project ? target.project.projectId : null;
-			$location.path("/Target/TargetDetail/" + targetId).search("projectId", projectId);
+			$scope.viewDetailTargetUrl = '/Target/TargetDetail/' + targetId + '?projectId=' + projectId;
 		};
 
 		// Update Status
@@ -292,37 +291,38 @@ targetModule.controller('ViewTargetController',
 	} ]);
 
 // View Detail of Target or Edit Target Controller
-targetModule.controller("TargetDetailAndEditController",
+	targetModule.controller("TargetDetailAndEditController",
 ['$scope', '$location', '$routeParams', '$window', 'targetUtility',
 function ($scope, $location, $routeParams, $window, targetUtility) {
 
-		var targetId = parseInt($routeParams.id),
+	var targetId = parseInt($routeParams.id),
 			projectId = parseInt($routeParams.projectId),
 			isMemberSelect = $routeParams.viewMembers ? true : false,
 			isKPISelect = $routeParams.viewKPIs ? true : false;
 
-		if (isMemberSelect || isKPISelect) {
-			$scope.tabGeneralSelect = false;
-			$scope.tabMemberSelect = isMemberSelect;
-			$scope.tabKPISelect = isKPISelect;
-		}
+	if (isMemberSelect || isKPISelect) {
+		$scope.tabGeneralSelect = false;
+		$scope.tabMemberSelect = isMemberSelect;
+		$scope.tabKPISelect = isKPISelect;
+	}
 
-		// get Tab Heading
-		targetUtility.getTabHeading($scope);
+	// get Tab Heading
+	targetUtility.getTabHeading($scope);
 
-		// Edit Target
-		$scope.editTarget = function () {
-			$location.path('Target/EditTarget/' + targetId).search("projectId", projectId).search("isEditMode", true);
-		};
+	// Edit Target
+	$scope.editTarget = function () {
+		var tabSelect = isMemberSelect ? '&viewMembers' : '';
+		$scope.editTargetUrl = '/Target/EditTarget/' + targetId + '?projectId=' + projectId + '&isEditMode' + tabSelect;
+	};
 
-		$scope.cancel = function () {
-			$window.history.back();
-		};
+	$scope.cancel = function () {
+		$window.history.back();
+	};
 
-		$scope.backToView = function () {
-			$location.url('Target/ViewTarget');
-		};
-	} ]);
+	$scope.backToView = function () {
+		$location.url('Target/ViewTarget');
+	};
+} ]);
 
 // Target General Information Controller
 targetModule.controller('TargetGeneralInformationController', ['$scope', '$routeParams', '$timeout', 'targetFactory', 'targetUtility',

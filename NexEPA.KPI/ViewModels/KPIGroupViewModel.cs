@@ -17,13 +17,6 @@ namespace NexEPA.KPI.ViewModels
     /// </summary>
     public class KPIGroupViewModel
     {
-        public KPIGroupViewModel()
-        {
-            Name = string.Empty;
-            Description = string.Empty;
-            Form = string.Empty;
-        }
-
         public int KPIGroupID { get; set; }
 
         public string Name { get; set; }

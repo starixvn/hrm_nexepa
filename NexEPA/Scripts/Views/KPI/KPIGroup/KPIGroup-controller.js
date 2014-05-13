@@ -37,12 +37,12 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 
 		// create new KPI group
 		$scope.create = function () {
-			$location.url('/KPI/CreateNewKPIGroup/');
+			$scope.createKPIGroupUrl = '/KPI/CreateNewKPIGroup/';
 		};
 
 		// update
 		$scope.edit = function (groupId) {
-			$location.url('/KPI/EditKPIGroup/' + groupId);
+			$scope.editKPIGroupUrl = '/KPI/EditKPIGroup/' + groupId;
 		};
 
 		// delete
@@ -82,12 +82,12 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 
 		// add new KPI
 		$scope.addKPI = function (targetTypeId, kpiGroupId) {
-			$location.search('form', targetTypeId).search('groupId', kpiGroupId).path("/KPI/CreateKPI/");
+			$scope.addKPIUrl = '/KPI/CreateKPI' + '?form=' + targetTypeId + '&groupId=' + kpiGroupId;
 		};
 
 		// view KPI
 		$scope.viewKPI = function (targetTypeId, kpiGroupId) {
-			$location.search('form', targetTypeId).search('groupId', kpiGroupId).path("/KPI/ViewKPI/");
+			$scope.viewKPIUrl = '/KPI/ViewKPI' + '?form=' + targetTypeId + '&groupId=' + kpiGroupId;
 		};
 
 		// query data when filter

@@ -14,7 +14,7 @@ namespace NexEPA.KPI.Repositories.Implement
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
     using NexEPA.KPI.Model;
-    using NexEPA.KPI.Repositories.Interface.KPI;
+    using NexEPA.KPI.Repositories.Interface;
 
     /// <summary>
     /// The implement of KPI repository.

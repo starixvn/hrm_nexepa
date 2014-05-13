@@ -16,7 +16,7 @@ namespace NexEPA.KPI.Criteria.KPI
     /// </summary>
     public class GetKPIByIdCriteria : CriteriaBase
     {
-        public int? KPIId { get; set; }
+        public int KPIId { get; set; }
 
         public override string GetSettingKey()
         {

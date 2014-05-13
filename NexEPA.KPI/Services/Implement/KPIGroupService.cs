@@ -16,8 +16,8 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Model;
     using NexEPA.KPI.Repositories.Implement;
-    using NexEPA.KPI.Repositories.Interface.KPIGroup;
-    using NexEPA.KPI.Services.Interface.KPIGroup;
+    using NexEPA.KPI.Repositories.Interface;
+    using NexEPA.KPI.Services.Interface;
     using NexEPA.KPI.ViewModels;
 
     /// <summary>

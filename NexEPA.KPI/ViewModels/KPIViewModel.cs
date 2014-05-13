@@ -18,11 +18,8 @@ namespace NexEPA.KPI.ViewModels
     {
         public KPIViewModel() 
         {
-            Name = string.Empty;
-            Description = string.Empty;
             KPIGroupIds = new List<int>();
             KPIGroupNames = new List<string>();
-            TargetTypeName = string.Empty;
         }
 
         public int KPIId { get; set; }

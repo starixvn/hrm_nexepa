@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.03.18">Created</change>
 // </history>
 
-namespace NexEPA.KPI.Services.Interface.KPI
+namespace NexEPA.KPI.Services.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;

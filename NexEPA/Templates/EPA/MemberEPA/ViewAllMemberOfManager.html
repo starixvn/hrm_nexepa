@@ -49,8 +49,8 @@
             <td ng-bind="epaItem.milestone.milestoneName"></td>
             <td ng-bind="epaItem.target.targetName"></td>
             <td class="epa-score">
-                <a href="" ng-bind="epaItem.score" ng-click="EPADetail(epaItem)" ng-show="epaItem.score > 0"/>
-                <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)" ng-show="epaItem.score <= 0"/>
+                <a href="" ng-bind="epaItem.score" ng-click="EPADetail(epaItem)" ng-href={{viewEPADetailUrl}} ng-show="epaItem.score > 0"/>
+                <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)" ng-href={{viewEPADetailUrl}} ng-show="epaItem.score <= 0"/>
             </td>
             <td class="epa-status" ng-bind="epaItem.statusName"></td>
             <td>

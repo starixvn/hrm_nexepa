@@ -77,9 +77,7 @@
     <Compile Include="ViewModels\KPIGroupViewModel.cs" />
     <Compile Include="ViewModels\KPIViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>

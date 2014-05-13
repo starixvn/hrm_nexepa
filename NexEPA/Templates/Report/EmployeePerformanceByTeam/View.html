@@ -61,7 +61,8 @@
             <tr ng-repeat="employee in employeeReport">
                 <td class="home-index" ng-bind="$index + 1"></td>
                 <td>
-                    <a ng-bind="employee.nickName + ' - ' + employee.fullName" href="" ng-click="viewEmployeeTendency(employee.employeeId)"/>
+                    <a ng-bind="employee.nickName + ' - ' + employee.fullName" href="" ng-click="viewEmployeeTendency(employee.employeeId)"
+                        ng-href={{viewEmployeeTendencyUrl}} />
                 </td>
                 <td ng-bind="employee.group.name"></td>
                 <td class="report-project-count" ng-bind="employee.projectCount"></td>

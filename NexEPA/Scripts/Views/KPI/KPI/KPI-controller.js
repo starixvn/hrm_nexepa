@@ -15,7 +15,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		};
 
 		if (groupId) {
-			$scope.back = function () {
+			$scope.backToList = function () {
 				$window.history.back();
 			};
 		}
@@ -53,12 +53,13 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 		// add new KPI
 		$scope.create = function () {
-			$location.path('/KPI/CreateKPI/');
+			$scope.createKPIUrl = '/KPI/CreateKPI/';
 		};
 
 		// edit KPI
 		$scope.edit = function (kpiId) {
-			$location.url('/KPI/EditKPI/' + kpiId);
+			$scope.editKPIUrl = '/KPI/EditKPI/' + kpiId;
+			//$location.url('/KPI/EditKPI/' + kpiId);
 		};
 
 		// delete KPI

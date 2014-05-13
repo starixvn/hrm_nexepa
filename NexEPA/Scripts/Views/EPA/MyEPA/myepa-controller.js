@@ -252,7 +252,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 			if (epaItem.target) {
 				var targetId = epaItem.target.targetId,
 				employeeId = epaItem.employeeId;
-				$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
+				$scope.viewEPADetailUrl = '/MyEPA/Index' + '?targetId=' + targetId + '&employeeId=' + employeeId;
 			}
 		};
 
@@ -270,7 +270,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 	} ]);
 
 // View EPA of Member by Manager Controller
-epaModule.controller('ViewMemberByManagerEPAController', [
+	epaModule.controller('ViewMemberByManagerEPAController', [
 	'$scope', '$location', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory',
 	function ($scope, $location, employeeEPAFactory, ErrorService, commonFactory, notificationFactory) {
 
@@ -324,7 +324,7 @@ epaModule.controller('ViewMemberByManagerEPAController', [
 			if (epaItem.target) {
 				var targetId = epaItem.target.targetId,
 				employeeId = epaItem.employeeId;
-				$location.path('/EmployeeEPA/Index').search('targetId', targetId).search('employeeId', employeeId);
+				$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + employeeId;
 			}
 		};
-} ]);
+	} ]);

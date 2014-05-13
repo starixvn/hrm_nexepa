@@ -24,10 +24,10 @@
                         </i>
                         <i class="home-expanded"  ng-click="showHideMilestone(historyProject)"
                             ng-show="historyProject.milestones.length > 0 && collapse.isCollapsed{{historyProject.project.projectId}}"></i>
-                        <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" 
+                        <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" ng-href={{viewEPADetailUrl}} 
                             ng-show="!historyProject.projectEvaluation && !historyProject.milestoneEvaluation" title="View detail EPA"/>
                         <a href="" ng-bind="historyProject.project.name" ng-click="EPADetail(historyProject.targetId)" ng-show="historyProject.projectEvaluation"
-                            title="View detail EPA" />
+                            ng-href={{viewEPADetailUrl}} title="View detail EPA" />
                         <span ng-bind="historyProject.project.name" ng-show="historyProject.milestoneEvaluation" ></span>
                     </td>
                     <td>
@@ -45,7 +45,7 @@
                     ng-class="{odd: ($index % 2 == 0), even: ($index % 2 != 0)}">
                     <td class="home-index" ng-bind="$parent.$index + 1 + '.' + ($index + 1)"></td>
                     <td>
-                        <a class="sub-item" href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)" title="View detail EPA"/>
+                        <a class="sub-item" href="" ng-bind="milestone.name" ng-click="EPADetail(milestone.targetId)" ng-href={{viewEPADetailUrl}} title="View detail EPA"/>
                     </td>
                     <td></td>
                     <td class="home-center">{{milestone.startDate | customDate}}</td>
