@@ -24,8 +24,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.Employee.Services.Interface;
     using NexEPA.Project.Criteria.Project;
     using NexEPA.Project.Models;
-    using NexEPA.Project.Services.Impl;
-    using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Project.Services.Implement;
+    using NexEPA.Project.Services.Interface;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 

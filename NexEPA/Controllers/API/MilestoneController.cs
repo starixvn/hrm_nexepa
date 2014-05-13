@@ -17,8 +17,8 @@ namespace NexEPA.Controllers.API
     using Fanex.NAP.Framework.Data;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Models;
-    using NexEPA.Project.Services.Impl;
-    using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Project.Services.Implement;
+    using NexEPA.Project.Services.Interface;
     using NexEPA.Web.Controllers;
 
     /// <summary>

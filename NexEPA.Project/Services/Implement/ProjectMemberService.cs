@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.3.26">Created</change>
 // </history>
 
-namespace NexEPA.Project.Services.Impl
+namespace NexEPA.Project.Services.Implement
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -16,7 +16,7 @@ namespace NexEPA.Project.Services.Impl
     using NexEPA.Core.Services;
     using NexEPA.Project.Criteria.ProjectMembers;
     using NexEPA.Project.Models;
-    using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Project.Services.Interface;
 
     /// <summary>
     /// Project Member Service.

@@ -7,14 +7,14 @@
 //   <change who="Bradley.Mac" date="2014.3.24">Created</change>
 // </history>
 
-namespace NexEPA.Project.Repositories.Impl
+namespace NexEPA.Project.Repositories.Implement
 {
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Project.Models;
-    using NexEPA.Project.Repositories.Interfaces;
+    using NexEPA.Project.Repositories.Interface;
 
     /// <summary>
     /// Project Repository.

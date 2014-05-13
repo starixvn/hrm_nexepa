@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.3.26">Created</change>
 // </history>
 
-namespace NexEPA.Project.Services.Interfaces
+namespace NexEPA.Project.Services.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;

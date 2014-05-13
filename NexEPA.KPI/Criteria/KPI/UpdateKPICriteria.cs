@@ -17,6 +17,10 @@ namespace NexEPA.KPI.Criteria.KPI
     /// </summary>
     public class UpdateKPICriteria : CriteriaBase
     {
+        public UpdateKPICriteria()
+        { 
+        }
+
         public int KPIId { get; set; }
 
         public string Name { get; set; }

@@ -16,8 +16,8 @@ namespace NexEPA.Controllers.Target
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Enums;
     using NexEPA.Project.Criteria.Milestone;
-    using NexEPA.Project.Services.Impl;
-    using NexEPA.Project.Services.Interfaces;
+    using NexEPA.Project.Services.Implement;
+    using NexEPA.Project.Services.Interface;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;

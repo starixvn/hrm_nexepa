@@ -70,14 +70,14 @@
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\ProjectRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Impl\ProjectRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IProjectRepository.cs" />
-    <Compile Include="Services\Impl\ProjectMemberService.cs">
+    <Compile Include="Repositories\Implement\ProjectRepository.cs" />
+    <Compile Include="Repositories\Interface\IProjectRepository.cs" />
+    <Compile Include="Services\Implement\ProjectMemberService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Services\Impl\ProjectService.cs" />
-    <Compile Include="Services\Interfaces\IProjectMemberService.cs" />
-    <Compile Include="Services\Interfaces\IProjectService.cs" />
+    <Compile Include="Services\Implement\ProjectService.cs" />
+    <Compile Include="Services\Interface\IProjectMemberService.cs" />
+    <Compile Include="Services\Interface\IProjectService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
