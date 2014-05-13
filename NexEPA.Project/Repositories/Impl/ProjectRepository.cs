@@ -49,7 +49,8 @@ namespace NexEPA.Project.Repositories.Impl
                     x.Members,
                     x.StartDate,
                     x.EndDate,
-                    x.Status
+                    x.Status,
+                    x.NickName
                 },
                 x => x.Milestone).Select(y => new ProjectInformationModel
                 {
@@ -57,6 +58,7 @@ namespace NexEPA.Project.Repositories.Impl
                     ProjectId = y.Key.ProjectId,
                     ProjectManager = y.Key.ProjectManager.Value,
                     FullName = y.Key.FullName,
+                    NickName = y.Key.NickName,
                     Members = y.Key.Members.Value,
                     StartDate = y.Key.StartDate.Value,
                     EndDate = y.Key.EndDate.Value,

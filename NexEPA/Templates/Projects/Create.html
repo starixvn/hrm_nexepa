@@ -1,7 +1,8 @@
 ﻿<div class="row sub-header">
 	<ul class="col-xs-12 breadcrumb list-inline pull-left">
 		<li>
-			<a href="/Projects/Index" data-translate="Project"></a></li>
+			<a href="/Projects/Index" data-translate="Project"></a>
+		</li>
 		<li class="current" data-translate="AddProject"></li>
 	</ul>
 </div>
@@ -45,9 +46,9 @@
 		<label class="col-sm-3 control-label" data-translate="PM">
 		</label>
 		<div class="col-sm-8">
-			<select class="form-control" ng-options="pm.employeeId as pm.fullName for pm in pms"
-				ng-model="project.projectManager" required>
+			<select class="form-control" ng-model="project.projectManager" required>
 				<option style="display: none" value="">-- Select a Project Manager --</option>
+				<option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
 			</select>
 		</div>
 	</div>

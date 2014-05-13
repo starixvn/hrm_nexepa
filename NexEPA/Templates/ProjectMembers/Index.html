@@ -22,7 +22,7 @@
                 <tbody>
                     <tr ng-repeat="member in members" ng-repeat-loaded>
                         <td>
-                            {{member.fullName}} ({{member.nickName}})
+							<span tooltip="{{member.fullName}}">{{member.nickName}}</span>
                         </td>
                         <td>
                             {{member.name}}

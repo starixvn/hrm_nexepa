@@ -173,6 +173,7 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 	// Success add new project callback.
 	var successAddProject = function () {
+		$scope.errors = [];
 		notificationFactory.success('SuccessSaveData', '');
 		$timeout(function () {
 			$location.url('/Projects/Index');
@@ -254,7 +255,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory) {
 	* Ajax event. 
 	*/
 	// Get data to ProjectManager - Select List
-	var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
+	var successGetEmployeeSelectList = function (data) { $scope.pms = data; debugger; };
 
 	// Get data to Status - Select List
 	var successGetProjectStatusSelectList = function (data) { $scope.status = data; };

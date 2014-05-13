@@ -1,11 +1,13 @@
 ﻿<div class="row sub-header">
-    <ul class="col-xs-12 breadcrumb list-inline pull-left">
-        <li><a href="/Projects/Index" data-translate="Project"></a></li>
-        <li class="current">Edit Project - {{projectUpdate.name}}</li>
-    </ul>
+	<ul class="col-xs-12 breadcrumb list-inline pull-left">
+		<li>
+			<a href="/Projects/Index" data-translate="Project"></a>
+		</li>
+		<li class="current">Edit Project - {{projectUpdate.name}}</li>
+	</ul>
 </div>
 <div class="row target-tabset">
-    <tabset id="projectInfoTab">
+	<tabset id="projectInfoTab">
     <tab heading="GENERAL INFORMATION" class="tab-cursor" active="dataTab.information">
         <form class="row common-form project-form" name="addProjectForm" novalidate>
             <div class="row boxtitle first" data-translate="ProjectInformation">
@@ -47,9 +49,8 @@
                     <label class="col-sm-2 col-md-2" data-translate="PM">
                     </label>
                     <div class="col-sm-6 col-md-4">
-                        <select class="custom-textbox" ng-options="pm.employeeId as pm.fullName for pm in pms"
-                            ng-model="projectUpdate.projectManager">
-                            <option style="display: none" value="">-- Select a Project Manager --</option>
+                        <select class="custom-textbox" ng-model="projectUpdate.projectManager">
+							<option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
                         </select>
                     </div>
                 </div>
