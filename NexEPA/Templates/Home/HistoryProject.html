@@ -30,7 +30,9 @@
                             title="View detail EPA" />
                         <span ng-bind="historyProject.project.name" ng-show="historyProject.milestoneEvaluation" ></span>
                     </td>
-                    <td class="home-center" ng-bind="historyProject.evaluator.fullName"></td>
+                    <td>
+                        <span ng-bind="historyProject.evaluator.nickName" tooltip={{historyProject.evaluator.fullName}}></span>
+                    </td>
                     <td class="home-center">{{historyProject.project.startDate | customDate}}</td>
                     <td class="home-center">{{historyProject.project.endDate | customDate}}</td>
                     <td class="home-score" ng-bind="historyProject.score"></td>

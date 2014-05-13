@@ -24,7 +24,8 @@
                 </td>
                 <td ng-bind="openProject.project.name">
                 </td>
-                <td ng-bind="openProject.evaluator.fullName">
+                <td>
+                    <span ng-bind="openProject.evaluator.nickName" tooltip={{openProject.evaluator.fullName}}></span>
                 </td>
                 <td class="home-center">
                     {{openProject.project.startDate | customDate}}

@@ -42,7 +42,9 @@
         </thead>
         <tr ng-repeat="epaItem in listEPA">
             <td class="epa-index" ng-bind="$index + 1"></td>
-            <td ng-bind="epaItem.fullName"></td>
+            <td>
+                <span ng-bind="epaItem.nickName" tooltip={{epaItem.fullName}}></span>
+            </td>
             <td ng-bind="epaItem.project.projectName"></td>
             <td ng-bind="epaItem.milestone.milestoneName"></td>
             <td ng-bind="epaItem.target.targetName"></td>
@@ -51,7 +53,9 @@
                 <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)" ng-show="epaItem.score <= 0"/>
             </td>
             <td class="epa-status" ng-bind="epaItem.statusName"></td>
-            <td ng-bind="epaItem.evaluator.evaluatorFullName"></td>
+            <td>
+                <span ng-bind="epaItem.evaluator.evaluatorNickName" tooltip={{epaItem.evaluator.evaluatorFullName}}></span>
+            </td>
             <td class="epa-evaluate-date">{{epaItem.evaluateDate | customDate }}</td>
         </tr>
 

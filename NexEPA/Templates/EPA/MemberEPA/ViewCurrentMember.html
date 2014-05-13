@@ -49,7 +49,9 @@
                 <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)" ng-show="epaItem.score <= 0" />
             </td>
             <td class="epa-status" ng-bind="epaItem.statusName"></td>
-            <td ng-bind="epaItem.evaluator.evaluatorFullName"></td>
+            <td>
+                <span ng-bind="epaItem.evaluator.evaluatorNickName" tooltip={{epaItem.evaluator.evaluatorFullName}}></span>
+            </td>
             <td class="epa-evaluate-date">{{epaItem.evaluateDate | customDate }}</td>
         </tr>
 
