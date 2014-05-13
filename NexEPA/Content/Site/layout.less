@@ -5,6 +5,7 @@ body {
     font-family: @font-family;
     font-size: @font-size;
     color: @font-color;
+    min-width: 760px;
 }
 
 .modal-confirm-center .modal-dialog {
@@ -14,6 +15,7 @@ body {
 .container.page {
     width: 100%;
     padding: 0;
+    min-width: 760px;
 
     .row {
         margin: 0;
@@ -687,5 +689,48 @@ body {
         border: 1px solid #D3A03D;
         .box-shadow(0 0 9px #aaa);
         padding: 10px 15px 10px 50px;
+    }
+}
+
+@media (max-width: 770px) {
+    .container.page {
+        .header {
+            .logo {
+                background-color: #F4F4F4;
+            }
+
+            .nav {
+                width: 100%;
+                li {
+                    border-bottom: 1px solid @border-light-color;
+                    border-top: 1px solid #fff;
+
+                    &.dropdown {
+                        &.open { border-bottom: none; }
+
+                        .dropdown-menu {
+                            li {
+                                background-color: #F4F4F4;
+                                border-bottom: 1px solid @border-light-color;
+                                border-top: none;
+
+                                a {
+                                    border-bottom: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .top-menu {
+                float: none;
+            }
+
+            .info {
+                float: none;
+                background-color: #F4F4F4;
+            }
+        }
     }
 }
