@@ -13,6 +13,7 @@ namespace NexEPA.Target.Repositories.Implement
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
+    using NexEPA.Project.Models;
     using NexEPA.Target.Models.Target;
     using NexEPA.Target.Repositories.Interfaces;
 
@@ -30,7 +31,7 @@ namespace NexEPA.Target.Repositories.Implement
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<TargetModel, TargetType, Project, Milestone, TargetModel>(
+                return db.Query<TargetModel, TargetType, ProjectModel, MilestoneModel, TargetModel>(
                     (ti, ta, pro, mi) => 
                     {
                         ti.TargetType = ta;
@@ -52,7 +53,7 @@ namespace NexEPA.Target.Repositories.Implement
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<TargetModel, TargetType, Project, Milestone, TargetModel>(
+                return db.QueryEntity<TargetModel, TargetType, ProjectModel, MilestoneModel, TargetModel>(
                     (ti, ta, pro, mi) =>
                     {
                         ti.TargetType = ta;

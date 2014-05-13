@@ -5,13 +5,14 @@
 // -----------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
+//   <change who="Bradley.Mac" date="2014.5.13">Use common model</change>
 // </history>
 
 namespace NexEPA.Target.Models.Target
 {
     using System;
-    using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
+    using NexEPA.Project.Models;
 
     /// <summary>
     /// The model of Target.
@@ -40,8 +41,8 @@ namespace NexEPA.Target.Models.Target
 
         public TargetType TargetType { get; set; }
 
-        public Project Project { get; set; }
+        public ProjectModel Project { get; set; }
 
-        public Milestone Milestone { get; set; }
+        public MilestoneModel Milestone { get; set; }
     }
 }

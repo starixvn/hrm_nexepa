@@ -78,8 +78,6 @@
     <Compile Include="Criteria\Target\Target\UpdateTargetCriteria.cs" />
     <Compile Include="Models\TargetKPIGroupWeight.cs" />
     <Compile Include="Models\TargetSettingModel.cs" />
-    <Compile Include="Models\Target\Milestone.cs" />
-    <Compile Include="Models\Target\Project.cs" />
     <Compile Include="Models\Target\TargetEmployeeModel.cs" />
     <Compile Include="Models\Target\TargetModel.cs" />
     <Compile Include="Models\KPIOfTargetTemplateModel.cs" />
@@ -106,6 +104,10 @@
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
       <Name>NexEPA.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Project\NexEPA.Project.csproj">
+      <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>
+      <Name>NexEPA.Project</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

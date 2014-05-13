@@ -5,12 +5,13 @@
 // -----------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
+//   <change who="Bradley.Mac" date="2014.5.13">Use common Model</change>
 // </history>
 
 namespace NexEPA.Target.ViewModels.Target
 {
     using NexEPA.Core.Models;
-    using NexEPA.Target.Models.Target;
+    using NexEPA.Project.Models;
 
     /// <summary>
     /// The view model of Target.
@@ -37,8 +38,8 @@ namespace NexEPA.Target.ViewModels.Target
 
         public TargetType TargetType { get; set; }
 
-        public Project Project { get; set; }
+        public ProjectModel Project { get; set; }
 
-        public Milestone Milestone { get; set; }
+        public MilestoneModel Milestone { get; set; }
     }
 }
