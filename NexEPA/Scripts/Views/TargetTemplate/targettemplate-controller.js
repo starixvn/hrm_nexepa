@@ -234,8 +234,11 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 	};
 
 	$scope.addKPIGroup = function () {
-		var successAddKPIGroups = function () { notificationFactory.success(); };
-		var errorAddKPIGroups = function (data) { notificationFactory.error(data); };
+		var successAddKPIGroups = function () {
+			notificationFactory.success('SuccessSaveData', '');
+			targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
+		};
+		var errorAddKPIGroups = function (data) { notificationFactory.error('', data); };
 		var successGetAllKPIGroup = function (data) {
 			var addModalInstance = $modal.open({
 				templateUrl: '/templates/TargetTemplate/AddKPIGroup.html',
@@ -252,8 +255,6 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 				object.TargetTemplateId = targetTemplateId;
 				object.KPIGroups = selectedGroup;
 				targetTemplateFactory.addKPIGroups(object).then(successAddKPIGroups, errorAddKPIGroups);
-				// Refresh List KPI. 
-				targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
 			});
 		};
 

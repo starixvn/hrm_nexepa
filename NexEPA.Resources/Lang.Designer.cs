@@ -1087,7 +1087,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to more.
+        ///   Looks up a localized string similar to ...more.
         /// </summary>
         public static string ReadMore {
             get {

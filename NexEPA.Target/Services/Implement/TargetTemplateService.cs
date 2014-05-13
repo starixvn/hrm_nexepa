@@ -92,18 +92,6 @@ namespace NexEPA.Target.Services.Implement
             return result;
         }
 
-        public CommandResult AddKPIToTargetTemplate(AddKPIToTargetTemplateCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
-            if (criteria.IsValid())
-            {
-                result = this._Repository.Insert(criteria);
-            }
-
-            return result;
-        }
-
         public CommandResult AddKPIGroupWeight(AddKPIGroupWeightCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

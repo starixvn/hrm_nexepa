@@ -30,8 +30,6 @@ namespace NexEPA.Target.Services.Interfaces
 
         CommandResult DeleteTargetTemplate(DeleteTargetTemplateCriteria criteria);
 
-        CommandResult AddKPIToTargetTemplate(AddKPIToTargetTemplateCriteria criteria);
-
         CommandResult AddKPIGroupWeight(AddKPIGroupWeightCriteria criteria);
 
         IEnumerable<TargetTemplateKPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria);

@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\TargetTemplate\AddKPIGroupWeightCriteria.cs" />
-    <Compile Include="Criteria\TargetTemplate\AddKPIToTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\AddTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\DeleteTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\GetAllTargetTemplateCriteria.cs" />
@@ -80,7 +79,6 @@
     <Compile Include="Models\TargetSettingModel.cs" />
     <Compile Include="Models\Target\TargetEmployeeModel.cs" />
     <Compile Include="Models\Target\TargetModel.cs" />
-    <Compile Include="Models\KPIOfTargetTemplateModel.cs" />
     <Compile Include="Models\TargetTemplateModel.cs" />
     <Compile Include="Models\Target\TargetKPIGroup.cs" />
     <Compile Include="Models\Target\TargetKPIModel.cs" />

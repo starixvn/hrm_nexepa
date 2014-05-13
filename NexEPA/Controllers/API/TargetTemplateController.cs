@@ -269,38 +269,6 @@ namespace NexEPA.Controllers.API
         }
 
         /// <summary>
-        /// Add KPI to targetTemplate.
-        /// </summary>
-        /// <param name="model">Target Template KPI Model.</param>
-        /// <returns>Http Response message.</returns>
-        public HttpResponseMessage AddKPI(KPIOfTargetTemplateModel model)
-        {
-            if (model != null)
-            {
-                AddKPIToTargetTemplateCriteria criteria = new AddKPIToTargetTemplateCriteria()
-                {
-                    TargetId = model.TargetId,
-                    KPIIds = model.KPIIds,
-                    AddedDate = DateTime.Now,
-                    AddedBy = this.CurrentUser.UserId
-                };
-
-                CommandResult result = this._targetTemplateService.AddKPIToTargetTemplate(criteria);
-                if (result.Code != 0)
-                {
-                    List<string> errorMessage = new List<string>() { result.Message };
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
-                }
-
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
-
-        /// <summary>
         /// Method Add KPI Group Weight.
         /// </summary>
         /// <param name="model">TargetKPIGroupWeight Model.</param>

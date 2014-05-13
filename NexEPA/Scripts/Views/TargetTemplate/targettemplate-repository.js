@@ -50,12 +50,6 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 			$http.post('/api/targetTemplate/Post', template).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
-		addKPI: function (objectKPI) {
-			var deferred = $q.defer();
-			$http.post('/api/targetTemplate/AddKPI/', objectKPI)
-            .success(deferred.resolve).error(deferred.reject);
-			return deferred.promise;
-		},
 		addKPIGroups: function (objectKPIGroup) {
 			var deferred = $q.defer();
 			$http.post('/api/targetTemplate/AddKPIGroupWeight/', objectKPIGroup)
