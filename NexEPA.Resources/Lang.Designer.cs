@@ -637,7 +637,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Group Total:.
+        ///   Looks up a localized string similar to Group Total: .
         /// </summary>
         public static string GroupTotal {
             get {

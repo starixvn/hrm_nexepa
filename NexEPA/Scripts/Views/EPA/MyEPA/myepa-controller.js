@@ -29,7 +29,6 @@ var calculateScore = function ($scope, kpiInfo) {
 		}
 
 		kpiInfo[item].kpiGroupScore = temp;
-		debugger;
 		//kpiInfo[item].groupFinalScore = ((temp / kpiGroupWeight) * 10).toFixed(1);
 	});
 

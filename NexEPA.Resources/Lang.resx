@@ -562,6 +562,6 @@
     <value>more</value>
   </data>
   <data name="GroupTotal" xml:space="preserve">
-    <value>Group Total:</value>
+    <value>Group Total: </value>
   </data>
 </root>
