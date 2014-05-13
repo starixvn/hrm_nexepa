@@ -284,6 +284,7 @@
     <Content Include="Scripts\Views\Test\test-controller.js" />
     <Content Include="Scripts\Views\Test\test-repository.js" />
     <Content Include="Templates\Common\AccessDenied.html" />
+    <Content Include="Templates\Target\TargetKPI.html" />
     <Content Include="Templates\Test\LoginAsAnotherUser.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
     <Content Include="Templates\Employee\View.html" />

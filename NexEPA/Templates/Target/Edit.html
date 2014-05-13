@@ -10,12 +10,12 @@
 
 <div class="row target-tabset">
     <tabset>
-        <tab heading="{{targetInformationHeading}}">
+        <tab active="tabGeneralSelect" heading="{{targetInformationHeading}}">
            <div ng-include src="'/Templates/Target/TargetGeneralInformation.html'">
            </div>
         </tab>
 
-        <tab heading="{{targetMembersHeading}}">
+        <tab active="tabMemberSelect" heading="{{targetMembersHeading}}">
            <div ng-include src="'/Templates/Target/TargetMembers.html'">
            </div>
         </tab>

@@ -293,65 +293,26 @@ targetModule.controller('ViewTargetController',
 
 // View Detail of Target or Edit Target Controller
 targetModule.controller("TargetDetailAndEditController",
-	['$scope', '$location', '$routeParams', '$window', 'targetFactory', 'targetUtility', 'KPIGroupRepository', 'ErrorService', 'notificationFactory',
-	function ($scope, $location, $routeParams, $window, targetFactory, targetUtility, KPIGroupRepository, ErrorService, notificationFactory) {
+['$scope', '$location', '$routeParams', '$window', 'targetUtility',
+function ($scope, $location, $routeParams, $window, targetUtility) {
 
 		var targetId = parseInt($routeParams.id),
 			projectId = parseInt($routeParams.projectId),
-			isEditMode = $routeParams.isEditMode ? true : false;
+			isMemberSelect = $routeParams.viewMembers ? true : false,
+			isKPISelect = $routeParams.viewKPIs ? true : false;
 
-		if (!isEditMode) {
-			var isMemberSelect = $routeParams.viewMembers ? true : false;
-			var isKPISelect = $routeParams.viewKPIs ? true : false;
-
-			if (isMemberSelect || isKPISelect) {
-				$scope.tabGeneralSelect = false;
-				$scope.tabMemberSelect = $routeParams.viewMembers ? true : false;
-				$scope.tabKPISelect = $routeParams.viewKPIs ? true : false;
-			}
+		if (isMemberSelect || isKPISelect) {
+			$scope.tabGeneralSelect = false;
+			$scope.tabMemberSelect = isMemberSelect;
+			$scope.tabKPISelect = isKPISelect;
 		}
 
 		// get Tab Heading
 		targetUtility.getTabHeading($scope);
 
-		// TAB : KPIs
-		if (!isEditMode) {
-			// get all KPI group
-			KPIGroupRepository.getAll().success(function (groupList) {
-				$scope.groupOptions = groupList;
-			});
-
-			// get KPI of Target
-			var getKPIByTargetId = function (targetId, groupId) {
-				$scope.disabledSubmitButton = true;
-
-				targetFactory.getKPIByTargetId(targetId, groupId).success(function (listGroupKPI) {
-					$scope.listGroupKPI = listGroupKPI;
-					$scope.disabledSubmitButton = false;
-				}).error(function (response, status) {
-					if (status === 405) {
-						ErrorService.errorHandle(status);
-					}
-					else {
-						notificationFactory.error("ErrorMessage");
-					}
-
-					$scope.disabledSubmitButton = false;
-				});
-			};
-
-			// get all KPI of Target when no filter
-			getKPIByTargetId(targetId, null);
-
-			// filter by group
-			$scope.filter = function (kpiGroupId) {
-				getKPIByTargetId(targetId, kpiGroupId);
-			};
-		}
-
 		// Edit Target
 		$scope.editTarget = function () {
-			$location.url('Target/EditTarget/' + targetId).search("projectId", projectId).search("isEditMode", true);
+			$location.path('Target/EditTarget/' + targetId).search("projectId", projectId).search("isEditMode", true);
 		};
 
 		$scope.cancel = function () {
@@ -364,50 +325,59 @@ targetModule.controller("TargetDetailAndEditController",
 	} ]);
 
 // Target General Information Controller
-	targetModule.controller('TargetGeneralInformationController', ['$scope', '$routeParams', '$timeout', 'targetFactory', 'targetUtility',
-	'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
-	function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
+targetModule.controller('TargetGeneralInformationController', ['$scope', '$routeParams', '$timeout', 'targetFactory', 'targetUtility',
+'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
+function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 
 		var targetId = parseInt($routeParams.id),
-		isEditMode = $routeParams.isEditMode ? true : false;
+			isEditMode = $routeParams.isEditMode ? true : false;
 		$scope.isEditMode = isEditMode;
+		$scope.generalInformationLoaded = false;
 
-		// TAB : GENERAL INFORMATION 
-		// get Target by ID
-		targetFactory.getTargetById(targetId).success(function (target) {
-			if (isEditMode) {
-				target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
-				target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
+		$scope.$watch("tabGeneralSelect", function (newVal) {
+			if (newVal === true && $scope.generalInformationLoaded === false) {
+				// get Target by ID
+				targetFactory.getTargetById(targetId).success(function (target) {
+					if (isEditMode) {
+						target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
+						target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
+					}
+
+					$scope.target = target;
+
+					if (target.targetType && target.targetType.targetTypeId) {
+						$scope.target.targetTypeId = target.targetType.targetTypeId;
+					}
+
+					if (target.project && target.project.projectId) {
+						$scope.formIsProject = true;
+						targetUtility.getAllProject($scope);
+						$scope.target.projectId = target.project.projectId;
+
+						$scope.isSelectedProject = true;
+						targetUtility.getMilestone($scope.target.projectId, $scope);
+
+						if (target.milestone && target.milestone.milestoneId) {
+							$scope.target.milestoneId = target.milestone.milestoneId;
+						}
+					}
+
+				}).error(function () {
+					notificationFactory.error('ErrorMessage');
+				});
+
+				// get Form options
+				targetUtility.getFormOptions($scope, KPICommonRepository);
+
+				// get Date Format
+				commonFactory.getDateFormat($scope);
+
+				// get all status
+				targetUtility.getAllStatus($scope);
+
+				$scope.generalInformationLoaded = true;
 			}
-
-			$scope.target = target;
-
-			if (target.targetType && target.targetType.targetTypeId) {
-				$scope.target.targetTypeId = target.targetType.targetTypeId;
-			}
-
-			if (target.project && target.project.projectId) {
-				$scope.formIsProject = true;
-				targetUtility.getAllProject($scope);
-				$scope.target.projectId = target.project.projectId;
-
-				$scope.isSelectedProject = true;
-				targetUtility.getMilestone($scope.target.projectId, $scope);
-
-				if (target.milestone && target.milestone.milestoneId) {
-					$scope.target.milestoneId = target.milestone.milestoneId;
-				}
-			}
-
-		}).error(function () {
-			notificationFactory.error('ErrorMessage');
 		});
-
-		// get Form options
-		targetUtility.getFormOptions($scope, KPICommonRepository);
-
-		// get Date Format
-		commonFactory.getDateFormat($scope);
 
 		// The onchange function of Form
 		$scope.formOnChange = function (targetTypeId) {
@@ -420,9 +390,6 @@ targetModule.controller("TargetDetailAndEditController",
 				targetUtility.getAllProject($scope);
 			}
 		};
-
-		// get all status
-		targetUtility.getAllStatus($scope);
 
 		// the onchange funtion of Project
 		$scope.projectOnChange = function (projectId) {
@@ -438,65 +405,67 @@ targetModule.controller("TargetDetailAndEditController",
 			}
 		};
 
-		$scope.calendar = {
-			startDateOpened: false,
-			endDateOpened: false
-		};
+		if (isEditMode) {
+			$scope.calendar = {
+				startDateOpened: false,
+				endDateOpened: false
+			};
 
-		// show start date calendar when click button start date
-		$scope.openPopupStartDate = function ($event) {
-			commonFactory.openPopupStartDate($event, $scope);
-		};
+			// show start date calendar when click button start date
+			$scope.openPopupStartDate = function ($event) {
+				commonFactory.openPopupStartDate($event, $scope);
+			};
 
-		// show end date calendar when click button end date
-		$scope.openPopupEndDate = function ($event) {
-			commonFactory.openPopupEndDate($event, $scope);
-		};
+			// show end date calendar when click button end date
+			$scope.openPopupEndDate = function ($event) {
+				commonFactory.openPopupEndDate($event, $scope);
+			};
 
-		// validation
-		targetUtility.showMessageAfterValidate($scope);
+			// validation
+			targetUtility.showMessageAfterValidate($scope);
 
-		// update target
-		$scope.save = function (target) {
-			$scope.submitted = true;
-			$scope.disabledSubmit = true;
+			// update target
+			$scope.save = function (target) {
+				$scope.submitted = true;
+				$scope.disabledSubmit = true;
 
-			if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
-				var newTarget = angular.copy(target);
+				if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
+					var newTarget = angular.copy(target);
 
-				if (newTarget.targetTypeId !== 2) {
-					newTarget.projectId = null;
-					newTarget.milestoneId = null;
+					if (newTarget.targetTypeId !== 2) {
+						newTarget.projectId = null;
+						newTarget.milestoneId = null;
+					}
+
+					newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
+					newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
+
+					targetFactory.editTarget(newTarget).success(function (response) {
+						if (response.isSuccessful === true) {
+							notificationFactory.success("UpdatedSuccessfulMessage");
+						}
+						else {
+							notificationFactory.error('', response.message);
+						}
+
+						$scope.disabledSubmit = false;
+					})
+					.error(function (response, status) {
+						if (status === 405) {
+							ErrorService.errorHandle(status);
+						}
+						else {
+							notificationFactory.error('ErrorMessage');
+						}
+
+						$scope.disabledSubmit = false;
+					});
 				}
-
-				newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
-				newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
-
-				targetFactory.editTarget(newTarget).success(function (response) {
-					if (response.isSuccessful === true) {
-						notificationFactory.success("UpdatedSuccessfulMessage");
-					}
-					else {
-						notificationFactory.error('', response.message);
-					}
-
+				else {
 					$scope.disabledSubmit = false;
-				})
-		.error(function (response, status) {
-			if (status === 405) {
-				ErrorService.errorHandle(status);
-			}
-			else {
-				notificationFactory.error('ErrorMessage');
-			}
-
-			$scope.disabledSubmit = false;
-		});
-			}
-			else {
-				$scope.disabledSubmit = false;
-			}
-		};
+				}
+			};
+		}
 	} ]);
 
 // Target Members Controller
@@ -508,20 +477,27 @@ function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtili
 		projectId = parseInt($routeParams.projectId),
 		isEditMode = $routeParams.isEditMode ? true : false;
 	$scope.isEditMode = isEditMode;
-	// TAB : MEMBERS 
+	$scope.memberLoaded = false;
+
 	$scope.search = {
 		searchKey: ''
 	};
 
-	// get all employee by target Id 
-	targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
-		$scope.employees = employees;
-	}).error(function () {
-		if (status === 405) {
-			ErrorService.errorHandle(status);
-		}
-		else {
-			notificationFactory.error("ErrorMessage");
+	$scope.$watch("tabMemberSelect", function (newValue) {
+		if (newValue === true && $scope.memberLoaded === false) {
+			// get all employee by target Id 
+			targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
+				$scope.employees = employees;
+			}).error(function () {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
+
+			$scope.memberLoaded = true;
 		}
 	});
 
@@ -605,4 +581,51 @@ function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtili
 			});
 		};
 	}
+} ]);
+
+// Target KPI Controller
+targetModule.controller("TargetKPIController",
+['$scope', '$routeParams', 'targetFactory', 'ErrorService', 'notificationFactory', 'KPIGroupRepository',
+function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory, KPIGroupRepository) {
+
+	var targetId = parseInt($routeParams.id);
+	$scope.kpiLoaded = false;
+
+	// get KPI of Target
+	var getKPIByTargetId = function (targetId, groupId) {
+		$scope.disabledSubmitButton = true;
+
+		targetFactory.getKPIByTargetId(targetId, groupId).success(function (listGroupKPI) {
+			$scope.listGroupKPI = listGroupKPI;
+			$scope.disabledSubmitButton = false;
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+
+			$scope.disabledSubmitButton = false;
+		});
+	};
+
+	$scope.$watch("tabKPISelect", function (newValue) {
+		if (newValue === true && $scope.kpiLoaded === false) {
+			// get all KPI group
+			KPIGroupRepository.getAll().success(function (groupList) {
+				$scope.groupOptions = groupList;
+			});
+
+			// get all KPI of Target when no filter
+			getKPIByTargetId(targetId, null);
+
+			$scope.kpiLoaded = true;
+		}
+	});
+
+	// filter by group
+	$scope.filter = function (kpiGroupId) {
+		getKPIByTargetId(targetId, kpiGroupId);
+	};
 } ]);
