@@ -9,7 +9,6 @@
 
 namespace NexEPA.KPI.Services.Implement.KPIGroup
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
@@ -20,7 +19,6 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
     using NexEPA.KPI.Repositories.Interface.KPIGroup;
     using NexEPA.KPI.Services.Interface.KPIGroup;
     using NexEPA.KPI.ViewModels;
-    using NexEPA.Web.Models;
 
     /// <summary>
     /// The implement of KPI services.
@@ -39,18 +37,18 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list KPIGroupItem.</returns>
-        public List<KPIGroupItem> GetAllKPIGroup(GetAllKPIGroupCriteria criteria)
+        public List<KPIGroupViewModel> GetAllKPIGroup(GetAllKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var groupList = new List<KPIGroupItem>();
+            var groupList = new List<KPIGroupViewModel>();
 
             if (criteria.IsValid())
             {
-                IEnumerable<KPIGroupInfo> groupInfoList = _kpiGroupRepository.GetAllKPIGroup(criteria);
+                IEnumerable<KPIGroupModel> groupInfoList = _kpiGroupRepository.GetAllKPIGroup(criteria);
 
-                foreach (KPIGroupInfo group in groupInfoList)
+                foreach (KPIGroupModel group in groupInfoList)
                 {
-                    var groupItem = new KPIGroupItem
+                    var groupItem = new KPIGroupViewModel
                     {
                         KPIGroupID = group.KPIGroupId,
                         Name = group.Name,
@@ -73,14 +71,14 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The KPI Group Item.</returns>
-        public KPIGroupItem GetKPIGroupById(GetKPIGroupByIdCriteria criteria)
+        public KPIGroupViewModel GetKPIGroupById(GetKPIGroupByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var kpiGroupItem = new KPIGroupItem();
+            var kpiGroupItem = new KPIGroupViewModel();
 
             if (criteria.IsValid())
             {
-                KPIGroupInfo groupInfo = _kpiGroupRepository.GetKPIGroupById(criteria);
+                KPIGroupModel groupInfo = _kpiGroupRepository.GetKPIGroupById(criteria);
 
                 if (groupInfo != null)
                 {
@@ -110,8 +108,6 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
 
             if (criteria.IsValid())
             {
-                criteria.CreatedBy = SessionManager.CurrentUser.UserId;
-                criteria.CreatedDate = DateTime.Now;
                 commandResult = _Repository.Insert(criteria);
             }
 
@@ -130,8 +126,6 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
 
             if (criteria.IsValid())
             {
-                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Update(criteria);
             }
 
@@ -161,10 +155,10 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List KPIGroupItem.</returns>
-        public List<KPIGroupItem> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria)
+        public List<KPIGroupViewModel> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var allGroup = new List<KPIGroupItem>();
+            var allGroup = new List<KPIGroupViewModel>();
 
             if (criteria.IsValid())
             {
@@ -186,8 +180,6 @@ namespace NexEPA.KPI.Services.Implement.KPIGroup
 
             if (criteria.IsValid())
             {
-                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Update(criteria);
             }
 

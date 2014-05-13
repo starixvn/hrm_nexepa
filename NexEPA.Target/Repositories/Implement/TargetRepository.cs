@@ -26,11 +26,11 @@ namespace NexEPA.Target.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>IEnumerable Target Info.</returns>
-        public IEnumerable<TargetInfo> GetTarget(ICriteria criteria)
+        public IEnumerable<TargetModel> GetTarget(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<TargetInfo, TargetType, Project, Milestone, TargetInfo>(
+                return db.Query<TargetModel, TargetType, Project, Milestone, TargetModel>(
                     (ti, ta, pro, mi) => 
                     {
                         ti.TargetType = ta;
@@ -48,11 +48,11 @@ namespace NexEPA.Target.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The TargetInfo.</returns>
-        public TargetInfo GetTargetById(ICriteria criteria)
+        public TargetModel GetTargetById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<TargetInfo, TargetType, Project, Milestone, TargetInfo>(
+                return db.QueryEntity<TargetModel, TargetType, Project, Milestone, TargetModel>(
                     (ti, ta, pro, mi) =>
                     {
                         ti.TargetType = ta;
@@ -70,11 +70,11 @@ namespace NexEPA.Target.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The IEnumerable TargetKPIInfo.</returns>
-        public IEnumerable<TargetKPIInfo> GetKPIByTargetId(ICriteria criteria)
+        public IEnumerable<TargetKPIModel> GetKPIByTargetId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<TargetKPIInfo, TargetKPIGroup, TargetType, TargetKPIInfo>(
+                return db.Query<TargetKPIModel, TargetKPIGroup, TargetType, TargetKPIModel>(
                     (ti, tg, tt) =>
                     {
                         ti.Group = tg;

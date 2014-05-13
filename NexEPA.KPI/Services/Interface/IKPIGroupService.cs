@@ -19,9 +19,9 @@ namespace NexEPA.KPI.Services.Interface.KPIGroup
     /// </summary>
     public interface IKPIGroupService
     {
-        List<KPIGroupItem> GetAllKPIGroup(GetAllKPIGroupCriteria criteria);
+        List<KPIGroupViewModel> GetAllKPIGroup(GetAllKPIGroupCriteria criteria);
 
-        KPIGroupItem GetKPIGroupById(GetKPIGroupByIdCriteria criteria);
+        KPIGroupViewModel GetKPIGroupById(GetKPIGroupByIdCriteria criteria);
 
         CommandResult InsertKPIGroup(InsertKPIGroupCriteria criteria);
 
@@ -29,7 +29,7 @@ namespace NexEPA.KPI.Services.Interface.KPIGroup
 
         CommandResult DeleteKPIGroup(DeleteKPIGroupCriteria criteria);
 
-        List<KPIGroupItem> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria);
+        List<KPIGroupViewModel> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria);
 
         CommandResult UpdateKPIGroupStatus(UpdateKPIGroupStatusCriteria criteria);
     }

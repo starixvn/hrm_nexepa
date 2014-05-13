@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KPIInfo.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="KPIModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace NexEPA.KPI.Model
     /// <summary>
     /// The information of KPI.
     /// </summary>
-    public class KPIInfo
+    public class KPIModel
     {
         public int KPIId { get; set; }
 
@@ -42,7 +42,7 @@ namespace NexEPA.KPI.Model
 
         public string KPIGroupName { get; set; }
 
-        public KPIGroupInfo Group { get; set; }
+        public KPIGroupModel Group { get; set; }
 
         public TargetType TargetType { get; set; }
 

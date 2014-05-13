@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TargetEmployeeInfo.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="TargetEmployeeModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace NexEPA.Target.Models.Target
     /// <summary>
     /// The model of Target's Employee.
     /// </summary>
-    public class TargetEmployeeInfo
+    public class TargetEmployeeModel
     {
         public int EmployeeId { get; set; }
 

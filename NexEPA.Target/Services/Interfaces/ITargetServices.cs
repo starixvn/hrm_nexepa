@@ -21,9 +21,9 @@ namespace NexEPA.Target.Services.Interfaces
     /// </summary>
     public interface ITargetServices
     {
-        List<TargetItem> GetAllTarget(GetTargetCriteria criteria);
+        List<TargetViewModel> GetAllTarget(GetTargetCriteria criteria);
 
-        TargetItem GetTargetById(GetTargetByIdCriteria criteria);
+        TargetViewModel GetTargetById(GetTargetByIdCriteria criteria);
 
         CommandResult Insert(InsertTargetCriteria criteria);
 
@@ -31,13 +31,13 @@ namespace NexEPA.Target.Services.Interfaces
 
         CommandResult Delete(DeleteTargetCriteria criteria);
 
-        List<TargetEmployeeItem> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria);
+        List<TargetEmployeeViewModel> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria);
 
         CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria);
 
         CommandResult DeleteTargetEmployee(DeleteTargetEmployeeCriteria criteria);
 
-        List<TargetKPIGroupItem> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria);
+        List<TargetKPIGroupViewModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria);
 
         CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria);
     }

@@ -42,7 +42,7 @@ namespace NexEPA.MemberEPA.Repositories.Implement
                     if (data != null)
                     {
                         data.ProjectRoles = multi.Read<EPAProjectRoleModel>().ToList();
-                        List<KPIInfo> kpis = multi.Read<KPIInfo, KPIGroupInfo, KPIInfo>(
+                        List<KPIModel> kpis = multi.Read<KPIModel, KPIGroupModel, KPIModel>(
                             (inf, gr) =>
                             {
                                 inf.Group = gr;

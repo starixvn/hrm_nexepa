@@ -26,11 +26,11 @@ namespace NexEPA.KPI.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List KPI Info.</returns>
-        public IEnumerable<KPIInfo> GetKPI(ICriteria criteria)
+        public IEnumerable<KPIModel> GetKPI(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
+                return db.Query<KPIModel, KPIGroupModel, TargetType, KPIModel>(
                     (inf, gr, ta) => 
                     {
                         inf.Group = gr;
@@ -47,11 +47,11 @@ namespace NexEPA.KPI.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The IEnumerable KPI Info.</returns>
-        public IEnumerable<KPIInfo> GetKPIById(ICriteria criteria)
+        public IEnumerable<KPIModel> GetKPIById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<KPIInfo, KPIGroupInfo, TargetType, KPIInfo>(
+                return db.Query<KPIModel, KPIGroupModel, TargetType, KPIModel>(
                     (inf, gr, ta) =>
                     {
                         inf.Group = gr;

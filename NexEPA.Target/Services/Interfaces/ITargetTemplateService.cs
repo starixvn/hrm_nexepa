@@ -34,7 +34,7 @@ namespace NexEPA.Target.Services.Interfaces
 
         CommandResult AddKPIGroupWeight(AddKPIGroupWeightCriteria criteria);
 
-        IEnumerable<KPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria);
+        IEnumerable<TargetTemplateKPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria);
 
         IEnumerable<TargetKPIGroup> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria);
 

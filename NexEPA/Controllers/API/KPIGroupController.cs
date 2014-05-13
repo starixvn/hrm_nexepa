@@ -39,7 +39,7 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(Roles = "SA")]
-        public List<KPIGroupItem> GetAll(int? targetTypeId = null, bool? isDisabled = null)
+        public List<KPIGroupViewModel> GetAll(int? targetTypeId = null, bool? isDisabled = null)
         {
             var criteria = new GetAllKPIGroupCriteria
             {
@@ -52,7 +52,7 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(Roles = "SA")]
-        public KPIGroupItem GetUserById(int id)
+        public KPIGroupViewModel GetUserById(int id)
         {
             var criteria = new GetKPIGroupByIdCriteria
             {
@@ -65,6 +65,12 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public CommandResult Post(InsertKPIGroupCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.CreatedBy = this.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+            }
+
             return _kpiGroupServices.InsertKPIGroup(criteria);
         }
 
@@ -72,6 +78,12 @@ namespace NexEPA.Controllers.API
         [HttpPut]
         public CommandResult Put(UpdateKPIGroupCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
             return _kpiGroupServices.UpdateKPIGroup(criteria);
         }
 
@@ -93,7 +105,7 @@ namespace NexEPA.Controllers.API
             return _kpiGroupServices.DeleteKPIGroup(criteria);
         }
 
-        public List<KPIGroupItem> GetGroupListByTargetTypeId(int targetTypeId)
+        public List<KPIGroupViewModel> GetGroupListByTargetTypeId(int targetTypeId)
         {
             var criteria = new GetAllKPIGroupCriteria
             {
@@ -106,6 +118,12 @@ namespace NexEPA.Controllers.API
         [HttpPut]
         public CommandResult UpdateKPIGroupStatus(UpdateKPIGroupStatusCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
             return _kpiGroupServices.UpdateKPIGroupStatus(criteria);
         }
     }

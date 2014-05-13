@@ -18,8 +18,8 @@ namespace NexEPA.KPI.Repositories.Interface.KPIGroup
     /// </summary>
     public interface IKPIGroupRepository
     {
-        IEnumerable<KPIGroupInfo> GetAllKPIGroup(ICriteria criteria);
+        IEnumerable<KPIGroupModel> GetAllKPIGroup(ICriteria criteria);
 
-        KPIGroupInfo GetKPIGroupById(ICriteria criteria);
+        KPIGroupModel GetKPIGroupById(ICriteria criteria);
     }
 }

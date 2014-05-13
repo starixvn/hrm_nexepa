@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TargetItem.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="TargetViewModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace NexEPA.Target.ViewModels.Target
     /// <summary>
     /// The view model of Target.
     /// </summary>
-    public class TargetItem
+    public class TargetViewModel
     {
         public int TargetId { get; set; }
 

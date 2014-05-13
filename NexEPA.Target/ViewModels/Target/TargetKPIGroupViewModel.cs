@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TargetKPIGroupItem.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="TargetKPIGroupViewModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,16 +15,16 @@ namespace NexEPA.Target.ViewModels.Target
     /// <summary>
     /// The Target KPI Group Item view model.
     /// </summary>
-    public class TargetKPIGroupItem
+    public class TargetKPIGroupViewModel
     {
-        public TargetKPIGroupItem()
+        public TargetKPIGroupViewModel()
         {
-            KPIs = new List<TargetKPIItem>();
+            KPIs = new List<TargetKPI>();
             Group = new TargetKPIGroup();
         }
 
         public TargetKPIGroup Group { get; set; }
 
-        public List<TargetKPIItem> KPIs { get; set; }
+        public List<TargetKPI> KPIs { get; set; }
     }
 }

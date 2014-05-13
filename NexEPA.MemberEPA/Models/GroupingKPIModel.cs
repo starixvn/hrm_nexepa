@@ -20,7 +20,7 @@ namespace NexEPA.MemberEPA.Models
     {
         public string KPIGroupName { get; set; }
 
-        public List<KPIInfo> KPIGroupItems { get; set; }
+        public List<KPIModel> KPIGroupItems { get; set; }
 
         public int KPIGroupWeight
         {

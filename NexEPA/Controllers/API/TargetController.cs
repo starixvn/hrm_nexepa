@@ -14,13 +14,14 @@ namespace NexEPA.Controllers.Target
     using System.Linq;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Enums;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Services.Impl;
     using NexEPA.Project.Services.Interfaces;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
-    using NexEPA.Target.Services.Impl.Target;
+    using NexEPA.Target.Services.Implement;
     using NexEPA.Target.Services.Interfaces;
     using NexEPA.Target.ViewModels.Target;
     using NexEPA.Web.Attributes;
@@ -49,7 +50,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
-        public List<TargetItem> GetTarget(
+        public List<TargetViewModel> GetTarget(
             int? targetTypeId = null,
             DateTime? startDate = null,
             DateTime? endDate = null)
@@ -66,7 +67,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
-        public TargetItem GetTargetById(int targetId)
+        public TargetViewModel GetTargetById(int targetId)
         {
             var criteria = new GetTargetByIdCriteria
             {
@@ -76,10 +77,23 @@ namespace NexEPA.Controllers.Target
             return _targetServices.GetTargetById(criteria);
         }
 
+        /// <summary>
+        /// Insert new Target.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
         [HttpPost]
         [ApiAuthorize(Roles = "PM,SA")]
         public CommandResult InsertTarget(InsertTargetCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.CreatedBy = this.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+                //// default status is Open when create the new target
+                criteria.Status = (int)Status.Open;
+            }
+
             return _targetServices.Insert(criteria);
         }
 
@@ -87,6 +101,12 @@ namespace NexEPA.Controllers.Target
         [HttpPut]
         public CommandResult Put(UpdateTargetCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
             return _targetServices.Update(criteria);
         }
 
@@ -94,6 +114,12 @@ namespace NexEPA.Controllers.Target
         [HttpPut]
         public CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
             return _targetServices.UpdateStatus(criteria);
         }
 
@@ -125,7 +151,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
-        public List<TargetEmployeeItem> GetEmployeeByTargetId(int targetId)
+        public List<TargetEmployeeViewModel> GetEmployeeByTargetId(int targetId)
         {
             var criteria = new GetAllEmployeeByTargetIdCriteria
             {
@@ -139,6 +165,12 @@ namespace NexEPA.Controllers.Target
         [ApiAuthorize(Roles = "PM,SA")]
         public CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.AddedBy = this.CurrentUser.UserId;
+                criteria.AddedDate = DateTime.Now;
+            }
+
             return _targetServices.InsertTargetEmployee(criteria);
         }
 
@@ -164,7 +196,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
-        public List<TargetKPIGroupItem> GetKPIByTargetId(int targetId, int? groupId = null)
+        public List<TargetKPIGroupViewModel> GetKPIByTargetId(int targetId, int? groupId = null)
         {
             var criteria = new GetKPIByTargetIdCriteria
             {

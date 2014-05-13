@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
 // </history>
 
-namespace NexEPA.Target.Services.Impl.Target
+namespace NexEPA.Target.Services.Implement
 {
     using System;
     using System.Collections.Generic;
@@ -26,7 +26,6 @@ namespace NexEPA.Target.Services.Impl.Target
     using NexEPA.Target.Repositories.Interfaces;
     using NexEPA.Target.Services.Interfaces;
     using NexEPA.Target.ViewModels.Target;
-    using NexEPA.Web.Models;
 
     /// <summary>
     /// The implement of Target Services.
@@ -45,16 +44,16 @@ namespace NexEPA.Target.Services.Impl.Target
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List Target Item.</returns>
-        public List<TargetItem> GetAllTarget(GetTargetCriteria criteria)
+        public List<TargetViewModel> GetAllTarget(GetTargetCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var targetList = new List<TargetItem>();
+            var targetList = new List<TargetViewModel>();
 
             if (criteria.IsValid())
             {
-                IEnumerable<TargetInfo> rawTargets = _targetRepository.GetTarget(criteria);
+                IEnumerable<TargetModel> rawTargets = _targetRepository.GetTarget(criteria);
 
-                foreach (TargetInfo rawTarget in rawTargets)
+                foreach (TargetModel rawTarget in rawTargets)
                 {
                     string startDate = rawTarget.StartDate != null 
                         ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
@@ -63,7 +62,7 @@ namespace NexEPA.Target.Services.Impl.Target
                         ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) 
                         : string.Empty;
 
-                    var targetItem = new TargetItem
+                    var targetItem = new TargetViewModel
                     {
                         TargetId = rawTarget.TargetId,
                         Name = rawTarget.Name,
@@ -90,14 +89,14 @@ namespace NexEPA.Target.Services.Impl.Target
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Target Item.</returns>
-        public TargetItem GetTargetById(GetTargetByIdCriteria criteria)
+        public TargetViewModel GetTargetById(GetTargetByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var targetItem = new TargetItem();
+            var targetItem = new TargetViewModel();
 
             if (criteria.IsValid())
             {
-                TargetInfo rawTarget = _targetRepository.GetTargetById(criteria);
+                TargetModel rawTarget = _targetRepository.GetTargetById(criteria);
 
                 string startDate = rawTarget.StartDate != null 
                     ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
@@ -106,7 +105,7 @@ namespace NexEPA.Target.Services.Impl.Target
                     ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) 
                     : string.Empty;
 
-                targetItem = new TargetItem
+                targetItem = new TargetViewModel
                 {
                     TargetId = rawTarget.TargetId,
                     Name = rawTarget.Name,
@@ -135,12 +134,7 @@ namespace NexEPA.Target.Services.Impl.Target
             CommandResult commandResult = new CommandResult();
 
             if (criteria.IsValid()) 
-            {
-                criteria.CreatedBy = SessionManager.CurrentUser.UserId;
-                criteria.CreatedDate = DateTime.Now;
-                //// default status is Open when create the new target
-                criteria.Status = (int)Status.Open;
-
+            { 
                 commandResult = _Repository.Insert(criteria);
             }
 
@@ -159,8 +153,6 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Update(criteria);
             }
 
@@ -179,8 +171,6 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Update(criteria);
             }
 
@@ -210,18 +200,18 @@ namespace NexEPA.Target.Services.Impl.Target
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list TargetEmployeeItem.</returns>
-        public List<TargetEmployeeItem> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria)
+        public List<TargetEmployeeViewModel> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employeeList = new List<TargetEmployeeItem>();
+            var employeeList = new List<TargetEmployeeViewModel>();
 
             if (criteria.IsValid())
             {
-                IEnumerable<TargetEmployeeInfo> rawEmployees = GetData<TargetEmployeeInfo>(criteria);
+                IEnumerable<TargetEmployeeModel> rawEmployees = GetData<TargetEmployeeModel>(criteria);
 
-                foreach (TargetEmployeeInfo rawEmployee in rawEmployees)
+                foreach (TargetEmployeeModel rawEmployee in rawEmployees)
                 {
-                    var employeeItem = new TargetEmployeeItem
+                    var employeeItem = new TargetEmployeeViewModel
                     {
                         EmployeeId = rawEmployee.EmployeeId,
                         FullName = rawEmployee.FullName,
@@ -249,9 +239,7 @@ namespace NexEPA.Target.Services.Impl.Target
 
             if (criteria.IsValid())
             {
-                criteria.AddedBy = SessionManager.CurrentUser.UserId;
-                criteria.AddedDate = DateTime.Now;
-                commandResult = _Repository.Insert(criteria);
+                 commandResult = _Repository.Insert(criteria);
             }
 
             return commandResult;
@@ -280,38 +268,38 @@ namespace NexEPA.Target.Services.Impl.Target
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List Target KPI Item.</returns>
-        public List<TargetKPIGroupItem> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
+        public List<TargetKPIGroupViewModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var kpiGroupItemList = new List<TargetKPIGroupItem>();
+            var kpiGroupItemList = new List<TargetKPIGroupViewModel>();
 
             if (criteria.IsValid())
             {
-                var rawKPIsInfo = (List<TargetKPIInfo>)_targetRepository.GetKPIByTargetId(criteria);
+                var rawKPIsInfo = (List<TargetKPIModel>)_targetRepository.GetKPIByTargetId(criteria);
 
                 for (int i = 0; i < rawKPIsInfo.Count; i++) 
                 {
-                    TargetKPIInfo rawKPIInfo = rawKPIsInfo[i];
-                    var kpiItem = new TargetKPIItem
+                    TargetKPIModel rawKPIInfo = rawKPIsInfo[i];
+                    var kpiItem = new TargetKPI
                     {
                         KPIId = rawKPIInfo.KPIId,
                         Name = rawKPIInfo.Name,
                         Weight = rawKPIInfo.Weight
                     };
 
-                    var kpiGroupItem = new TargetKPIGroupItem
+                    var kpiGroupItem = new TargetKPIGroupViewModel
                     {
                         Group = rawKPIInfo.Group
                     };
 
                     kpiGroupItem.KPIs.Add(kpiItem);
 
-                    List<TargetKPIInfo> kpiSameGroup = rawKPIsInfo.Where(item => item.Group.KPIGroupId == rawKPIInfo.Group.KPIGroupId
+                    List<TargetKPIModel> kpiSameGroup = rawKPIsInfo.Where(item => item.Group.KPIGroupId == rawKPIInfo.Group.KPIGroupId
                                             && item.KPIId != rawKPIInfo.KPIId).ToList();
 
-                    foreach (TargetKPIInfo kpiInfo in kpiSameGroup)
+                    foreach (TargetKPIModel kpiInfo in kpiSameGroup)
                     {
-                        var kpiItemSameGroup = new TargetKPIItem
+                        var kpiItemSameGroup = new TargetKPI
                         {
                             KPIId = kpiInfo.KPIId,
                             Name = kpiInfo.Name,

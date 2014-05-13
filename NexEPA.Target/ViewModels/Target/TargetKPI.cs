@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TargetKPIItem.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="TargetKPI.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace NexEPA.Target.ViewModels.Target
     /// <summary>
     /// The Target KPI Item view model.
     /// </summary>
-    public class TargetKPIItem
+    public class TargetKPI
     {
         public int KPIId { get; set; }
 

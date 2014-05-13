@@ -9,7 +9,6 @@
 
 namespace NexEPA.KPI.Services.Implement.KPI
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
@@ -21,7 +20,6 @@ namespace NexEPA.KPI.Services.Implement.KPI
     using NexEPA.KPI.Repositories.Interface.KPI;
     using NexEPA.KPI.Services.Interface.KPI;
     using NexEPA.KPI.ViewModels;
-    using NexEPA.Web.Models;
 
     /// <summary>
     /// The implement of KPI service.
@@ -40,14 +38,14 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list KPI.</returns>
-        public List<KPIItem> GetKPI(GetKPICriteria criteria)
+        public List<KPIViewModel> GetKPI(GetKPICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var listKPI = new List<KPIItem>();
+            var listKPI = new List<KPIViewModel>();
 
             if (criteria.IsValid())
             {
-                var listKPIInfo = (List<KPIInfo>)_kpiRepository.GetKPI(criteria);
+                var listKPIInfo = (List<KPIModel>)_kpiRepository.GetKPI(criteria);
 
                 listKPI = GroupKPIGroupsSameKPI(listKPI, listKPIInfo);
             }
@@ -60,27 +58,27 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The KPI Item.</returns>
-        public KPIItem GetKPIById(GetKPIByIdCriteria criteria)
+        public KPIViewModel GetKPIById(GetKPIByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var kpiItem = new KPIItem();
+            var kpiItem = new KPIViewModel();
 
             if (criteria.IsValid())
             {
-                var infoKPIs = (List<KPIInfo>)_kpiRepository.GetKPIById(criteria);
+                var infoKPIs = (List<KPIModel>)_kpiRepository.GetKPIById(criteria);
 
                 if (infoKPIs != null && infoKPIs.Count > 0)
                 {
                     var kpiGroupIds = new List<int>();
                     var kpiGroupNames = new List<string>();
 
-                    foreach (KPIInfo infoKPI in infoKPIs)
+                    foreach (KPIModel infoKPI in infoKPIs)
                     {
                         kpiGroupIds.Add(infoKPI.Group.KPIGroupId);
                         kpiGroupNames.Add(infoKPI.Group.Name);
                     }
 
-                    kpiItem = new KPIItem
+                    kpiItem = new KPIViewModel
                     {
                         KPIId = infoKPIs[0].KPIId,
                         Name = infoKPIs[0].Name,
@@ -110,8 +108,6 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
-                criteria.CreatedBy = SessionManager.CurrentUser.UserId;
-                criteria.CreatedDate = DateTime.Now;
                 commandResult = _Repository.Insert(criteria);
             }
 
@@ -130,8 +126,6 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
-                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Update(criteria);
             }
 
@@ -161,13 +155,13 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// </summary>
         /// <param name="criteria">GetAllKPIByKPIGroup Criteria.</param>
         /// <returns>KPIItem items.</returns>
-        public IEnumerable<KPIItem> GetAllKPIByKPIGroup(GetAllKPIByKPIGroupCriteria criteria)
+        public IEnumerable<KPIViewModel> GetAllKPIByKPIGroup(GetAllKPIByKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<KPIItem> kpis = null;
+            IEnumerable<KPIViewModel> kpis = null;
             if (criteria.IsValid())
             {
-                kpis = GetData<KPIItem>(criteria);
+                kpis = GetData<KPIViewModel>(criteria);
             }
 
             return kpis;
@@ -185,8 +179,6 @@ namespace NexEPA.KPI.Services.Implement.KPI
 
             if (criteria.IsValid())
             {
-                criteria.ModifiedBy = SessionManager.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
                 commandResult = _Repository.Update(criteria);
             }
 
@@ -199,13 +191,13 @@ namespace NexEPA.KPI.Services.Implement.KPI
         /// <param name="listKPI">The list KPIs after group.</param>
         /// <param name="listKPIInfo">The list KPIs before group.</param>
         /// <returns>The list KPI.</returns>
-        private List<KPIItem> GroupKPIGroupsSameKPI(List<KPIItem> listKPI, List<KPIInfo> listKPIInfo)
+        private List<KPIViewModel> GroupKPIGroupsSameKPI(List<KPIViewModel> listKPI, List<KPIModel> listKPIInfo)
         {
             for (int i = 0; i < listKPIInfo.Count; i++)
             {
-                KPIInfo infoKPI = listKPIInfo[i];
-                List<KPIInfo> kpisSameKPIDifferentGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId
-                                                && item.Group.KPIGroupId != infoKPI.Group.KPIGroupId).ToList<KPIInfo>();
+                KPIModel infoKPI = listKPIInfo[i];
+                List<KPIModel> kpisSameKPIDifferentGroup = listKPIInfo.Where(item => item.KPIId == infoKPI.KPIId
+                                                && item.Group.KPIGroupId != infoKPI.Group.KPIGroupId).ToList<KPIModel>();
 
                 int numberKPISameKPIDifferentGroup = kpisSameKPIDifferentGroup.Count();
 
@@ -225,7 +217,7 @@ namespace NexEPA.KPI.Services.Implement.KPI
                     });
                 }
 
-                var itemKPI = new KPIItem
+                var itemKPI = new KPIViewModel
                 {
                     KPIId = infoKPI.KPIId,
                     Name = infoKPI.Name,

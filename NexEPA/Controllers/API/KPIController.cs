@@ -39,7 +39,7 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(Roles = "SA")]
-        public List<KPIItem> ViewKPI(
+        public List<KPIViewModel> ViewKPI(
             int? targetTypeId = null, 
             int? groupId = null, 
             bool? isDisabled = null)
@@ -56,7 +56,7 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(Roles = "SA")]
-        public KPIItem GetKPIById(int kpiId)
+        public KPIViewModel GetKPIById(int kpiId)
         {
             var criteria = new GetKPIByIdCriteria
             {
@@ -69,6 +69,12 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public CommandResult Post(InsertKPICriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.CreatedBy = this.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+            }
+
             return _kpiServices.InsertKPI(criteria);
         }
 
@@ -76,6 +82,12 @@ namespace NexEPA.Controllers.API
         [HttpPut]
         public CommandResult Put(UpdateKPICriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
             return _kpiServices.UpdateKPI(criteria);
         }
 
@@ -96,6 +108,12 @@ namespace NexEPA.Controllers.API
         [HttpPut]
         public CommandResult UpdateKPIStatus(UpdateKPIStatusCriteria criteria)
         {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
             return _kpiServices.UpdateKPIStatus(criteria);
         }
     }

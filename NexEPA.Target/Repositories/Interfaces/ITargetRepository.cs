@@ -18,10 +18,10 @@ namespace NexEPA.Target.Repositories.Interfaces
     /// </summary>
     public interface ITargetRepository
     {
-        IEnumerable<TargetInfo> GetTarget(ICriteria criteria);
+        IEnumerable<TargetModel> GetTarget(ICriteria criteria);
 
-        TargetInfo GetTargetById(ICriteria criteria);
+        TargetModel GetTargetById(ICriteria criteria);
 
-        IEnumerable<TargetKPIInfo> GetKPIByTargetId(ICriteria criteria);
+        IEnumerable<TargetKPIModel> GetKPIByTargetId(ICriteria criteria);
     }
 }

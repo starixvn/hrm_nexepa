@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KPIItem.cs" company="Nexcel Solution Viet Nam">
+// <copyright file="KPIViewModel.cs" company="Nexcel Solution Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,9 +14,9 @@ namespace NexEPA.KPI.ViewModels
     /// <summary>
     /// The view model of KPI.
     /// </summary>
-    public class KPIItem
+    public class KPIViewModel
     {
-        public KPIItem() 
+        public KPIViewModel() 
         {
             Name = string.Empty;
             Description = string.Empty;

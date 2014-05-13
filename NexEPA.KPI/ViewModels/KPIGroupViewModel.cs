@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KPIGroupItem.cs" company="Nexcel Solution Viet Nam">
+// <copyright file="KPIGroupViewModel.cs" company="Nexcel Solution Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,9 +15,9 @@ namespace NexEPA.KPI.ViewModels
     /// <summary>
     /// The view model of KPI Group.
     /// </summary>
-    public class KPIGroupItem
+    public class KPIGroupViewModel
     {
-        public KPIGroupItem()
+        public KPIGroupViewModel()
         {
             Name = string.Empty;
             Description = string.Empty;

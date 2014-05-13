@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.4.4">Created</change>
 // </history>
 
-namespace NexEPA.Target.Services.Impl
+namespace NexEPA.Target.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
@@ -116,13 +116,13 @@ namespace NexEPA.Target.Services.Impl
             return result;
         }
 
-        public IEnumerable<KPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria)
+        public IEnumerable<TargetTemplateKPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<KPIModel> lstKPI = null;
+            IEnumerable<TargetTemplateKPIModel> lstKPI = null;
             if (criteria.IsValid())
             {
-                lstKPI = GetData<KPIModel>(criteria);
+                lstKPI = GetData<TargetTemplateKPIModel>(criteria);
             }
 
             return lstKPI;

@@ -70,7 +70,7 @@
     <Compile Include="Criteria\Target\TargetEmployee\GetAllEmployeeByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\TargetKPI\GetKPIByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetStatusCriteria.cs" />
-    <Compile Include="Models\KPIModel.cs" />
+    <Compile Include="Models\TargetTemplateKPIModel.cs" />
     <Compile Include="Criteria\Target\Target\DeleteTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetByIdCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetCriteria.cs" />
@@ -80,27 +80,27 @@
     <Compile Include="Models\TargetSettingModel.cs" />
     <Compile Include="Models\Target\Milestone.cs" />
     <Compile Include="Models\Target\Project.cs" />
-    <Compile Include="Models\Target\TargetEmployeeInfo.cs" />
-    <Compile Include="Models\Target\TargetInfo.cs" />
-    <Compile Include="Models\TargetTemplateKPIModel.cs" />
+    <Compile Include="Models\Target\TargetEmployeeModel.cs" />
+    <Compile Include="Models\Target\TargetModel.cs" />
+    <Compile Include="Models\KPIOfTargetTemplateModel.cs" />
     <Compile Include="Models\TargetTemplateModel.cs" />
     <Compile Include="Models\Target\TargetKPIGroup.cs" />
-    <Compile Include="Models\Target\TargetKPIInfo.cs" />
+    <Compile Include="Models\Target\TargetKPIModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\TargetRepository.cs" />
     <Compile Include="Repositories\Implement\TargetTemplateRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITargetRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITargetTemplateRepository.cs" />
-    <Compile Include="Services\Impl\TargetService.cs">
+    <Compile Include="Services\Implement\TargetService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Services\Interfaces\ITargetServices.cs" />
-    <Compile Include="ViewModels\Target\TargetEmployeeItem.cs" />
-    <Compile Include="ViewModels\Target\TargetItem.cs" />
-    <Compile Include="Services\Impl\TargetTemplateService.cs" />
+    <Compile Include="ViewModels\Target\TargetEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\Target\TargetViewModel.cs" />
+    <Compile Include="Services\Implement\TargetTemplateService.cs" />
     <Compile Include="Services\Interfaces\ITargetTemplateService.cs" />
-    <Compile Include="ViewModels\Target\TargetKPIGroupItem.cs" />
-    <Compile Include="ViewModels\Target\TargetKPIItem.cs" />
+    <Compile Include="ViewModels\Target\TargetKPIGroupViewModel.cs" />
+    <Compile Include="ViewModels\Target\TargetKPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
