@@ -8,7 +8,7 @@
 //   <change who="Josh.Phan" date="2014.4.22">Added - GetEPAByEmployee</change>
 // </history>
 
-namespace NexEPA.MemberEPA.Services.Impl
+namespace NexEPA.MemberEPA.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
@@ -19,7 +19,7 @@ namespace NexEPA.MemberEPA.Services.Impl
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
-    using NexEPA.MemberEPA.Repositories.Impl;
+    using NexEPA.MemberEPA.Repositories.Implement;
     using NexEPA.MemberEPA.Repositories.Interfaces;
     using NexEPA.MemberEPA.Services.Interfaces;
 
@@ -108,6 +108,23 @@ namespace NexEPA.MemberEPA.Services.Impl
             }
 
             return employees;
+        }
+
+        /// <summary>
+        /// Update EPA Status.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateEPAStatus(UpdateEPAStatusCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Update(criteria);
+            }
+
+            return result;
         }
     }
 }

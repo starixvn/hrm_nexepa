@@ -8,7 +8,7 @@
 //   <change who="Josh.Phan" date="2014.4.22">Added - GetEPAByEmployee</change>
 // </history>
 
-namespace NexEPA.MemberEPA.Repositories.Impl
+namespace NexEPA.MemberEPA.Repositories.Implement
 {
     using System.Collections.Generic;
     using System.Linq;

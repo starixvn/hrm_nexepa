@@ -20,7 +20,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
-    using NexEPA.MemberEPA.Services.Impl;
+    using NexEPA.MemberEPA.Services.Implement;
     using NexEPA.MemberEPA.Services.Interfaces;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
