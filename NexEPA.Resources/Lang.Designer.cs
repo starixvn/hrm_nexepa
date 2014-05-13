@@ -637,6 +637,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Total:.
+        /// </summary>
+        public static string GroupTotal {
+            get {
+                return ResourceManager.GetString("GroupTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {

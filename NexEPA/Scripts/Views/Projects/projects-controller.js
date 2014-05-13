@@ -255,7 +255,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory) {
 	* Ajax event. 
 	*/
 	// Get data to ProjectManager - Select List
-	var successGetEmployeeSelectList = function (data) { $scope.pms = data; debugger; };
+	var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
 
 	// Get data to Status - Select List
 	var successGetProjectStatusSelectList = function (data) { $scope.status = data; };

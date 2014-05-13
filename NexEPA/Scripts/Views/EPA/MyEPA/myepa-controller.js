@@ -20,8 +20,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
 		$scope.employeeEPA = data;
-		debugger;
-
 		$scope.finalScore = data.finalScore;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
@@ -66,6 +64,14 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 				totalGroupScore += temp;
 				totalGroupWeight += kpiGroupWeight;
 			}
+
+			kpiInfo[item].kpiGroupScore = temp;
+			//kpiInfo[item].groupFinalScore = ((temp / kpiGroupWeight) * 10).toFixed(1);
+		});
+
+		$.each(kpiInfo, function (item) {
+			var currentKPIInfo = kpiInfo[item];
+			currentKPIInfo.groupFinalScore = ((currentKPIInfo.kpiGroupScore / totalGroupWeight) * 10).toFixed(1);
 		});
 
 		$scope.finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
@@ -163,6 +169,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			employeeEPAFactory.updateEPAStatus(employeeEPA).then(successUpdateEPAStatus, errorUpdateEPAStatus);
 		});
 	};
+
+
 
 } ]);
 
