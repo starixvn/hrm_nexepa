@@ -2,8 +2,8 @@
 'use strict';
 
 epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory',
-'$routeParams', '$window', 'ErrorService',
-function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService) {
+'$routeParams', '$window', 'ErrorService', '$modal',
+function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService, $modal) {
 	/**
 	* Scope variables. 
 	*/
@@ -11,6 +11,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	$scope.isReadonly = false;
 	var targetId = $routeParams.targetId;
 	var employeeId = $routeParams.employeeId;
+	var currentEPAStatus;
 
 	/**
 	* Ajax event. 
@@ -19,12 +20,20 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
 		$scope.employeeEPA = data;
+		debugger;
+
 		$scope.finalScore = data.finalScore;
 		var roleArray = [];
 		$.each(data.projectRoles, function (i) {
 			roleArray.push(data.projectRoles[i].name);
 		});
 		$scope.employeeRole = roleArray.join(", ");
+	};
+
+	var successUpdateEPAStatus = function () { notificationFactory.success('SuccessSaveData', ''); };
+	var errorUpdateEPAStatus = function (response) {
+		$scope.employeeEPA.status = currentEPAStatus;
+		notificationFactory.error('', response);
 	};
 
 	/**
@@ -126,11 +135,33 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		calculateScore();
 	};
 
+	// EPA Status Context Menu
 	$scope.epaStatus = [{ name: 'Open', id: 0 }, { name: 'Closed', id: 1}];
 	$scope.toggleDropdown = function ($event) {
 		$event.preventDefault();
 		$event.stopPropagation();
 		$scope.status.isopen = !$scope.status.isopen;
+	};
+
+	$scope.updateEPAStatus = function (employeeEPA, status) {
+		var updateEPAModalInstance = $modal.open({
+			templateUrl: '/templates/Common/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return "";
+				},
+				action: function () {
+					return "change status";
+				}
+			}
+		});
+		updateEPAModalInstance.result.then(function () {
+			currentEPAStatus = employeeEPA.status;
+			employeeEPA.status = status;
+			employeeEPA.targetId = targetId;
+			employeeEPAFactory.updateEPAStatus(employeeEPA).then(successUpdateEPAStatus, errorUpdateEPAStatus);
+		});
 	};
 
 } ]);

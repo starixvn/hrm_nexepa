@@ -18,7 +18,7 @@ namespace NexEPA.MemberEPA.Repositories.Implement
     using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
-    using NexEPA.MemberEPA.Repositories.Interfaces;
+    using NexEPA.MemberEPA.Repositories.Interface;
 
     /// <summary>
     /// The implement of Member EPA Repository.

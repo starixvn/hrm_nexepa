@@ -53,7 +53,11 @@ namespace NexEPA.MemberEPA.Models
 
         public DateTime? ModifiedDate { get; set; }
 
-        public int? ModifiedBy { get; set; }
+        public int? Modifier { get; set; }
+
+        public string ModifierNickName { get; set; }
+
+        public string ModifierFullName { get; set; }
 
         public DateTime StartDate { get; set; }
 

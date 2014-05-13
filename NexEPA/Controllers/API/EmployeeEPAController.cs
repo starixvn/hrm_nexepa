@@ -21,7 +21,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Services.Implement;
-    using NexEPA.MemberEPA.Services.Interfaces;
+    using NexEPA.MemberEPA.Services.Interface;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
@@ -119,6 +119,32 @@ namespace NexEPA.Controllers.API
             };
 
             return _memberEPAService.GetEPAOfEmployeeByManager(criteria);
+        }
+
+        /// <summary>
+        /// Update EPA Status.
+        /// </summary>
+        /// <param name="model">EPA Information Model.</param>
+        /// <returns>Http Response Message.</returns>
+        public HttpResponseMessage UpdateEPAStatus(EPAInfoModel model)
+        {
+            var criteria = new UpdateEPAStatusCriteria()
+            {
+                EmployeeId = model.EmployeeId,
+                Status = model.Status,
+                TargetId = model.TargetId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            CommandResult result = _memberEPAService.UpdateEPAStatus(criteria);
+            if (result.Code != 0)
+            {
+                List<string> errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         /// <summary>

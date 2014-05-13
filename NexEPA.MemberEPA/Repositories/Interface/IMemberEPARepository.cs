@@ -8,7 +8,7 @@
 //   <change who="Josh.Phan" date="2014.4.22">Added - GetEPAByEmployee</change>
 // </history>
 
-namespace NexEPA.MemberEPA.Repositories.Interfaces
+namespace NexEPA.MemberEPA.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;

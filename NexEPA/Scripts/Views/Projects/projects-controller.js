@@ -103,7 +103,6 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	};
 
 	$scope.updateProjectStatus = function (project, status) {
-
 		var updateModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
@@ -112,14 +111,13 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 					return project.name;
 				},
 				action: function () {
-					return "update status";
+					return "change status";
 				}
 			}
 		});
 		updateModalInstance.result.then(function () {
 			project.status = status;
-			projectDataFactory.updateProjectStatus(project)
-		.then(successUpdateProjectStatus, errorNotification);
+			projectDataFactory.updateProjectStatus(project).then(successUpdateProjectStatus, errorNotification);
 		});
 	};
 

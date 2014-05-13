@@ -51,6 +51,11 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 					}
 					}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		updateEPAStatus: function (employeeEPA) {
+			var deferred = $q.defer();
+			$http.post('/api/EmployeeEPA/UpdateEPAStatus', employeeEPA).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

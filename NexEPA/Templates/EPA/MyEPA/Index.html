@@ -69,12 +69,12 @@
 					<strong>{{employeeEPA.endDate|customDate}}</strong></div>
 			</div>
 		</div>
-		<div class="row row-item line" ng-show="employeeEPA.modifiedBy > 0 && employeeEPA.modifiedDate != null">
+		<div class="row row-item line" ng-show="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
 			<div class="col-sm-6">
 				<div class="col-sm-3" data-translate="LastModifyBy">
 				</div>
 				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.modifiedBy}}</strong></div>
+					<strong tooltip="{{employeeEPA.modifierFullName}}">{{employeeEPA.modifierNickName}}</strong></div>
 			</div>
 			<div class="col-sm-6">
 				<div class="col-sm-3" data-translate="LastModifyDate">
@@ -139,7 +139,7 @@
 							<div class="epa-error-message" ng-show="item.checkNullComment">
 								This field is required!
 							</div>
-							<textarea class="col-sm-9 epa-textarea-comment criteria-comment" ng-model="item.comment"
+							<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment criteria-comment" ng-model="item.comment"
 								ng-show="item.isRequireComment">{{item.comment}}</textarea>
 						</div>
 					</div>
@@ -155,7 +155,7 @@
 		<div class="epa-error-message" ng-show="employeeEPA.checkNullComment">
 			This field is required!
 		</div>
-		<textarea class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>
+		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>
 		<div class="col-sm-3">
 			<div class="total">
 				<p>

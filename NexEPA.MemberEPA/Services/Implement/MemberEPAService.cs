@@ -20,8 +20,8 @@ namespace NexEPA.MemberEPA.Services.Implement
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Implement;
-    using NexEPA.MemberEPA.Repositories.Interfaces;
-    using NexEPA.MemberEPA.Services.Interfaces;
+    using NexEPA.MemberEPA.Repositories.Interface;
+    using NexEPA.MemberEPA.Services.Interface;
 
     /// <summary>
     /// Member EPA Service.
