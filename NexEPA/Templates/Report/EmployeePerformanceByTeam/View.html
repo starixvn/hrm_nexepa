@@ -58,7 +58,7 @@
                 <th data-translate="JoinedDate"></th>
                 <th data-translate="AverageScore"></th>
             </thead>
-            <tr ng-repeat="employee in employeeReport">
+            <tr ng-repeat="employee in reportByProject">
                 <td class="home-index" ng-bind="$index + 1"></td>
                 <td>
                     <a ng-bind="employee.nickName + ' - ' + employee.fullName" href="" ng-click="viewEmployeeTendency(employee.employeeId)"

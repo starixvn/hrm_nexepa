@@ -43,17 +43,21 @@
     <Reference Include="Fanex.NAP.Framework">
       <HintPath>..\Dependencies\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\GetEmployeePerformanceByTeamCriteria.cs" />
     <Compile Include="Criteria\GetEmployeePerformanceTendencyReportCriteria.cs" />
     <Compile Include="Criteria\GetGeneralInformationOfCurrentEmployeeCriteria.cs" />
+    <Compile Include="Models\Dashboard\DashboardModel.cs" />
     <Compile Include="Models\Dashboard\GeneralInformationOfProjectModel.cs" />
     <Compile Include="Models\Dashboard\ReportMilestoneModel.cs" />
     <Compile Include="Models\Dashboard\HistoryProjectModel.cs" />
     <Compile Include="Models\Dashboard\OpenProjectModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\ReportEmployeeByTeamModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\ReportEmployeePerformanceByTeamModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\ReportEmployeePerformanceByTeamEvaluatedByProjectModel.cs" />
+    <Compile Include="Models\EmployeePerformanceTendency\ReportEmployeePerformanceTendencyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\ReportRepository.cs" />
     <Compile Include="Repositories\Interface\IReportRepository.cs" />

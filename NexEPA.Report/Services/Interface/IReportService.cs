@@ -9,19 +9,20 @@
 
 namespace NexEPA.Report.Services.Interface
 {
-    using System.Collections.Generic;
     using NexEPA.Report.Criteria;
+    using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
 
     /// <summary>
     /// The interface of Report Service.
     /// </summary>
     public interface IReportService
     {
-        List<object> GetGeneralInformationOfCurrentEmployee(GetGeneralInformationOfCurrentEmployeeCriteria criteria);
+        DashboardModel GetGeneralInformationOfCurrentEmployee(GetGeneralInformationOfCurrentEmployeeCriteria criteria);
 
-        List<object> GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria);
+        ReportEmployeePerformanceTendencyModel GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria);
 
-        IEnumerable<ReportEmployeeByTeamModel> GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria);
+        ReportEmployeePerformanceByTeamModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria);
     }
 }

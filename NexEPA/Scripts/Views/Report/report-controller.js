@@ -29,9 +29,9 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		reportFactory.getEmployeePerformanceTendencyReport(employeeId).success(function (report) {
 			$scope.search.searchKey = '';
 
-			if (report != null && report.length >= 2) {
-				$scope.report.generalInformation = report[0];
-				$scope.report.historyProjects = report[1];
+			if (report != null) {
+				$scope.report.generalInformation = report.employeeInformation;
+				$scope.report.historyProjects = report.historyProjects;
 			}
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -168,7 +168,10 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 		}
 
 		reportFactory.getEmployeePerformanceByTeamReport(filter, fromDate, toDate, employeeId).success(function (report) {
-			$scope.employeeReport = report;
+			if (report != null) {
+				$scope.reportByProject = report.reportByProject;
+			}
+
 			$scope.disabledSubmit = false;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -187,7 +190,6 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 
 	$scope.viewEmployeeTendency = function (employeeId) {
 		$scope.viewEmployeeTendencyUrl = '/Report/EmployeePerformanceTendency' + '?employeeId=' + employeeId;
-		//$location.path('Report/EmployeePerformanceTendency').search('employeeId', employeeId);
 	};
 
 	$scope.$watch('search.searchKey', function (newValue) {

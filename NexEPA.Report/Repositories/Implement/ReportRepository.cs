@@ -18,6 +18,7 @@ namespace NexEPA.Report.Repositories.Implement
     using NexEPA.Project.Models;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Repositories.Interface;
 
     /// <summary>
@@ -29,10 +30,10 @@ namespace NexEPA.Report.Repositories.Implement
         /// Get general information of current employee that used in dashboard.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The List Object.</returns>
-        public List<object> GetGeneralInformationOfCurrentEmployee(ICriteria criteria)
+        /// <returns>The Dashboard Model.</returns>
+        public DashboardModel GetGeneralInformationOfCurrentEmployee(ICriteria criteria)
         {
-            var result = new List<object>();
+            var dashboardInformation = new DashboardModel();
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -42,7 +43,7 @@ namespace NexEPA.Report.Repositories.Implement
                     GeneralInformationOfProjectModel generalInformation = generalInformationList != null && generalInformationList.Count > 0 
                                                 ? generalInformationList[0] 
                                                 : new GeneralInformationOfProjectModel();
-                    result.Add(generalInformation);
+                    dashboardInformation.GeneralInformation = generalInformation;
 
                     IEnumerable<OpenProjectModel> openProjects = multi.Read<OpenProjectModel, ProjectModel, EmployeeModel, OpenProjectModel>(
                         (opPro, pro, eva) =>
@@ -52,7 +53,7 @@ namespace NexEPA.Report.Repositories.Implement
                             return opPro;
                         },
                         "ProjectId,EmployeeId");
-                    result.Add(openProjects);
+                    dashboardInformation.OpenProjects = openProjects;
 
                     IEnumerable<HistoryProjectModel> historyProjects = 
                         multi.Read<HistoryProjectModel, ProjectModel, EmployeeModel, ReportMilestoneModel, HistoryProjectModel>(
@@ -64,24 +65,24 @@ namespace NexEPA.Report.Repositories.Implement
                             return proHis;
                         },
                         "ProjectId,EmployeeId,MilestoneId");
-                    result.Add(historyProjects);
+                    dashboardInformation.RawHistoryProjects = historyProjects;
 
-                    var listKPIs = (List<KPIModel>)multi.Read<KPIModel>();
-                    result.Add(listKPIs);
+                    IEnumerable<KPIModel> listKPIs = multi.Read<KPIModel>();
+                    dashboardInformation.ListKPIs = listKPIs;
                 }
             }
 
-            return result;
+            return dashboardInformation;
         }
 
         /// <summary>
         /// Get employee performance tendency report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list object.</returns>
-        public List<object> GetEmployeePerformanceTendancyReport(ICriteria criteria)
+        /// <returns>The Report Employee Performance Tendency Model.</returns>
+        public ReportEmployeePerformanceTendencyModel GetEmployeePerformanceTendancyReport(ICriteria criteria)
         {
-            var result = new List<object>();
+            var employeePerformanceTendencyReport = new ReportEmployeePerformanceTendencyModel();
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -97,7 +98,7 @@ namespace NexEPA.Report.Repositories.Implement
                         "GroupId,JobTitleId");
                     EmployeeModel employeeGeneralInformation = employeeGeneralInformationList != null && employeeGeneralInformationList.Count > 0 
                                         ? employeeGeneralInformationList[0] : new EmployeeModel();
-                    result.Add(employeeGeneralInformation);
+                    employeePerformanceTendencyReport.EmployeeInformation = employeeGeneralInformation;
 
                     IEnumerable<HistoryProjectModel> historyProjects = 
                         multi.Read<HistoryProjectModel, ProjectModel, EmployeeModel, ReportMilestoneModel, HistoryProjectModel>(
@@ -109,38 +110,39 @@ namespace NexEPA.Report.Repositories.Implement
                             return proHis;
                         },
                         "ProjectId,EmployeeId,MilestoneId");
-                    result.Add(historyProjects);
+                    employeePerformanceTendencyReport.RawHistoryProjects = historyProjects;
                 }
             }
 
-            return result;
+            return employeePerformanceTendencyReport;
         }
 
         /// <summary>
         /// Get employee performance by team report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list object.</returns>
-        public List<object> GetEmployeePerformanceByTeamReport(ICriteria criteria)
+        /// <returns>The Report Employee Performance By Team Model.</returns>
+        public ReportEmployeePerformanceByTeamModel GetEmployeePerformanceByTeamReport(ICriteria criteria)
         {
-            var result = new List<object>();
+            var employeePerformanceByTeamReport = new ReportEmployeePerformanceByTeamModel();
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var employeePerformanceByTeamReport = multi.Read<ReportEmployeeByTeamModel, Group, ReportEmployeeByTeamModel>(
+                    var reportByProject = 
+                        multi.Read<ReportEmployeePerformanceByTeamEvaluatedByProjectModel, Group, ReportEmployeePerformanceByTeamEvaluatedByProjectModel>(
                         (re, gr) => 
                         {
                             re.Group = gr;
                             return re;
                         },
                         "GroupId");
-                    result.Add(employeePerformanceByTeamReport);
+                    employeePerformanceByTeamReport.ReportByProject = reportByProject;
                 }
             }
 
-            return result;
+            return employeePerformanceByTeamReport;
         }
     }
 }

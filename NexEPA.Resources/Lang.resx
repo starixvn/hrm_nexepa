@@ -508,7 +508,7 @@
     <value>Create and continue</value>
   </data>
   <data name="EmployeePerformanceTendency" xml:space="preserve">
-    <value>Employee Performance Tendency</value>
+    <value>Person Report</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Report</value>
@@ -523,7 +523,7 @@
     <value>RATING SCALE</value>
   </data>
   <data name="EmployeePerformanceByTeam" xml:space="preserve">
-    <value>Employee Performance By Team</value>
+    <value>Team Report</value>
   </data>
   <data name="EPACount" xml:space="preserve">
     <value>EPA Count</value>
@@ -563,5 +563,14 @@
   </data>
   <data name="GroupTotal" xml:space="preserve">
     <value>Group Total: </value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="MemberEPA" xml:space="preserve">
+    <value>Member EPA</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

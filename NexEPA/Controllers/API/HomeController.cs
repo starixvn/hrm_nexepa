@@ -9,9 +9,9 @@
 
 namespace NexEPA.Controllers.API
 {
-    using System.Collections.Generic;
     using System.Web.Http;
     using NexEPA.Report.Criteria;
+    using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Services.Implement;
     using NexEPA.Report.Services.Interface;
     using NexEPA.Web.Controllers;
@@ -35,7 +35,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        public List<object> GetGeneralInformationOfCurrentEmployee()
+        public DashboardModel GetGeneralInformationOfCurrentEmployee()
         {
             var criteria = new GetGeneralInformationOfCurrentEmployeeCriteria
             {

@@ -16,6 +16,7 @@ namespace NexEPA.Report.Services.Implement
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Repositories.Implement;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;
@@ -37,83 +38,71 @@ namespace NexEPA.Report.Services.Implement
         /// Get general information of current employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The List ProjectHistoryViewModel.</returns>
-        public List<object> GetGeneralInformationOfCurrentEmployee(
-            GetGeneralInformationOfCurrentEmployeeCriteria criteria)
+        /// <returns>The List DashboardModel.</returns>
+        public DashboardModel GetGeneralInformationOfCurrentEmployee(GetGeneralInformationOfCurrentEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var generalInformation = new List<object>();
+            var dashboardInformation = new DashboardModel();
 
             if (criteria.IsValid())
             {
-                List<object> rawsGeneralInformation = _reportRepository.GetGeneralInformationOfCurrentEmployee(criteria);
+                DashboardModel rawDashboardInformation = _reportRepository.GetGeneralInformationOfCurrentEmployee(criteria);
 
-                if (rawsGeneralInformation != null && rawsGeneralInformation.Count > 3)
+                if (rawDashboardInformation != null)
                 {
-                    // Get General Information
-                    generalInformation.Add(rawsGeneralInformation[0]);
+                    dashboardInformation.GeneralInformation = rawDashboardInformation.GeneralInformation;
 
-                    // Get Open Project
-                    generalInformation.Add(rawsGeneralInformation[1]);
+                    dashboardInformation.OpenProjects = rawDashboardInformation.OpenProjects;
 
-                    // Get History Project
-                    List<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawsGeneralInformation[2]);
-                    generalInformation.Add(projectHistoryList);
+                    IEnumerable<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawDashboardInformation.RawHistoryProjects);
+                    dashboardInformation.HistoryProjects = projectHistoryList;
 
-                    // Get KPI Information
-                    generalInformation.Add(rawsGeneralInformation[3]);
+                    dashboardInformation.ListKPIs = rawDashboardInformation.ListKPIs;
                 }
             }
 
-            return generalInformation;
+            return dashboardInformation;
         }
 
         /// <summary>
         /// Get employee performance tendency report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list object.</returns>
-        public List<object> GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria)
+        /// <returns>The ReportEmployeePerformanceTendencyModel.</returns>
+        public ReportEmployeePerformanceTendencyModel GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employeePerformaceReport = new List<object>();
+            var employeePerformanceReport = new ReportEmployeePerformanceTendencyModel();
 
             if (criteria.IsValid())
             {
-                List<object> rawsEmployeePerformaceReport = _reportRepository.GetEmployeePerformanceTendancyReport(criteria);
+                ReportEmployeePerformanceTendencyModel rawsEmployeePerformanceReport = _reportRepository.GetEmployeePerformanceTendancyReport(criteria);
 
-                if (rawsEmployeePerformaceReport != null && rawsEmployeePerformaceReport.Count >= 1)
+                if (rawsEmployeePerformanceReport != null)
                 {
-                    // Get Employee Information
-                    employeePerformaceReport.Add(rawsEmployeePerformaceReport[0]);
+                    employeePerformanceReport.EmployeeInformation = rawsEmployeePerformanceReport.EmployeeInformation;
 
-                    // Get History Project
-                    List<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawsEmployeePerformaceReport[1]);
-                    employeePerformaceReport.Add(projectHistoryList);
+                    IEnumerable<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawsEmployeePerformanceReport.RawHistoryProjects);
+                    employeePerformanceReport.HistoryProjects = projectHistoryList;
                 }
             }
 
-            return employeePerformaceReport;
+            return employeePerformanceReport;
         }
 
         /// <summary>
         /// Get employee performance by team report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list ReportEmployeeByTeamModel.</returns>
-        public IEnumerable<ReportEmployeeByTeamModel> GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria)
+        /// <returns>The ReportEmployeeByTeamModel.</returns>
+        public ReportEmployeePerformanceByTeamModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<ReportEmployeeByTeamModel> employeePerformanceByTeamReport = null;
+            var employeePerformanceByTeamReport = new ReportEmployeePerformanceByTeamModel();
 
             if (criteria.IsValid())
             {
-                List<object> rawsEmployeeByTeamReport = _reportRepository.GetEmployeePerformanceByTeamReport(criteria);
-
-                if (rawsEmployeeByTeamReport != null && rawsEmployeeByTeamReport.Count >= 1)
-                {
-                    employeePerformanceByTeamReport = (IEnumerable<ReportEmployeeByTeamModel>)rawsEmployeeByTeamReport[0];
-                }
+                employeePerformanceByTeamReport = _reportRepository.GetEmployeePerformanceByTeamReport(criteria);
             }
 
             return employeePerformanceByTeamReport;

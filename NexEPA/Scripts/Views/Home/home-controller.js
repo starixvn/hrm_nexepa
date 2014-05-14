@@ -12,13 +12,15 @@ homeModule.controller('ViewHomePageController',
 			listKPIs: null
 		};
 
-		homeFactory.getGeneralInformationOfCurrentEmployee().success(function (dashboardInformationList) {
-			$scope.dashboradInformation = {
-				generalInformation: dashboardInformationList[0],
-				openProjects: dashboardInformationList[1],
-				historyProjects: dashboardInformationList[2],
-				listKPIs: dashboardInformationList[3]
-			};
+		homeFactory.getGeneralInformationOfCurrentEmployee().success(function (dashboardInformation) {
+			if(dashboardInformation != null) {
+				$scope.dashboradInformation = {
+					generalInformation: dashboardInformation.generalInformation,
+					openProjects: dashboardInformation.openProjects,
+					historyProjects: dashboardInformation.historyProjects,
+					listKPIs: dashboardInformation.listKPIs
+				};
+			}
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});
