@@ -117,7 +117,7 @@ namespace NexEPA.Report.Services.Implement
         {
             var historyProjects = new List<HistoryProjectViewModel>();
 
-            if (rawHistoryProjects != null && rawHistoryProjects.Count > 0)
+            if (rawHistoryProjects != null && rawHistoryProjects.Any())
             {
                 for (int i = 0; i < rawHistoryProjects.Count; i++)
                 {

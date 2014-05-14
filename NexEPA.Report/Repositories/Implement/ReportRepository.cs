@@ -10,6 +10,7 @@
 namespace NexEPA.Report.Repositories.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
@@ -39,11 +40,10 @@ namespace NexEPA.Report.Repositories.Implement
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var generalInformationList = (List<GeneralInformationOfProjectModel>)multi.Read<GeneralInformationOfProjectModel>();
-                    GeneralInformationOfProjectModel generalInformation = generalInformationList != null && generalInformationList.Count > 0 
-                                                ? generalInformationList[0] 
-                                                : new GeneralInformationOfProjectModel();
-                    dashboardInformation.GeneralInformation = generalInformation;
+                    var generalInformationList = multi.Read<GeneralInformationOfProjectModel>();
+                    dashboardInformation.GeneralInformation = generalInformationList != null 
+                        ? generalInformationList.SingleOrDefault()
+                        : new GeneralInformationOfProjectModel();
 
                     IEnumerable<OpenProjectModel> openProjects = multi.Read<OpenProjectModel, ProjectModel, EmployeeModel, OpenProjectModel>(
                         (opPro, pro, eva) =>
