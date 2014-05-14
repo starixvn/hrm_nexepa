@@ -16,7 +16,7 @@ var showWarningWeightMessage = function (kpiIds, notificationFactory) {
 	var totalWeight = 0;
 	var hasWeightError = false;
 
-	if (kpiIds) {
+	if (kpiIds && kpiIds.length > 0) {
 		var numberKPI = kpiIds.length;
 		var kpiGroupId = kpiIds[0].KPIGroupId;
 
