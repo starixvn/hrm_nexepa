@@ -40,8 +40,6 @@ namespace NexEPA.KPI.Model
 
         public int Weight { get; set; }
 
-        public string KPIGroupName { get; set; }
-
         public KPIGroupModel Group { get; set; }
 
         public TargetType TargetType { get; set; }

@@ -14,7 +14,7 @@ namespace NexEPA.Controllers.API
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.KPI.Criteria.KPI;
-    using NexEPA.KPI.Services.Implement.KPI;
+    using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;
     using NexEPA.KPI.ViewModels;
     using NexEPA.Web.Attributes;

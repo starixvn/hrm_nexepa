@@ -17,10 +17,6 @@ namespace NexEPA.KPI.Criteria.KPI
     /// </summary>
     public class UpdateKPICriteria : CriteriaBase
     {
-        public UpdateKPICriteria()
-        { 
-        }
-
         public int KPIId { get; set; }
 
         public string Name { get; set; }
@@ -44,7 +40,7 @@ namespace NexEPA.KPI.Criteria.KPI
 
         public override bool IsValid()
         {
-            return true;
+            return KPIId> 0 && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(KPIGroupIds);
         }
     }
 }

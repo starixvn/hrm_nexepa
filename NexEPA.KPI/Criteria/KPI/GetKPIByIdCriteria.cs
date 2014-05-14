@@ -25,7 +25,7 @@ namespace NexEPA.KPI.Criteria.KPI
 
         public override bool IsValid()
         {
-            return true;
+            return KPIId > 0;
         }
     }
 }

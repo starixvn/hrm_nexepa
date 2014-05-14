@@ -30,7 +30,7 @@ namespace NexEPA.KPI.Criteria.KPIGroup
 
         public override bool IsValid()
         {
-            return true;
+            return KPIGroupId > 0;
         }
     }
 }
