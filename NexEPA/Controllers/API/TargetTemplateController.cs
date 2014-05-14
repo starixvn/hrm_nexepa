@@ -121,14 +121,11 @@ namespace NexEPA.Controllers.API
         public dynamic GetKPI(bool onlySelected, int? targetTemplateId = null, int? targetTypeId = null, int? groupId = null)
         {
             dynamic data = null;
-
             var getAllKPIByKPIGroupCriteria = new GetAllKPIByKPIGroupCriteria() 
             { 
                 TargetTemplateId = targetTemplateId.Value 
             };
-
             IEnumerable<KPIViewModel> lstKPI = _kpiServices.GetAllKPIByKPIGroup(getAllKPIByKPIGroupCriteria);
-
             var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() 
             { 
                 TargetTemplateId = targetTemplateId 
