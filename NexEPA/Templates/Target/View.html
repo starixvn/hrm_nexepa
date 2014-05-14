@@ -52,27 +52,27 @@
         </thead>
         <tbody>
             <tr ng-repeat="target in targetList">
-                <td class="count" ng-bind="$index + 1"></td>
+                <td class="text-center" ng-bind="$index + 1"></td>
                 <td>
                     <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target)" ng-href={{viewDetailTargetUrl}}
                         title="View detail of '{{target.name}}'"></a>
                 </td>
-                <td class="form" ng-bind="target.targetType.name"></td>
+                <td class="text-center" ng-bind="target.targetType.name"></td>
                 <td ng-bind="target.project.name"></td>
                 <td ng-bind="target.milestone.name"></td>
-                <td class="target-member">
+                <td class="text-center">
                     <a href="" ng-bind="target.numberMember" ng-click="viewTargetEmployee(target)" ng-show="target.numberMember > 0"
                          ng-href={{viewTargetEmployeeUrl}} title="View Members of '{{target.name}}'"></a>
                     <span ng-show="target.numberMember === 0" ng-bind="0"></span>
                 </td>
-                <td class="target-kpi">
+                <td class="text-center">
                     <a href="" ng-bind="target.numberKPI" ng-click="viewTargetKPI(target)" ng-href={{viewTargetKPIUrl}} ng-show="target.numberKPI > 0"
                         title="View KPIs of '{{target.name}}'"></a>
                     <span ng-show="target.numberKPI === 0" ng-bind="0"></span>
                 </td>
-                <td class="status">
+                <td>
                     <span class="dropdown">
-                         <a class="dropdown-toggle" href="" ng-bind="target.statusName">
+                         <a class="dropdown-toggle changeStatus" href="" ng-bind="target.statusName">
                          </a>
                          <ul class="dropdown-menu dropdown-menu-width">
                             <li ng-repeat="status in statusOptions | filter:{name:'!'+target.statusName}">
@@ -82,8 +82,8 @@
                          </ul>
                     </span>
                 </td>
-                <td class="start-date" ng-bind="target.startDate"></td>
-                <td class="end-date" ng-bind="target.endDate"></td>
+                <td class="text-center" ng-bind="target.startDate"></td>
+                <td class="text-center" ng-bind="target.endDate"></td>
                 <td class="action">
                     <a class="glyphicon glyphicon-edit icon-edit" title="Edit Target" href="" ng-click="edit(target)" ng-href={{editTargetUrl}}/>
                     <a class="glyphicon glyphicon-remove icon-remove" title="Delete Target" href="" ng-click="openDeletePopup(target)"/>
