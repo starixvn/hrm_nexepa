@@ -142,7 +142,7 @@ namespace NexEPA.Report.Services.Implement
                                                             rawHistoryProjects, 
                                                             rawHistoryProjectItem, 
                                                             sameProjectRows, 
-                                                            sameProjectButNoMilestoneRows);
+                                                            sameProjectButNoMilestoneRows[0]);
                         }
                         else if (sameProjectButNoMilestoneRows.Count == 0)
                         {
@@ -184,25 +184,24 @@ namespace NexEPA.Report.Services.Implement
         /// <param name="rawHistoryProjects">The list history projects.</param>
         /// <param name="rawHistoryProjectItem">The current history project item.</param>
         /// <param name="sameProjectRows">The rows has same project.</param>
-        /// <param name="sameProjectButNoMilestoneRows">The rows has same project but no milestone.</param>
+        /// <param name="sameProjectButNoMilestoneRow">The rows has same project but no milestone.</param>
         /// <returns>The HistoryProjectViewModel.</returns>
         private HistoryProjectViewModel GetProjectInCaseEvaluateByProjectAndMilestone(
             List<HistoryProjectModel> rawHistoryProjects,
             HistoryProjectModel rawHistoryProjectItem,
             List<HistoryProjectModel> sameProjectRows,
-            List<HistoryProjectModel> sameProjectButNoMilestoneRows)
+            HistoryProjectModel sameProjectButNoMilestoneRow)
         {
             var historyProjectItem = new HistoryProjectViewModel();
 
-            historyProjectItem.TargetId = sameProjectButNoMilestoneRows[0].TargetId;
-            historyProjectItem.Roles = sameProjectButNoMilestoneRows[0].Roles;
-            historyProjectItem.Score = sameProjectButNoMilestoneRows[0].Score;
-            historyProjectItem.Comment = sameProjectButNoMilestoneRows[0].Comment;
-            historyProjectItem.Project = sameProjectButNoMilestoneRows[0].Project;
-            historyProjectItem.Evaluator = sameProjectButNoMilestoneRows[0].Evaluator;
+            historyProjectItem.TargetId = sameProjectButNoMilestoneRow.TargetId;
+            historyProjectItem.Roles = sameProjectButNoMilestoneRow.Roles;
+            historyProjectItem.Score = sameProjectButNoMilestoneRow.Score;
+            historyProjectItem.Comment = sameProjectButNoMilestoneRow.Comment;
+            historyProjectItem.Project = sameProjectButNoMilestoneRow.Project;
+            historyProjectItem.Evaluator = sameProjectButNoMilestoneRow.Evaluator;
 
             List<HistoryProjectModel> milestoneRows = sameProjectRows.Where(pro => pro.Milestone != null).ToList();
-            var milestones = new List<ReportMilestoneModel>();
 
             foreach (HistoryProjectModel milestoneRow in milestoneRows)
             {
@@ -217,7 +216,7 @@ namespace NexEPA.Report.Services.Implement
                     Comment = milestoneRow.Comment
                 };
 
-                milestones.Add(milestoneItem);
+                historyProjectItem.Milestones.Add(milestoneItem);
 
                 // Remove project row to avoid processing this project again if it's not current row
                 if (milestoneRow != rawHistoryProjectItem)
@@ -226,12 +225,10 @@ namespace NexEPA.Report.Services.Implement
                 }
             }
 
-            historyProjectItem.Milestones = milestones;
-
             // Remove project row to avoid processing this project again if it's not current row
-            if (sameProjectButNoMilestoneRows[0] != rawHistoryProjectItem)
+            if (sameProjectButNoMilestoneRow != rawHistoryProjectItem)
             {
-                rawHistoryProjects.Remove(sameProjectButNoMilestoneRows[0]);
+                rawHistoryProjects.Remove(sameProjectButNoMilestoneRow);
             }
 
             return historyProjectItem;
