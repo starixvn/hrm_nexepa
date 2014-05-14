@@ -18,7 +18,7 @@
             <tbody ng-repeat="historyProject in dashboradInformation.historyProjects">
                 <tr>
                     <td class="home-index" ng-bind="$index + 1"></td>
-                    <td>
+                    <td class="home-vertical-center">
                         <i class="home-collapsed" ng-click="showHideMilestone(historyProject)" 
                             ng-show="historyProject.milestones.length > 0 && !collapse.isCollapsed{{historyProject.project.projectId}}">
                         </i>
@@ -30,7 +30,7 @@
                             ng-href={{viewEPADetailUrl}} title="View detail EPA" />
                         <span ng-bind="historyProject.project.name" ng-show="historyProject.milestoneEvaluation" ></span>
                     </td>
-                    <td>
+                    <td class="home-vertical-center">
                         <span ng-bind="historyProject.evaluator.nickName" tooltip={{historyProject.evaluator.fullName}}></span>
                     </td>
                     <td class="home-center">{{historyProject.project.startDate | customDate}}</td>

@@ -22,9 +22,9 @@
             <tr ng-repeat="openProject in dashboradInformation.openProjects">
                 <td class="home-index" ng-bind="$index + 1">
                 </td>
-                <td ng-bind="openProject.project.name">
+                <td class="home-vertical-center" ng-bind="openProject.project.name">
                 </td>
-                <td>
+                <td class="home-vertical-center">
                     <span ng-bind="openProject.evaluator.nickName" tooltip={{openProject.evaluator.fullName}}></span>
                 </td>
                 <td class="home-center">
