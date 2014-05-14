@@ -1,70 +1,100 @@
 ﻿<div class="row">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
-            <li><a href="#" data-translate="EPA" ng-click="reload()"></a></li>
-            <li class="current" data-translate="ManageMemberEPA"></li>
-        </ul>
-    </div>
-
-    <div class="form-inline filter">
-        <form novalidate class="form-inline">
-            <div class="form-group">
-                <label data-translate="Project"></label>
-                <select ng-model="filter.projectId" 
-                    ng-options="opt.id as opt.name for opt in projectOptions" class="form-control">
-                    <option value="">-- All --</option>
-                 </select>
-            </div>
-            <div class="form-group">
-                <label data-translate="Status"></label>
-                <select ng-model="filter.status" 
-                    ng-options="opt.id as opt.name for opt in statusOptions" class="form-control">
-                    <option value="">-- All --</option>
-                </select>
-            </div>
-            <button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>
-        </form>
-    </div>
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li>
+				<a href="#" data-translate="EPA" ng-click="reload()"></a>
+			</li>
+			<li class="current" data-translate="ManageMemberEPA"></li>
+		</ul>
+	</div>
+	<div class="form-inline filter">
+		<form novalidate class="form-inline">
+		<div class="form-group">
+			<label data-translate="Project">
+			</label>
+			<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+				class="form-control">
+				<option value="">-- All --</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label data-translate="Status">
+			</label>
+			<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
+				class="form-control">
+				<option value="">-- All --</option>
+			</select>
+		</div>
+		<button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit">
+		</button>
+		</form>
+	</div>
 </div>
-
 <div class="row">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <th data-translate="SymbolCount"></th>
-            <th data-translate="Member"></th>
-            <th data-translate="Project"></th>
-            <th data-translate="Milestone"></th>
-            <th data-translate="Target"></th>
-            <th data-translate="Score"></th>
-            <th data-translate="Status"></th>
-            <th data-translate="EvaluatorTitle"></th>
-            <th data-translate="EvaluateDate"></th>
-        </thead>
-        <tr ng-repeat="epaItem in listEPA">
-            <td class="epa-index" ng-bind="$index + 1"></td>
-            <td>
-                <span ng-bind="epaItem.nickName" tooltip={{epaItem.fullName}}></span>
-            </td>
-            <td ng-bind="epaItem.project.projectName"></td>
-            <td ng-bind="epaItem.milestone.milestoneName"></td>
-            <td ng-bind="epaItem.target.targetName"></td>
-            <td class="epa-score">
-                <a href="" ng-bind="epaItem.score" ng-click="EPADetail(epaItem)" ng-href={{viewEPADetailUrl}} ng-show="epaItem.score > 0"/>
-                <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)" ng-href={{viewEPADetailUrl}} ng-show="epaItem.score <= 0"/>
-            </td>
-            <td class="epa-status" ng-bind="epaItem.statusName"></td>
-            <td>
-                <span ng-bind="epaItem.evaluator.evaluatorNickName" tooltip={{epaItem.evaluator.evaluatorFullName}}></span>
-            </td>
-            <td class="epa-evaluate-date">{{epaItem.evaluateDate | customDate }}</td>
-        </tr>
-
-        <tr ng-show="listEPA == ''">
-            <td class="empty-result" colspan="9" data-translate="EmptyResult"></td>
-        </tr>
-    </table>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<th data-translate="SymbolCount">
+			</th>
+			<th data-translate="Member">
+			</th>
+			<th data-translate="Project">
+			</th>
+			<th data-translate="Milestone">
+			</th>
+			<th data-translate="Target">
+			</th>
+			<th data-translate="Score">
+			</th>
+			<th data-translate="Status">
+			</th>
+			<th data-translate="EvaluatorTitle">
+			</th>
+			<th data-translate="EvaluateDate">
+			</th>
+		</thead>
+		<tr ng-repeat="epaItem in listEPA">
+			<td class="epa-index" ng-bind="$index + 1">
+			</td>
+			<td>
+				<span ng-bind="epaItem.nickName" tooltip="{{epaItem.fullName}}"></span>
+			</td>
+			<td ng-bind="epaItem.project.projectName">
+			</td>
+			<td ng-bind="epaItem.milestone.milestoneName">
+			</td>
+			<td ng-bind="epaItem.target.targetName">
+			</td>
+			<td class="epa-score">
+				<a href="" ng-bind="epaItem.score" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}"
+					ng-show="epaItem.score > 0" />
+				<a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}"
+					ng-show="epaItem.score <= 0" />
+			</td>
+			<td>
+				<span class="dropdown" on-toggle="toggled(open)">
+					<a href="javascript:;" class="dropdown-toggle changeStatus">{{epaItem.statusName}}</a>
+					<ul class="dropdown-menu dropdown-menu-width">
+						<li ng-repeat="item in epaStatus" ng-hide="item.id == epaItem.status">
+							<a ng-click="updateEPAStatus(epaItem, item.id)" href="javascript:;">{{item.name}}</a>
+						</li>
+					</ul>
+				</span>
+			</td>
+			<td>
+				<span ng-bind="epaItem.evaluator.evaluatorNickName" tooltip="{{epaItem.evaluator.evaluatorFullName}}">
+				</span>
+			</td>
+			<td class="epa-evaluate-date">
+				{{epaItem.evaluateDate | customDate }}
+			</td>
+		</tr>
+		<tr ng-show="listEPA == ''">
+			<td class="empty-result" colspan="9" data-translate="EmptyResult">
+			</td>
+		</tr>
+	</table>
 </div>
-
 <div class="msgbox error" ng-show="showErrorMessage">
-    <div ng-bind="errorMessage"></div>
+	<div ng-bind="errorMessage">
+	</div>
 </div>

@@ -48,7 +48,7 @@
 				</td>
 				<td>
 					<span class="dropdown" on-toggle="toggled(open)">
-						<a href class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
+						<a href="javascript:;" class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
 						<ul class="dropdown-menu dropdown-menu-width">
 							<li ng-repeat="item in status" ng-hide="item.id == project.status">
 								<a ng-click="updateProjectStatus(project, item.id)" href="javascript:;">{{item.name}}</a>

@@ -301,8 +301,8 @@ epaModule.controller('ViewCurrentMemberEPAController',
 
 // View EPA of Member by Manager Controller
 	epaModule.controller('ViewMemberByManagerEPAController', [
-	'$scope', '$location', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory',
-	function ($scope, $location, employeeEPAFactory, ErrorService, commonFactory, notificationFactory) {
+	'$scope', '$location', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory', '$modal',
+	function ($scope, $location, employeeEPAFactory, ErrorService, commonFactory, notificationFactory, $modal) {
 
 		// get all project to filter
 		employeeEPAFactory.getAllProject().then(function (projectList) {
@@ -317,6 +317,15 @@ epaModule.controller('ViewCurrentMemberEPAController',
 		var successGetEPA = function (listEPA) {
 			$scope.listEPA = listEPA;
 			$scope.submitted = false;
+		};
+
+		var successChangeEPAStatus = function () {
+			notificationFactory.success('SuccessSaveData', '');
+			getEPAOfEmployeeByManager(null, null);
+		};
+		var errorChangeEPAStatus = function (response) {
+			notificationFactory.error('', response);
+			getEPAOfEmployeeByManager(null, null);
 		};
 
 		var errorHandle = function () {
@@ -357,4 +366,32 @@ epaModule.controller('ViewCurrentMemberEPAController',
 				$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + employeeId;
 			}
 		};
+		// EPA Status Context Menu
+		$scope.epaStatus = [{ name: 'Open', id: 0 }, { name: 'Closed', id: 1}];
+		$scope.toggleDropdown = function ($event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			$scope.status.isopen = !$scope.status.isopen;
+		};
+
+		$scope.updateEPAStatus = function (epaItem, status) {
+			var updateEPAModalInstance = $modal.open({
+				templateUrl: '/templates/Common/ModalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return "";
+					},
+					action: function () {
+						return "change status";
+					}
+				}
+			});
+			updateEPAModalInstance.result.then(function () {
+				epaItem.status = status;
+				epaItem.targetId = epaItem.target.targetId;
+				employeeEPAFactory.updateEPAStatus(epaItem).then(successChangeEPAStatus, errorChangeEPAStatus);
+			});
+		};
+
 	} ]);
