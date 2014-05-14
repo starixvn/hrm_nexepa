@@ -55,6 +55,32 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var targetId = $routeParams.targetId;
 	var employeeId = $routeParams.employeeId;
 	var currentEPAStatus;
+	var newEPAStatus;
+
+	/**
+	* Function. 
+	*/
+
+	var checkStatus = function (status) {
+		if (status === 1) {
+			$scope.isReadonly = true;
+			$scope.hoveringOver = null;
+			$scope.hoveringLeave = null;
+		}
+		else {
+			$scope.isReadonly = false;
+			// Rating Star Hover.
+			$scope.hoveringOver = function (value, object) {
+				object.percent = (100 * value) / $scope.max;
+			};
+
+			// Rating Star Mouse Leave
+			$scope.hoveringLeave = function (item) {
+				item.percent = (100 * item.score) / $scope.max;
+				calculateScore($scope, $scope.employeeEPA.kpiInfo);
+			};
+		}
+	};
 
 	/**
 	* Ajax event. 
@@ -62,6 +88,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var successAddOrUpdateEPA = function () { notificationFactory.success('SuccessSaveData', ''); };
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
+		checkStatus(data.status);
+
 		$scope.employeeEPA = data;
 		$scope.finalScore = data.finalScore;
 		var roleArray = [];
@@ -71,9 +99,13 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		$scope.employeeRole = roleArray.join(", ");
 	};
 
-	var successUpdateEPAStatus = function () { notificationFactory.success('SuccessSaveData', ''); };
+	var successUpdateEPAStatus = function () {
+		notificationFactory.success('SuccessSaveData', '');
+		checkStatus(newEPAStatus);
+	};
 	var errorUpdateEPAStatus = function (response) {
 		$scope.employeeEPA.status = currentEPAStatus;
+		checkStatus(currentEPAStatus);
 		notificationFactory.error('', response);
 	};
 
@@ -116,27 +148,19 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		if (allowSubmit) {
 			employeeEPAResult.finalScore = $scope.finalScore;
 			employeeEPAResult.targetId = targetId;
-			debugger;
 			employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
 		}
 	};
 
+	//Cancel Rating
 	$scope.cancelRating = function (item) {
 		item.score = 0;
 		item.percent = 0;
 		calculateScore($scope, $scope.employeeEPA.kpiInfo);
 	};
 
+	// Back to previous history link.
 	$scope.cancel = function () { $window.history.back(); };
-
-	$scope.hoveringOver = function (value, object) {
-		object.percent = (100 * value) / $scope.max;
-	};
-
-	$scope.hoveringLeave = function (item) {
-		item.percent = (100 * item.score) / $scope.max;
-		calculateScore($scope, $scope.employeeEPA.kpiInfo);
-	};
 
 	// EPA Status Context Menu
 	$scope.epaStatus = [{ name: 'Open', id: 0 }, { name: 'Closed', id: 1}];
@@ -161,12 +185,12 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		});
 		updateEPAModalInstance.result.then(function () {
 			currentEPAStatus = employeeEPA.status;
+			newEPAStatus = status;
 			employeeEPA.status = status;
 			employeeEPA.targetId = targetId;
 			employeeEPAFactory.updateEPAStatus(employeeEPA).then(successUpdateEPAStatus, errorUpdateEPAStatus);
 		});
 	};
-
 
 } ]);
 

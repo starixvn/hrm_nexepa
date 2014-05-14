@@ -5,10 +5,6 @@ projectsSettingModule.controller('ProjectController',
 ['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService', 'notificationFactory', '$modal',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService, notificationFactory, $modal) {
 	/**
-	* Variables. 
-	*/
-
-	/**
 	* Project Setting Cache. 
 	*/
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
@@ -151,6 +147,9 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 projectsSettingModule.controller('CreateProjectController',
 ['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', '$timeout', 'notificationFactory',
 function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, $timeout, notificationFactory) {
+	/**
+	* Variables. 
+	*/
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 	$scope.errors = [];
@@ -215,8 +214,14 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 		}
 		else {
 			$("#projectValid").hide();
-			project.startDate = project.startDate ? project.startDate.toDateString() : null;
-			project.endDate = project.endDate ? project.endDate.toDateString() : null;
+			if (project.startDate != null) {
+				var selectedStartDate = new Date(project.startDate);
+				project.startDate = selectedStartDate ? selectedStartDate.toDateString() : null;
+			}
+			if (project.endDate != null) {
+				var selectedEndDate = new Date(project.endDate);
+				project.endDate = selectedEndDate ? selectedEndDate.toDateString() : null;
+			}
 			projectDataFactory.addProject(project).then(successAddProject, errorAddProject);
 		}
 	};
@@ -272,7 +277,6 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 	};
 
 	var errorHandle = function (status) {
-		debugger;
 		ErrorService.errorHandle(status);
 	};
 
@@ -466,9 +470,15 @@ commonFactory, ProjectSettingCache) {
 		}
 		else {
 			var milestone = $scope.milestone;
+			if (milestone.startDate != null) {
+				var selectedStartDate = new Date(milestone.startDate);
+				milestone.startDate = selectedStartDate ? selectedStartDate.toDateString() : null;
+			}
+			if (milestone.endDate != null) {
+				var selectedEndDate = new Date(milestone.endDate);
+				milestone.endDate = selectedEndDate ? selectedEndDate.toDateString() : null;
+			}
 			milestone.projectId = projectId;
-			milestone.startDate = milestone.startDate ? milestone.startDate.toDateString() : null;
-			milestone.endDate = milestone.endDate ? milestone.endDate.toDateString() : null;
 			milestoneFactory.addMilestone(milestone).then(successAddMilestone, errorAddUpdateMilestone);
 		}
 	};

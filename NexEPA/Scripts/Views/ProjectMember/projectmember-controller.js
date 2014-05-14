@@ -91,7 +91,10 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 				}
 			});
 			addModalInstance.result.then(function (member) {
-				member.joinDate = member.joinDate ? member.joinDate.toDateString() : null;
+				if (member.joinDate != null) {
+					var selectedStartDate = new Date(member.joinDate);
+					member.joinDate = selectedStartDate ? selectedStartDate.toDateString() : null;
+				}
 				projectMembersFactory.addMember(member).then(successAddProjectMember, errorNotification);
 			});
 		};
@@ -179,7 +182,6 @@ function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFa
 		var member = {};
 		var check = projectMemberValidation(employeeId, selected, joinDate);
 		if (check) {
-
 			var projectRolesIds = selected.join(',');
 			$scope.errors = [];
 			member.projectId = projectId;
