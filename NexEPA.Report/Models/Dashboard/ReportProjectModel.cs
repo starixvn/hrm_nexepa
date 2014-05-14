@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EvaluatorModel.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="ReportProjectModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,15 +9,19 @@
 
 namespace NexEPA.Report.Models.Dashboard
 {
+    using System;
+
     /// <summary>
-    /// The Evaluator Model.
+    /// The Project Model.
     /// </summary>
-    public class EvaluatorModel
+    public class ReportProjectModel
     {
-        public int EmployeeId { get; set; }
+        public int ProjectId { get; set; }
 
-        public string NickName { get; set; }
+        public string Name { get; set; }
 
-        public string FullName { get; set; }
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
     }
 }

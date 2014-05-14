@@ -216,11 +216,11 @@ namespace NexEPA.Report.Services.Implement
             historyProjectItem.Evaluator = sameProjectButNoMilestoneRows[0].Evaluator;
 
             List<HistoryProjectModel> milestoneRows = sameProjectRows.Where(pro => pro.Milestone != null).ToList();
-            var milestones = new List<MilestoneModel>();
+            var milestones = new List<ReportMilestoneModel>();
 
             foreach (HistoryProjectModel milestoneRow in milestoneRows)
             {
-                var milestoneItem = new MilestoneModel
+                var milestoneItem = new ReportMilestoneModel
                 {
                     TargetId = milestoneRow.TargetId,
                     MilestoneId = milestoneRow.Milestone.MilestoneId,

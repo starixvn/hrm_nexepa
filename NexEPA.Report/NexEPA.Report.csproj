@@ -49,13 +49,12 @@
     <Compile Include="Criteria\GetEmployeePerformanceByTeamCriteria.cs" />
     <Compile Include="Criteria\GetEmployeePerformanceTendencyReportCriteria.cs" />
     <Compile Include="Criteria\GetGeneralInformationOfCurrentEmployeeCriteria.cs" />
-    <Compile Include="Models\Dashboard\EvaluatorModel.cs" />
     <Compile Include="Models\Dashboard\GeneralInformationOfProjectModel.cs" />
-    <Compile Include="Models\Dashboard\KPIInformationModel.cs" />
-    <Compile Include="Models\Dashboard\MilestoneModel.cs" />
+    <Compile Include="Models\Dashboard\ReportKPIInformationModel.cs" />
+    <Compile Include="Models\Dashboard\ReportMilestoneModel.cs" />
     <Compile Include="Models\Dashboard\HistoryProjectModel.cs" />
     <Compile Include="Models\Dashboard\OpenProjectModel.cs" />
-    <Compile Include="Models\Dashboard\ProjectModel.cs" />
+    <Compile Include="Models\Dashboard\ReportProjectModel.cs" />
     <Compile Include="Models\EmployeePerformanceByTeam\ReportEmployeeByTeamModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\ReportEmployeeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +68,10 @@
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
       <Name>NexEPA.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Employee\NexEPA.Employee.csproj">
+      <Project>{80C95EAA-B6BC-4E4F-93B9-DF0312D0C425}</Project>
+      <Name>NexEPA.Employee</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

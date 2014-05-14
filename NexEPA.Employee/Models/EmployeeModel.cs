@@ -18,6 +18,10 @@ namespace NexEPA.Employee.ViewModels
     /// </summary>
     public class EmployeeModel : IViewModel
     {
+        public EmployeeModel()
+        {
+        }
+
         public EmployeeModel(IModel model)
         {
             this.SetInfo(model);

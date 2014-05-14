@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MilestoneModel.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="ReportMilestoneModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace NexEPA.Report.Models.Dashboard
     /// <summary>
     /// The Milestone Model.
     /// </summary>
-    public class MilestoneModel
+    public class ReportMilestoneModel
     {
         public int TargetId { get; set; }
 

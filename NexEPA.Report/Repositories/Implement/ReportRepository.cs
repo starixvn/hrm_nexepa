@@ -13,6 +13,7 @@ namespace NexEPA.Report.Repositories.Implement
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.ViewModels;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Repositories.Interface;
@@ -41,7 +42,7 @@ namespace NexEPA.Report.Repositories.Implement
                                                 : new GeneralInformationOfProjectModel();
                     result.Add(generalInformation);
 
-                    IEnumerable<OpenProjectModel> openProjects = multi.Read<OpenProjectModel, ProjectModel, EvaluatorModel, OpenProjectModel>(
+                    IEnumerable<OpenProjectModel> openProjects = multi.Read<OpenProjectModel, ReportProjectModel, EmployeeModel, OpenProjectModel>(
                         (opPro, pro, eva) =>
                         {
                             opPro.Project = pro;
@@ -52,7 +53,7 @@ namespace NexEPA.Report.Repositories.Implement
                     result.Add(openProjects);
 
                     IEnumerable<HistoryProjectModel> historyProjects = 
-                        multi.Read<HistoryProjectModel, ProjectModel, EvaluatorModel, MilestoneModel, HistoryProjectModel>(
+                        multi.Read<HistoryProjectModel, ReportProjectModel, EmployeeModel, ReportMilestoneModel, HistoryProjectModel>(
                         (proHis, pro, eva, mil) =>
                         {
                             proHis.Project = pro;
@@ -63,7 +64,7 @@ namespace NexEPA.Report.Repositories.Implement
                         "ProjectId,EmployeeId,MilestoneId");
                     result.Add(historyProjects);
 
-                    var listKPIs = (List<KPIInformationModel>)multi.Read<KPIInformationModel>();
+                    var listKPIs = (List<ReportKPIInformationModel>)multi.Read<ReportKPIInformationModel>();
                     result.Add(listKPIs);
                 }
             }
@@ -97,7 +98,7 @@ namespace NexEPA.Report.Repositories.Implement
                     result.Add(employeeGeneralInformation);
 
                     IEnumerable<HistoryProjectModel> historyProjects = 
-                        multi.Read<HistoryProjectModel, ProjectModel, EvaluatorModel, MilestoneModel, HistoryProjectModel>(
+                        multi.Read<HistoryProjectModel, ReportProjectModel, EmployeeModel, ReportMilestoneModel, HistoryProjectModel>(
                         (proHis, pro, eva, mi) =>
                         {
                             proHis.Project = pro;

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KPIInformationModel.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="ReportKPIInformationModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace NexEPA.Report.Models.Dashboard
     /// <summary>
     /// The KPI Information Model.
     /// </summary>
-    public class KPIInformationModel
+    public class ReportKPIInformationModel
     {
         public int KPIId { get; set; }
 

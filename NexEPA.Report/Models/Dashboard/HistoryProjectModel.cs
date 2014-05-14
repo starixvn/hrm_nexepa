@@ -9,7 +9,7 @@
 
 namespace NexEPA.Report.Models.Dashboard
 {
-    using System;
+    using NexEPA.Employee.ViewModels;
 
     /// <summary>
     /// The Project History Model.
@@ -24,10 +24,10 @@ namespace NexEPA.Report.Models.Dashboard
 
         public string Comment { get; set; }
 
-        public ProjectModel Project { get; set; }
+        public ReportProjectModel Project { get; set; }
 
-        public EvaluatorModel Evaluator { get; set; }
+        public EmployeeModel Evaluator { get; set; }
 
-        public MilestoneModel Milestone { get; set; }
+        public ReportMilestoneModel Milestone { get; set; }
     }
 }
