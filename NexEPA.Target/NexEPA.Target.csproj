@@ -75,13 +75,10 @@
     <Compile Include="Criteria\Target\Target\GetTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\InsertTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetCriteria.cs" />
-    <Compile Include="Models\TargetKPIGroupWeight.cs" />
+    <Compile Include="Models\TargetKPIGroupWeightModel.cs" />
     <Compile Include="Models\TargetSettingModel.cs" />
-    <Compile Include="Models\Target\TargetEmployeeModel.cs" />
-    <Compile Include="Models\Target\TargetModel.cs" />
+    <Compile Include="Models\TargetModel.cs" />
     <Compile Include="Models\TargetTemplateModel.cs" />
-    <Compile Include="Models\Target\TargetKPIGroup.cs" />
-    <Compile Include="Models\Target\TargetKPIModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\TargetRepository.cs" />
     <Compile Include="Repositories\Implement\TargetTemplateRepository.cs" />
@@ -91,17 +88,23 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Services\Interfaces\ITargetServices.cs" />
-    <Compile Include="ViewModels\Target\TargetEmployeeViewModel.cs" />
-    <Compile Include="ViewModels\Target\TargetViewModel.cs" />
+    <Compile Include="ViewModels\TargetViewModel.cs" />
     <Compile Include="Services\Implement\TargetTemplateService.cs" />
     <Compile Include="Services\Interfaces\ITargetTemplateService.cs" />
-    <Compile Include="ViewModels\Target\TargetKPIGroupViewModel.cs" />
-    <Compile Include="ViewModels\Target\TargetKPI.cs" />
+    <Compile Include="Models\TargetKPIGroupModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
       <Name>NexEPA.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Employee\NexEPA.Employee.csproj">
+      <Project>{80C95EAA-B6BC-4E4F-93B9-DF0312D0C425}</Project>
+      <Name>NexEPA.Employee</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.KPI\NexEPA.KPI.csproj">
+      <Project>{EC6531E6-095E-4E78-BA9D-C1EBAA0B3547}</Project>
+      <Name>NexEPA.KPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\NexEPA.Project\NexEPA.Project.csproj">
       <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>

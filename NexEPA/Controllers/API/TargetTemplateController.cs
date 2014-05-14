@@ -23,12 +23,12 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Services.Interface;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Criteria.KPIGroup;
+    using NexEPA.KPI.Model;
     using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;
     using NexEPA.KPI.ViewModels;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
-    using NexEPA.Target.Models.Target;
     using NexEPA.Target.Services.Implement;
     using NexEPA.Target.Services.Interfaces;
     using NexEPA.Web.Controllers;
@@ -160,7 +160,7 @@ namespace NexEPA.Controllers.API
 
             if (allGroups != null)
             {
-                IEnumerable<TargetKPIGroup> selectedGroups = null;
+                IEnumerable<KPIGroupModel> selectedGroups = null;
                 var getSelectedKPIGroupCriteria = new GetSelectedKPIGroupCriteria() { TargetTemplateId = targetTemplateId };
                 selectedGroups = _targetTemplateService.GetSelectedKPIGroup(getSelectedKPIGroupCriteria);
 
@@ -169,7 +169,7 @@ namespace NexEPA.Controllers.API
                     var duplicatedItems = allGroups.Where(x => selectedGroups.Select(y => y.KPIGroupId).Contains(x.KPIGroupID));
                     foreach (var item in duplicatedItems)
                     {
-                        TargetKPIGroup kpiGroup = selectedGroups.Where(x => x.KPIGroupId == item.KPIGroupID).FirstOrDefault();
+                        KPIGroupModel kpiGroup = selectedGroups.Where(x => x.KPIGroupId == item.KPIGroupID).FirstOrDefault();
                         item.Selected = true;
                         item.Weight = kpiGroup.Weight;
                     }
@@ -271,7 +271,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">TargetKPIGroupWeight Model.</param>
         /// <returns>Http Response Message.</returns>
-        public HttpResponseMessage AddKPIGroupWeight(TargetKPIGroupWeight model)
+        public HttpResponseMessage AddKPIGroupWeight(TargetKPIGroupWeightModel model)
         {
             string dataKPIGroupWeightXML = ConvertKPIGroupWeightToXML(model.KPIGroups);
             AddKPIGroupWeightCriteria criteria = new AddKPIGroupWeightCriteria()
@@ -338,7 +338,7 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        private string ConvertKPIGroupWeightToXML(List<TargetKPIGroup> kpiGroups)
+        private string ConvertKPIGroupWeightToXML(List<KPIGroupModel> kpiGroups)
         {
             var value = new StringBuilder(_BeginRootTag);
             foreach (var item in kpiGroups)

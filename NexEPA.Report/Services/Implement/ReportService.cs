@@ -13,7 +13,7 @@ namespace NexEPA.Report.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Core.Service.Impl;
-    using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
@@ -87,7 +87,7 @@ namespace NexEPA.Report.Services.Implement
                 if (rawsEmployeePerformaceReport != null && rawsEmployeePerformaceReport.Count >= 1)
                 {
                     // Get Employee Information
-                    ReportEmployeeModel employee = GetEmployeeGeneralInformation((Employee)rawsEmployeePerformaceReport[0]);
+                    ReportEmployeeModel employee = GetEmployeeGeneralInformation((EmployeeModel)rawsEmployeePerformaceReport[0]);
                     employeePerformaceReport.Add(employee);
 
                     // Get History Project
@@ -293,7 +293,7 @@ namespace NexEPA.Report.Services.Implement
         /// </summary>
         /// <param name="rawEmployee">The raw employee.</param>
         /// <returns>The ReportEmployeeModel.</returns>
-        private ReportEmployeeModel GetEmployeeGeneralInformation(Employee rawEmployee)
+        private ReportEmployeeModel GetEmployeeGeneralInformation(EmployeeModel rawEmployee)
         {
             var employee = new ReportEmployeeModel
             {

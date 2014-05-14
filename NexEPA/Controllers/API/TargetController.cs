@@ -15,15 +15,17 @@ namespace NexEPA.Controllers.Target
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Enums;
+    using NexEPA.Employee.Models;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
+    using NexEPA.Target.Models;
     using NexEPA.Target.Services.Implement;
     using NexEPA.Target.Services.Interfaces;
-    using NexEPA.Target.ViewModels.Target;
+    using NexEPA.Target.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
@@ -151,7 +153,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
-        public List<TargetEmployeeViewModel> GetEmployeeByTargetId(int targetId)
+        public IEnumerable<EmployeeModel> GetEmployeeByTargetId(int targetId)
         {
             var criteria = new GetAllEmployeeByTargetIdCriteria
             {
@@ -196,7 +198,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
-        public List<TargetKPIGroupViewModel> GetKPIByTargetId(int targetId, int? groupId = null)
+        public List<TargetKPIGroupModel> GetKPIByTargetId(int targetId, int? groupId = null)
         {
             var criteria = new GetKPIByTargetIdCriteria
             {

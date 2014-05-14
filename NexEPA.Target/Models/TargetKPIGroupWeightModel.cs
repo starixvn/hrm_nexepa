@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TargetKPIGroupWeight.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="TargetKPIGroupWeightModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,15 +10,15 @@
 namespace NexEPA.Target.Models
 {
     using System.Collections.Generic;
-    using NexEPA.Target.Models.Target;
+    using NexEPA.KPI.Model;
 
     /// <summary>
     /// Target KPI Group Weight.
     /// </summary>
-    public class TargetKPIGroupWeight
+    public class TargetKPIGroupWeightModel
     {
         public int TargetTemplateId { get; set; }
 
-        public List<TargetKPIGroup> KPIGroups { get; set; }
+        public List<KPIGroupModel> KPIGroups { get; set; }
     }
 }

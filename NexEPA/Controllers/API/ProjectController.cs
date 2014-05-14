@@ -20,6 +20,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Models;
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Criteria;
+    using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implement;
     using NexEPA.Employee.Services.Interface;
     using NexEPA.Project.Criteria.Project;
@@ -219,7 +220,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
         {
             GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
-            IEnumerable<Employee> employees = _employeeService.GetEmployeeByRole(criteria);
+            IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByRole(criteria);
 
             if (!string.IsNullOrEmpty(searchKey))
             {
@@ -316,11 +317,11 @@ namespace NexEPA.Controllers.API
         /// <param name="employees">The list employee.</param>
         /// <param name="searchKey">The keyword to get employee.</param>
         /// <returns>The IEnumerable Employee Info.</returns>
-        private IEnumerable<Employee> GetEmployeeBySearchKey(IEnumerable<Employee> employees, string searchKey)
+        private IEnumerable<EmployeeModel> GetEmployeeBySearchKey(IEnumerable<EmployeeModel> employees, string searchKey)
         {
-            List<Employee> searchEmployees = new List<Employee>();
+            List<EmployeeModel> searchEmployees = new List<EmployeeModel>();
 
-            foreach (Employee employee in employees)
+            foreach (EmployeeModel employee in employees)
             {
                 if (CheckMatchSearchKey(employee.NickName, searchKey) || CheckMatchSearchKey(employee.FullName, searchKey))
                 {

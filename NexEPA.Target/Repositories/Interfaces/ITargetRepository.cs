@@ -11,7 +11,9 @@ namespace NexEPA.Target.Repositories.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Target.Models.Target;
+    using NexEPA.Employee.Models;
+    using NexEPA.KPI.Model;
+    using NexEPA.Target.Models;
 
     /// <summary>
     /// The interface of Target Repository.
@@ -22,6 +24,8 @@ namespace NexEPA.Target.Repositories.Interfaces
 
         TargetModel GetTargetById(ICriteria criteria);
 
-        IEnumerable<TargetKPIModel> GetKPIByTargetId(ICriteria criteria);
+        IEnumerable<KPIModel> GetKPIByTargetId(ICriteria criteria);
+
+        IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(ICriteria criteria);
     }
 }

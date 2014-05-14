@@ -4,29 +4,20 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Quinn.Vo" date="2014.5.7">Created</change>
+//   <change who="Quinn.Vo" date="2014.3.6">Created</change>
+//   <change who="Josh.Phan" date="2014.04.03">Changed</change>
 // </history>
 
-namespace NexEPA.Employee.ViewModels
+namespace NexEPA.Employee.Models
 {
-    using NexEPA.Core.Constants;
+    using System;
     using NexEPA.Core.Models;
-    using NexEPA.Core.ViewModels;
 
     /// <summary>
-    /// Employee ViewModel.
+    /// Employee class.
     /// </summary>
-    public class EmployeeModel : IViewModel
+    public class EmployeeModel
     {
-        public EmployeeModel()
-        {
-        }
-
-        public EmployeeModel(IModel model)
-        {
-            this.SetInfo(model);
-        }
-
         public int EmployeeId { get; set; }
 
         public string Code { get; set; }
@@ -41,31 +32,16 @@ namespace NexEPA.Employee.ViewModels
 
         public string Skype { get; set; }
 
-        public string JoinedDate { get; set; }
+        public string Roles { get; set; }
+
+        public int EmployeeLevelId { get; set; }
+
+        public DateTime? JoinedDate { get; set; }
+
+        public bool IsDisabled { get; set; }
 
         public Group Group { get; set; }
 
         public JobTitle JobTitle { get; set; }
-
-        /// <summary>
-        /// Function to set data info for object.
-        /// </summary>
-        /// <param name="model">The Model.</param>
-        public void SetInfo(IModel model)
-        {
-            var employee = (Employee)model;
-            EmployeeId = employee.EmployeeId;
-            Code = employee.Code;
-            DomainUsername = employee.DomainUsername;
-            FullName = employee.FullName;
-            NickName = employee.NickName;
-            Email = employee.Email;
-            Skype = employee.Skype;
-            JoinedDate = employee.JoinedDate.HasValue
-                ? employee.JoinedDate.Value.ToString(Constants.ShortDateStringFormat)
-                : string.Empty;
-            Group = employee.Group;
-            JobTitle = employee.JobTitle;
-        }
     }
 }

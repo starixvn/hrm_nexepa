@@ -10,7 +10,7 @@
 namespace NexEPA.Report.ViewModels
 {
     using System.Collections.Generic;
-    using NexEPA.Employee.ViewModels;
+    using NexEPA.Employee.Models;
     using NexEPA.Project.Models;
     using NexEPA.Report.Models.Dashboard;
 

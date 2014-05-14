@@ -11,10 +11,12 @@ namespace NexEPA.Target.Services.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Employee.Models;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
-    using NexEPA.Target.ViewModels.Target;
+    using NexEPA.Target.Models;
+    using NexEPA.Target.ViewModels;
 
     /// <summary>
     /// The interface of Target Services.
@@ -31,13 +33,13 @@ namespace NexEPA.Target.Services.Interfaces
 
         CommandResult Delete(DeleteTargetCriteria criteria);
 
-        List<TargetEmployeeViewModel> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria);
+        IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria);
 
         CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria);
 
         CommandResult DeleteTargetEmployee(DeleteTargetEmployeeCriteria criteria);
 
-        List<TargetKPIGroupViewModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria);
+        List<TargetKPIGroupModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria);
 
         CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria);
     }

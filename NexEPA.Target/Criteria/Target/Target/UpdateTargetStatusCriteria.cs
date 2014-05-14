@@ -27,7 +27,7 @@ namespace NexEPA.Target.Criteria.Target.Target
 
         public override bool IsValid()
         {
-            return true;
+            return TargetId > 0;
         }
 
         public override string GetSettingKey()

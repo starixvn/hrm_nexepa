@@ -11,9 +11,9 @@ namespace NexEPA.Target.Services.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.KPI.Model;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
-    using NexEPA.Target.Models.Target;
 
     /// <summary>
     /// Interface Target Template Service.
@@ -34,7 +34,7 @@ namespace NexEPA.Target.Services.Interfaces
 
         IEnumerable<TargetTemplateKPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria);
 
-        IEnumerable<TargetKPIGroup> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria);
+        IEnumerable<KPIGroupModel> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria);
 
         CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria);
 

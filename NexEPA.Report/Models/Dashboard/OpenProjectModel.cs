@@ -9,7 +9,7 @@
 
 namespace NexEPA.Report.Models.Dashboard
 {
-    using NexEPA.Employee.ViewModels;
+    using NexEPA.Employee.Models;
     using NexEPA.Project.Models;
 
     /// <summary>

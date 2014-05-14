@@ -25,7 +25,7 @@
                 <td class="index" ng-bind="$index + 1"></td>
                 <td ng-bind="employee.fullName"></td>
                 <td ng-bind="employee.nickName"></td>
-                <td ng-bind="employee.groupName"></td>
+                <td ng-bind="employee.group.name"></td>
                 <td class="action" ng-show="isEditMode">
                     <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(employee)"/>
                 </td>

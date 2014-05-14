@@ -14,9 +14,9 @@ namespace NexEPA.Controllers.API
     using System.Web.Http;
     using NexEPA.Core.Models;
     using NexEPA.Employee.Criteria;
+    using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implement;
     using NexEPA.Employee.Services.Interface;
-    using NexEPA.Employee.ViewModels;
 
     /// <summary>
     /// Employee controller.
@@ -43,7 +43,7 @@ namespace NexEPA.Controllers.API
         /// <param name="isDisabled">Is Disabled.</param>
         /// <returns>Employee list.</returns>
         [HttpGet]
-        public IList<EmployeeModel> GetAllEmployee(string keyword = "", int? groupId = null, bool? isDisabled = null)
+        public IEnumerable<EmployeeModel> GetAllEmployee(string keyword = "", int? groupId = null, bool? isDisabled = null)
         {
             var criteria = new GetAllEmployeeCriteria
             {
@@ -52,10 +52,8 @@ namespace NexEPA.Controllers.API
                 GroupId = groupId
             };
 
-            IEnumerable<Employee> rawEmployees = _employeeService.GetAllEmployee(criteria);
-            IList<EmployeeModel> employee = rawEmployees.Select(t => new EmployeeModel(t)).ToList();
-            
-            return employee;
+            IEnumerable<EmployeeModel> employees = _employeeService.GetAllEmployee(criteria);
+            return employees;
         }
 
         [HttpGet]
@@ -75,7 +73,7 @@ namespace NexEPA.Controllers.API
         /// <param name="keyword">The keyword.</param>
         /// <returns>Employee list.</returns>
         [HttpGet]
-        public IList<EmployeeModel> GetEmployeeByProjectId(int? projectId = null, string keyword = "")
+        public IEnumerable<EmployeeModel> GetEmployeeByProjectId(int? projectId = null, string keyword = "")
         {
             var criteria = new GetEmployeeByProjectIdCriteria
             {
@@ -83,10 +81,9 @@ namespace NexEPA.Controllers.API
                 Keyword = keyword
             };
 
-            IEnumerable<Employee> rawEmployees = _employeeService.GetEmployeeByProjectId(criteria);
-            IList<EmployeeModel> employee = rawEmployees.Select(t => new EmployeeModel(t)).ToList();
+            IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByProjectId(criteria);
 
-            return employee;
+            return employees;
         }
     }
 }

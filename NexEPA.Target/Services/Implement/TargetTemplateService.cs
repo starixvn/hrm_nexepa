@@ -13,9 +13,9 @@ namespace NexEPA.Target.Services.Implement
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
+    using NexEPA.KPI.Model;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
-    using NexEPA.Target.Models.Target;
     using NexEPA.Target.Repositories.Implement;
     using NexEPA.Target.Repositories.Interfaces;
     using NexEPA.Target.Services.Interfaces;
@@ -116,13 +116,13 @@ namespace NexEPA.Target.Services.Implement
             return lstKPI;
         }
 
-        public IEnumerable<TargetKPIGroup> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria)
+        public IEnumerable<KPIGroupModel> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<TargetKPIGroup> groups = null;
+            IEnumerable<KPIGroupModel> groups = null;
             if (criteria.IsValid())
             {
-                groups = GetData<TargetKPIGroup>(criteria);
+                groups = GetData<KPIGroupModel>(criteria);
             }
 
             return groups;

@@ -13,8 +13,10 @@ namespace NexEPA.Target.Repositories.Implement
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
+    using NexEPA.KPI.Model;
     using NexEPA.Project.Models;
-    using NexEPA.Target.Models.Target;
+    using NexEPA.Target.Models;
     using NexEPA.Target.Repositories.Interfaces;
 
     /// <summary>
@@ -71,11 +73,11 @@ namespace NexEPA.Target.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The IEnumerable TargetKPIInfo.</returns>
-        public IEnumerable<TargetKPIModel> GetKPIByTargetId(ICriteria criteria)
+        public IEnumerable<KPIModel> GetKPIByTargetId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<TargetKPIModel, TargetKPIGroup, TargetType, TargetKPIModel>(
+                return db.Query<KPIModel, KPIGroupModel, TargetType, KPIModel>(
                     (ti, tg, tt) =>
                     {
                         ti.Group = tg;
@@ -83,6 +85,27 @@ namespace NexEPA.Target.Repositories.Implement
                         return ti;
                     },
                     "KPIGroupId,TargetTypeId",
+                    criteria.GetSpParams());
+            }
+        }
+
+        /// <summary>
+        /// Get Target Employee by Target ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The IEnumerable EmployeeModel.</returns>
+        public IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<EmployeeModel, JobTitle, Group, EmployeeModel>(
+                    (emp, job, gr) =>
+                    {
+                        emp.JobTitle = job;
+                        emp.Group = gr;
+                        return emp;
+                    },
+                    "JobTitleId,GroupId",
                     criteria.GetSpParams());
             }
         }

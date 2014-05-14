@@ -55,7 +55,6 @@
     <Compile Include="Enums\RolesEnum.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Extensions\StringValueAttribute.cs" />
-    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\JobTitle.cs" />

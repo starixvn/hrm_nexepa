@@ -8,7 +8,7 @@
 //   <change who="Bradley.Mac" date="2014.5.13">Use common Model</change>
 // </history>
 
-namespace NexEPA.Target.ViewModels.Target
+namespace NexEPA.Target.ViewModels
 {
     using NexEPA.Core.Models;
     using NexEPA.Project.Models;

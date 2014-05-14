@@ -27,7 +27,7 @@ namespace NexEPA.Target.Criteria.Target.TargetKPI
 
         public override bool IsValid()
         {
-            return true;
+            return TargetId > 0;
         }
     }
 }

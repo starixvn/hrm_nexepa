@@ -12,18 +12,19 @@ namespace NexEPA.Employee.Services.Interface
     using System.Collections.Generic;
     using NexEPA.Core.Models;
     using NexEPA.Employee.Criteria;
+    using NexEPA.Employee.Models;
 
     /// <summary>
     /// The interface of Employee services.
     /// </summary>
     public interface IEmployeeService
     {
-        IEnumerable<Employee> GetAllEmployee(GetAllEmployeeCriteria criteria);
+        IEnumerable<EmployeeModel> GetAllEmployee(GetAllEmployeeCriteria criteria);
 
         IEnumerable<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria);
 
-        IEnumerable<Employee> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria);
+        IEnumerable<EmployeeModel> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria);
 
-        IEnumerable<Employee> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria);
+        IEnumerable<EmployeeModel> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria);
     }
 }

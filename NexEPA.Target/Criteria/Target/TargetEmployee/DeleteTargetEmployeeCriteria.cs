@@ -32,7 +32,7 @@ namespace NexEPA.Target.Criteria.Target.TargetEmployee
 
         public override bool IsValid()
         {
-            return true;
+            return TargetId > 0;
         }
     }
 }

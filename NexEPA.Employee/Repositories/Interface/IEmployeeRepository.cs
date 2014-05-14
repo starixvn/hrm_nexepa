@@ -11,15 +11,15 @@ namespace NexEPA.Employee.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
 
     /// <summary>
     /// The interface of Employee Repositories.
     /// </summary>
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> GetAllEmployee(ICriteria criteria);
+        IEnumerable<EmployeeModel> GetAllEmployee(ICriteria criteria);
 
-        IEnumerable<Employee> GetEmployeeByProjectId(ICriteria criteria);
+        IEnumerable<EmployeeModel> GetEmployeeByProjectId(ICriteria criteria);
     }
 }

@@ -13,6 +13,7 @@ namespace NexEPA.Employee.Repositories.Implement
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
     using NexEPA.Employee.Repositories.Interface;
 
     /// <summary>
@@ -25,11 +26,11 @@ namespace NexEPA.Employee.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The List Employee Info.</returns>
-        public IEnumerable<Employee> GetAllEmployee(ICriteria criteria)
+        public IEnumerable<EmployeeModel> GetAllEmployee(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<Employee, Group, JobTitle, Employee>(
+                return db.Query<EmployeeModel, Group, JobTitle, EmployeeModel>(
                     (emp, gr, jb) =>
                     {
                         emp.Group = gr;
@@ -46,11 +47,11 @@ namespace NexEPA.Employee.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The IEnumerable Employee Info.</returns>
-        public IEnumerable<Employee> GetEmployeeByProjectId(ICriteria criteria)
+        public IEnumerable<EmployeeModel> GetEmployeeByProjectId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<Employee, Group, Employee>(
+                return db.Query<EmployeeModel, Group, EmployeeModel>(
                     (empIn, grIn) =>
                     {
                         empIn.Group = grIn;

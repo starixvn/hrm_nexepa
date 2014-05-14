@@ -13,7 +13,7 @@ namespace NexEPA.Report.Repositories.Implement
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Models;
-    using NexEPA.Employee.ViewModels;
+    using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
     using NexEPA.Project.Models;
     using NexEPA.Report.Models.Dashboard;
@@ -87,7 +87,7 @@ namespace NexEPA.Report.Repositories.Implement
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var employeeGeneralInformationList = (List<Employee>)multi.Read<Employee, Group, JobTitle, Employee>(
+                    var employeeGeneralInformationList = (List<EmployeeModel>)multi.Read<EmployeeModel, Group, JobTitle, EmployeeModel>(
                         (emp, gr, job) =>
                         {
                             emp.Group = gr;
@@ -95,8 +95,8 @@ namespace NexEPA.Report.Repositories.Implement
                             return emp;
                         },
                         "GroupId,JobTitleId");
-                    Employee employeeGeneralInformation = employeeGeneralInformationList != null && employeeGeneralInformationList.Count > 0 
-                                        ? employeeGeneralInformationList[0] : new Employee();
+                    EmployeeModel employeeGeneralInformation = employeeGeneralInformationList != null && employeeGeneralInformationList.Count > 0 
+                                        ? employeeGeneralInformationList[0] : new EmployeeModel();
                     result.Add(employeeGeneralInformation);
 
                     IEnumerable<HistoryProjectModel> historyProjects = 

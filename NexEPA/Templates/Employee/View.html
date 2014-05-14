@@ -50,7 +50,7 @@
                     <a href="skype:{{employee.skype}}?chat" ng-bind="employee.skype"/>
                 </td>
                 <td ng-bind="employee.email"></td>
-                <td class="joined-date" ng-bind="employee.joinedDate"></td>
+                <td class="joined-date" ng-bind="employee.joinedDate | customDate"></td>
             </tr>
             <tr ng-show="employees == ''">
                 <td class="empty-result" colspan="9" data-translate="EmptyResult"></td>

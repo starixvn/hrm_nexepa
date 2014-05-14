@@ -14,6 +14,7 @@ namespace NexEPA.Employee.Services.Implement
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Employee.Criteria;
+    using NexEPA.Employee.Models;
     using NexEPA.Employee.Repositories.Implement;
     using NexEPA.Employee.Repositories.Interface;
     using NexEPA.Employee.Services.Interface;
@@ -35,10 +36,10 @@ namespace NexEPA.Employee.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list Employee Item.</returns>
-        public IEnumerable<Employee> GetAllEmployee(GetAllEmployeeCriteria criteria)
+        public IEnumerable<EmployeeModel> GetAllEmployee(GetAllEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<Employee> employees = null;
+            IEnumerable<EmployeeModel> employees = null;
 
             if (criteria.IsValid())
             {
@@ -71,10 +72,10 @@ namespace NexEPA.Employee.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The List Employee Item.</returns>
-        public IEnumerable<Employee> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria)
+        public IEnumerable<EmployeeModel> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<Employee> employees = null;
+            IEnumerable<EmployeeModel> employees = null;
 
             if (criteria.IsValid())
             {
@@ -89,10 +90,10 @@ namespace NexEPA.Employee.Services.Implement
         /// </summary>
         /// <param name="criteria">GetEmployeeByRole Criteria.</param>
         /// <returns>The list employees.</returns>
-        public IEnumerable<Employee> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria)
+        public IEnumerable<EmployeeModel> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<Employee> employees = null;
+            IEnumerable<EmployeeModel> employees = null;
 
             if (criteria.IsValid())
             {

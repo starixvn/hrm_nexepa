@@ -18,14 +18,16 @@ namespace NexEPA.Target.Services.Implement
     using NexEPA.Core.Enums;
     using NexEPA.Core.Services;
     using NexEPA.Core.Utilities;
+    using NexEPA.Employee.Models;
+    using NexEPA.KPI.Model;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
-    using NexEPA.Target.Models.Target;
+    using NexEPA.Target.Models;
     using NexEPA.Target.Repositories.Implement;
     using NexEPA.Target.Repositories.Interfaces;
     using NexEPA.Target.Services.Interfaces;
-    using NexEPA.Target.ViewModels.Target;
+    using NexEPA.Target.ViewModels;
 
     /// <summary>
     /// The implement of Target Services.
@@ -200,28 +202,14 @@ namespace NexEPA.Target.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list TargetEmployeeItem.</returns>
-        public List<TargetEmployeeViewModel> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria)
+        public IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employeeList = new List<TargetEmployeeViewModel>();
+            IEnumerable<EmployeeModel> employeeList = null;
 
             if (criteria.IsValid())
             {
-                IEnumerable<TargetEmployeeModel> rawEmployees = GetData<TargetEmployeeModel>(criteria);
-
-                foreach (TargetEmployeeModel rawEmployee in rawEmployees)
-                {
-                    var employeeItem = new TargetEmployeeViewModel
-                    {
-                        EmployeeId = rawEmployee.EmployeeId,
-                        FullName = rawEmployee.FullName,
-                        NickName = rawEmployee.NickName,
-                        GroupId = rawEmployee.GroupId,
-                        GroupName = rawEmployee.Name
-                    };
-
-                    employeeList.Add(employeeItem);
-                }
+                employeeList = _targetRepository.GetTargetEmployeeByTargetId(criteria);
             }
 
             return employeeList;
@@ -268,45 +256,32 @@ namespace NexEPA.Target.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List Target KPI Item.</returns>
-        public List<TargetKPIGroupViewModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
+        public List<TargetKPIGroupModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var kpiGroupItemList = new List<TargetKPIGroupViewModel>();
+            var kpiGroupItemList = new List<TargetKPIGroupModel>();
 
             if (criteria.IsValid())
             {
-                var rawKPIsInfo = (List<TargetKPIModel>)_targetRepository.GetKPIByTargetId(criteria);
+                var rawKPIsInfo = (List<KPIModel>)_targetRepository.GetKPIByTargetId(criteria);
 
                 for (int i = 0; i < rawKPIsInfo.Count; i++) 
                 {
-                    TargetKPIModel rawKPIInfo = rawKPIsInfo[i];
-                    var kpiItem = new TargetKPI
-                    {
-                        KPIId = rawKPIInfo.KPIId,
-                        Name = rawKPIInfo.Name,
-                        Weight = rawKPIInfo.Weight
-                    };
+                    KPIModel rawKPIInfo = rawKPIsInfo[i];
 
-                    var kpiGroupItem = new TargetKPIGroupViewModel
+                    var kpiGroupItem = new TargetKPIGroupModel
                     {
                         Group = rawKPIInfo.Group
                     };
 
-                    kpiGroupItem.KPIs.Add(kpiItem);
+                    kpiGroupItem.KPIs.Add(rawKPIInfo);
 
-                    List<TargetKPIModel> kpiSameGroup = rawKPIsInfo.Where(item => item.Group.KPIGroupId == rawKPIInfo.Group.KPIGroupId
+                    List<KPIModel> kpiSameGroup = rawKPIsInfo.Where(item => item.Group.KPIGroupId == rawKPIInfo.Group.KPIGroupId
                                             && item.KPIId != rawKPIInfo.KPIId).ToList();
 
-                    foreach (TargetKPIModel kpiInfo in kpiSameGroup)
+                    foreach (KPIModel kpiInfo in kpiSameGroup)
                     {
-                        var kpiItemSameGroup = new TargetKPI
-                        {
-                            KPIId = kpiInfo.KPIId,
-                            Name = kpiInfo.Name,
-                            Weight = kpiInfo.Weight
-                        };
-
-                        kpiGroupItem.KPIs.Add(kpiItemSameGroup);
+                        kpiGroupItem.KPIs.Add(kpiInfo);
                         rawKPIsInfo.Remove(kpiInfo);
                     }
 
