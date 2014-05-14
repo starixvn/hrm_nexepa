@@ -12,7 +12,7 @@ namespace NexEPA.KPI.Model
     using NexEPA.Core.Models;
 
     /// <summary>
-    /// The information of KPI.
+    /// The model of KPI.
     /// </summary>
     public class KPIModel
     {

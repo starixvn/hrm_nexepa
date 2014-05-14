@@ -25,7 +25,7 @@ namespace NexEPA.Employee.Repositories.Implement
         /// Get all employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The List Employee Info.</returns>
+        /// <returns>The List Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetAllEmployee(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -46,16 +46,16 @@ namespace NexEPA.Employee.Repositories.Implement
         /// Get employee by project ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The IEnumerable Employee Info.</returns>
+        /// <returns>The IEnumerable Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetEmployeeByProjectId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<EmployeeModel, Group, EmployeeModel>(
-                    (empIn, grIn) =>
+                    (emp, gr) =>
                     {
-                        empIn.Group = grIn;
-                        return empIn;
+                        emp.Group = gr;
+                        return emp;
                     },
                     "GroupId",
                     criteria.GetSpParams());

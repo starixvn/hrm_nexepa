@@ -57,7 +57,7 @@ namespace NexEPA.KPI.Services.Implement
         /// Get KPI by ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The KPI Item.</returns>
+        /// <returns>The KPI View Model.</returns>
         public KPIViewModel GetKPIById(GetKPIByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -159,6 +159,7 @@ namespace NexEPA.KPI.Services.Implement
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<KPIViewModel> kpis = null;
+
             if (criteria.IsValid())
             {
                 kpis = GetData<KPIViewModel>(criteria);

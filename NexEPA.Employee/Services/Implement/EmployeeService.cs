@@ -20,7 +20,7 @@ namespace NexEPA.Employee.Services.Implement
     using NexEPA.Employee.Services.Interface;
 
     /// <summary>
-    /// The implement of Employee services.
+    /// The implement of Employee service.
     /// </summary>
     public class EmployeeService : BaseService, IEmployeeService
     {
@@ -35,7 +35,7 @@ namespace NexEPA.Employee.Services.Implement
         /// Get all employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list Employee Item.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetAllEmployee(GetAllEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -53,7 +53,7 @@ namespace NexEPA.Employee.Services.Implement
         /// Get all employee's group.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list Group.</returns>
+        /// <returns>The enumerator Group.</returns>
         public IEnumerable<Group> GetAllEmployeeGroup(GetAllEmployeeGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -71,7 +71,7 @@ namespace NexEPA.Employee.Services.Implement
         /// Get employee by project ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The List Employee Item.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetEmployeeByProjectId(GetEmployeeByProjectIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -88,8 +88,8 @@ namespace NexEPA.Employee.Services.Implement
         /// <summary>
         /// Get employees by role.
         /// </summary>
-        /// <param name="criteria">GetEmployeeByRole Criteria.</param>
-        /// <returns>The list employees.</returns>
+        /// <param name="criteria">Get Employee By Role Criteria.</param>
+        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

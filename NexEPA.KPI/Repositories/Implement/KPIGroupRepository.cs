@@ -17,7 +17,7 @@ namespace NexEPA.KPI.Repositories.Implement
     using NexEPA.KPI.Repositories.Interface;
 
     /// <summary>
-    /// The implement of KPI Group implement.
+    /// The implement of KPI Group.
     /// </summary>
     public class KPIGroupRepository : IKPIGroupRepository
     {
@@ -25,7 +25,7 @@ namespace NexEPA.KPI.Repositories.Implement
         /// Get all KPI group.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>IEnumerable KPI Group.</returns>
+        /// <returns>The enumerator KPI Group Model.</returns>
         public IEnumerable<KPIGroupModel> GetAllKPIGroup(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -45,7 +45,7 @@ namespace NexEPA.KPI.Repositories.Implement
         /// Get KPI Group by ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The KPI Group.</returns>
+        /// <returns>The KPI Group Model.</returns>
         public KPIGroupModel GetKPIGroupById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

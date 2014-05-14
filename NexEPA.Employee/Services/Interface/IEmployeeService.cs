@@ -15,7 +15,7 @@ namespace NexEPA.Employee.Services.Interface
     using NexEPA.Employee.Models;
 
     /// <summary>
-    /// The interface of Employee services.
+    /// The interface of Employee service.
     /// </summary>
     public interface IEmployeeService
     {

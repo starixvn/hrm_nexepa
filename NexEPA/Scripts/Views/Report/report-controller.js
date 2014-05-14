@@ -86,8 +86,7 @@ function ($scope, $location, homeFactory) {
 	};
 
 	$scope.EPADetail = function (targetId) {
-		$scope.viewEPADetailUrl = '/MyEPA/Index' + '?targetId=' + targetId + '&employeeId=' + $scope.employeeId;
-		//$location.path('/MyEPA/Index').search('targetId', targetId).search('employeeId', $scope.employeeId);
+		$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + $scope.employeeId;
 	};
 } ]);
 

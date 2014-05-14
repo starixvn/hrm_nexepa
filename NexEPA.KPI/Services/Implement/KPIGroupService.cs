@@ -21,7 +21,7 @@ namespace NexEPA.KPI.Services.Implement
     using NexEPA.KPI.ViewModels;
 
     /// <summary>
-    /// The implement of KPI services.
+    /// The implement of KPI service.
     /// </summary>
     public class KPIGroupService : BaseService, IKPIGroupService
     {
@@ -36,7 +36,7 @@ namespace NexEPA.KPI.Services.Implement
         /// Get all KPI group.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list KPIGroupItem.</returns>
+        /// <returns>The list KPI Group.</returns>
         public List<KPIGroupViewModel> GetAllKPIGroup(GetAllKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -154,7 +154,7 @@ namespace NexEPA.KPI.Services.Implement
         ///  Get list Group by Target Type ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List KPIGroupItem.</returns>
+        /// <returns>List KPI Group.</returns>
         public List<KPIGroupViewModel> GetGroupListByTargetTypeId(GetAllKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

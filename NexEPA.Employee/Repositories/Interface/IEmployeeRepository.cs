@@ -14,7 +14,7 @@ namespace NexEPA.Employee.Repositories.Interface
     using NexEPA.Employee.Models;
 
     /// <summary>
-    /// The interface of Employee Repositories.
+    /// The interface of Employee Repository.
     /// </summary>
     public interface IEmployeeRepository
     {

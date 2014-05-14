@@ -25,17 +25,17 @@ namespace NexEPA.KPI.Repositories.Implement
         /// Get all KPI.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List KPI Info.</returns>
+        /// <returns>The enumerator KPI Model.</returns>
         public IEnumerable<KPIModel> GetKPI(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<KPIModel, KPIGroupModel, TargetType, KPIModel>(
-                    (inf, gr, ta) => 
+                    (kpi, gr, ta) => 
                     {
-                        inf.Group = gr;
-                        inf.TargetType = ta;
-                        return inf;
+                        kpi.Group = gr;
+                        kpi.TargetType = ta;
+                        return kpi;
                     },
                     "KPIGroupId,TargetTypeId",
                     criteria.GetSpParams());
@@ -46,17 +46,17 @@ namespace NexEPA.KPI.Repositories.Implement
         /// Get KPI by ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The IEnumerable KPI Info.</returns>
+        /// <returns>The enumerator KPI Model.</returns>
         public IEnumerable<KPIModel> GetKPIById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<KPIModel, KPIGroupModel, TargetType, KPIModel>(
-                    (inf, gr, ta) =>
+                    (kpi, gr, ta) =>
                     {
-                        inf.Group = gr;
-                        inf.TargetType = ta;
-                        return inf;
+                        kpi.Group = gr;
+                        kpi.TargetType = ta;
+                        return kpi;
                     },
                     "KPIGroupId,TargetTypeId",
                     criteria.GetSpParams());

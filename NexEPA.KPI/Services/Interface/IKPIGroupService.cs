@@ -15,7 +15,7 @@ namespace NexEPA.KPI.Services.Interface
     using NexEPA.KPI.ViewModels;
 
     /// <summary>
-    /// The interface of KPI services.
+    /// The interface of KPI service.
     /// </summary>
     public interface IKPIGroupService
     {
