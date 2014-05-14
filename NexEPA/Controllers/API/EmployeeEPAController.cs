@@ -79,6 +79,12 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Get Current User's EPA.
+        /// </summary>
+        /// <param name="targetId">Target id.</param>
+        /// <param name="employeeId">Employee id.</param>
+        /// <returns>Http Response Message.</returns>
         public HttpResponseMessage GetMyEPA(int targetId, int employeeId)
         {
             var currentUserId = this.CurrentUser.UserId;
@@ -92,7 +98,6 @@ namespace NexEPA.Controllers.API
                 }
 
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
-                
             }
             else
             {

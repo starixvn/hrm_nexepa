@@ -47,6 +47,8 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 		ErrorService.errorHandle(status);
 	};
 
+	var errorNotification = function (response) { notificationFactory.error('', response); };
+
 	$scope.defaultTargetTemplate = function (targetTemplateId, targetTypeId) {
 		$scope.currentTargetTemplate = { targetTemplateId: targetTemplateId };
 		targetTemplateFactory.getAllTargetTemplate(targetTypeId).then(successGetAllTargetTemplate);

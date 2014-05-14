@@ -7,8 +7,8 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 		getTargetTemplateById: function (targetTemplateId) {
 			var deferred = $q.defer();
 			$http.get('/api/targetTemplate/GetTargetTemplateById/', { params: { targetTemplateId: targetTemplateId} })
-            .success(deferred.resolve).error(function (data, status) {
-            	deferred.reject(status);
+			.success(deferred.resolve).error(function (data, status) {
+             deferred.reject(status);
             });
 			return deferred.promise;
 		},

@@ -259,7 +259,7 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Method Delete Target Template.
         /// </summary>
-        /// <param name="targetId">Target Template Id.</param>
+        /// <param name="targetTemplateId">Target Template Id.</param>
         /// <returns>Http Response Message.</returns>
         [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage Delete(int targetTemplateId)
@@ -286,7 +286,7 @@ namespace NexEPA.Controllers.API
         /// <param name="model">TargetKPIGroupWeight Model.</param>
         /// <returns>Http Response Message.</returns>
         [ApiAuthorize(Roles = "SA")]
-        public HttpResponseMessage AddKPIGroupWeight(TargetKPIGroupWeight model)
+        public HttpResponseMessage AddKPIGroupWeight(TargetKPIGroupWeightModel model)
         {
             string dataKPIGroupWeightXML = ConvertKPIGroupWeightToXML(model.KPIGroups);
             AddKPIGroupWeightCriteria criteria = new AddKPIGroupWeightCriteria()

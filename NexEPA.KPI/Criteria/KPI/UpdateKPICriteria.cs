@@ -40,7 +40,7 @@ namespace NexEPA.KPI.Criteria.KPI
 
         public override bool IsValid()
         {
-            return KPIId> 0 && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(KPIGroupIds);
+            return KPIId > 0 && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(KPIGroupIds);
         }
     }
 }
