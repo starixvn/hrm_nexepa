@@ -90,7 +90,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
 		checkStatus(data.status);
-
 		$scope.employeeEPA = data;
 		$scope.finalScore = data.finalScore;
 		var roleArray = [];
@@ -98,6 +97,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			roleArray.push(data.projectRoles[i].name);
 		});
 		$scope.employeeRole = roleArray.join(", ");
+
+		calculateScore($scope, data.kpiInfo);
 	};
 
 	var successUpdateEPAStatus = function () {
