@@ -249,7 +249,7 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 	} ]);
 
 // Edit KPI Group
-kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$routeParams', '$timeout', '$route',
+	kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$routeParams', '$timeout', '$route',
 	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
 	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository,
 	CacheFactory, KPICommonRepository, notificationFactory) {
@@ -257,6 +257,7 @@ kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
 			$scope.editGroup = group;
+			$scope.editGroup.isActive = !group.isDisabled;
 		});
 
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -279,7 +280,7 @@ kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$
 			$scope.disabledSubmitButton = true;
 
 			if (KPICommonRepository.validateGroup(group) === true) {
-				var newGroup = group;
+				var newGroup = angular.copy(group);
 				newGroup.isDisabled = !group.isActive;
 
 				KPIGroupRepository.updateGroup(newGroup)
@@ -307,5 +308,5 @@ kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$
 
 		$scope.cancel = function () {
 			$window.history.back();
-		}; 
-	}]);
+		};
+	} ]);
