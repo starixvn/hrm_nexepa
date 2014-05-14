@@ -55,7 +55,7 @@ namespace NexEPA.Controllers.API
 
         public TargetTemplateController(
             ITargetTemplateService targetTemplateService,
-            EPAService epaService,
+            IEPAService epaService,
             IKPIService kpiServices,
             IKPIGroupService kpiGroupServices)
         {
@@ -68,7 +68,11 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetTemplateModel> Get(int? targetTypeId = null)
         {
-            GetAllTargetTemplateCriteria criteria = new GetAllTargetTemplateCriteria() { TargetTypeId = targetTypeId };
+            GetAllTargetTemplateCriteria criteria = new GetAllTargetTemplateCriteria
+            { 
+                TargetTypeId = targetTypeId 
+            };
+
             var data = this._targetTemplateService.GetAllTargetTemplate(criteria);
             return data;
         }
@@ -84,7 +88,11 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public TargetTemplateModel GetTargetTemplateById(int targetTemplateId)
         {
-            GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria() { TargetTemplateId = targetTemplateId };
+            GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria
+            { 
+                TargetTemplateId = targetTemplateId 
+            };
+
             var data = this._targetTemplateService.GetTargetTemplateById(criteria);
             return data;
         }
@@ -92,7 +100,11 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetTemplateKPIModel> GetSelectedKPIByTargetTemplate(int targetTemplateId)
         {
-            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() { TargetTemplateId = targetTemplateId };
+            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() 
+            { 
+                TargetTemplateId = targetTemplateId 
+            };
+
             IEnumerable<TargetTemplateKPIModel> selectedKPIs = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria);
             return selectedKPIs;
         }
@@ -110,10 +122,18 @@ namespace NexEPA.Controllers.API
         {
             dynamic data = null;
 
-            var getAllKPIByKPIGroupCriteria = new GetAllKPIByKPIGroupCriteria() { TargetTemplateId = targetTemplateId.Value };
+            var getAllKPIByKPIGroupCriteria = new GetAllKPIByKPIGroupCriteria() 
+            { 
+                TargetTemplateId = targetTemplateId.Value 
+            };
+
             IEnumerable<KPIViewModel> lstKPI = _kpiServices.GetAllKPIByKPIGroup(getAllKPIByKPIGroupCriteria);
 
-            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() { TargetTemplateId = targetTemplateId };
+            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() 
+            { 
+                TargetTemplateId = targetTemplateId 
+            };
+
             List<TargetTemplateKPIModel> lstSelectedKPI = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria).ToList();
             if (lstSelectedKPI != null)
             {
