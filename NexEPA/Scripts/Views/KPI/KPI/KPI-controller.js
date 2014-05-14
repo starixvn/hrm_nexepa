@@ -106,7 +106,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 					isDisabled = filter.active === 'true' ? false : true;
 				}
 
-				getKPI(filter.targetTypeId, filter.groupId, isDisabled);
+				getKPI(filter.targetTypeId, filter.kpiGroupId, isDisabled);
 				$scope.disabledSubmitButton = true;
 			}
 			else {
