@@ -20,7 +20,7 @@ namespace NexEPA.Report.Criteria
 
         public override bool IsValid()
         {
-            return true;
+            return EmployeeId > 0;
         }
 
         public override string GetSettingKey()

@@ -13,11 +13,9 @@ namespace NexEPA.Report.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Core.Service.Impl;
-    using NexEPA.Employee.Models;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Repositories.Implement;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;
@@ -87,8 +85,7 @@ namespace NexEPA.Report.Services.Implement
                 if (rawsEmployeePerformaceReport != null && rawsEmployeePerformaceReport.Count >= 1)
                 {
                     // Get Employee Information
-                    ReportEmployeeModel employee = GetEmployeeGeneralInformation((EmployeeModel)rawsEmployeePerformaceReport[0]);
-                    employeePerformaceReport.Add(employee);
+                    employeePerformaceReport.Add(rawsEmployeePerformaceReport[0]);
 
                     // Get History Project
                     List<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawsEmployeePerformaceReport[1]);
@@ -286,28 +283,6 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return historyProjectItem;
-        }
-
-        /// <summary>
-        /// Get general information of employee.
-        /// </summary>
-        /// <param name="rawEmployee">The raw employee.</param>
-        /// <returns>The ReportEmployeeModel.</returns>
-        private ReportEmployeeModel GetEmployeeGeneralInformation(EmployeeModel rawEmployee)
-        {
-            var employee = new ReportEmployeeModel
-            {
-                EmployeeId = rawEmployee.EmployeeId,
-                Code = rawEmployee.Code,
-                DomainUserName = rawEmployee.DomainUsername,
-                FullName = rawEmployee.FullName,
-                NickName = rawEmployee.NickName,
-                JobTitle = rawEmployee.JobTitle.Name,
-                Roles = rawEmployee.Roles,
-                TeamName = rawEmployee.Group.Name
-            };
-
-            return employee;
         }
     }
 }
