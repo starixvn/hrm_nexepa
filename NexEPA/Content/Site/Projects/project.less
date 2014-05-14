@@ -500,12 +500,6 @@ table td.row-highlight
 	margin: 0px 0px 0 0px !important;
 }
 
-.dropdown-menu-width
-{
-	min-width: 50px !important;
-	text-align: left;
-}
-
 /************TREE VIEW****************/
 
 div[data-tree-model] ul {
@@ -518,34 +512,37 @@ div[data-tree-model] ul {
 
 div[data-tree-model] li {
   position: relative;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 15px;
   line-height: 20px;
 }
 
 div[data-tree-model] li .expanded {
-  padding: 1px 10px;
-  background-image: url("../images/toggle_expanded.png");
-  background-repeat: no-repeat;
+  padding: 1px 8px;
+  background: url("../images/toggle_expanded.png") no-repeat -3px 2px;
   cursor: pointer;
 }
 
 div[data-tree-model] li .collapsed {
-  padding: 1px 10px;
-  background-image: url("../images/toggle_collapsed.png");
-  background-repeat: no-repeat;
+  padding: 1px 7px;
+  background: url("../images/toggle_collapsed.png") no-repeat -4px 2px;
   cursor: pointer;
 }
 
 div[data-tree-model] li .normal {
-  padding: 4px 10px;
-  background-image: url("../images/bullet-grey.png");
-  background-repeat: no-repeat;
+  padding: 4px 5px;
+  background: url("../images/bullet-grey.png") no-repeat -9px 0;
 }
 
 div[data-tree-model] li i, div[data-tree-model] li span {
   cursor: auto;
 }
 
+.childrenList ul li ul {
+    li {
+        color: #555;
+        line-height: 25px;
+    }
+}
 
 .container.page {
     .tbl-member {

@@ -36,7 +36,7 @@
 				</td>
 				<td class="column-limit">
 					<div data-angular-treeview="true" data-tree-id="milestoneTree" data-tree-model="project.milestoneTreeView"
-						data-node-id="id" data-node-label="label" data-node-children="children">
+						data-node-id="id" data-node-label="label" data-node-children="children" class="childrenList">
 					</div>
 					{{project.milestone.name}}
 				</td>
@@ -46,9 +46,9 @@
 				<td class="text-center member-limit">
 					<a href="" ng-click="detailProject(project,true)">{{project.members}}</a>
 				</td>
-				<td class="text-center">
+				<td>
 					<span class="dropdown" on-toggle="toggled(open)">
-						<a href class="dropdown-toggle">{{project.status|enumStatusText}}</a>
+						<a href class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
 						<ul class="dropdown-menu dropdown-menu-width">
 							<li ng-repeat="item in status" ng-hide="item.id == project.status">
 								<a ng-click="updateProjectStatus(project, item.id)" href="javascript:;">{{item.name}}</a>
