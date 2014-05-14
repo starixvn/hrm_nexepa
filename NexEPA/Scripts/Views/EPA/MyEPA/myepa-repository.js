@@ -7,7 +7,9 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 			var deferred = $q.defer();
 			$http.get('/api/EmployeeEPA/GetMyEPA', {
 				params: { targetId: targetId, employeeId: employeeId }
-			}).success(deferred.resolve).error(deferred.reject);
+			}).success(deferred.resolve).error(function (data, status) {
+				deferred.reject(status);
+			});
 			return deferred.promise;
 		},
 		getEmployeeEPA: function (targetId, employeeId) {
@@ -21,7 +23,7 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		},
 		addEmployeeEPA: function (employeeEPAResult) {
 			var deferred = $q.defer();
-			$http.post('/api/EmployeeEPA/', employeeEPAResult).success(deferred.resolve).error(deferred.reject);
+			$http.post('/api/EmployeeEPA/AddEmployeeEPA', employeeEPAResult).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
 		getEPAOfCurrentMember: function (projectId, status) {

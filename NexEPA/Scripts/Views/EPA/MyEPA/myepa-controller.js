@@ -116,6 +116,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		if (allowSubmit) {
 			employeeEPAResult.finalScore = $scope.finalScore;
 			employeeEPAResult.targetId = targetId;
+			debugger;
 			employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
 		}
 	};
@@ -169,8 +170,9 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 } ]);
 
-epaModule.controller('MyEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory', '$routeParams', '$window',
-function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window) {
+epaModule.controller('MyEPAController', ['$scope', 'employeeEPAFactory', 'notificationFactory',
+'$routeParams', '$window', 'ErrorService',
+function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService) {
 	/**
 	* Scope variables. 
 	*/
@@ -194,19 +196,21 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		calculateScore($scope, data.kpiInfo);
 	};
 
-	var errorGetEmployeeEPA = function (response) { notificationFactory.error('', response); };
+	var errorHandle = function (status) {
+		ErrorService.errorHandle(status);
+	};
 
 	/**
-	* Initialize data to view Edit Project. 
+	* Initialize data to view. 
 	*/
-	employeeEPAFactory.getMyEPA(targetId, employeeId).then(successGetEmployeeEPA, errorGetEmployeeEPA);
+	employeeEPAFactory.getMyEPA(targetId, employeeId).then(successGetEmployeeEPA, errorHandle);
 
 	/**
 	* Events 
 	*/
 
 	$scope.cancel = function () { $window.history.back(); };
-	
+
 } ]);
 
 // View EPA of Current Member Controller

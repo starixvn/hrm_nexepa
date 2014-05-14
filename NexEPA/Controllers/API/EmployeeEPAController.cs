@@ -54,7 +54,8 @@ namespace NexEPA.Controllers.API
         /// <param name="model">EPA Info Model.</param>
         /// <returns>Http Response.</returns>
         [ApiAuthorize(Roles = "PM,SA")]
-        public HttpResponseMessage Post(EPAInfoModel model)
+        [HttpPost]
+        public HttpResponseMessage AddEmployeeEPA(EPAInfoModel model)
         {
             var criteria = new AddOrUpdateEPAScoreCriteria()
             {
@@ -78,10 +79,25 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        public EPAInfoModel GetMyEPA(int targetId, int employeeId)
+        public HttpResponseMessage GetMyEPA(int targetId, int employeeId)
         {
-            EPAInfoModel epaInfo = GetEPAInformation(targetId, employeeId);
-            return epaInfo;
+            var currentUserId = this.CurrentUser.UserId;
+            EPAInfoModel epaInfo = null;
+            if (currentUserId == employeeId)
+            {
+                epaInfo = GetEPAInformation(targetId, employeeId);
+                if (epaInfo != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, epaInfo);
+                }
+
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.MethodNotAllowed, epaInfo);
+            }
         }
 
         [ApiAuthorize(Roles = "PM,SA")]

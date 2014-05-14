@@ -31,6 +31,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Implement;
     using NexEPA.Target.Services.Interfaces;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -64,6 +65,7 @@ namespace NexEPA.Controllers.API
             _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
         }
 
+        [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetTemplateModel> Get(int? targetTypeId = null)
         {
             GetAllTargetTemplateCriteria criteria = new GetAllTargetTemplateCriteria() { TargetTypeId = targetTypeId };
@@ -71,6 +73,7 @@ namespace NexEPA.Controllers.API
             return data;
         }
 
+        [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetType> GetAllTargetType()
         {
             GetAllTargetTypeCriteria criteria = new GetAllTargetTypeCriteria();
@@ -78,6 +81,7 @@ namespace NexEPA.Controllers.API
             return data;
         }
 
+        [ApiAuthorize(Roles = "SA")]
         public TargetTemplateModel GetTargetTemplateById(int targetTemplateId)
         {
             GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria() { TargetTemplateId = targetTemplateId };
@@ -85,6 +89,7 @@ namespace NexEPA.Controllers.API
             return data;
         }
 
+        [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetTemplateKPIModel> GetSelectedKPIByTargetTemplate(int targetTemplateId)
         {
             var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() { TargetTemplateId = targetTemplateId };
@@ -100,6 +105,7 @@ namespace NexEPA.Controllers.API
         /// <param name="targetTypeId">Target Type Id.</param>
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
+        [ApiAuthorize(Roles = "SA")]
         public dynamic GetKPI(bool onlySelected, int? targetTemplateId = null, int? targetTypeId = null, int? groupId = null)
         {
             dynamic data = null;
@@ -152,10 +158,15 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="targetTemplateId">TargetTemplate Id.</param>
         /// <returns>List KPIGroup Items.</returns>
+        [ApiAuthorize(Roles = "SA")]
         public List<KPIGroupViewModel> GetSelectedKPIGroupByTargetTemplate(int targetTemplateId)
         {
             List<KPIGroupViewModel> allGroups = null;
-            var getAllGroupCriteria = new GetAllKPIGroupCriteria { TargetTypeId = null };
+            var getAllGroupCriteria = new GetAllKPIGroupCriteria()
+            { 
+                TargetTypeId = null,
+                IsDisabled = false
+            };
             allGroups = _kpiGroupServices.GetAllKPIGroup(getAllGroupCriteria);
 
             if (allGroups != null)
@@ -184,6 +195,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Target Template model.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage Post(TargetTemplateModel model)
         {
             if (ModelState.IsValid)
@@ -215,6 +227,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Target Template model.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage Put(TargetTemplateModel model)
         {
             if (ModelState.IsValid)
@@ -248,11 +261,12 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="targetId">Target Template Id.</param>
         /// <returns>Http Response Message.</returns>
-        public HttpResponseMessage Delete(int targetId)
+        [ApiAuthorize(Roles = "SA")]
+        public HttpResponseMessage Delete(int targetTemplateId)
         {
             DeleteTargetTemplateCriteria criteria = new DeleteTargetTemplateCriteria()
             {
-                TargetId = targetId,
+                TargetTemplateId = targetTemplateId,
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now
             };
@@ -271,7 +285,8 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">TargetKPIGroupWeight Model.</param>
         /// <returns>Http Response Message.</returns>
-        public HttpResponseMessage AddKPIGroupWeight(TargetKPIGroupWeightModel model)
+        [ApiAuthorize(Roles = "SA")]
+        public HttpResponseMessage AddKPIGroupWeight(TargetKPIGroupWeight model)
         {
             string dataKPIGroupWeightXML = ConvertKPIGroupWeightToXML(model.KPIGroups);
             AddKPIGroupWeightCriteria criteria = new AddKPIGroupWeightCriteria()
@@ -296,6 +311,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Command Result.</returns>
+        [ApiAuthorize(Roles = "SA")]
         [HttpPut]
         public CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria)
         {
@@ -308,6 +324,7 @@ namespace NexEPA.Controllers.API
             return _targetTemplateService.UpdateTargetTemplateStatus(criteria);
         }
 
+        [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetSettingModel> GetTargetSetting()
         {
             var getTargetSettingCriteria = new GetTargetSettingCriteria();
@@ -321,6 +338,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Model contains target id and target template id.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage SetDefaultTargetTemplate(dynamic model)
         {
             var criteria = new SetTargetSettingCriteria() 

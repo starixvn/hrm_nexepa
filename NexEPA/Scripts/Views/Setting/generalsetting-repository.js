@@ -5,7 +5,10 @@ generalSettingModule.factory("generalSettingFactory", ['$http', '$q', function (
 	return {
 		getTargetSetting: function () {
 			var deferred = $q.defer();
-			$http.get('/api/targetTemplate/getTargetSetting').success(deferred.resolve).error(deferred.reject);
+			$http.get('/api/targetTemplate/getTargetSetting')
+			.success(deferred.resolve).error(function (data, status) {
+				deferred.reject(status);
+			});
 			return deferred.promise;
 		},
 		setDefaultTargetTemplate: function (targetTemplate) {

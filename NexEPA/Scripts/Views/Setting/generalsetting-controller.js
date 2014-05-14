@@ -12,8 +12,8 @@ var memberValidation = function (targetTemplateId) {
 };
 
 generalSettingModule.controller('GeneralSettingController',
-['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'generalSettingFactory',
-function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSettingFactory) {
+['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'generalSettingFactory', 'ErrorService',
+function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSettingFactory, ErrorService) {
 	/**
 	* Ajax event Loaded. 
 	*/
@@ -41,10 +41,11 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 	var successGetTargetSetting = function (data) { $scope.targetSettings = data;};
 	var successSetDefaultTargetTemplate = function () {
 		notificationFactory.success('SuccessSaveData', '');
-		generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorNotification);
+		generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorHandle);
 	};
-	var errorNotification = function (response) { notificationFactory.success('', response); };
-	// Popup Add New Memeber.
+	var errorHandle = function (status) {
+		ErrorService.errorHandle(status);
+	};
 
 	$scope.defaultTargetTemplate = function (targetTemplateId, targetTypeId) {
 		$scope.currentTargetTemplate = { targetTemplateId: targetTemplateId };
@@ -55,7 +56,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 	/**
 	* Initialize data to view Index.
 	*/
-	generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorNotification);
+	generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorHandle);
 
 } ]);
 

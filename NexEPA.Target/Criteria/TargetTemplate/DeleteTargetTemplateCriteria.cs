@@ -17,7 +17,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
     /// </summary>
     public class DeleteTargetTemplateCriteria : CriteriaBase
     {
-        public int TargetId { get; set; }
+        public int TargetTemplateId { get; set; }
 
         public DateTime ModifiedDate { get; set; }
 

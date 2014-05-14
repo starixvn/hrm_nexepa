@@ -42,8 +42,8 @@ var showWarningWeightMessage = function (kpiIds, notificationFactory) {
 };
 
 targetTemplateModule.controller('TargetTemplateController',
-['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'tabService', 'commonFactory',
-function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService, commonFactory) {
+['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'tabService', 'commonFactory', 'ErrorService',
+function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService, commonFactory, ErrorService) {
 	/**
 	* Ajax event Loaded. 
 	*/
@@ -54,18 +54,21 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 
 	// Success delete target template.
 	var successDeleteTargetTemplate = function () {
-		notificationFactory.success();
+		notificationFactory.success('SuccessDeleteData', '');
 		return targetTemplateFactory.getAllTargetTemplate(null).then(successGetAllTargetTemplate);
 	};
 
 	// Error notify when action failure.
-	var errorNotify = function (data) { notificationFactory.error(data); };
+	var errorNotify = function (data) { notificationFactory.error('', data); };
 
+	var errorHandle = function (status) {
+		ErrorService.errorHandle(status);
+	};
 	/**
 	* Initialize data to view Index.
 	*/
-	targetTemplateFactory.getAllTargetTemplate(null).then(successGetAllTargetTemplate);
-	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType);
+	targetTemplateFactory.getAllTargetTemplate(null).then(successGetAllTargetTemplate, errorHandle);
+	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType, errorHandle);
 	commonFactory.maxLengthDescription($scope);
 
 	/**
@@ -92,7 +95,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 		});
 
 		deleteModalInstance.result.then(function () {
-			targetTemplateFactory.deleteTargetTemplate(template.targetId).then(successDeleteTargetTemplate, errorNotify);
+			targetTemplateFactory.deleteTargetTemplate(template.targetTemplateId).then(successDeleteTargetTemplate, errorNotify);
 		});
 	};
 
@@ -158,8 +161,10 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 } ]);
 
 targetTemplateModule.controller('EditTargetTemplateController',
-['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'tabService', 'notificationFactory', '$timeout',
-function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, tabService, notificationFactory, $timeout) {
+['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory',
+'$modal', 'tabService', 'notificationFactory', '$timeout', 'ErrorService',
+function ($scope, $routeParams, $window, $location, targetTemplateFactory,
+$modal, tabService, notificationFactory, $timeout, ErrorService) {
 	/**
 	* Variables. 
 	*/
@@ -182,6 +187,10 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 		});
 	};
 
+	var errorHandle = function (status) {
+		ErrorService.errorHandle(status);
+	};
+
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 
 	var successUpdateTargetTemplate = function () {
@@ -201,7 +210,7 @@ function ($scope, $routeParams, $window, $location, targetTemplateFactory, $moda
 		$scope.editTemplate = data;
 		$scope.currentTargetTemplateName = data.name;
 		targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
-	});
+	}, errorHandle);
 
 	// Get Selected Tab in Edit Target Template Page.
 	if (tabService.getProperty() === true) {
@@ -361,14 +370,15 @@ function ($scope, $location, $window, targetTemplateFactory) {
 	/**
 	* Variables. 
 	*/
-
 	$scope.errors = [];
+
 	/**
 	* Ajax event Loaded. 
 	*/
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 	var successAddTargetTemplate = function () { $location.url('/TargetTemplate/Index'); };
 	var errorAddTargetTemplate = function (response) { $scope.errors = response; };
+
 	/**
 	* Initialize data to view Index.
 	*/
@@ -395,18 +405,32 @@ function ($scope, $location, $window, targetTemplateFactory) {
 
 
 targetTemplateModule.controller('DetailTargetTemplateController',
-['$scope', '$routeParams', '$window', 'targetTemplateFactory',
-function ($scope, $routeParams, $window, targetTemplateFactory) {
+['$scope', '$routeParams', '$window', 'targetTemplateFactory', 'ErrorService',
+function ($scope, $routeParams, $window, targetTemplateFactory, ErrorService) {
+	/**
+	* Variables. 
+	*/
 	var targetTemplateId = $routeParams.targetTemplateId;
+
+	/**
+	* Ajax event Loaded. 
+	*/
 	var succesGetListKPI = function (data) {
 		$scope.lstKPI = data;
 	};
 
+	var errorHandle = function (status) {
+		ErrorService.errorHandle(status);
+	};
+
+	/**
+	* Initialize data to view Details.
+	*/
 	targetTemplateFactory.getTargetTemplateById(targetTemplateId).then(function (data) {
 		$scope.editTemplate = data;
 		$scope.currentTargetTemplateName = data.name;
 		targetTemplateFactory.getKPI(targetTemplateId, null, null, true).then(succesGetListKPI);
-	});
+	}, errorHandle);
 
 	// Back
 	$scope.back = function () { $window.history.back(); };

@@ -210,6 +210,16 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+        [HttpGet]
+        [ApiAuthorize(Roles = "PM,SA")]
+        public ProjectModel GetProjectById(int projectId)
+        {
+            GetProjectByIdCriteria criteria = new GetProjectByIdCriteria { ProjectId = projectId };
+            ProjectModel project = _projectService.GetById(criteria);
+
+            return project;
+        }
+
         /// <summary>
         /// Render Employee Select list.
         /// </summary>
@@ -264,15 +274,6 @@ namespace NexEPA.Controllers.API
                     };
 
             return statusList;
-        }
-
-        [HttpGet]
-        public ProjectModel GetProjectById(int projectId)
-        {
-            GetProjectByIdCriteria criteria = new GetProjectByIdCriteria { ProjectId = projectId };
-            ProjectModel project = _projectService.GetById(criteria);
-
-            return project;
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

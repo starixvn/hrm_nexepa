@@ -238,9 +238,9 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 projectsSettingModule.controller('ViewDetailAndEditProjectController',
 ['$scope', '$routeParams', '$location', '$window', '$modal', 'projectDataFactory', 'ProjectSettingCache',
-'commonFactory', 'tabService', 'notificationFactory',
+'commonFactory', 'tabService', 'notificationFactory', 'ErrorService',
 function ($scope, $routeParams, $location, $window, $modal, projectDataFactory,
-ProjectSettingCache, commonFactory, tabService, notificationFactory) {
+ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService) {
 	/**
 	* Scope variables. 
 	*/
@@ -271,6 +271,11 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory) {
 		$scope.errors = response;
 	};
 
+	var errorHandle = function (status) {
+		debugger;
+		ErrorService.errorHandle(status);
+	};
+
 	/**
 	* Initialize data to view Edit Project. 
 	*/
@@ -298,7 +303,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory) {
 		$scope.dataTab.information = true;
 	}
 
-	projectDataFactory.getProjectById(projectId).then(successGetProjectById);
+	projectDataFactory.getProjectById(projectId).then(successGetProjectById, errorHandle);
 
 	// get Date Format
 	commonFactory.getDateFormat($scope);

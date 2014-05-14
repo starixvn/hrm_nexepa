@@ -23,7 +23,10 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
 		},
 		getProjectById: function (projectId) {
 			var deferred = $q.defer();
-			$http.get('/api/Project/GetProjectById/', { params: { projectId: projectId} }).success(deferred.resolve).error(deferred.reject);
+			$http.get('/api/Project/GetProjectById/', { params: { projectId: projectId} })
+			.success(deferred.resolve).error(function (data, status) {
+				deferred.reject(status);
+			});
 			return deferred.promise;
 		},
 		updateProject: function (project) {
