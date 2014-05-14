@@ -9,7 +9,6 @@
 
 namespace NexEPA.KPI.Model
 {
-    using System;
     using NexEPA.Core.Models;
 
     /// <summary>

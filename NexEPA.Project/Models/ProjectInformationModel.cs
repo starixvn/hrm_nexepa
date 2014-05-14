@@ -52,17 +52,17 @@ namespace NexEPA.Project.Models
                     lstTree = new List<TreeViewModel>();
                     if (Milestones.Count == 1)
                     {
-                        var item = Milestones[0];
+                        MilestoneModel item = Milestones[0];
                         milestoneTree = new TreeViewModel() { Id = ProjectId, Label = item.Name, Children = new List<TreeViewModel>() };
                     }
                     else
                     {
                         milestoneTree = new TreeViewModel() { Id = ProjectId, Label = Name, Children = new List<TreeViewModel>() };
-                        foreach (var item in Milestones)
+                        foreach (MilestoneModel item in Milestones)
                         {
                             if (item != null)
                             {
-                                TreeViewModel child = new TreeViewModel();
+                                var child = new TreeViewModel();
                                 child.Id = item.MilestoneId;
                                 child.Label = item.Name;
                                 milestoneTree.Children.Add(child);
