@@ -11,6 +11,7 @@ namespace NexEPA.Report.ViewModels
 {
     using System.Collections.Generic;
     using NexEPA.Employee.ViewModels;
+    using NexEPA.Project.Models;
     using NexEPA.Report.Models.Dashboard;
 
     /// <summary>
@@ -35,7 +36,7 @@ namespace NexEPA.Report.ViewModels
 
         public bool MilestoneEvaluation { get; set; }
 
-        public ReportProjectModel Project { get; set; }
+        public ProjectModel Project { get; set; }
 
         public EmployeeModel Evaluator { get; set; }
 

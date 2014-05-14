@@ -10,13 +10,14 @@
 namespace NexEPA.Report.Models.Dashboard
 {
     using NexEPA.Employee.ViewModels;
+    using NexEPA.Project.Models;
 
     /// <summary>
     /// Open Project Model.
     /// </summary>
     public class OpenProjectModel
     {
-        public ReportProjectModel Project { get; set; }
+        public ProjectModel Project { get; set; }
 
         public EmployeeModel Evaluator { get; set; }
 
