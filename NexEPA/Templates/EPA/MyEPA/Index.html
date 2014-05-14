@@ -89,13 +89,13 @@
 				</div>
 				<div class="col-sm-8 txt-value">
 					<span class="dropdown" on-toggle="toggled(open)">
-						<a href class="dropdown-toggle">{{employeeEPA.status|epaStatus}}</a>
+						<a ng-show="showMenuContext" href class="dropdown-toggle">{{employeeEPA.status|epaStatus}}</a>
 						<ul class="dropdown-menu dropdown-menu-width">
 							<li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
 								<a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
 							</li>
 						</ul>
-					</span><strong ng-show="isReadonly">{{employeeEPA.status|epaStatus}}</strong>
+					</span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
 				</div>
 			</div>
 		</div>

@@ -38,7 +38,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 		});
 	};
 
-	var successGetTargetSetting = function (data) { $scope.targetSettings = data;};
+	var successGetTargetSetting = function (data) { $scope.targetSettings = data; };
 	var successSetDefaultTargetTemplate = function () {
 		notificationFactory.success('SuccessSaveData', '');
 		generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorHandle);
@@ -51,8 +51,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 
 	$scope.defaultTargetTemplate = function (targetTemplateId, targetTypeId) {
 		$scope.currentTargetTemplate = { targetTemplateId: targetTemplateId };
-		targetTemplateFactory.getAllTargetTemplate(targetTypeId).then(successGetAllTargetTemplate);
-
+		targetTemplateFactory.getAllTargetTemplate(targetTypeId, false).then(successGetAllTargetTemplate);
 	};
 
 	/**

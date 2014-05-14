@@ -18,6 +18,8 @@ namespace NexEPA.Target.Criteria.TargetTemplate
     {
         public int? TargetTypeId { get; set; }
 
+        public bool? IsDisabled { get; set; }
+
         public override bool IsValid()
         {
             return true;

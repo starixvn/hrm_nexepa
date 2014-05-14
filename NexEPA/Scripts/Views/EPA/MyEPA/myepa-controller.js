@@ -56,6 +56,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var employeeId = $routeParams.employeeId;
 	var currentEPAStatus;
 	var newEPAStatus;
+	$scope.showMenuContext = true;
 
 	/**
 	* Function. 
@@ -202,6 +203,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	*/
 	$scope.max = 10;
 	$scope.isReadonly = true;
+	$scope.showMenuContext = false;
 	var targetId = $routeParams.targetId;
 	var employeeId = $routeParams.employeeId;
 
