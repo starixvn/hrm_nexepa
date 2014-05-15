@@ -38,10 +38,10 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Function to get all employees.
         /// </summary>
-        /// <param name="keyword">The keyword.</param>
+        /// <param name="keyword">The search keyword.</param>
         /// <param name="groupId">The Group Id.</param>
         /// <param name="isDisabled">Is Disabled.</param>
-        /// <returns>Employee list.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         [HttpGet]
         public IEnumerable<EmployeeModel> GetAllEmployee(string keyword = "", int? groupId = null, bool? isDisabled = null)
         {
@@ -71,7 +71,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="projectId">Project Id.</param>
         /// <param name="keyword">The keyword.</param>
-        /// <returns>Employee list.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         [HttpGet]
         public IEnumerable<EmployeeModel> GetEmployeeByProjectId(int? projectId = null, string keyword = "")
         {

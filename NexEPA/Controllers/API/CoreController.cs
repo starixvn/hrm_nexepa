@@ -44,7 +44,11 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<dynamic> GetAllProject()
         {
-            var criteria = new GetAllProjectToFilterCriteria();
+            var criteria = new GetAllProjectToFilterCriteria
+            {
+                IsNotShowClosed = true
+            };
+
             return _epaService.GetAllProjectToFilter(criteria);
         }
 

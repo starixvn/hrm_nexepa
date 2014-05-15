@@ -82,15 +82,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\TargetRepository.cs" />
     <Compile Include="Repositories\Implement\TargetTemplateRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ITargetRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ITargetTemplateRepository.cs" />
+    <Compile Include="Repositories\Interface\ITargetRepository.cs" />
+    <Compile Include="Repositories\Interface\ITargetTemplateRepository.cs" />
     <Compile Include="Services\Implement\TargetService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Services\Interfaces\ITargetServices.cs" />
+    <Compile Include="Services\Interface\ITargetServices.cs" />
     <Compile Include="ViewModels\TargetViewModel.cs" />
     <Compile Include="Services\Implement\TargetTemplateService.cs" />
-    <Compile Include="Services\Interfaces\ITargetTemplateService.cs" />
+    <Compile Include="Services\Interface\ITargetTemplateService.cs" />
     <Compile Include="Models\TargetKPIGroupModel.cs" />
   </ItemGroup>
   <ItemGroup>
