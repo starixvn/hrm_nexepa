@@ -57,7 +57,8 @@ namespace NexEPA.Project.Models
                     }
                     else
                     {
-                        milestoneTree = new TreeViewModel() { Id = ProjectId, Label = Name, Children = new List<TreeViewModel>() };
+                        string labelName = Milestones.Count.ToString() + " milestones";
+                        milestoneTree = new TreeViewModel() { Id = ProjectId, Label = labelName, Children = new List<TreeViewModel>() };
                         foreach (MilestoneModel item in Milestones)
                         {
                             if (item != null)

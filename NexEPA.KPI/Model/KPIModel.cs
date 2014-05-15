@@ -32,7 +32,7 @@ namespace NexEPA.KPI.Model
         {
             get
             {
-                return Score * 10;
+                return Score * 20;
             }
         }
 

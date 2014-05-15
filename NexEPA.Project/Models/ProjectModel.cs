@@ -28,7 +28,6 @@ namespace NexEPA.Project.Models
         [Required(ErrorMessage = "The field Start Date is required.")]  
         public DateTime? StartDate { get; set; }
 
-        [Required(ErrorMessage = "The field End Date is required.")]
         public DateTime? EndDate { get; set; }
 
         [Required(ErrorMessage = "The field Project Manager is required.")]

@@ -15,7 +15,7 @@ var calculateScore = function ($scope, kpiInfo) {
 			var currentItem = kpiGroupItem[i];
 			if (currentItem.score > 0) {
 				totalItemWeight += currentItem.weight;
-				totalItemScore += currentItem.score * currentItem.weight;
+				totalItemScore += currentItem.score * 2 * currentItem.weight;
 			}
 		});
 
@@ -50,7 +50,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	/**
 	* Scope variables. 
 	*/
-	$scope.max = 10;
+	$scope.max = 5;
 	$scope.isReadonly = false;
 	var targetId = $routeParams.targetId;
 	var employeeId = $routeParams.employeeId;

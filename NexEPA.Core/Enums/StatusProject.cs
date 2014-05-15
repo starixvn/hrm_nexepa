@@ -25,25 +25,13 @@ namespace NexEPA.Core.Enums
         /// <summary>
         /// In Progress item.
         /// </summary>
-        [Description("In Progress")]
-        InProgress = 1,
+        [Description("Open")]
+        Open = 1,
 
         /// <summary>
         /// Pending item.
         /// </summary>
-        [Description("Pending")]
-        Pending = 2,
-
-        /// <summary>
-        /// Resolved item.
-        /// </summary>
-        [Description("Resolved")]
-        Resolved = 3,
-
-        /// <summary>
-        /// Closed item.
-        /// </summary>
         [Description("Closed")]
-        Closed = 4
+        Close = 2,
     }
 }
