@@ -26,6 +26,7 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 	else {
 		employeeRepository.getAllGroup().success(function (groupList) {
 			$scope.groupOptions = groupList;
+			employeeCacheFactory.put("groupOptions", groupList);
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});

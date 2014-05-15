@@ -87,7 +87,7 @@
     <Compile Include="Services\Implement\TargetService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Services\Interface\ITargetServices.cs" />
+    <Compile Include="Services\Interface\ITargetService.cs" />
     <Compile Include="ViewModels\TargetViewModel.cs" />
     <Compile Include="Services\Implement\TargetTemplateService.cs" />
     <Compile Include="Services\Interface\ITargetTemplateService.cs" />

@@ -34,7 +34,7 @@ namespace NexEPA.Controllers.Target
     /// </summary>
     public class TargetController : BaseController
     {
-        private ITargetServices _targetServices;
+        private ITargetService _targetService;
         private IProjectService _projectService;
 
         public TargetController()
@@ -43,10 +43,10 @@ namespace NexEPA.Controllers.Target
         }
 
         public TargetController(
-            TargetService targetServices, 
+            TargetService targetService, 
             ProjectService projectService)
         {
-            _targetServices = targetServices ?? new TargetService();
+            _targetService = targetService ?? new TargetService();
             _projectService = projectService ?? new ProjectService();
         }
 
@@ -64,7 +64,7 @@ namespace NexEPA.Controllers.Target
                EndDate = endDate
             };
 
-            return _targetServices.GetAllTarget(criteria);
+            return _targetService.GetAllTarget(criteria);
         }
 
         [HttpGet]
@@ -76,7 +76,7 @@ namespace NexEPA.Controllers.Target
                 TargetId = targetId
             };
 
-            return _targetServices.GetTargetById(criteria);
+            return _targetService.GetTargetById(criteria);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace NexEPA.Controllers.Target
                 criteria.Status = (int)Status.Open;
             }
 
-            return _targetServices.Insert(criteria);
+            return _targetService.Insert(criteria);
         }
 
         [ApiAuthorize(Roles = "PM,SA")]
@@ -109,7 +109,7 @@ namespace NexEPA.Controllers.Target
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _targetServices.Update(criteria);
+            return _targetService.Update(criteria);
         }
 
         [ApiAuthorize(Roles = "PM,SA")]
@@ -122,7 +122,7 @@ namespace NexEPA.Controllers.Target
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _targetServices.UpdateStatus(criteria);
+            return _targetService.UpdateStatus(criteria);
         }
 
         [ApiAuthorize(Roles = "PM,SA")]
@@ -135,7 +135,7 @@ namespace NexEPA.Controllers.Target
                 ModifiedDate = DateTime.Now
             };
 
-            return _targetServices.Delete(criteria);
+            return _targetService.Delete(criteria);
         }
 
         [HttpGet]
@@ -160,7 +160,7 @@ namespace NexEPA.Controllers.Target
                  TargetId = targetId
             };
 
-            return _targetServices.GetTargetEmployeeByTargetId(criteria);
+            return _targetService.GetTargetEmployeeByTargetId(criteria);
         }
 
         [HttpPost]
@@ -173,7 +173,7 @@ namespace NexEPA.Controllers.Target
                 criteria.AddedDate = DateTime.Now;
             }
 
-            return _targetServices.InsertTargetEmployee(criteria);
+            return _targetService.InsertTargetEmployee(criteria);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace NexEPA.Controllers.Target
                 ModifiedDate = DateTime.Now
             };
 
-            return _targetServices.DeleteTargetEmployee(criteria);
+            return _targetService.DeleteTargetEmployee(criteria);
         }
 
         [HttpGet]
@@ -206,7 +206,7 @@ namespace NexEPA.Controllers.Target
                 KPIGroupId = groupId
             };
 
-            return _targetServices.GetKPIByTargetId(criteria);
+            return _targetService.GetKPIByTargetId(criteria);
         }
     }
 }

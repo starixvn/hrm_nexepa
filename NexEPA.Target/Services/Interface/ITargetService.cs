@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ITargetServices.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="ITargetService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -21,7 +21,7 @@ namespace NexEPA.Target.Services.Interface
     /// <summary>
     /// The interface of Target Service.
     /// </summary>
-    public interface ITargetServices
+    public interface ITargetService
     {
         List<TargetViewModel> GetAllTarget(GetTargetCriteria criteria);
 

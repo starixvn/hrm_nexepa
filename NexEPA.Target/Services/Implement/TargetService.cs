@@ -32,7 +32,7 @@ namespace NexEPA.Target.Services.Implement
     /// <summary>
     /// The implement of Target Service.
     /// </summary>
-    public class TargetService : BaseService, ITargetServices
+    public class TargetService : BaseService, ITargetService
     {
         private ITargetRepository _targetRepository;
 
