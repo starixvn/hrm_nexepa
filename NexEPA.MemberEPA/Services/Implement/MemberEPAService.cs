@@ -126,5 +126,22 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             return result;
         }
+
+        /// <summary>
+        /// Check employee permission.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>A value to check permission.</returns>
+        public int CheckEmployeePermission(GetEmployeePermissionCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            int result = -1;
+            if (criteria.IsValid())
+            {
+                result = GetDataEntity<int>(criteria);
+            }
+
+            return result;
+        }
     }
 }

@@ -253,6 +253,7 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 				templateUrl: '/templates/TargetTemplate/AddKPIGroup.html',
 				controller: "AddKPIGroup",
 				windowClass: 'app-modal-window',
+				backdrop: 'static',
 				resolve: {
 					KPIGroups: function () {
 						return data;

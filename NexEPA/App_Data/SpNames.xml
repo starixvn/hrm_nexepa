@@ -92,6 +92,7 @@
 		<Setting Key="EPA_InsertOrUpdateScore" SpName="EPA_InsertOrUpdateScore" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="EPA_GetMemberEPA" SpName="EPA_GetMemberEPA" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPA_UpdateStatus" SpName="EPA_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="EPA_CheckPermission" SpName="EPA_CheckPermission" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
   <Function Name="Report">
     <Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="1" ></Setting>

@@ -89,7 +89,14 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var successAddOrUpdateEPA = function () { notificationFactory.success('SuccessSaveData', ''); };
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
-		checkStatus(data.status);
+		if (data.permission === 2) {
+			checkStatus(data.status);
+		}
+		else {
+			$scope.isReadonly = true;
+			$scope.showMenuContext = false;
+		}
+
 		$scope.employeeEPA = data;
 		$scope.finalScore = data.finalScore;
 		var roleArray = [];

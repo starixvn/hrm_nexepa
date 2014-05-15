@@ -30,5 +30,7 @@ namespace NexEPA.MemberEPA.Services.Interface
         List<MemberEPAModel> GetEPAOfEmployeeByManager(GetEPAOfAllEmployeeByManagerCriteria criteria);
 
         CommandResult UpdateEPAStatus(UpdateEPAStatusCriteria criteria);
+
+        int CheckEmployeePermission(GetEmployeePermissionCriteria criteria);
     }
 }

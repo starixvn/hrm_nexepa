@@ -67,6 +67,8 @@ namespace NexEPA.MemberEPA.Models
 
         public bool CheckNullComment { get; set; }
 
+        public int Permission { get; set; }
+
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }
 
         public List<GroupingKPIModel> KPIInfo { get; set; }

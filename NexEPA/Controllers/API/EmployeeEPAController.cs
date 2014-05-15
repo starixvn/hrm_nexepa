@@ -105,11 +105,33 @@ namespace NexEPA.Controllers.API
             }
         }
 
-        [ApiAuthorize(Roles = "PM,SA")]
-        public EPAInfoModel GetEmployeeEPA(int targetId, int employeeId)
+        /// <summary>
+        /// Method Get Employee EPA.
+        /// </summary>
+        /// <param name="targetId">Target Id.</param>
+        /// <param name="employeeId">Employee Id.</param>
+        /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "PM,SA,Leader")]
+        public HttpResponseMessage GetEmployeeEPA(int targetId, int employeeId)
         {
-            EPAInfoModel epaInfo = GetEPAInformation(targetId, employeeId);
-            return epaInfo;
+            EPAInfoModel epaInfo = null;
+            var checkPermissionCriteria = new GetEmployeePermissionCriteria()
+            {
+                ActorUserId = this.CurrentUser.UserId,
+                EmployeeId = employeeId,
+                TargetId = targetId
+            };
+            int permission = _memberEPAService.CheckEmployeePermission(checkPermissionCriteria);
+
+            switch (permission)
+            {
+                case 0:
+                    return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
+                default:
+                    epaInfo = GetEPAInformation(targetId, employeeId);
+                    epaInfo.Permission = permission;
+                    return Request.CreateResponse(HttpStatusCode.OK, epaInfo);
+            }
         }
 
         [HttpGet]
