@@ -63,10 +63,12 @@
 					{{project.endDate| customDate}}
 				</td>
 				<td class="text-center">
-					<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="javascript:;"
-						ng-click="editProject(project.projectId)" />
-					<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="javascript:;"
-						ng-click="deleteProject(project)" />
+					<div ng-show="project.permission == 2">
+						<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="javascript:;"
+							ng-click="editProject(project.projectId)" />
+						<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="javascript:;"
+							ng-click="deleteProject(project)" />
+					</div>
 				</td>
 			</tr>
 			<tr ng-show="projects == ''">

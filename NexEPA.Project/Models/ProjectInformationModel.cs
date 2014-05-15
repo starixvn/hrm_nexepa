@@ -37,6 +37,8 @@ namespace NexEPA.Project.Models
 
         public string NickName { get; set; }
 
+        public int Permission { get; set; }
+
         public bool IsUpdateStatus { get; set; }
 
         public List<MilestoneModel> Milestones { get; set; }

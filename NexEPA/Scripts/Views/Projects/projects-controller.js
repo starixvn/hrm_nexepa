@@ -62,7 +62,7 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 		$scope.pms = cacheListPM;
 	}
 	else {
-		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+		projectDataFactory.getEmployeeSelectList(3).then(successGetEmployeeSelectList);
 	}
 
 	// Check for list Status has cache data.
@@ -190,7 +190,7 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 		$scope.pms = cacheListPM;
 	}
 	else {
-		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+		projectDataFactory.getEmployeeSelectList(3).then(successGetEmployeeSelectList);
 	}
 
 	// Check for list Status has cache data.
@@ -288,7 +288,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 		$scope.pms = cacheListPM;
 	}
 	else {
-		projectDataFactory.getEmployeeSelectList(1).then(successGetEmployeeSelectList);
+		projectDataFactory.getEmployeeSelectList(3).then(successGetEmployeeSelectList);
 	}
 
 	// Check for list Status has cache data.

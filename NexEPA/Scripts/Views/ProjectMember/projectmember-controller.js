@@ -177,7 +177,9 @@ function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFa
 	// get Date Format
 	commonFactory.getDateFormat($scope);
 
-	$scope.ok = function (employeeId, joinDate) {
+	$scope.ok = function (employee, joinDate) {
+		debugger;
+		var employeeId = employee.employeeId;
 		var selected = $scope.selection;
 		var member = {};
 		var check = projectMemberValidation(employeeId, selected, joinDate);

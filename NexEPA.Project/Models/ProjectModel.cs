@@ -52,6 +52,8 @@ namespace NexEPA.Project.Models
 
         public string NickName { get; set; }
 
+        public int Permission { get; set; }
+
         public MilestoneModel Milestone { get; set; }
     }
 }

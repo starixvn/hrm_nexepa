@@ -17,6 +17,8 @@ namespace NexEPA.Project.Criteria.Project
     /// </summary>
     public class GetAllProjectCriteria : CriteriaBase
     {
+        public int ActorUserId { get; set; }
+
         public int? ProjectManager { get; set; }
 
         public int? Status { get; set; }

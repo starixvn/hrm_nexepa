@@ -1,18 +1,19 @@
 ﻿<div class="row">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
-            <li><a href="" data-translate="Project" ng-click="cancel()"></a></li>
-            <li class="current" data-translate="ProjectDetail"></li>
-        </ul>
-        <div class="button-icon">
-            <span class="icon plus"></span><a href="" data-translate="EditProject" ng-click="editProject()">
-            </a>
-        </div>
-    </div>
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li>
+				<a href="" data-translate="Project" ng-click="cancel()"></a>
+			</li>
+			<li class="current" data-translate="ProjectDetail"></li>
+		</ul>
+		<div class="button-icon" ng-show="projectUpdate.permission == 2">
+			<span class="icon plus"></span>
+			<a href="" data-translate="EditProject" ng-click="editProject()"></a>
+		</div>
+	</div>
 </div>
-
 <div class="row">
-    <tabset class="top-buffer" id="projectInfoTab">
+	<tabset class="top-buffer" id="projectInfoTab">
 	    <tab heading="GENERAL INFORMATION" class="tab-cursor" active="dataTab.information">
 		    <form class="row common-form project-form" name="addProjectForm" novalidate>
 			    <div class="row boxtitle first" data-translate="ProjectInformation">

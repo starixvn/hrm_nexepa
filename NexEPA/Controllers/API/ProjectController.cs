@@ -56,8 +56,6 @@ namespace NexEPA.Controllers.API
         /// <param name="status">Project Status.</param>
         /// <param name="period">Project Period.</param>
         /// <returns>List Project Model.</returns>
-        ////[ApiAuthorize(Roles = "HR")]
-        [ApiAuthorize(Roles = "PM,SA")]
         public List<ProjectInformationModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
             dynamic projects = null;
@@ -69,6 +67,7 @@ namespace NexEPA.Controllers.API
 
             GetAllProjectCriteria criteria = new GetAllProjectCriteria()
                 {
+                    ActorUserId = this.CurrentUser.UserId,
                     ProjectManager = projectManager,
                     Status = status,
                     StartDate = startDate,
@@ -214,7 +213,11 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "PM,SA")]
         public ProjectModel GetProjectById(int projectId)
         {
-            GetProjectByIdCriteria criteria = new GetProjectByIdCriteria { ProjectId = projectId };
+            GetProjectByIdCriteria criteria = new GetProjectByIdCriteria
+            {
+                ProjectId = projectId,
+                ActorUserId = this.CurrentUser.UserId
+            };
             ProjectModel project = _projectService.GetById(criteria);
 
             return project;

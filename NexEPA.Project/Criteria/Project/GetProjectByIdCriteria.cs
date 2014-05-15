@@ -16,6 +16,8 @@ namespace NexEPA.Project.Criteria.Project
     /// </summary>
     public class GetProjectByIdCriteria : CriteriaBase
     {
+        public int ActorUserId { get; set; }
+
         public int ProjectId { get; set; }
 
         public override bool IsValid()

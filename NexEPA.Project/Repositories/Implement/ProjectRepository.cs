@@ -50,7 +50,8 @@ namespace NexEPA.Project.Repositories.Implement
                     x.StartDate,
                     x.EndDate,
                     x.Status,
-                    x.NickName
+                    x.NickName,
+                    x.Permission
                 },
                 x => x.Milestone).Select(y => new ProjectInformationModel
                 {
@@ -63,6 +64,7 @@ namespace NexEPA.Project.Repositories.Implement
                     StartDate = y.Key.StartDate.Value,
                     EndDate = y.Key.EndDate.Value,
                     Status = y.Key.Status.Value,
+                    Permission = y.Key.Permission,
                     Milestones = y.ToList()
                 }).ToList();
 
