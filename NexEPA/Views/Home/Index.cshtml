@@ -1,15 +1,14 @@
 ﻿@using System.Configuration;
 @using NexEPA.Resources;
-
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row header">
-    <a href="~/" class="col-xs-12 col-sm-2 logo">
-        <img src="~/content/site/images/logo.png" title="NexEPA" alt="NexEPA" />
-    </a>
-    <div class="col-xs-12 col-sm-10">
-        <nav id="navbar-example" class="navbar navbar-static top-menu" role="navigation">
+	<a href="~/" class="col-xs-12 col-sm-2 logo">
+		<img src="~/content/site/images/logo.png" title="NexEPA" alt="NexEPA" />
+	</a>
+	<div class="col-xs-12 col-sm-10">
+		<nav id="navbar-example" class="navbar navbar-static top-menu" role="navigation">
             <div class="bs-example-js-navbar-collapse">
                 <ul class="nav navbar-nav">
                 <li>
@@ -18,29 +17,31 @@
                 <li>
                     <a href="~/Employee/GetAllEmployee">@Lang.Employee</a>
                 </li>
-                @if (Roles.IsUserInRole("PM") || Roles.IsUserInRole("SA"))
-                { 
+                 
                 <li class="dropdown">
                     <a id="drop1" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">@Lang.Project <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="button" aria-labelledby="drop1">
                     
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="~/Projects/Index">@Lang.Project</a></li>
+					@if (Roles.IsUserInRole("PM") || Roles.IsUserInRole("SA"))
+	 {
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Target/ViewTarget">@Lang.Target</a></li>
+	 }
                     </ul>
                 </li>
-                }
+                
                 <li class="dropdown">
                     <a id="drop2" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">@Lang.EPA <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop1">
 					<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/MemberEPA/ViewCurrentMember">@Lang.MyEPA</a></li>
                     @if (Roles.IsUserInRole("SA") || Roles.IsUserInRole("PM") || Roles.IsUserInRole("Leader"))
-                    {
+					{
                         <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/MemberEPA/ViewMember">@Lang.MemberEPA</a></li> 
-                    }
+					}
                     </ul>
                 </li>
                 @if (Roles.IsUserInRole("SA") || Roles.IsUserInRole("PM") || Roles.IsUserInRole("Leader"))
-                {
+				{
                 <li class="dropdown">
                     <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Report <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop2">
@@ -48,9 +49,9 @@
                     <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Report/EmployeePerformanceByTeam">@Lang.EmployeePerformanceByTeam</a></li>
                    </ul>
                 </li>
-                }
+				}
                 @if (Roles.IsUserInRole("SA"))
-                { 
+				{ 
                 <li class="dropdown">
                     <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">@Lang.Admin <b class="caret"></b></a>
                     <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop2">
@@ -60,23 +61,23 @@
 					<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Setting/Index">@Lang.Settings</a></li>
                    </ul>
                 </li>
-                }
+				}
                 @if (ConfigurationManager.AppSettings["IsSimulatedLoginUser"].ToString().Equals("true"))
-                {
+				{
                     <li>
                         <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Test <b class="caret"></b></a>
                         <ul class="dropdown-menu" data-role="menu" aria-labelledby="drop2">
                             <li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="/Test/LoginAsAnotherUser">Login as another user</a></li>
                         </ul>
                     </li>
-                }
+				}
                 </ul>
             </div>
         </nav>
-        <ul class="list-inline info">
-            <li><span class="glyphicon glyphicon-user"></span>@ViewBag.User</li>
-        </ul>
-    </div>
+		<ul class="list-inline info">
+			<li><span class="glyphicon glyphicon-user"></span>@ViewBag.User</li>
+		</ul>
+	</div>
 </div>
 <div class="row" data-ng-view>
 </div>

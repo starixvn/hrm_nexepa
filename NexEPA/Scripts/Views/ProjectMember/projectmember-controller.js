@@ -11,10 +11,11 @@ var projectMemberValidation = function (employeeId, selected, joinDate) {
 	return false;
 };
 
-projectsSettingModule.controller("ProjectMembersController", ['$scope', '$routeParams', '$location', '$modal', '$window',
-'ProjectSettingCache', 'projectMilestoneService', 'projectMembersFactory', 'notificationFactory', 'projectDataFactory',
+projectsSettingModule.controller("ProjectMembersController",
+['$scope', '$routeParams', '$location', '$modal', '$window', 'ProjectSettingCache', 'projectMilestoneService',
+'projectMembersFactory', 'notificationFactory', 'projectDataFactory', 'projectService',
 function ($scope, $routeParams, $location, $modal, $window, ProjectSettingCache, projectMilestoneService,
-projectMembersFactory, notificationFactory, projectDataFactory) {
+projectMembersFactory, notificationFactory, projectDataFactory, projectService) {
 	/**
 	* Scope variable.
 	*/
@@ -22,7 +23,8 @@ projectMembersFactory, notificationFactory, projectDataFactory) {
 	var projectIdInUrl = $routeParams.projectId;
 	$scope.currentProject = [];
 	$scope.roles = [];
-
+	$scope.permission = projectService.getProperty();
+	debugger;
 	/**
 	* Ajax event loaded. 
 	*/

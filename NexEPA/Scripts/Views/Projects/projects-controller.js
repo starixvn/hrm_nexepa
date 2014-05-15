@@ -243,9 +243,9 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 projectsSettingModule.controller('ViewDetailAndEditProjectController',
 ['$scope', '$routeParams', '$location', '$window', '$modal', 'projectDataFactory', 'ProjectSettingCache',
-'commonFactory', 'tabService', 'notificationFactory', 'ErrorService',
+'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectService',
 function ($scope, $routeParams, $location, $window, $modal, projectDataFactory,
-ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService) {
+ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService, projectService) {
 	/**
 	* Scope variables. 
 	*/
@@ -266,7 +266,10 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 	var successGetProjectStatusSelectList = function (data) { $scope.status = data; };
 
 	// Get project by Id
-	var successGetProjectById = function (data) { $scope.projectUpdate = data; };
+	var successGetProjectById = function (data) {
+		$scope.projectUpdate = data;
+		projectService.setProperty(data.permission);
+	};
 
 	// Update Project success callback.
 	var successUpdateProject = function () { notificationFactory.success('SuccessSaveData', ''); };

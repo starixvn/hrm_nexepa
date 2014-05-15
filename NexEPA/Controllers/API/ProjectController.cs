@@ -210,7 +210,6 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "PM,SA")]
         public ProjectModel GetProjectById(int projectId)
         {
             GetProjectByIdCriteria criteria = new GetProjectByIdCriteria
