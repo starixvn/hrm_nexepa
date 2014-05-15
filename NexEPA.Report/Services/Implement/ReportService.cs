@@ -69,14 +69,14 @@ namespace NexEPA.Report.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The ReportEmployeePerformanceTendencyModel.</returns>
-        public ReportEmployeePerformanceTendencyModel GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria)
+        public EmployeePerformanceModel GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employeePerformanceReport = new ReportEmployeePerformanceTendencyModel();
+            var employeePerformanceReport = new EmployeePerformanceModel();
 
             if (criteria.IsValid())
             {
-                ReportEmployeePerformanceTendencyModel rawsEmployeePerformanceReport = _reportRepository.GetEmployeePerformanceTendancyReport(criteria);
+                EmployeePerformanceModel rawsEmployeePerformanceReport = _reportRepository.GetEmployeePerformanceTendancyReport(criteria);
 
                 if (rawsEmployeePerformanceReport != null)
                 {
@@ -95,10 +95,10 @@ namespace NexEPA.Report.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The ReportEmployeeByTeamModel.</returns>
-        public ReportEmployeePerformanceByTeamModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria)
+        public TeamPerformanceModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employeePerformanceByTeamReport = new ReportEmployeePerformanceByTeamModel();
+            var employeePerformanceByTeamReport = new TeamPerformanceModel();
 
             if (criteria.IsValid())
             {
@@ -184,7 +184,7 @@ namespace NexEPA.Report.Services.Implement
         /// <param name="rawHistoryProjects">The list history projects.</param>
         /// <param name="rawHistoryProjectItem">The current history project item.</param>
         /// <param name="sameProjectRows">The rows has same project.</param>
-        /// <param name="sameProjectButNoMilestoneRow">The rows has same project but no milestone.</param>
+        /// <param name="sameProjectButNoMilestoneRow">The row has same project but no milestone.</param>
         /// <returns>The HistoryProjectViewModel.</returns>
         private HistoryProjectViewModel GetProjectInCaseEvaluateByProjectAndMilestone(
             List<HistoryProjectModel> rawHistoryProjects,

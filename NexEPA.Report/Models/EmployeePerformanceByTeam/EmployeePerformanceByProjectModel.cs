@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportEmployeePerformanceByTeamEvaluatedByProjectModel.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="EmployeePerformanceByProjectModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace NexEPA.Report.Models.EmployeePerformanceByTeam
     /// <summary>
     /// The model of Employee Performance by Team that evaluated by project.
     /// </summary>
-    public class ReportEmployeePerformanceByTeamEvaluatedByProjectModel
+    public class EmployeePerformanceByProjectModel
     {
         public int EmployeeId { get; set; }
 

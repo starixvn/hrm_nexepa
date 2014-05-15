@@ -80,9 +80,9 @@ namespace NexEPA.Report.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Report Employee Performance Tendency Model.</returns>
-        public ReportEmployeePerformanceTendencyModel GetEmployeePerformanceTendancyReport(ICriteria criteria)
+        public EmployeePerformanceModel GetEmployeePerformanceTendancyReport(ICriteria criteria)
         {
-            var employeePerformanceTendencyReport = new ReportEmployeePerformanceTendencyModel();
+            var employeePerformanceTendencyReport = new EmployeePerformanceModel();
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -122,16 +122,16 @@ namespace NexEPA.Report.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Report Employee Performance By Team Model.</returns>
-        public ReportEmployeePerformanceByTeamModel GetEmployeePerformanceByTeamReport(ICriteria criteria)
+        public TeamPerformanceModel GetEmployeePerformanceByTeamReport(ICriteria criteria)
         {
-            var employeePerformanceByTeamReport = new ReportEmployeePerformanceByTeamModel();
+            var employeePerformanceByTeamReport = new TeamPerformanceModel();
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     var reportByProject = 
-                        multi.Read<ReportEmployeePerformanceByTeamEvaluatedByProjectModel, Group, ReportEmployeePerformanceByTeamEvaluatedByProjectModel>(
+                        multi.Read<EmployeePerformanceByProjectModel, Group, EmployeePerformanceByProjectModel>(
                         (re, gr) => 
                         {
                             re.Group = gr;

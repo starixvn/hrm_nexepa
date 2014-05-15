@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportEmployeePerformanceTendencyModel.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="EmployeePerformanceModel.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -17,7 +17,7 @@ namespace NexEPA.Report.Models.EmployeePerformanceTendency
     /// <summary>
     /// The model of Employee Performance Tendency report.
     /// </summary>
-    public class ReportEmployeePerformanceTendencyModel
+    public class EmployeePerformanceModel
     {
         public EmployeeModel EmployeeInformation { get; set; }
 

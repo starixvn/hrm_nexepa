@@ -38,7 +38,7 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA,Leader")]
-        public ReportEmployeePerformanceTendencyModel GetEmployeePerformanceTendencyReport(int employeeId)
+        public EmployeePerformanceModel GetEmployeePerformanceTendencyReport(int employeeId)
         {
             var criteria = new GetEmployeePerformanceTendencyReportCriteria
             {
@@ -59,7 +59,7 @@ namespace NexEPA.Controllers.API
         /// <returns>The Report Employee Performance By Team Model.</returns>
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA,Leader")]
-        public ReportEmployeePerformanceByTeamModel GetEmployeePerformanceByTeamReport(
+        public TeamPerformanceModel GetEmployeePerformanceByTeamReport(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
