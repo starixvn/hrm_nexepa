@@ -199,21 +199,20 @@ targetModule.controller('ViewTargetController',
 	function ($scope, $timeout, $location, $translate, $window, targetFactory, targetUtility, targetCacheFactory,
   KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
 
+		var targetDate = {
+			projectStartDate: null,
+			projectEndDate: null,
+			milestoneStartDate: null,
+			milestoneEndDate: null
+		};
+
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
 
 		// get Date Format
 		commonFactory.getDateFormat($scope);
 
-		// The onchange function of Form dropdown list
-		$scope.formOnChange = function (targetTypeId) {
-			targetUtility.resetProjectInformation($scope);
-
-			if (targetTypeId === 2) {
-				$scope.formIsProject = true;
-				targetUtility.getAllProject($scope);
-			}
-		};
+		targetUtility.getAllProject($scope);
 
 		// the onchange funtion of Project dropdown list
 		$scope.projectOnChange = function (projectId) {
@@ -223,6 +222,37 @@ targetModule.controller('ViewTargetController',
 			if (projectId) {
 				$scope.isSelectedProject = true;
 				targetUtility.getMilestone(projectId, $scope);
+
+				targetFactory.getProjectOrMilestoneDateById(projectId, null).success(function (projectDate) {
+					$scope.target.startDate = new Date(projectDate.startDate);
+					$scope.target.endDate = new Date(projectDate.endDate);
+					targetDate.projectStartDate = $scope.target.startDate;
+					targetDate.projectEndDate = $scope.target.endDate;
+				}).error(function () {
+					notificationFactory.error("ErrorMessage");
+				});
+			}
+			else {
+				$scope.target.startDate = null;
+				$scope.target.endDate = null;
+			}
+		};
+
+		// the onchange function of Milestone dropdown list
+		$scope.milestoneOnChange = function (projectId, milestoneId) {
+			if (milestoneId) {
+				targetFactory.getProjectOrMilestoneDateById(projectId, milestoneId).success(function (milestoneDate) {
+					$scope.target.startDate = new Date(milestoneDate.startDate);
+					$scope.target.endDate = new Date(milestoneDate.endDate);
+					targetDate.milestoneStartDate = $scope.target.startDate;
+					targetDate.milestoneEndDate = $scope.target.endDate;
+				}).error(function () {
+					notificationFactory.error("ErrorMessage");
+				});
+			}
+			else {
+				$scope.target.startDate = targetDate.projectStartDate;
+				$scope.target.endDate = targetDate.projectEndDate;
 			}
 		};
 
@@ -241,7 +271,7 @@ targetModule.controller('ViewTargetController',
 			$scope.submitted = true;
 			$scope.disabledSubmit = true;
 
-			if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
+			if (targetUtility.validateTarget(target)) {
 				var newTarget = angular.copy(target);
 
 				newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
@@ -329,144 +359,131 @@ targetModule.controller('TargetGeneralInformationController', ['$scope', '$route
 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
 function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 
-		var targetId = parseInt($routeParams.id),
-			isEditMode = $routeParams.isEditMode ? true : false;
-		$scope.isEditMode = isEditMode;
-		$scope.generalInformationLoaded = false;
+	var targetId = parseInt($routeParams.id),
+		isEditMode = $routeParams.isEditMode ? true : false;
+	$scope.isEditMode = isEditMode;
+	$scope.generalInformationLoaded = false;
 
-		$scope.$watch("tabGeneralSelect", function (newVal) {
-			if (newVal === true && $scope.generalInformationLoaded === false) {
-				// get Target by ID
-				targetFactory.getTargetById(targetId).success(function (target) {
-					if (isEditMode) {
-						target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
-						target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
-					}
-
-					$scope.target = target;
-
-					if (target.targetType && target.targetType.targetTypeId) {
-						$scope.target.targetTypeId = target.targetType.targetTypeId;
-					}
-
-					if (target.project && target.project.projectId) {
-						$scope.formIsProject = true;
-						targetUtility.getAllProject($scope);
-						$scope.target.projectId = target.project.projectId;
-
-						$scope.isSelectedProject = true;
-						targetUtility.getMilestone($scope.target.projectId, $scope);
-
-						if (target.milestone && target.milestone.milestoneId) {
-							$scope.target.milestoneId = target.milestone.milestoneId;
-						}
-					}
-
-				}).error(function () {
-					notificationFactory.error('ErrorMessage');
-				});
-
-				// get Form options
-				targetUtility.getFormOptions($scope, KPICommonRepository);
-
-				// get Date Format
-				commonFactory.getDateFormat($scope);
-
-				// get all status
-				targetUtility.getAllStatus($scope);
-
-				$scope.generalInformationLoaded = true;
-			}
-		});
-
-		// The onchange function of Form
-		$scope.formOnChange = function (targetTypeId) {
-			$scope.formIsProject = false;
-			$scope.isSelectedProject = false;
-
-			if (targetTypeId === 2) {
-				$scope.formIsProject = true;
-				$scope.isSelectedProject = true;
-				targetUtility.getAllProject($scope);
-			}
-		};
-
-		// the onchange funtion of Project
-		$scope.projectOnChange = function (projectId) {
-			$scope.isSelectedProject = false;
-
-			if (projectId) {
-				if ($scope.target) {
-					$scope.target.milestoneId = '';
+	$scope.$watch("tabGeneralSelect", function (newVal) {
+		if (newVal === true && $scope.generalInformationLoaded === false) {
+			// get Target by ID
+			targetFactory.getTargetById(targetId).success(function (target) {
+				if (isEditMode) {
+					target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
+					target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
 				}
 
-				$scope.isSelectedProject = true;
-				targetUtility.getMilestone(projectId, $scope);
-			}
-		};
+				$scope.target = target;
 
-		if (isEditMode) {
-			$scope.calendar = {
-				startDateOpened: false,
-				endDateOpened: false
-			};
+				if (target.targetType && target.targetType.targetTypeId) {
+					$scope.target.targetTypeId = target.targetType.targetTypeId;
+				}
 
-			// show start date calendar when click button start date
-			$scope.openPopupStartDate = function ($event) {
-				commonFactory.openPopupStartDate($event, $scope);
-			};
+				if (target.project && target.project.projectId) {
+					targetUtility.getAllProject($scope);
+					$scope.target.projectId = target.project.projectId;
 
-			// show end date calendar when click button end date
-			$scope.openPopupEndDate = function ($event) {
-				commonFactory.openPopupEndDate($event, $scope);
-			};
+					$scope.isSelectedProject = true;
+					targetUtility.getMilestone($scope.target.projectId, $scope);
 
-			// validation
-			targetUtility.showMessageAfterValidate($scope);
-
-			// update target
-			$scope.save = function (target) {
-				$scope.submitted = true;
-				$scope.disabledSubmit = true;
-
-				if (targetUtility.validateTarget(target, $scope.formIsProject) === true) {
-					var newTarget = angular.copy(target);
-
-					if (newTarget.targetTypeId !== 2) {
-						newTarget.projectId = null;
-						newTarget.milestoneId = null;
+					if (target.milestone && target.milestone.milestoneId) {
+						$scope.target.milestoneId = target.milestone.milestoneId;
 					}
-
-					newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
-					newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
-
-					targetFactory.editTarget(newTarget).success(function (response) {
-						if (response.isSuccessful === true) {
-							notificationFactory.success("UpdatedSuccessfulMessage");
-						}
-						else {
-							notificationFactory.error('', response.message);
-						}
-
-						$scope.disabledSubmit = false;
-					})
-					.error(function (response, status) {
-						if (status === 405) {
-							ErrorService.errorHandle(status);
-						}
-						else {
-							notificationFactory.error('ErrorMessage');
-						}
-
-						$scope.disabledSubmit = false;
-					});
 				}
-				else {
-					$scope.disabledSubmit = false;
-				}
-			};
+
+			}).error(function () {
+				notificationFactory.error('ErrorMessage');
+			});
+
+			// get Form options
+			targetUtility.getFormOptions($scope, KPICommonRepository);
+
+			// get Date Format
+			commonFactory.getDateFormat($scope);
+
+			// get all status
+			targetUtility.getAllStatus($scope);
+
+			$scope.generalInformationLoaded = true;
 		}
-	} ]);
+	});
+
+	// the onchange funtion of Project
+	$scope.projectOnChange = function (projectId) {
+		$scope.isSelectedProject = false;
+
+		if (projectId) {
+			if ($scope.target) {
+				$scope.target.milestoneId = '';
+			}
+
+			$scope.isSelectedProject = true;
+			targetUtility.getMilestone(projectId, $scope);
+		} 
+	};
+
+	if (isEditMode) {
+		$scope.calendar = {
+			startDateOpened: false,
+			endDateOpened: false
+		};
+
+		// show start date calendar when click button start date
+		$scope.openPopupStartDate = function ($event) {
+			commonFactory.openPopupStartDate($event, $scope);
+		};
+
+		// show end date calendar when click button end date
+		$scope.openPopupEndDate = function ($event) {
+			commonFactory.openPopupEndDate($event, $scope);
+		};
+
+		// validation
+		targetUtility.showMessageAfterValidate($scope);
+
+		// update target
+		$scope.save = function (target) {
+			$scope.submitted = true;
+			$scope.disabledSubmit = true;
+
+			if (targetUtility.validateTarget(target) === true) {
+				var newTarget = angular.copy(target);
+
+				if (newTarget.targetTypeId !== 2) {
+					newTarget.projectId = null;
+					newTarget.milestoneId = null;
+				}
+
+				newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
+				newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
+
+				targetFactory.editTarget(newTarget).success(function (response) {
+					if (response.isSuccessful === true) {
+						notificationFactory.success("UpdatedSuccessfulMessage");
+					}
+					else {
+						notificationFactory.error('', response.message);
+					}
+
+					$scope.disabledSubmit = false;
+				})
+				.error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error('ErrorMessage');
+					}
+
+					$scope.disabledSubmit = false;
+				});
+			}
+			else {
+				$scope.disabledSubmit = false;
+			}
+		};
+	}
+} ]);
 
 // Target Members Controller
 targetModule.controller('TargetMembersController', ['$scope', '$modal', '$routeParams', 'targetFactory', 'ErrorService', 'targetUtility',

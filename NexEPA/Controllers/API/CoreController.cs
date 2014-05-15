@@ -16,11 +16,12 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
+    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Core controller.
     /// </summary>
-    public class CoreController : ApiController
+    public class CoreController : BaseController
     {
         private IEPAService _epaService;
 
@@ -46,7 +47,8 @@ namespace NexEPA.Controllers.API
         {
             var criteria = new GetAllProjectToFilterCriteria
             {
-                IsNotShowClosed = true
+                IsShowClosed = false,
+                ActorUserId = this.CurrentUser.UserId
             };
 
             return _epaService.GetAllProjectToFilter(criteria);

@@ -16,19 +16,7 @@
             </div>
         </div>
 
-         <div class="form-group required">
-            <label class="col-sm-3 control-label" data-translate="Form"></label>
-            <div class="col-sm-8">
-                 <select name="targetFormSelect" ng-model="target.targetTypeId" 
-                    ng-options="opt.targetTypeId as opt.name for opt in formOptions" 
-                    ng-change="formOnChange(target.targetTypeId)"
-                    required class="form-control">
-                    <option value="">-- Select the form --</option>
-                 </select>
-            </div>
-        </div>
-
-        <div class="form-group required" ng-show="formIsProject">
+        <div class="form-group required">
             <label class="col-sm-3 control-label" data-translate="Project"></label>
             <div class="col-sm-8">
                  <select name="targetProjectSelect" ng-model="target.projectId"
@@ -44,7 +32,7 @@
             <div class="col-sm-8">
                  <select name="targetMilestoneSelect" ng-model="target.milestoneId"
                     ng-options="opt.milestoneId as opt.name for opt in milestoneOptions"
-                    class="form-control">
+                    ng-change="milestoneOnChange(target.projectId, target.milestoneId)" class="form-control">
                     <option value="">-- Select the milestone --</option>
                  </select>
             </div>

@@ -42,5 +42,7 @@ namespace NexEPA.Target.Services.Interface
         List<TargetKPIGroupModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria);
 
         CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria);
+
+        TargetDateModel GetProjectOrMilestoneDate(GetProjectOrMilestoneDateCriteria criteria);
     }
 }

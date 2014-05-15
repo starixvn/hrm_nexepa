@@ -16,7 +16,9 @@ namespace NexEPA.Core.Criteria
     /// </summary>
     public class GetAllProjectToFilterCriteria : CriteriaBase
     {
-        public bool? IsNotShowClosed { get; set; }
+        public bool? IsShowClosed { get; set; }
+
+        public int ActorUserId { get; set; }
 
         public override string GetSettingKey()
         {

@@ -10,6 +10,7 @@
 namespace NexEPA.Target.Services.Implement
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
@@ -290,6 +291,24 @@ namespace NexEPA.Target.Services.Implement
             }
 
             return kpiGroupItemList;
+        }
+
+        /// <summary>
+        /// Get project date or milestone date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Target Date Model.</returns>
+        public TargetDateModel GetProjectOrMilestoneDate(GetProjectOrMilestoneDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var targetDate = new TargetDateModel();
+
+            if (criteria.IsValid())
+            {
+                targetDate = GetData<TargetDateModel>(criteria).FirstOrDefault();
+            }
+
+            return targetDate;
         }
     }
 }

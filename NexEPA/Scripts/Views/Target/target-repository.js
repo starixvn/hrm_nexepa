@@ -43,6 +43,9 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 		},
 		getKPIByTargetId: function (targetId, groupId) {
 			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId} });
+		},
+		getProjectOrMilestoneDateById: function (projectId, miletoneId) {
+			return $http.get('/api/Target/GetProjectOrMilestoneDateById', { params: { projectId: projectId, milestoneId: miletoneId } });
 		}
 	};
 } ]);
@@ -93,7 +96,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 			});
 		};
 
-		utility.validateTarget = function (target, formIsProject) {
+		utility.validateTarget = function (target) {
 			if (target === undefined) {
 				return false;
 			}
@@ -101,13 +104,8 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 				if (target.name === undefined) {
 					return false;
 				}
-				else if (target.targetTypeId === undefined || target.targetTypeId === null) {
+				else if (target.projectId === undefined || target.projectId === null) {
 					return false;
-				}
-				else if (formIsProject) {
-					if (target.projectId === undefined || target.projectId === null) {
-						return false;
-					}
 				}
 			}
 
