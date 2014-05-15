@@ -30,7 +30,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Implement;
-    using NexEPA.Target.Services.Interfaces;
+    using NexEPA.Target.Services.Interface;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 

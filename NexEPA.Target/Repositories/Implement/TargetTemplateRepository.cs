@@ -13,7 +13,7 @@ namespace NexEPA.Target.Repositories.Implement
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Target.Models;
-    using NexEPA.Target.Repositories.Interfaces;
+    using NexEPA.Target.Repositories.Interface;
 
     /// <summary>
     /// Target Template Repository.

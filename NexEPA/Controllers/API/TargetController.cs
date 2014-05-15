@@ -24,7 +24,7 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Target.Criteria.Target.TargetKPI;
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Implement;
-    using NexEPA.Target.Services.Interfaces;
+    using NexEPA.Target.Services.Interface;
     using NexEPA.Target.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;

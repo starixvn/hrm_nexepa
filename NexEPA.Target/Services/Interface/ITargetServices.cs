@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
 // </history>
 
-namespace NexEPA.Target.Services.Interfaces
+namespace NexEPA.Target.Services.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
@@ -19,7 +19,7 @@ namespace NexEPA.Target.Services.Interfaces
     using NexEPA.Target.ViewModels;
 
     /// <summary>
-    /// The interface of Target Services.
+    /// The interface of Target Service.
     /// </summary>
     public interface ITargetServices
     {

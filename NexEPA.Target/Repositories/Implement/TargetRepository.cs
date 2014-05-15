@@ -17,7 +17,7 @@ namespace NexEPA.Target.Repositories.Implement
     using NexEPA.KPI.Model;
     using NexEPA.Project.Models;
     using NexEPA.Target.Models;
-    using NexEPA.Target.Repositories.Interfaces;
+    using NexEPA.Target.Repositories.Interface;
 
     /// <summary>
     /// The implement of Target Repository.
@@ -28,18 +28,18 @@ namespace NexEPA.Target.Repositories.Implement
         /// Get target.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>IEnumerable Target Info.</returns>
+        /// <returns>The enumerator Target Model.</returns>
         public IEnumerable<TargetModel> GetTarget(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<TargetModel, TargetType, ProjectModel, MilestoneModel, TargetModel>(
-                    (ti, ta, pro, mi) => 
+                    (tm, tt, pro, mi) => 
                     {
-                        ti.TargetType = ta;
-                        ti.Project = pro;
-                        ti.Milestone = mi;
-                        return ti;
+                        tm.TargetType = tt;
+                        tm.Project = pro;
+                        tm.Milestone = mi;
+                        return tm;
                     },
                     "TargetTypeId,ProjectId,MilestoneId",
                     criteria.GetSpParams());
@@ -50,18 +50,18 @@ namespace NexEPA.Target.Repositories.Implement
         /// Get Target by ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The TargetInfo.</returns>
+        /// <returns>The Target Model.</returns>
         public TargetModel GetTargetById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.QueryEntity<TargetModel, TargetType, ProjectModel, MilestoneModel, TargetModel>(
-                    (ti, ta, pro, mi) =>
+                    (tm, tt, pro, mi) =>
                     {
-                        ti.TargetType = ta;
-                        ti.Project = pro;
-                        ti.Milestone = mi;
-                        return ti;
+                        tm.TargetType = tt;
+                        tm.Project = pro;
+                        tm.Milestone = mi;
+                        return tm;
                     },
                     "TargetTypeId,ProjectId,MilestoneId",
                     criteria.GetSpParams());
@@ -72,17 +72,17 @@ namespace NexEPA.Target.Repositories.Implement
         /// Get KPI by Target ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The IEnumerable TargetKPIInfo.</returns>
+        /// <returns>The enumerator KPI Model.</returns>
         public IEnumerable<KPIModel> GetKPIByTargetId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<KPIModel, KPIGroupModel, TargetType, KPIModel>(
-                    (ti, tg, tt) =>
+                    (kpi, gr, tt) =>
                     {
-                        ti.Group = tg;
-                        ti.TargetType = tt;
-                        return ti;
+                        kpi.Group = gr;
+                        kpi.TargetType = tt;
+                        return kpi;
                     },
                     "KPIGroupId,TargetTypeId",
                     criteria.GetSpParams());
@@ -93,7 +93,7 @@ namespace NexEPA.Target.Repositories.Implement
         /// Get Target Employee by Target ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The IEnumerable EmployeeModel.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

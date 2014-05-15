@@ -6,10 +6,10 @@ homeModule.controller('ViewHomePageController',
 	function ($scope, $route, homeFactory, notificationFactory) {
 
 		$scope.dashboradInformation = {
-			generalInformation: null,
-			openProjects: null,
-			historyProjects: null,
-			listKPIs: null
+			generalInformation: '',
+			openProjects: '',
+			historyProjects: '',
+			listKPIs: ''
 		};
 
 		homeFactory.getGeneralInformationOfCurrentEmployee().success(function (dashboardInformation) {

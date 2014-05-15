@@ -13,7 +13,7 @@ namespace NexEPA.Target.Models
     using NexEPA.KPI.Model;
 
     /// <summary>
-    /// The Target KPI Group Item view model.
+    /// The Target KPI Group Item model.
     /// </summary>
     public class TargetKPIGroupModel
     {

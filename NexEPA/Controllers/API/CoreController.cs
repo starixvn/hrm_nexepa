@@ -16,8 +16,6 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
-    using NexEPA.Project.Services.Implement;
-    using NexEPA.Project.Services.Interface;
 
     /// <summary>
     /// Core controller.

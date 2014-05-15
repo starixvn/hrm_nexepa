@@ -56,10 +56,10 @@
                         <span ng-bind="truncateComment" original-comment="milestone.comment" truncate tooltip={{milestone.comment}}></span>
                     </td>
                 </tr>
-                <tr ng-show="dashboradInformation.historyProjects == ''">
-                    <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
-                </tr>
             </tbody>
+            <tr ng-show="dashboradInformation.historyProjects == ''">
+                    <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
+           </tr>
         </table>
     </div>
 </div>

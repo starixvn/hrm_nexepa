@@ -70,7 +70,7 @@
                 <td class="report-joined-date" ng-bind="employee.joinedDate | customDate"></td>
                 <td class="report-average-score" ng-bind="employee.averageScore"></td>
             </tr>
-            <tr ng-show="employeeReport == ''">
+            <tr ng-show="reportByProject == ''">
                 <td class="empty-result" colspan="7" data-translate="EmptyResult"></td>
             </tr>
         </table>

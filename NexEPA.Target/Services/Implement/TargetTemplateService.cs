@@ -17,8 +17,8 @@ namespace NexEPA.Target.Services.Implement
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
     using NexEPA.Target.Repositories.Implement;
-    using NexEPA.Target.Repositories.Interfaces;
-    using NexEPA.Target.Services.Interfaces;
+    using NexEPA.Target.Repositories.Interface;
+    using NexEPA.Target.Services.Interface;
 
     /// <summary>
     /// Target Template Service.

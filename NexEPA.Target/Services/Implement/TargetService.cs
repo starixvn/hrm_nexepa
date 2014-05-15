@@ -25,12 +25,12 @@ namespace NexEPA.Target.Services.Implement
     using NexEPA.Target.Criteria.Target.TargetKPI;
     using NexEPA.Target.Models;
     using NexEPA.Target.Repositories.Implement;
-    using NexEPA.Target.Repositories.Interfaces;
-    using NexEPA.Target.Services.Interfaces;
+    using NexEPA.Target.Repositories.Interface;
+    using NexEPA.Target.Services.Interface;
     using NexEPA.Target.ViewModels;
 
     /// <summary>
-    /// The implement of Target Services.
+    /// The implement of Target Service.
     /// </summary>
     public class TargetService : BaseService, ITargetServices
     {
@@ -45,7 +45,7 @@ namespace NexEPA.Target.Services.Implement
         /// Get target.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List Target Item.</returns>
+        /// <returns>List Target View Model.</returns>
         public List<TargetViewModel> GetAllTarget(GetTargetCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -201,7 +201,7 @@ namespace NexEPA.Target.Services.Implement
         /// Get Target's Employee by Target Id.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list TargetEmployeeItem.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(GetAllEmployeeByTargetIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -219,7 +219,7 @@ namespace NexEPA.Target.Services.Implement
         /// Insert Target's Employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The CommandResult.</returns>
+        /// <returns>The Command Result.</returns>
         public CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -237,7 +237,7 @@ namespace NexEPA.Target.Services.Implement
         /// Delete Target's Employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The CommandResult.</returns>
+        /// <returns>The Command Result.</returns>
         public CommandResult DeleteTargetEmployee(DeleteTargetEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -255,7 +255,7 @@ namespace NexEPA.Target.Services.Implement
         /// Get KPIs by Target ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List Target KPI Item.</returns>
+        /// <returns>List KPI Group Model.</returns>
         public List<TargetKPIGroupModel> GetKPIByTargetId(GetKPIByTargetIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
