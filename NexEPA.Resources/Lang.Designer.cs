@@ -655,6 +655,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Has comment.
+        /// </summary>
+        public static string HasComment {
+            get {
+                return ResourceManager.GetString("HasComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {

@@ -18,6 +18,9 @@ namespace NexEPA.Core.Criteria
     {
         public bool? IsDisabled { get; set; }
 
+        [SpParam(SqlParamName = "IsHasGetAll")]
+        public bool HasGetAll { get; set; }
+
         public override string GetSettingKey()
         {
             return "TargetType_GetAll";

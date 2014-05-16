@@ -573,4 +573,7 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="HasComment" xml:space="preserve">
+    <value>Has comment</value>
+  </data>
 </root>

@@ -6,7 +6,7 @@ kpiSettingModule.factory('KPIGroupRepository', ['$http', function ($http) {
 
 	return {
 		getAll: function (targetTypeId, isDisabled) {
-			return $http.get('/api/KPIGroup/GetAll', 
+			return $http.get('/api/KPIGroup/GetAll',
 				{ params: { targetTypeId: targetTypeId, isDisabled: isDisabled} });
 		},
 		getGroupById: function (groupId) {

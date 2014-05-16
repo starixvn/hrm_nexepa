@@ -27,7 +27,8 @@ namespace NexEPA.Core.Services
         /// <returns>List Target Type.</returns>
         public IEnumerable<TargetType> GetAllTargetType(GetAllTargetTypeCriteria criteria)
         {
-            return GetData<TargetType>(criteria);
+            IEnumerable<TargetType> listTargetType = GetData<TargetType>(criteria);
+            return listTargetType;
         }
 
         /// <summary>

@@ -13,6 +13,8 @@ namespace NexEPA.Controllers.API
     using System.Collections.Generic;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Services;
+    using NexEPA.Core.Services.Interface;
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;
@@ -27,14 +29,17 @@ namespace NexEPA.Controllers.API
     {
         private IKPIGroupService _kpiGroupServices;
 
+        private IEPAService _epaService;
+
         public KPIGroupController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public KPIGroupController(KPIGroupService kpiGroupServices)
+        public KPIGroupController(IKPIGroupService kpiGroupService, IEPAService epaService)
         {
-            _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
+            _kpiGroupServices = kpiGroupService ?? new KPIGroupService();
+            _epaService = epaService ?? new EPAService();
         }
 
         [HttpGet]
@@ -105,7 +110,7 @@ namespace NexEPA.Controllers.API
             return _kpiGroupServices.DeleteKPIGroup(criteria);
         }
 
-        public List<KPIGroupViewModel> GetGroupListByTargetTypeId(int targetTypeId)
+        public List<KPIGroupViewModel> GetGroupListByTargetTypeId(int? targetTypeId = null)
         {
             var criteria = new GetAllKPIGroupCriteria
             {

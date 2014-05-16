@@ -39,7 +39,10 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<TargetType> AllTargetType()
         {
-            var criteria = new GetAllTargetTypeCriteria();
+            var criteria = new GetAllTargetTypeCriteria
+            {
+                HasGetAll = true
+            };
             return _epaService.GetAllTargetType(criteria);
         }
 

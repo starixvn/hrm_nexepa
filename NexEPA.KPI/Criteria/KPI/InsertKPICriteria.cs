@@ -23,6 +23,8 @@ namespace NexEPA.KPI.Criteria.KPI
 
         public string KPIGroupIds { get; set; }
 
+        public bool HasComment { get; set; }
+
         public bool IsRequireComment { get; set; }
 
         public int CreatedBy { get; set; }

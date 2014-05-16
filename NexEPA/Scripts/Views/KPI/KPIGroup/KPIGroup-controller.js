@@ -196,15 +196,17 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 	kpiSettingModule.controller("CreateNewKPIGroupController", ['$scope', '$location', '$timeout',
 	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
 	function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository, notificationFactory) {
+
+		// get all from options
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
 			$scope.formOptions = formOptionsCache;
 		}
 		else {
-			KPICommonRepository.getFormOptions().then(function (listTargetType) {
-				$scope.formOptions = listTargetType;
-				CacheFactory.put("formOptions", listTargetType);
+			KPICommonRepository.getFormOptions().then(function (targetTypeList) {
+				$scope.formOptions = targetTypeList;
+				CacheFactory.put("formOptions", targetTypeList);
 			});
 		}
 

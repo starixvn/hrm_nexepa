@@ -43,9 +43,6 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 				if (item.name === undefined || item.name === null) {
 					return false;
 				}
-				else if (item.targetTypeId === undefined || item.targetTypeId === null) {
-					return false;
-				}
 				else if (common.validateAndCreateStringKPIGroupId(item) === false) {
 					return false;
 				}
@@ -64,17 +61,14 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 		};
 
 		common.showMessageAfterValidateKPI = function ($scope) {
-			$scope.$watchCollection('[submitted, form.$invalid, form.itemFormSelect.$error.required, \
+			$scope.$watchCollection('[submitted, form.$invalid, \
 				form.itemGroupSelect.$error.required, form.itemName.$error.required ]', function (newVals) {
 					if (newVals[0] === true && newVals[1] === true) {
-						if (newVals[4] === true) {
+						if (newVals[3] === true) {
 							notificationFactory.error("TitleRequire");
 						}
-						if (newVals[3] === true) {
-							notificationFactory.error("GroupRequire");
-						}
 						if (newVals[2] === true) {
-							notificationFactory.error("FormRequire");
+							notificationFactory.error("GroupRequire");
 						}
 
 						$scope.submitted = false;
@@ -131,10 +125,10 @@ kpiSettingModule.directive('numbersOnly', function () {
 kpiSettingModule.directive('multiSelectChosen', function () {
 	return {
 		link: function (scope, iElement) {
-			scope.$watch("groupOptions", function () {
+			scope.$watchCollection('groupOptions', function () {
 				iElement.trigger("chosen:updated");
 			});
-
+			iElement.on("change", scope.getSelectedOrDeselectedGroup);
 			iElement.chosen();
 		}
 	};

@@ -192,6 +192,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
 	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory) {
 
+		var currentChosenGroups = [];
+
 		var formOptionsCache = CacheFactory.get("formOptions");
 
 		if (formOptionsCache) {
@@ -209,7 +211,19 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		$scope.isCreatedFromKPI = false;
 
 		var getGroupOptions = function (targetTypeId) {
+			if (targetTypeId === 0) {
+				targetTypeId = null;
+			}
+
 			KPICommonRepository.getGroupByTargetTypeId(targetTypeId).then(function (groupList) {
+				if (currentChosenGroups) {
+					$.each(currentChosenGroups, function (index, group) {
+						if (!checkExist(groupList, group.kpiGroupID)) {
+							groupList.push(group);
+						}
+					});
+				}
+
 				$scope.groupOptions = groupList;
 			});
 		};
@@ -226,6 +240,50 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			$scope.isCreatedFromKPI = true;
 		}
 
+		var checkExist = function (groupList, kpiGroupId) {
+			var hasExist = false;
+
+			$.each(groupList, function (index, group) {
+				if (group.kpiGroupID === kpiGroupId) {
+					hasExist = true;
+					return false;
+				}
+			});
+
+			return hasExist ? true : false;
+		};
+
+		$scope.getSelectedOrDeselectedGroup = function (event, param) {
+			var index, selectedGroup, kpiGroupId;
+
+			if (param.selected) {
+				index = parseInt(param.selected),
+				selectedGroup = $scope.groupOptions[index],
+				kpiGroupId = selectedGroup.kpiGroupID;
+
+				if (currentChosenGroups) {
+					if (!checkExist(currentChosenGroups, kpiGroupId)) {
+						currentChosenGroups.push(selectedGroup);
+					}
+				}
+			}
+			else if (param.deselected) {
+				index = parseInt(param.deselected),
+				selectedGroup = $scope.groupOptions[index],
+				kpiGroupId = selectedGroup.kpiGroupID;
+
+				if (currentChosenGroups) {
+					var indexInCurrentChosen = currentChosenGroups.indexOf(selectedGroup);
+					currentChosenGroups.splice(indexInCurrentChosen, 0);
+				}
+
+				if (selectedGroup.targetTypeId !== $scope.item.targetTypeId) {
+					$scope.groupOptions.splice(index, 0);
+					$scope.$digest();
+				}
+			}
+		};
+
 		// form select on change
 		$scope.getGroupByTargetType = function (targetTypeId) {
 			if (targetTypeId !== undefined) {
@@ -233,9 +291,9 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			}
 			else {
 				$scope.groupOptions = [];
+				$scope.item.kpiGroupIds = [];
+				currentChosenGroups = [];
 			}
-
-			$scope.item.kpiGroupId = "";
 		};
 
 		// validation
@@ -255,6 +313,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 							item.name = null;
 							item.description = null;
 							item.isRequireComment = false;
+							item.hasComment = false;
 						}
 						else {
 							$timeout(function () {
@@ -292,21 +351,10 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
 	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory) {
 		var kpiId = $routeParams.id;
-		var formOptionsCache = CacheFactory.get("formOptions");
-
-		if (formOptionsCache) {
-			$scope.formOptions = formOptionsCache;
-		}
-		else {
-			KPICommonRepository.getFormOptions().then(function (targetTypeList) {
-				$scope.formOptions = targetTypeList;
-				CacheFactory.put("formOptions", targetTypeList);
-			});
-		}
 
 		KPIRepository.getKPIById(kpiId).success(function (kpiItem) {
 			$scope.item = kpiItem;
-			KPICommonRepository.getGroupByTargetTypeId(kpiItem.targetTypeId).then(function (groupList) {
+			KPICommonRepository.getGroupByTargetTypeId(null).then(function (groupList) {
 				$scope.groupOptions = groupList;
 			});
 		}).error(function () {
