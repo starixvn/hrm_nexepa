@@ -341,7 +341,7 @@ function ($scope, $location, $routeParams, $window, targetUtility) {
 
 	// Edit Target
 	$scope.editTarget = function () {
-		var tabSelect = isMemberSelect ? '&viewMembers' : '';
+		var tabSelect = isMemberSelect ? '&viewMembers' : ( isKPISelect ? '&viewKPIs' : '');
 		$scope.editTargetUrl = '/Target/EditTarget/' + targetId + '?projectId=' + projectId + '&isEditMode' + tabSelect;
 	};
 
