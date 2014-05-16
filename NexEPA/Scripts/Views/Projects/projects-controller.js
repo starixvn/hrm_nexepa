@@ -106,13 +106,8 @@ notificationFactory, $modal, AuthService) {
 		projectDataFactory.filterData(filter).then(successFilterData);
 	};
 
-	$scope.editProject = function (projectId) {
-		$location.path('/Projects/Edit/' + projectId).search('isEditMode', true);
-	};
-
 	// View detail of project
 	$scope.detailProject = function (project, isMemberSelected) {
-		$location.path('/Projects/Detail/' + project.projectId);
 		tabService.setProperty(isMemberSelected);
 	};
 
@@ -261,9 +256,9 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 projectsSettingModule.controller('ViewDetailAndEditProjectController',
 ['$scope', '$routeParams', '$location', '$window', '$modal', 'projectDataFactory', 'ProjectSettingCache',
-'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectService',
+'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectPermissionService',
 function ($scope, $routeParams, $location, $window, $modal, projectDataFactory,
-ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService, projectService) {
+ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService, projectPermissionService) {
 	/**
 	* Scope variables. 
 	*/
@@ -273,6 +268,8 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 	$scope.dataTab = {};
 	var cacheListPM = ProjectSettingCache.get("CacheListPM");
 	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+	$scope.formReadOnly = true;
+	var viewDetailMode = false;
 
 	/**
 	* Ajax event. 
@@ -281,12 +278,22 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 	var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
 
 	// Get data to Status - Select List
-	var successGetProjectStatusSelectList = function (data) { $scope.status = data; };
+	var successGetProjectStatusSelectList = function (data) {
+		$scope.status = data;
+		ProjectSettingCache.put("CacheListStatus", data);
+	};
 
 	// Get project by Id
 	var successGetProjectById = function (data) {
+
+		if (window.location.href.indexOf("Detail") > -1) {
+			viewDetailMode = true;
+		}
+		if (data.permission === 2 && !viewDetailMode) {
+			$scope.formReadOnly = false;
+		}
 		$scope.projectUpdate = data;
-		projectService.setProperty(data.permission);
+		projectPermissionService.setProperty(data.permission);
 	};
 
 	// Update Project success callback.
@@ -336,6 +343,15 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 	/**
 	* Events 
 	*/
+	// Tab Select
+	$scope.tabInfoSelect = function () {
+		tabService.setProperty(false);
+	};
+
+	$scope.tabMemberSelect = function () {
+		tabService.setProperty(true);
+	};
+
 	// Update
 	$scope.update = function (project) {
 		projectDataFactory.updateProject(project).then(successUpdateProject, errorUpdateProject);
@@ -363,7 +379,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 
 	// Edit project
 	$scope.editProject = function () {
-		$location.path('/Projects/Edit/' + projectId).search('isEditMode', true);
+		//$scope.formReadOnly = false;
 	};
 
 } ]);

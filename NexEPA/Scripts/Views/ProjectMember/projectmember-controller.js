@@ -13,28 +13,21 @@ var projectMemberValidation = function (employeeId, selected, joinDate) {
 
 projectsSettingModule.controller("ProjectMembersController",
 ['$scope', '$routeParams', '$location', '$modal', '$window', 'ProjectSettingCache', 'projectMilestoneService',
-'projectMembersFactory', 'notificationFactory', 'projectDataFactory', 'projectService',
+'projectMembersFactory', 'notificationFactory', 'projectDataFactory', 'projectPermissionService',
 function ($scope, $routeParams, $location, $modal, $window, ProjectSettingCache, projectMilestoneService,
-projectMembersFactory, notificationFactory, projectDataFactory, projectService) {
+projectMembersFactory, notificationFactory, projectDataFactory, projectPermissionService) {
 	/**
 	* Scope variable.
 	*/
 	$("#memberValid").hide();
 	var projectIdInUrl = $routeParams.projectId;
-	$scope.currentProject = [];
 	$scope.roles = [];
-	$scope.permission = projectService.getProperty();
-	debugger;
+
 	/**
 	* Ajax event loaded. 
 	*/
 	var successGetMembers = function (data) {
 		$scope.members = data;
-	};
-	var successGetMilestones = function (data) { $scope.milestones = data; };
-	// Get project by Id
-	var successGetProjectById = function (data) {
-		$scope.currentProject = data;
 	};
 
 	var successDeleteMember = function () {
@@ -47,14 +40,18 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectService) 
 	* Initialize data to view Index.
 	*/
 	projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
-	projectMembersFactory.getMilestone(projectIdInUrl).then(successGetMilestones);
-	projectDataFactory.getProjectById(projectIdInUrl).then(successGetProjectById);
 
 	// Watch for Milestone list change in MilestoneController.
 	$scope.$watch(function () {
 		return projectMilestoneService.getProperty();
 	}, function (value) {
 		$scope.milestones = value;
+	});
+
+	$scope.$watch(function () {
+		return projectPermissionService.getProperty();
+	}, function (value) {
+		$scope.permission = value;
 	});
 
 	/**
@@ -180,7 +177,6 @@ function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFa
 	commonFactory.getDateFormat($scope);
 
 	$scope.ok = function (employee, joinDate) {
-		debugger;
 		var employeeId = employee.employeeId;
 		var selected = $scope.selection;
 		var member = {};

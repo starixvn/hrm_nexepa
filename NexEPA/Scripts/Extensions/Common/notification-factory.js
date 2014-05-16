@@ -1,4 +1,4 @@
-﻿/*global registrationModule, toastr*/
+﻿/*global registrationModule, toastr, projectsSettingModule*/
 'use strict';
 
 registrationModule.factory('notificationFactory', ['$translate', function ($translate) {
@@ -46,6 +46,12 @@ registrationModule.factory('AuthService', ['$http', function ($http) {
 			return currentUser;
 		}
 	};
+} ]);
+
+projectsSettingModule.run(['$http', 'ProjectSettingCache', function ($http, ProjectSettingCache) {
+	$http.get('/api/Project/RenderProjectStatusSelectList').success(function (data) {
+		ProjectSettingCache.put("CacheListStatus", data);
+	});
 } ]);
 
 registrationModule.run(['AuthService', function (AuthService) {

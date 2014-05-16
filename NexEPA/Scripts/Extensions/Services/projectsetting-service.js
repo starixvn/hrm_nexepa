@@ -1,7 +1,7 @@
 ﻿/*global projectsSettingModule, registrationModule*/
 'use strict';
 
-registrationModule.service('projectService', function () {
+projectsSettingModule.service('projectMilestoneService', function () {
 	var property;
 	return {
 		getProperty: function () {
@@ -13,7 +13,7 @@ registrationModule.service('projectService', function () {
 	};
 });
 
-projectsSettingModule.service('projectMilestoneService', function () {
+projectsSettingModule.service('projectPermissionService', function () {
 	var property;
 	return {
 		getProperty: function () {

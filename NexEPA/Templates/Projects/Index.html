@@ -32,7 +32,7 @@
 					{{$index + 1}}
 				</td>
 				<td class="column-limit">
-					<a href="" ng-click="detailProject(project,false)">{{project.name}} </a>
+					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,false)">{{project.name}} </a>
 				</td>
 				<td class="column-limit">
 					<div data-angular-treeview="true" data-tree-id="milestoneTree" data-tree-model="project.milestoneTreeView"
@@ -44,7 +44,7 @@
 					<span tooltip="{{project.fullName}}">{{project.nickName}}</span>
 				</td>
 				<td class="text-center member-limit">
-					<a href="" ng-click="detailProject(project,true)">{{project.members}}</a>
+					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">{{project.members}}</a>
 				</td>
 				<td>
 					<span class="dropdown" on-toggle="toggled(open)" ng-show="project.permission == 2">
@@ -65,7 +65,7 @@
 				</td>
 				<td class="text-center">
 					<div ng-show="project.permission == 2">
-						<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="javascript:;"
+						<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="/Projects/Edit/{{project.projectId}}"
 							ng-click="editProject(project.projectId)" />
 						<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="javascript:;"
 							ng-click="deleteProject(project)" />
