@@ -202,6 +202,10 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		else {
 			KPICommonRepository.getFormOptions().then(function (targetTypeList) {
 				$scope.formOptions = targetTypeList;
+				$scope.item = {
+					targetTypeId: targetTypeList[0].targetTypeId
+				};
+				$scope.getGroupOptions(targetTypeList[0].targetTypeId);
 				CacheFactory.put("formOptions", targetTypeList);
 			});
 		}
@@ -210,7 +214,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		var groupId = $routeParams.groupId;
 		$scope.isCreatedFromKPI = false;
 
-		var getGroupOptions = function (targetTypeId) {
+		$scope.getGroupOptions = function (targetTypeId) {
 			if (targetTypeId === 0) {
 				targetTypeId = null;
 			}
@@ -240,6 +244,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			$scope.isCreatedFromKPI = true;
 		}
 
+		// check if group exist in list group
 		var checkExist = function (groupList, kpiGroupId) {
 			var hasExist = false;
 
@@ -253,6 +258,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			return hasExist ? true : false;
 		};
 
+		// onchange function when select KPI Group
 		$scope.getSelectedOrDeselectedGroup = function (event, param) {
 			var index, selectedGroup, kpiGroupId;
 
@@ -287,14 +293,15 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		// form select on change
 		$scope.getGroupByTargetType = function (targetTypeId) {
 			if (targetTypeId !== undefined) {
-				getGroupOptions(targetTypeId);
-			}
-			else {
-				$scope.groupOptions = [];
-				$scope.item.kpiGroupIds = [];
-				currentChosenGroups = [];
+				$scope.getGroupOptions(targetTypeId);
 			}
 		};
+
+		$scope.$watch('item.hasComment', function (newValue) {
+			if (newValue === false) {
+				$scope.item.isRequireComment = false;
+			}
+		});
 
 		// validation
 		KPICommonRepository.showMessageAfterValidateKPI($scope);
@@ -359,6 +366,12 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			});
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
+		});
+
+		$scope.$watch('item.hasComment', function (newValue) {
+			if (newValue === false) {
+				$scope.item.isRequireComment = false;
+			}
 		});
 
 		// validation

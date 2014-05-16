@@ -35,7 +35,8 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="checkbox" ng-checked="item.hasComment" ng-model="item.hasComment" />
                 <span data-translate="HasComment"></span>
-                <input class="KPI-require-comment" type="checkbox" ng-checked="item.isRequireComment" ng-model="item.isRequireComment"/> 
+                <input class="KPI-require-comment" type="checkbox" ng-checked="item.isRequireComment" 
+                    ng-model="item.isRequireComment" ng-disabled="!item.hasComment"/> 
                 <span data-translate="RequireComment"></span>
             </div>
         </div>

@@ -17,7 +17,6 @@
                     ng-change="getGroupByTargetType(item.targetTypeId)"
                     ng-disabled="!isCreatedFromKPI"
                     required class="form-control">
-                    <option value="">-- Select the form --</option>
                  </select>
             </div>
         </div>
@@ -47,7 +46,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="checkbox" ng-model="item.hasComment" />
                 <span data-translate="HasComment"></span>
-                <input class="KPI-require-comment" type="checkbox" ng-model="item.isRequireComment" />
+                <input class="KPI-require-comment" type="checkbox" ng-model="item.isRequireComment" ng-disabled="!item.hasComment"/>
                 <span data-translate="RequireComment"></span>
              </div>
         </div>
