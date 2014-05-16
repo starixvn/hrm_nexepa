@@ -362,7 +362,9 @@ namespace NexEPA.Controllers.API
             var criteria = new SetTargetSettingCriteria() 
             {
                 TargetTypeId = model.targetTypeId,
-                TargetTemplateId = model.targetTemplateId
+                TargetTemplateId = model.targetTemplateId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
             };
             CommandResult result = this._targetTemplateService.SetDefaultTargetTemplate(criteria);
             if (result.Code != 0)

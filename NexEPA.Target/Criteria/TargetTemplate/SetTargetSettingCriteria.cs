@@ -9,6 +9,7 @@
 
 namespace NexEPA.Target.Criteria.TargetTemplate
 {
+    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -19,6 +20,10 @@ namespace NexEPA.Target.Criteria.TargetTemplate
         public int TargetTypeId { get; set; }
 
         public int TargetTemplateId { get; set; }
+
+        public int ModifiedBy { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
 
         public override bool IsValid()
         {
