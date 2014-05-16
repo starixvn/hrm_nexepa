@@ -194,21 +194,14 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 		var currentChosenGroups = [];
 
-		var formOptionsCache = CacheFactory.get("formOptions");
-
-		if (formOptionsCache) {
-			$scope.formOptions = formOptionsCache;
-		}
-		else {
-			KPICommonRepository.getFormOptions().then(function (targetTypeList) {
-				$scope.formOptions = targetTypeList;
-				$scope.item = {
-					targetTypeId: targetTypeList[0].targetTypeId
-				};
-				$scope.getGroupOptions(targetTypeList[0].targetTypeId);
-				CacheFactory.put("formOptions", targetTypeList);
-			});
-		}
+		KPICommonRepository.getFormOptions().then(function (targetTypeList) {
+			$scope.formOptions = targetTypeList;
+			$scope.item = {
+				targetTypeId: targetTypeList[0].targetTypeId
+			};
+			$scope.getGroupOptions(targetTypeList[0].targetTypeId);
+			CacheFactory.put("formOptions", targetTypeList);
+		});
 
 		var targetTypeId = $routeParams.form;
 		var groupId = $routeParams.groupId;
@@ -233,7 +226,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		};
 
 		if (targetTypeId !== undefined) {
-			getGroupOptions(targetTypeId);
+			$scope.getGroupOptions(targetTypeId);
 
 			$scope.item = {
 				targetTypeId: parseInt(targetTypeId),
