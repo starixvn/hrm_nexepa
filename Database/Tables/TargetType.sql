@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetType]    Script Date: 3/5/2014 2:58:18 PM ******/
+/****** Object:  Table [dbo].[TargetType]    Script Date: 5/16/2014 9:02:35 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,8 +12,10 @@ CREATE TABLE [dbo].[TargetType](
 	[TargetTypeId] [tinyint] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](200) NULL,
 	[IsDisabled] [bit] NULL,
-	[DisplayOrder] [tinyint] NULL
-CONSTRAINT [PK_TargetTypeId] PRIMARY KEY CLUSTERED 
+	[DisplayOrder] [tinyint] NULL,
+	[ScoreTypeId] [tinyint] NULL,
+	[ProcessGroupId] [int] NULL,
+ CONSTRAINT [PK_TargetTypeId] PRIMARY KEY CLUSTERED 
 (
 	[TargetTypeId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
