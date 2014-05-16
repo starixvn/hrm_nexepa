@@ -35,3 +35,19 @@ registrationModule.factory('notificationFactory', ['$translate', function ($tran
 		}
 	};
 } ]);
+
+registrationModule.factory('AuthService', ['$http', function ($http) {
+	var currentUser;
+	return {
+		currentUser: function () {
+			$http.get('/api/core/GetCurrentUser').success(function (data) {
+				currentUser = data;
+			});
+			return currentUser;
+		}
+	};
+} ]);
+
+registrationModule.run(['AuthService', function (AuthService) {
+	AuthService.currentUser();
+} ]);

@@ -58,8 +58,9 @@ namespace NexEPA.Controllers.API
         /// <returns>List Project Model.</returns>
         public List<ProjectInformationModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
-            dynamic projects = null;
+            List<ProjectInformationModel> projects = null;
             DateTime? startDate = null;
+            
             if (period != null)
             {
                 startDate = GetPeriodOfTime(period.Value);

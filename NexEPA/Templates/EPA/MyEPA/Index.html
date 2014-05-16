@@ -98,6 +98,18 @@
 					</span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
 				</div>
 			</div>
+
+			<div class="col-sm-6" >
+				<div class="col-sm-3">Evaluated
+				</div>
+				<div class="col-sm-8 txt-value" ng-show="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
+					<span class="glyphicon glyphicon-ok-circle epa-saved"></span>
+				</div>
+				<div class="col-sm-8 txt-value" ng-hide="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
+					<span class="glyphicon glyphicon-remove-circle epa-unsaved"></span>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>

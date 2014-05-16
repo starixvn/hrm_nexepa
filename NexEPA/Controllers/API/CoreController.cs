@@ -17,6 +17,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Models;
 
     /// <summary>
     /// Core controller.
@@ -58,6 +59,13 @@ namespace NexEPA.Controllers.API
         public IEnumerable<SelectListModel> GetAllStatus()
         {
             return EnumStatus.GetAllStatus();
+        }
+
+        [HttpGet]
+        public UserSession GetCurrentUser()
+        {
+            UserSession currentUser = this.CurrentUser;
+            return currentUser;
         }
     }
 }

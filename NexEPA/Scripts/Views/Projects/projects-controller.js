@@ -2,8 +2,16 @@
 'use strict';
 
 projectsSettingModule.controller('ProjectController',
-['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService', 'notificationFactory', '$modal',
-function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService, notificationFactory, $modal) {
+['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
+'notificationFactory', '$modal', 'AuthService',
+function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService,
+notificationFactory, $modal, AuthService) {
+	/**
+	* Scope Variable. 
+	*/
+	var currentUser;
+	$scope.createProjectPermission = false;
+
 	/**
 	* Project Setting Cache. 
 	*/
@@ -56,6 +64,16 @@ function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorServi
 	* Initialize data to view Index.
 	*/
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+	currentUser = AuthService.currentUser();
+	if (currentUser != null) {
+		var userRoles = currentUser.roles;
+		$.each(userRoles, function (i) {
+			var currentRoleId = userRoles[i].roleId;
+			if (currentRoleId === 1 || currentRoleId === 3) {
+				$scope.createProjectPermission = true;
+			}
+		});
+	}
 
 	// Check for list ProjectManager has cache data.
 	if (cacheListPM) {
