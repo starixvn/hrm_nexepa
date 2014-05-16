@@ -34,7 +34,10 @@
                     <td class="count" ng-bind="$parent.$index * listGroupKPI[$parent.$index - 1].kpIs.length + $index + 1" 
                                 ng-show="$parent.$first == false"></td>
                     <td ng-bind="kpiItem.name"></td>
-                    <td class="target-kpi-weight" ng-bind="kpiItem.weight"></td>
+                    <td class="target-kpi-weight">
+                        <span ng-bind="kpiItem.weight" ng-show="!kpiGroupItem.group.isSpreadKPI"></span>
+                        <span ng-bind="'-'" ng-show="kpiGroupItem.group.isSpreadKPI"></span>
+                    </td>
                 </tr>
                 </tbody>
             <tr ng-show="listKPI == ''">

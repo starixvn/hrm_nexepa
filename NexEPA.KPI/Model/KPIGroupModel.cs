@@ -24,6 +24,8 @@ namespace NexEPA.KPI.Model
 
         public int Weight { get; set; }
 
+        public bool IsSpreadKPI { get; set; }
+
         public bool IsDisabled { get; set; }
 
         public int NumberKPI { get; set; }
