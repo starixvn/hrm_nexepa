@@ -45,7 +45,10 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId} });
 		},
 		getProjectOrMilestoneDateById: function (projectId, miletoneId) {
-			return $http.get('/api/Target/GetProjectOrMilestoneDateById', { params: { projectId: projectId, milestoneId: miletoneId } });
+			return $http.get('/api/Target/GetProjectOrMilestoneDateById', { params: { projectId: projectId, milestoneId: miletoneId} });
+		},
+		getKPIGroupByTargetId: function (targetId) {
+			return $http.get('/api/Target/GetKPIGroupByTargetId', { params: { targetId: targetId } });
 		}
 	};
 } ]);

@@ -76,7 +76,8 @@
 		<Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Target_UpdateStatus" SpName="Target_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Target_GetDefaultDateForAddNew" SpName="Target_GetDefaultDateForAddNew" DbName="NexEPA" Plain="1" ></Setting>
-	</Function>
+    <Setting Key="Target_GetKPIGroup" SpName="Target_GetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
 
 	<Function Name="TargetEmployee">
 		<Setting Key="TargetEmployee_GetAll" SpName="TargetEmployee_GetAll" DbName="NexEPA" Plain="1" ></Setting>

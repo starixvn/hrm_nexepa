@@ -620,8 +620,8 @@ function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtili
 
 // Target KPI Controller
 targetModule.controller("TargetKPIController",
-['$scope', '$routeParams', 'targetFactory', 'ErrorService', 'notificationFactory', 'KPIGroupRepository',
-function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory, KPIGroupRepository) {
+['$scope', '$routeParams', 'targetFactory', 'ErrorService', 'notificationFactory',
+function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory) {
 
 	var targetId = parseInt($routeParams.id);
 	$scope.kpiLoaded = false;
@@ -647,9 +647,11 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 
 	$scope.$watch("tabKPISelect", function (newValue) {
 		if (newValue === true && $scope.kpiLoaded === false) {
-			// get all KPI group
-			KPIGroupRepository.getAll().success(function (groupList) {
+			// get KPI groupby TargetId
+			targetFactory.getKPIGroupByTargetId(targetId).success(function (groupList) {
 				$scope.groupOptions = groupList;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
 			});
 
 			// get all KPI of Target when no filter

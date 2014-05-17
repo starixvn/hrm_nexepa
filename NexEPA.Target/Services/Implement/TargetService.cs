@@ -310,5 +310,24 @@ namespace NexEPA.Target.Services.Implement
 
             return targetDate;
         }
+
+        /// <summary>
+        /// Get KPI Group by target id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator dynamic KPI Group include KPIGroupId and Name.</returns>
+        public IEnumerable<dynamic> GetKPIGroupByTargetId(GetKPIGroupByTargetIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<dynamic> groups = null;
+
+            if (criteria.IsValid())
+            {
+                IEnumerable<KPIGroupModel> rawGroups = GetData<KPIGroupModel>(criteria);
+                groups  = rawGroups.Select(gr => new { gr.KPIGroupId, gr.Name });
+            }
+
+            return groups;
+        }
     }
 }

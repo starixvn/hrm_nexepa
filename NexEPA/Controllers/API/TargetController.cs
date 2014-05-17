@@ -224,5 +224,16 @@ namespace NexEPA.Controllers.Target
 
             return _targetService.GetProjectOrMilestoneDate(criteria);
         }
+
+        [HttpGet]
+        public IEnumerable<dynamic> GetKPIGroupByTargetId(int targetId)
+        {
+            var criteria = new GetKPIGroupByTargetIdCriteria
+            {
+                TargetId = targetId
+            };
+
+            return _targetService.GetKPIGroupByTargetId(criteria);
+        }
     }
 }
