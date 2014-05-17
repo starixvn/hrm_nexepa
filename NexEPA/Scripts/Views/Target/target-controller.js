@@ -391,8 +391,13 @@ function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommo
 					}
 				}
 
-			}).error(function () {
-				notificationFactory.error('ErrorMessage');
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error('ErrorMessage');
+				}
 			});
 
 			// get Form options
@@ -419,7 +424,7 @@ function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommo
 
 			$scope.isSelectedProject = true;
 			targetUtility.getMilestone(projectId, $scope);
-		} 
+		}
 	};
 
 	if (isEditMode) {
@@ -505,7 +510,7 @@ function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtili
 			// get all employee by target Id 
 			targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
 				$scope.employees = employees;
-			}).error(function () {
+			}).error(function (response, status) {
 				if (status === 405) {
 					ErrorService.errorHandle(status);
 				}
@@ -526,6 +531,8 @@ function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtili
 			employeeRepository.getEmployeeByProjectId(projectId, searchKey).success(function (employeeList) {
 				$scope.searchEmployees = employeeList;
 				$scope.$apply;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
 			});
 		};
 

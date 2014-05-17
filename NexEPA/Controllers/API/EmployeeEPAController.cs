@@ -149,6 +149,7 @@ namespace NexEPA.Controllers.API
             return _memberEPAService.GetEPAByEmployee(criteria);
         }
 
+        [ApiAuthorize(Roles = "PM,SA,Leader")]
         [HttpGet]
         public List<MemberEPAModel> GetEPAOfEmployeeByManager(
             int? projectId = null,

@@ -336,12 +336,12 @@ epaModule.controller('ViewCurrentMemberEPAController',
 			getEPAOfEmployeeByManager(null, null);
 		};
 
-		var errorHandle = function () {
+		var errorHandle = function (status) {
 			if (status === 405) {
 				ErrorService.errorHandle(status);
 			}
 			else {
-				notificationFactory.error('', "ErrorMessage");
+				notificationFactory.error("ErrorMessage");
 			}
 
 			$scope.submitted = false;

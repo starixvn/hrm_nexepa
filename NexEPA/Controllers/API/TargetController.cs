@@ -96,6 +96,8 @@ namespace NexEPA.Controllers.Target
                 criteria.CreatedDate = DateTime.Now;
                 //// default status is Open when create the new target
                 criteria.Status = (int)Status.Open;
+                //// default target type is Project
+                criteria.TargetTypeId = 2;
             }
 
             return _targetService.Insert(criteria);

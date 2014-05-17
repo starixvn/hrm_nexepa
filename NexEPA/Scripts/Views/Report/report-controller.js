@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('ViewEmployeePerformanceTendencyController',
-['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory',
-function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory) {
+['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService',
+function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService) {
 
 	var employeeId = parseInt($routeParams.employeeId);
 
@@ -33,8 +33,13 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 				$scope.report.generalInformation = report.employeeInformation;
 				$scope.report.historyProjects = report.historyProjects;
 			}
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
 		});
 	};
 
@@ -93,7 +98,8 @@ function ($scope, $location, homeFactory) {
 // View Employee Performance By Team Controller
 reportModule.controller('ViewEmployeePerformanceByTeamController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository', 'employeeEPAFactory',
-function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository, employeeEPAFactory) {
+'ErrorService',
+function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository, employeeEPAFactory, ErrorService) {
 
 	var fromDate = new Date();
 	fromDate.setMonth(fromDate.getMonth() - 3);
@@ -172,8 +178,14 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 			}
 
 			$scope.disabledSubmit = false;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+
 			$scope.disabledSubmit = false;
 		});
 	};

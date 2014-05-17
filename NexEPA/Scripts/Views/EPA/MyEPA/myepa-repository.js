@@ -51,7 +51,9 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 					{ params: { projectId: projectId,
 						status: status
 					}
-					}).success(deferred.resolve).error(deferred.reject);
+				}).success(deferred.resolve).error(function (response, status) {
+						deferred.reject(status);
+					});
 			return deferred.promise;
 		},
 		updateEPAStatus: function (employeeEPA) {
