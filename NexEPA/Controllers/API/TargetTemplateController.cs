@@ -119,9 +119,9 @@ namespace NexEPA.Controllers.API
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
         [ApiAuthorize(Roles = "SA")]
-        public TargetTemplateViewModel GetKPI(bool onlySelected, int? targetTemplateId = null, int? targetTypeId = null, int? groupId = null)
+        public List<TargetTemplateViewModel> GetKPI(bool onlySelected, int? targetTemplateId = null, int? targetTypeId = null, int? groupId = null)
         {
-            dynamic data = null;
+            List<TargetTemplateViewModel> data = null;
             var getAllKPIByKPIGroupCriteria = new GetAllKPIByKPIGroupCriteria()
             {
                 TargetTemplateId = targetTemplateId.Value
