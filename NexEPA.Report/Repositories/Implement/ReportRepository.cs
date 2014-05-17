@@ -41,9 +41,9 @@ namespace NexEPA.Report.Repositories.Implement
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     var generalInformationList = multi.Read<GeneralInformationOfProjectModel>();
-                    dashboardInformation.GeneralInformation = generalInformationList != null 
-                        ? generalInformationList.SingleOrDefault()
-                        : new GeneralInformationOfProjectModel();
+                    dashboardInformation.GeneralInformation = generalInformationList != null && generalInformationList.Count() > 0
+                                        ? generalInformationList.FirstOrDefault()
+                                        : new GeneralInformationOfProjectModel();
 
                     IEnumerable<OpenProjectModel> openProjects = multi.Read<OpenProjectModel, ProjectModel, EmployeeModel, OpenProjectModel>(
                         (opPro, pro, eva) =>
@@ -97,7 +97,7 @@ namespace NexEPA.Report.Repositories.Implement
                         },
                         "GroupId,JobTitleId");
                     EmployeeModel employeeGeneralInformation = employeeGeneralInformationList != null && employeeGeneralInformationList.Count > 0 
-                                        ? employeeGeneralInformationList[0] : new EmployeeModel();
+                                        ? employeeGeneralInformationList.FirstOrDefault() : new EmployeeModel();
                     employeePerformanceTendencyReport.EmployeeInformation = employeeGeneralInformation;
 
                     IEnumerable<HistoryProjectModel> historyProjects = 
