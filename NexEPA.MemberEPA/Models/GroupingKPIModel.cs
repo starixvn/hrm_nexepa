@@ -35,5 +35,18 @@ namespace NexEPA.MemberEPA.Models
                 return 0;
             }
         }
+
+        public bool IsSpreadKPI
+        {
+            get
+            {
+                if (KPIGroupItems.Any())
+                {
+                    return KPIGroupItems[0].Group.IsSpreadKPI;
+                }
+
+                return false;
+            }
+        }
     }
 }

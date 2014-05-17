@@ -65,8 +65,6 @@ namespace NexEPA.MemberEPA.Models
 
         public decimal FinalScore { get; set; }
 
-        public bool CheckNullComment { get; set; }
-
         public int Permission { get; set; }
 
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }

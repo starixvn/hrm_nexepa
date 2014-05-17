@@ -98,18 +98,17 @@
 					</span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
 				</div>
 			</div>
-
-			<div class="col-sm-6" >
-				<div class="col-sm-3">Evaluated
+			<div class="col-sm-6">
+				<div class="col-sm-3">
+					Evaluated
 				</div>
-				<div class="col-sm-8 txt-value" ng-show="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
+				<div class="col-sm-8 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
 					<span class="glyphicon glyphicon-ok-circle epa-saved"></span>
 				</div>
-				<div class="col-sm-8 txt-value" ng-hide="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
+				<div class="col-sm-8 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
 					<span class="glyphicon glyphicon-remove-circle epa-unsaved"></span>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
@@ -138,7 +137,9 @@
 				<ol type="1" class="list-item">
 					<div class="col-sm-12 bottom-buffer" ng-repeat="item in kpi.kpiGroupItems">
 						<div class="row criteria-title">
-							<span class="col-sm-9 kpi-custom-font">{{$index + 1}}. {{item.name}} ({{item.weight}}%)</span>
+							<div class="col-sm-9 kpi-custom-font">
+								<span>{{$index + 1}}. {{item.name}} </span><span ng-show="!kpi.isSpreadKPI">({{item.weight}}%)</span>
+							</div>
 							<div class="col-sm-3 list-star">
 								<a ng-show="!isReadonly && item.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
 									title="Cancel" href="javascript:;" ng-click="cancelRating(item)"></a>
@@ -169,7 +170,7 @@
 	<div class="boxtitle first">
 		COMMENTS</div>
 	<div class="row comment">
-		<div class="epa-error-message" ng-show="employeeEPA.checkNullComment">
+		<div class="epa-error-message" ng-show="!generalCommentValid">
 			This field is required!
 		</div>
 		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>

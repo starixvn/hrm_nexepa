@@ -8,6 +8,7 @@ var calculateScore = function ($scope, kpiInfo) {
 
 	$.each(kpiInfo, function (item) {
 		var kpiGroupItem = kpiInfo[item].kpiGroupItems;
+
 		var kpiGroupWeight = kpiInfo[item].kpiGroupWeight;
 		var totalItemScore = 0;
 		var totalItemWeight = 0;
@@ -86,26 +87,45 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	/**
 	* Ajax event. 
 	*/
-	var successAddOrUpdateEPA = function () { notificationFactory.success('SuccessSaveData', ''); };
+	var successAddOrUpdateEPA = function () {
+		notificationFactory.success('SuccessSaveData', '');
+		$scope.dataSaved = true;
+	};
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
-		if (data.permission === 2) {
-			checkStatus(data.status);
-		}
-		else {
-			$scope.isReadonly = true;
-			$scope.showMenuContext = false;
-		}
+		if (data != null) {
+			if (data.kpiInfo.length > 0) {
+				$.each(data.kpiInfo, function (i) {
+					var currentKPIInfo = data.kpiInfo[i];
+					var totalGroupItems = currentKPIInfo.kpiGroupItems.length;
+					var averageMark = 100 / totalGroupItems;
+					if (currentKPIInfo.isSpreadKPI && totalGroupItems > 0) {
+						var currentKPIGroup = currentKPIInfo.kpiGroupItems;
+						$.each(currentKPIGroup, function (k) {
+							currentKPIGroup[k].weight = averageMark;
+						});
+					}
+				});
+			}
 
-		$scope.employeeEPA = data;
-		$scope.finalScore = data.finalScore;
-		var roleArray = [];
-		$.each(data.projectRoles, function (i) {
-			roleArray.push(data.projectRoles[i].name);
-		});
-		$scope.employeeRole = roleArray.join(", ");
+			if (data.permission === 2) {
+				checkStatus(data.status);
+			}
+			else {
+				$scope.isReadonly = true;
+				$scope.showMenuContext = false;
+			}
 
-		calculateScore($scope, data.kpiInfo);
+			$scope.employeeEPA = data;
+			$scope.finalScore = data.finalScore;
+			var roleArray = [];
+			$.each(data.projectRoles, function (i) {
+				roleArray.push(data.projectRoles[i].name);
+			});
+			$scope.employeeRole = roleArray.join(", ");
+
+			calculateScore($scope, data.kpiInfo);
+		}
 	};
 
 	var successUpdateEPAStatus = function () {
@@ -131,30 +151,32 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	/**
 	* Events 
 	*/
+	$scope.itemCommentValid = true;
+	$scope.generalCommentValid = true;
+
 	$scope.save = function (employeeEPAResult) {
-		var allowSubmit = true;
-		if (employeeEPAResult.comment === "") {
-			allowSubmit = false;
-			employeeEPAResult.checkNullComment = true;
+		if (employeeEPAResult.comment === "" || employeeEPAResult.comment === null) {
+			$scope.generalCommentValid = false;
 		}
 		else {
-			employeeEPAResult.checkNullComment = false;
-			$.each(employeeEPAResult.kpiInfo, function (item) {
-				var kpiGroupItem = employeeEPAResult.kpiInfo[item].kpiGroupItems;
-				$.each(kpiGroupItem, function (i) {
-					var currentItem = kpiGroupItem[i];
-					if (currentItem.isRequireComment && currentItem.comment === "") {
-						currentItem.checkNullComment = true;
-						allowSubmit = false;
-					}
-					else {
-						currentItem.checkNullComment = false;
-					}
-				});
-			});
+			$scope.generalCommentValid = true;
 		}
 
-		if (allowSubmit) {
+		$.each(employeeEPAResult.kpiInfo, function (item) {
+			var kpiGroupItem = employeeEPAResult.kpiInfo[item].kpiGroupItems;
+			$.each(kpiGroupItem, function (i) {
+				var currentItem = kpiGroupItem[i];
+				if (currentItem.isRequireComment && (currentItem.comment === "" || currentItem.comment === null)) {
+					currentItem.checkNullComment = true;
+					$scope.itemCommentValid = false;
+				}
+				else {
+					currentItem.checkNullComment = false;
+				}
+			});
+		});
+
+		if ($scope.generalCommentValid && $scope.itemCommentValid) {
 			employeeEPAResult.finalScore = $scope.finalScore;
 			employeeEPAResult.targetId = targetId;
 			employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
@@ -214,20 +236,38 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	$scope.showMenuContext = false;
 	var targetId = $routeParams.targetId;
 	var employeeId = $routeParams.employeeId;
+	$scope.generalCommentValid = true;
 
 	/**
 	* Ajax event. 
 	*/
 	var successGetEmployeeEPA = function (data) {
-		$scope.employeeEPA = data;
-		$scope.finalScore = data.finalScore;
-		var roleArray = [];
-		$.each(data.projectRoles, function (i) {
-			roleArray.push(data.projectRoles[i].name);
-		});
-		$scope.employeeRole = roleArray.join(", ");
+		if (data != null) {
+			if (data.kpiInfo.length > 0) {
+				$.each(data.kpiInfo, function (i) {
+					var currentKPIInfo = data.kpiInfo[i];
+					var totalGroupItems = currentKPIInfo.kpiGroupItems.length;
+					var averageMark = 100 / totalGroupItems;
+					if (currentKPIInfo.isSpreadKPI && totalGroupItems > 0) {
+						var currentKPIGroup = currentKPIInfo.kpiGroupItems;
+						$.each(currentKPIGroup, function (k) {
+							currentKPIGroup[k].weight = averageMark;
+						});
+					}
+				});
+			}
 
-		calculateScore($scope, data.kpiInfo);
+			$scope.employeeEPA = data;
+			$scope.finalScore = data.finalScore;
+			var roleArray = [];
+			$.each(data.projectRoles, function (i) {
+				roleArray.push(data.projectRoles[i].name);
+			});
+			$scope.employeeRole = roleArray.join(", ");
+
+			calculateScore($scope, data.kpiInfo);
+		}
+
 	};
 
 	var errorHandle = function (status) {
@@ -308,7 +348,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 	} ]);
 
 // View EPA of Member by Manager Controller
-	epaModule.controller('ViewMemberByManagerEPAController', [
+epaModule.controller('ViewMemberByManagerEPAController', [
 	'$scope', '$location', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory', '$modal',
 	function ($scope, $location, employeeEPAFactory, ErrorService, commonFactory, notificationFactory, $modal) {
 
