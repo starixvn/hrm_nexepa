@@ -267,7 +267,7 @@ targetModule.controller('ViewTargetController',
 		};
 
 		// save target
-		$scope.save = function (target) {
+		$scope.save = function (target, isContinued) {
 			$scope.submitted = true;
 			$scope.disabledSubmit = true;
 
@@ -280,9 +280,19 @@ targetModule.controller('ViewTargetController',
 				targetFactory.createTarget(newTarget).success(function (response) {
 					if (response.isSuccessful === true) {
 						notificationFactory.success("DataChangeSuccessfully");
-						$timeout(function () {
-							$location.url('/Target/ViewTarget/');
-						}, 2000);
+
+						if (isContinued) {
+							$scope.target.name = null;
+							$scope.target.projectId = null;
+							$scope.target.milestoneId = null;
+							$scope.submitted = false;
+							$scope.disabledSubmit = false;
+						}
+						else {
+							$timeout(function () {
+								$location.url('/Target/ViewTarget/');
+							}, 2000);
+						}
 					}
 					else {
 						notificationFactory.error('', response.message);
@@ -302,6 +312,7 @@ targetModule.controller('ViewTargetController',
 				});
 			}
 			else {
+				notificationFactory.error("DataChangeFail");
 				$scope.disabledSubmit = false;
 			}
 		};
