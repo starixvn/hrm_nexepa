@@ -32,8 +32,6 @@ namespace NexEPA.KPI.Model
 
         public bool Selected { get; set; }
 
-        public bool IsSpreadKPI { get; set; }
-
         public TargetType TargetType { get; set; }
     }
 }
