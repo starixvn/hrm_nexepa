@@ -25,7 +25,7 @@ namespace NexEPA.Employee.Repositories.Implement
         /// Get all employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The List Employee Model.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetAllEmployee(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -46,7 +46,7 @@ namespace NexEPA.Employee.Repositories.Implement
         /// Get employee by project ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The IEnumerable Employee Model.</returns>
+        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetEmployeeByProjectId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -58,6 +58,27 @@ namespace NexEPA.Employee.Repositories.Implement
                         return emp;
                     },
                     "GroupId",
+                    criteria.GetSpParams());
+            }
+        }
+
+        /// <summary>
+        /// Get employees by current user id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<EmployeeModel, Group, JobTitle, EmployeeModel>(
+                    (emp, gr, job) =>
+                    {
+                        emp.Group = gr;
+                        emp.JobTitle = job;
+                        return emp;
+                    },
+                    "GroupId,JobTitleId",
                     criteria.GetSpParams());
             }
         }

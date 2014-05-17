@@ -21,5 +21,7 @@ namespace NexEPA.Employee.Repositories.Interface
         IEnumerable<EmployeeModel> GetAllEmployee(ICriteria criteria);
 
         IEnumerable<EmployeeModel> GetEmployeeByProjectId(ICriteria criteria);
+
+        IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(ICriteria criteria);
     }
 }

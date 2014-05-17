@@ -16,9 +16,9 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		searchKey: ''
 	};
 
-	// get all employee by target Id 
+	// get all employee by current user
 	$scope.getEmployee = function (searchKey) {
-		employeeRepository.getAllEmployee(searchKey, null).success(function (employees) {
+		employeeRepository.getEmployeeByCurrentUserId(searchKey, null).success(function (employees) {
 			$scope.searchEmployees = employees;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -117,7 +117,7 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 
 	// get all employee by target Id 
 	$scope.getEmployee = function (searchKey) {
-		employeeRepository.getAllEmployee(searchKey, null).success(function (employees) {
+		employeeRepository.getEmployeeByCurrentUserId(searchKey).success(function (employees) {
 			$scope.searchEmployees = employees;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");

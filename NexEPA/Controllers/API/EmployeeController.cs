@@ -17,11 +17,12 @@ namespace NexEPA.Controllers.API
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implement;
     using NexEPA.Employee.Services.Interface;
+    using NexEPA.Web.Controllers;
 
     /// <summary>
     /// Employee controller.
     /// </summary>
-    public class EmployeeController : ApiController
+    public class EmployeeController : BaseController
     {
         private IEmployeeService _employeeService;
 
@@ -83,6 +84,18 @@ namespace NexEPA.Controllers.API
 
             IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByProjectId(criteria);
 
+            return employees;
+        }
+
+        public IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(string keyword = "")
+        {
+            var criteria = new GetAllEmployeeByCurrentUserIdCriteria
+            {
+                ActorUserId = this.CurrentUser.UserId,
+                Keyword = keyword
+            };
+
+            IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByCurrentUserId(criteria);
             return employees;
         }
     }

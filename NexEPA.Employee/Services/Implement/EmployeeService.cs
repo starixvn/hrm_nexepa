@@ -102,5 +102,23 @@ namespace NexEPA.Employee.Services.Implement
 
             return employees;
         }
+
+        /// <summary>
+        /// Get employee by current user id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(GetAllEmployeeByCurrentUserIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeModel> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = _employeeRepository.GetEmployeeByCurrentUserId(criteria);
+            }
+
+            return employees;
+        }
     }
 }
