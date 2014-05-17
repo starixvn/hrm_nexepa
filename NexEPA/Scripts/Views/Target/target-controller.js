@@ -107,17 +107,17 @@ targetModule.controller('ViewTargetController',
 					if (response.isSuccessful === true) {
 						var index = $scope.targetList.indexOf(target);
 						$scope.targetList.splice(index, 1);
-						notificationFactory.success("DeleteSuccess");
+						notificationFactory.success("DataChangeSuccessfully");
 					}
 					else {
-						notificationFactory.error("DeleteFail", response.message);
+						notificationFactory.error("DataChangeFail", response.message);
 					}
 				}).error(function (response, status) {
 					if (status === 405) {
 						ErrorService.errorHandle(status);
 					}
 					else {
-						notificationFactory.error("DeleteFail");
+						notificationFactory.error("DataChangeFail");
 					}
 				});
 			});
@@ -174,7 +174,7 @@ targetModule.controller('ViewTargetController',
 					targetFactory.updateTargetStatus(targetStatus).success(function (response) {
 						if (response.isSuccessful === true) {
 							target.statusName = status.name;
-							notificationFactory.success("UpdatedSuccessfulMessage");
+							notificationFactory.success("DataChangeSuccessfully");
 						}
 						else {
 							notificationFactory.error("", response.message);
@@ -279,7 +279,7 @@ targetModule.controller('ViewTargetController',
 
 				targetFactory.createTarget(newTarget).success(function (response) {
 					if (response.isSuccessful === true) {
-						notificationFactory.success("CreatedSuccessfulMessage");
+						notificationFactory.success("DataChangeSuccessfully");
 						$timeout(function () {
 							$location.url('/Target/ViewTarget/');
 						}, 2000);
@@ -464,7 +464,7 @@ function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommo
 
 				targetFactory.editTarget(newTarget).success(function (response) {
 					if (response.isSuccessful === true) {
-						notificationFactory.success("UpdatedSuccessfulMessage");
+						notificationFactory.success("DataChangeSuccessfully");
 					}
 					else {
 						notificationFactory.error('', response.message);
@@ -589,10 +589,10 @@ function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtili
 					if (response.isSuccessful === true) {
 						var index = $scope.employees.indexOf(employee);
 						$scope.employees.splice(index, 1);
-						notificationFactory.success("DeleteSuccess");
+						notificationFactory.success("DataChangeSuccessfully");
 					}
 					else {
-						notificationFactory.error("DeleteFail", response.message);
+						notificationFactory.error("DataChangeFail", response.message);
 					}
 				}).error(function (response, status) {
 					if (status === 405) {
