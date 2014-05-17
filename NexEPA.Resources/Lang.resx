@@ -582,4 +582,7 @@
   <data name="DataChangeSuccessfully" xml:space="preserve">
     <value>Data change successfully!</value>
   </data>
+  <data name="SpreadWeight" xml:space="preserve">
+    <value>Spread KPIs Weight</value>
+  </data>
 </root>

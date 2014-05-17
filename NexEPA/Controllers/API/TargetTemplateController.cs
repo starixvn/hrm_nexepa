@@ -22,7 +22,6 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
     using NexEPA.KPI.Criteria.KPI;
-    using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Model;
     using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;
@@ -31,6 +30,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Implement;
     using NexEPA.Target.Services.Interface;
+    using NexEPA.Target.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
@@ -39,7 +39,7 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class TargetTemplateController : BaseController
     {
-        private const string _KPIGroup = "<KPIGroup KPIGroupId='{0}' Weight='{1}'></KPIGroup>";
+        private const string _KPIGroup = "<KPIGroup KPIGroupId='{0}' Weight='{1}' IsSpreadKPI='{2}'></KPIGroup>";
         private const string _KPIItem = "<KPI KPIId='{0}' KPIGroupId='{1}' Weight='{2}'></KPI>";
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
@@ -69,7 +69,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<TargetTemplateModel> Get(int? targetTypeId = null, bool? isDisabled = null)
         {
             GetAllTargetTemplateCriteria criteria = new GetAllTargetTemplateCriteria
-            { 
+            {
                 TargetTypeId = targetTypeId,
                 IsDisabled = isDisabled
             };
@@ -90,8 +90,8 @@ namespace NexEPA.Controllers.API
         public TargetTemplateModel GetTargetTemplateById(int targetTemplateId)
         {
             GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria
-            { 
-                TargetTemplateId = targetTemplateId 
+            {
+                TargetTemplateId = targetTemplateId
             };
 
             var data = this._targetTemplateService.GetTargetTemplateById(criteria);
@@ -101,9 +101,9 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetTemplateKPIModel> GetSelectedKPIByTargetTemplate(int targetTemplateId)
         {
-            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() 
-            { 
-                TargetTemplateId = targetTemplateId 
+            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria()
+            {
+                TargetTemplateId = targetTemplateId
             };
 
             IEnumerable<TargetTemplateKPIModel> selectedKPIs = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria);
@@ -119,50 +119,33 @@ namespace NexEPA.Controllers.API
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
         [ApiAuthorize(Roles = "SA")]
-        public dynamic GetKPI(bool onlySelected, int? targetTemplateId = null, int? targetTypeId = null, int? groupId = null)
+        public TargetTemplateViewModel GetKPI(bool onlySelected, int? targetTemplateId = null, int? targetTypeId = null, int? groupId = null)
         {
             dynamic data = null;
-            var getAllKPIByKPIGroupCriteria = new GetAllKPIByKPIGroupCriteria() 
-            { 
-                TargetTemplateId = targetTemplateId.Value 
+            var getAllKPIByKPIGroupCriteria = new GetAllKPIByKPIGroupCriteria()
+            {
+                TargetTemplateId = targetTemplateId.Value
             };
             IEnumerable<KPIViewModel> lstKPI = _kpiServices.GetAllKPIByKPIGroup(getAllKPIByKPIGroupCriteria);
-            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria() 
-            { 
-                TargetTemplateId = targetTemplateId 
-            };
 
-            List<TargetTemplateKPIModel> lstSelectedKPI = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria).ToList();
-            if (lstSelectedKPI != null)
+            if (onlySelected)
             {
-                if (onlySelected)
+                lstKPI = lstKPI.Where(x => x.Weight >= 0).ToList();
+            }
+            else
+            {
+                foreach (var item in lstKPI)
                 {
-                    lstKPI = lstKPI.Where(x => lstSelectedKPI.Select(y => y.KPIId).Contains(x.KPIId)).ToList();
-                    foreach (var item in lstKPI)
+                    if (item.Weight >= 0)
                     {
                         item.Selected = true;
-                    }
-                }
-                else
-                {
-                    foreach (var item in lstKPI.Where(x => lstSelectedKPI.Select(y => y.KPIId).Contains(x.KPIId)))
-                    {
-                        var kpis = lstSelectedKPI.Where(x => x.KPIId == item.KPIId).ToList();
-                        foreach (var kpi in kpis)
-                        {
-                            if (kpi.KPIGroupId == item.KPIGroupId)
-                            {
-                                item.Selected = true;
-                                item.Weight = kpi.Weight;
-                            }
-                        }
                     }
                 }
             }
 
             data = (from kpi in lstKPI
                     group kpi by kpi.KPIGroupName into item
-                    select new
+                    select new TargetTemplateViewModel
                     {
                         KPIGroupName = item.Key,
                         KPIGroupItems = item.ToList()
@@ -177,35 +160,23 @@ namespace NexEPA.Controllers.API
         /// <param name="targetTemplateId">TargetTemplate Id.</param>
         /// <returns>List KPIGroup Items.</returns>
         [ApiAuthorize(Roles = "SA")]
-        public List<KPIGroupViewModel> GetSelectedKPIGroupByTargetTemplate(int targetTemplateId)
+        public IEnumerable<KPIGroupModel> GetSelectedKPIGroupByTargetTemplate(int targetTemplateId)
         {
-            List<KPIGroupViewModel> allGroups = null;
-            var getAllGroupCriteria = new GetAllKPIGroupCriteria()
-            { 
-                TargetTypeId = null,
-                IsDisabled = false
-            };
-            allGroups = _kpiGroupServices.GetAllKPIGroup(getAllGroupCriteria);
+            var getSelectedKPIGroupCriteria = new GetSelectedKPIGroupCriteria() { TargetTemplateId = targetTemplateId };
+            IEnumerable<KPIGroupModel> selectedGroups = _targetTemplateService.GetSelectedKPIGroup(getSelectedKPIGroupCriteria);
 
-            if (allGroups != null)
+            if (selectedGroups != null)
             {
-                IEnumerable<KPIGroupModel> selectedGroups = null;
-                var getSelectedKPIGroupCriteria = new GetSelectedKPIGroupCriteria() { TargetTemplateId = targetTemplateId };
-                selectedGroups = _targetTemplateService.GetSelectedKPIGroup(getSelectedKPIGroupCriteria);
-
-                if (selectedGroups != null)
+                foreach (var item in selectedGroups)
                 {
-                    var duplicatedItems = allGroups.Where(x => selectedGroups.Select(y => y.KPIGroupId).Contains(x.KPIGroupID));
-                    foreach (var item in duplicatedItems)
+                    if (item.Weight >= 0)
                     {
-                        KPIGroupModel kpiGroup = selectedGroups.Where(x => x.KPIGroupId == item.KPIGroupID).FirstOrDefault();
                         item.Selected = true;
-                        item.Weight = kpiGroup.Weight;
                     }
                 }
             }
 
-            return allGroups;
+            return selectedGroups;
         }
 
         /// <summary>
@@ -359,7 +330,7 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage SetDefaultTargetTemplate(dynamic model)
         {
-            var criteria = new SetTargetSettingCriteria() 
+            var criteria = new SetTargetSettingCriteria()
             {
                 TargetTypeId = model.targetTypeId,
                 TargetTemplateId = model.targetTemplateId,
@@ -381,7 +352,8 @@ namespace NexEPA.Controllers.API
             var value = new StringBuilder(_BeginRootTag);
             foreach (var item in kpiGroups)
             {
-                value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight);
+                var spreadKPI = item.IsSpreadKPI == true ? 1 : 0;
+                value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight, spreadKPI);
             }
 
             return value.Append(_EndRootTag).ToString();

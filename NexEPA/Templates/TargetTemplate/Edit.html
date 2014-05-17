@@ -1,31 +1,33 @@
 ﻿<div class="row sub-header">
-    <ul class="col-xs-12  breadcrumb list-inline pull-left">
-        <li><a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a></li>
-        <li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
-    </ul>
+	<ul class="col-xs-12  breadcrumb list-inline pull-left">
+		<li>
+			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
+		</li>
+		<li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
+	</ul>
 </div>
 <div class="row target-tabset">
-    <tabset id="TargetTemplateTab">
-	<tab heading="GENERAL INORMATION" class="tab-cursor" active="dataTab.information">
+	<tabset id="TargetTemplateTab">
+	<tab heading="GENERAL INORMATION" class="tab-cursor" active="dataTab.information" select="tabInfoSelect()">
         <div class="row">
             <form class="col-sm-8 form-horizontal common-form info-form" name="editTargetTemplate" novalidate>
-		        <div class="col-sm-offset-1">
-					<div class="error-message buffer-error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
+		        <div class="col-sm-offset-2">
+					<div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
 						{{error}}
 					</div>
-					<div class="error-message hide-errormessage buffer-error-message" id="Div1">
+					<div class="error-message hide-errormessage" id="targetTemplateValid">
 						Please input all required (*) fields.</div>
 				</div>
-				<div class="form-group required top-buffer">
-					<label class="col-sm-2">
+				<div class="form-group required top-buffer required">
+					<label class="col-sm-2 control-label">
 						{{"Name" | translate}}</label>
 					<div class="col-sm-8">
 						<input type="text" class="custom-textbox" ng-model="editTemplate.name" placeholder="Name"
 							maxlength="200" />
 					</div>
 				</div>
-				<div class="form-group required top-buffer">
-					<label class="col-sm-2">
+				<div class="form-group required top-buffer required">
+					<label class="col-sm-2 control-label">
 						{{"TargetType" | translate}}
 					</label>
 					<div class="col-sm-8">
@@ -55,7 +57,7 @@
 		
 	</tab>
 
-	<tab heading="TARGET KPI LIST" class="tab-cursor" active="dataTab.kpi">
+	<tab heading="TARGET KPI LIST" class="tab-cursor" active="dataTab.kpi" select="tabKPISelect()">
         <div class="row">
             <form class="col-sm-10 form-horizontal common-form project-form" novalidate>
 		    <div class="row first boxtitle">
@@ -64,6 +66,7 @@
 				    <input class="search-textbox pull-right" placeholder="filter kpi..." type="text" ng-model="KPIName" />
 		    </div>
 			    <div class="row boxcontent">
+
 				    <div class="line top-buffer">
 					    <div class="row">
 						    <table class="table table-bordered table-striped table-hover">
@@ -83,7 +86,7 @@
 									    </td>
 									    <td class="criteria-title row-highlight group-header">{{ kpi.kpiGroupName}} ({{kpi.kpiGroupItems[0].kpiGroupWeight}}%)</td>
 									    <td class="text-center row-highlight">
-										    <a href="javascript:;" ng-click="scoreSpread(kpi)">Spread</a>
+										    <a ng-show="!kpi.isSpreadKPI" href="javascript:;" ng-click="scoreSpread(kpi)">Spread</a>
 									    </td>
 								    </tr>
 
@@ -92,9 +95,11 @@
 										    <input type="checkbox" value="{{item.name}}" ng-model="item.selected" />
 									    </td>
 									    <td>{{item.name}}</td>
-									    <td class="column-weight-max">
-										    <input type="text" class="custom-form-control text-center"
+									    <td class="column-weight-max text-center">
+										    <input type="text" class="custom-form-control text-center" ng-show="!item.isSpreadKPI && item.selected"
 											    ng-model="item.weight" ng-show="item.selected == true" percentage/>
+												<span ng-show="item.isSpreadKPI && !item.selected">-</span>
+												<span ng-show="item.isSpreadKPI && item.selected">auto</span>
 									    </td>
 								    </tr>
 							    </tbody>

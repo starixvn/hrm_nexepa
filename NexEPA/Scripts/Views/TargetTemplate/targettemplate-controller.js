@@ -70,6 +70,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 	targetTemplateFactory.getAllTargetTemplate(null, null).then(successGetAllTargetTemplate, errorHandle);
 	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType, errorHandle);
 	commonFactory.maxLengthDescription($scope);
+	tabService.setProperty(null);
 
 	/**
 	* Event: Filter 
@@ -195,9 +196,6 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 
 	var successUpdateTargetTemplate = function () {
 		notificationFactory.success('SuccessSaveData', '');
-		$timeout(function () {
-			$location.url('/TargetTemplate/Index');
-		}, 3000);
 	};
 
 	var errorUpdateTargetTemplate = function (response) { $scope.errors = response; };
@@ -223,7 +221,16 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 	// What for all list checkbox change.
 	$scope.$watch('lstAllData|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
-			var object = { KPIId: item.kpiId, KPIGroupId: item.kpiGroupId, KPIGroupName: item.kpiGroupName, Weight: parseInt(item.weight) };
+			var object = {};
+			if (item.isSpreadKPI) {
+				object = { KPIId: item.kpiId, KPIGroupId: item.kpiGroupId, KPIGroupName: item.kpiGroupName, Weight: 0 };
+			}
+			else {
+				object = { KPIId: item.kpiId, KPIGroupId: item.kpiGroupId,
+					KPIGroupName: item.kpiGroupName, Weight: parseInt(item.weight)
+				};
+			}
+
 			return object;
 		});
 	}, true);
@@ -235,9 +242,28 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 
 	$scope.update = function (editTemplate) {
 		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
-			editTemplate.kpiIds = $scope.selection;
-			if (showWarningWeightMessage(editTemplate.kpiIds, notificationFactory) === false) {
-				targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
+			var selectedKPIs = $scope.selection;
+			var checkSelectedKPIValid = true;
+			$.each(selectedKPIs, function (i) {
+				var currentItem = selectedKPIs[i];
+				if (currentItem.Weight == null || isNaN(currentItem.Weight)) {
+					checkSelectedKPIValid = false;
+				}
+			});
+
+			if (checkSelectedKPIValid) {
+				editTemplate.kpiIds = selectedKPIs;
+				if (showWarningWeightMessage(editTemplate.kpiIds, notificationFactory) === false) {
+					targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
+				}
+			}
+			else {
+				notificationFactory.error('', 'All weight of selected KPIs is required!');
+			}
+		}
+		else {
+			if (tabService.getProperty() === true) {
+				notificationFactory.error('', 'Re-check your general information tab!');
 			}
 		}
 	};
@@ -288,6 +314,14 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 		});
 	};
 
+	$scope.tabInfoSelect = function () {
+		tabService.setProperty(false);
+	};
+
+	$scope.tabKPISelect = function () {
+		tabService.setProperty(true);
+	};
+
 	$scope.scoreSpread = function (kpi) {
 		var kpiGroupItems = kpi.kpiGroupItems;
 		var totalItemChecked = 0;
@@ -325,18 +359,26 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 	$scope.ok = function () {
 		var selectedItems = $scope.selection;
 		var totalWeight = 0;
+		var checkSelectedGroupValid = true;
 		$.each(selectedItems, function (i) {
-			totalWeight += parseInt(selectedItems[i].weight);
+			var currentItem = selectedItems[i];
+			if (currentItem.weight == null || isNaN(currentItem.weight)) {
+				checkSelectedGroupValid = false;
+			}
+			totalWeight += parseInt(currentItem.weight);
 		});
 
-		if (totalWeight > 100) {
-			notificationFactory.error('', 'Total Weight must be equal or less than 100');
+		if (!checkSelectedGroupValid) {
+			notificationFactory.error('', 'All weight of selected KPIs is required!');
 		}
 		else {
-			$modalInstance.close($scope.selection);
+			if (totalWeight > 100) {
+				notificationFactory.error('', 'Total Groups weight must be equal or less than 100');
+			}
+			else {
+				$modalInstance.close($scope.selection);
+			}
 		}
-
-
 	};
 
 	$scope.cancel = function () {
@@ -355,8 +397,9 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 	$scope.$watch('KPIGroups|filter:{selected:true}', function (selectedItems) {
 		$scope.selection = selectedItems.map(function (item) {
 			var object = {};
-			object.kpiGroupId = item.kpiGroupID;
+			object.kpiGroupId = item.kpiGroupId;
 			object.weight = item.weight;
+			object.isSpreadKPI = item.isSpreadKPI;
 			return object;
 		});
 	}, true);

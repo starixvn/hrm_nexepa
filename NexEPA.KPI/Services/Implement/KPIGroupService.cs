@@ -85,7 +85,7 @@ namespace NexEPA.KPI.Services.Implement
                     kpiGroupItem.KPIGroupID = groupInfo.KPIGroupId;
                     kpiGroupItem.Name = groupInfo.Name;
                     kpiGroupItem.Description = groupInfo.Description;
-                    kpiGroupItem.Weight = groupInfo.Weight;
+                    kpiGroupItem.Weight = groupInfo.Weight.Value;
                     kpiGroupItem.TargetTypeId = groupInfo.TargetType.TargetTypeId;
                     kpiGroupItem.Form = groupInfo.TargetType.Name;
                     kpiGroupItem.IsDisabled = groupInfo.IsDisabled;

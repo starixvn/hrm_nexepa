@@ -65,6 +65,7 @@ notificationFactory, $modal, AuthService) {
 	*/
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	currentUser = AuthService.currentUser();
+	tabService.setProperty(null);
 	if (currentUser != null) {
 		var userRoles = currentUser.roles;
 		$.each(userRoles, function (i) {

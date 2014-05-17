@@ -48,8 +48,10 @@ namespace NexEPA.KPI.ViewModels
 
         public string TargetTypeName { get; set; }
 
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
         public bool? Selected { get; set; }
+
+        public bool IsSpreadKPI { get; set; }
     }
 }

@@ -20,6 +20,8 @@
 					</th>
 					<th data-translate="KPIGroupWeight">
 					</th>
+					<th data-translate="SpreadWeight">
+					</th>
 				</tr>
 			</thead>
 			<tr ng-repeat="group in KPIGroups">
@@ -34,6 +36,10 @@
 					<input type="text" class="custom-form-control text-center" 
 					ng-model="group.weight" ng-show="group.selected == true"/>
 				</td>
+				<td class="column-weight-max text-center">
+					<input type="checkbox" ng-model="group.isSpreadKPI" ng-show="group.selected"/>
+				</td>
+
 			</tr>
 		</table>
 	</div>

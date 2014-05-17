@@ -22,13 +22,17 @@ namespace NexEPA.KPI.Model
 
         public string Description { get; set; }
 
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
         public bool IsSpreadKPI { get; set; }
 
         public bool IsDisabled { get; set; }
 
         public int NumberKPI { get; set; }
+
+        public bool Selected { get; set; }
+
+        public bool IsSpreadKPI { get; set; }
 
         public TargetType TargetType { get; set; }
     }

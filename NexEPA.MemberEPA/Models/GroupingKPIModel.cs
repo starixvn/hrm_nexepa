@@ -29,7 +29,7 @@ namespace NexEPA.MemberEPA.Models
                 if (KPIGroupItems != null)
                 {
                     var firstItem = KPIGroupItems.FirstOrDefault();
-                    return firstItem.Group.Weight;
+                    return firstItem.Group.Weight.Value;
                 }
 
                 return 0;

@@ -57,8 +57,8 @@
 		<Setting Key="TargetTemplate_AddKPI" SpName="TargetTemplate_AddKPI" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPI_GetByTargetTemplate" SpName="KPI_GetByTargetTemplate" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetTemplate_SetKPIGroup" SpName="TargetTemplate_SetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups_xtest" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup_xtest" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="TargetTemplate_UpdateStatus" SpName="TargetTemplate_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetSetting_Get" SpName="TargetSetting_Get" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetSetting_Set" SpName="TargetSetting_Set" DbName="NexEPA" Plain="1" ></Setting>
