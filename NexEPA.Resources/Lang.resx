@@ -277,7 +277,7 @@
     <value>The value of Weight must be in range 0 to 100!</value>
   </data>
   <data name="FormRequire" xml:space="preserve">
-    <value>The Form field is rquired!</value>
+    <value>The Form field is required!</value>
   </data>
   <data name="GroupRequire" xml:space="preserve">
     <value>The Group field is required!</value>
@@ -303,14 +303,8 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
   </data>
-  <data name="CreatedSuccessfulMessage" xml:space="preserve">
-    <value>Created successful!</value>
-  </data>
   <data name="ProjectRequire" xml:space="preserve">
     <value>The Project field is required!</value>
-  </data>
-  <data name="UpdatedSuccessfulMessage" xml:space="preserve">
-    <value>Updated successfully!</value>
   </data>
   <data name="SymbolCount" xml:space="preserve">
     <value>#</value>
@@ -413,12 +407,6 @@
   </data>
   <data name="DeactivationSuccess" xml:space="preserve">
     <value>Deactivated successfully!</value>
-  </data>
-  <data name="DeleteFail" xml:space="preserve">
-    <value>Deletion Failed!</value>
-  </data>
-  <data name="DeleteSuccess" xml:space="preserve">
-    <value>Deletion Succeeded!</value>
   </data>
   <data name="Inactive" xml:space="preserve">
     <value>Inactive</value>

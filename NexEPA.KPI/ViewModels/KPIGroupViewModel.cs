@@ -23,7 +23,7 @@ namespace NexEPA.KPI.ViewModels
 
         public string Description { get; set; }
 
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
         public int TargetTypeId { get; set; }
 

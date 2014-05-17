@@ -75,13 +75,13 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					if (response.isSuccessful === true) {
 						var index = $scope.KPIGroupList.indexOf(group);
 						$scope.KPIGroupList.splice(index, 1);
-						notificationFactory.success("DeleteSuccess");
+						notificationFactory.success("DataChangeSuccessfully");
 					}
 					else {
-						notificationFactory.error("DeleteFail", response.message);
+						notificationFactory.error("DataChangeFail", response.message);
 					}
 				}).error(function () {
-					notificationFactory.error("DeleteFail");
+					notificationFactory.error("DataChangeFail");
 				});
 			});
 		};
@@ -231,7 +231,7 @@ function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, 
 				KPIGroupRepository.addGroup(group)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							notificationFactory.success("CreatedSuccessfulMessage");
+							notificationFactory.success("DataChangeSuccessfully");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);
@@ -268,7 +268,7 @@ function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, 
 	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
 	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository,
 	CacheFactory, KPICommonRepository, notificationFactory, ErrorService) {
-		var groupId = $routeParams.id;
+		var groupId = parseInt($routeParams.id);
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
 			$scope.editGroup = group;
@@ -308,7 +308,7 @@ function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, 
 				KPIGroupRepository.updateGroup(newGroup)
 					.success(function (response) {
 						if (response.isSuccessful === true) {
-							notificationFactory.success("UpdatedSuccessfulMessage");
+							notificationFactory.success("DataChangeSuccessfully");
 							$timeout(function () {
 								$location.url('/KPI/GetAllKPIGroup/');
 							}, 2000);

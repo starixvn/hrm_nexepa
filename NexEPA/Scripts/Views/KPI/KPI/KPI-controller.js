@@ -88,10 +88,10 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 					if (response.isSuccessful === true) {
 						var index = $scope.KPIList.indexOf(item);
 						$scope.KPIList.splice(index, 1);
-						notificationFactory.success("DeleteSuccess");
+						notificationFactory.success("DataChangeSuccessfully");
 					}
 					else {
-						notificationFactory.error("DeleteFail", response.message);
+						notificationFactory.error("DataChangeFail", response.message);
 					}
 				}).error(function () {
 					notificationFactory.error("ErrorMessage");
@@ -308,7 +308,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			if (KPICommonRepository.validateKPI(item) === true) {
 				KPIRepository.createKPI(item).success(function (response) {
 					if (response.isSuccessful === true) {
-						notificationFactory.success("CreatedSuccessfulMessage");
+						notificationFactory.success("DataChangeSuccessfully");
 
 						if (isCreateAndContinued) {
 							$scope.submitted = false;
@@ -390,7 +390,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			if (KPICommonRepository.validateKPI(kpiItem) === true) {
 				KPIRepository.updateKPI(kpiItem).success(function (response) {
 					if (response.isSuccessful === true) {
-						notificationFactory.success("UpdatedSuccessfulMessage");
+						notificationFactory.success("DataChangeSuccessfully");
 						$timeout(function () {
 							$window.history.back();
 						}, 2000);

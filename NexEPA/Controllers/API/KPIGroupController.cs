@@ -57,7 +57,7 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(Roles = "SA")]
-        public KPIGroupViewModel GetUserById(int id)
+        public KPIGroupViewModel GetGroupById(int id)
         {
             var criteria = new GetKPIGroupByIdCriteria
             {
