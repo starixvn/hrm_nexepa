@@ -3,9 +3,9 @@
 
 // View KPI
 kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$location', '$modal', '$route', '$window',
-	'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'commonFactory', 'notificationFactory',
+	'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
 	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory,
-		KPICommonRepository, commonFactory, notificationFactory) {
+		KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 		$scope.filter = {
@@ -42,8 +42,14 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			KPIRepository.viewKPI(targetTypeId, groupId, isDisabled).success(function (KPIList) {
 				$scope.KPIList = KPIList;
 				$scope.disabledSubmitButton = false;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+
 				$scope.disabledSubmitButton = false;
 			});
 		};
@@ -53,13 +59,16 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 		// add new KPI
 		$scope.create = function () {
-			$scope.createKPIUrl = '/KPI/CreateKPI/';
+			var form = $location.search()["form"],
+				groupId = $location.search()["groupId"],
+				appendUrl = form  && groupId ? ('?form=' + parseInt(form) + '&groupId=' + parseInt(groupId)) : '';
+
+			$scope.createKPIUrl = '/KPI/CreateKPI/' + appendUrl;
 		};
 
 		// edit KPI
 		$scope.edit = function (kpiId) {
 			$scope.editKPIUrl = '/KPI/EditKPI/' + kpiId;
-			//$location.url('/KPI/EditKPI/' + kpiId);
 		};
 
 		// delete KPI
@@ -189,22 +198,18 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 // Create New KPI
 	kpiSettingModule.controller('CreateNewKPIController', ['$scope', '$routeParams',
-	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
-	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory) {
+	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
+	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory, ErrorService) {
 
 		var currentChosenGroups = [];
 
 		KPICommonRepository.getFormOptions().then(function (targetTypeList) {
 			$scope.formOptions = targetTypeList;
-			$scope.item = {
-				targetTypeId: targetTypeList[0].targetTypeId
-			};
-			$scope.getGroupOptions(targetTypeList[0].targetTypeId);
 			CacheFactory.put("formOptions", targetTypeList);
 		});
 
-		var targetTypeId = $routeParams.form;
-		var groupId = $routeParams.groupId;
+		var targetTypeId = parseInt($routeParams.form);
+		var groupId = parseInt($routeParams.groupId);
 		$scope.isCreatedFromKPI = false;
 
 		$scope.getGroupOptions = function (targetTypeId) {
@@ -225,15 +230,19 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			});
 		};
 
-		if (targetTypeId !== undefined) {
+		if (!isNaN(targetTypeId)) {
 			$scope.getGroupOptions(targetTypeId);
 
 			$scope.item = {
-				targetTypeId: parseInt(targetTypeId),
-				kpiGroupIds: [parseInt(groupId)]
+				targetTypeId: targetTypeId,
+				kpiGroupIds: [groupId]
 			};
 		}
 		else {
+			$scope.item = {
+				targetTypeId: 0
+			};
+			$scope.getGroupOptions(0);
 			$scope.isCreatedFromKPI = true;
 		}
 
@@ -331,8 +340,14 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 					}
 
 					$scope.disabledSubmitButton = false;
-				}).error(function () {
-					notificationFactory.error("ErrorMessage");
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+
 					$scope.disabledSubmitButton = false;
 				});
 			}
@@ -348,8 +363,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 // Edit KPI
 	kpiSettingModule.controller("EditKPIController", ['$scope', '$routeParams', '$location',
-	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
-	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory) {
+	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
+	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory, ErrorService) {
 		var kpiId = $routeParams.id;
 
 		KPIRepository.getKPIById(kpiId).success(function (kpiItem) {
@@ -357,8 +372,13 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			KPICommonRepository.getGroupByTargetTypeId(null).then(function (groupList) {
 				$scope.groupOptions = groupList;
 			});
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
 		});
 
 		$scope.$watch('item.hasComment', function (newValue) {

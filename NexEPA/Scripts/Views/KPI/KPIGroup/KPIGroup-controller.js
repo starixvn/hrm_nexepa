@@ -3,8 +3,8 @@
 
 // View KPI Group
 kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', '$route',
-'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory',
-	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository, commonFactory, notificationFactory) {
+'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
+	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 		var formOptionsCache = CacheFactory.get("formOptions");
 		$scope.filter = {
 			targetTypeId: "",
@@ -27,8 +27,14 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 					$scope.KPIGroupList = groupList;
 					$scope.disabledSubmitButton = false;
 				})
-				.error(function () {
-					notificationFactory.error("ErrorMessage");
+				.error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+
 					$scope.disabledSubmitButton = false;
 				});
 		};
@@ -193,9 +199,10 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 	} ]);
 
 // Create New KPI Group
-	kpiSettingModule.controller("CreateNewKPIGroupController", ['$scope', '$location', '$timeout',
-	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
-	function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, KPICommonRepository, notificationFactory) {
+kpiSettingModule.controller("CreateNewKPIGroupController", ['$scope', '$location', '$timeout',
+'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
+function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, 
+	KPICommonRepository, notificationFactory, ErrorService) {
 
 		// get all from options
 		var formOptionsCache = CacheFactory.get("formOptions");
@@ -235,8 +242,14 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 
 						$scope.disabledSubmitButton = false;
 					})
-					.error(function () {
-						notificationFactory.error("ErrorMessage");
+					.error(function (response, status) {
+						if (status === 405) {
+							ErrorService.errorHandle(status);
+						}
+						else {
+							notificationFactory.error("ErrorMessage");
+						}
+
 						$scope.disabledSubmitButton = false;
 					});
 			}
@@ -252,14 +265,21 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 
 // Edit KPI Group
 	kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$routeParams', '$timeout', '$route',
-	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory',
+	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
 	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository,
-	CacheFactory, KPICommonRepository, notificationFactory) {
+	CacheFactory, KPICommonRepository, notificationFactory, ErrorService) {
 		var groupId = $routeParams.id;
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
 			$scope.editGroup = group;
 			$scope.editGroup.isActive = !group.isDisabled;
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
 		});
 
 		var formOptionsCache = CacheFactory.get("formOptions");

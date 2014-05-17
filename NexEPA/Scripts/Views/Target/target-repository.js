@@ -114,14 +114,10 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 
 		utility.showMessageAfterValidate = function ($scope) {
 			$scope.$watchCollection('[submitted, createForm.$invalid, createForm.targetName.$error.required, \
-				createForm.targetFormSelect.$error.required, \
-				formIsProject, createForm.targetProjectSelect.$error.required ]', function (newVals) {
+				 createForm.targetProjectSelect.$error.required ]', function (newVals) {
 					if (newVals[0] === true && newVals[1] === true) {
-						if (newVals[4] === true && newVals[5] === true) {
-							notificationFactory.error("ProjectRequire");
-						}
 						if (newVals[3] === true) {
-							notificationFactory.error("FormRequire");
+							notificationFactory.error("ProjectRequire");
 						}
 						if (newVals[2] === true) {
 							notificationFactory.error("NameRequire");

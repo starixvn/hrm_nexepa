@@ -80,11 +80,11 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 			$scope.$watchCollection('[submitted, form.$invalid, form.groupName.$error.required, form.groupSelect.$error.required ]',
 			function (newVals) {
 				if (newVals[0] === true && newVals[1] === true) {
-					if (newVals[3] === true) {
-						notificationFactory.error("FormRequire");
-					}
 					if (newVals[2] === true) {
 						notificationFactory.error("NameRequire");
+					}
+					if (newVals[3] === true) {
+						notificationFactory.error("FormRequire");
 					}
 
 					$scope.submitted = false;

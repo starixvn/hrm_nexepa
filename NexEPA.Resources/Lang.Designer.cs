@@ -70,7 +70,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activation Failed!.
+        ///   Looks up a localized string similar to Activated unsuccessfully!.
         /// </summary>
         public static string ActivationFail {
             get {
@@ -79,7 +79,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activation Succeeded!.
+        ///   Looks up a localized string similar to Activated successfully!.
         /// </summary>
         public static string ActivationSuccess {
             get {
@@ -331,6 +331,24 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data change unsuccessfully!.
+        /// </summary>
+        public static string DataChangeFail {
+            get {
+                return ResourceManager.GetString("DataChangeFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data change successfully!.
+        /// </summary>
+        public static string DataChangeSuccessfully {
+            get {
+                return ResourceManager.GetString("DataChangeSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of PPA.
         /// </summary>
         public static string DatePPA {
@@ -340,7 +358,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deactivation Failed!.
+        ///   Looks up a localized string similar to Deactivated unsuccessfully!.
         /// </summary>
         public static string DeactivationFail {
             get {
@@ -349,7 +367,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deactivation Succeeded!.
+        ///   Looks up a localized string similar to Deactivated successfully!.
         /// </summary>
         public static string DeactivationSuccess {
             get {
@@ -592,7 +610,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the Form!.
+        ///   Looks up a localized string similar to The Form field is rquired!.
         /// </summary>
         public static string FormRequire {
             get {
@@ -637,7 +655,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the Group!.
+        ///   Looks up a localized string similar to The Group field is required!.
         /// </summary>
         public static string GroupRequire {
             get {
@@ -916,7 +934,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the Name!.
+        ///   Looks up a localized string similar to The Name field is required!.
         /// </summary>
         public static string NameRequire {
             get {
@@ -1078,7 +1096,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose the Project!.
+        ///   Looks up a localized string similar to The Project field is required!.
         /// </summary>
         public static string ProjectRequire {
             get {
@@ -1366,7 +1384,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the Title!.
+        ///   Looks up a localized string similar to The Title field is required!.
         /// </summary>
         public static string TitleRequire {
             get {
@@ -1420,7 +1438,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please fill out the Weight!.
+        ///   Looks up a localized string similar to The Weight field is required!.
         /// </summary>
         public static string WeightRequire {
             get {
