@@ -11,6 +11,12 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 			return deferred.promise;
 		};
 
+		common.getFormOptionsExceptAll = function () {
+			var deferred = $q.defer();
+			$http.get('/api/Core/GetTargetTypeExceptAll').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		};
+
 		common.getGroupByTargetTypeId = function (targetTypeId) {
 			var deferred = $q.defer();
 			$http.get('/api/KPIGroup/GetGroupListByTargetTypeId', { params: { targetTypeId: targetTypeId} })

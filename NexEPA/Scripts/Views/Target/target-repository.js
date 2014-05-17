@@ -81,7 +81,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 				$scope.formOptions = formOptionsCache;
 			}
 			else {
-				KPICommonRepository.getFormOptions().then(function (listTargetType) {
+				KPICommonRepository.getFormOptionsExceptAll().then(function (listTargetType) {
 					$scope.formOptions = listTargetType;
 					targetCacheFactory.put("formOptions", listTargetType);
 				});
@@ -114,7 +114,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 
 		utility.showMessageAfterValidate = function ($scope) {
 			$scope.$watchCollection('[submitted, createForm.$invalid, createForm.targetName.$error.required, \
-				 createForm.targetProjectSelect.$error.required ]', function (newVals) {
+				createForm.targetProjectSelect.$error.required ]', function (newVals) {
 					if (newVals[0] === true && newVals[1] === true) {
 						if (newVals[3] === true) {
 							notificationFactory.error("ProjectRequire");

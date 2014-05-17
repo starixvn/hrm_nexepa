@@ -47,6 +47,13 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        public IEnumerable<TargetType> GetTargetTypeExceptAll()
+        {
+            var criteria = new GetAllTargetTypeCriteria();
+            return _epaService.GetAllTargetType(criteria);
+        }
+
+        [HttpGet]
         public IEnumerable<dynamic> GetAllProject()
         {
             var criteria = new GetAllProjectToFilterCriteria

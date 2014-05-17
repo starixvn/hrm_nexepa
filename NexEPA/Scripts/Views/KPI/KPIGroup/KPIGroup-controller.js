@@ -15,7 +15,7 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 			$scope.formOptions = formOptionsCache;
 		}
 		else {
-			KPICommonRepository.getFormOptions().then(function (listTargetType) {
+			KPICommonRepository.getFormOptionsExceptAll().then(function (listTargetType) {
 				$scope.formOptions = listTargetType;
 				CacheFactory.put("formOptions", listTargetType);
 			});

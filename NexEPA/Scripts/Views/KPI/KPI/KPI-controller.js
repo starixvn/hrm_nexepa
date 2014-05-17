@@ -21,17 +21,10 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		}
 		else {
 			$scope.isViewAll = true;
-			var formOptionsCache = CacheFactory.get("formOptions");
 
-			if (formOptionsCache) {
-				$scope.formOptions = formOptionsCache;
-			}
-			else {
-				KPICommonRepository.getFormOptions().then(function (targetTypeList) {
-					$scope.formOptions = targetTypeList;
-					CacheFactory.put("formOptions", targetTypeList);
-				});
-			}
+			KPICommonRepository.getFormOptionsExceptAll().then(function (targetTypeList) {
+				$scope.formOptions = targetTypeList;
+			});
 
 			KPIGroupRepository.getAll().success(function (groupList) {
 				$scope.groupOptions = groupList;
