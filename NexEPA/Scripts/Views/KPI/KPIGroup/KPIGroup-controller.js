@@ -3,23 +3,16 @@
 
 // View KPI Group
 kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', '$route',
-'$modal', 'CacheFactory', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
-	function ($scope, $location, $route, $modal, CacheFactory, KPIGroupRepository, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
-		var formOptionsCache = CacheFactory.get("formOptions");
+'$modal', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
+	function ($scope, $location, $route, $modal, KPIGroupRepository, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 		$scope.filter = {
 			targetTypeId: "",
 			active: ""
 		};
 
-		if (formOptionsCache) {
-			$scope.formOptions = formOptionsCache;
-		}
-		else {
-			KPICommonRepository.getFormOptionsExceptAll().then(function (listTargetType) {
-				$scope.formOptions = listTargetType;
-				CacheFactory.put("formOptions", listTargetType);
-			});
-		}
+		KPICommonRepository.getFormOptionsExceptAll().then(function (listTargetType) {
+			$scope.formOptions = listTargetType;
+		});
 
 		var getAllGroup = function (targetTypeId, isDisabled) {
 			KPIGroupRepository.getAll(targetTypeId, isDisabled)
@@ -200,22 +193,13 @@ kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', 
 
 // Create New KPI Group
 kpiSettingModule.controller("CreateNewKPIGroupController", ['$scope', '$location', '$timeout',
-'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
-function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, CacheFactory, 
-	KPICommonRepository, notificationFactory, ErrorService) {
+'$translate', '$window', 'KPIGroupRepository', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
+function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, KPICommonRepository, notificationFactory, ErrorService) {
 
 		// get all from options
-		var formOptionsCache = CacheFactory.get("formOptions");
-
-		if (formOptionsCache) {
-			$scope.formOptions = formOptionsCache;
-		}
-		else {
-			KPICommonRepository.getFormOptions().then(function (targetTypeList) {
-				$scope.formOptions = targetTypeList;
-				CacheFactory.put("formOptions", targetTypeList);
-			});
-		}
+		KPICommonRepository.getFormOptions().then(function (targetTypeList) {
+			$scope.formOptions = targetTypeList;
+		});
 
 		// validation
 		KPICommonRepository.showMessageAfterValidateKPIGroup($scope);
@@ -265,9 +249,9 @@ function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, 
 
 // Edit KPI Group
 	kpiSettingModule.controller("EditKPIGroupController", ['$scope', '$location', '$routeParams', '$timeout', '$route',
-	'$translate', '$window', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
+	'$translate', '$window', 'KPIGroupRepository', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
 	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository,
-	CacheFactory, KPICommonRepository, notificationFactory, ErrorService) {
+	KPICommonRepository, notificationFactory, ErrorService) {
 		var groupId = parseInt($routeParams.id);
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
@@ -282,17 +266,9 @@ function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, 
 			}
 		});
 
-		var formOptionsCache = CacheFactory.get("formOptions");
-
-		if (formOptionsCache) {
-			$scope.formOptions = formOptionsCache;
-		}
-		else {
-			KPICommonRepository.getFormOptions().then(function (listTargetType) {
-				$scope.formOptions = listTargetType;
-				CacheFactory.put("formOptions", listTargetType);
-			});
-		}
+		KPICommonRepository.getFormOptions().then(function (listTargetType) {
+			$scope.formOptions = listTargetType;
+		});
 
 		// validation
 		KPICommonRepository.showMessageAfterValidateKPIGroup($scope);

@@ -3,8 +3,8 @@
 
 // View KPI
 kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$location', '$modal', '$route', '$window',
-	'KPIRepository', 'KPIGroupRepository', 'CacheFactory', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
-	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository, CacheFactory,
+	'KPIRepository', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
+	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository,
 		KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
@@ -191,14 +191,13 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 // Create New KPI
 	kpiSettingModule.controller('CreateNewKPIController', ['$scope', '$routeParams',
-	'$timeout', '$location', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
-	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory, ErrorService) {
+	'$timeout', '$location', '$window', 'KPIRepository', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
+	function ($scope, $routeParams, $timeout, $location, $window, KPIRepository, KPICommonRepository, notificationFactory, ErrorService) {
 
 		var currentChosenGroups = [];
 
 		KPICommonRepository.getFormOptions().then(function (targetTypeList) {
 			$scope.formOptions = targetTypeList;
-			CacheFactory.put("formOptions", targetTypeList);
 		});
 
 		var targetTypeId = parseInt($routeParams.form);
@@ -356,8 +355,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 // Edit KPI
 	kpiSettingModule.controller("EditKPIController", ['$scope', '$routeParams', '$location',
-	'$timeout', '$window', 'KPIRepository', 'CacheFactory', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
-	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, CacheFactory, KPICommonRepository, notificationFactory, ErrorService) {
+	'$timeout', '$window', 'KPIRepository', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
+	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, KPICommonRepository, notificationFactory, ErrorService) {
 		var kpiId = $routeParams.id;
 
 		KPIRepository.getKPIById(kpiId).success(function (kpiItem) {

@@ -101,10 +101,6 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 		return common;
 	} ]);
 
-kpiSettingModule.factory("CacheFactory", ['$cacheFactory', function ($cacheFactory) {
-	return $cacheFactory("KPICache");
-}]);
-
 kpiSettingModule.directive('numbersOnly', function () {
 	return {
 		require: 'ngModel',
