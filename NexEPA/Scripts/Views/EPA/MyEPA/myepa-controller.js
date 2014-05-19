@@ -177,7 +177,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 				}
 			});
 		});
-		debugger;
 
 		if ($scope.generalCommentValid && $scope.itemCommentValid) {
 			employeeEPAResult.finalScore = $scope.finalScore;
