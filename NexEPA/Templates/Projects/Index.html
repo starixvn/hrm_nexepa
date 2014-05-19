@@ -7,23 +7,25 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th data-translate="#">
+					<th class="middle-align" data-translate="#">
 					</th>
-					<th data-translate="ProjectName">
+					<th class="middle-align" data-translate="ProjectName">
 					</th>
-					<th data-translate="Milestone">
+					<th class="middle-align" data-translate="Milestone">
 					</th>
-					<th data-translate="PM">
+					<th class="middle-align" data-translate="PM">
 					</th>
-					<th class="member-limit" data-translate="Members">
+					<th class="member-limit middle-align" data-translate="Members">
 					</th>
-					<th data-translate="Status">
+					<th class="member-limit middle-align" data-translate="EPA">
 					</th>
-					<th data-translate="StartDate">
+					<th class="middle-align" data-translate="Status">
 					</th>
-					<th data-translate="EndDate">
+					<th class="middle-align"data-translate="StartDate">
 					</th>
-					<th data-translate="Action">
+					<th class="middle-align" data-translate="EndDate">
+					</th>
+					<th class="middle-align" data-translate="Action">
 					</th>
 				</tr>
 			</thead>
@@ -45,6 +47,9 @@
 				</td>
 				<td class="text-center member-limit">
 					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">{{project.members}}</a>
+				</td>
+				<td class="text-center member-limit">
+					<a href="" ng-click=""></a>
 				</td>
 				<td>
 					<span class="dropdown" on-toggle="toggled(open)" ng-show="project.permission == 2">
@@ -73,7 +78,7 @@
 				</td>
 			</tr>
 			<tr ng-show="projects == ''">
-				<td class="empty-result" colspan="9" data-translate="EmptyResult">
+				<td class="empty-result" colspan="10" data-translate="EmptyResult">
 				</td>
 			</tr>
 		</table>

@@ -244,7 +244,7 @@ namespace NexEPA.Controllers.API
 
             if (employees != null)
             {
-                selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId });
+                selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId, x.ProjectRoleId });
             }
 
             return selectListEmployee;

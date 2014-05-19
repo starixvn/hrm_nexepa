@@ -34,6 +34,8 @@ namespace NexEPA.Employee.Models
 
         public string Roles { get; set; }
 
+        public int ProjectRoleId { get; set; }
+
         public int EmployeeLevelId { get; set; }
 
         public DateTime? JoinedDate { get; set; }
