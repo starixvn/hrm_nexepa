@@ -162,7 +162,7 @@ registrationModule.directive('searchAutoComplete', ['$timeout', function ($timeo
 					scope.employee = ui.item.employee;
 
 					// map role
-					if (scope.roles.length > 0) {
+					if (scope.roles != null) {
 						$.each(scope.roles, function (i) {
 							if (scope.roles[i].projectRoleId === scope.employee.projectRoleId) {
 								scope.roles[i].selected = true;
