@@ -138,11 +138,10 @@ registrationModule.directive('calendarImage', function () {
 	};
 });
 
-
 // search employee auto-complete directive
 registrationModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
 	return {
-		scope: { employee: "=employee", searchEmployees: "&searchEmployees" },
+		scope: { employee: "=employee", searchEmployees: "&searchEmployees", roles: "=roles" },
 		link: function (scope, iElement) {
 			iElement.autocomplete({
 				source: function (request, response) {
@@ -161,6 +160,19 @@ registrationModule.directive('searchAutoComplete', ['$timeout', function ($timeo
 				},
 				select: function (event, ui) {
 					scope.employee = ui.item.employee;
+
+					// map role
+					if (scope.roles.length > 0) {
+						$.each(scope.roles, function (i) {
+							if (scope.roles[i].projectRoleId === scope.employee.projectRoleId) {
+								scope.roles[i].selected = true;
+							}
+							else {
+								scope.roles[i].selected = false;
+							}
+						});
+					}
+
 					$timeout(function () {
 						iElement.trigger('input');
 					}, 0);
