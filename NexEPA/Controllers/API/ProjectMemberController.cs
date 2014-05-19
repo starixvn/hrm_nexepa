@@ -80,7 +80,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                AddMemberCriteria criteria = new AddMemberCriteria()
+                var criteria = new AddMemberCriteria()
                 {
                     ProjectId = member.ProjectId,
                     EmployeeId = member.EmployeeId,
@@ -91,6 +91,40 @@ namespace NexEPA.Controllers.API
                 };
 
                 CommandResult result = _projectMemberService.AddMember(criteria);
+                if (result.Code != 0)
+                {
+                    List<string> errorMessage = new List<string>() { result.Message };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                }
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
+            }
+        }
+
+        /// <summary>
+        /// Method Edit Member.
+        /// </summary>
+        /// <param name="member">Member Model.</param>
+        /// <returns>Http Response Message.</returns>
+        public HttpResponseMessage Put(MemberModel member)
+        {
+            if (ModelState.IsValid)
+            {
+                var criteria = new EditMemberCriteria()
+                {
+                    ProjectId = member.ProjectId,
+                    EmployeeId = member.EmployeeId,
+                    ProjectRoleIds = member.ProjectRoleIds,
+                    ModifiedBy = this.CurrentUser.UserId,
+                    ModifiedDate = DateTime.Now.Date,
+                    JoinDate = member.JoinDate.Value,
+                };
+
+                CommandResult result = _projectMemberService.EditMember(criteria);
                 if (result.Code != 0)
                 {
                     List<string> errorMessage = new List<string>() { result.Message };

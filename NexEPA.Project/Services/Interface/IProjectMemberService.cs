@@ -21,6 +21,8 @@ namespace NexEPA.Project.Services.Interface
     {
         CommandResult AddMember(AddMemberCriteria criteria);
 
+        CommandResult EditMember(EditMemberCriteria criteria);
+
         CommandResult DeleteMember(DeleteMemberCriteria criteria);
 
         List<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria);

@@ -35,6 +35,18 @@ namespace NexEPA.Project.Services.Implement
             return result;
         }
 
+        public CommandResult EditMember(EditMemberCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
         public CommandResult DeleteMember(DeleteMemberCriteria criteria)
         {
             CommandResult result = null;

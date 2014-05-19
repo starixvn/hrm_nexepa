@@ -13,9 +13,9 @@ var projectMemberValidation = function (employeeId, selected, joinDate) {
 
 projectsSettingModule.controller("ProjectMembersController",
 ['$scope', '$routeParams', '$location', '$modal', '$window', 'ProjectSettingCache', 'projectMilestoneService',
-'projectMembersFactory', 'notificationFactory', 'projectDataFactory', 'projectPermissionService',
+'projectMembersFactory', 'notificationFactory', 'projectDataFactory', 'projectPermissionService', 'projectMemberService',
 function ($scope, $routeParams, $location, $modal, $window, ProjectSettingCache, projectMilestoneService,
-projectMembersFactory, notificationFactory, projectDataFactory, projectPermissionService) {
+projectMembersFactory, notificationFactory, projectDataFactory, projectPermissionService, projectMemberService) {
 	/**
 	* Scope variable.
 	*/
@@ -52,6 +52,13 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 		return projectPermissionService.getProperty();
 	}, function (value) {
 		$scope.permission = value;
+	});
+
+	// Watch for Milestone list change in MilestoneController.
+	$scope.$watch(function () {
+		return projectMemberService.getProperty();
+	}, function (value) {
+		$scope.members = value;
 	});
 
 	/**
@@ -132,7 +139,7 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 				}
 			});
 			addModalInstance.result.then(function (member) {
-				projectMembersFactory.addMember(member).then(successUpdateProjectMember, errorNotification);
+				projectMembersFactory.updateMember(member).then(successUpdateProjectMember, errorNotification);
 			});
 		};
 
@@ -168,43 +175,48 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 
 projectsSettingModule.controller('AddProjectMembersController',
 ['$scope', '$modalInstance', 'commonFactory', 'roles', 'projectId', 'projectDataFactory',
-function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFactory) {
+'projectMembersFactory', 'notificationFactory', 'projectMemberService',
+function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFactory, projectMembersFactory,
+notificationFactory, projectMemberService) {
 	$scope.selection = [];
 	$scope.roles = roles;
 	$scope.calendar = { opened: false };
+	$scope.newMember = { joinDate: new Date() };
 
 	// get Date Format
 	commonFactory.getDateFormat($scope);
+	var errorNotification = function (data) { notificationFactory.error('', data); };
+	var successAddProjectMember = function () {
+		notificationFactory.success('SuccessSaveData', '');
+		$scope.newMember = { joinDate: new Date() };
+		$.each($scope.roles, function (i) {
+			$scope.roles[i].selected = false;
+		});
+		$("#txtEmployee").val('');
+		projectMembersFactory.getMember(projectId, null, null).then(function (data) {
+			projectMemberService.setProperty(data);
+		});
+	};
 
-//	$scope.addContinue = function (employee, joinDate) {
-//		var employeeId = employee ? employee.employeeId : null;
-//		var selected = $scope.selection;
-//		var member = {};
-//		var check = projectMemberValidation(employeeId, selected, joinDate);
-//		if (check) {
-//			var projectRolesIds = selected.join(',');
-//			$scope.errors = [];
-//			member.projectId = projectId;
-//			member.projectRoleIds = projectRolesIds;
-//			member.employeeId = employeeId;
-//			member.joinDate = joinDate;
-//			$modalInstance.close(member);
-//		}
-//	};
-
-	$scope.ok = function (employee, joinDate) {
-		var employeeId = employee ? employee.employeeId : null;
+	$scope.ok = function (isContinue) {
+		var newMember = $scope.newMember;
+		var employeeId = newMember.employee ? newMember.employee.employeeId : null;
 		var selected = $scope.selection;
-		var member = {};
-		var check = projectMemberValidation(employeeId, selected, joinDate);
+		var check = projectMemberValidation(employeeId, selected, newMember.joinDate);
 		if (check) {
 			var projectRolesIds = selected.join(',');
 			$scope.errors = [];
-			member.projectId = projectId;
-			member.projectRoleIds = projectRolesIds;
-			member.employeeId = employeeId;
-			member.joinDate = joinDate;
-			$modalInstance.close(member);
+			var member = { projectId: projectId, projectRoleIds: projectRolesIds,
+				employeeId: employeeId, joinDate: newMember.joinDate
+			};
+			if (isContinue) {
+				projectMembersFactory.addMember(member).then(successAddProjectMember, errorNotification);
+
+			}
+			else {
+				$modalInstance.close(member);
+			}
+
 		}
 	};
 
