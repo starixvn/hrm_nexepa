@@ -69,9 +69,15 @@ novalidate>
 	<div class="row boxcontent kpi-content">
 		<div class="col-sm-6 no-padding" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">
 			<ul class="col-sm-12 list-unstyled kpi-list">
-				<li class="title-list"><strong>{{ kpi.kpiGroupName }}</strong></li>
-				<li ng-repeat="item in kpi.kpiGroupItems | filter: KPIName"><span class="glyphicon glyphicon-ok icon-list">
-				</span>{{item.name}}</li>
+				<li class="title-list">
+                    <strong>{{ kpi.kpiGroupName }}</strong>
+                    <strong ng-show="kpi.kpiGroupItems.length > 0">({{ kpi.kpiGroupItems[0].kpiGroupWeight }}%)</strong>
+                </li>
+				<li ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
+                    <span class="glyphicon glyphicon-ok icon-list"></span>
+                    {{item.name}}
+                    <span ng-show="!kpi.isSpreadKPI">({{item.weight}}%)</span>
+                </li>
 			</ul>
 		</div>
 	</div>
