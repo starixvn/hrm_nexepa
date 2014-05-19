@@ -155,12 +155,13 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 	// Delete Member.
 	$scope.deleteMember = function (member) {
 		member.projectId = projectIdInUrl;
+		var displayName = member.nickName + ' (' + member.fullName + ')';
 		var deleteModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			resolve: {
 				name: function () {
-					return member.fullName;
+					return displayName;
 				},
 				action: function () {
 					return "delete";
