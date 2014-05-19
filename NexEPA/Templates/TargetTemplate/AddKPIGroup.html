@@ -13,14 +13,14 @@
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
-					<th>
+					<th class="middle-align">
 						<input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)"/>
 					</th>
-					<th data-translate="Name">
+					<th class="middle-align" data-translate="Name">
 					</th>
-					<th data-translate="KPIGroupWeight">
+					<th class="middle-align" data-translate="KPIGroupWeight">
 					</th>
-					<th data-translate="SpreadWeight">
+					<th class="spread-weight-max middle-align" data-translate="SpreadWeight">
 					</th>
 				</tr>
 			</thead>
@@ -36,7 +36,7 @@
 					<input type="text" class="custom-form-control text-center" 
 					ng-model="group.weight" ng-show="group.selected == true"/>
 				</td>
-				<td class="column-weight-max text-center">
+				<td class="text-center">
 					<input type="checkbox" ng-model="group.isSpreadKPI" ng-show="group.selected"/>
 				</td>
 

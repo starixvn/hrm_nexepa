@@ -103,6 +103,12 @@
 									    </td>
 								    </tr>
 							    </tbody>
+								<tfoot>
+									<tr ng-show="lstKPI == ''">
+										<td class="empty-result" colspan="3" data-translate="EmptyResult">
+										</td>
+									</tr>
+								</tfoot>
 						    </table>
 						    <div class="col-sm-offset-5 top-buffer">
 							    <button class="button" ng-disabled="editTargetTemplate.$invalid" ng-click="update(editTemplate)"
