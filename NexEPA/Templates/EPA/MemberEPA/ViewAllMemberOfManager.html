@@ -9,37 +9,37 @@
 	</div>
 	<div class="form-inline filter">
 		<form novalidate class="form-inline">
-        <div class="form-group" ng-show="showTargetFilter">
-			<label data-translate="Target">
-			</label>
-			<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
-				class="form-control">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label data-translate="Project">
-			</label>
-			<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
-				class="form-control">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label data-translate="Status">
-			</label>
-			<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
-				class="form-control">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-        <div class="form-group">
-            <label data-translate="Employee"></label>
-            <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
-                    search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee" />
-        </div>
-		<button class="button" ng-click="query(filter.targetId,filter.projectId,filter.status,employee.employeeId)" ng-disabled="submitted" data-translate="Submit">
-		</button>
+            <div class="form-group">
+                <label data-translate="Employee"></label>
+                <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
+                        search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee" />
+            </div>
+            <div class="form-group" ng-show="showTargetFilter">
+			    <label data-translate="Target">
+			    </label>
+			    <select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+				    class="form-control">
+				    <option value="">-- All --</option>
+			    </select>
+		    </div>
+		    <div class="form-group">
+			    <label data-translate="Project">
+			    </label>
+			    <select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+				    class="form-control">
+				    <option value="">-- All --</option>
+			    </select>
+		    </div>
+		    <div class="form-group">
+			    <label data-translate="Status">
+			    </label>
+			    <select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
+				    class="form-control">
+				    <option value="">-- All --</option>
+			    </select>
+		    </div>
+		    <button class="button" ng-click="query(filter.targetId,filter.projectId,filter.status,employee.employeeId)" ng-disabled="submitted" data-translate="Submit">
+		    </button>
 		</form>
 	</div>
 </div>
@@ -87,8 +87,8 @@
 				<span class="dropdown" on-toggle="toggled(open)">
 					<a href="javascript:;" class="dropdown-toggle changeStatus">{{epaItem.statusName}}</a>
 					<ul class="dropdown-menu dropdown-menu-width">
-						<li ng-repeat="item in epaStatus" ng-hide="item.id == epaItem.status">
-							<a ng-click="updateEPAStatus(epaItem, item.id)" href="javascript:;">{{item.name}}</a>
+						<li ng-repeat="item in epaStatus | filter:{name:'!'+epaItem.statusName}">
+							<a ng-click="updateEPAStatus(epaItem, item)" href="javascript:;">{{item.name}}</a>
 						</li>
 					</ul>
 				</span>

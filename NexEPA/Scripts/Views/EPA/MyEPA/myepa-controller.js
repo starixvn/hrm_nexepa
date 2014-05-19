@@ -291,8 +291,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 // View EPA of Current Member Controller
 epaModule.controller('ViewCurrentMemberEPAController',
-	['$scope', '$location', 'employeeEPAFactory', 'commonFactory', 'ErrorService', 'notificationFactory',
-	function ($scope, $location, employeeEPAFactory, commonFactory, ErrorService, notificationFactory) {
+	['$scope', '$location', '$route','employeeEPAFactory', 'commonFactory', 'ErrorService', 'notificationFactory',
+	function ($scope, $location, $route, employeeEPAFactory, commonFactory, ErrorService, notificationFactory) {
 
 		// get all project to filter
 		employeeEPAFactory.getAllProject().then(function (projectList) {
@@ -347,12 +347,18 @@ epaModule.controller('ViewCurrentMemberEPAController',
 				$scope.submitted = false;
 			}
 		};
+
+		$scope.reload = function () {
+			$route.reload();
+		};
+
 	} ]);
 
 // View EPA of Member by Manager Controller
 	epaModule.controller('ViewMemberByManagerEPAController', [
-	'$scope', '$routeParams', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory', '$modal', 'employeeRepository', 'AuthService',
-	function ($scope, $routeParams, employeeEPAFactory, ErrorService, commonFactory, notificationFactory, $modal, employeeRepository, AuthService) {
+	'$scope', '$routeParams', '$route', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory', '$modal',
+	'employeeRepository', 'AuthService',
+	function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory, notificationFactory, $modal, employeeRepository, AuthService) {
 
 		var targetId = $routeParams.targetId;
 		targetId = targetId ? parseInt(targetId) : null;
@@ -411,11 +417,11 @@ epaModule.controller('ViewCurrentMemberEPAController',
 
 		var successChangeEPAStatus = function () {
 			notificationFactory.success('SuccessSaveData', '');
-			getEPAOfEmployeeByManager(null, null);
+			//getEPAOfEmployeeByManager(null, null);
 		};
 		var errorChangeEPAStatus = function (response) {
 			notificationFactory.error('', response);
-			getEPAOfEmployeeByManager(null, null);
+			//getEPAOfEmployeeByManager(null, null);
 		};
 
 		var errorHandle = function (status) {
@@ -478,10 +484,13 @@ epaModule.controller('ViewCurrentMemberEPAController',
 				}
 			});
 			updateEPAModalInstance.result.then(function () {
-				epaItem.status = status;
+				epaItem.statusName = status.name;
 				epaItem.targetId = epaItem.target.targetId;
 				employeeEPAFactory.updateEPAStatus(epaItem).then(successChangeEPAStatus, errorChangeEPAStatus);
 			});
 		};
 
+		$scope.reload = function () {
+			$route.reload();
+		};
 	} ]);

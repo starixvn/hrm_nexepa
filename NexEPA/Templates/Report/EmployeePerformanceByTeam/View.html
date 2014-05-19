@@ -9,6 +9,11 @@
     <div class="form-inline filter">
         <form novalidate class="form-inline">
             <div class="form-group">
+                <label data-translate="Employee"></label>
+                <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
+                        search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee"/>
+            </div>
+            <div class="form-group">
                 <label data-translate="Team"></label>
                 <select ng-model="filter.groupId" 
                     ng-options="opt.id as opt.name for opt in groupOptions" class="form-control">
@@ -21,11 +26,6 @@
                     ng-options="opt.id as opt.name for opt in projectOptions" class="form-control">
                     <option value="">-- All --</option>
                  </select>
-            </div>
-            <div class="form-group">
-                <label data-translate="Employee"></label>
-                <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
-                        search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee"/>
             </div>
             <div class="form-group">
                 <label data-translate="From"></label>
