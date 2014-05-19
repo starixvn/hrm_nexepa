@@ -151,10 +151,12 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	/**
 	* Events 
 	*/
-	$scope.itemCommentValid = true;
+	
 	$scope.generalCommentValid = true;
 
 	$scope.save = function (employeeEPAResult) {
+		$scope.itemCommentValid = true;
+
 		if (employeeEPAResult.comment === "" || employeeEPAResult.comment === null) {
 			$scope.generalCommentValid = false;
 		}
@@ -172,7 +174,6 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 				}
 				else {
 					currentItem.checkNullComment = false;
-					$scope.itemCommentValid = true;
 				}
 			});
 		});
