@@ -16,7 +16,11 @@ namespace NexEPA.MemberEPA.Criteria
     /// </summary>
     public class GetEPAOfAllEmployeeByManagerCriteria : CriteriaBase
     {
-        public int EmployeeId { get; set; }
+        public int ActorUserId { get; set; }
+
+        public int? EmployeeId { get; set; }
+
+        public int? TargetId { get; set; }
 
         public int? ProjectId { get; set; }
 

@@ -329,5 +329,23 @@ namespace NexEPA.Target.Services.Implement
 
             return groups;
         }
+
+        /// <summary>
+        /// Get Target to filter.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Target Filter Model.</returns>
+        public IEnumerable<TargetFilterModel> GetTargetToFilter(GetTargetToFilterCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<TargetFilterModel> targets = null;
+
+            if (criteria.IsValid())
+            {
+                targets = GetData<TargetFilterModel>(criteria);
+            }
+
+            return targets;
+        }
     }
 }

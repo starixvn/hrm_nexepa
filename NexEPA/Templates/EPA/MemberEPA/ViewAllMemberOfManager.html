@@ -9,6 +9,14 @@
 	</div>
 	<div class="form-inline filter">
 		<form novalidate class="form-inline">
+        <div class="form-group" ng-show="showTargetFilter">
+			<label data-translate="Target">
+			</label>
+			<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+				class="form-control">
+				<option value="">-- All --</option>
+			</select>
+		</div>
 		<div class="form-group">
 			<label data-translate="Project">
 			</label>
@@ -25,7 +33,12 @@
 				<option value="">-- All --</option>
 			</select>
 		</div>
-		<button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit">
+        <div class="form-group">
+            <label data-translate="Employee"></label>
+            <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
+                    search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="employee" />
+        </div>
+		<button class="button" ng-click="query(filter.targetId,filter.projectId,filter.status,employee.employeeId)" ng-disabled="submitted" data-translate="Submit">
 		</button>
 		</form>
 	</div>

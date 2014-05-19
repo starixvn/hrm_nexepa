@@ -44,8 +44,9 @@
             <th data-translate="Project"></th>
             <th data-translate="Milestone"></th>
             <th data-translate="Members"></th>
-            <th data-translate="KPI"></th>
+            <th data-translate="KPIs"></th>
             <th data-translate="Status"></th>
+            <th data-translate="EPAs"></th>
             <th data-translate="StartDate"></th>
             <th data-translate="EndDate"></th>
             <th data-translate="Action"></th>
@@ -81,6 +82,9 @@
                             </li>
                          </ul>
                     </span>
+                </td>
+                <td>
+                    <a data-translate="MemberEPA" href="" ng-href={{viewMemberEPAUrl}} ng-click="viewMemberEPA(target.targetId)" title="View Member EPA"/>
                 </td>
                 <td class="text-center" ng-bind="target.startDate"></td>
                 <td class="text-center" ng-bind="target.endDate"></td>

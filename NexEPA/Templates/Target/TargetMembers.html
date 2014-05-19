@@ -23,7 +23,9 @@
             </thead>
             <tr ng-repeat="employee in employees">
                 <td class="index" ng-bind="$index + 1"></td>
-                <td ng-bind="employee.fullName"></td>
+                <td>
+                    <a href="" ng-bind="employee.fullName" ng-click="viewEPADetail(employee.employeeId)" ng-href={{viewEPADetailUrl}} title="View EPA detail"/>
+                </td>
                 <td ng-bind="employee.nickName"></td>
                 <td ng-bind="employee.group.name"></td>
                 <td class="action" ng-show="isEditMode">

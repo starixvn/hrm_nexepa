@@ -46,5 +46,7 @@ namespace NexEPA.Target.Services.Interface
         TargetDateModel GetProjectOrMilestoneDate(GetProjectOrMilestoneDateCriteria criteria);
 
         IEnumerable<dynamic> GetKPIGroupByTargetId(GetKPIGroupByTargetIdCriteria criteria);
+
+        IEnumerable<TargetFilterModel> GetTargetToFilter(GetTargetToFilterCriteria criteria);
     }
 }

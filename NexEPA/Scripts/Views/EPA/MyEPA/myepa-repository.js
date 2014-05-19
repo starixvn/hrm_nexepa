@@ -45,13 +45,15 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 			$http.get('/api/Core/GetAllStatus').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
-		getEPAOfEmployeeByManager: function (projectId, status) {
+		getEPAOfEmployeeByManager: function (targetId, projectId, status, employeeId) {
 			var deferred = $q.defer();
 			$http.get('/api/EmployeeEPA/GetEPAOfEmployeeByManager',
-					{ params: { projectId: projectId,
-						status: status
+					{ params: { targetId: targetId,
+						projectId: projectId,
+						status: status,
+						employeeId: employeeId
 					}
-				}).success(deferred.resolve).error(function (response, status) {
+					}).success(deferred.resolve).error(function (response, status) {
 						deferred.reject(status);
 					});
 			return deferred.promise;
@@ -59,6 +61,11 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		updateEPAStatus: function (employeeEPA) {
 			var deferred = $q.defer();
 			$http.post('/api/EmployeeEPA/UpdateEPAStatus', employeeEPA).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		getTargetToFilter: function () {
+			var deferred = $q.defer();
+			$http.get('/api/Target/GetTargetToFilter').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
 	};

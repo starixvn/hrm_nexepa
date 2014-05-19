@@ -71,8 +71,10 @@
     <Compile Include="Criteria\Target\TargetKPI\GetKPIByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\TargetKPI\GetKPIGroupByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetProjectOrMilestoneDateCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\GetTargetToFilterCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetStatusCriteria.cs" />
     <Compile Include="Models\TargetDateModel.cs" />
+    <Compile Include="Models\TargetFilterModel.cs" />
     <Compile Include="Models\TargetTemplateKPIModel.cs" />
     <Compile Include="Criteria\Target\Target\DeleteTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetByIdCriteria.cs" />

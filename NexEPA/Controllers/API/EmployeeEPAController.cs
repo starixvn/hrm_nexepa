@@ -149,15 +149,27 @@ namespace NexEPA.Controllers.API
             return _memberEPAService.GetEPAByEmployee(criteria);
         }
 
+        /// <summary>
+        /// Get EPA of employees by manager.
+        /// </summary>
+        /// <param name="targetId">The target id.</param>
+        /// <param name="projectId">The project id.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="employeeId">The employee id.</param>
+        /// <returns>The list Member EPA Model.</returns>
         [ApiAuthorize(Roles = "PM,SA,Leader")]
         [HttpGet]
         public List<MemberEPAModel> GetEPAOfEmployeeByManager(
+            int? targetId = null,
             int? projectId = null,
-            int? status = null)
+            int? status = null,
+            int? employeeId = null)
         {
             var criteria = new GetEPAOfAllEmployeeByManagerCriteria
             {
-                EmployeeId = this.CurrentUser.UserId,
+                ActorUserId = this.CurrentUser.UserId,
+                EmployeeId = employeeId,
+                TargetId = targetId,
                 ProjectId = projectId,
                 Status = status
             };

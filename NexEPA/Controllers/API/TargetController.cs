@@ -17,8 +17,6 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Core.Enums;
     using NexEPA.Employee.Models;
     using NexEPA.Project.Criteria.Milestone;
-    using NexEPA.Project.Criteria.Project;
-    using NexEPA.Project.Models;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
     using NexEPA.Target.Criteria.Target.Target;
@@ -234,6 +232,17 @@ namespace NexEPA.Controllers.Target
             };
 
             return _targetService.GetKPIGroupByTargetId(criteria);
+        }
+
+        [HttpGet]
+        public IEnumerable<TargetFilterModel> GetTargetToFilter()
+        {
+            var criteria = new GetTargetToFilterCriteria
+            {
+                ActorUserId = this.CurrentUser.UserId,
+            };
+
+            return _targetService.GetTargetToFilter(criteria);
         }
     }
 }

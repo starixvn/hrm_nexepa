@@ -190,6 +190,10 @@ targetModule.controller('ViewTargetController',
 				});
 			}
 		};
+
+		$scope.viewMemberEPA = function (targetId) {
+			$scope.viewMemberEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId;
+		};
 	} ]);
 
 // Create Target Controller
@@ -522,6 +526,11 @@ function ($scope, $modal, $routeParams, targetFactory, ErrorService, targetUtili
 			$scope.memberLoaded = true;
 		}
 	});
+
+	// view EPA detail
+	$scope.viewEPADetail = function (employeeId) {
+		$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + employeeId;
+	};
 
 	if (isEditMode) {
 		$scope.searchEmployees = [];
