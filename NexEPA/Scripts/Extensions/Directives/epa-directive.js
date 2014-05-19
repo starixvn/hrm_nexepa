@@ -137,3 +137,36 @@ registrationModule.directive('calendarImage', function () {
 		template: '<img class="calendar-image" src="/Content/Site/images/calendar.png"></img>'
 	};
 });
+
+
+// search employee auto-complete directive
+registrationModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
+	return {
+		scope: { employee: "=employee", searchEmployees: "&searchEmployees" },
+		link: function (scope, iElement) {
+			iElement.autocomplete({
+				source: function (request, response) {
+					var employees = scope.searchEmployees();
+					var data = [];
+
+					angular.forEach(employees, function (employee) {
+						data.push(
+							{ value: employee.nickName + ' (' + employee.fullName + ')',
+								id: employee.employeeId,
+								employee: employee
+							});
+					});
+
+					response(data);
+				},
+				select: function (event, ui) {
+					scope.employee = ui.item.employee;
+					$timeout(function () {
+						iElement.trigger('input');
+					}, 0);
+				},
+				appendTo: iElement.parent()
+			});
+		}
+	};
+} ]);
