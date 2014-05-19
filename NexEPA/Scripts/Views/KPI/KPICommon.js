@@ -58,7 +58,7 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 		};
 
 		common.validateAndCreateStringKPIGroupId = function (item) {
-			if (item.kpiGroupIds === null || item.kpiGroupIds === undefined) {
+			if (item.kpiGroupIds === null || item.kpiGroupIds === undefined || item.kpiGroupIds.length === 0) {
 				return false;
 			}
 

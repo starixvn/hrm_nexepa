@@ -302,7 +302,6 @@ targetModule.controller('ViewTargetController',
 				});
 			}
 			else {
-				notificationFactory.error("DataChangeFail");
 				$scope.disabledSubmit = false;
 			}
 		};
