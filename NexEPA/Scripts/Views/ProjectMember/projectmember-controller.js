@@ -176,8 +176,24 @@ function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFa
 	// get Date Format
 	commonFactory.getDateFormat($scope);
 
+//	$scope.addContinue = function (employee, joinDate) {
+//		var employeeId = employee ? employee.employeeId : null;
+//		var selected = $scope.selection;
+//		var member = {};
+//		var check = projectMemberValidation(employeeId, selected, joinDate);
+//		if (check) {
+//			var projectRolesIds = selected.join(',');
+//			$scope.errors = [];
+//			member.projectId = projectId;
+//			member.projectRoleIds = projectRolesIds;
+//			member.employeeId = employeeId;
+//			member.joinDate = joinDate;
+//			$modalInstance.close(member);
+//		}
+//	};
+
 	$scope.ok = function (employee, joinDate) {
-		var employeeId = employee.employeeId;
+		var employeeId = employee ? employee.employeeId : null;
 		var selected = $scope.selection;
 		var member = {};
 		var check = projectMemberValidation(employeeId, selected, joinDate);

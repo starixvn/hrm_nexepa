@@ -573,4 +573,7 @@
   <data name="SpreadWeight" xml:space="preserve">
     <value>Spread KPIs Weight</value>
   </data>
+  <data name="AddContinue" xml:space="preserve">
+    <value>Add and continue</value>
+  </data>
 </root>

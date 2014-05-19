@@ -106,6 +106,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add and continue.
+        /// </summary>
+        public static string AddContinue {
+            get {
+                return ResourceManager.GetString("AddContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add KPI Group.
         /// </summary>
         public static string AddKPIGroup {
