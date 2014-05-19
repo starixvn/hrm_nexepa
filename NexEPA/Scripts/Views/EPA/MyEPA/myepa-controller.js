@@ -172,9 +172,11 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 				}
 				else {
 					currentItem.checkNullComment = false;
+					$scope.itemCommentValid = true;
 				}
 			});
 		});
+		debugger;
 
 		if ($scope.generalCommentValid && $scope.itemCommentValid) {
 			employeeEPAResult.finalScore = $scope.finalScore;
