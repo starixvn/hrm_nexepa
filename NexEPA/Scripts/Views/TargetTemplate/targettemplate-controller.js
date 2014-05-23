@@ -85,6 +85,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 		var deleteModalInstance = $modal.open({
 			templateUrl: '../templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			windowClass: 'modal-dialog-center',
 			resolve: {
 				name: function () {
 					return template.name;
@@ -112,6 +113,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 		var modalConfirmInstance = $modal.open({
 			templateUrl: '/templates/Common/modalConfirmContent.html',
 			controller: "ModalConfirmController",
+			windowClass: 'modal-dialog-center',
 			resolve: {
 				name: function () {
 					return template.name;
@@ -119,8 +121,8 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 				action: function () {
 					return action;
 				}
-			},
-			windowClass: "modal-confirm-center"
+			}
+			
 		});
 
 		var keyMessage = '';
