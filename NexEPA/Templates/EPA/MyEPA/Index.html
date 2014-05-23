@@ -1,9 +1,11 @@
 ﻿<div class="row sub-header ng-scope">
-	<ul class="col-xs-12 breadcrumb list-inline pull-left">
-		<li>
-			<a href="#">EPA</a></li>
-		<li ng-show="isReadonly" class="current">My EPA</li>
-		<li ng-show="!isReadonly" class="current">Member EPA</li>
+	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-show="isPMPage">
+		<li><a href="/MemberEPA/ViewMember">Manage Member EPA</a></li>
+		<li class="current">Member EPA</li>
+	</ul>
+	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-hide="isPMPage">
+		<li ><a href="/MemberEPA/ViewCurrentMember">Manage My EPA</a></li>
+		<li class="current">My EPA</li>
 	</ul>
 </div>
 <form class="epa-form" name="addProjectForm" novalidate>
@@ -89,7 +91,8 @@
 				</div>
 				<div class="col-sm-8 txt-value">
 					<span class="dropdown" on-toggle="toggled(open)">
-						<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">{{employeeEPA.status|epaStatus}}</a>
+						<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">
+							{{employeeEPA.status|epaStatus}}</a>
 						<ul class="dropdown-menu dropdown-menu-width">
 							<li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
 								<a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
@@ -186,7 +189,8 @@
 	</div>
 </div>
 <div class="col-sm-12 action-button epa">
-	<button class="button" ng-show="!isReadonly && employeeEPA" ng-click="save(employeeEPA)" data-translate="Submit">
+	<button class="button" ng-show="!isReadonly && employeeEPA" ng-click="save(employeeEPA)"
+		data-translate="Submit">
 	</button>
 	<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 	</button>

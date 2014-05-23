@@ -58,6 +58,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var currentEPAStatus;
 	var newEPAStatus;
 	$scope.showMenuContext = true;
+	$scope.isPMPage = true;
 
 	/**
 	* Function. 
@@ -243,6 +244,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	var targetId = $routeParams.targetId;
 	var employeeId = $routeParams.employeeId;
 	$scope.generalCommentValid = true;
+	$scope.isPMPage = false;
 
 	/**
 	* Ajax event. 
