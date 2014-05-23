@@ -137,6 +137,7 @@ notificationFactory, $modal, AuthService, linkToEPAService) {
 		var deleteModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			windowClass: 'modal-dialog-center',
 			resolve: {
 				name: function () {
 					return project.name;
@@ -535,6 +536,7 @@ commonFactory, ProjectSettingCache) {
 		var deleteModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			windowClass: 'modal-dialog-center',
 			resolve: {
 				name: function () {
 					return milestone.name;
