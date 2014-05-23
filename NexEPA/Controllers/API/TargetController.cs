@@ -59,9 +59,10 @@ namespace NexEPA.Controllers.Target
         {
             var criteria = new GetTargetCriteria
             {
-               TargetTypeId = targetTypeId,
-               StartDate = startDate,
-               EndDate = endDate
+                ActorUserId = this.CurrentUser.UserId,
+                TargetTypeId = targetTypeId,
+                StartDate = startDate,
+                EndDate = endDate
             };
 
             return _targetService.GetAllTarget(criteria);
@@ -73,7 +74,8 @@ namespace NexEPA.Controllers.Target
         {
             var criteria = new GetTargetByIdCriteria
             {
-                TargetId = targetId
+                TargetId = targetId,
+                ActorUserId = this.CurrentUser.UserId
             };
 
             return _targetService.GetTargetById(criteria);

@@ -20,6 +20,8 @@ namespace NexEPA.Core.Criteria
 
         public int ActorUserId { get; set; }
 
+        public int? IncludeProjectId { get; set; }
+
         public override string GetSettingKey()
         {
             return "Project_GetAll";

@@ -17,6 +17,8 @@ namespace NexEPA.Target.Criteria.Target.Target
     /// </summary>
     public class GetTargetCriteria : CriteriaBase
     {
+        public int ActorUserId { get; set; }
+
         public int? TargetTypeId { get; set; }
 
         public int? ProjectId { get; set; }

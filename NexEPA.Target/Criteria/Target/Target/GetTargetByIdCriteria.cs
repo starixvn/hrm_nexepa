@@ -18,6 +18,8 @@ namespace NexEPA.Target.Criteria.Target.Target
     {
         public int TargetId { get; set; }
 
+        public int ActorUserId { get; set; }
+
         public override string GetSettingKey()
         {
             return "Target_GetById";
