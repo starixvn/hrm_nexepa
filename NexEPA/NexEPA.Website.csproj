@@ -254,8 +254,8 @@
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />
-    <Content Include="Scripts\Views\EPA\MyEPA\myepa-controller.js" />
-    <Content Include="Scripts\Views\EPA\MyEPA\myepa-repository.js" />
+    <Content Include="Scripts\Views\EPA\myepa-controller.js" />
+    <Content Include="Scripts\Views\EPA\myepa-repository.js" />
     <Content Include="Scripts\Views\Home\home-controller.js" />
     <Content Include="Scripts\Views\Home\home-repository.js" />
     <Content Include="Scripts\Views\Report\report-controller.js" />

@@ -42,7 +42,6 @@ notificationFactory, $modal, AuthService, linkToEPAService) {
 	// Filter data by criteria.
 	var successFilterData = function (data) {
 		$scope.projects = data;
-		debugger;
 	};
 
 	var errorHandle = function (status) {

@@ -384,7 +384,7 @@ function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommo
 				}
 
 				if (target.project && target.project.projectId) {
-				    targetUtility.getAllProject($scope, target.project.projectId);
+					targetUtility.getAllProject($scope, target.project.projectId);
 					$scope.target.projectId = target.project.projectId;
 
 					$scope.isSelectedProject = true;

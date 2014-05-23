@@ -54,13 +54,13 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        public IEnumerable<dynamic> GetAllProject(int? IncludeProjectId = null)
+        public IEnumerable<dynamic> GetAllProject(int? includeProjectId = null)
         {
             var criteria = new GetAllProjectToFilterCriteria
             {
                 IsShowClosed = false,
                 ActorUserId = this.CurrentUser.UserId,
-                IncludeProjectId = IncludeProjectId
+                IncludeProjectId = includeProjectId
             };
 
             return _epaService.GetAllProjectToFilter(criteria);

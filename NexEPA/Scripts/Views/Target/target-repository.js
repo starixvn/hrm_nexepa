@@ -62,7 +62,7 @@ targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCac
 		var utility = {};
 
 		utility.getAllProject = function ($scope, projectId) {
-		    targetFactory.getAllProject(projectId).success(function (projectList) {
+				targetFactory.getAllProject(projectId).success(function (projectList) {
 				$scope.projectOptions = projectList;
 			}).error(function () {
 				notificationFactory.error("ErrorMessage");

@@ -50,6 +50,13 @@ namespace NexEPA.Controllers.Target
             _projectService = projectService ?? new ProjectService();
         }
 
+        /// <summary>
+        /// Method Get Target.
+        /// </summary>
+        /// <param name="targetTypeId">Target Type Id.</param>
+        /// <param name="startDate">Query Start date.</param>
+        /// <param name="endDate">Query End Date.</param>
+        /// <returns>Target View Model.</returns>
         [HttpGet]
         [ApiAuthorize(Roles = "PM,SA")]
         public List<TargetViewModel> GetTarget(
