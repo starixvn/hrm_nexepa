@@ -93,7 +93,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	};
 	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
 	var successGetEmployeeEPA = function (data) {
-		if (data != null) {
+		if (data !== "null") {
 			if (data.kpiInfo.length > 0) {
 				$.each(data.kpiInfo, function (i) {
 					var currentKPIInfo = data.kpiInfo[i];
@@ -126,6 +126,9 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 			calculateScore($scope, data.kpiInfo);
 		}
+		else {
+			notificationFactory.error('', 'There is no content available for this EPA!');
+		}
 	};
 
 	var successUpdateEPAStatus = function () {
@@ -151,7 +154,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	/**
 	* Events 
 	*/
-	
+
 	$scope.generalCommentValid = true;
 
 	$scope.save = function (employeeEPAResult) {
@@ -168,7 +171,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			var kpiGroupItem = employeeEPAResult.kpiInfo[item].kpiGroupItems;
 			$.each(kpiGroupItem, function (i) {
 				var currentItem = kpiGroupItem[i];
-				if (currentItem.isRequireComment && (currentItem.comment === "" || currentItem.comment === null)) {
+				if (currentItem.isRequireComment && currentItem.score > 0 
+				&& (currentItem.comment === "" || currentItem.comment === null)) {
 					currentItem.checkNullComment = true;
 					$scope.itemCommentValid = false;
 				}
@@ -291,7 +295,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 // View EPA of Current Member Controller
 epaModule.controller('ViewCurrentMemberEPAController',
-	['$scope', '$location', '$route','employeeEPAFactory', 'commonFactory', 'ErrorService', 'notificationFactory',
+	['$scope', '$location', '$route', 'employeeEPAFactory', 'commonFactory', 'ErrorService', 'notificationFactory',
 	function ($scope, $location, $route, employeeEPAFactory, commonFactory, ErrorService, notificationFactory) {
 
 		// get all project to filter
@@ -355,7 +359,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 	} ]);
 
 // View EPA of Member by Manager Controller
-	epaModule.controller('ViewMemberByManagerEPAController', [
+epaModule.controller('ViewMemberByManagerEPAController', [
 	'$scope', '$routeParams', '$route', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory', '$modal',
 	'employeeRepository', 'AuthService',
 	function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory, notificationFactory, $modal, employeeRepository, AuthService) {

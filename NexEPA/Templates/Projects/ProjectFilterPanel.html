@@ -14,7 +14,7 @@
 	<label data-translate="ProjectManager">
 	</label>
 	<select class="form-control" ng-model="filter.projectManager" required>
-		<option style="display: none" value="">-- All --</option>
+		<option value="">-- All --</option>
 		<option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
 	</select>
 </div>

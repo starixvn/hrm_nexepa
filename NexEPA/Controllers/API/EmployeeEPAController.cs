@@ -129,7 +129,11 @@ namespace NexEPA.Controllers.API
                     return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
                 default:
                     epaInfo = GetEPAInformation(targetId, employeeId);
-                    epaInfo.Permission = permission;
+                    if (epaInfo != null)
+                    {
+                        epaInfo.Permission = permission;
+                    }
+                    
                     return Request.CreateResponse(HttpStatusCode.OK, epaInfo);
             }
         }
