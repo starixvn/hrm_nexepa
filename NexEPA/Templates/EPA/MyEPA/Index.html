@@ -89,7 +89,7 @@
 				</div>
 				<div class="col-sm-8 txt-value">
 					<span class="dropdown" on-toggle="toggled(open)">
-						<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle">{{employeeEPA.status|epaStatus}}</a>
+						<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">{{employeeEPA.status|epaStatus}}</a>
 						<ul class="dropdown-menu dropdown-menu-width">
 							<li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
 								<a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
@@ -103,10 +103,10 @@
 					Evaluated
 				</div>
 				<div class="col-sm-8 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
-					<span class="glyphicon glyphicon-ok-circle epa-saved"></span>
+					<span class="glyphicon glyphicon-saved epa-saved"></span>
 				</div>
 				<div class="col-sm-8 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
-					<span class="glyphicon glyphicon-remove-circle epa-unsaved"></span>
+					<span class="glyphicon glyphicon-tasks epa-unsaved"></span>
 				</div>
 			</div>
 		</div>
