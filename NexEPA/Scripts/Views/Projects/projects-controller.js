@@ -3,9 +3,9 @@
 
 projectsSettingModule.controller('ProjectController',
 ['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
-'notificationFactory', '$modal', 'AuthService',
+'notificationFactory', '$modal', 'AuthService', 'linkToEPAService',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService,
-notificationFactory, $modal, AuthService) {
+notificationFactory, $modal, AuthService, linkToEPAService) {
 	/**
 	* Scope Variable. 
 	*/
@@ -42,6 +42,7 @@ notificationFactory, $modal, AuthService) {
 	// Filter data by criteria.
 	var successFilterData = function (data) {
 		$scope.projects = data;
+		debugger;
 	};
 
 	var errorHandle = function (status) {
@@ -63,6 +64,7 @@ notificationFactory, $modal, AuthService) {
 	/**
 	* Initialize data to view Index.
 	*/
+	linkToEPAService.setProperty(null);
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	currentUser = AuthService.currentUser();
 	tabService.setProperty(null);
@@ -154,6 +156,11 @@ notificationFactory, $modal, AuthService) {
 		$event.preventDefault();
 		$event.stopPropagation();
 		$scope.status.isopen = !$scope.status.isopen;
+	};
+
+	$scope.linkToEPA = function (projectId, status) {
+		var objectQuery = { projectId: projectId, status: status };
+		linkToEPAService.setProperty(objectQuery);
 	};
 
 } ]);

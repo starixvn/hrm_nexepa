@@ -51,7 +51,9 @@ namespace NexEPA.Project.Repositories.Implement
                     x.EndDate,
                     x.Status,
                     x.NickName,
-                    x.Permission
+                    x.Permission,
+                    x.TotalEPA,
+                    x.TotalOpenEPA
                 },
                 x => x.Milestone).Select(y => new ProjectInformationModel
                 {
@@ -65,7 +67,9 @@ namespace NexEPA.Project.Repositories.Implement
                     EndDate = y.Key.EndDate.Value,
                     Status = y.Key.Status.Value,
                     Permission = y.Key.Permission,
-                    Milestones = y.ToList()
+                    Milestones = y.ToList(),
+                    TotalEPA = y.Key.TotalEPA,
+                    TotalOpenEPA = y.Key.TotalOpenEPA
                 }).ToList();
 
                 return groupProject;

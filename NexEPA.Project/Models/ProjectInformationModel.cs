@@ -39,6 +39,10 @@ namespace NexEPA.Project.Models
 
         public int Permission { get; set; }
 
+        public int TotalOpenEPA { get; set; }
+
+        public int TotalEPA { get; set; }
+
         public bool IsUpdateStatus { get; set; }
 
         public List<MilestoneModel> Milestones { get; set; }

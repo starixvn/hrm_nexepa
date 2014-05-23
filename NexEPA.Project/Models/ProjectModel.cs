@@ -54,6 +54,10 @@ namespace NexEPA.Project.Models
 
         public int Permission { get; set; }
 
+        public int TotalOpenEPA { get; set; }
+
+        public int TotalEPA { get; set; }
+
         public MilestoneModel Milestone { get; set; }
     }
 }

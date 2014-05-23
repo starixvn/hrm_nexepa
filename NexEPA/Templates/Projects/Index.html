@@ -17,7 +17,7 @@
 					</th>
 					<th class="member-limit middle-align" data-translate="Members">
 					</th>
-					<th class="member-limit middle-align" data-translate="EPA">
+					<th class="middle-align"> Opening /Total EPA
 					</th>
 					<th class="middle-align" data-translate="Status">
 					</th>
@@ -48,8 +48,12 @@
 				<td class="text-center member-limit">
 					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">{{project.members}}</a>
 				</td>
-				<td class="text-center member-limit">
-					<a href="" ng-click=""></a>
+				<td class="text-center">
+					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">{{project.totalOpenEPA}}</a>
+					<span ng-hide="project.permission == 2">{{project.totalOpenEPA}}</span>
+					/
+					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">{{project.totalEPA}}</a>
+					<span ng-hide="project.permission == 2">{{project.totalEPA}}</span>
 				</td>
 				<td>
 					<span class="dropdown" on-toggle="toggled(open)" ng-show="project.permission == 2">

@@ -17,7 +17,8 @@ projectsSettingModule.service('projectMilestoneService', epaGeneralService);
 
 projectsSettingModule.service('projectPermissionService', epaGeneralService);
 
-registrationModule.service('tabService', epaGeneralService);
-
 projectsSettingModule.service('projectMemberService', epaGeneralService);
 
+registrationModule.service('tabService', epaGeneralService);
+
+registrationModule.service('linkToEPAService', epaGeneralService);

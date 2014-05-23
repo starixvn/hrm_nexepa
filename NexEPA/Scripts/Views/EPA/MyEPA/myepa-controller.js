@@ -359,14 +359,16 @@ epaModule.controller('ViewCurrentMemberEPAController',
 	} ]);
 
 // View EPA of Member by Manager Controller
-epaModule.controller('ViewMemberByManagerEPAController', [
+	epaModule.controller('ViewMemberByManagerEPAController', [
 	'$scope', '$routeParams', '$route', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory', '$modal',
-	'employeeRepository', 'AuthService',
-	function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory, notificationFactory, $modal, employeeRepository, AuthService) {
+	'employeeRepository', 'AuthService', 'linkToEPAService',
+	function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory,
+	notificationFactory, $modal, employeeRepository, AuthService, linkToEPAService) {
 
 		var targetId = $routeParams.targetId;
 		targetId = targetId ? parseInt(targetId) : null;
 		$scope.currentUser = AuthService.currentUser();
+		var objectQuery = linkToEPAService.getProperty();
 
 		// only SA or PM can see Target filter
 		$scope.$watch("currentUser", function (newValue) {
@@ -444,7 +446,28 @@ epaModule.controller('ViewMemberByManagerEPAController', [
 			employeeEPAFactory.getEPAOfEmployeeByManager(targetId, projectId, status, employeeId).then(successGetEPA, errorHandle);
 		};
 
-		getEPAOfEmployeeByManager(targetId, null, null, null);
+		if (objectQuery != null) {
+			if (objectQuery.status != null) {
+				getEPAOfEmployeeByManager(targetId, objectQuery.projectId, objectQuery.status, null);
+			}
+			else {
+				getEPAOfEmployeeByManager(targetId, objectQuery.projectId, null, null);
+			}
+
+			if ($scope.filter) {
+				$scope.filter.projectId = objectQuery.projectId;
+				$scope.filter.status = objectQuery.status;
+			}
+			else {
+				$scope.filter = {
+					projectId: objectQuery.projectId,
+					status: objectQuery.status
+				};
+			}
+		}
+		else {
+			getEPAOfEmployeeByManager(targetId, null, null, null);
+		}
 
 		// filter EPA
 		$scope.query = function (targetId, projectId, status, employeeId) {
