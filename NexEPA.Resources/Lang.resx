@@ -565,10 +565,10 @@
     <value>Has comment</value>
   </data>
   <data name="DataChangeFail" xml:space="preserve">
-    <value>Data change unsuccessfully!</value>
+    <value>Data changed unsuccessfully!</value>
   </data>
   <data name="DataChangeSuccessfully" xml:space="preserve">
-    <value>Data change successfully!</value>
+    <value>Data changed successfully!</value>
   </data>
   <data name="SpreadWeight" xml:space="preserve">
     <value>Spread KPIs Weight</value>
@@ -578,5 +578,8 @@
   </data>
   <data name="EPAs" xml:space="preserve">
     <value>EPAs</value>
+  </data>
+  <data name="OpeningTotalEPA" xml:space="preserve">
+    <value>Opening /Total EPA</value>
   </data>
 </root>

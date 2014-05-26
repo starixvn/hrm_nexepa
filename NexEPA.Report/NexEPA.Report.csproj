@@ -82,6 +82,10 @@
       <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>
       <Name>NexEPA.Project</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Target\NexEPA.Target.csproj">
+      <Project>{F8B34F7A-9461-4861-A5BA-B69B4C9302DA}</Project>
+      <Name>NexEPA.Target</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -21,6 +21,7 @@ namespace NexEPA.Report.Services.Implement
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;
     using NexEPA.Report.ViewModels;
+    using NexEPA.Target.Models;
 
     /// <summary>
     /// Report Service.
@@ -119,156 +120,57 @@ namespace NexEPA.Report.Services.Implement
 
             if (rawHistoryProjects != null && rawHistoryProjects.Any())
             {
-                for (int i = 0; i < rawHistoryProjects.Count; i++)
-                {
-                    HistoryProjectModel rawHistoryProjectItem = rawHistoryProjects[i];
-                    var historyProjectItem = new HistoryProjectViewModel();
-
-                    List<HistoryProjectModel> sameProjectRows = rawHistoryProjects.Where(pro => pro.Project.ProjectId == rawHistoryProjectItem.Project.ProjectId).ToList();
-
-                    if (sameProjectRows.Count == 1)
-                    {
-                        // Only evaluate by project
-                        historyProjectItem = GetProjectInCaseOnlyEvaluateByProject(rawHistoryProjectItem);
-                    }
-                    else
-                    {
-                        List<HistoryProjectModel> sameProjectButNoMilestoneRows = sameProjectRows.Where(pro => pro.Milestone == null).ToList();
-
-                        if (sameProjectButNoMilestoneRows.Count == 1)
-                        {
-                            // Evaluate by project and milestone
-                            historyProjectItem = GetProjectInCaseEvaluateByProjectAndMilestone(
-                                                            rawHistoryProjects, 
-                                                            rawHistoryProjectItem, 
-                                                            sameProjectRows, 
-                                                            sameProjectButNoMilestoneRows[0]);
-                        }
-                        else if (sameProjectButNoMilestoneRows.Count == 0)
-                        {
-                            // Only evaluate by milestone
-                            historyProjectItem = GetProjectInCaseOnlyEvaluateByMilestone(sameProjectRows, rawHistoryProjectItem, rawHistoryProjects);
-                        }
-                    }
-
-                    historyProjects.Add(historyProjectItem);
-                }
+                historyProjects = LoopAndGetProjectHistory(rawHistoryProjects, historyProjects);
             }
 
             return historyProjects;
         }
 
         /// <summary>
-        /// Get project in case only evaluate by project.
-        /// </summary>
-        /// <param name="rawHistoryProjectItem">The current history project item.</param>
-        /// <returns>The HistoryProjectViewModel.</returns>
-        private HistoryProjectViewModel GetProjectInCaseOnlyEvaluateByProject(HistoryProjectModel rawHistoryProjectItem)
-        {
-            var historyProjectItem = new HistoryProjectViewModel();
-
-            historyProjectItem.TargetId = rawHistoryProjectItem.TargetId;
-            historyProjectItem.Roles = rawHistoryProjectItem.Roles;
-            historyProjectItem.Score = rawHistoryProjectItem.Score;
-            historyProjectItem.Comment = rawHistoryProjectItem.Comment;
-            historyProjectItem.ProjectEvaluation = true;
-            historyProjectItem.Project = rawHistoryProjectItem.Project;
-            historyProjectItem.Evaluator = rawHistoryProjectItem.Evaluator;
-
-            return historyProjectItem;
-        }
-
-        /// <summary>
-        /// Get project in case evaluate by project and milestone.
+        /// Loop and get project history.
         /// </summary>
         /// <param name="rawHistoryProjects">The list history projects.</param>
-        /// <param name="rawHistoryProjectItem">The current history project item.</param>
-        /// <param name="sameProjectRows">The rows has same project.</param>
-        /// <param name="sameProjectButNoMilestoneRow">The row has same project but no milestone.</param>
-        /// <returns>The HistoryProjectViewModel.</returns>
-        private HistoryProjectViewModel GetProjectInCaseEvaluateByProjectAndMilestone(
+        /// <param name="historyProjects">The list history projects view model.</param>
+        /// <returns>The list History Project View Model.</returns>
+        private List<HistoryProjectViewModel> LoopAndGetProjectHistory(
             List<HistoryProjectModel> rawHistoryProjects,
-            HistoryProjectModel rawHistoryProjectItem,
-            List<HistoryProjectModel> sameProjectRows,
-            HistoryProjectModel sameProjectButNoMilestoneRow)
+            List<HistoryProjectViewModel> historyProjects)
         {
-            var historyProjectItem = new HistoryProjectViewModel();
-
-            historyProjectItem.TargetId = sameProjectButNoMilestoneRow.TargetId;
-            historyProjectItem.Roles = sameProjectButNoMilestoneRow.Roles;
-            historyProjectItem.Score = sameProjectButNoMilestoneRow.Score;
-            historyProjectItem.Comment = sameProjectButNoMilestoneRow.Comment;
-            historyProjectItem.Project = sameProjectButNoMilestoneRow.Project;
-            historyProjectItem.Evaluator = sameProjectButNoMilestoneRow.Evaluator;
-
-            List<HistoryProjectModel> milestoneRows = sameProjectRows.Where(pro => pro.Milestone != null).ToList();
-
-            foreach (HistoryProjectModel milestoneRow in milestoneRows)
+            for (int i = 0; i < rawHistoryProjects.Count; i++)
             {
-                var milestoneItem = new ReportMilestoneModel
+                HistoryProjectModel rawHistoryProjectItem = rawHistoryProjects[i];
+                var historyProjectItem = new HistoryProjectViewModel
                 {
-                    TargetId = milestoneRow.TargetId,
-                    MilestoneId = milestoneRow.Milestone.MilestoneId,
-                    Name = milestoneRow.Milestone.Name,
-                    StartDate = milestoneRow.Milestone.StartDate,
-                    EndDate = milestoneRow.Milestone.EndDate,
-                    Score = milestoneRow.Score,
-                    Comment = milestoneRow.Comment
+                    Roles = rawHistoryProjectItem.Roles,
+                    Score = rawHistoryProjectItem.Score,
+                    Comment = rawHistoryProjectItem.Comment,
+                    Evaluator = rawHistoryProjectItem.Evaluator,
+                    Project = rawHistoryProjectItem.Project
                 };
 
-                historyProjectItem.Milestones.Add(milestoneItem);
+                List<HistoryProjectModel> sameProjectRows = rawHistoryProjects.Where(pro =>
+                                    pro.Project.ProjectId == rawHistoryProjectItem.Project.ProjectId).ToList();
 
-                // Remove project row to avoid processing this project again if it's not current row
-                if (milestoneRow != rawHistoryProjectItem)
+                foreach (HistoryProjectModel project in sameProjectRows)
                 {
-                    rawHistoryProjects.Remove(milestoneRow);
+                    var target = new TargetModel
+                    {
+                        TargetId = project.TargetId,
+                        Name = project.Name
+                    };
+
+                    historyProjectItem.targetList.Add(target);
+
+                    if (project != rawHistoryProjectItem)
+                    {
+                        rawHistoryProjects.Remove(project);
+                    }
                 }
+
+                historyProjects.Add(historyProjectItem);
             }
 
-            // Remove project row to avoid processing this project again if it's not current row
-            if (sameProjectButNoMilestoneRow != rawHistoryProjectItem)
-            {
-                rawHistoryProjects.Remove(sameProjectButNoMilestoneRow);
-            }
-
-            return historyProjectItem;
-        }
-
-        /// <summary>
-        /// Get project in case only evaluate by milestone.
-        /// </summary>
-        /// <param name="sameProjectRows">The rows has same project.</param>
-        /// <param name="rawHistoryProjectItem">The current history project.</param>
-        /// <param name="rawHistoryProjects">The list history projects.</param>
-        /// <returns>The HistoryProjectViewModel.</returns>
-        private HistoryProjectViewModel GetProjectInCaseOnlyEvaluateByMilestone(
-            List<HistoryProjectModel> sameProjectRows,
-            HistoryProjectModel rawHistoryProjectItem,
-            List<HistoryProjectModel> rawHistoryProjects)
-        {
-            var historyProjectItem = new HistoryProjectViewModel();
-
-            historyProjectItem.TargetId = sameProjectRows[0].TargetId;
-            historyProjectItem.Roles = sameProjectRows[0].Roles;
-            historyProjectItem.MilestoneEvaluation = true;
-            historyProjectItem.Project = sameProjectRows[0].Project;
-            historyProjectItem.Evaluator = sameProjectRows[0].Evaluator;
-
-            foreach (HistoryProjectModel milestone in sameProjectRows)
-            {
-                milestone.Milestone.TargetId = milestone.TargetId;
-                milestone.Milestone.Score = milestone.Score;
-                milestone.Milestone.Comment = milestone.Comment;
-                historyProjectItem.Milestones.Add(milestone.Milestone);
-
-                // Remove project row to avoid processing this project again if it's not current row
-                if (milestone != rawHistoryProjectItem)
-                {
-                    rawHistoryProjects.Remove(milestone);
-                }
-            }
-
-            return historyProjectItem;
+            return historyProjects;
         }
     }
 }

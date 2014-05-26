@@ -19,6 +19,8 @@ namespace NexEPA.Report.Models.Dashboard
     {
         public int TargetId { get; set; }
 
+        public string Name { get; set; }
+
         public string Roles { get; set; }
 
         public decimal Score { get; set; }

@@ -18,6 +18,8 @@ namespace NexEPA.Report.Criteria
     {
         public int EmployeeId { get; set; }
 
+        public int ActorUserId { get; set; }
+
         public override bool IsValid()
         {
             return EmployeeId > 0;

@@ -72,7 +72,6 @@ reportModule.controller('EmployeeHistoryProjectController', ['$scope', '$locatio
 function ($scope, $location, homeFactory) {
 	$scope.isCollapsed = false;
 	$scope.collapse = {};
-	$scope.isMilestoneCollapsed = false;
 	$scope.originalComment = '';
 	$scope.employeeId;
 
@@ -82,12 +81,6 @@ function ($scope, $location, homeFactory) {
 
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;
-	};
-
-	$scope.showHideMilestone = function (historyProject) {
-		var projectId = historyProject.project.projectId;
-		var property = 'isCollapsed' + projectId;
-		$scope.collapse[property] = !$scope.collapse[property];
 	};
 
 	$scope.EPADetail = function (targetId) {

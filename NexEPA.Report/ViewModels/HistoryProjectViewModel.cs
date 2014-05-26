@@ -12,7 +12,7 @@ namespace NexEPA.Report.ViewModels
     using System.Collections.Generic;
     using NexEPA.Employee.Models;
     using NexEPA.Project.Models;
-    using NexEPA.Report.Models.Dashboard;
+    using NexEPA.Target.Models;
 
     /// <summary>
     /// The Project History View Model.
@@ -21,10 +21,8 @@ namespace NexEPA.Report.ViewModels
     {
         public HistoryProjectViewModel()
         {
-            Milestones = new List<ReportMilestoneModel>();
+            targetList = new List<TargetModel>();
         }
-
-        public int TargetId { get; set; }
 
         public string Roles { get; set; }
 
@@ -32,14 +30,10 @@ namespace NexEPA.Report.ViewModels
 
         public string Comment { get; set; }
 
-        public bool ProjectEvaluation { get; set; }
-
-        public bool MilestoneEvaluation { get; set; }
-
         public ProjectModel Project { get; set; }
 
         public EmployeeModel Evaluator { get; set; }
 
-        public List<ReportMilestoneModel> Milestones { get; set; }
+        public List<TargetModel> targetList { get; set; }
     }
 }

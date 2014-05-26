@@ -331,7 +331,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data change unsuccessfully!.
+        ///   Looks up a localized string similar to Data changed unsuccessfully!.
         /// </summary>
         public static string DataChangeFail {
             get {
@@ -340,7 +340,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data change successfully!.
+        ///   Looks up a localized string similar to Data changed successfully!.
         /// </summary>
         public static string DataChangeSuccessfully {
             get {
@@ -939,6 +939,15 @@ namespace NexEPA.Resources {
         public static string NickName {
             get {
                 return ResourceManager.GetString("NickName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening /Total EPA.
+        /// </summary>
+        public static string OpeningTotalEPA {
+            get {
+                return ResourceManager.GetString("OpeningTotalEPA", resourceCulture);
             }
         }
         

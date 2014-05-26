@@ -42,7 +42,8 @@ namespace NexEPA.Controllers.API
         {
             var criteria = new GetEmployeePerformanceTendencyReportCriteria
             {
-                EmployeeId = employeeId
+                EmployeeId = employeeId,
+                ActorUserId = this.CurrentUser.UserId
             };
 
             return _reportService.GetEmployeePerformanceTendancyReport(criteria);

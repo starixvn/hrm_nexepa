@@ -41,7 +41,6 @@ homeModule.controller('OpenProjectController', ['$scope', function ($scope) {
 homeModule.controller('HistoryProjectController', ['$scope', '$location', 'homeFactory', function ($scope, $location, homeFactory) {
 	$scope.isCollapsed = false;
 	$scope.collapse = {};
-	$scope.isMilestoneCollapsed = false;
 	$scope.originalComment = '';
 	$scope.employeeId;
 
@@ -51,12 +50,6 @@ homeModule.controller('HistoryProjectController', ['$scope', '$location', 'homeF
 
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;
-	};
-
-	$scope.showHideMilestone = function (historyProject) {
-		var projectId = historyProject.project.projectId;
-		var property = 'isCollapsed' + projectId;
-		$scope.collapse[property] = !$scope.collapse[property];
 	};
 
 	$scope.EPADetail = function (targetId) {

@@ -16,8 +16,6 @@ namespace NexEPA.Report.Models.Dashboard
     /// </summary>
     public class ReportMilestoneModel
     {
-        public int TargetId { get; set; }
-
         public int? MilestoneId { get; set; }
 
         public string Name { get; set; }

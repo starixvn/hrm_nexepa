@@ -47,5 +47,7 @@ namespace NexEPA.KPI.Model
         public TargetType TargetType { get; set; }
 
         public bool CheckNullComment { get; set; }
+
+        public int EvaluateTime { get; set; }
     }
 }
