@@ -67,6 +67,11 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 			var deferred = $q.defer();
 			$http.get('/api/Target/GetTargetToFilter').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		getCurrentUser: function () {
+			var deferred = $q.defer();
+			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

@@ -369,7 +369,13 @@ epaModule.controller('ViewCurrentMemberEPAController',
 
 		var targetId = $routeParams.targetId;
 		targetId = targetId ? parseInt(targetId) : null;
-		$scope.currentUser = AuthService.currentUser();
+
+		employeeEPAFactory.getCurrentUser().then(function (currentUser) {
+			$scope.currentUser = currentUser;
+		}, function () {
+			notificationFactory.error("ErrorMessage");
+		});
+
 		var objectQuery = linkToEPAService.getProperty();
 
 		// only SA or PM can see Target filter
