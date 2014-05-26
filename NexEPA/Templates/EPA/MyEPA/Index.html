@@ -8,7 +8,7 @@
 		<li class="current">My EPA</li>
 	</ul>
 </div>
-<form class="epa-form" name="addProjectForm" novalidate>
+<form class="epa-form" name="addProjectForm" ng-show="employeeEPA != null" novalidate>
 <div class="epa-box-header epa-boxtitle" data-translate="ppa">
 </div>
 <div class="col-sm-12 list-group-item bottom-buffer">
@@ -89,7 +89,7 @@
 			<div class="col-sm-6">
 				<div class="col-sm-3" data-translate="Status">
 				</div>
-				<div class="col-sm-8 txt-value">
+				<div class="col-sm-8 txt-value" ng-show="employeeEPA != null">
 					<span class="dropdown" on-toggle="toggled(open)">
 						<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">
 							{{employeeEPA.status|epaStatus}}</a>
@@ -105,11 +105,13 @@
 				<div class="col-sm-3">
 					Evaluated
 				</div>
-				<div class="col-sm-8 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
-					<span class="glyphicon glyphicon-saved epa-saved"></span>
-				</div>
-				<div class="col-sm-8 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
-					<span class="glyphicon glyphicon-tasks epa-unsaved"></span>
+				<div class="col-sm-8" ng-show="employeeEPA != null">
+					<div class="col-sm-12 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
+						<span class="glyphicon glyphicon-saved epa-saved"></span>
+					</div>
+					<div class="col-sm-12 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
+						<span class="glyphicon glyphicon-tasks epa-unsaved"></span>
+					</div>
 				</div>
 			</div>
 		</div>

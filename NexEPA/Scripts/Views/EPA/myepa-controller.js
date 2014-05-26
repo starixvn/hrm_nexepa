@@ -128,7 +128,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			calculateScore($scope, data.kpiInfo);
 		}
 		else {
-			notificationFactory.error('', 'There is no content available for this EPA!');
+			notificationFactory.error('', 'There is no EPA content available !');
 		}
 	};
 
