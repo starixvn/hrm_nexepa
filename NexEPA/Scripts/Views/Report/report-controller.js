@@ -28,7 +28,6 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	var getEmployeePerformanceTendencyReport = function (employeeId) {
 		reportFactory.getEmployeePerformanceTendencyReport(employeeId).success(function (report) {
 			$scope.search.searchKey = '';
-
 			if (report != null) {
 				$scope.report.generalInformation = report.employeeInformation;
 				$scope.report.historyProjects = report.historyProjects;

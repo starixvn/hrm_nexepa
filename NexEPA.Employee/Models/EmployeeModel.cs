@@ -38,6 +38,8 @@ namespace NexEPA.Employee.Models
 
         public int EmployeeLevelId { get; set; }
 
+        public string Gravatar { get; set; }
+
         public DateTime? JoinedDate { get; set; }
 
         public bool IsDisabled { get; set; }

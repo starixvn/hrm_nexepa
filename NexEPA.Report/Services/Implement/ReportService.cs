@@ -13,6 +13,7 @@ namespace NexEPA.Report.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Core.Service.Impl;
+    using NexEPA.Core.Utilities;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
@@ -81,7 +82,16 @@ namespace NexEPA.Report.Services.Implement
 
                 if (rawsEmployeePerformanceReport != null)
                 {
+                    string gravatarString = string.Empty;
                     employeePerformanceReport.EmployeeInformation = rawsEmployeePerformanceReport.EmployeeInformation;
+
+                    var userEmail = employeePerformanceReport.EmployeeInformation.Email;
+                    if (userEmail != null)
+                    {
+                        gravatarString = GravatarImage.HashEmailForGravatar(userEmail);
+                    }
+
+                    employeePerformanceReport.EmployeeInformation.Gravatar = gravatarString;
 
                     IEnumerable<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawsEmployeePerformanceReport.RawHistoryProjects);
                     employeePerformanceReport.HistoryProjects = projectHistoryList;
