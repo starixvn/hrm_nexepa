@@ -21,7 +21,7 @@ namespace NexEPA.Report.ViewModels
     {
         public HistoryProjectViewModel()
         {
-            targetList = new List<TargetModel>();
+            TargetList = new List<TargetModel>();
         }
 
         public string Roles { get; set; }
@@ -34,6 +34,6 @@ namespace NexEPA.Report.ViewModels
 
         public EmployeeModel Evaluator { get; set; }
 
-        public List<TargetModel> targetList { get; set; }
+        public List<TargetModel> TargetList { get; set; }
     }
 }

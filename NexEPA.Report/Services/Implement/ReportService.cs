@@ -159,7 +159,7 @@ namespace NexEPA.Report.Services.Implement
                         Name = project.Name
                     };
 
-                    historyProjectItem.targetList.Add(target);
+                    historyProjectItem.TargetList.Add(target);
 
                     if (project != rawHistoryProjectItem)
                     {
