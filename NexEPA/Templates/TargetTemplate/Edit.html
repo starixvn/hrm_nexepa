@@ -53,8 +53,7 @@
 					</button>
 				</div>
 		    </form>
-        </div>
-		
+		</div>
 	</tab>
 
 	<tab heading="TARGET KPI LIST" class="tab-cursor" active="dataTab.kpi" select="tabKPISelect()">
@@ -66,9 +65,8 @@
 				    <input class="search-textbox pull-right" placeholder="filter kpi..." type="text" ng-model="KPIName" />
 		    </div>
 			    <div class="row boxcontent">
-
-				    <div class="line top-buffer">
-					    <div class="row">
+					<div class="line top-buffer">
+						<div class="row">
 						    <table class="table table-bordered table-striped table-hover">
 							    <thead>
 								    <th>
@@ -84,7 +82,12 @@
 									    <td class="text-center row-highlight">
 										    <input type="checkbox" ng-model="kpi.groupSelected" ng-click="checkAllGroup(kpi.groupSelected, kpi)"/>
 									    </td>
-									    <td class="criteria-title row-highlight group-header">{{ kpi.kpiGroupName}} ({{kpi.kpiGroupItems[0].kpiGroupWeight}}%)</td>
+									    <td class="criteria-title row-highlight group-header">
+											<span>{{ kpi.kpiGroupName}} ({{kpi.kpiGroupItems[0].kpiGroupWeight}}%)</span>
+												<a class="glyphicon glyphicon-remove icon-remove left-buffer" title="Remove Group"
+											ng-click="removeKPIGroup(kpi.id, kpi.kpiGroupName)" href="javascript:;"></a>
+											
+										</td>
 									    <td class="text-center row-highlight">
 										    <a ng-show="!kpi.isSpreadKPI" href="javascript:;" ng-click="scoreSpread(kpi)">Spread</a>
 									    </td>
@@ -101,6 +104,7 @@
 												<span ng-show="item.isSpreadKPI && !item.selected">-</span>
 												<span ng-show="item.isSpreadKPI && item.selected" class="glyphicon glyphicon-ok item-list-icon"></span>
 									    </td>
+										
 								    </tr>
 							    </tbody>
 								<tfoot>

@@ -179,5 +179,22 @@ namespace NexEPA.Target.Services.Implement
 
             return commandResult;
         }
+
+        /// <summary>
+        /// Method Remove KPI Group.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Command Results.</returns>
+        public CommandResult RemoveKPIGroup(RemoveKPIGroupCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var commandResult = new CommandResult();
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Delete(criteria);
+            }
+
+            return commandResult;
+        }
     }
 }

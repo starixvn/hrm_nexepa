@@ -199,8 +199,12 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 	var successUpdateTargetTemplate = function () {
 		notificationFactory.success('SuccessSaveData', '');
 	};
+	var successRemoveKPIGroup = function () {
+		notificationFactory.success('SuccessSaveData', '');
+		targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
+	};
 
-	var errorUpdateTargetTemplate = function (response) { $scope.errors = response; };
+	var errorNotify = function (response) { $scope.errors = response; };
 
 	/**
 	* Initialize data to view Edit.
@@ -256,7 +260,7 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 			if (checkSelectedKPIValid) {
 				editTemplate.kpiIds = selectedKPIs;
 				if (showWarningWeightMessage(editTemplate.kpiIds, notificationFactory) === false) {
-					targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorUpdateTargetTemplate);
+					targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorNotify);
 				}
 			}
 			else {
@@ -342,6 +346,26 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 				}
 			});
 		}
+	};
+
+	$scope.removeKPIGroup = function (groupId, groupName) {
+		var model = { groupId: groupId, targetTemplateId: targetTemplateId };
+		var deleteModalInstance = $modal.open({
+			templateUrl: '/templates/Common/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			windowClass: 'modal-dialog-center',
+			resolve: {
+				name: function () {
+					return groupName;
+				},
+				action: function () {
+					return "delete";
+				}
+			}
+		});
+		deleteModalInstance.result.then(function () {
+			targetTemplateFactory.removeKPIGroup(model).then(successRemoveKPIGroup, errorNotify);
+		});
 	};
 
 } ]);

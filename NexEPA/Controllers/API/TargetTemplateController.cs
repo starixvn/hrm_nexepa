@@ -347,6 +347,31 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Method Remove KPI Group.
+        /// </summary>
+        /// <param name="model">Required Data to remove Group.</param>
+        /// <returns>Http Response Message.</returns>
+        public HttpResponseMessage RemoveKPIGroup(dynamic model)
+        {
+            var criteria = new RemoveKPIGroupCriteria()
+            {
+                KPIGroupId = model.groupId,
+                TargetTemplateId = model.targetTemplateId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            CommandResult result = this._targetTemplateService.RemoveKPIGroup(criteria);
+            if (result.Code != 0)
+            {
+                List<string> errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
         private string ConvertKPIGroupWeightToXML(List<KPIGroupModel> kpiGroups)
         {
             var value = new StringBuilder(_BeginRootTag);

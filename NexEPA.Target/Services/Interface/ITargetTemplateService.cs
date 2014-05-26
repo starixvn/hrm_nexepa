@@ -41,5 +41,7 @@ namespace NexEPA.Target.Services.Interface
         IEnumerable<TargetSettingModel> GetTargetSetting(GetTargetSettingCriteria criteria);
 
         CommandResult SetDefaultTargetTemplate(SetTargetSettingCriteria criteria);
+
+        CommandResult RemoveKPIGroup(RemoveKPIGroupCriteria criteria);
     }
 }

@@ -78,6 +78,11 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 			var deferred = $q.defer();
 			$http.put('/api/TargetTemplate/UpdateTargetTemplateStatus', template).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
-		}
+		},
+		removeKPIGroup: function (model) {
+			var deferred = $q.defer();
+			$http.post('/api/targetTemplate/RemoveKPIGroup', model).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
 	};
 } ]);

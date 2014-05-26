@@ -34,5 +34,18 @@ namespace NexEPA.Target.ViewModels
                 return false;
             }
         }
+
+        public int Id
+        {
+            get
+            {
+                if (KPIGroupItems.Any())
+                {
+                    return KPIGroupItems[0].KPIGroupId;
+                }
+
+                return 0;
+            }
+        }
     }
 }
