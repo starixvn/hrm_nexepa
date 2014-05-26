@@ -49,5 +49,7 @@ namespace NexEPA.KPI.Model
         public bool CheckNullComment { get; set; }
 
         public int EvaluateTime { get; set; }
+
+        public decimal AverageScore { get; set; }
     }
 }
