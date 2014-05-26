@@ -67,23 +67,18 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 reportModule.controller('EmployeeGeneralInformationController', function () {
 } );
 
-reportModule.controller('EmployeeHistoryProjectController', ['$scope', '$location', 'homeFactory',
-function ($scope, $location, homeFactory) {
+reportModule.controller('EmployeeHistoryProjectController', ['$scope', function ($scope) {
 	$scope.isCollapsed = false;
 	$scope.collapse = {};
 	$scope.originalComment = '';
 	$scope.employeeId;
-
-	homeFactory.getCurrentEmployeeId().success(function (employeeId) {
-		$scope.employeeId = parseInt(employeeId);
-	});
 
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;
 	};
 
 	$scope.EPADetail = function (targetId) {
-		$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + $scope.employeeId;
+		$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + $scope.employee.employeeId;
 	};
 } ]);
 
