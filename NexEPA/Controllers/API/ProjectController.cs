@@ -233,10 +233,11 @@ namespace NexEPA.Controllers.API
             if (!string.IsNullOrEmpty(searchKey))
             {
                 employees = GetEmployeeBySearchKey(employees, searchKey);
-                if (employees != null)
-                {
-                    selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId, x.ProjectRoleId });
-                }
+            }
+
+            if (employees != null)
+            {
+                selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId, x.ProjectRoleId });
             }
 
             return selectListEmployee;

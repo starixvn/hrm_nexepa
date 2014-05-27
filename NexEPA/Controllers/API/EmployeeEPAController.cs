@@ -30,12 +30,6 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class EmployeeEPAController : BaseController
     {
-        private const string _EmployeeEPAScore = "<KPI KPIId='{0}' KPIGroupId='{1}' ScoreId='{2}' Comment='{3}'></KPI>";
-
-        private const string _BeginRootTag = "<ROOT>";
-
-        private const string _EndRootTag = "</ROOT>";
-
         private readonly IMemberEPAService _memberEPAService;
 
         public EmployeeEPAController()
@@ -64,7 +58,7 @@ namespace NexEPA.Controllers.API
                 EvaluatorId = model.ProjectManagerId,
                 Comment = model.Comment,
                 Score = model.FinalScore,
-                KPIs = ConvertToXML(model.KPIInfo),
+                KPIs = model.ConvertKPIInfoToXML,
                 MarkedBy = this.CurrentUser.UserId,
                 MarkedDate = DateTime.Now
             };
@@ -72,7 +66,7 @@ namespace NexEPA.Controllers.API
             CommandResult result = _memberEPAService.AddOrUpdateEmployeeEPA(criteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
+                var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
             }
 
@@ -87,7 +81,7 @@ namespace NexEPA.Controllers.API
         /// <returns>Http Response Message.</returns>
         public HttpResponseMessage GetMyEPA(int targetId, int employeeId)
         {
-            var currentUserId = this.CurrentUser.UserId;
+            int currentUserId = this.CurrentUser.UserId;
             EPAInfoModel epaInfo = null;
             if (currentUserId == employeeId)
             {
@@ -139,9 +133,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        public List<MemberEPAModel> GetEPAOfCurrentMember(
-            int? projectId = null,
-            int? status = null)
+        public List<MemberEPAModel> GetEPAOfCurrentMember(int? projectId = null, int? status = null)
         {
             var criteria = new GetEPAByEmployeeCriteria
             {
@@ -188,7 +180,7 @@ namespace NexEPA.Controllers.API
         /// <returns>Http Response Message.</returns>
         public HttpResponseMessage UpdateEPAStatus(EPAInfoModel model)
         {
-            var criteria = new UpdateEPAStatusCriteria()
+            var updateEPAStatusCriteria = new UpdateEPAStatusCriteria()
             {
                 EmployeeId = model.EmployeeId,
                 Status = model.Status,
@@ -197,7 +189,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = _memberEPAService.UpdateEPAStatus(criteria);
+            CommandResult result = _memberEPAService.UpdateEPAStatus(updateEPAStatusCriteria);
             if (result.Code != 0)
             {
                 var warningMessage = new List<string>() { result.Message };
@@ -205,25 +197,6 @@ namespace NexEPA.Controllers.API
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
-        }
-
-        /// <summary>
-        /// Method convert data to XML.
-        /// </summary>
-        /// <param name="kpis">List GroupingKPI model.</param>
-        /// <returns>XML format.</returns>
-        private string ConvertToXML(List<GroupingKPIModel> kpis)
-        {
-            var value = new StringBuilder(_BeginRootTag);
-            foreach (var kpi in kpis)
-            {
-                foreach (var item in kpi.KPIGroupItems)
-                {
-                    value.AppendFormat(_EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, item.Score, item.Comment);
-                }
-            }
-
-            return value.Append(_EndRootTag).ToString();
         }
 
         /// <summary>
@@ -235,13 +208,13 @@ namespace NexEPA.Controllers.API
         private EPAInfoModel GetEPAInformation(int targetId, int employeeId)
         {
             EPAInfoModel data = null;
-            GetEPAInfoCriteria criteria = new GetEPAInfoCriteria()
+            var getEPAInfoCriteria = new GetEPAInfoCriteria()
             {
                 EmployeeId = employeeId,
                 TargetId = targetId
             };
 
-            data = _memberEPAService.GetEPAInfo(criteria);
+            data = _memberEPAService.GetEPAInfo(getEPAInfoCriteria);
 
             return data;
         }
