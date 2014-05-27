@@ -68,7 +68,7 @@ namespace NexEPA.Controllers.API
         /// <param name="isDisabled">Is disabled or not.</param>
         /// <returns>Target Template Model.</returns>
         [ApiAuthorize(Roles = "SA")]
-        public IEnumerable<TargetTemplateModel> Get(int? targetTypeId = null, bool? isDisabled = null)
+        public IEnumerable<TargetTemplateModel> GetAllTargetTemplate(int? targetTypeId = null, bool? isDisabled = null)
         {
             IEnumerable<TargetTemplateModel> targetTemplates = null;
             var getAllTargetTemplateCriteria = new GetAllTargetTemplateCriteria

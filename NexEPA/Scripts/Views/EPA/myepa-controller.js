@@ -133,7 +133,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	};
 
 	var successUpdateEPAStatus = function (response) {
-		if (response.data != "") {
+		if (response.data !== "") {
 			notificationFactory.error('', response.data);
 		}
 		else {
@@ -437,7 +437,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 
 		var successChangeEPAStatus = function (response) {
 			getEPAOfEmployeeByManager(null, null);
-			if (response.data != "") {
+			if (response.data !== "") {
 				notificationFactory.error('', response.data);
 			}
 			else {

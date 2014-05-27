@@ -30,14 +30,21 @@ namespace NexEPA.Target.Models
         {
             get
             {
-                var value = new StringBuilder(_BeginRootTag);
-                foreach (KPIGroupModel item in KPIGroups)
+                if (KPIGroups != null)
                 {
-                    var spreadKPI = item.IsSpreadKPI == true ? 1 : 0;
-                    value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight, spreadKPI);
-                }
+                    var value = new StringBuilder(_BeginRootTag);
+                    foreach (KPIGroupModel item in KPIGroups)
+                    {
+                        var spreadKPI = item.IsSpreadKPI == true ? 1 : 0;
+                        value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight, spreadKPI);
+                    }
 
-                return value.Append(_EndRootTag).ToString();
+                    return value.Append(_EndRootTag).ToString();
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
     }

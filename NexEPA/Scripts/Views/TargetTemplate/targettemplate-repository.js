@@ -22,7 +22,7 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 		},
 		getAllTargetTemplate: function (targetTypeId, isDisabled) {
 			var deferred = $q.defer();
-			$http.get('/api/targetTemplate/Get', { params: { targetTypeId: targetTypeId, isDisabled: isDisabled} })
+			$http.get('/api/targetTemplate/GetAllTargetTemplate', { params: { targetTypeId: targetTypeId, isDisabled: isDisabled} })
 			.success(deferred.resolve).error(function (data, status) {
 				deferred.reject(status);
 			});
@@ -83,6 +83,6 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 			var deferred = $q.defer();
 			$http.post('/api/targetTemplate/RemoveKPIGroup', model).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
-		},
+		}
 	};
 } ]);

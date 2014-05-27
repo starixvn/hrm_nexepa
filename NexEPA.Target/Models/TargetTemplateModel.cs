@@ -61,13 +61,21 @@ namespace NexEPA.Target.Models
         {
             get
             {
-                var value = new StringBuilder(_BeginRootTag);
-                foreach (var item in KPIIds)
+                if (KPIIds != null)
                 {
-                    value.AppendFormat(_KPIItem, item.KPIId, item.KPIGroupId, item.Weight);
-                }
+                    var value = new StringBuilder(_BeginRootTag);
+                    foreach (var item in KPIIds)
+                    {
+                        value.AppendFormat(_KPIItem, item.KPIId, item.KPIGroupId, item.Weight);
+                    }
 
-                return value.Append(_EndRootTag).ToString();
+                    return value.Append(_EndRootTag).ToString();
+                }
+                else
+                {
+                    return string.Empty;
+                }
+                
             }
         }
     }
