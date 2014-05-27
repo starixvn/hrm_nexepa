@@ -32,6 +32,16 @@ registrationModule.factory('notificationFactory', ['$translate', function ($tran
 			else {
 				toastr.warning(message);
 			}
+		},
+		info: function (keyMessage, message) {
+			if (message === '' || message === null || message === undefined) {
+				$translate(keyMessage).then(function (responseMessage) {
+					toastr.info(responseMessage);
+				});
+			}
+			else {
+				toastr.info(message);
+			}
 		}
 	};
 } ]);

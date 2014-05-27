@@ -60,8 +60,11 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		},
 		updateEPAStatus: function (employeeEPA) {
 			var deferred = $q.defer();
+			var response = {};
 			$http.post('/api/EmployeeEPA/UpdateEPAStatus', employeeEPA)
-			.success(deferred.resolve).error(function (data, status) {
+			.success(function (data, status) {
+				deferred.resolve(response = { data: data, status: status });
+			}).error(function (data, status) {
 				deferred.reject(status);
 			});
 			return deferred.promise;
@@ -76,6 +79,5 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
-
 	};
 } ]);

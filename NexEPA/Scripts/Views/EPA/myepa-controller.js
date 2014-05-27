@@ -132,10 +132,16 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		}
 	};
 
-	var successUpdateEPAStatus = function () {
-		notificationFactory.success('SuccessSaveData', '');
+	var successUpdateEPAStatus = function (response) {
+		if (response.data != null) {
+			notificationFactory.error('', response.data);
+		}
+		else {
+			notificationFactory.success('SuccessSaveData', '');
+		}
 		checkStatus(newEPAStatus);
 	};
+
 	var errorUpdateEPAStatus = function (response) {
 		$scope.employeeEPA.status = currentEPAStatus;
 		checkStatus(currentEPAStatus);
@@ -429,10 +435,17 @@ epaModule.controller('ViewCurrentMemberEPAController',
 			$scope.submitted = false;
 		};
 
-		var successChangeEPAStatus = function () {
-			notificationFactory.success('SuccessSaveData', '');
+		var successChangeEPAStatus = function (response) {
 			getEPAOfEmployeeByManager(null, null);
+			if (response.data != null) {
+				notificationFactory.error('', response.data);
+			}
+			else {
+				notificationFactory.success('SuccessSaveData', '');
+			}
+			
 		};
+
 		var errorChangeEPAStatus = function (response) {
 			notificationFactory.error('', response);
 			getEPAOfEmployeeByManager(null, null);
