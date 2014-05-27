@@ -66,16 +66,15 @@ namespace NexEPA.Web.Attributes
         {
             if (!HttpContext.Current.Request.IsLocal)
             {
-                var challengeMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-                actionContext.Response = challengeMessage;
-                ////throw new HttpResponseException(challengeMessage);
+                var responseMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                actionContext.Response = responseMessage;
             }
         }
 
         private void HandlePermissionRequest(HttpActionContext actionContext)
         {
-            var message = new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
-            actionContext.Response = message;
+            var responseMessage = new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
+            actionContext.Response = responseMessage;
         }
     }
 }
