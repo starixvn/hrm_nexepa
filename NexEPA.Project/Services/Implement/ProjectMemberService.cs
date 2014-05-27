@@ -72,7 +72,6 @@ namespace NexEPA.Project.Services.Implement
             if (criteria.IsValid())
             {
                 var rawProjectMembers = (List<ProjectMembersModel>)this.GetData<ProjectMembersModel>(criteria);
-
                 projectMembers = GroupProjectMembersSameRole(rawProjectMembers, projectMembers);
             }
 
@@ -81,26 +80,26 @@ namespace NexEPA.Project.Services.Implement
 
         public IEnumerable<ProjectMembersModel> GetMemberRoleInProject(GetMemberRoleInProjectCriteria criteria)
         {
-            IEnumerable<ProjectMembersModel> lstProjectMembers = null;
+            IEnumerable<ProjectMembersModel> projectMembers = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                lstProjectMembers = this.GetData<ProjectMembersModel>(criteria);
+                projectMembers = this.GetData<ProjectMembersModel>(criteria);
             }
 
-            return lstProjectMembers;
+            return projectMembers;
         }
 
         public IEnumerable<ProjectRoleModel> GetAllProjectRole(GetAllProjectRoleCriteria criteria)
         {
-            IEnumerable<ProjectRoleModel> lstProjectRole = null;
+            IEnumerable<ProjectRoleModel> projectRoles = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                lstProjectRole = this.GetData<ProjectRoleModel>(criteria);
+                projectRoles = this.GetData<ProjectRoleModel>(criteria);
             }
 
-            return lstProjectRole;
+            return projectRoles;
         }
 
         /// <summary>
@@ -117,8 +116,8 @@ namespace NexEPA.Project.Services.Implement
             {
                 ProjectMembersModel projectMember = rawProjectMembers[i];
 
-                List<ProjectMembersModel> membersSameIdDifferentRole = rawProjectMembers.Where(mem => mem.EmployeeId == projectMember.EmployeeId
-                                                                && mem.Name != projectMember.Name).ToList();
+                List<ProjectMembersModel> membersSameIdDifferentRole = rawProjectMembers.Where(
+                    mem => mem.EmployeeId == projectMember.EmployeeId && mem.Name != projectMember.Name).ToList();
 
                 int numberMemberSameIdDifferentRole = membersSameIdDifferentRole.Count;
 

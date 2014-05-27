@@ -30,14 +30,14 @@ namespace NexEPA.Project.Services.Interface
 
         CommandResult UpdateProjectStatus(UpdateProjectStatusCriteria criteria);
 
-        IEnumerable<MilestoneModel> GetMilestoneByProjectId(GetMilestoneByProjectIdCriteria criteria);
+        CommandResult DeleteProject(DeleteProjectCriteria criteria);
 
-        CommandResult UpdateMilestone(UpdateMilestoneCriteria criteria);
+        IEnumerable<MilestoneModel> GetMilestoneByProjectId(GetMilestoneByProjectIdCriteria criteria);
 
         CommandResult InsertMilestone(AddMilestoneCriteria criteria);
 
-        CommandResult DeleteMilestone(DeleteMilestoneCriteria criteria);
+        CommandResult UpdateMilestone(UpdateMilestoneCriteria criteria);
 
-        CommandResult DeleteProject(DeleteProjectCriteria criteria);
+        CommandResult DeleteMilestone(DeleteMilestoneCriteria criteria);
     }
 }

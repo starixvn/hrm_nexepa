@@ -56,14 +56,14 @@ namespace NexEPA.Project.Services.Implement
         /// <returns>List Project Model.</returns>
         public List<ProjectInformationModel> GetAllProject(GetAllProjectCriteria criteria)
         {
-            List<ProjectInformationModel> lstProject = null;
+            List<ProjectInformationModel> projects = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                lstProject = _projectRepository.GetAllProject(criteria);
+                projects = _projectRepository.GetAllProject(criteria);
             }
 
-            return lstProject;
+            return projects;
         }
 
         /// <summary>
@@ -124,14 +124,14 @@ namespace NexEPA.Project.Services.Implement
         /// <returns>List Milestone.</returns>
         public IEnumerable<MilestoneModel> GetMilestoneByProjectId(GetMilestoneByProjectIdCriteria criteria)
         {
-            IEnumerable<MilestoneModel> lstMilestone = null;
+            IEnumerable<MilestoneModel> milestones = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                lstMilestone = this.GetData<MilestoneModel>(criteria);
+                milestones = this.GetData<MilestoneModel>(criteria);
             }
 
-            return lstMilestone;
+            return milestones;
         }
 
         /// <summary>

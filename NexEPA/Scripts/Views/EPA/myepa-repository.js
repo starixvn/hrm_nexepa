@@ -60,7 +60,10 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		},
 		updateEPAStatus: function (employeeEPA) {
 			var deferred = $q.defer();
-			$http.post('/api/EmployeeEPA/UpdateEPAStatus', employeeEPA).success(deferred.resolve).error(deferred.reject);
+			$http.post('/api/EmployeeEPA/UpdateEPAStatus', employeeEPA)
+			.success(deferred.resolve).error(function (data, status) {
+				deferred.reject(status);
+			});
 			return deferred.promise;
 		},
 		getTargetToFilter: function () {

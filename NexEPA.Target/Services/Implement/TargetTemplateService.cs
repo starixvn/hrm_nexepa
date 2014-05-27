@@ -47,13 +47,13 @@ namespace NexEPA.Target.Services.Implement
         public IEnumerable<TargetTemplateModel> GetAllTargetTemplate(GetAllTargetTemplateCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<TargetTemplateModel> lstTargetTemplate = null;
+            IEnumerable<TargetTemplateModel> targetTemplates = null;
             if (criteria.IsValid())
             {
-                lstTargetTemplate = GetData<TargetTemplateModel>(criteria);
+                targetTemplates = GetData<TargetTemplateModel>(criteria);
             }
 
-            return lstTargetTemplate;
+            return targetTemplates;
         }
 
         public CommandResult InsertTargetTemplate(AddTargetTemplateCriteria criteria)
@@ -107,13 +107,13 @@ namespace NexEPA.Target.Services.Implement
         public IEnumerable<TargetTemplateKPIModel> GetListKPIByTargetTemplateId(GetListKPIByTargetTemplateIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<TargetTemplateKPIModel> lstKPI = null;
+            IEnumerable<TargetTemplateKPIModel> kpis = null;
             if (criteria.IsValid())
             {
-                lstKPI = GetData<TargetTemplateKPIModel>(criteria);
+                kpis = GetData<TargetTemplateKPIModel>(criteria);
             }
 
-            return lstKPI;
+            return kpis;
         }
 
         public IEnumerable<KPIGroupModel> GetSelectedKPIGroup(GetSelectedKPIGroupCriteria criteria)
@@ -136,14 +136,14 @@ namespace NexEPA.Target.Services.Implement
         public CommandResult UpdateTargetTemplateStatus(UpdateTargetTemplateStatusCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var commandResult = new CommandResult();
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                result = _Repository.Update(criteria);
             }
 
-            return commandResult;
+            return result;
         }
 
         /// <summary>
@@ -171,13 +171,13 @@ namespace NexEPA.Target.Services.Implement
         public CommandResult SetDefaultTargetTemplate(SetTargetSettingCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var commandResult = new CommandResult();
+            CommandResult result = null;
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                result = _Repository.Update(criteria);
             }
 
-            return commandResult;
+            return result;
         }
 
         /// <summary>
@@ -188,13 +188,13 @@ namespace NexEPA.Target.Services.Implement
         public CommandResult RemoveKPIGroup(RemoveKPIGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var commandResult = new CommandResult();
+            CommandResult result = null;
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Delete(criteria);
+                result = _Repository.Delete(criteria);
             }
 
-            return commandResult;
+            return result;
         }
     }
 }

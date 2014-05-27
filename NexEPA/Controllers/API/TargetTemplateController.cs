@@ -39,10 +39,6 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class TargetTemplateController : BaseController
     {
-        private const string _KPIGroup = "<KPIGroup KPIGroupId='{0}' Weight='{1}' IsSpreadKPI='{2}'></KPIGroup>";
-        private const string _KPIItem = "<KPI KPIId='{0}' KPIGroupId='{1}' Weight='{2}'></KPI>";
-        private const string _BeginRootTag = "<ROOT>";
-        private const string _EndRootTag = "</ROOT>";
         private readonly ITargetTemplateService _targetTemplateService;
         private readonly IEPAService _epaService;
         private readonly IKPIService _kpiServices;
@@ -65,48 +61,59 @@ namespace NexEPA.Controllers.API
             _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
         }
 
+        /// <summary>
+        /// Method Get All Target Template.
+        /// </summary>
+        /// <param name="targetTypeId">Target Type Id.</param>
+        /// <param name="isDisabled">Is disabled or not.</param>
+        /// <returns>Target Template Model.</returns>
         [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetTemplateModel> Get(int? targetTypeId = null, bool? isDisabled = null)
         {
-            GetAllTargetTemplateCriteria criteria = new GetAllTargetTemplateCriteria
+            IEnumerable<TargetTemplateModel> targetTemplates = null;
+            var getAllTargetTemplateCriteria = new GetAllTargetTemplateCriteria
             {
                 TargetTypeId = targetTypeId,
                 IsDisabled = isDisabled
             };
+            targetTemplates = this._targetTemplateService.GetAllTargetTemplate(getAllTargetTemplateCriteria);
 
-            var data = this._targetTemplateService.GetAllTargetTemplate(criteria);
-            return data;
+            return targetTemplates;
         }
 
         [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetType> GetAllTargetType()
         {
-            GetAllTargetTypeCriteria criteria = new GetAllTargetTypeCriteria();
-            var data = _epaService.GetAllTargetType(criteria);
-            return data;
+            IEnumerable<TargetType> targetTypes = null;
+            var getAllTargetTypeCriteria = new GetAllTargetTypeCriteria();
+            targetTypes = _epaService.GetAllTargetType(getAllTargetTypeCriteria);
+
+            return targetTypes;
         }
 
         [ApiAuthorize(Roles = "SA")]
         public TargetTemplateModel GetTargetTemplateById(int targetTemplateId)
         {
-            GetTargetTemplateByIdCriteria criteria = new GetTargetTemplateByIdCriteria
+            TargetTemplateModel targetTemplate = null;
+            var getTargetTemplateByIdCriteria = new GetTargetTemplateByIdCriteria
             {
                 TargetTemplateId = targetTemplateId
             };
+            targetTemplate = this._targetTemplateService.GetTargetTemplateById(getTargetTemplateByIdCriteria);
 
-            var data = this._targetTemplateService.GetTargetTemplateById(criteria);
-            return data;
+            return targetTemplate;
         }
 
         [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetTemplateKPIModel> GetSelectedKPIByTargetTemplate(int targetTemplateId)
         {
-            var kpiTargetTemplateCriteria = new GetListKPIByTargetTemplateIdCriteria()
+            IEnumerable<TargetTemplateKPIModel> selectedKPIs = null;
+            var getListKPIByTargetTemplateIdCriteria = new GetListKPIByTargetTemplateIdCriteria()
             {
                 TargetTemplateId = targetTemplateId
             };
+            selectedKPIs = _targetTemplateService.GetListKPIByTargetTemplateId(getListKPIByTargetTemplateIdCriteria);
 
-            IEnumerable<TargetTemplateKPIModel> selectedKPIs = _targetTemplateService.GetListKPIByTargetTemplateId(kpiTargetTemplateCriteria);
             return selectedKPIs;
         }
 
@@ -119,22 +126,27 @@ namespace NexEPA.Controllers.API
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
         [ApiAuthorize(Roles = "SA")]
-        public List<TargetTemplateViewModel> GetKPI(bool onlySelected, int? targetTemplateId = null, int? targetTypeId = null, int? groupId = null)
+        public List<TargetTemplateViewModel> GetKPI(
+            bool onlySelected, 
+            int? targetTemplateId = null, 
+            int? targetTypeId = null, 
+            int? groupId = null)
         {
-            List<TargetTemplateViewModel> data = null;
+            List<TargetTemplateViewModel> targetTemplateVMs = null;
+            IEnumerable<KPIViewModel> kpis = null;
             var getAllKPIByKPIGroupCriteria = new GetAllKPIByKPIGroupCriteria()
             {
                 TargetTemplateId = targetTemplateId.Value
             };
-            IEnumerable<KPIViewModel> lstKPI = _kpiServices.GetAllKPIByKPIGroup(getAllKPIByKPIGroupCriteria);
+            kpis = _kpiServices.GetAllKPIByKPIGroup(getAllKPIByKPIGroupCriteria);
 
             if (onlySelected)
             {
-                lstKPI = lstKPI.Where(x => x.Weight >= 0).ToList();
+                kpis = kpis.Where(x => x.Weight >= 0).ToList();
             }
             else
             {
-                foreach (var item in lstKPI)
+                foreach (var item in kpis)
                 {
                     if (item.Weight >= 0)
                     {
@@ -143,7 +155,7 @@ namespace NexEPA.Controllers.API
                 }
             }
 
-            data = (from kpi in lstKPI
+            targetTemplateVMs = (from kpi in kpis
                     group kpi by kpi.KPIGroupName into item
                     select new TargetTemplateViewModel
                     {
@@ -151,7 +163,7 @@ namespace NexEPA.Controllers.API
                         KPIGroupItems = item.ToList()
                     }).ToList();
 
-            return data;
+            return targetTemplateVMs;
         }
 
         /// <summary>
@@ -189,7 +201,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                AddTargetTemplateCriteria criteria = new AddTargetTemplateCriteria()
+                var addTargetTemplateCriteria = new AddTargetTemplateCriteria()
                 {
                     Name = model.Name,
                     TargetTypeId = model.TargetTypeId,
@@ -198,10 +210,10 @@ namespace NexEPA.Controllers.API
                     CreatedBy = this.CurrentUser.UserId
                 };
 
-                CommandResult result = this._targetTemplateService.InsertTargetTemplate(criteria);
+                CommandResult result = this._targetTemplateService.InsertTargetTemplate(addTargetTemplateCriteria);
                 if (result.Code != 0)
                 {
-                    List<string> errorMessage = new List<string>() { result.Message };
+                    var errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -221,7 +233,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                UpdateTargetTemplateCriteria criteria = new UpdateTargetTemplateCriteria()
+                var updateTargetTemplateCriteria = new UpdateTargetTemplateCriteria()
                 {
                     TargetTemplateId = model.TargetTemplateId,
                     Name = model.Name,
@@ -229,13 +241,13 @@ namespace NexEPA.Controllers.API
                     Description = model.Description,
                     ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.UserId,
-                    KPIs = ConvertKPIItemToXML(model.KPIIds)
+                    KPIs = model.ConvertKPIItemToXML
                 };
 
-                CommandResult result = this._targetTemplateService.UpdateTargetTemplate(criteria);
+                CommandResult result = this._targetTemplateService.UpdateTargetTemplate(updateTargetTemplateCriteria);
                 if (result.Code != 0)
                 {
-                    List<string> errorMessage = new List<string>() { result.Message };
+                    var errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -253,16 +265,16 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage Delete(int targetTemplateId)
         {
-            DeleteTargetTemplateCriteria criteria = new DeleteTargetTemplateCriteria()
+            var deleteTargetTemplateCriteria = new DeleteTargetTemplateCriteria()
             {
                 TargetTemplateId = targetTemplateId,
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now
             };
-            CommandResult result = this._targetTemplateService.DeleteTargetTemplate(criteria);
+            CommandResult result = this._targetTemplateService.DeleteTargetTemplate(deleteTargetTemplateCriteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
+                var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
             }
 
@@ -277,18 +289,17 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage AddKPIGroupWeight(TargetKPIGroupWeightModel model)
         {
-            string dataKPIGroupWeightXML = ConvertKPIGroupWeightToXML(model.KPIGroups);
-            AddKPIGroupWeightCriteria criteria = new AddKPIGroupWeightCriteria()
+            var addKPIGroupWeightCriteria = new AddKPIGroupWeightCriteria()
             {
                 TargetTemplateId = model.TargetTemplateId,
-                KPIGroups = dataKPIGroupWeightXML,
+                KPIGroups = model.ConvertKPIGroupWeightToXML,
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now
             };
-            CommandResult result = this._targetTemplateService.AddKPIGroupWeight(criteria);
+            CommandResult result = this._targetTemplateService.AddKPIGroupWeight(addKPIGroupWeightCriteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
+                var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
             }
 
@@ -316,8 +327,9 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public IEnumerable<TargetSettingModel> GetTargetSetting()
         {
+            IEnumerable<TargetSettingModel> targetSettings = null;
             var getTargetSettingCriteria = new GetTargetSettingCriteria();
-            var targetSettings = _targetTemplateService.GetTargetSetting(getTargetSettingCriteria);
+            targetSettings = _targetTemplateService.GetTargetSetting(getTargetSettingCriteria);
 
             return targetSettings;
         }
@@ -330,17 +342,17 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage SetDefaultTargetTemplate(dynamic model)
         {
-            var criteria = new SetTargetSettingCriteria()
+            var setTargetSettingCriteria = new SetTargetSettingCriteria()
             {
                 TargetTypeId = model.targetTypeId,
                 TargetTemplateId = model.targetTemplateId,
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now
             };
-            CommandResult result = this._targetTemplateService.SetDefaultTargetTemplate(criteria);
+            CommandResult result = this._targetTemplateService.SetDefaultTargetTemplate(setTargetSettingCriteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
+                var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
             }
 
@@ -354,7 +366,7 @@ namespace NexEPA.Controllers.API
         /// <returns>Http Response Message.</returns>
         public HttpResponseMessage RemoveKPIGroup(dynamic model)
         {
-            var criteria = new RemoveKPIGroupCriteria()
+            var removeKPIGroupCriteria = new RemoveKPIGroupCriteria()
             {
                 KPIGroupId = model.groupId,
                 TargetTemplateId = model.targetTemplateId,
@@ -362,7 +374,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = this._targetTemplateService.RemoveKPIGroup(criteria);
+            CommandResult result = this._targetTemplateService.RemoveKPIGroup(removeKPIGroupCriteria);
             if (result.Code != 0)
             {
                 List<string> errorMessage = new List<string>() { result.Message };
@@ -372,32 +384,12 @@ namespace NexEPA.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        private string ConvertKPIGroupWeightToXML(List<KPIGroupModel> kpiGroups)
-        {
-            var value = new StringBuilder(_BeginRootTag);
-            foreach (var item in kpiGroups)
-            {
-                var spreadKPI = item.IsSpreadKPI == true ? 1 : 0;
-                value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight, spreadKPI);
-            }
-
-            return value.Append(_EndRootTag).ToString();
-        }
-
-        private string ConvertKPIItemToXML(List<TargetTemplateKPIModel> kpis)
-        {
-            var value = new StringBuilder(_BeginRootTag);
-            foreach (var item in kpis)
-            {
-                value.AppendFormat(_KPIItem, item.KPIId, item.KPIGroupId, item.Weight);
-            }
-
-            return value.Append(_EndRootTag).ToString();
-        }
-
         private IEnumerable<string> RetrieveErrorMessages()
         {
-            return ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+            IEnumerable<string> errors = null;
+            errors = ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+
+            return errors;
         }
     }
 }

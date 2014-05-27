@@ -48,25 +48,33 @@ namespace NexEPA.Controllers.API
         /// <returns>List of Project Member Model.</returns>
         public IEnumerable<ProjectMembersModel> Get(int projectId, bool? isShowDeletedMember = null, int? milestoneId = null)
         {
-            GetAllProjectMembersCriteria criteria = new GetAllProjectMembersCriteria()
+            IEnumerable<ProjectMembersModel> projects = null;
+            var getAllProjectMembersCriteria = new GetAllProjectMembersCriteria()
             {
                 ProjectId = projectId,
                 IsShowDeletedMember = isShowDeletedMember,
                 MilestoneId = milestoneId
             };
-            IEnumerable<ProjectMembersModel> projects = _projectMemberService.GetAllProjectMember(criteria);
+            projects = _projectMemberService.GetAllProjectMember(getAllProjectMembersCriteria);
 
             return projects;
         }
 
+        /// <summary>
+        /// Method get Member role in project.
+        /// </summary>
+        /// <param name="projectId">Project id.</param>
+        /// <param name="employeeId">Employee id.</param>
+        /// <returns>Project Members Model.</returns>
         public IEnumerable<ProjectMembersModel> GetMemberRoleInProject(int projectId, int employeeId)
         {
-            GetMemberRoleInProjectCriteria criteria = new GetMemberRoleInProjectCriteria
+            IEnumerable<ProjectMembersModel> memberRoles = null;
+            var getMemberRoleInProjectCriteria = new GetMemberRoleInProjectCriteria
             {
                 ProjectId = projectId,
                 EmployeeId = employeeId
             };
-            IEnumerable<ProjectMembersModel> memberRoles = _projectMemberService.GetMemberRoleInProject(criteria);
+            memberRoles = _projectMemberService.GetMemberRoleInProject(getMemberRoleInProjectCriteria);
 
             return memberRoles;
         }
@@ -80,7 +88,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                var criteria = new AddMemberCriteria()
+                var adddMemberCriteria = new AddMemberCriteria()
                 {
                     ProjectId = member.ProjectId,
                     EmployeeId = member.EmployeeId,
@@ -90,10 +98,10 @@ namespace NexEPA.Controllers.API
                     JoinDate = member.JoinDate.Value,
                 };
 
-                CommandResult result = _projectMemberService.AddMember(criteria);
+                CommandResult result = _projectMemberService.AddMember(adddMemberCriteria);
                 if (result.Code != 0)
                 {
-                    List<string> errorMessage = new List<string>() { result.Message };
+                    var errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -114,7 +122,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                var criteria = new EditMemberCriteria()
+                var editMemberCriteria = new EditMemberCriteria()
                 {
                     ProjectId = member.ProjectId,
                     EmployeeId = member.EmployeeId,
@@ -124,10 +132,10 @@ namespace NexEPA.Controllers.API
                     JoinDate = member.JoinDate.Value,
                 };
 
-                CommandResult result = _projectMemberService.EditMember(criteria);
+                CommandResult result = _projectMemberService.EditMember(editMemberCriteria);
                 if (result.Code != 0)
                 {
-                    List<string> errorMessage = new List<string>() { result.Message };
+                    var errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -147,7 +155,7 @@ namespace NexEPA.Controllers.API
         /// <returns>Http response message.</returns>
         public HttpResponseMessage Delete(int projectId, int employeeId)
         {
-            DeleteMemberCriteria criteria = new DeleteMemberCriteria()
+            var deleteMemberCriteria = new DeleteMemberCriteria()
             {
                 ProjectId = projectId,
                 EmployeeId = employeeId,
@@ -155,10 +163,10 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now.Date
             };
 
-            CommandResult result = _projectMemberService.DeleteMember(criteria);
+            CommandResult result = _projectMemberService.DeleteMember(deleteMemberCriteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
+                var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
             }
 
@@ -174,15 +182,15 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<ProjectRoleModel> ProjectRole(int? projectId = null, int? employeeId = null)
         {
-            GetAllProjectRoleCriteria criteria = new GetAllProjectRoleCriteria();
-            IEnumerable<ProjectRoleModel> data = _projectMemberService.GetAllProjectRole(criteria);
+            var getAllProjectRoleCriteria = new GetAllProjectRoleCriteria();
+            IEnumerable<ProjectRoleModel> data = _projectMemberService.GetAllProjectRole(getAllProjectRoleCriteria);
 
             if (projectId != null && employeeId != null)
             {
                 IEnumerable<ProjectMembersModel> roles = GetMemberRoleInProject(projectId.Value, employeeId.Value);
                 if (roles != null)
                 {
-                    foreach (var item in data.Where(x => roles.Select(y => y.ProjectRoleId).Contains(x.ProjectRoleId)))
+                    foreach (ProjectRoleModel item in data.Where(x => roles.Select(y => y.ProjectRoleId).Contains(x.ProjectRoleId)))
                     {
                         item.Selected = true;
                     }
@@ -194,7 +202,8 @@ namespace NexEPA.Controllers.API
 
         private IEnumerable<string> RetrieveErrorMessages()
         {
-            return ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+            IEnumerable<string> errors = ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+            return errors;
         }
     }
 }

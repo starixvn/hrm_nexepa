@@ -431,11 +431,11 @@ epaModule.controller('ViewCurrentMemberEPAController',
 
 		var successChangeEPAStatus = function () {
 			notificationFactory.success('SuccessSaveData', '');
-			//getEPAOfEmployeeByManager(null, null);
+			getEPAOfEmployeeByManager(null, null);
 		};
 		var errorChangeEPAStatus = function (response) {
 			notificationFactory.error('', response);
-			//getEPAOfEmployeeByManager(null, null);
+			getEPAOfEmployeeByManager(null, null);
 		};
 
 		var errorHandle = function (status) {
@@ -520,6 +520,7 @@ epaModule.controller('ViewCurrentMemberEPAController',
 			});
 			updateEPAModalInstance.result.then(function () {
 				epaItem.statusName = status.name;
+				epaItem.status = status.id;
 				epaItem.targetId = epaItem.target.targetId;
 				employeeEPAFactory.updateEPAStatus(epaItem).then(successChangeEPAStatus, errorChangeEPAStatus);
 			});

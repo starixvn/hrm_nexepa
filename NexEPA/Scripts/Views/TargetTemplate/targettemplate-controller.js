@@ -120,7 +120,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 					return action;
 				}
 			}
-			
+
 		});
 
 		var keyMessage = '';
@@ -364,7 +364,6 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 			targetTemplateFactory.removeKPIGroup(model).then(successRemoveKPIGroup, errorNotify);
 		});
 	};
-
 } ]);
 
 targetTemplateModule.controller('AddKPIGroup', ['$scope', '$modalInstance', 'KPIGroups', 'notificationFactory',

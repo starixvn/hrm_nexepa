@@ -188,6 +188,7 @@ namespace NexEPA.Controllers.API
         /// <returns>Http Response Message.</returns>
         public HttpResponseMessage UpdateEPAStatus(EPAInfoModel model)
         {
+            List<string> warningMessage = null;
             var criteria = new UpdateEPAStatusCriteria()
             {
                 EmployeeId = model.EmployeeId,
@@ -200,11 +201,10 @@ namespace NexEPA.Controllers.API
             CommandResult result = _memberEPAService.UpdateEPAStatus(criteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                warningMessage = new List<string>() { result.Message };
             }
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, warningMessage);
         }
 
         /// <summary>

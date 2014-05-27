@@ -10,6 +10,7 @@
 namespace NexEPA.Target.Models
 {
     using System.Collections.Generic;
+    using System.Text;
     using NexEPA.KPI.Model;
 
     /// <summary>
@@ -17,8 +18,27 @@ namespace NexEPA.Target.Models
     /// </summary>
     public class TargetKPIGroupWeightModel
     {
+        private const string _KPIGroup = "<KPIGroup KPIGroupId='{0}' Weight='{1}' IsSpreadKPI='{2}'></KPIGroup>";
+        private const string _BeginRootTag = "<ROOT>";
+        private const string _EndRootTag = "</ROOT>";
+
         public int TargetTemplateId { get; set; }
 
         public List<KPIGroupModel> KPIGroups { get; set; }
+
+        public string ConvertKPIGroupWeightToXML
+        {
+            get
+            {
+                var value = new StringBuilder(_BeginRootTag);
+                foreach (KPIGroupModel item in KPIGroups)
+                {
+                    var spreadKPI = item.IsSpreadKPI == true ? 1 : 0;
+                    value.AppendFormat(_KPIGroup, item.KPIGroupId, item.Weight, spreadKPI);
+                }
+
+                return value.Append(_EndRootTag).ToString();
+            }
+        }
     }
 }

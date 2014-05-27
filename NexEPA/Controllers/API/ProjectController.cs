@@ -60,22 +60,20 @@ namespace NexEPA.Controllers.API
         {
             List<ProjectInformationModel> projects = null;
             DateTime? startDate = null;
-            
             if (period != null)
             {
                 startDate = GetPeriodOfTime(period.Value);
             }
 
-            GetAllProjectCriteria criteria = new GetAllProjectCriteria()
-                {
-                    ActorUserId = this.CurrentUser.UserId,
-                    ProjectManager = projectManager,
-                    Status = status,
-                    StartDate = startDate,
-                    EndDate = DateTime.Now.Date
-                };
-
-            projects = _projectService.GetAllProject(criteria);
+            var getAllProjectCriteria = new GetAllProjectCriteria
+            {
+                ActorUserId = this.CurrentUser.UserId,
+                ProjectManager = projectManager,
+                Status = status,
+                StartDate = startDate,
+                EndDate = DateTime.Now
+            };
+            projects = _projectService.GetAllProject(getAllProjectCriteria);
 
             return projects;
         }
@@ -90,7 +88,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                AddProjectCriteria criteria = new AddProjectCriteria()
+                var addProjectCriteria = new AddProjectCriteria
                 {
                     Name = project.Name,
                     Description = project.Description,
@@ -99,14 +97,13 @@ namespace NexEPA.Controllers.API
                     EndDate = project.EndDate.Value,
                     Status = project.Status,
                     CreatedBy = this.CurrentUser.UserId,
-                    CreatedDate = DateTime.Now.Date
+                    CreatedDate = DateTime.Now
                 };
 
-                CommandResult result = _projectService.InsertProject(criteria);
-
+                CommandResult result = _projectService.InsertProject(addProjectCriteria);
                 if (result.Code != 0)
                 {
-                    List<string> errorMessage = new List<string>() { result.Message };
+                    var errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -128,7 +125,7 @@ namespace NexEPA.Controllers.API
         {
             if (ModelState.IsValid)
             {
-                UpdateProjectCriteria criteria = new UpdateProjectCriteria
+                var updateProjectCriteria = new UpdateProjectCriteria
                 {
                     ProjectId = project.ProjectId,
                     Name = project.Name,
@@ -141,11 +138,10 @@ namespace NexEPA.Controllers.API
                     Description = project.Description
                 };
 
-                CommandResult result = _projectService.UpdateProject(criteria);
-
+                CommandResult result = _projectService.UpdateProject(updateProjectCriteria);
                 if (result.Code != 0)
                 {
-                    List<string> errorMessage = new List<string>() { result.Message };
+                    var errorMessage = new List<string>() { result.Message };
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
                 }
 
@@ -165,7 +161,7 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "PM,SA")]
         public HttpResponseMessage UpdateProjectStatus(ProjectInformationModel model)
         {
-            UpdateProjectStatusCriteria criteria = new UpdateProjectStatusCriteria
+            var updateProjectStatusCriteria = new UpdateProjectStatusCriteria
             {
                 Status = model.Status,
                 ProjectId = model.ProjectId,
@@ -173,11 +169,10 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = _projectService.UpdateProjectStatus(criteria);
-
+            CommandResult result = _projectService.UpdateProjectStatus(updateProjectStatusCriteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
+                var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
             }
 
@@ -192,18 +187,17 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(Roles = "PM,SA")]
         public HttpResponseMessage DeleteProject(int projectId)
         {
-            var criteria = new DeleteProjectCriteria
+            var deleteProjectCriteria = new DeleteProjectCriteria
             {
                 ProjectId = projectId,
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = _projectService.DeleteProject(criteria);
-
+            CommandResult result = _projectService.DeleteProject(deleteProjectCriteria);
             if (result.Code != 0)
             {
-                List<string> errorMessage = new List<string>() { result.Message };
+                var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
             }
 
@@ -213,12 +207,12 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public ProjectModel GetProjectById(int projectId)
         {
-            GetProjectByIdCriteria criteria = new GetProjectByIdCriteria
+            var getProjectByIdCriteria = new GetProjectByIdCriteria
             {
                 ProjectId = projectId,
                 ActorUserId = this.CurrentUser.UserId
             };
-            ProjectModel project = _projectService.GetById(criteria);
+            ProjectModel project = _projectService.GetById(getProjectByIdCriteria);
 
             return project;
         }
@@ -232,19 +226,17 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
         {
-            GetEmployeeByRoleCriteria criteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
-            IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByRole(criteria);
+            var getEmployeeByRoleCriteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
+            IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByRole(getEmployeeByRoleCriteria);
+            IEnumerable<dynamic> selectListEmployee = null;
 
             if (!string.IsNullOrEmpty(searchKey))
             {
                 employees = GetEmployeeBySearchKey(employees, searchKey);
-            }
-
-            IEnumerable<dynamic> selectListEmployee = null;
-
-            if (employees != null)
-            {
-                selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId, x.ProjectRoleId });
+                if (employees != null)
+                {
+                    selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId, x.ProjectRoleId });
+                }
             }
 
             return selectListEmployee;
@@ -257,7 +249,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<SelectListModel> RenderProjectStatusSelectList()
         {
-            var data = EnumStatus.GetAllStatusOfProject();
+            IEnumerable<SelectListModel> data = EnumStatus.GetAllStatusOfProject();
             return data;
         }
 
@@ -281,7 +273,8 @@ namespace NexEPA.Controllers.API
 
         private IEnumerable<string> RetrieveErrorMessages()
         {
-            return ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+            IEnumerable<string> errors = ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+            return errors;
         }
 
         /// <summary>
@@ -292,7 +285,7 @@ namespace NexEPA.Controllers.API
         private DateTime GetPeriodOfTime(int period)
         {
             DateTime startDate = new DateTime();
-            var now = DateTime.Now;
+            DateTime now = DateTime.Now;
             switch (period)
             {
                 case 1:
