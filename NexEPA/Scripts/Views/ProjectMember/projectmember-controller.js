@@ -159,7 +159,6 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 		var deleteModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
-			windowClass: 'modal-dialog-center',
 			resolve: {
 				name: function () {
 					return displayName;

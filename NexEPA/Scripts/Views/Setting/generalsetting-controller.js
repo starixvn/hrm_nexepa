@@ -24,7 +24,6 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 			templateUrl: '/templates/Setting/DefaultTargetTemplate.html',
 			controller: "AddDefaultTargetTemplate",
 			backdrop: 'static',
-			windowClass: 'modal-dialog-center',
 			resolve: {
 				targetTemplates: function () {
 					return $scope.tgtemplates;
