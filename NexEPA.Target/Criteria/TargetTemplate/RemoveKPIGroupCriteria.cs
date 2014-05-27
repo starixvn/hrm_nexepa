@@ -13,7 +13,7 @@ namespace NexEPA.Target.Criteria.TargetTemplate
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Remove KPI Group Criteria.
     /// </summary>
     public class RemoveKPIGroupCriteria : CriteriaBase
     {
