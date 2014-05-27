@@ -13,7 +13,7 @@ namespace NexEPA.Core.Utilities
     using System.Text;
 
     /// <summary>
-    /// Gravatar Image.
+    /// GRAVATAR Image.
     /// </summary>
     public class GravatarImage
     {
