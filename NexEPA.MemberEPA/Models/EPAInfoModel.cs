@@ -51,6 +51,8 @@ namespace NexEPA.MemberEPA.Models
 
         public int Status { get; set; }
 
+        public string Gravatar { get; set; }
+
         public DateTime? ModifiedDate { get; set; }
 
         public int? Modifier { get; set; }

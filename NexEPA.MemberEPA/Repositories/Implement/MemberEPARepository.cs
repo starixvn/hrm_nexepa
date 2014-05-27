@@ -19,6 +19,7 @@ namespace NexEPA.MemberEPA.Repositories.Implement
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Interface;
+    using NexEPA.Core.Utilities;
 
     /// <summary>
     /// The implement of Member EPA Repository.
@@ -59,6 +60,12 @@ namespace NexEPA.MemberEPA.Repositories.Implement
                                                             }).ToList();
 
                         data.KPIInfo = groupData;
+
+                        string userEmail = data.Email;
+                        if (userEmail != null)
+                        {
+                            data.Gravatar = GravatarImage.HashEmailForGravatar(data.Email);
+                        }
                     }
                 }
             }

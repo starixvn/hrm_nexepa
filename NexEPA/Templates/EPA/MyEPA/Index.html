@@ -1,10 +1,12 @@
 ﻿<div class="row sub-header ng-scope">
 	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-show="isPMPage">
-		<li><a href="/MemberEPA/ViewMember">Manage Member EPA</a></li>
+		<li>
+			<a href="/MemberEPA/ViewMember">Manage Member EPA</a></li>
 		<li class="current">Member EPA</li>
 	</ul>
 	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-hide="isPMPage">
-		<li ><a href="/MemberEPA/ViewCurrentMember">Manage My EPA</a></li>
+		<li>
+			<a href="/MemberEPA/ViewCurrentMember">Manage My EPA</a></li>
 		<li class="current">My EPA</li>
 	</ul>
 </div>
@@ -15,102 +17,120 @@
 	<div class="boxtitle first" data-translate="GeneralInfo">
 	</div>
 	<div class="epa-boxcontent">
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Employee">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong tooltip="{{employeeEPA.fullName}}">{{employeeEPA.nickName}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Team">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.groupName}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Evaluator">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong tooltip="{{employeeEPA.pmFullName}}">{{employeeEPA.pmNickName}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Project">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.projectName}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Roles">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeRole}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Milestone">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.milestoneName}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="StartDate">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.startDate|customDate}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="EndDate">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.endDate|customDate}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line" ng-show="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="LastModifyBy">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong tooltip="{{employeeEPA.modifierFullName}}">{{employeeEPA.modifierNickName}}</strong></div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="LastModifyDate">
-				</div>
-				<div class="col-sm-8 txt-value">
-					<strong>{{employeeEPA.modifiedDate|customDate}}</strong></div>
-			</div>
-		</div>
-		<div class="row row-item line">
-			<div class="col-sm-6">
-				<div class="col-sm-3" data-translate="Status">
-				</div>
-				<div class="col-sm-8 txt-value" ng-show="employeeEPA != null">
-					<span class="dropdown" on-toggle="toggled(open)">
-						<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">
-							{{employeeEPA.status|epaStatus}}</a>
-						<ul class="dropdown-menu dropdown-menu-width">
-							<li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
-								<a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
-							</li>
-						</ul>
-					</span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="col-sm-3">
-					Evaluated
-				</div>
-				<div class="col-sm-8" ng-show="employeeEPA != null">
-					<div class="col-sm-12 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
-						<span class="glyphicon glyphicon-saved epa-saved"></span>
+		<div class="row infoUser">
+			<div class="col-sm-2 text-center top-buffer">
+				<div class="row">
+					<div class="img-user">
+						<img class="img-default" src="http://www.gravatar.com/avatar/{{employeeEPA.gravatar}}"
+							alt="User" title="User">
 					</div>
-					<div class="col-sm-12 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
-						<span class="glyphicon glyphicon-tasks epa-unsaved"></span>
+				</div>
+				<div class="row text-center">
+					<span class="fullName">{{employeeEPA.fullName}}</span>
+				</div>
+				<div class="row text-center">
+					<span class="domainUserName">{{employeeEPA.nickName}}</span>
+				</div>
+			</div>
+			<div class="col-sm-10 right-form">
+				<div class="row row-item line">
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="Code">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.code}}</strong></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="Team">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.groupName}}</strong></div>
+					</div>
+				</div>
+				<div class="row row-item line">
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="Evaluator">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.pmNickName}} ({{employeeEPA.pmFullName}})</strong></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="Project">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.projectName}}</strong></div>
+					</div>
+				</div>
+				<div class="row row-item line">
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="Roles">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeRole}}</strong></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="Milestone">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.milestoneName}}</strong></div>
+					</div>
+				</div>
+				<div class="row row-item line">
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="StartDate">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.startDate|customDate}}</strong></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="EndDate">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.endDate|customDate}}</strong></div>
+					</div>
+				</div>
+				<div class="row row-item line" ng-show="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="LastModifyBy">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.modifierNickName}} ({{employeeEPA.modifierFullName}})</strong></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="LastModifyDate">
+						</div>
+						<div class="col-sm-8 txt-value">
+							<strong>{{employeeEPA.modifiedDate|customDate}}</strong></div>
+					</div>
+				</div>
+				<div class="row row-item line">
+					<div class="col-sm-6">
+						<div class="col-sm-3" data-translate="Status">
+						</div>
+						<div class="col-sm-8 txt-value" ng-show="employeeEPA != null">
+							<span class="dropdown" on-toggle="toggled(open)">
+								<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">
+									{{employeeEPA.status|epaStatus}}</a>
+								<ul class="dropdown-menu dropdown-menu-width">
+									<li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
+										<a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
+									</li>
+								</ul>
+							</span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-3">
+							Evaluated
+						</div>
+						<div class="col-sm-8" ng-show="employeeEPA != null">
+							<div class="col-sm-12 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
+								<span class="glyphicon glyphicon-saved epa-saved"></span>
+							</div>
+							<div class="col-sm-12 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
+								<span class="glyphicon glyphicon-tasks epa-unsaved"></span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
