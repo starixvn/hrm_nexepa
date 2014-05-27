@@ -14,12 +14,11 @@ namespace NexEPA.MemberEPA.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Models;
+    using NexEPA.Core.Utilities;
     using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Interface;
-    using NexEPA.Core.Utilities;
 
     /// <summary>
     /// The implement of Member EPA Repository.
