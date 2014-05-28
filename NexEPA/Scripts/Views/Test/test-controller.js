@@ -53,7 +53,7 @@ function ($scope, $location) {
 						xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
 					},
 					success: function () {
-						$location.path('/');
+						window.location.href("/");
 					}
 				});
 			}
