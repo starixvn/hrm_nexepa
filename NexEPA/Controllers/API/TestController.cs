@@ -11,6 +11,7 @@ namespace NexEPA.Controllers.API
 {
     using System;
     using System.Configuration;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -22,7 +23,6 @@ namespace NexEPA.Controllers.API
     using NexEPA.Web.Criteria;
     using NexEPA.Web.Models;
     using NexEPA.Web.Services.Impl;
-    using System.Linq;
 
     /// <summary>
     /// Test controller.
@@ -83,7 +83,6 @@ namespace NexEPA.Controllers.API
                 }
             }
 
-           
             if (HttpContext.Current.Session != null)
             {
                 HttpContext.Current.Session.Abandon();
@@ -98,8 +97,6 @@ namespace NexEPA.Controllers.API
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Unauthorized);
 
             return response;
-
-            //return Request.CreateResponse(HttpStatusCode.OK, "You are logged out");
         }
     }
 }
