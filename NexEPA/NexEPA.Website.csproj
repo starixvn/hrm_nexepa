@@ -237,6 +237,7 @@
     <Content Include="Content\Site\KPI\KPI.less" />
     <Content Include="Content\Site\Projects\project.less" />
     <Content Include="Global.asax" />
+    <Content Include="login.html" />
     <Content Include="Scripts\Extensions\Directives\epa-directive.js" />
     <Content Include="Scripts\Extensions\Services\error-service.js" />
     <Content Include="Scripts\Extensions\Common\common-factory.js" />
@@ -340,6 +341,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

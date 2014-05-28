@@ -22,5 +22,10 @@ namespace NexEPA.Controllers
             ViewBag.User = SessionManager.CurrentUser.FullName + " - " + SessionManager.CurrentUser.NickName;
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
     }
 }

@@ -34,13 +34,30 @@ namespace NexEPA.Web.Attributes
                 HandleUnauthorizedRequest(actionContext);
             }
 
-            if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")
-                && !HttpContext.Current.Request.Headers.AllKeys.Contains("Cookie"))
+            //if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")
+            //    && !HttpContext.Current.Request.Headers.AllKeys.Contains("Cookie"))
+            //{
+            //    HandleUnauthorizedRequest(actionContext);
+            //}
+            UserSession currentUser = null;
+            if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization") && HttpContext.Current.Session["NexEPA.CurrentSession"] == null)
             {
                 HandleUnauthorizedRequest(actionContext);
             }
-
-            var currentUser = SessionManager.CurrentUser;
+            else
+            {
+                if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization") && !HttpContext.Current.Session.IsNewSession)
+                {
+                    //currentUser = (UserSession)HttpContext.Current.Session["NexEPA.CurrentSession"];
+                    currentUser = SessionManager.CurrentUser;
+                }
+                else
+                {
+                    currentUser = (UserSession)HttpContext.Current.Session["NexEPA.CurrentSession"];
+                    //currentUser = SessionManager.CurrentUser;
+                }
+            }
+            
             if (currentUser != null)
             {
                 Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
@@ -64,11 +81,13 @@ namespace NexEPA.Web.Attributes
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            if (!HttpContext.Current.Request.IsLocal)
-            {
+            //if (!HttpContext.Current.Request.IsLocal)
+            //{
                 var responseMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 actionContext.Response = responseMessage;
-            }
+
+                throw new HttpResponseException(responseMessage);
+            //}
         }
 
         private void HandlePermissionRequest(HttpActionContext actionContext)

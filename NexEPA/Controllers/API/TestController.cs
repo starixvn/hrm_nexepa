@@ -22,6 +22,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Web.Criteria;
     using NexEPA.Web.Models;
     using NexEPA.Web.Services.Impl;
+    using System.Linq;
 
     /// <summary>
     /// Test controller.
@@ -67,7 +68,7 @@ namespace NexEPA.Controllers.API
         public HttpResponseMessage Logout()
         {
             string username = "Test",
-                   password = "Test";
+            password = "Test";
             AuthenticationHeaderValue headerValue = Request.Headers.Authorization;
             string httpAuth = headerValue != null ? headerValue.ToString() : string.Empty;
 
@@ -82,8 +83,23 @@ namespace NexEPA.Controllers.API
                 }
             }
 
+           
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session.Abandon();
+                HttpContext.Current.Session.RemoveAll();
+            }
+
+            if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")) 
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "You are logged in");
+            }
+            
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Unauthorized);
+
             return response;
+
+            //return Request.CreateResponse(HttpStatusCode.OK, "You are logged out");
         }
     }
 }
