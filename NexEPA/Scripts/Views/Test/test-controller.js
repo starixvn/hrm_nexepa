@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global testModule*/
+/*global testModule, registrationModule*/
 
 
 testModule.controller("LoginAsAnotherUserController",
@@ -28,4 +28,35 @@ testModule.controller("LoginAsAnotherUserController",
 				notificationFactory.error("ErrorMessage");
 			});
 		};
-	} ]);
+} ]);
+
+registrationModule.controller("LogoutController", ['$scope', '$location',
+function ($scope, $location) {
+	var username = "Test",
+		password = "Test";
+
+	$.ajax({
+		type: "GET",
+		url: "/api/Test/Logout",
+		dataType: 'json',
+		success: function () {
+			alert('Logged off!');
+		},
+		error: function (xhr) {
+			if (xhr.status === 401) {
+				$.ajax({
+					type: "GET",
+					url: "/api/Test/Logout",
+					dataType: 'json',
+					data: { username: JSON.stringify(username), password: JSON.stringify(password) },
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+					},
+					success: function () {
+						$location.path('/');
+					}
+				});
+			}
+		}
+	});
+} ]);

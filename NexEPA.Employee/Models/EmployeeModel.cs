@@ -14,7 +14,7 @@ namespace NexEPA.Employee.Models
     using NexEPA.Core.Models;
 
     /// <summary>
-    /// Employee class.
+    /// The Employee model.
     /// </summary>
     public class EmployeeModel
     {
