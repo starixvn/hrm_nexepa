@@ -248,6 +248,9 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
 			var selectedKPIs = $scope.selection;
 			var checkSelectedKPIValid = true;
+			var arrayNumber = [];
+			
+			var dataTable = $("table#tblKPI tbody tr.row-data");
 			$.each(selectedKPIs, function (i) {
 				var currentItem = selectedKPIs[i];
 				if (currentItem.Weight == null || isNaN(currentItem.Weight)) {
@@ -255,9 +258,31 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 				}
 			});
 
+			for (var i = 0; i < dataTable.length; i++) {
+				var tableRowTR = $(dataTable[i]).children().eq(1);
+				var itemChecked = $(dataTable[i]).find(".check-group").first();
+				var rowId = parseInt(tableRowTR.attr("data-id"));
+				if (itemChecked[0].checked === true) {
+					arrayNumber.push(rowId);
+				}
+			}
+
 			if (checkSelectedKPIValid) {
 				editTemplate.kpiIds = selectedKPIs;
 				if (showWarningWeightMessage(editTemplate.kpiIds, notificationFactory) === false) {
+					var orderNo = 1;
+					if (arrayNumber != null) {
+						$.each(arrayNumber, function (i) {
+							$.each(editTemplate.kpiIds, function (j) {
+								var currentItem = editTemplate.kpiIds[j];
+								if (currentItem.KPIId === arrayNumber[i]) {
+									currentItem.displayOrder = orderNo;
+								}
+							});
+							orderNo++;
+						});
+					}
+
 					targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorNotify);
 				}
 			}
@@ -290,11 +315,9 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 					}
 				}
 			});
-			addModalInstance.result.then(function (selectedGroup) {
-				var object = {};
-				object.TargetTemplateId = targetTemplateId;
-				object.KPIGroups = selectedGroup;
-				targetTemplateFactory.addKPIGroups(object).then(successAddKPIGroups, errorAddKPIGroups);
+			addModalInstance.result.then(function (model) {
+				model.TargetTemplateId = targetTemplateId;
+				targetTemplateFactory.addKPIGroups(model).then(successAddKPIGroups, errorAddKPIGroups);
 			});
 		};
 
@@ -364,6 +387,28 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 			targetTemplateFactory.removeKPIGroup(model).then(successRemoveKPIGroup, errorNotify);
 		});
 	};
+
+	$scope.setPriority = function (event) {
+		var currentItem = $(event.target);
+		var row = currentItem.parents("table#tblKPI tbody tr.row-data:first");
+		var firstItem = currentItem.parents('table#tblKPI tbody').find('tr.row-data:first');
+		var lastItem = currentItem.parents('table#tblKPI tbody').find('tr:last');
+		if (currentItem.is(".kpiUp")) {
+			if (currentItem.parents('tr')[0] !== firstItem[0]) {
+				row.insertBefore(row.prev());
+			}
+		} else if (currentItem.is(".kpiDown")) {
+			row.insertAfter(row.next());
+		} else if (currentItem.is(".kpiBottom")) {
+			if (currentItem.parents('tr')[0] !== lastItem[0]) {
+				row.insertAfter(lastItem);
+			}
+		} else if (currentItem.is(".kpiTop")) {
+			if (currentItem.parents('tr')[0] !== firstItem[0]) {
+				row.insertBefore(firstItem);
+			}
+		}
+	};
 } ]);
 
 targetTemplateModule.controller('AddKPIGroup', ['$scope', '$modalInstance', 'KPIGroups', 'notificationFactory',
@@ -398,7 +443,30 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 				notificationFactory.error('', 'Total Groups weight must be equal or less than 100');
 			}
 			else {
-				$modalInstance.close($scope.selection);
+				var arrayNumber = [];
+				var orderNo = 1;
+				var dataTable = $("table#tblKPIGroup tbody tr");
+				for (var i = 0; i < dataTable.length; i++) {
+					var tableRowTR = $(dataTable[i]).children().eq(1);
+					var groupChecked = $(dataTable[i]).find(".check-group").first();
+					var rowId = parseInt(tableRowTR.attr("data-id"));
+					if (groupChecked[0].checked === true) {
+						arrayNumber.push(rowId);
+					}
+				}
+				if (arrayNumber != null) {
+					$.each(arrayNumber, function (i) {
+						$.each(selectedItems, function (k) {
+							var currentItem = selectedItems[k];
+							if (currentItem.kpiGroupId === arrayNumber[i]) {
+								selectedItems[k].displayOrder = orderNo;
+							}
+						});
+						orderNo++;
+					});
+				}
+				var model = { KPIGroups: selectedItems };
+				$modalInstance.close(model);
 			}
 		}
 	};
@@ -425,7 +493,6 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 			return object;
 		});
 	}, true);
-
 
 } ]);
 

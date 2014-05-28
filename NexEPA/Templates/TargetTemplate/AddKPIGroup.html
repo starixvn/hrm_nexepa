@@ -1,6 +1,8 @@
 ﻿<div class="modal-addKPI" id="modal-addKPI">
 	<div class="modal-header">
-		<div class="popup-header">KPI Group <span class="close-popup" ng-click="cancel()"></span></div>
+		<div class="popup-header">
+			KPI Group <span class="close-popup" ng-click="cancel()"></span>
+		</div>
 	</div>
 	<div class="modal-body">
 		<div class="col-sm-offset-3">
@@ -10,11 +12,13 @@
 			<div class="error-message hide-errormessage buffer-error-message" id="memberValid">
 				Please input all required (*) fields.</div>
 		</div>
-		<table class="table table-bordered table-striped table-hover">
+		<table class="table table-bordered table-striped table-hover" id="tblKPIGroup" table-row-level>
 			<thead>
 				<tr>
+					<th class="middle-align" data-translate="Priority">
+					</th>
 					<th class="middle-align">
-						<input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)"/>
+						<input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)" />
 					</th>
 					<th class="middle-align" data-translate="Name">
 					</th>
@@ -24,27 +28,35 @@
 					</th>
 				</tr>
 			</thead>
-			<tr ng-repeat="group in KPIGroups">
-				<td class="text-center">
-					<input type="checkbox" ng-model="group.selected" />
-				</td>
-				<td class="kpigroup-column-max">
-					{{group.name}}
-				</td>
-				<td class="column-weight-max text-center">
-					<span ng-show="group.selected == false">{{group.weight}}</span>
-					<input type="text" class="custom-form-control text-center" 
-					ng-model="group.weight" ng-show="group.selected == true"/>
-				</td>
-				<td class="text-center">
-					<input type="checkbox" ng-model="group.isSpreadKPI" ng-show="group.selected"/>
-				</td>
-
-			</tr>
+			<tbody>
+				<tr ng-repeat="group in KPIGroups">
+					<td class="text-center member-limit">
+						<a href="javascript:;" title="Top" class="glyphicon glyphicon-open top"> | </a>
+						<a href="javascript:;" title="Move Up" class="glyphicon glyphicon-arrow-up up"> | </a>
+						<a href="javascript:;" title="Move Down" class="glyphicon glyphicon-arrow-down down"> | </a>
+						<a href="javascript:;" title="Bottom" class="glyphicon glyphicon-save bottom"> </a>
+					</td>
+					<td class="text-center" data-id="{{group.kpiGroupId}}">
+						<input class="check-group" type="checkbox" ng-model="group.selected" />
+					</td>
+					<td class="kpigroup-column-max">
+						{{group.name}}
+					</td>
+					<td class="column-weight-max text-center">
+						<span ng-show="group.selected == false">{{group.weight}}</span>
+						<input type="text" class="custom-form-control text-center" ng-model="group.weight"
+							ng-show="group.selected == true" />
+					</td>
+					<td class="text-center">
+						<input type="checkbox" ng-model="group.isSpreadKPI" ng-show="group.selected" />
+					</td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 	<div class="modal-footer error-message">
-		<span class="pull-left">* Note: All KPIs in KPI Group setting will be removed. Please check carefully before unchecked KPI Group !</span>
+		<span class="pull-left">* Note: All KPIs in KPI Group setting will be removed. Please
+			check carefully before unchecked KPI Group !</span>
 		<button class="button" ng-click="ok()">
 			OK</button>
 		<button class="btn btn-default customize" ng-click="cancel()">

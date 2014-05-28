@@ -32,6 +32,8 @@ namespace NexEPA.KPI.Model
 
         public bool Selected { get; set; }
 
+        public int? DisplayOrder { get; set; }
+
         public TargetType TargetType { get; set; }
     }
 }
