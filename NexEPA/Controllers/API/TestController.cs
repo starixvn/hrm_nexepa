@@ -10,11 +10,8 @@
 namespace NexEPA.Controllers.API
 {
     using System.Configuration;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Web;
-    using System.Web.Http;
+    using System.Web.Mvc;
     using NexEPA.Core.Constants;
     using NexEPA.Web.Controllers;
     using NexEPA.Web.Criteria;
@@ -55,29 +52,6 @@ namespace NexEPA.Controllers.API
             }
 
             return -1;
-        }
-
-        /// <summary>
-        /// User logout.
-        /// </summary>
-        /// <returns>The response.</returns>
-        [HttpGet]
-        public HttpResponseMessage Logout()
-        {
-            if (HttpContext.Current.Session != null)
-            {
-                HttpContext.Current.Session.Abandon();
-                HttpContext.Current.Session.RemoveAll();
-            }
-
-            if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")) 
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, "You are logged in");
-            }
-            
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Unauthorized);
-
-            return response;
         }
     }
 }

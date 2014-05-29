@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global testModule, registrationModule*/
+/*global testModule*/
 
 
 testModule.controller("LoginAsAnotherUserController",
