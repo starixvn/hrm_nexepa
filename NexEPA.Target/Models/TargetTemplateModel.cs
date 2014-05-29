@@ -19,7 +19,7 @@ namespace NexEPA.Target.Models
     /// </summary>
     public class TargetTemplateModel
     {
-        private const string _KPIItem = "<KPI KPIId='{0}' KPIGroupId='{1}' Weight='{2}'></KPI>";
+        private const string _KPIItem = "<KPI KPIId='{0}' KPIGroupId='{1}' Weight='{2}' DisplayOrder='{3}'></KPI>";
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
 
@@ -66,7 +66,7 @@ namespace NexEPA.Target.Models
                     var value = new StringBuilder(_BeginRootTag);
                     foreach (var item in KPIIds)
                     {
-                        value.AppendFormat(_KPIItem, item.KPIId, item.KPIGroupId, item.Weight);
+                        value.AppendFormat(_KPIItem, item.KPIId, item.KPIGroupId, item.Weight, item.DisplayOrder);
                     }
 
                     return value.Append(_EndRootTag).ToString();
