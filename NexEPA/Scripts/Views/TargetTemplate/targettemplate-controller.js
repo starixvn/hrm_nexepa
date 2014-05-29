@@ -19,7 +19,6 @@ var showWarningWeightMessage = function (kpiIds, notificationFactory) {
 	if (kpiIds && kpiIds.length > 0) {
 		var numberKPI = kpiIds.length;
 		var kpiGroupId = kpiIds[0].KPIGroupId;
-
 		for (var i = 0; i < numberKPI; i++) {
 			if (kpiIds[i].KPIGroupId === kpiGroupId) {
 				totalWeight += parseInt(kpiIds[i].Weight);
@@ -181,9 +180,9 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 	var succesGetListKPI = function (data) {
 		$scope.lstKPI = data;
 		$.each($scope.lstKPI, function (key) {
-			var data = $scope.lstKPI[key].kpiGroupItems;
-			$.each(data, function (k) {
-				$scope.lstAllData.push(data[k]);
+			var currentItem = $scope.lstKPI[key].kpiGroupItems;
+			$.each(currentItem, function (k) {
+				$scope.lstAllData.push(currentItem[k]);
 			});
 		});
 	};
@@ -249,7 +248,7 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 			var selectedKPIs = $scope.selection;
 			var checkSelectedKPIValid = true;
 			var arrayNumber = [];
-			
+
 			var dataTable = $("table#tblKPI tbody tr.row-data");
 			$.each(selectedKPIs, function (i) {
 				var currentItem = selectedKPIs[i];
@@ -261,28 +260,30 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 			for (var i = 0; i < dataTable.length; i++) {
 				var tableRowTR = $(dataTable[i]).children().eq(1);
 				var itemChecked = $(dataTable[i]).find(".check-group").first();
-				var rowId = parseInt(tableRowTR.attr("data-id"));
+				var itemId = parseInt(tableRowTR.attr("item-id"));
+				var groupId = parseInt(tableRowTR.attr("group-id"));
 				if (itemChecked[0].checked === true) {
-					arrayNumber.push(rowId);
+					arrayNumber.push({itemId: itemId, groupId: groupId});
 				}
 			}
 
 			if (checkSelectedKPIValid) {
-				editTemplate.kpiIds = selectedKPIs;
 				if (showWarningWeightMessage(editTemplate.kpiIds, notificationFactory) === false) {
 					var orderNo = 1;
 					if (arrayNumber != null) {
 						$.each(arrayNumber, function (i) {
-							$.each(editTemplate.kpiIds, function (j) {
-								var currentItem = editTemplate.kpiIds[j];
-								if (currentItem.KPIId === arrayNumber[i]) {
-									currentItem.displayOrder = orderNo;
+							var currentArray = arrayNumber[i];
+							$.each(selectedKPIs, function (j) {
+								var currentKPI = selectedKPIs[j];
+								if ((currentKPI.KPIId === currentArray.itemId) && (currentKPI.KPIGroupId === currentArray.groupId)) {
+									selectedKPIs[j].displayOrder = orderNo;
 								}
 							});
 							orderNo++;
 						});
-					}
 
+					}
+					editTemplate.kpiIds = selectedKPIs;
 					targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorNotify);
 				}
 			}
@@ -495,7 +496,6 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 	}, true);
 
 } ]);
-
 
 targetTemplateModule.controller('CreateTargetTemplateController',
 ['$scope', '$location', '$window', 'targetTemplateFactory',

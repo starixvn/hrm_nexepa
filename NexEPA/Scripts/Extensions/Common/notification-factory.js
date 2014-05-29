@@ -52,14 +52,12 @@ projectsSettingModule.run(['$http', 'ProjectSettingCache', function ($http, Proj
 	});
 } ]);
 
-registrationModule.factory('AuthService', ['$http', function ($http) {
-	var currentUser;
+registrationModule.factory('AuthService', ['$http', '$q', function ($http, $q) {
 	return {
 		currentUser: function () {
-			$http.get('/api/core/GetCurrentUser').success(function (data) {
-				currentUser = data;
-			});
-			return currentUser;
+			var deferred = $q.defer();
+			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

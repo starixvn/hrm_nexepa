@@ -1,7 +1,47 @@
 ﻿<div class="row">
-	<div ng-include src="'/Templates/Projects/ProjectFilterPanel.html'">
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li>
+				<a href="#">Project</a></li>
+			<li class="current">Manage Project</li>
+		</ul>
+		<div class="button-icon" ng-show="createProjectPermission">
+			<span class="icon plus"></span>
+			<a href="/Projects/Create" data-translate="CreateProject"></a>
+		</div>
 	</div>
+	<form class="row form-inline filter" role="form">
+	<div class="form-group">
+		<label data-translate="Project">
+		</label>
+		<input type="text" ng-model="query" ng-change="search()" class="form-control">
+	</div>
+	<div class="form-group">
+		<label data-translate="ProjectManager">
+		</label>
+		<select class="form-control" ng-model="filter.projectManager" required>
+			<option value="">-- All --</option>
+			<option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label data-translate="Status">
+		</label>
+		<select class="form-control" ng-options="s.id as s.name for s in status" ng-model="filter.status">
+			<option value="">-- All --</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label data-translate="Period">
+		</label>
+		<select class="form-control" ng-options="p.id as p.name for p in periods" ng-model="filter.period">
+			<option value="">-- All --</option>
+		</select>
+	</div>
+	<a class="button" ng-click="getProjectList(filter)" data-translate="Submit"></a>
+	</form>
 </div>
+<!--<input type="text" ng-model="query" ng-change="search()" class="form-control" placeholder="Search">-->
 <div class="row">
 	<div class="span10">
 		<table class="table table-bordered table-striped">
@@ -17,11 +57,12 @@
 					</th>
 					<th class="middle-align" data-translate="Members">
 					</th>
-					<th class="middle-align"> Opening /Total EPA
+					<th class="middle-align">
+						Opening /Total EPA
 					</th>
 					<th class="middle-align" data-translate="Status">
 					</th>
-					<th class="middle-align"data-translate="StartDate">
+					<th class="middle-align" data-translate="StartDate">
 					</th>
 					<th class="middle-align" data-translate="EndDate">
 					</th>
@@ -29,12 +70,13 @@
 					</th>
 				</tr>
 			</thead>
-			<tr ng-repeat="project in projects">
+			<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
 				<td class="text-center">
 					{{$index + 1}}
 				</td>
 				<td class="column-limit">
-					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,false)">{{project.name}} </a>
+					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,false)">
+						{{project.name}} </a>
 				</td>
 				<td class="column-limit">
 					<div data-angular-treeview="true" data-tree-id="milestoneTree" data-tree-model="project.milestoneTreeView"
@@ -46,13 +88,15 @@
 					<span tooltip="{{project.fullName}}">{{project.nickName}}</span>
 				</td>
 				<td class="text-center">
-					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">{{project.members}}</a>
+					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">
+						{{project.members}}</a>
 				</td>
 				<td class="text-center">
-					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">{{project.totalOpenEPA}}</a>
-					<span ng-hide="project.permission == 2">{{project.totalOpenEPA}}</span>
-					/
-					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">{{project.totalEPA}}</a>
+					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">
+						{{project.totalOpenEPA}}</a>
+					<span ng-hide="project.permission == 2">{{project.totalOpenEPA}}</span> /
+					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">
+						{{project.totalEPA}}</a>
 					<span ng-hide="project.permission == 2">{{project.totalEPA}}</span>
 				</td>
 				<td>
@@ -63,8 +107,7 @@
 								<a ng-click="updateProjectStatus(project, item.id)" href="javascript:;">{{item.name}}</a>
 							</li>
 						</ul>
-					</span>
-					<span ng-hide="project.permission == 2">{{project.status|enumStatusText}}</span>
+					</span><span ng-hide="project.permission == 2">{{project.status|enumStatusText}}</span>
 				</td>
 				<td class="text-center">
 					{{project.startDate | customDate}}
@@ -86,5 +129,7 @@
 				</td>
 			</tr>
 		</table>
+		<div pagination-bar>
+		</div>
 	</div>
 </div>

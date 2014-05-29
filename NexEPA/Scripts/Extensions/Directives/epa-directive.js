@@ -201,3 +201,29 @@ registrationModule.directive('searchAutoComplete', ['$timeout', function ($timeo
 		}
 	};
 } ]);
+
+registrationModule.directive('paginationBar', function () {
+	return {
+		restrict: 'AE',
+		replace: 'true',
+		template: '<div>'
+			+'<ul class="pagination pull-right custom-paging">'
+				+'<li ng-class="{disabled: currentPage == 0}">'
+					+'<a href ng-click="firstPage()">First</a>'
+				+'</li>'
+				+'<li ng-class="{disabled: currentPage == 0}">'
+					+'<a href ng-click="prevPage()">« Prev</a>'
+				+'</li>'
+				+'<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-click="setPage()">'
+					+'<a href ng-bind="n + 1" ng-class="{pagingactive: n == currentPage}">1</a>'
+				+'</li>'
+				+'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
+					+'<a href ng-click="nextPage()">Next »</a>'
+				+'</li>'
+				+'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
+					+'<a href ng-click="lastPage()">Last</a>'
+				+'</li>'
+			+'</ul>'
+		+'</div>'
+	};
+});
