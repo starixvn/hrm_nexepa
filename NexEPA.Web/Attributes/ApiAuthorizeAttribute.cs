@@ -16,6 +16,7 @@ namespace NexEPA.Web.Attributes
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Controllers;
+    using NexEPA.Core.Constants;
     using NexEPA.Web.Models;
 
     /// <summary>
@@ -34,13 +35,8 @@ namespace NexEPA.Web.Attributes
                 HandleUnauthorizedRequest(actionContext);
             }
 
-            ////if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization")
-            ////    && !HttpContext.Current.Request.Headers.AllKeys.Contains("Cookie"))
-            ////{
-            ////    HandleUnauthorizedRequest(actionContext);
-            ////}
             UserSession currentUser = null;
-            if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization") && HttpContext.Current.Session["NexEPA.CurrentSession"] == null)
+            if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization") && HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
             {
                 HandleUnauthorizedRequest(actionContext);
             }
@@ -48,46 +44,43 @@ namespace NexEPA.Web.Attributes
             {
                 if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization") && !HttpContext.Current.Session.IsNewSession)
                 {
-                    ////currentUser = (UserSession)HttpContext.Current.Session["NexEPA.CurrentSession"];
                     currentUser = SessionManager.CurrentUser;
                 }
                 else
                 {
-                    currentUser = (UserSession)HttpContext.Current.Session["NexEPA.CurrentSession"];
-                    ////currentUser = SessionManager.CurrentUser;
-                }
-            }
-            
-            if (currentUser != null)
-            {
-                Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
-                foreach (AuthorizeAttribute item in attributes)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.Roles)
-                        && currentUser != null 
-                        && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
-                    {
-                        HandlePermissionRequest(actionContext);
-                    }
+                    currentUser = (UserSession)HttpContext.Current.Session[Constants.CurrentSessionKey];
                 }
 
-                return;
-            }
-            else
-            {
-                HandleUnauthorizedRequest(actionContext);
+                if (currentUser != null)
+                {
+                    Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
+                    foreach (AuthorizeAttribute item in attributes)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item.Roles)
+                            && currentUser != null
+                            && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                        {
+                            HandlePermissionRequest(actionContext);
+                        }
+                    }
+
+                    return;
+                }
+                else
+                {
+                    HandleUnauthorizedRequest(actionContext);
+                }
             }
         }
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
             ////if (!HttpContext.Current.Request.IsLocal)
-            ////{
+            if (HttpContext.Current.Session.IsNewSession)
+            {
                 var responseMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 actionContext.Response = responseMessage;
-
-                throw new HttpResponseException(responseMessage);
-            ////}
+            }
         }
 
         private void HandlePermissionRequest(HttpActionContext actionContext)

@@ -45,13 +45,13 @@ function ($window) {
 		},
 		error: function (xhr) {
 			if (xhr.status === 401) {
-				$.ajax({
-					type: "GET",
-					url: "/api/Test/Logout",
-					beforeSend: function (xhr) {
-						xhr.setRequestHeader("Authorization", "Basic " + btoa(data.username + ":" + data.password));
-					}
-				});
+//				$.ajax({
+//					type: "GET",
+//					url: "/api/Test/Logout",
+//					beforeSend: function (xhr) {
+//						xhr.setRequestHeader("Authorization", "Basic " + btoa(data.username + ":" + data.password));
+//					}
+//				});
 			}
 		}
 	});
