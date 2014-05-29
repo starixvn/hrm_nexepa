@@ -67,22 +67,6 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public HttpResponseMessage Logout()
         {
-            string username = "Test",
-            password = "Test";
-            AuthenticationHeaderValue headerValue = Request.Headers.Authorization;
-            string httpAuth = headerValue != null ? headerValue.ToString() : string.Empty;
-
-            if (!string.IsNullOrEmpty(httpAuth) && httpAuth.StartsWith("basic", StringComparison.OrdinalIgnoreCase))
-            {
-                byte[] securityToken = Encoding.UTF8.GetBytes(username + ":" + password);
-                string expected = "basic " + Convert.ToBase64String(securityToken);
-
-                if (string.Equals(httpAuth, expected, StringComparison.OrdinalIgnoreCase))
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, "You are logged out");
-                }
-            }
-
             if (HttpContext.Current.Session != null)
             {
                 HttpContext.Current.Session.Abandon();

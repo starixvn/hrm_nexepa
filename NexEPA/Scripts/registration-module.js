@@ -102,7 +102,6 @@ function ($routeProvider, $locationProvider, $compileProvider, $translateProvide
 	$translateProvider.useLoader('resourceRepository', {});
 	$translateProvider.preferredLanguage('en');
 	$routeProvider.when('/Home/AccessDenied', { templateUrl: '/templates/Common/AccessDenied.html' });
-	$routeProvider.when('/Home/Logout', { templateUrl: '/templates/Common/Logout.html', controller: 'LogoutController' });
 	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype):/);
 	datepickerConfig.showWeeks = false;
 	datepickerPopupConfig.showButtonBar = false;

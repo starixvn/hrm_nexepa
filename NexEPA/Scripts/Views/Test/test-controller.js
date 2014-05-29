@@ -30,33 +30,36 @@ testModule.controller("LoginAsAnotherUserController",
 		};
 } ]);
 
-registrationModule.controller("LogoutController", ['$scope', '$location', '$window', 
-function ($scope, $location, $window) {
-    var username = "Test",
-		password = "Test";
-    $.ajax({
-        type: "GET",
-        url: "/api/Test/Logout",
-        dataType: 'json',
-        success: function () {
-            $window.location.href = 'Index';
-        },
-        error: function (xhr) {
-            if (xhr.status === 401) {
-                $window.location.href = 'Login';
-                $.ajax({
-                    type: "GET",
-                    url: "/api/Test/Logout",
-                    dataType: 'json',
-                    data: { username: JSON.stringify(username), password: JSON.stringify(password) },
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-                    },
-                    success: function () {
-                        $window.location.href = 'Login';
-                    }
-                });
-            }
-        }
-    });
+registrationModule.controller("LoginController", ['$window',
+function ($window) {
+	var data = {
+		username: Math.random(),
+		password: Math.random()
+	};
+
+	$.ajax({
+		type: "GET",
+		url: "/api/Test/Logout",
+		success: function () {
+			$window.location.href = '/';
+		},
+		error: function (xhr) {
+			if (xhr.status === 401) {
+				$.ajax({
+					type: "GET",
+					url: "/api/Test/Logout",
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Authorization", "Basic " + btoa(data.username + ":" + data.password));
+					}
+				});
+			}
+		}
+	});
+} ]);
+
+registrationModule.controller("LogoutController", ['$window', '$scope',
+function ($window, $scope) {
+	$scope.logout = function () {
+		$window.location.href = "/Home/Login";
+	};
 } ]);
