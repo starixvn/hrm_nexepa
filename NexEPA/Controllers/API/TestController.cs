@@ -11,7 +11,7 @@ namespace NexEPA.Controllers.API
 {
     using System.Configuration;
     using System.Web;
-    using System.Web.Mvc;
+    using System.Web.Http;
     using NexEPA.Core.Constants;
     using NexEPA.Web.Controllers;
     using NexEPA.Web.Criteria;
