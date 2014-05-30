@@ -284,7 +284,6 @@ registrationModule.directive('tableLoaded', ['scrollDetectService', function (sc
 			var div = $("table#data").find('tbody')[0];
 			var isScroll = div.scrollHeight > div.clientHeight;
 			scrollDetectService.setProperty(isScroll);
-			debugger;
 		}
 	};
 } ]);
