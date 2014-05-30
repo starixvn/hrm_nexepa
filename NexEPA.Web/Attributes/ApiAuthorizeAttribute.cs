@@ -70,7 +70,6 @@ namespace NexEPA.Web.Attributes
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            ////if (!HttpContext.Current.Request.IsLocal)
             if (HttpContext.Current.Session.IsNewSession)
             {
                 var responseMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
