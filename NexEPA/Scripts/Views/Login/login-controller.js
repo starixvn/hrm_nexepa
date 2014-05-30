@@ -1,8 +1,8 @@
 ﻿'use strict';
 /*global registrationModule*/
 
-registrationModule.controller("LoginController", ['$window',
-function ($window) {
+registrationModule.controller("LoginController", ['$window', '$scope',
+function ($window, $scope) {
 	var data = {
 		username: Math.random(),
 		password: Math.random()
@@ -23,6 +23,10 @@ function ($window) {
 			xhr.setRequestHeader("Authorization", "Basic " + btoa(data.username + ":" + data.password));
 		}
 	});
+
+	$scope.login = function () {
+		$window.location.href = '/';
+	};
 } ]);
 
 registrationModule.controller("LogoutController", ['$window', '$scope',
