@@ -1,4 +1,4 @@
-﻿/*global registrationModule, toastr, projectsSettingModule*/
+﻿/*global registrationModule, toastr*/
 'use strict';
 
 registrationModule.factory('notificationFactory', ['$translate', function ($translate) {
@@ -46,22 +46,22 @@ registrationModule.factory('notificationFactory', ['$translate', function ($tran
 	};
 } ]);
 
-projectsSettingModule.run(['$http', 'ProjectSettingCache', function ($http, ProjectSettingCache) {
-	$http.get('/api/Project/RenderProjectStatusSelectList').success(function (data) {
-		ProjectSettingCache.put("CacheListStatus", data);
-	});
-} ]);
+//projectsSettingModule.run(['$http', 'ProjectSettingCache', function ($http, ProjectSettingCache) {
+//	$http.get('/api/Project/RenderProjectStatusSelectList').success(function (data) {
+//		ProjectSettingCache.put("CacheListStatus", data);
+//	});
+//} ]);
 
-registrationModule.factory('AuthService', ['$http', '$q', function ($http, $q) {
-	return {
-		currentUser: function () {
-			var deferred = $q.defer();
-			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
-			return deferred.promise;
-		}
-	};
-} ]);
+//registrationModule.factory('AuthService', ['$http', '$q', function ($http, $q) {
+//	return {
+//		currentUser: function () {
+//			var deferred = $q.defer();
+//			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
+//			return deferred.promise;
+//		}
+//	};
+//} ]);
 
-registrationModule.run(['AuthService', function (AuthService) {
-	AuthService.currentUser();
-} ]);
+//registrationModule.run(['AuthService', function (AuthService) {
+//	AuthService.currentUser();
+//} ]);

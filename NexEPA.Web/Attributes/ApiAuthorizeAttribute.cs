@@ -36,40 +36,35 @@ namespace NexEPA.Web.Attributes
             }
 
             UserSession currentUser = null;
-            if (!HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization") && HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
+            var session = HttpContext.Current.Session;
+
+            if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization"))
             {
-                HandleUnauthorizedRequest(actionContext);
+                if (HttpContext.Current.Session.IsNewSession)
+                {
+                    HandleUnauthorizedRequest(actionContext);
+                }
             }
-            else
+            else 
             {
-                if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization") && !HttpContext.Current.Session.IsNewSession)
+                if (HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
                 {
                     currentUser = SessionManager.CurrentUser;
+                    CheckUserPermission(actionContext, currentUser);
+
+                    var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+                    actionContext.Response = responseMessage;
                 }
                 else
                 {
                     currentUser = (UserSession)HttpContext.Current.Session[Constants.CurrentSessionKey];
                 }
+            }
 
-                if (currentUser != null)
-                {
-                    Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
-                    foreach (AuthorizeAttribute item in attributes)
-                    {
-                        if (!string.IsNullOrWhiteSpace(item.Roles)
-                            && currentUser != null
-                            && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
-                        {
-                            HandlePermissionRequest(actionContext);
-                        }
-                    }
-
-                    return;
-                }
-                else
-                {
-                    HandleUnauthorizedRequest(actionContext);
-                }
+            if (currentUser != null)
+            {
+                CheckUserPermission(actionContext, currentUser);
+                return;
             }
         }
 
@@ -87,6 +82,25 @@ namespace NexEPA.Web.Attributes
         {
             var responseMessage = new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
             actionContext.Response = responseMessage;
+        }
+
+        /// <summary>
+        /// Check user permission.
+        /// </summary>
+        /// <param name="actionContext">The action context.</param>
+        /// <param name="currentUser">The current user.</param>
+        private void CheckUserPermission(HttpActionContext actionContext, UserSession currentUser)
+        {
+            Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
+            foreach (AuthorizeAttribute item in attributes)
+            {
+                if (!string.IsNullOrWhiteSpace(item.Roles)
+                    && currentUser != null
+                    && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                {
+                    HandlePermissionRequest(actionContext);
+                }
+            }
         }
     }
 }

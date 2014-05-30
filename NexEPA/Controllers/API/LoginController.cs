@@ -12,6 +12,7 @@ namespace NexEPA.Controllers.API
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web;
     using System.Web.Http;
     using NexEPA.Web.Controllers;
@@ -28,6 +29,8 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public HttpResponseMessage Logout()
         {
+            AuthenticationHeaderValue headerValue = Request.Headers.Authorization;
+
             if (HttpContext.Current.Session != null)
             {
                 HttpContext.Current.Session.Abandon();
