@@ -5,9 +5,9 @@
 
 projectsSettingModule.controller('ProjectController',
 ['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
-'notificationFactory', '$modal', 'AuthService', 'linkToEPAService', 'commonFactory', 'scrollDetectService',
+'notificationFactory', '$modal', 'linkToEPAService', 'commonFactory', 'scrollDetectService',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService,
-notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, scrollDetectService) {
+notificationFactory, $modal, linkToEPAService, commonFactory, scrollDetectService) {
 	/**
 	* Scope Variable. 
 	*/
@@ -68,7 +68,7 @@ notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, scrol
 	linkToEPAService.setProperty(null);
 	scrollDetectService.setProperty(null);
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
-	AuthService.currentUser().then(function (data) {
+	projectDataFactory.currentUser().then(function (data) {
 		if (data != null) {
 			$scope.currentUser = data;
 			var userRoles = data.roles;

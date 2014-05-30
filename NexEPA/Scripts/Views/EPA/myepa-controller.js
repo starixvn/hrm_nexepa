@@ -369,9 +369,9 @@ epaModule.controller('ViewCurrentMemberEPAController',
 // View EPA of Member by Manager Controller
 	epaModule.controller('ViewMemberByManagerEPAController', [
 	'$scope', '$routeParams', '$route', 'employeeEPAFactory', 'ErrorService', 'commonFactory', 'notificationFactory', '$modal',
-	'employeeRepository', 'AuthService', 'linkToEPAService',
+	'employeeRepository', 'linkToEPAService',
 	function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory,
-	notificationFactory, $modal, employeeRepository, AuthService, linkToEPAService) {
+	notificationFactory, $modal, employeeRepository, linkToEPAService) {
 
 		var targetId = $routeParams.targetId;
 		targetId = targetId ? parseInt(targetId) : null;

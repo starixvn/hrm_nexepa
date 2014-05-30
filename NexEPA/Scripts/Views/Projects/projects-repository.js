@@ -63,6 +63,11 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
 			var deferred = $q.defer();
 			$http['delete'](url, { params: { projectId: projectId} }).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		currentUser: function () {
+			var deferred = $q.defer();
+			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

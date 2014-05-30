@@ -15,8 +15,6 @@
 		<table class="table table-bordered table-striped table-hover" id="tblKPIGroup" table-row-level>
 			<thead>
 				<tr>
-					<th class="middle-align" data-translate="Priority">
-					</th>
 					<th class="middle-align">
 						<input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)" />
 					</th>
@@ -26,16 +24,12 @@
 					</th>
 					<th class="spread-weight-max middle-align" data-translate="SpreadWeight">
 					</th>
+					<th class="middle-align" data-translate="Priority">
+					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="group in KPIGroups">
-					<td class="text-center member-limit">
-						<a href="javascript:;" title="Top" class="glyphicon glyphicon-open top"> | </a>
-						<a href="javascript:;" title="Move Up" class="glyphicon glyphicon-arrow-up up"> | </a>
-						<a href="javascript:;" title="Move Down" class="glyphicon glyphicon-arrow-down down"> | </a>
-						<a href="javascript:;" title="Bottom" class="glyphicon glyphicon-save bottom"> </a>
-					</td>
 					<td class="text-center" data-id="{{group.kpiGroupId}}">
 						<input class="check-group" type="checkbox" ng-model="group.selected" />
 					</td>
@@ -49,6 +43,14 @@
 					</td>
 					<td class="text-center">
 						<input type="checkbox" ng-model="group.isSpreadKPI" ng-show="group.selected" />
+					</td>
+					<td class="text-center member-limit">
+						<a href="javascript:;" title="Top" class="glyphicon glyphicon-open top">| </a>
+						<a href="javascript:;" title="Move Up" class="glyphicon glyphicon-arrow-up up">|
+						</a>
+						<a href="javascript:;" title="Move Down" class="glyphicon glyphicon-arrow-down down">
+							| </a>
+						<a href="javascript:;" title="Bottom" class="glyphicon glyphicon-save bottom"></a>
 					</td>
 				</tr>
 			</tbody>

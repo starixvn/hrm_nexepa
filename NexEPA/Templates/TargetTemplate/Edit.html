@@ -69,8 +69,6 @@
 						<div class="row">
 						    <table class="table table-bordered table-striped table-hover" id="tblKPI">
 							    <thead>
-									<th class="middle-align" data-translate="Priority">
-									</th>
 								    <th>
 									    <input type="checkbox" ng-model="selectedAll" ng-click="checkAll(selectedAll)"/>
 								    </th>
@@ -78,10 +76,12 @@
 								    </th>
 								    <th data-translate="KPIGroupWeight">
 								    </th>
+									<th class="middle-align" data-translate="Priority">
+									</th>
 							    </thead>
 							    <tbody ng-repeat="kpi in lstKPI | filter: KPIName">
 								    <tr class="row-header">
-										<td class="text-center row-highlight"></td>
+										
 									    <td class="text-center row-highlight">
 										    <input type="checkbox" ng-model="kpi.groupSelected" ng-click="checkAllGroup(kpi.groupSelected, kpi)"/>
 									    </td>
@@ -94,16 +94,10 @@
 									    <td class="text-center row-highlight">
 										    <a ng-show="!kpi.isSpreadKPI" href="javascript:;" ng-click="scoreSpread(kpi)">Spread</a>
 									    </td>
+										<td class="text-center row-highlight"></td>
 								    </tr>
 
 								    <tr class="row-data" ng-repeat="item in kpi.kpiGroupItems | filter: KPIName">
-										<td class="text-center priority-limit">
-											<a ng-click="setPriority($event)" href="javascript:;" title="Top" class="glyphicon glyphicon-open kpiTop"> | </a>
-											<a ng-click="setPriority($event)" href="javascript:;" title="Move Up" class="glyphicon glyphicon-arrow-up kpiUp"> | </a>
-											<a ng-click="setPriority($event)" href="javascript:;" title="Move Down" class="glyphicon glyphicon-arrow-down kpiDown"> | </a>
-											<a ng-click="setPriority($event)" href="javascript:;" title="Bottom" class="glyphicon glyphicon-save kpiBottom"> </a>
-										</td>
-
 									    <td class="text-center" item-id="{{item.kpiId}}" group-id={{item.kpiGroupId}}>
 										    <input class="check-group" type="checkbox" value="{{item.name}}" ng-model="item.selected" />
 									    </td>
@@ -114,7 +108,12 @@
 												<span ng-show="item.isSpreadKPI && !item.selected">-</span>
 												<span ng-show="item.isSpreadKPI && item.selected" class="glyphicon glyphicon-ok item-list-icon"></span>
 									    </td>
-										
+										<td class="text-center priority-limit">
+											<a ng-click="setPriority($event)" href="javascript:;" title="Top" class="glyphicon glyphicon-open kpiTop"> | </a>
+											<a ng-click="setPriority($event)" href="javascript:;" title="Move Up" class="glyphicon glyphicon-arrow-up kpiUp"> | </a>
+											<a ng-click="setPriority($event)" href="javascript:;" title="Move Down" class="glyphicon glyphicon-arrow-down kpiDown"> | </a>
+											<a ng-click="setPriority($event)" href="javascript:;" title="Bottom" class="glyphicon glyphicon-save kpiBottom"> </a>
+										</td>
 								    </tr>
 							    </tbody>
 								<tfoot>
