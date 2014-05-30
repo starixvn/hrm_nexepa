@@ -2,12 +2,14 @@
 'use strict';
 
 employeeModule.controller("ViewAllEmployeeController", ['$scope', '$translate', '$route', 'employeeRepository',
-	'employeeCacheFactory', 'notificationFactory',
-function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, notificationFactory) {
+	'employeeCacheFactory', 'notificationFactory', 'commonFactory', 'scrollDetectService',
+function ($scope, $translate, $route, employeeRepository, employeeCacheFactory,
+notificationFactory, commonFactory, scrollDetectService) {
 
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
+			commonFactory.tablePagination($scope, employees, 20);
 			$scope.disabledSubmitButton = false;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -17,6 +19,7 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 
 	//get all employee
 	getEmployee(null, null);
+	scrollDetectService.setProperty(null);
 
 	var groupOptions = employeeCacheFactory.get("groupOptions");
 
@@ -46,4 +49,12 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 	$scope.reload = function () {
 		$route.reload();
 	};
+
+	//Watch for scroll is appear in table or not.
+	$scope.$watch(function () {
+		return scrollDetectService.getProperty();
+	}, function (value) {
+		$scope.isScroll = value;
+	});
+
 } ]);

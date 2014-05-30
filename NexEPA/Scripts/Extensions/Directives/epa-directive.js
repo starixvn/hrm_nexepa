@@ -206,24 +206,85 @@ registrationModule.directive('paginationBar', function () {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		template: '<div>'
-			+'<ul class="pagination pull-right custom-paging">'
-				+'<li ng-class="{disabled: currentPage == 0}">'
-					+'<a href ng-click="firstPage()">First</a>'
-				+'</li>'
-				+'<li ng-class="{disabled: currentPage == 0}">'
-					+'<a href ng-click="prevPage()">« Prev</a>'
-				+'</li>'
-				+'<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-click="setPage()">'
-					+'<a href ng-bind="n + 1" ng-class="{pagingactive: n == currentPage}">1</a>'
-				+'</li>'
-				+'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
-					+'<a href ng-click="nextPage()">Next »</a>'
-				+'</li>'
-				+'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
-					+'<a href ng-click="lastPage()">Last</a>'
-				+'</li>'
-			+'</ul>'
-		+'</div>'
+		template: '<div class="custom-paging">'
+			+ '<ul class="pagination pull-right paging-margin">'
+				+ '<li ng-class="{disabled: currentPage == 0}">'
+					+ '<a href ng-click="firstPage()">First</a>'
+				+ '</li>'
+				+ '<li ng-class="{disabled: currentPage == 0}">'
+					+ '<a href ng-click="prevPage()">« Prev</a>'
+				+ '</li>'
+				+ '<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-click="setPage()">'
+					+ '<a href ng-bind="n + 1" ng-class="{pagingactive: n == currentPage}">1</a>'
+				+ '</li>'
+				+ '<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
+					+ '<a href ng-click="nextPage()">Next »</a>'
+				+ '</li>'
+				+ '<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
+					+ '<a href ng-click="lastPage()">Last</a>'
+				+ '</li>'
+			+ '</ul>'
+		+ '</div>'
 	};
 });
+
+registrationModule.directive('fixedHeader', ['$timeout', function ($timeout) {
+	return {
+		restrict: 'A',
+		link: function ($scope, $elem) {
+			// wait for content to load into table and the tbody to be visible
+			$scope.$watch(function () { return $elem.find("tbody").is(':visible'); },
+				function (newValue) {
+					if (newValue === true) {
+						// reset display styles so column widths are correct when measured below
+						$elem.find('thead.headerName, tbody').css('display', '');
+
+						// wrap in $timeout to give table a chance to finish rendering
+						$timeout(function () {
+							// set widths of columns
+							$elem.find('th').each(function (i, thElem) {
+								thElem = $(thElem);
+								var tdElems = $elem.find('tbody tr:first td:nth-child(' + (i + 1) + ')');
+
+								var columnWidth = tdElems.width();
+								thElem.width(columnWidth);
+								tdElems.width(columnWidth);
+							});
+
+							// set css styles on thead and tbody
+							$elem.find('thead.headerName').css({
+								'display': 'block'
+							});
+
+							$elem.find('tbody').css({
+								'display': 'block',
+								'max-height': '600px',
+								'overflow': 'auto'
+							});
+
+							// reduce width of last column by width of scrollbar
+							var scrollBarWidth = $elem.find('thead.headerName').width() - $elem.find('tbody')[0].clientWidth;
+							if (scrollBarWidth > 0) {
+								// for some reason trimming the width by 2px lines everything up better
+								scrollBarWidth -= 2;
+								$elem.find('tbody tr:first td:last-child').each(function (i, elem) {
+									$(elem).width($(elem).width() - scrollBarWidth);
+								});
+							}
+						}, 0);
+					}
+				});
+		}
+	};
+} ]);
+
+registrationModule.directive('tableLoaded', ['scrollDetectService', function (scrollDetectService) {
+	return function ($scope) {
+		if ($scope.$last) {
+			var div = $("table#data").find('tbody')[0];
+			var isScroll = div.scrollHeight > div.clientHeight;
+			scrollDetectService.setProperty(isScroll);
+			debugger;
+		}
+	};
+} ]);

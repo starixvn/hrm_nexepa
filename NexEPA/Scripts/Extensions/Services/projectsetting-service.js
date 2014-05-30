@@ -15,6 +15,8 @@ var epaGeneralService = function () {
 
 projectsSettingModule.service('projectMilestoneService', epaGeneralService);
 
+registrationModule.service('scrollDetectService', epaGeneralService);
+
 projectsSettingModule.service('projectPermissionService', epaGeneralService);
 
 projectsSettingModule.service('projectMemberService', epaGeneralService);

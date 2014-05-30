@@ -178,7 +178,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			var kpiGroupItem = employeeEPAResult.kpiInfo[item].kpiGroupItems;
 			$.each(kpiGroupItem, function (i) {
 				var currentItem = kpiGroupItem[i];
-				if (currentItem.isRequireComment && currentItem.score > 0 
+				if (currentItem.isRequireComment && currentItem.score > 0
 				&& (currentItem.comment === "" || currentItem.comment === null)) {
 					currentItem.checkNullComment = true;
 					$scope.itemCommentValid = false;

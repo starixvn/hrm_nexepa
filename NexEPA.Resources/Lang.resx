@@ -582,4 +582,7 @@
   <data name="OpeningTotalEPA" xml:space="preserve">
     <value>Opening /Total EPA</value>
   </data>
+  <data name="ProjectEPAStatistic" xml:space="preserve">
+    <value>Opening /Total EPA</value>
+  </data>
 </root>

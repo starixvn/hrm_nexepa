@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global registrationModule*/
 
-registrationModule.factory('commonFactory', function () {
+registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 	var common = {};
 	var limitNumber = 100;
 
@@ -80,17 +80,23 @@ registrationModule.factory('commonFactory', function () {
 		$scope.calendar[propertyStart] = false;
 	};
 
-	common.tablePagination = function ($scope, $filter, dataPagination) {
+	common.tablePagination = function ($scope, dataPagination, itemPerPage) {
 		/**
 		* Scope Variable. 
 		*/
 		$scope.gap = 7;
 		$scope.filteredItems = [];
 		$scope.groupedItems = [];
-		$scope.itemsPerPage = 18;
+		if (itemPerPage != null) {
+			$scope.itemsPerPage = itemPerPage;
+		}
+		else {
+			$scope.itemsPerPage = 20;
+		}
+		
 		$scope.pagedItems = [];
 		$scope.currentPage = 0;
-		
+
 		/**
 		* Init. 
 		*/
@@ -115,7 +121,7 @@ registrationModule.factory('commonFactory', function () {
 
 				for (var attr in item) {
 					if (item[attr] != null) {
-						if (searchMatch(item[attr].toString(), $scope.query)) {
+						if (searchMatch(item[attr].toString(), $scope.queryData)) {
 							return true;
 						}
 					}
@@ -134,7 +140,6 @@ registrationModule.factory('commonFactory', function () {
 		// calculate page in place
 		$scope.groupToPages = function () {
 			$scope.pagedItems = [];
-
 			for (var i = 0; i < $scope.filteredItems.length; i++) {
 
 				if (i % $scope.itemsPerPage === 0) {
@@ -193,5 +198,5 @@ registrationModule.factory('commonFactory', function () {
 	};
 
 	return common;
-});
+} ]);
 

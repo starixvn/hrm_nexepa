@@ -3,9 +3,9 @@
 
 // View KPI
 kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$location', '$modal', '$route', '$window',
-	'KPIRepository', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
+	'KPIRepository', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService', 'scrollDetectService',
 	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository,
-		KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
+		KPICommonRepository, commonFactory, notificationFactory, ErrorService, scrollDetectService) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 		$scope.filter = {
@@ -13,6 +13,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			kpiGroupId: "",
 			active: ""
 		};
+		scrollDetectService.setProperty(null);
 
 		if (groupId) {
 			$scope.backToList = function () {
@@ -34,6 +35,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		var getKPI = function (targetTypeId, groupId, isDisabled) {
 			KPIRepository.viewKPI(targetTypeId, groupId, isDisabled).success(function (KPIList) {
 				$scope.KPIList = KPIList;
+				commonFactory.tablePagination($scope, KPIList, null);
 				$scope.disabledSubmitButton = false;
 			}).error(function (response, status) {
 				if (status === 405) {
@@ -54,7 +56,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		$scope.create = function () {
 			var form = $location.search()["form"],
 				groupId = $location.search()["groupId"],
-				appendUrl = form  && groupId ? ('?form=' + parseInt(form) + '&groupId=' + parseInt(groupId)) : '';
+				appendUrl = form && groupId ? ('?form=' + parseInt(form) + '&groupId=' + parseInt(groupId)) : '';
 
 			$scope.createKPIUrl = '/KPI/CreateKPI/' + appendUrl;
 		};
@@ -187,6 +189,13 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		$scope.readLess = function (item) {
 			commonFactory.readLess(item);
 		};
+
+		$scope.$watch(function () {
+			return scrollDetectService.getProperty();
+		}, function (value) {
+			$scope.isScroll = value;
+		});
+
 	} ]);
 
 // Create New KPI

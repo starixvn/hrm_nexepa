@@ -4,15 +4,14 @@
 			<li>
 				<a href="#" data-translate="KPI" ng-click="reload()"></a>
 			</li>
-			<li class="current">
-                <span data-translate="ManageKPI"></span>
-                <span ng-show="!isViewAll && KPIList"></span>
-				<span ng-show="!isViewAll && KPIList != ''">of "{{KPIList[0].kpiGroupNames[0]}}"</span> 
-            </li>
+			<li class="current"><span data-translate="ManageKPI"></span><span ng-show="!isViewAll && KPIList">
+			</span><span ng-show="!isViewAll && KPIList != ''">of "{{KPIList[0].kpiGroupNames[0]}}"</span>
+			</li>
 		</ul>
 		<div class="button-icon">
 			<span class="icon plus"></span>
-			<a href="" ng-click="create()" data-translate="CreateKPI" ng-href={{createKPIUrl}}></a>
+			<a href="" ng-click="create()" data-translate="CreateKPI" ng-href="{{createKPIUrl}}">
+			</a>
 		</div>
 		<div class="button-icon" ng-show="!isViewAll">
 			<span class="glyphicon glyphicon-arrow-left icon-back"></span>
@@ -53,58 +52,84 @@
 	</div>
 </div>
 <div class="row">
-	<table ng-show="isViewAll" class="table table-bordered table-striped">
+	<table ng-show="isViewAll" class="table table-bordered table-striped" id="data" fixed-header>
 		<thead>
 			<tr>
-				<th data-translate="SymbolCount">
-				</th>
-				<th data-translate="Title">
-				</th>
-				<th data-translate="Group">
-				</th>
-				<th data-translate="Active">
-				</th>
-				<th data-translate="Description">
-				</th>
-				<th data-translate="Action">
+				<th class="project-header">
+					<div>
+						<div class="col-sm-3">
+							<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
+						</div>
+					</div>
 				</th>
 			</tr>
 		</thead>
-		<tr ng-repeat="item in KPIList">
-			<td class="KPI-index" ng-bind="$index + 1">
-			</td>
-			<td class="KPI-title" ng-bind="item.name">
-			</td>
-			<td class="KPI-group">
-				<div ng-show="item.kpiGroupNames.length == 1">
-					<span ng-bind="item.kpiGroupNames[0]"></span>
-				</div>
-				<div ng-show="item.kpiGroupNames.length > 1">
-					<ul class="group-toggle-item">
-						<li ng-repeat="groupName in item.kpiGroupNames" ng-bind="groupName"></li>
-					</ul>
-				</div>
-			</td>
-			<td class="KPI-group-active">
-				<input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)" />
-			</td>
-			<td class="KPI-description">
-				{{item.description | limitTo:item.numLimit > 0 ? item.numLimit : maxLengthDescription}}
-				<a ng-show="!item.showReadMore && (item.description.length > 99)" href="javascript:;"
-					ng-click="readMore(item)" data-translate="ReadMore"></a>
-				<a ng-show="item.showReadMore" href="javascript:;" ng-click="readLess(item)" data-translate="ReadLess">
-				</a>
-			</td>
-			<td class="KPI-action">
-				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)" ng-href={{editKPIUrl}} />
-				<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
-			</td>
-		</tr>
-		<tr ng-show="KPIList == ''">
-			<td class="empty-result" colspan="6" data-translate="EmptyResult">
-			</td>
-		</tr>
+		<thead class="headerName">
+			<tr>
+				<th class="project-no" data-translate="SymbolCount">
+				</th>
+				<th class="KPI-title" data-translate="Title">
+				</th>
+				<th class="KPI-group-header" data-translate="Group">
+				</th>
+				<th class="KPI-group-active" data-translate="Active">
+				</th>
+				<th class="KPI-description" data-translate="Description">
+				</th>
+				<th class="KPI-action" data-translate="Action">
+				</th>
+				<th ng-show="isScroll == true"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse" table-loaded>
+				<td class="KPI-index project-no" ng-bind="$index + 1">
+				</td>
+				<td class="KPI-title kpi-title" ng-bind="item.name">
+				</td>
+				<td class="KPI-group">
+					<div ng-show="item.kpiGroupNames.length == 1">
+						<span ng-bind="item.kpiGroupNames[0]"></span>
+					</div>
+					<div ng-show="item.kpiGroupNames.length > 1">
+						<ul class="group-toggle-item">
+							<li ng-repeat="groupName in item.kpiGroupNames" ng-bind="groupName"></li>
+						</ul>
+					</div>
+				</td>
+				<td class="KPI-group-active">
+					<input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)" />
+				</td>
+				<td class="KPI-description">
+					{{item.description | limitTo:item.numLimit > 0 ? item.numLimit : maxLengthDescription}}
+					<a ng-show="!item.showReadMore && (item.description.length > 99)" href="javascript:;"
+						ng-click="readMore(item)" data-translate="ReadMore"></a>
+					<a ng-show="item.showReadMore" href="javascript:;" ng-click="readLess(item)" data-translate="ReadLess">
+					</a>
+				</td>
+				<td class="KPI-action">
+					<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"
+						ng-href="{{editKPIUrl}}" />
+					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
+				</td>
+			</tr>
+			<tr ng-show="KPIList == ''">
+				<td class="empty-result" colspan="6" data-translate="EmptyResult">
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td class="project-header">
+					<div>
+						<div pagination-bar>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
+
 	<table ng-show="!isViewAll" class="table table-KPI table-bordered table-striped">
 		<thead>
 			<tr>
@@ -140,7 +165,8 @@
 				</a>
 			</td>
 			<td class="KPI-action">
-				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)" ng-href={{editKPIUrl}} />
+				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"
+					ng-href="{{editKPIUrl}}" />
 				<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
 			</td>
 		</tr>

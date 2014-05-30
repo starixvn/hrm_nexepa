@@ -5,9 +5,9 @@
 
 projectsSettingModule.controller('ProjectController',
 ['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
-'notificationFactory', '$modal', 'AuthService', 'linkToEPAService', 'commonFactory', '$filter',
+'notificationFactory', '$modal', 'AuthService', 'linkToEPAService', 'commonFactory', 'scrollDetectService',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService,
-notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, $filter) {
+notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, scrollDetectService) {
 	/**
 	* Scope Variable. 
 	*/
@@ -43,7 +43,7 @@ notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, $filt
 	// Filter data by criteria.
 	var successFilterData = function (data) {
 		$scope.projects = data;
-		commonFactory.tablePagination($scope, $filter, data);
+		commonFactory.tablePagination($scope, data, 20);
 	};
 
 	var errorHandle = function (status) {
@@ -66,6 +66,7 @@ notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, $filt
 	* Initialize data to view Index.
 	*/
 	linkToEPAService.setProperty(null);
+	scrollDetectService.setProperty(null);
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	AuthService.currentUser().then(function (data) {
 		if (data != null) {
@@ -79,9 +80,9 @@ notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, $filt
 			});
 		}
 	});
-	
+
 	tabService.setProperty(null);
-	
+
 
 	// Check for list ProjectManager has cache data.
 	if (cacheListPM) {
@@ -168,109 +169,12 @@ notificationFactory, $modal, AuthService, linkToEPAService, commonFactory, $filt
 		linkToEPAService.setProperty(objectQuery);
 	};
 
-
-	//	var abc = function () {
-
-	//		// init
-	//		$scope.sort = {
-	//			sortingOrder: 'id',
-	//			reverse: false
-	//		};
-
-	//		$scope.gap = 7;
-
-	//		$scope.filteredItems = [];
-	//		$scope.groupedItems = [];
-	//		$scope.itemsPerPage = 15;
-	//		$scope.pagedItems = [];
-	//		$scope.currentPage = 0;
-
-	//		var searchMatch = function (haystack, needle) {
-	//			if (!needle) {
-	//				return true;
-	//			}
-	//			return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
-	//		};
-
-	//		// init the filtered items
-	//		$scope.search = function () {
-	//			$scope.filteredItems = $filter('filter')($scope.projects, function (item) {
-
-	//				for (var attr in item) {
-	//					if (item[attr] != null) {
-	//						if (searchMatch(item[attr].toString(), $scope.query)) {
-	//							return true;
-	//						}
-	//					}
-	//				}
-	//				return false;
-	//			});
-	//			// take care of the sorting order
-	//			if ($scope.sort.sortingOrder !== '') {
-	//				$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
-	//			}
-	//			$scope.currentPage = 0;
-	//			// now group by pages
-	//			$scope.groupToPages();
-	//		};
-
-	//		// calculate page in place
-	//		$scope.groupToPages = function () {
-	//			$scope.pagedItems = [];
-
-	//			for (var i = 0; i < $scope.filteredItems.length; i++) {
-
-	//				if (i % $scope.itemsPerPage === 0) {
-	//					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
-	//				} else {
-	//					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
-	//				}
-	//			}
-	//		};
-
-	//		$scope.range = function (size, start, end) {
-	//			var ret = [];
-	//			if (size < end) {
-	//				end = size;
-	//				start = 0;
-	//			}
-	//			for (var i = start; i < end; i++) {
-	//				ret.push(i);
-	//			}
-	//			return ret;
-	//		};
-
-	//		$scope.firstPage = function () {
-	//			if ($scope.currentPage > 0) {
-	//				$scope.currentPage = 0;
-	//			}
-	//		};
-
-	//		$scope.lastPage = function () {
-	//			if ($scope.currentPage < $scope.pagedItems.length - 1) {
-	//				$scope.currentPage = $scope.pagedItems.length - 1;
-	//			}
-	//		};
-
-	//		$scope.prevPage = function () {
-	//			if ($scope.currentPage > 0) {
-	//				$scope.currentPage--;
-	//			}
-	//		};
-
-	//		$scope.nextPage = function () {
-	//			if ($scope.currentPage < $scope.pagedItems.length - 1) {
-	//				$scope.currentPage++;
-	//			}
-	//		};
-
-	//		$scope.setPage = function () {
-	//			$scope.currentPage = this.n;
-	//		};
-
-	//		// functions have been describe process the data for display
-	//		$scope.search();
-	//	};
+	//Watch for scroll is appear in table or not.
+	$scope.$watch(function () {
+		return scrollDetectService.getProperty();
+	}, function (value) {
+		$scope.isScroll = value;
+	});
 
 } ]);
 
