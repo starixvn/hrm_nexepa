@@ -83,8 +83,9 @@
 			<li><span class="glyphicon glyphicon-user"></span>@ViewBag.User</li>
 		</ul>*@
         <div class="user-info info" ng-controller="LogoutController">
-            <span class="glyphicon glyphicon-user"></span>
-            <span ng-mouseover="isShowMenu = !isShowMenu" >@ViewBag.User</span>
+            <div class="username">
+                <span ng-mouseover="isShowMenu = !isShowMenu" >@ViewBag.User</span>
+            </div>
             <a class="dropdown-arrow" href="javascript:;" ng-click="isShowMenu = !isShowMenu"></a>
             <ol ng-show="isShowMenu">
                 <li>
