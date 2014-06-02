@@ -192,6 +192,11 @@
     <Content Include="Content\Common\chosen.min.css" />
     <Content Include="Content\Common\Images\animated-overlay.gif" />
     <Content Include="Content\Common\chosen-sprite.png" />
+    <Content Include="Content\Common\Images\auth-bg.png" />
+    <Content Include="Content\Common\Images\EPA.png" />
+    <Content Include="Content\Common\Images\lock.png" />
+    <Content Include="Content\Common\Images\sprite_btn.png" />
+    <Content Include="Content\Common\Images\title-bg.jpg" />
     <Content Include="Content\Common\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\Common\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\Common\Images\ui-bg_flat_10_000000_40x100.png" />
@@ -361,6 +366,7 @@
     <Content Include="Content\Site\Target\target.less" />
     <Content Include="Content\Site\Home\home.less" />
     <Content Include="Content\Site\Report\report.less" />
+    <Content Include="Content\Site\Login\login.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

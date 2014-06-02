@@ -74,14 +74,24 @@
                 </ul>
             </div>
         </nav>
-        <ul class="list-inline info">
+@*        <ul class="list-inline info">
             <div ng-controller="LogoutController">
                  <a href="" ng-click="logout()">Logout</a>
             </div>
         </ul>
 		<ul class="list-inline info">
 			<li><span class="glyphicon glyphicon-user"></span>@ViewBag.User</li>
-		</ul>
+		</ul>*@
+        <div class="user-info info" ng-controller="LogoutController">
+            <span class="glyphicon glyphicon-user"></span>
+            <span ng-mouseover="isShowMenu = !isShowMenu" >@ViewBag.User</span>
+            <a class="dropdown-arrow" href="javascript:;" ng-click="isShowMenu = !isShowMenu"></a>
+            <ol ng-show="isShowMenu">
+                <li>
+                   <a href="" ng-click="logout()">Logout</a>
+                </li>
+            </ol>
+        </div>
 	</div>
 </div>
 <div class="row" data-ng-view>
