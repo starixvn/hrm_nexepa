@@ -151,7 +151,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All teams.
+        ///   Looks up a localized string similar to -- All teams --.
         /// </summary>
         public static string AllTeam {
             get {

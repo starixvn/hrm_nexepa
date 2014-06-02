@@ -139,8 +139,8 @@
 						</div>
 					</td>
 				</tr>
-				<tr ng-show="projects == ''">
-					<td class="empty-result" colspan="10" data-translate="EmptyResult">
+				<tr ng-show="projects == '' || projects == 'null'">
+					<td class="empty-result pagination-table-width" colspan="10" data-translate="EmptyResult">
 					</td>
 				</tr>
 			</tbody>

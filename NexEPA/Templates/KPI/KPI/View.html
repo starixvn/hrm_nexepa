@@ -113,8 +113,8 @@
 					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
 				</td>
 			</tr>
-			<tr ng-show="KPIList == ''">
-				<td class="empty-result" colspan="6" data-translate="EmptyResult">
+			<tr ng-show="KPIList == '' || KPIList == 'null'">
+				<td class="empty-result pagination-table-width" colspan="6" data-translate="EmptyResult">
 				</td>
 			</tr>
 		</tbody>
