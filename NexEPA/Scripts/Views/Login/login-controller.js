@@ -31,6 +31,8 @@ function ($window, $scope) {
 
 registrationModule.controller("LogoutController", ['$window', '$scope',
 function ($window, $scope) {
+	$scope.isShowMenu = false;
+
 	$scope.logout = function () {
 		$window.location.href = "/Home/Login";
 	};
