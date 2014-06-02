@@ -258,12 +258,12 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 			});
 
 			for (var i = 0; i < dataTable.length; i++) {
-				var tableRowTR = $(dataTable[i]).children().eq(1);
+				var tableRowTR = $(dataTable[i]).children().eq(0);
 				var itemChecked = $(dataTable[i]).find(".check-group").first();
 				var itemId = parseInt(tableRowTR.attr("item-id"));
 				var groupId = parseInt(tableRowTR.attr("group-id"));
 				if (itemChecked[0].checked === true) {
-					arrayNumber.push({itemId: itemId, groupId: groupId});
+					arrayNumber.push({ itemId: itemId, groupId: groupId });
 				}
 			}
 
@@ -448,7 +448,7 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 				var orderNo = 1;
 				var dataTable = $("table#tblKPIGroup tbody tr");
 				for (var i = 0; i < dataTable.length; i++) {
-					var tableRowTR = $(dataTable[i]).children().eq(1);
+					var tableRowTR = $(dataTable[i]).children().eq(0);
 					var groupChecked = $(dataTable[i]).find(".check-group").first();
 					var rowId = parseInt(tableRowTR.attr("data-id"));
 					if (groupChecked[0].checked === true) {
