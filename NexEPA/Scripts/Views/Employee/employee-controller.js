@@ -9,7 +9,7 @@ notificationFactory, commonFactory) {
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
-			commonFactory.tablePagination($scope, employees, 50);
+			commonFactory.tablePagination($scope, employees, 20);
 			$scope.disabledSubmitButton = false;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");

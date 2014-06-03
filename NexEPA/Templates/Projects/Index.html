@@ -36,28 +36,14 @@
 	<a class="button" ng-click="getProjectList(filter)" data-translate="Submit"></a>
 	</form>
 </div>
-<!--<input type="text" ng-model="query" ng-change="search()" class="form-control" placeholder="Search">-->
-<!--<div class="project-header">
-	<div>
-		<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
-	</div>
-	<div pagination-bar>
-	</div>
-</div>-->
+<span class="pull-right">
+	<label data-translate="Search:">
+	</label>
+	<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
+</span>
 <div class="row">
 	<div class="span10">
 		<table class="table table-bordered table-striped" id="data" fixed-header>
-			<thead>
-				<tr>
-					<th class="project-header">
-						<div>
-							<div class="col-sm-3">
-								<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
-							</div>
-						</div>
-					</th>
-				</tr>
-			</thead>
 			<thead class="headerName">
 				<tr>
 					<th class="middle-align project-no" data-translate="SymbolCount">
@@ -84,7 +70,7 @@
 					</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="table-body">
 				<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
 					<td class="text-center project-no">
 						{{$index + 1}}
@@ -144,16 +130,7 @@
 					</td>
 				</tr>
 			</tbody>
-			<tfoot>
-				<tr>
-					<td class="project-header">
-						<div>
-							<div pagination-bar>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</tfoot>
 		</table>
+		<pagination-bar></pagination-bar>
 	</div>
 </div>
