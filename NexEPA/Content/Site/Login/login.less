@@ -1,54 +1,34 @@
 ﻿
 .container.page {
+    background: url(../images/bg-login.png) #ececec top center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
 	.login-box {
-		border-radius: 5px;
-		box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
-		color: #FFFFFF;
-		margin: 80px auto 0;
-		padding: 0;
-		position: relative;
-		width: 456px;
+		width: 450px;
+        margin: 245px auto;
 
-		.header {
-			background: url(/content/common/images/title-bg.jpg) repeat scroll 0 0 rgba(0, 0, 0, 0);
-			border-radius: 5px 5px 0 0;
-			height: 54px;
-			padding: 0 50px;
+        .btn-login {
+            background: url(../images/btn-login.png) no-repeat;
+            width: 191px;
+            height: 47px;
+            float: left;
 
-			.welcome {
-				background: url("/content/common/images/EPA.png") no-repeat scroll left center rgba(0, 0, 0, 0);
-				display: inline-block;
-				height: 54px;
-				width: 300px;
-			}
+            &:hover {
+                background: url(../images/btn-login-hover.png) no-repeat;
+            }
+        }
 
-			.secure {
-				background: url("/content/common/images/lock.png") no-repeat scroll right center rgba(0, 0, 0, 0);
-				display: inline-block;
-				height: 54px;
-				width: 50px;
-			}
-		}
-
-		.auth {
-			background: url("/content/common/images/auth-bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
-			border-radius: 0 0 5px 5px;
-			padding: 40px 46px 30px;
-
-			.login-input {
-				background: linear-gradient(#64B4D6, #549CBA) repeat scroll 0 0 #549CBA;
-				border: 1px solid #549CBA;
-				border-radius: 3px;
-				color: #FFFFFF;
-				cursor: pointer;
-				display: block;
-				font-size: 21px;
-				height: 40px;
-				width: 366px;
-				font-family: Abel,'Segoe UI',Tahoma,Arial,sans-serif;
-				text-align: center;
-			}
-		}
+        .logo {
+            background: url(../images/logo-login.png) no-repeat;
+            width: 249px;
+            height: 46px;
+            margin-left: 10px;
+            float: left;
+        }
 	}
 
 }

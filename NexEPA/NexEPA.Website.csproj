@@ -214,9 +214,14 @@
     <Content Include="Content\Common\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Content\Site\images\arrow-down.png" />
     <Content Include="Content\Site\images\arrow-left.png" />
+    <Content Include="Content\Site\images\bg-login.png" />
+    <Content Include="Content\Site\images\btn-login-hover.png" />
+    <Content Include="Content\Site\images\btn-login.png" />
     <Content Include="Content\Site\images\bullet-grey.png" />
     <Content Include="Content\Site\images\calendar.png" />
+    <Content Include="Content\Site\images\icon-search.png" />
     <Content Include="Content\Site\images\icon_sprite.png" />
+    <Content Include="Content\Site\images\logo-login.png" />
     <Content Include="Content\Site\images\success.png" />
     <Content Include="Content\Site\images\toggle_collapsed.png" />
     <Content Include="Content\Site\images\toggle_expanded.png" />
