@@ -258,7 +258,7 @@ registrationModule.directive('fixedHeader', ['$timeout', function ($timeout) {
 
 							$elem.find('tbody').css({
 								'display': 'block',
-								'max-height': '630px',
+								'max-height': '650px',
 								'overflow-y': 'scroll'
 							});
 

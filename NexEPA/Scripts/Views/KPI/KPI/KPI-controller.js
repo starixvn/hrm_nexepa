@@ -34,7 +34,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		var getKPI = function (targetTypeId, groupId, isDisabled) {
 			KPIRepository.viewKPI(targetTypeId, groupId, isDisabled).success(function (KPIList) {
 				$scope.KPIList = KPIList;
-				commonFactory.tablePagination($scope, KPIList, null);
+				commonFactory.tablePagination($scope, KPIList, 25);
 				$scope.disabledSubmitButton = false;
 			}).error(function (response, status) {
 				if (status === 405) {

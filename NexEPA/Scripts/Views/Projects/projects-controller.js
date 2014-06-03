@@ -43,7 +43,7 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 	// Filter data by criteria.
 	var successFilterData = function (data) {
 		$scope.projects = data;
-		commonFactory.tablePagination($scope, data, 20);
+		commonFactory.tablePagination($scope, data, 25);
 	};
 
 	var errorHandle = function (status) {

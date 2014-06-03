@@ -1,24 +1,24 @@
-﻿<div class="row">
-	<div class="row sub-header">
-		<ul class="breadcrumb list-inline pull-left">
-			<li>
-				<a href="#" data-translate="KPI" ng-click="reload()"></a>
-			</li>
-			<li class="current"><span data-translate="ManageKPI"></span><span ng-show="!isViewAll && KPIList">
-			</span><span ng-show="!isViewAll && KPIList != ''">of "{{KPIList[0].kpiGroupNames[0]}}"</span>
-			</li>
-		</ul>
-		<div class="button-icon">
-			<span class="icon plus"></span>
-			<a href="" ng-click="create()" data-translate="CreateKPI" ng-href="{{createKPIUrl}}">
-			</a>
-		</div>
-		<div class="button-icon" ng-show="!isViewAll">
-			<span class="glyphicon glyphicon-arrow-left icon-back"></span>
-			<a href="" ng-click="backToList()" data-translate="BackToList"></a>
-		</div>
+﻿<div class="row sub-header">
+	<ul class="breadcrumb list-inline pull-left">
+		<li>
+			<a href="#" data-translate="KPI" ng-click="reload()"></a>
+		</li>
+		<li class="current"><span data-translate="ManageKPI"></span><span ng-show="!isViewAll && KPIList">
+		</span><span ng-show="!isViewAll && KPIList != ''">of "{{KPIList[0].kpiGroupNames[0]}}"</span>
+		</li>
+	</ul>
+	<div class="button-icon">
+		<span class="icon plus"></span>
+		<a href="" ng-click="create()" data-translate="CreateKPI" ng-href="{{createKPIUrl}}">
+		</a>
 	</div>
-	<div class="form-inline filter" ng-show="isViewAll">
+	<div class="button-icon" ng-show="!isViewAll">
+		<span class="glyphicon glyphicon-arrow-left icon-back"></span>
+		<a href="" ng-click="backToList()" data-translate="BackToList"></a>
+	</div>
+</div>
+<div class="row col-sm-12">
+	<div class="form-inline filter col-sm-8" ng-show="isViewAll">
 		<form novalidate class="form-inline">
 		<div ng-show="isViewAll" class="form-group">
 			<label data-translate="Form">
@@ -50,12 +50,14 @@
 		</button>
 		</form>
 	</div>
+	<div class="col-sm-3 pull-right table-quicksort">
+		<span class="pull-right">
+			<label data-translate="Search:">
+			</label>
+			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
+		</span>
+	</div>
 </div>
-<span class="pull-right">
-	<label data-translate="Search:">
-	</label>
-	<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
-</span>
 <div class="row">
 	<table ng-show="isViewAll" class="table table-bordered table-striped" id="data" fixed-header>
 		<thead class="headerName">
@@ -72,7 +74,8 @@
 				</th>
 				<th class="KPI-action" data-translate="Action">
 				</th>
-				<th></th>
+				<th>
+				</th>
 			</tr>
 		</thead>
 		<tbody class="table-body">
@@ -114,7 +117,6 @@
 		</tbody>
 	</table>
 	<pagination-bar></pagination-bar>
-
 	<table ng-show="!isViewAll" class="table table-KPI table-bordered table-striped">
 		<thead>
 			<tr>

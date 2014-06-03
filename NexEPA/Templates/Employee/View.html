@@ -7,7 +7,7 @@
 	</ul>
 </div>
 <div class="col-sm-12">
-	<div class="form-inline filter">
+	<div class="form-inline filter col-sm-8">
 		<form novalidate class="form-inline">
 		<div class="form-group">
 			<label data-translate="Keyword">
@@ -27,13 +27,14 @@
 		</button>
 		</form>
 	</div>
+	<div class="col-sm-3 pull-right table-quicksort">
+		<span class="pull-right">
+			<label data-translate="Search:">
+			</label>
+			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
+		</span>
+	</div>
 </div>
-
-<span class="pull-right">
-	<label data-translate="Search:">
-	</label>
-	<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
-</span>
 <div class="row">
 	<table class="table table-bordered table-striped" id="data" fixed-header>
 		<thead class="headerName">
