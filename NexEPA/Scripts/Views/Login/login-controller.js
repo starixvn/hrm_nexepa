@@ -3,26 +3,30 @@
 
 registrationModule.controller("LoginController", ['$window', '$scope',
 function ($window, $scope) {
-	var data = {
-		username: Math.random(),
-		password: Math.random()
-	};
+	var isClearAuthenticationCache = document.execCommand("ClearAuthenticationCache", "false");
 
-	$.ajax({
-		type: "GET",
-		url: "/api/Login/Logout",
-		success: function () {
-			$window.location.href = '/';
-		}
-	});
+	if (!isClearAuthenticationCache) {
+		var data = {
+			username: Math.random(),
+			password: Math.random()
+		};
 
-	$.ajax({
-		type: "GET",
-		url: "/api/Login/Logout",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Basic " + btoa(data.username + ":" + data.password));
-		}
-	});
+		$.ajax({
+			type: "GET",
+			url: "/api/Login/Logout",
+			success: function () {
+				$window.location.href = '/';
+			}
+		});
+
+		$.ajax({
+			type: "GET",
+			url: "/api/Login/Logout",
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader("Authorization", "Basic " + btoa(data.username + ":" + data.password));
+			}
+		});
+	}
 
 	$scope.login = function () {
 		$window.location.href = '/';
