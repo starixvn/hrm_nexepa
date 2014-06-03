@@ -54,12 +54,11 @@
             </th>
             <th class="employee-nick" data-translate="JoinedDate">
             </th>
-            <th ng-show="isScroll == true">
+            <th>
             </th>
         </thead>
         <tbody>
-            <tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse"
-                table-loaded>
+            <tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
                 <td class="index employee-no">
                     {{$index+1}}
                 </td>

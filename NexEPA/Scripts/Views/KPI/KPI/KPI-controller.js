@@ -3,9 +3,9 @@
 
 // View KPI
 kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$location', '$modal', '$route', '$window',
-	'KPIRepository', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService', 'scrollDetectService',
+	'KPIRepository', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
 	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository,
-		KPICommonRepository, commonFactory, notificationFactory, ErrorService, scrollDetectService) {
+		KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 		$scope.filter = {
@@ -13,7 +13,6 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			kpiGroupId: "",
 			active: ""
 		};
-		scrollDetectService.setProperty(null);
 
 		if (groupId) {
 			$scope.backToList = function () {
@@ -189,12 +188,6 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		$scope.readLess = function (item) {
 			commonFactory.readLess(item);
 		};
-
-		$scope.$watch(function () {
-			return scrollDetectService.getProperty();
-		}, function (value) {
-			$scope.isScroll = value;
-		});
 
 	} ]);
 

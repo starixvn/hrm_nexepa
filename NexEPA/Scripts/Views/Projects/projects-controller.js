@@ -5,9 +5,9 @@
 
 projectsSettingModule.controller('ProjectController',
 ['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
-'notificationFactory', '$modal', 'linkToEPAService', 'commonFactory', 'scrollDetectService',
+'notificationFactory', '$modal', 'linkToEPAService', 'commonFactory',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService,
-notificationFactory, $modal, linkToEPAService, commonFactory, scrollDetectService) {
+notificationFactory, $modal, linkToEPAService, commonFactory) {
 	/**
 	* Scope Variable. 
 	*/
@@ -66,7 +66,6 @@ notificationFactory, $modal, linkToEPAService, commonFactory, scrollDetectServic
 	* Initialize data to view Index.
 	*/
 	linkToEPAService.setProperty(null);
-	scrollDetectService.setProperty(null);
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	projectDataFactory.currentUser().then(function (data) {
 		if (data != null) {
@@ -168,14 +167,6 @@ notificationFactory, $modal, linkToEPAService, commonFactory, scrollDetectServic
 		var objectQuery = { projectId: projectId, status: status };
 		linkToEPAService.setProperty(objectQuery);
 	};
-
-	//Watch for scroll is appear in table or not.
-	$scope.$watch(function () {
-		return scrollDetectService.getProperty();
-	}, function (value) {
-		$scope.isScroll = value;
-	});
-
 } ]);
 
 projectsSettingModule.controller('CreateProjectController',

@@ -80,12 +80,12 @@
 					</th>
 					<th class="middle-align project-status" data-translate="Action">
 					</th>
-					<th ng-show="isScroll == true">
+					<th>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse" table-loaded>
+				<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
 					<td class="text-center project-no">
 						{{$index + 1}}
 					</td>

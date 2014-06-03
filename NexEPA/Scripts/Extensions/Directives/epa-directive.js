@@ -259,7 +259,7 @@ registrationModule.directive('fixedHeader', ['$timeout', function ($timeout) {
 							$elem.find('tbody').css({
 								'display': 'block',
 								'max-height': '600px',
-								'overflow': 'auto'
+								'overflow-y': 'scroll'
 							});
 
 							// reduce width of last column by width of scrollbar
@@ -274,16 +274,6 @@ registrationModule.directive('fixedHeader', ['$timeout', function ($timeout) {
 						}, 0);
 					}
 				});
-		}
-	};
-} ]);
-
-registrationModule.directive('tableLoaded', ['scrollDetectService', function (scrollDetectService) {
-	return function ($scope) {
-		if ($scope.$last) {
-			var div = $("table#data").find('tbody')[0];
-			var isScroll = div.scrollHeight > div.clientHeight;
-			scrollDetectService.setProperty(isScroll);
 		}
 	};
 } ]);

@@ -78,11 +78,11 @@
 				</th>
 				<th class="KPI-action" data-translate="Action">
 				</th>
-				<th ng-show="isScroll == true"></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse" table-loaded>
+			<tr ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
 				<td class="KPI-index project-no" ng-bind="$index + 1">
 				</td>
 				<td class="KPI-title kpi-title" ng-bind="item.name">
