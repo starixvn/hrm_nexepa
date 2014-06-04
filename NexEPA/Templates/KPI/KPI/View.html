@@ -50,7 +50,7 @@
 		</button>
 		</form>
 	</div>
-	<div class="col-sm-3 pull-right table-quicksort">
+	<div ng-show="isViewAll" class="col-sm-3 pull-right table-quicksort">
 		<span class="pull-right">
 			<label data-translate="Search:">
 			</label>
@@ -118,7 +118,7 @@
 			</tr>
 		</tfoot>
 	</table>
-	<pagination-bar></pagination-bar>
+	<pagination-bar ng-show="isViewAll"></pagination-bar>
 	<table ng-show="!isViewAll" class="table table-KPI table-bordered table-striped">
 		<thead>
 			<tr>
