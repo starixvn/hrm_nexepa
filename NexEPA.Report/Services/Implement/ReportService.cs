@@ -152,7 +152,6 @@ namespace NexEPA.Report.Services.Implement
                 var historyProjectItem = new HistoryProjectViewModel
                 {
                     Roles = rawHistoryProjectItem.Roles,
-                    Score = rawHistoryProjectItem.Score,
                     Comment = rawHistoryProjectItem.Comment,
                     Evaluator = rawHistoryProjectItem.Evaluator,
                     Project = rawHistoryProjectItem.Project
@@ -160,6 +159,9 @@ namespace NexEPA.Report.Services.Implement
 
                 List<HistoryProjectModel> sameProjectRows = rawHistoryProjects.Where(pro =>
                                     pro.Project.ProjectId == rawHistoryProjectItem.Project.ProjectId).ToList();
+
+                decimal averageScore = 0;
+                int numberRowsSameProject = sameProjectRows.Count();
 
                 foreach (HistoryProjectModel project in sameProjectRows)
                 {
@@ -170,12 +172,16 @@ namespace NexEPA.Report.Services.Implement
                     };
 
                     historyProjectItem.TargetList.Add(target);
+                    averageScore += project.Score;
 
                     if (project != rawHistoryProjectItem)
                     {
                         rawHistoryProjects.Remove(project);
                     }
                 }
+
+                averageScore = averageScore / numberRowsSameProject;
+                historyProjectItem.Score = averageScore;
 
                 historyProjects.Add(historyProjectItem);
             }
