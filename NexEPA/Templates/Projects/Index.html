@@ -74,7 +74,7 @@
 			</tr>
 		</thead>
 		<tbody class="table-body">
-			<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+			<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse ">
 				<td class="text-center project-no">
 					{{$index + 1}}
 				</td>
@@ -128,11 +128,13 @@
 					</div>
 				</td>
 			</tr>
+		</tbody>
+		<tfoot>
 			<tr ng-show="projects == '' || projects == 'null'">
-				<td class="empty-result pagination-table-width" colspan="10" data-translate="EmptyResult">
+				<td class="empty-result" colspan="10" data-translate="EmptyResult">
 				</td>
 			</tr>
-		</tbody>
+		</tfoot>
 	</table>
 	<pagination-bar></pagination-bar>
 </div>

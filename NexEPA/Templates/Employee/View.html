@@ -89,11 +89,13 @@
 					{{employee.joinedDate | customDate}}
 				</td>
 			</tr>
+		</tbody>
+		<tfoot>
 			<tr ng-show="employees == '' || employees == 'null'">
-				<td class="empty-result pagination-table-width" colspan="9" data-translate="EmptyResult">
+				<td class="empty-result" colspan="9" data-translate="EmptyResult">
 				</td>
 			</tr>
-		</tbody>
+		</tfoot>
 	</table>
 	<pagination-bar></pagination-bar>
 </div>

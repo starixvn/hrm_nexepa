@@ -110,11 +110,13 @@
 					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
 				</td>
 			</tr>
+		</tbody>
+		<tfoot>
 			<tr ng-show="KPIList == '' || KPIList == 'null'">
-				<td class="empty-result pagination-table-width" colspan="6" data-translate="EmptyResult">
+				<td class="empty-result" colspan="6" data-translate="EmptyResult">
 				</td>
 			</tr>
-		</tbody>
+		</tfoot>
 	</table>
 	<pagination-bar></pagination-bar>
 	<table ng-show="!isViewAll" class="table table-KPI table-bordered table-striped">
