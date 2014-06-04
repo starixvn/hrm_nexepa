@@ -18,8 +18,8 @@
 	</div>
 </div>
 <div class="row col-sm-12">
-	<div class="form-inline filter col-sm-8" ng-show="isViewAll">
-		<form novalidate class="form-inline">
+	<div class="col-sm-8" ng-show="isViewAll">
+		<form novalidate class="form-inline filter">
 		<div ng-show="isViewAll" class="form-group">
 			<label data-translate="Form">
 			</label>
@@ -32,7 +32,7 @@
 			<label data-translate="Group">
 			</label>
 			<select name="itemGroupSelect" ng-model="filter.kpiGroupId" ng-options="opt.kpiGroupID as opt.name for opt in groupOptions | filter: {targetTypeId: filter.targetTypeId}"
-				required class="form-control">
+				required class="form-control lstBox-limit">
 				<option value="">-- All --</option>
 			</select>
 		</div>

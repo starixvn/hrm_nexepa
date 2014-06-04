@@ -7,18 +7,18 @@
 	</ul>
 </div>
 <div class="col-sm-12">
-	<div class="form-inline filter col-sm-8">
-		<form novalidate class="form-inline">
+	<div class="col-sm-8">
+		<form novalidate class="row form-inline filter">
 		<div class="form-group">
 			<label data-translate="Keyword">
 			</label>
-			<input class="form-control" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
+			<input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
 		</div>
 		<div class="form-group">
 			<label data-translate="Team">
 			</label>
 			<select ng-model="filter.groupId" ng-options="opt.id as opt.name for opt in groupOptions"
-				class="form-control">
+				class="form-control lstBox-limit">
 				<option value="" data-translate="AllTeam"></option>
 			</select>
 		</div>
