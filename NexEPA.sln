@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Report", "NexEPA.Rep
 		{C645778B-C5C6-41C2-A123-6BCC5C840DD1} = {C645778B-C5C6-41C2-A123-6BCC5C840DD1}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Organization", "NexEPA.Organization\NexEPA.Organization.csproj", "{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,16 @@ Global
 		{9FDD57E5-031E-4813-B836-A444F8C3A111}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9FDD57E5-031E-4813-B836-A444F8C3A111}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9FDD57E5-031E-4813-B836-A444F8C3A111}.Release|x86.ActiveCfg = Release|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

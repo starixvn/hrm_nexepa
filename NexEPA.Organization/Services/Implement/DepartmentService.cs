@@ -1,0 +1,45 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="DepartmentService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Bradley.Mac" date="2014.6.4">Created</change>
+// </history>
+
+namespace NexEPA.Organization.Services.Implement
+{
+    using System.Collections.Generic;
+    using Fanex.Common.Helper;
+    using NexEPA.Core.Services;
+    using NexEPA.Organization.Criteria;
+    using NexEPA.Organization.Models;
+    using NexEPA.Organization.Repositories.Implement;
+    using NexEPA.Organization.Repositories.Interface;
+    using NexEPA.Organization.Services.Interface;
+
+    /// <summary>
+    /// Department Service.
+    /// </summary>
+    public class DepartmentService : BaseService, IDepartmentService
+    {
+        private readonly IDepartmentRepository _departmentRepository;
+
+        public DepartmentService(IDepartmentRepository departmentRepository = null)
+        {
+            this._departmentRepository = departmentRepository ?? new DepartmentRepository();
+        }
+
+        public IEnumerable<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria)
+        {
+            IEnumerable<DepartmentModel> departments = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                departments = _departmentRepository.GetAllDepartment(criteria);
+            }
+
+            return departments;
+        }
+    }
+}

@@ -99,9 +99,20 @@
 		<Setting Key="EPA_UpdateStatus" SpName="EPA_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPA_CheckPermission" SpName="EPA_CheckPermission" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
+
   <Function Name="Report">
     <Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
+
+	<Function Name="Department">
+		<Setting Key="Department_Get" SpName="Department_Get" DbName="NexEPA" Plain="1" >
+			<Mapping DataField="CreatedBy" ObjectProperty="EmployeeId"/>
+			<Mapping DataField="ManagerId" ObjectProperty="EmployeeId"/>
+			<Mapping DataField="ModifiedBy" ObjectProperty="EmployeeId"/>
+		</Setting>
+		<Setting Key="Department_Insert" SpName="Department_Insert" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Department_Update" SpName="Department_Update" DbName="NexEPA" Plain="1" ></Setting>
+	</Function>
 </Functions>
