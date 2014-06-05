@@ -587,11 +587,13 @@
   </data>
   <data name="Department" xml:space="preserve">
     <value>Department</value>
+  </data>
   <data name="AssignPermissionToRole" xml:space="preserve">
     <value>Assign Permission To Role</value>
   </data>
   <data name="Organization" xml:space="preserve">
     <value>Organization</value>
+  </data>
   <data name="Authority" xml:space="preserve">
     <value>Authority</value>
   </data>

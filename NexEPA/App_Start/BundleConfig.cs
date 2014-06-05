@@ -87,7 +87,7 @@ namespace NexEPA
                 "~/Scripts/Views/Test/test-repository.js",
                 "~/Scripts/Views/Login/login-controller.js",
                 "~/Scripts/Views/Organization/Department/department-controller.js",
-                "~/Scripts/Views/Organization/Department/department-repository.js"));
+                "~/Scripts/Views/Organization/Department/department-repository.js",
                 "~/Scripts/Views/Authority/authority-controller.js",
                 "~/Scripts/Views/Authority/authority-repository.js"));
 
