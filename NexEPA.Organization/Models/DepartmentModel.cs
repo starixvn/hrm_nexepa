@@ -20,6 +20,11 @@ namespace NexEPA.Organization.Models
     /// </summary>
     public class DepartmentModel
     {
+        public DepartmentModel()
+        {
+            Children = new List<DepartmentModel>();
+        }
+
         public int DepartmentId { get; set; }
 
         public string Code { get; set; }
@@ -41,5 +46,7 @@ namespace NexEPA.Organization.Models
         public EmployeeModel Manager { get; set; }
 
         public EmployeeModel Modifier { get; set; }
+
+        public List<DepartmentModel> Children { get; set; }
     }
 }

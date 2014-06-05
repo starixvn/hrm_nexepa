@@ -10,6 +10,7 @@
 namespace NexEPA.Organization.Repositories.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Employee.Models;
@@ -26,9 +27,10 @@ namespace NexEPA.Organization.Repositories.Implement
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>IEnumerable DepartmentModel.</returns>
-        public IEnumerable<DepartmentModel> GetAllDepartment(ICriteria criteria)
+        public DepartmentModel GetAllDepartment(ICriteria criteria)
         {
-            IEnumerable<DepartmentModel> departments = null;
+            List<DepartmentModel> departments = null;
+            DepartmentModel department = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 departments = db.Query<DepartmentModel, EmployeeModel, EmployeeModel, EmployeeModel, DepartmentModel>(
@@ -40,10 +42,24 @@ namespace NexEPA.Organization.Repositories.Implement
                        return d;
                    },
                    "CreatedBy, ManagerId, ModifiedBy",
-                   criteria.GetSpParams());
+                   criteria.GetSpParams()).ToList();
             }
 
-            return departments;
+            if (departments.Count > 0)
+            {
+                List<DepartmentModel> groupingItem = (from item in departments
+                                                      group item by item.ParentId into item
+                                                      select new DepartmentModel
+                                                      {
+                                                          ParentId = item.Key,
+                                                          Children = item.ToList()
+                                                      }).Where(x => x.ParentId != null).ToList();
+
+                departments.ToList().ForEach(x => x.Children.AddRange(groupingItem.Where(y => y.ParentId == x.DepartmentId)));
+                department = departments.Where(x => x.ParentId == null).SingleOrDefault();
+            }
+
+            return department;
         }
     }
 }

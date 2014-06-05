@@ -30,16 +30,16 @@ namespace NexEPA.Organization.Services.Implement
             this._departmentRepository = departmentRepository ?? new DepartmentRepository();
         }
 
-        public IEnumerable<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria)
+        public DepartmentModel GetAllDepartment(GetAllDepartmentCriteria criteria)
         {
-            IEnumerable<DepartmentModel> departments = null;
+            DepartmentModel department = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                departments = _departmentRepository.GetAllDepartment(criteria);
+                department = _departmentRepository.GetAllDepartment(criteria);
             }
 
-            return departments;
+            return department;
         }
     }
 }

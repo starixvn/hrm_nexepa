@@ -18,6 +18,6 @@ namespace NexEPA.Organization.Repositories.Interface
     /// </summary>
     public interface IDepartmentRepository
     {
-        IEnumerable<DepartmentModel> GetAllDepartment(ICriteria criteria);
+        DepartmentModel GetAllDepartment(ICriteria criteria);
     }
 }

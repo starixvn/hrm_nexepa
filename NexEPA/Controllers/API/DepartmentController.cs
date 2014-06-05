@@ -35,12 +35,12 @@ namespace NexEPA.Controllers.API
         }
 
         [ApiAuthorize(Roles = "SA")]
-        public IEnumerable<DepartmentModel> GetAllDeparment()
+        public DepartmentModel GetAllDeparment()
         {
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            DepartmentModel department = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
 
-            return departments;
+            return department;
         }
     }
 }

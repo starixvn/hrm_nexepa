@@ -18,6 +18,6 @@ namespace NexEPA.Organization.Services.Interface
     /// </summary>
     public interface IDepartmentService
     {
-        IEnumerable<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria);
+        DepartmentModel GetAllDepartment(GetAllDepartmentCriteria criteria);
     }
 }
