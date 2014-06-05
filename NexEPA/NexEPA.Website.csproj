@@ -160,6 +160,7 @@
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\DepartmentController.cs" />
+    <Compile Include="Controllers\API\AuthorityController.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\LoginController.cs" />
@@ -267,6 +268,8 @@
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />
+    <Content Include="Scripts\Views\Authority\authority-controller.js" />
+    <Content Include="Scripts\Views\Authority\authority-repository.js" />
     <Content Include="Scripts\Views\EPA\myepa-controller.js" />
     <Content Include="Scripts\Views\EPA\myepa-repository.js" />
     <Content Include="Scripts\Views\Home\home-controller.js" />
@@ -301,6 +304,7 @@
     <Content Include="Scripts\Views\Target\target-repository.js" />
     <Content Include="Scripts\Views\Test\test-controller.js" />
     <Content Include="Scripts\Views\Test\test-repository.js" />
+    <Content Include="Templates\Authority\Index.html" />
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\Logout.html" />
     <Content Include="Templates\Organization\Department\Index.html" />
@@ -382,6 +386,10 @@
     <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Authority\NexEPA.Authority.csproj">
+      <Project>{612DA4C6-D37E-4A4C-A1CE-2789456AFB16}</Project>
+      <Name>NexEPA.Authority</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
       <Name>NexEPA.Core</Name>

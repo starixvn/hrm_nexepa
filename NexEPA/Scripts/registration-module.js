@@ -1,5 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule, epaModule*/
-/* exported employeeModule, homeModule, reportModule, generalSettingModule, testModule, departmentModule*/
+/* exported employeeModule, homeModule, reportModule, generalSettingModule, testModule, departmentModule, authorityModule*/
 /*global angular*/
 'use strict';
 
@@ -93,6 +93,12 @@ var departmentModule = angular.module("departmentModule", ['ngRoute', 'ngResourc
 	$routeProvider.when('/Department/Index', { templateUrl: '/templates/Organization/Department/Index.html', controller: 'ManageDepartmentController' });
 } ]);
 
+var authorityModule = angular.module("authorityModule", ['ngRoute', 'ngResource'])
+.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider.when('/Authority/Index',
+		{ templateUrl: '/templates/Authority/Index.html', controller: 'AssignPermissionController' });
+} ]);
+
 var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/Test/LoginAsAnotherUser',
@@ -101,7 +107,7 @@ var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
 
 var registrationModule = angular.module("registrationModule",
 ['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'generalSettingModule',
-'epaModule', 'homeModule', 'reportModule', 'testModule', 'departmentModule', 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
+'epaModule', 'homeModule', 'reportModule', 'testModule', 'departmentModule', 'authorityModule', 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig, datepickerPopupConfig) {
 	$translateProvider.useLoader('resourceRepository', {});
