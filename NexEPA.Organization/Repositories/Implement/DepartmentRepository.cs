@@ -9,6 +9,7 @@
 
 namespace NexEPA.Organization.Repositories.Implement
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
@@ -27,7 +28,7 @@ namespace NexEPA.Organization.Repositories.Implement
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>IEnumerable DepartmentModel.</returns>
-        public DepartmentModel GetAllDepartment(ICriteria criteria)
+        public Tuple<DepartmentModel, List<DepartmentModel>> GetAllDepartment(ICriteria criteria)
         {
             List<DepartmentModel> departments = null;
             DepartmentModel department = null;
@@ -59,7 +60,7 @@ namespace NexEPA.Organization.Repositories.Implement
                 department = departments.Where(x => x.ParentId == null).SingleOrDefault();
             }
 
-            return department;
+            return Tuple.Create(department, departments);
         }
     }
 }

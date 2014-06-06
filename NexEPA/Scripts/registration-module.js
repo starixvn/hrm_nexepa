@@ -110,12 +110,12 @@ var registrationModule = angular.module("registrationModule",
 'epaModule', 'homeModule', 'reportModule', 'testModule', 'departmentModule', 'authorityModule', 'ui.bootstrap', 'ngRoute', 
 'ngResource', 'pascalprecht.translate'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
-function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig, datepickerPopupConfig) {
+function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig) {
 	$translateProvider.useLoader('resourceRepository', {});
 	$translateProvider.preferredLanguage('en');
 	$routeProvider.when('/Home/AccessDenied', { templateUrl: '/templates/Common/AccessDenied.html' });
 	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype):/);
 	datepickerConfig.showWeeks = false;
-	datepickerPopupConfig.showButtonBar = false;
+//	datepickerPopupConfig.showButtonBar = false;
 	$locationProvider.html5Mode(true);
 } ]);

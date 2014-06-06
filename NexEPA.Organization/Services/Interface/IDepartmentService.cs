@@ -9,7 +9,9 @@
 
 namespace NexEPA.Organization.Services.Interface
 {
+    using System;
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Organization.Criteria;
     using NexEPA.Organization.Models;
 
@@ -18,6 +20,10 @@ namespace NexEPA.Organization.Services.Interface
     /// </summary>
     public interface IDepartmentService
     {
-        DepartmentModel GetAllDepartment(GetAllDepartmentCriteria criteria);
+        Tuple<DepartmentModel, List<DepartmentModel>> GetAllDepartment(GetAllDepartmentCriteria criteria);
+
+        CommandResult AddDepartment(AddDepartmentCriteria criteria);
+
+        CommandResult UpdateDepartment(UpdateDepartmentCriteria criteria);
     }
 }

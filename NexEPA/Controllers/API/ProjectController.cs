@@ -94,7 +94,7 @@ namespace NexEPA.Controllers.API
                     Description = project.Description,
                     ProjectManager = project.ProjectManager,
                     StartDate = project.StartDate.Value,
-                    EndDate = project.EndDate.Value,
+                    EndDate = project.EndDate,
                     Status = project.Status,
                     CreatedBy = this.CurrentUser.UserId,
                     CreatedDate = DateTime.Now

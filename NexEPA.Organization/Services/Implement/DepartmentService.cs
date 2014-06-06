@@ -9,8 +9,10 @@
 
 namespace NexEPA.Organization.Services.Implement
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.Common.Helper;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
     using NexEPA.Organization.Criteria;
     using NexEPA.Organization.Models;
@@ -30,9 +32,9 @@ namespace NexEPA.Organization.Services.Implement
             this._departmentRepository = departmentRepository ?? new DepartmentRepository();
         }
 
-        public DepartmentModel GetAllDepartment(GetAllDepartmentCriteria criteria)
+        public Tuple<DepartmentModel, List<DepartmentModel>> GetAllDepartment(GetAllDepartmentCriteria criteria)
         {
-            DepartmentModel department = null;
+            Tuple<DepartmentModel, List<DepartmentModel>> department = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
@@ -40,6 +42,30 @@ namespace NexEPA.Organization.Services.Implement
             }
 
             return department;
+        }
+
+        public CommandResult AddDepartment(AddDepartmentCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Insert(criteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateDepartment(UpdateDepartmentCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Update(criteria);
+            }
+
+            return result;
         }
     }
 }

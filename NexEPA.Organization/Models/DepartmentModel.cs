@@ -11,8 +11,6 @@ namespace NexEPA.Organization.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using NexEPA.Employee.Models;
 
     /// <summary>
@@ -40,6 +38,10 @@ namespace NexEPA.Organization.Models
         public int DepartmentLevel { get; set; }
 
         public int DisplayOrder { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+
+        public DateTime? DisabledDate { get; set; }
 
         public EmployeeModel Creator { get; set; }
 

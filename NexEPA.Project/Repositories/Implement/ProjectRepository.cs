@@ -64,7 +64,7 @@ namespace NexEPA.Project.Repositories.Implement
                     NickName = y.Key.NickName,
                     Members = y.Key.Members.Value,
                     StartDate = y.Key.StartDate.Value,
-                    EndDate = y.Key.EndDate.Value,
+                    EndDate = y.Key.EndDate,
                     Status = y.Key.Status.Value,
                     Permission = y.Key.Permission,
                     Milestones = y.ToList(),

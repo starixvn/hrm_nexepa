@@ -29,7 +29,7 @@ namespace NexEPA.Project.Models
 
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public int Status { get; set; }
 

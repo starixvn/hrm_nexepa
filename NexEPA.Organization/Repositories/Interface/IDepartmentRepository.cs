@@ -9,6 +9,7 @@
 
 namespace NexEPA.Organization.Repositories.Interface
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Organization.Models;
@@ -18,6 +19,6 @@ namespace NexEPA.Organization.Repositories.Interface
     /// </summary>
     public interface IDepartmentRepository
     {
-        DepartmentModel GetAllDepartment(ICriteria criteria);
+        Tuple<DepartmentModel, List<DepartmentModel>> GetAllDepartment(ICriteria criteria);
     }
 }

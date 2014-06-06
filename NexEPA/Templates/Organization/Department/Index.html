@@ -1,123 +1,191 @@
-﻿<style>
-	.tree
-	{
-		min-height: 890px;
-		padding: 19px;
-		margin-bottom: 20px;
-		border: 1px solid #999;
-		-webkit-border-radius: 4px;
-		-moz-border-radius: 4px;
-		border-radius: 4px;
-		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-		-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	}
-	.tree li
-	{
-		list-style-type: none;
-		margin: 0;
-		padding: 10px 5px 0 5px;
-		position: relative;
-	}
-	.tree li::before, .tree li::after
-	{
-		content: '';
-		left: -20px;
-		position: absolute;
-		right: auto;
-	}
-	.tree li::before
-	{
-		border-left: 1px solid #999;
-		bottom: 50px;
-		height: 100%;
-		top: 0;
-		width: 1px;
-	}
-	.tree li::after
-	{
-		border-top: 1px solid #999;
-		height: 20px;
-		top: 30px;
-		width: 25px;
-	}
-	.tree li span, .tree li a
-	{
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		border: 1px solid #999;
-		border-radius: 5px;
-		display: inline-block;
-		padding: 3px 8px;
-		text-decoration: none;
-	}
-	.tree li.parent_li > span
-	{
-		cursor: pointer;
-	}
-	.tree > ul > li::before, .tree > ul > li::after
-	{
-		border: 0;
-	}
-	.tree li:last-child::before
-	{
-		height: 30px;
-	}
-	.tree li.parent_li > span:hover, .tree li.parent_li > span:hover + ul li span
-	{
-		background: #eee;
-		border: 1px solid #94a0b4;
-		color: #000;
-	}
-</style>
-<div class="tree col-sm-4">
-	<ul>
-		<li><span><i ng-click="bindTreeEvent()" class="glyphicon glyphicon-folder-open"></i></span>
-			<a href="">{{department.name}}</a>
-			<ul>
-				<li ng-repeat="childLevel1 in department.children[0].children"><span><i class="glyphicon glyphicon-minus"
-					ng-click="bindTreeEvent()"></i></span>
-					<a href="">{{childLevel1.name}}</a>
-					<ul>
-						<li ng-repeat="childLevel2 in childLevel1.children[0].children"><span><i class="glyphicon glyphicon-minus"
-							ng-click="bindTreeEvent()"></i></span>
-							<a href="">{{childLevel2.name}}</a>
-							<ul>
-								<li ng-repeat="childLevel3 in childLevel2.children[0].children"><span><i class="glyphicon glyphicon-minus"
-									ng-click="bindTreeEvent()"></i></span>
-									<a href="">{{childLevel3.name}}</a>
-									<ul>
-										<li ng-repeat="childLevel4 in childLevel3.children[0].children"><span><i class="glyphicon glyphicon-minus"
-											ng-click="bindTreeEvent()"></i></span>
-											<a href="">{{childLevel4.name}}</a></li>
+﻿<div class="row sub-header">
+	<ul class="col-xs-12 breadcrumb list-inline pull-left">
+		<li>
+			<a href="/Department/Index" data-translate="Company"></a>
+		</li>
+		<li class="current" data-translate="Department"></li>
+	</ul>
+</div>
+<div class="col-sm-12">
+	<div class="tree col-sm-4">
+		<ul>
+			<li><span><i ng-click="bindTreeEvent()" class="glyphicon glyphicon-folder-open"></i>
+			</span>
+				<a href="" ng-click="detailsNode(department)" ng-context-menu="menuOptions(department)">
+					{{department.name}}</a>
+				<ul>
+					<li ng-repeat="childLevel1 in department.children[0].children"><span><i class="glyphicon glyphicon-minus"
+						ng-click="bindTreeEvent()"></i></span>
+						<a href="" ng-click="detailsNode(childLevel1)" ng-context-menu="menuOptions(childLevel1)">
+							{{childLevel1.name}}</a>
+						<ul>
+							<li ng-repeat="childLevel2 in childLevel1.children[0].children"><span><i class="glyphicon glyphicon-minus"
+								ng-click="bindTreeEvent()"></i></span>
+								<a href="" ng-click="detailsNode(childLevel2)" ng-context-menu="menuOptions(childLevel2)">
+									{{childLevel2.name}}</a>
+								<ul>
+									<li ng-repeat="childLevel3 in childLevel2.children[0].children"><span><i class="glyphicon glyphicon-minus"
+										ng-click="bindTreeEvent()"></i></span>
+										<a href="" ng-click="detailsNode(childLevel3)" ng-context-menu="menuOptions(childLevel3)">
+											{{childLevel3.name}}</a>
 										<ul>
-											<li ng-repeat="childLevel5 in childLevel4.children[0].children"><span><i class="glyphicon glyphicon-minus"
+											<li ng-repeat="childLevel4 in childLevel3.children[0].children"><span><i class="glyphicon glyphicon-minus"
 												ng-click="bindTreeEvent()"></i></span>
-												<a href="">{{childLevel5.name}}</a>
-											</li>
+												<a href="" ng-click="detailsNode(childLevel4)" ng-context-menu="menuOptions(childLevel4)">
+													{{childLevel4.name}}</a></li>
 											<ul>
-												<li ng-repeat="childLevel6 in childLevel5.children[0].children"><span><i class="glyphicon glyphicon-minus"
+												<li ng-repeat="childLevel5 in childLevel4.children[0].children"><span><i class="glyphicon glyphicon-minus"
 													ng-click="bindTreeEvent()"></i></span>
-													<a href="">{{childLevel6.name}}</a>
+													<a href="" ng-click="detailsNode(childLevel5)" ng-context-menu="menuOptions(childLevel5)">
+														{{childLevel5.name}}</a>
 												</li>
 												<ul>
-													<li ng-repeat="childLevel7 in childLevel6.children[0].children"><span><i class="glyphicon glyphicon-minus"
+													<li ng-repeat="childLevel6 in childLevel5.children[0].children"><span><i class="glyphicon glyphicon-minus"
 														ng-click="bindTreeEvent()"></i></span>
-														<a href="">{{childLevel7.name}}</a>
+														<a href="" ng-click="detailsNode(childLevel6)" ng-context-menu="menuOptions(childLevel6)">
+															{{childLevel6.name}}</a>
 													</li>
+													<ul>
+														<li ng-repeat="childLevel7 in childLevel6.children[0].children"><span><i class="glyphicon glyphicon-minus"
+															ng-click="bindTreeEvent()"></i></span>
+															<a href="" ng-click="detailsNode(childLevel7)" ng-context-menu="menuOptions(childLevel7)">
+																{{childLevel7.name}}</a>
+														</li>
+													</ul>
 												</ul>
 											</ul>
 										</ul>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</li>
-	</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="col-sm-8" ng-show="addMode">
+		<div class="row">
+			<form class="col-sm-11 form-horizontal common-form" name="addProjectForm" novalidate>
+			<div class="col-sm-offset-2">
+				<div class="error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
+					{{error}}
+				</div>
+				<span class="error-message hide-errormessage" id="departmentValid">Please input all
+					required (*) fields.</span>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-2 control-label" data-translate="Code" />
+				<div class="col-sm-8">
+					<input class="form-control" type="text" ng-model="newNode.code" maxlength="200" placeholder="Department Code"
+						required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-2 control-label" data-translate="Name" />
+				<div class="col-sm-8">
+					<input class="form-control" type="text" ng-model="newNode.name" maxlength="200" placeholder="Department Name"
+						required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-2 control-label" data-translate="Parent Node">
+				</label>
+				<div class="col-sm-8">
+					<select class="form-control" ng-model="selectedNode.departmentId" required>
+						<option style="display: none" value="">-- Select a Parent Node --</option>
+						<option ng-repeat="dept in departments" value="{{dept.departmentId}}">{{dept.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-2 control-label" data-translate="Manager" />
+				<div class="col-sm-8">
+					<input class="form-control" type="text" ng-model="searchKey" search-auto-complete
+						search-employees="searchEmployees" ng-change="getEmployee(searchKey)" employee="newMember.employee"
+						maxlength="200" placeholder="Manager" required id="txtManager" />
+				</div>
+			</div>
+			<div class="col-sm-offset-5">
+				<button class="button" ng-click="addChild(newNode)" data-translate="Submit">
+				</button>
+				<button class="btn btn-default customize" ng-click="cancelAddChild()" data-translate="Cancel">
+				</button>
+			</div>
+			</form>
+		</div>
+	</div>
+	<div class="col-sm-8" ng-show="editMode">
+		<div class="row">
+			<form class="col-sm-11 form-horizontal common-form" name="addProjectForm" novalidate>
+			<div class="form-group required">
+				<label class="col-sm-3 control-label" data-translate="Code" />
+				<div class="col-sm-8">
+					<input class="form-control" type="text" ng-model="newNode.code" maxlength="200" placeholder="Department Code"
+						required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-3 control-label" data-translate="Name" />
+				<div class="col-sm-8">
+					<input class="form-control" type="text" ng-model="newNode.name" maxlength="200" placeholder="Department Name"
+						required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-3 control-label" data-translate="Parent Node">
+				</label>
+				<div class="col-sm-8">
+					<select class="form-control" ng-model="newNode.ParentId" required>
+						<option style="display: none" value="">-- Select a Parent Node --</option>
+						<option ng-repeat="dept in departments" value="{{dept.departmentId}}">{{dept.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-3 control-label" data-translate="Manager" />
+				<div class="col-sm-8">
+					<input class="form-control" type="text" ng-model="searchKey" search-auto-complete
+						search-employees="searchEmployees" ng-change="getEmployee(searchKey)" employee="newMember.employee"
+						maxlength="200" placeholder="Manager" required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-3 control-label" data-translate="Is disabled" />
+				<div class="col-sm-8">
+					<input type="checkbox" ng-model="ParentId.isDisabled" />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-3 control-label" data-translate="CreatedDate">
+				</label>
+				<div class="col-sm-8">
+					<input type="text" class="custom-textbox custom-date" ng-model="newNode.createdDate"
+						is-open="calendar.startDateOpened" placeholder="Start Date" datepicker-popup="{{dateFormat}}"
+						id="startDate" readonly required />
+					<calendar-image ng-click="openPopupStartDate($event)"></calendar-image>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label" data-translate="Disabled date">
+				</label>
+				<div class="col-sm-8">
+					<input type="text" class="custom-textbox custom-date" ng-model="newNode.resignedDate"
+						is-open="calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{dateFormat}}"
+						id="endDate" readonly required />
+					<calendar-image ng-click="openPopupEndDate($event)"></calendar-image>
+				</div>
+			</div>
+			<div class="col-sm-offset-5">
+				<button class="button" ng-click="save(project)" data-translate="Submit">
+				</button>
+				<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+				</button>
+			</div>
+			</form>
+		</div>
+	</div>
 </div>
-<div class="col-sm-4">
 
-</div>
+
+

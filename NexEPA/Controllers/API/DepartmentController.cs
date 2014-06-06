@@ -9,7 +9,12 @@
 
 namespace NexEPA.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Organization.Criteria;
     using NexEPA.Organization.Models;
     using NexEPA.Organization.Services.Implement;
@@ -35,12 +40,82 @@ namespace NexEPA.Controllers.API
         }
 
         [ApiAuthorize(Roles = "SA")]
-        public DepartmentModel GetAllDeparment()
+        public Tuple<DepartmentModel, List<DepartmentModel>> GetAllDeparment()
         {
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            DepartmentModel department = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            Tuple<DepartmentModel, List<DepartmentModel>> department = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
 
             return department;
+        }
+
+        /// <summary>
+        /// Method Add Department.
+        /// </summary>
+        /// <param name="model">Department Model.</param>
+        /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "SA")]
+        public HttpResponseMessage AddDepartment(DepartmentModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var addDepartmentCriteria = new AddDepartmentCriteria()
+                {
+                    Code = model.Code,
+                    ManagerId = model.Manager.EmployeeId,
+                    Name = model.Name,
+                    ParentId = model.ParentId,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = this.CurrentUser.UserId
+                };
+                CommandResult result = _departmentService.AddDepartment(addDepartmentCriteria);
+                if (result.Code != 0)
+                {
+                    var errorMessage = new List<string>() { result.Message };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                }
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
+            }
+        }
+
+        /// <summary>
+        /// Method Update Department.
+        /// </summary>
+        /// <param name="model">Department Model.</param>
+        /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(Roles = "SA")]
+        public HttpResponseMessage UpdateDepartment(DepartmentModel model)
+        {
+            var updateDepartment = new UpdateDepartmentCriteria()
+            {
+                Code = model.Code,
+                DepartmentId = model.DepartmentId,
+                IsDisabled = model.IsDisabled,
+                ManagerId = model.Manager.EmployeeId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now,
+                Name = model.Name,
+                ParentId = model.ParentId
+            };
+
+            CommandResult result = _departmentService.UpdateDepartment(updateDepartment);
+            if (result.Code != 0)
+            {
+                var errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        private IEnumerable<string> RetrieveErrorMessages()
+        {
+            IEnumerable<string> errors = ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+            return errors;
         }
     }
 }
