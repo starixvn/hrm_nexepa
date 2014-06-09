@@ -8,9 +8,6 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 	* Scope Variable. 
 	*/
 	var selectedNode;
-	$scope.hasTreeEvent = false;
-	$scope.addMode = false;
-	$scope.editMode = false;
 	var departmentValid = function (code, name, managerId) {
 		var error = $("#departmentValid");
 		if (code !== "" && name !== "" && managerId > 0) {
@@ -23,8 +20,9 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 
 	var resetCurrentData = function () {
 		$scope.addMode = false;
+		$scope.editMode = false;
 		$scope.newNode = {};
-		$scope.newMember = {};
+		$scope.detailsNode = {};
 		$scope.selectedNode = {};
 		$("#txtManager").val(null);
 	};
@@ -62,23 +60,7 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 	/**
 	* Events.
 	*/
-	$scope.bindTreeEvent = function () {
-		if (!$scope.hasTreeEvent) {
-			$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-			$('.tree li.parent_li > span').on('click', function (e) {
-				var children = $(this).parent('li.parent_li').find(' > ul > li');
-				if (children.is(":visible")) {
-					children.hide('fast');
-					$(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus').removeClass('glyphicon-minus');
-				} else {
-					children.show('fast');
-					$(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-minus').removeClass('glyphicon-plus');
-				}
-				e.stopPropagation();
-			});
-			$scope.hasTreeEvent = true;
-		}
-	};
+
 	// Search member
 	$scope.getEmployee = function (searchKey) {
 		projectDataFactory.getEmployeeSelectList(null, searchKey).then(function (employees) {
@@ -87,7 +69,7 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 	};
 
 	// Cancel
-	$scope.cancel = function () { $window.history.back(); };
+	$scope.cancel = function () { resetCurrentData(); };
 
 	// show start date calendar when click button start date
 	$scope.openPopupStartDate = function ($event) {
@@ -105,8 +87,8 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 		return [
 				['Add Child', function () {
 					$scope.selectedNode = selectedNode;
-					debugger;
 					$scope.addMode = true;
+					$scope.editMode = false;
 				} ],
 				['Delete', function ($itemScope) {
 					$scope.player.gold += $itemScope.item.cost;
@@ -120,28 +102,36 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 		}
 		else {
 			var departmentId = $scope.selectedNode.departmentId;
-			var managerId;
-			var newMember = $scope.newMember;
-			if (newMember != null) {
-				managerId = newMember.employee ? newMember.employee.employeeId : null;
-			}
+			var managerId = newNode.manager ? newNode.manager.employeeId : null;
 
 			var allowAdd = departmentValid(newNode.code, newNode.name, managerId);
 			if (allowAdd) {
-				var manager = { employeeId: managerId };
-				var model = { name: newNode.name, code: newNode.code, manager: manager, parentId: departmentId };
+				var model = { name: newNode.name, code: newNode.code, manager: newNode.manager, parentId: departmentId };
 				departmentDataFactory.addDepartment(model).then(successAddNode, errorAddNode);
-
 			}
 		}
 	};
 
-	$scope.cancelAddChild = function () {
-		resetCurrentData();
+	$scope.viewDetails = function (currentItem) {
+		$scope.detailsNode = currentItem;
+		$scope.detailsNode.searchKey = currentItem.manager.nickName + " (" + currentItem.manager.fullName + ")";
+		$scope.addMode = false;
+		$scope.editMode = true;
+		$scope.isDisabled = true;
+
 	};
 
-	$scope.detailsNode = function () {
-	
+	$scope.toggleEditMode = function () {
+		$scope.isDisabled = false;
 	};
 
+	$scope.editChild = function (detailsNode) {
+		var allowEdit = departmentValid(detailsNode.code, detailsNode.name, detailsNode.manager.employeeId);
+		if (allowEdit) {
+			var model = { name: detailsNode.name, code: detailsNode.code, manager: detailsNode.manager,
+				parentId: detailsNode.parentId, departmentId: detailsNode.departmentId, isDisabled: detailsNode.isDisabled
+			};
+			departmentDataFactory.updateDepartment(model).then(successAddNode, errorAddNode);
+		}
+	};
 } ]);

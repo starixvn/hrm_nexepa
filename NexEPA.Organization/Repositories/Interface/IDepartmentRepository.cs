@@ -19,6 +19,6 @@ namespace NexEPA.Organization.Repositories.Interface
     /// </summary>
     public interface IDepartmentRepository
     {
-        Tuple<DepartmentModel, List<DepartmentModel>> GetAllDepartment(ICriteria criteria);
+        List<DepartmentModel> GetAllDepartment(ICriteria criteria);
     }
 }

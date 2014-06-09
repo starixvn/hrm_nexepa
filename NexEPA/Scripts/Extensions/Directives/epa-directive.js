@@ -82,10 +82,10 @@ registrationModule.directive('treeModel', ['$compile', function ($compile) {
 			var treeModel = attrs.treeModel;
 
 			//node id
-			var nodeId = attrs.nodeId || 'id';
+			var nodeId = attrs.nodeId || 'id' || 'departmentId';
 
 			//node label
-			var nodeLabel = attrs.nodeLabel || 'label';
+			var nodeLabel = attrs.nodeLabel || 'label' ||'name';
 
 			//children
 			var nodeChildren = attrs.nodeChildren || 'children';
@@ -102,7 +102,8 @@ registrationModule.directive('treeModel', ['$compile', function ($compile) {
 							+ treeId + '.selectNodeHead(node)"></i>' + '<i class="normal" data-ng-hide="node.'
 							+ nodeChildren + '.length"></i> ' +
 							'<span data-ng-class="node.selected" data-ng-click="'
-							+ treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
+							+ treeId + '.selectNodeLabel(node)"><a href="javascript:;" ng-click="viewDetails(node)" ng-context-menu="menuOptions(node)">'
+							+ '{{node.' + nodeLabel + '}}</a></span>' +
 							'<div data-ng-hide="!node.collapsed" data-tree-id="'
 							+ treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id='
 							+ nodeId + ' data-node-label=' + nodeLabel + ' data-node-children='
@@ -306,7 +307,7 @@ registrationModule.directive('ngContextMenu', function () {
 				$li.on('click', function () {
 
 					$scope.$apply(function () {
-						item[1].call($scope);
+						item[1].call($scope, $scope);
 					});
 				});
 			}

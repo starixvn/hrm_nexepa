@@ -32,9 +32,9 @@ namespace NexEPA.Organization.Services.Implement
             this._departmentRepository = departmentRepository ?? new DepartmentRepository();
         }
 
-        public Tuple<DepartmentModel, List<DepartmentModel>> GetAllDepartment(GetAllDepartmentCriteria criteria)
+        public List<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria)
         {
-            Tuple<DepartmentModel, List<DepartmentModel>> department = null;
+            List<DepartmentModel> department = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {

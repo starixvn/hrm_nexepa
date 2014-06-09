@@ -15,7 +15,7 @@ departmentModule.factory('departmentDataFactory', ['$http', '$q', function ($htt
 		},
 		updateDepartment: function (model) {
 			var deferred = $q.defer();
-			$http.put('/api/Department/UpdateDepartment', model).success(deferred.resolve).error(deferred.reject);
+			$http.post('/api/Department/UpdateDepartment', model).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
 	};

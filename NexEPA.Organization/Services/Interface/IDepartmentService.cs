@@ -20,7 +20,7 @@ namespace NexEPA.Organization.Services.Interface
     /// </summary>
     public interface IDepartmentService
     {
-        Tuple<DepartmentModel, List<DepartmentModel>> GetAllDepartment(GetAllDepartmentCriteria criteria);
+        List<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria);
 
         CommandResult AddDepartment(AddDepartmentCriteria criteria);
 

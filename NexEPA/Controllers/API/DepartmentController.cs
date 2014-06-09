@@ -39,13 +39,23 @@ namespace NexEPA.Controllers.API
             this._departmentService = departmentService ?? new DepartmentService();
         }
 
+        /// <summary>
+        /// Method Get All Department.
+        /// </summary>
+        /// <returns>Tuple List Department.</returns>
         [ApiAuthorize(Roles = "SA")]
-        public Tuple<DepartmentModel, List<DepartmentModel>> GetAllDeparment()
+        public Tuple<List<DepartmentModel>, List<DepartmentModel>> GetAllDeparment()
         {
+            List<DepartmentModel> treeList = null;
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            Tuple<DepartmentModel, List<DepartmentModel>> department = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            List<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            if (departments != null)
+            {
+                treeList = new List<DepartmentModel>();
+                treeList.Add(departments.Where(x => x.ParentId == null).SingleOrDefault());
+            }
 
-            return department;
+            return Tuple.Create(treeList, departments);
         }
 
         /// <summary>

@@ -214,6 +214,8 @@
     <Content Include="Content\Common\Images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\Common\Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\Common\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="Content\Site\images\department-collapse.png" />
+    <Content Include="Content\Site\images\department-expand.png" />
     <Content Include="Content\Site\images\arrow-down.png" />
     <Content Include="Content\Site\images\arrow-left.png" />
     <Content Include="Content\Site\images\bg-login.png" />
