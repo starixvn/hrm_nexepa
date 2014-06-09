@@ -35,11 +35,14 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        public IEnumerable<FunctionModel> GetAllFunction()
+        public IEnumerable<FunctionGroupModel> GetFunctionByRole(int roleId)
         {
-            var criteria = new GetAllFunctionCriteria();
+            var criteria = new GetFunctionByRoleCriteria()
+            {
+                RoleId = roleId
+            };
 
-            return _authorityService.GetAllFunction(criteria);
+            return _authorityService.GetFunctionByRole(criteria);
         }
 
         [HttpGet]

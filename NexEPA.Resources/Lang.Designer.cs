@@ -646,6 +646,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Function.
+        /// </summary>
+        public static string Function {
+            get {
+                return ResourceManager.GetString("Function", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GENERAL INFORMATION.
         /// </summary>
         public static string GeneralInfo {
@@ -705,6 +714,15 @@ namespace NexEPA.Resources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string Host {
+            get {
+                return ResourceManager.GetString("Host", resourceCulture);
             }
         }
         
@@ -1168,6 +1186,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read.
+        /// </summary>
+        public static string Read {
+            get {
+                return ResourceManager.GetString("Read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to less.
         /// </summary>
         public static string ReadLess {
@@ -1209,6 +1236,15 @@ namespace NexEPA.Resources {
         public static string Role {
             get {
                 return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role Permission.
+        /// </summary>
+        public static string RolePermission {
+            get {
+                return ResourceManager.GetString("RolePermission", resourceCulture);
             }
         }
         
