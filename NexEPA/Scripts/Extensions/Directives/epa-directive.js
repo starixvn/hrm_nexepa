@@ -348,3 +348,63 @@ registrationModule.directive('ngContextMenu', function () {
 		}
 	};
 });
+
+// Assign Permission to Role
+registrationModule.directive('assignPermission', function () {
+	var updateParent = function (checked, type) {
+		var pid = $(this).attr('pid');
+
+		if (pid && pid.length > 0) {
+			var parent = $("#func" + type + pid);
+
+			if (checked && !parent.is(':checked')) {
+				parent.prop('checked', true);
+			}
+
+			if (!checked) {
+				var siblings = $("[name='func" + type + "'][pid='" + parent.val() + "']:checked");
+
+				if (!siblings || (siblings && siblings.length === 0)) {
+					parent.prop('checked', false);
+				}
+			}
+
+			updateParent.call(parent.get(0), checked, type);
+		}
+	};
+
+	return {
+		restrict: "A",
+		link: function (scope, iElement) {
+			iElement.on("change", function () {
+				var permissionType = $(this).attr('name'),
+					currentId = $(this).val(),
+					checked = $(this).is(':checked');
+
+				if (permissionType === 'funcHost') {
+					// parent changed -> children changed
+					$("[name='funcHost'][pid='" + currentId + "']").prop('checked', checked).triggerHandler('change');
+
+					if (checked) {
+						$("#funcRead" + currentId).prop('checked', true).triggerHandler('change');
+					}
+
+					// update parent
+					updateParent.call(this, checked, "Host");
+				}
+				else {
+					if (!checked) {
+						$("#funcHost" + currentId).prop('checked', false).triggerHandler('change');
+						//updateParent.call(this, checked, "Host");
+					}
+
+					// parent changed -> children changed
+					$("[name='funcRead'][pid='" + currentId + "']").prop('checked', checked).triggerHandler('change');
+
+					// update parent
+					updateParent.call(this, checked, "Read");
+				}
+			});
+		}
+	};
+});

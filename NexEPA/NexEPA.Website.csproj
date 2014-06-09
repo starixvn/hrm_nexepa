@@ -307,6 +307,9 @@
     <Content Include="Scripts\Views\Test\test-controller.js" />
     <Content Include="Scripts\Views\Test\test-repository.js" />
     <Content Include="Templates\Authority\Index.html" />
+    <Content Include="Templates\Authority\TreeHostCheckbox.html" />
+    <Content Include="Templates\Authority\TreeItem.html" />
+    <Content Include="Templates\Authority\TreeReadCheckbox.html" />
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\Logout.html" />
     <Content Include="Templates\Organization\Department\Index.html" />
@@ -383,6 +386,7 @@
     <Content Include="Content\Site\Report\report.less" />
     <Content Include="Content\Site\Login\login.less" />
     <Content Include="Content\Site\Organization\department.less" />
+    <None Include="Content\Site\Authority\authority.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
