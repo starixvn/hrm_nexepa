@@ -16,6 +16,11 @@ namespace NexEPA.Authority.Models
     /// </summary>
     public class FunctionModel
     {
+        public FunctionModel()
+        {
+            ChildFunctions = new List<FunctionModel>();
+        }
+
         public int FunctionId { get; set; }
 
         public string FunctionKey { get; set; }
@@ -29,5 +34,7 @@ namespace NexEPA.Authority.Models
         public bool? IsRead { get; set; }
 
         public bool? IsHost { get; set; }
+
+        public List<FunctionModel> ChildFunctions { get; set; }
     }
 }

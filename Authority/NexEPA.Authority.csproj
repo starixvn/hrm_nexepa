@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Criteria\GetAllSystemRoleCriteria.cs" />
     <Compile Include="Criteria\GetFunctionByRoleCriteria.cs" />
-    <Compile Include="Models\FunctionGroupModel.cs" />
     <Compile Include="Models\FunctionModel.cs" />
     <Compile Include="Models\RoleSystemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

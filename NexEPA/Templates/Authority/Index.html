@@ -32,70 +32,10 @@
             </tr>
         </thead>
         <tr ng-repeat="data in functionGroup">
-            <td ng-include="'tree_item.html'"></td>
-            <td ng-include="'tree_read_checkbox.html'"></td>
-            <td ng-include="'tree_host_checkbox.html'"></td>
+            <td ng-include src="'/Templates/Authority/TreeItem.html'"></td>
+            <td ng-include src="'/Templates/Authority/TreeReadCheckbox.html'"></td>
+            <td ng-include src="'/Templates/Authority/TreeHostCheckbox.html'"></td>
         </tr>
     </table>
 </div>
 
-<script type="text/ng-template" id="tree_item.html">
-    <div>{{data.name}}</div>
-    <div style="padding-left: 30px; padding-top:10px;" ng-repeat="data in data.childFunctions" ng-include="'tree_item.html'">
-    </div>
-</script>
-
-<script type="text/ng-template" id="tree_read_checkbox.html">
-    <div style="text-align:center;">
-        <input type="checkbox" ng-bind="data.isRead" ng-check="data.isRead == 1"/>
-    </div>
-    <div style="padding-top:8px; text-align:center;" ng-repeat="data in data.childFunctions" ng-include="'tree_read_checkbox.html'">
-    </div>
-</script>
-
-<script type="text/ng-template" id="tree_host_checkbox.html">
-    <div ng-show="data.isReadOnly">
-        <input type="checkbox" ng-bind="data.isRead" ng-check="data.isRead == 1" style="text-align:center;visibility:hidden;"/>
-    </div>
-    <div style="text-align:center;">
-        <input ng-show="!data.isReadOnly" type="checkbox" ng-bind="data.isHost" ng-check="data.isHost == 1" />
-    </div>
-    <div style="padding-top:8px; text-align:center;" ng-repeat="data in data.childFunctions" ng-include="'tree_host_checkbox.html'">
-    </div>
-</script>
-
-
-
-<!--<div class="row">
-    <table class="table table-bordered table-striped target-member-table">
-        <thead>
-            <tr>
-                <th data-translate="Function" rowspan="2"></th>
-                <th data-translate="RolePermission" colspan="2"></th>
-            </tr>
-            <tr>
-                <th data-translate="Read"></th>
-                <th data-translate="Host"></th>
-            </tr>
-        </thead>
-    </table>
-</div>-->
-
-<!--        <tr ng-repeat-start="parentFunction in functionGroup">
-                <td ng-bind="parentFunction.name"></td>
-                <td>
-                    <input type="checkbox" ng-bind="parentFunction.isRead" ng-check="parentFunction.isRead == 1" />
-                 </td>
-                <td ng-show="!parentFunction.isReadOnly">
-                    <input type="checkbox" ng-bind="parentFunction.isHost" ng-check="parentFunction.isHost == 1" />
-                </td>
-        </tr>
-        <tr ng-repeat-end ng-repeat-start="childFunction in parentFunction.childFunctions">
-        	<td ng-bind="childFunction.name" style="padding-left:30px;"></td>
-			<td>
-				<input type="checkbox" ng-bind="childFunction.isRead" ng-check="childFunction.isRead == 1" />
-			</td>
-			<td ng-show="!childFunction.isReadOnly">
-				<input type="checkbox" ng-bind="childFunction.isHost" ng-check="childFunction.isHost == 1" />
-			</td>
-		</tr><tr ng-repeat-end></tr>-->

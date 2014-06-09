@@ -27,35 +27,19 @@ namespace NexEPA.Authority.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The enumerator Function Model.</returns>
-        public IList<FunctionGroupModel> GetFunctionByRole(GetFunctionByRoleCriteria criteria)
+        public IEnumerable<FunctionModel> GetFunctionByRole(GetFunctionByRoleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<FunctionGroupModel> functionGroup = new List<FunctionGroupModel>();
+            IEnumerable<FunctionModel> functionGroup = null;
 
             if (criteria.IsValid())
             {
                 IEnumerable<FunctionModel> rawFunctions = GetData<FunctionModel>(criteria);
-                IEnumerable<FunctionModel> rawParentFunctions = rawFunctions.Where<FunctionModel>(func => func.ParentFunctionId == null);
+                functionGroup = rawFunctions.Where<FunctionModel>(func => func.ParentFunctionId == null);
 
-                foreach (FunctionModel rawParentFunctionItem in rawParentFunctions)
+                foreach (FunctionModel rawParentFunctionItem in functionGroup)
                 {
-                    var parentFunction = new FunctionGroupModel
-                    {
-                        FunctionId = rawParentFunctionItem.FunctionId,
-                        FunctionKey = rawParentFunctionItem.FunctionKey,
-                        Name = rawParentFunctionItem.Name,
-                        IsReadOnly = rawParentFunctionItem.IsReadOnly,
-                        IsRead = rawParentFunctionItem.IsRead,
-                        IsHost = rawParentFunctionItem.IsHost
-                    };
-                    List<FunctionModel> rawChildFunctions = rawFunctions.Where(func => func.ParentFunctionId == rawParentFunctionItem.FunctionId).ToList();
-
-                    if (rawChildFunctions != null && rawChildFunctions.Count > 0)
-                    {
-                        parentFunction.ChildFunctions = rawChildFunctions;
-                    }
-
-                    functionGroup.Add(parentFunction);
+                    rawParentFunctionItem.ChildFunctions = GetFunctionByRoleRecursion(rawFunctions, rawParentFunctionItem);
                 }
             }
 
@@ -78,6 +62,33 @@ namespace NexEPA.Authority.Services.Implement
             }
 
             return roles;
+        }
+
+        /// <summary>
+        /// Get function by role recursion.
+        /// </summary>
+        /// <param name="rawFunctions">The all functions.</param>
+        /// <param name="rawParentFunctionItem">The current parent function.</param>
+        /// <returns>The list Function Model.</returns>
+        private List<FunctionModel> GetFunctionByRoleRecursion(
+            IEnumerable<FunctionModel> rawFunctions,
+            FunctionModel rawParentFunctionItem)
+        {
+            List<FunctionModel> rawChildFunctions = rawFunctions.Where(func => func.ParentFunctionId == rawParentFunctionItem.FunctionId).ToList();
+
+            if (rawChildFunctions != null && rawChildFunctions.Count() > 0)
+            {
+                foreach (var rawChildFunctionItem in rawChildFunctions)
+                {
+                    rawChildFunctionItem.ChildFunctions = GetFunctionByRoleRecursion(rawFunctions, rawChildFunctionItem);
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            return rawChildFunctions;
         }
     }
 }

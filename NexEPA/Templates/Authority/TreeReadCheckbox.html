@@ -1,0 +1,7 @@
+﻿<div class="align-center">
+    <input id="funcRead{{data.functionId}}" name="funcRead" value="{{data.functionId}}" pid="{{data.parentFunctionId}}" 
+            ng-model="data.isRead" assign-permission type="checkbox" />
+</div>
+<div class="child-check-box" ng-repeat="data in data.childFunctions" 
+     ng-include src="'/Templates/Authority/TreeReadCheckbox.html'">
+</div>
