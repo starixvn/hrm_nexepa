@@ -3,8 +3,8 @@
 
 authorityModule.factory('authorityRepository', ['$http', function ($http) {
 	return {
-		getAllFunction: function () {
-			return $http.get('/api/Authority/GetAllFunction');
+		getFunctionByRole: function (roleId) {
+			return $http.get('/api/Authority/GetFunctionByRole', { params: { roleId: roleId } });
 		},
 		getAllSystemRole: function () {
 			return $http.get('/api/Authority/GetAllSystemRole');

@@ -18,7 +18,7 @@ namespace NexEPA.Authority.Services.Interface
     /// </summary>
     public interface IAuthorityService
     {
-        IEnumerable<FunctionModel> GetAllFunction(GetAllFunctionCriteria criteria);
+        IList<FunctionGroupModel> GetFunctionByRole(GetFunctionByRoleCriteria criteria);
 
         IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria);
     }

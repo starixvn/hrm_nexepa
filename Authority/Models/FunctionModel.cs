@@ -9,6 +9,8 @@
 
 namespace NexEPA.Authority.Models
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The function model.
     /// </summary>
@@ -20,8 +22,12 @@ namespace NexEPA.Authority.Models
 
         public string Name { get; set; }
 
-        public int ParentFunctionId { get; set; }
+        public int? ParentFunctionId { get; set; }
 
         public bool IsReadOnly { get; set; }
+
+        public bool? IsRead { get; set; }
+
+        public bool? IsHost { get; set; }
     }
 }

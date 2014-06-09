@@ -10,6 +10,7 @@
 namespace NexEPA.Authority.Services.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Authority.Criteria;
     using Authority.Models;
     using Authority.Services.Interface;
@@ -26,17 +27,39 @@ namespace NexEPA.Authority.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The enumerator Function Model.</returns>
-        public IEnumerable<FunctionModel> GetAllFunction(GetAllFunctionCriteria criteria)
+        public IList<FunctionGroupModel> GetFunctionByRole(GetFunctionByRoleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<FunctionModel> functions = null;
+            IList<FunctionGroupModel> functionGroup = new List<FunctionGroupModel>();
 
             if (criteria.IsValid())
             {
-                functions = GetData<FunctionModel>(criteria);
+                IEnumerable<FunctionModel> rawFunctions = GetData<FunctionModel>(criteria);
+                IEnumerable<FunctionModel> rawParentFunctions = rawFunctions.Where<FunctionModel>(func => func.ParentFunctionId == null);
+
+                foreach (FunctionModel rawParentFunctionItem in rawParentFunctions)
+                {
+                    var parentFunction = new FunctionGroupModel
+                    {
+                        FunctionId = rawParentFunctionItem.FunctionId,
+                        FunctionKey = rawParentFunctionItem.FunctionKey,
+                        Name = rawParentFunctionItem.Name,
+                        IsReadOnly = rawParentFunctionItem.IsReadOnly,
+                        IsRead = rawParentFunctionItem.IsRead,
+                        IsHost = rawParentFunctionItem.IsHost
+                    };
+                    List<FunctionModel> rawChildFunctions = rawFunctions.Where(func => func.ParentFunctionId == rawParentFunctionItem.FunctionId).ToList();
+
+                    if (rawChildFunctions != null && rawChildFunctions.Count > 0)
+                    {
+                        parentFunction.ChildFunctions = rawChildFunctions;
+                    }
+
+                    functionGroup.Add(parentFunction);
+                }
             }
 
-            return functions;
+            return functionGroup;
         }
 
         /// <summary>

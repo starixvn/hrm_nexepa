@@ -1,14 +1,32 @@
 ﻿'use strict';
 /*global authorityModule*/
 
-authorityModule.controller("AssignPermissionController", ['$scope', 'authorityRepository',
-function ($scope, authorityRepository) {
+authorityModule.controller("AssignPermissionController", ['$scope', '$route', 'authorityRepository',
+function ($scope, $route, authorityRepository) {
 
 	authorityRepository.getAllSystemRole().success(function (roles) {
-		$scope.roles = roles;
+		if (roles) {
+			var roleId = roles[0].roleId;
+			$scope.filter = {
+				roleId: roleId
+			};
+
+			getFunctionByRole(roleId);
+			$scope.roleOptions = roles;
+		}
 	}).error();
 
-	authorityRepository.getAllFunction().success(function (functionList) {
-		$scope.functionList = functionList;
-	}).error();
+	var getFunctionByRole = function (roleId) {
+		authorityRepository.getFunctionByRole(roleId).success(function (functionGroup) {
+			$scope.functionGroup = functionGroup;
+		}).error();
+	};
+
+	$scope.query = function (roleId) {
+		getFunctionByRole(roleId);
+	};
+
+	$scope.reload = function () {
+		$route.reload();
+	};
 } ]);
