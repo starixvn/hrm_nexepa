@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Website", "NexEPA\NexEPA.Website.csproj", "{62436417-920D-46F6-AF65-A536486CB058}"
+	ProjectSection(ProjectDependencies) = postProject
+		{612DA4C6-D37E-4A4C-A1CE-2789456AFB16} = {612DA4C6-D37E-4A4C-A1CE-2789456AFB16}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Core", "NexEPA.Core\NexEPA.Core.csproj", "{C645778B-C5C6-41C2-A123-6BCC5C840DD1}"
 EndProject
@@ -28,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Report", "NexEPA.Rep
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Organization", "NexEPA.Organization\NexEPA.Organization.csproj", "{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Authority", "Authority\NexEPA.Authority.csproj", "{612DA4C6-D37E-4A4C-A1CE-2789456AFB16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexEPA.Authority", "NexEPA.Authority\NexEPA.Authority.csproj", "{612DA4C6-D37E-4A4C-A1CE-2789456AFB16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

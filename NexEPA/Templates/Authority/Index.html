@@ -20,22 +20,27 @@
 </div>
 
 <div class="row">
-    <table class="table table-bordered target-member-table">
-        <thead>
-            <tr>
-                <th data-translate="Function" rowspan="2"></th>
-                <th data-translate="RolePermission" colspan="2"></th>
+    <form class="col-sm-5 form-horizontal common-form" novalidate>
+        <table name="tableFunction" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th data-translate="Function" rowspan="2"></th>
+                    <th data-translate="RolePermission" colspan="2"></th>
+                </tr>
+                <tr>
+                    <th data-translate="Read"></th>
+                    <th data-translate="Host"></th>
+                </tr>
+            </thead>
+            <tr ng-repeat="data in functionGroup">
+                <td ng-include src="'/Templates/Authority/TreeItem.html'"></td>
+                <td ng-include src="'/Templates/Authority/TreeReadCheckbox.html'"></td>
+                <td ng-include src="'/Templates/Authority/TreeHostCheckbox.html'"></td>
             </tr>
-            <tr>
-                <th data-translate="Read"></th>
-                <th data-translate="Host"></th>
-            </tr>
-        </thead>
-        <tr ng-repeat="data in functionGroup">
-            <td ng-include src="'/Templates/Authority/TreeItem.html'"></td>
-            <td ng-include src="'/Templates/Authority/TreeReadCheckbox.html'"></td>
-            <td ng-include src="'/Templates/Authority/TreeHostCheckbox.html'"></td>
-        </tr>
-    </table>
+        </table>
+        <div class="col-sm-offset-5 col-sm-8">
+            <button class="button" get-role-permission ng-disabled="disabledSubmitButton" data-translate="Save"></button>
+        </div>
+   </form>
 </div>
 

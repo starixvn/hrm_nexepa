@@ -12,6 +12,7 @@ namespace NexEPA.Authority.Services.Interface
     using System.Collections.Generic;
     using Authority.Criteria;
     using Authority.Models;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// The interface of Authority service.
@@ -21,5 +22,7 @@ namespace NexEPA.Authority.Services.Interface
         IEnumerable<FunctionModel> GetFunctionByRole(GetFunctionByRoleCriteria criteria);
 
         IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria);
+
+        CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria);
     }
 }

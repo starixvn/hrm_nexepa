@@ -393,7 +393,7 @@
     <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Authority\NexEPA.Authority.csproj">
+    <ProjectReference Include="..\NexEPA.Authority\NexEPA.Authority.csproj">
       <Project>{612DA4C6-D37E-4A4C-A1CE-2789456AFB16}</Project>
       <Name>NexEPA.Authority</Name>
     </ProjectReference>

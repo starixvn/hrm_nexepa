@@ -15,6 +15,7 @@ namespace NexEPA.Authority.Services.Implement
     using Authority.Models;
     using Authority.Services.Interface;
     using Fanex.Common.Helper;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
 
     /// <summary>
@@ -62,6 +63,24 @@ namespace NexEPA.Authority.Services.Implement
             }
 
             return roles;
+        }
+
+        /// <summary>
+        /// Assign permission to role.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
 
         /// <summary>

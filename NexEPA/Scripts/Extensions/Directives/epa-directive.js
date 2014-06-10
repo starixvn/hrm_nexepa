@@ -382,27 +382,68 @@ registrationModule.directive('assignPermission', function () {
 					checked = $(this).is(':checked');
 
 				if (permissionType === 'funcHost') {
-					// parent changed -> children changed
-					$("[name='funcHost'][pid='" + currentId + "']").prop('checked', checked).triggerHandler('change');
-
 					if (checked) {
-						$("#funcRead" + currentId).prop('checked', true).triggerHandler('change');
+						$("#funcRead" + currentId).prop('checked', true).trigger('change');
 					}
+
+					// parent changed -> children changed
+					$("[name='funcHost'][pid='" + currentId + "']").prop('checked', checked).trigger('change');
 
 					// update parent
 					updateParent.call(this, checked, "Host");
 				}
 				else {
 					if (!checked) {
-						$("#funcHost" + currentId).prop('checked', false).triggerHandler('change');
-						//updateParent.call(this, checked, "Host");
+						$("#funcHost" + currentId).prop('checked', false).trigger('change');
 					}
 
 					// parent changed -> children changed
-					$("[name='funcRead'][pid='" + currentId + "']").prop('checked', checked).triggerHandler('change');
+					$("[name='funcRead'][pid='" + currentId + "']").prop('checked', checked).trigger('change');
 
 					// update parent
 					updateParent.call(this, checked, "Read");
+				}
+			});
+		}
+	};
+});
+
+// get role permission when click save button
+registrationModule.directive('getRolePermission', function () {
+	var createTemplate = function (functionId, isRead, isHost) {
+		var template = '<Function FunctionId="' + functionId + '"' +
+							' IsRead="' + isRead + '"' +
+							' IsHost="' + isHost + '"></Function>';
+		return template;
+	};
+
+	return {
+		restrict: "A",
+		link: function (scope, iElement) {
+			iElement.on("click", function () {
+				var result = '<ROOT>';
+				var table = $("[name='tableFunction']");
+				var roleFunction = $(table).find('[type=checkbox][name=funcRead]');
+
+				if (roleFunction) {
+					for (var i = 0; i < roleFunction.length; i++) {
+						var element = roleFunction[i];
+						var functionId = $(element).val(),
+							isRead = $(element).is(':checked') ? 1 : 0,
+							isHost = $('#funcHost' + functionId).is(':checked') ? 1 : 0,
+							template = createTemplate(functionId, isRead, isHost);
+						result += template;
+					}
+
+					result += '</ROOT>';
+
+					scope.roleFunction = {
+						functions: result,
+						roleId: scope.filter.roleId
+					};
+
+					// call save function
+					scope.save.call(this, scope.roleFunction);
 				}
 			});
 		}

@@ -109,6 +109,7 @@
     <Setting Key="Function_GetAll" SpName="Function_GetAll" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexEPA" Plain="1" ></Setting>
   </Function>
 
 	<Function Name="Department">

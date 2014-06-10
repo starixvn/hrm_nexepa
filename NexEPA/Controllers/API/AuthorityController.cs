@@ -9,8 +9,10 @@
 
 namespace NexEPA.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using Fanex.NAP.Framework.Data;
     using NexEPA.Authority.Criteria;
     using NexEPA.Authority.Models;
     using NexEPA.Authority.Services.Implement;
@@ -51,6 +53,18 @@ namespace NexEPA.Controllers.API
             var criteria = new GetAllSystemRoleCriteria();
 
             return _authorityService.GetAllSystemRole(criteria);
+        }
+
+        [HttpPost]
+        public CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _authorityService.AssignPermissionToRole(criteria);
         }
     }
 }
