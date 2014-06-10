@@ -31,9 +31,9 @@ namespace NexEPA.Authority.Models
 
         public bool IsReadOnly { get; set; }
 
-        public bool? IsRead { get; set; }
+        public bool IsRead { get; set; }
 
-        public bool? IsHost { get; set; }
+        public bool IsHost { get; set; }
 
         public List<FunctionModel> ChildFunctions { get; set; }
     }
