@@ -14,6 +14,7 @@ namespace NexEPA.Controllers.Target
     using System.Linq;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Employee.Models;
     using NexEPA.Project.Criteria.Milestone;
@@ -58,7 +59,7 @@ namespace NexEPA.Controllers.Target
         /// <param name="endDate">Query End Date.</param>
         /// <returns>Target View Model.</returns>
         [HttpGet]
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
         public List<TargetViewModel> GetTarget(
             int? targetTypeId = null,
             DateTime? startDate = null,
@@ -76,7 +77,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
         public TargetViewModel GetTargetById(int targetId)
         {
             var criteria = new GetTargetByIdCriteria
@@ -94,7 +95,7 @@ namespace NexEPA.Controllers.Target
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Command Result.</returns>
         [HttpPost]
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
         public CommandResult InsertTarget(InsertTargetCriteria criteria)
         {
             if (criteria != null)
@@ -110,8 +111,8 @@ namespace NexEPA.Controllers.Target
             return _targetService.Insert(criteria);
         }
 
-        [ApiAuthorize(Roles = "PM,SA")]
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
         public CommandResult Put(UpdateTargetCriteria criteria)
         {
             if (criteria != null)
@@ -123,8 +124,8 @@ namespace NexEPA.Controllers.Target
             return _targetService.Update(criteria);
         }
 
-        [ApiAuthorize(Roles = "PM,SA")]
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
         public CommandResult UpdateStatus(UpdateTargetStatusCriteria criteria)
         {
             if (criteria != null)
@@ -136,7 +137,7 @@ namespace NexEPA.Controllers.Target
             return _targetService.UpdateStatus(criteria);
         }
 
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
         public CommandResult Delete(int targetId)
         {
             var criteria = new DeleteTargetCriteria
@@ -163,7 +164,6 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "PM,SA")]
         public IEnumerable<EmployeeModel> GetEmployeeByTargetId(int targetId)
         {
             var criteria = new GetAllEmployeeByTargetIdCriteria
@@ -175,7 +175,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpPost]
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
         public CommandResult InsertTargetEmployee(AddTargetEmployeeCriteria criteria)
         {
             if (criteria != null)
@@ -193,7 +193,7 @@ namespace NexEPA.Controllers.Target
         /// <param name="targetId">The target ID.</param>
         /// <param name="employeeId">The employee ID.</param>
         /// <returns>The Command Result.</returns>
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
         public CommandResult DeleteTargetEmployee(int targetId, int employeeId)
         {
             var criteria = new DeleteTargetEmployeeCriteria
@@ -208,7 +208,6 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "PM,SA")]
         public List<TargetKPIGroupModel> GetKPIByTargetId(int targetId, int? groupId = null)
         {
             var criteria = new GetKPIByTargetIdCriteria

@@ -12,11 +12,14 @@ namespace NexEPA.Controllers.API
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implement;
     using NexEPA.Employee.Services.Interface;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -44,6 +47,7 @@ namespace NexEPA.Controllers.API
         /// <param name="isDisabled">Is Disabled.</param>
         /// <returns>The enumerator Employee Model.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetAllEmployee(string keyword = "", int? groupId = null, bool? isDisabled = null)
         {
             var criteria = new GetAllEmployeeCriteria

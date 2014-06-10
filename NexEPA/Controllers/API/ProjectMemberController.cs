@@ -16,10 +16,13 @@ namespace NexEPA.Controllers.API
     using System.Net.Http;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Project.Criteria.ProjectMembers;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -46,6 +49,7 @@ namespace NexEPA.Controllers.API
         /// <param name="isShowDeletedMember">Get disabled use.</param>
         /// <param name="milestoneId">Belong to milestone.</param>
         /// <returns>List of Project Member Model.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
         public IEnumerable<ProjectMembersModel> Get(int projectId, bool? isShowDeletedMember = null, int? milestoneId = null)
         {
             IEnumerable<ProjectMembersModel> projects = null;
@@ -84,6 +88,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="member">Member Model.</param>
         /// <returns>Http response message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage Post(MemberModel member)
         {
             if (ModelState.IsValid)
@@ -118,6 +123,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="member">Member Model.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage Put(MemberModel member)
         {
             if (ModelState.IsValid)
@@ -153,6 +159,7 @@ namespace NexEPA.Controllers.API
         /// <param name="projectId">Project id.</param>
         /// <param name="employeeId">Employee Id.</param>
         /// <returns>Http response message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage Delete(int projectId, int employeeId)
         {
             var deleteMemberCriteria = new DeleteMemberCriteria()

@@ -17,6 +17,7 @@ namespace NexEPA.Web.Attributes
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Web.Models;
 
     /// <summary>
@@ -24,6 +25,36 @@ namespace NexEPA.Web.Attributes
     /// </summary>
     public class ApiAuthorizeAttribute : AuthorizeAttribute
     {
+        private string _functionKey;
+
+        private Policy _policy;
+
+        public string FunctionKey
+        {
+            get 
+            {
+                return _functionKey != null ? _functionKey : string.Empty;
+            }
+
+            set
+            {
+                _functionKey = value;
+            }
+        }
+
+        public Policy Policy
+        {
+            get
+            {
+                return _policy;
+            }
+
+            set
+            {
+                _policy = value;
+            }
+        }
+
         /// <summary>
         /// Authorization event handler.
         /// </summary>
@@ -90,14 +121,16 @@ namespace NexEPA.Web.Attributes
         /// <param name="currentUser">The current user.</param>
         private void CheckUserPermission(HttpActionContext actionContext, UserSession currentUser)
         {
-            Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
-            foreach (AuthorizeAttribute item in attributes)
+            if (currentUser != null)
             {
-                if (!string.IsNullOrWhiteSpace(item.Roles)
-                    && currentUser != null
-                    && !currentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
+
+                foreach (ApiAuthorizeAttribute item in attributes)
                 {
-                    HandlePermissionRequest(actionContext);
+                    if (!currentUser.HasPermissionOnFunction(item.FunctionKey, item.Policy))
+                    {
+                        HandlePermissionRequest(actionContext);
+                    }
                 }
             }
         }

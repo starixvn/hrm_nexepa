@@ -13,6 +13,8 @@ namespace NexEPA.Controllers.API
     using System.Collections.Generic;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
     using NexEPA.KPI.Criteria.KPIGroup;
@@ -43,7 +45,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPIGroup, Policy = Policy.Read)]
         public List<KPIGroupViewModel> GetAll(int? targetTypeId = null, bool? isDisabled = null)
         {
             var criteria = new GetAllKPIGroupCriteria
@@ -56,7 +58,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPIGroup, Policy = Policy.Read)]
         public KPIGroupViewModel GetGroupById(int id)
         {
             var criteria = new GetKPIGroupByIdCriteria
@@ -67,7 +69,7 @@ namespace NexEPA.Controllers.API
             return _kpiGroupServices.GetKPIGroupById(criteria);
         }
 
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPIGroup, Policy = Policy.Host)]
         public CommandResult Post(InsertKPIGroupCriteria criteria)
         {
             if (criteria != null)
@@ -79,8 +81,8 @@ namespace NexEPA.Controllers.API
             return _kpiGroupServices.InsertKPIGroup(criteria);
         }
 
-        [ApiAuthorize(Roles = "SA")]
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPIGroup, Policy = Policy.Host)]
         public CommandResult Put(UpdateKPIGroupCriteria criteria)
         {
             if (criteria != null)
@@ -97,7 +99,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="id">The KPI Group ID.</param>
         /// <returns>Command Result.</returns>
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPIGroup, Policy = Policy.Host)]
         public CommandResult Delete(int id)
         {
             var criteria = new DeleteKPIGroupCriteria
@@ -121,6 +123,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPIGroup, Policy = Policy.Host)]
         public CommandResult UpdateKPIGroupStatus(UpdateKPIGroupStatusCriteria criteria)
         {
             if (criteria != null)

@@ -13,6 +13,8 @@ namespace NexEPA.Controllers.API
     using System.Collections.Generic;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;
@@ -38,7 +40,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Read)]
         public List<KPIViewModel> ViewKPI(
             int? targetTypeId = null, 
             int? groupId = null, 
@@ -55,7 +57,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Read)]
         public KPIViewModel GetKPIById(int kpiId)
         {
             var criteria = new GetKPIByIdCriteria
@@ -66,7 +68,7 @@ namespace NexEPA.Controllers.API
             return _kpiServices.GetKPIById(criteria);
         }
 
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Host)]
         public CommandResult Post(InsertKPICriteria criteria)
         {
             if (criteria != null)
@@ -78,8 +80,8 @@ namespace NexEPA.Controllers.API
             return _kpiServices.InsertKPI(criteria);
         }
 
-        [ApiAuthorize(Roles = "SA")]
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Host)]
         public CommandResult Put(UpdateKPICriteria criteria)
         {
             if (criteria != null)
@@ -91,7 +93,7 @@ namespace NexEPA.Controllers.API
             return _kpiServices.UpdateKPI(criteria);
         }
 
-        [ApiAuthorize(Roles = "SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Host)]
         public CommandResult Delete(int kpiId)
         {
             var criteria = new DeleteKPICriteria
@@ -104,8 +106,8 @@ namespace NexEPA.Controllers.API
             return _kpiServices.DeleteKPI(criteria);
         }
 
-        [ApiAuthorize(Roles = "SA")]
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Host)]
         public CommandResult UpdateKPIStatus(UpdateKPIStatusCriteria criteria)
         {
             if (criteria != null)

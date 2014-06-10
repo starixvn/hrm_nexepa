@@ -17,6 +17,8 @@ namespace NexEPA.Controllers.API
     using System.Text.RegularExpressions;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Criteria;
@@ -56,6 +58,7 @@ namespace NexEPA.Controllers.API
         /// <param name="status">Project Status.</param>
         /// <param name="period">Project Period.</param>
         /// <returns>List Project Model.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
         public List<ProjectInformationModel> Get(int? projectManager = null, int? status = null, int? period = null)
         {
             List<ProjectInformationModel> projects = null;
@@ -83,7 +86,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage AddProject(ProjectModel project)
         {
             if (ModelState.IsValid)
@@ -120,7 +123,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="project">Project Model.</param>
         /// <returns>Http Message Response.</returns>
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage Put(ProjectModel project)
         {
             if (ModelState.IsValid)
@@ -158,7 +161,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Project Information Model.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage UpdateProjectStatus(ProjectInformationModel model)
         {
             var updateProjectStatusCriteria = new UpdateProjectStatusCriteria
@@ -184,7 +187,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="projectId">Project Id.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage DeleteProject(int projectId)
         {
             var deleteProjectCriteria = new DeleteProjectCriteria
@@ -205,6 +208,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
         public ProjectModel GetProjectById(int projectId)
         {
             var getProjectByIdCriteria = new GetProjectByIdCriteria

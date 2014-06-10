@@ -12,6 +12,8 @@ namespace NexEPA.Web.Models
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using NexEPA.Authority.Models;
+    using NexEPA.Core.Enums;
 
     /// <summary>
     /// Current Session.
@@ -32,6 +34,8 @@ namespace NexEPA.Web.Models
         public int EmployeeLevelId { get; set; }
 
         public IList<UserRole> Roles { get; set; }
+
+        public IList<FunctionModel> Functions { get; set; }
 
         public bool IsDisabled { get; set; }
 
@@ -55,6 +59,34 @@ namespace NexEPA.Web.Models
 
             string[] userRoles = System.Web.Security.Roles.GetRolesForUser();
             return roles.Any(role => userRoles.Contains(role));
+        }
+
+        /// <summary>
+        /// Check current user has permission on current function.
+        /// </summary>
+        /// <param name="functionKey">The function key.</param>
+        /// <param name="policy">THe policy.</param>
+        /// <returns>True if has permission, false: otherwise.</returns>
+        public bool HasPermissionOnFunction(string functionKey, Policy policy)
+        {
+            FunctionModel currentFunction = Functions.Where(func => func.FunctionKey.Equals(functionKey)).FirstOrDefault();
+
+            if (currentFunction != null)
+            {
+                switch (policy)
+                {
+                    case Policy.None:
+                        return true;
+
+                    case Policy.Read:
+                        return currentFunction.IsRead || currentFunction.IsHost;
+
+                    case Policy.Host:
+                        return currentFunction.IsHost;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace NexEPA.Controllers.API
 {
     using System;
     using System.Web.Http;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Models.EmployeePerformanceTendency;
@@ -37,7 +39,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
-        [ApiAuthorize(Roles = "PM,SA,Leader")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
         public EmployeePerformanceModel GetEmployeePerformanceTendencyReport(int employeeId)
         {
             var criteria = new GetEmployeePerformanceTendencyReportCriteria
@@ -59,7 +61,7 @@ namespace NexEPA.Controllers.API
         /// <param name="projectId">The project ID.</param>
         /// <returns>The Report Employee Performance By Team Model.</returns>
         [HttpGet]
-        [ApiAuthorize(Roles = "PM,SA,Leader")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamReport, Policy = Policy.Read)]
         public TeamPerformanceModel GetEmployeePerformanceByTeamReport(
             DateTime fromDate,
             DateTime toDate,

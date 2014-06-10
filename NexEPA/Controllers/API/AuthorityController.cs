@@ -17,6 +17,9 @@ namespace NexEPA.Controllers.API
     using NexEPA.Authority.Models;
     using NexEPA.Authority.Services.Implement;
     using NexEPA.Authority.Services.Interface;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -37,6 +40,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAuthority, Policy = Policy.Read)]
         public IEnumerable<FunctionModel> GetFunctionByRole(int roleId)
         {
             var criteria = new GetFunctionByRoleCriteria()
@@ -56,6 +60,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpPost]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAuthority, Policy = Policy.Host)]
         public CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria)
         {
             if (criteria != null)

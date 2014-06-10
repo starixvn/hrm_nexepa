@@ -12,6 +12,7 @@ namespace NexEPA.Web.Repositories.Impl
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Authority.Models;
     using NexEPA.Web.Models;
     using NexEPA.Web.Repositories.Interfaces;
 
@@ -33,6 +34,7 @@ namespace NexEPA.Web.Repositories.Impl
                 {
                     UserSession user = multi.Read<UserSession>().FirstOrDefault();
                     user.Roles = multi.Read<UserRole>().ToList();
+                    user.Functions = multi.Read<FunctionModel>().ToList();
 
                     return user;
                 }

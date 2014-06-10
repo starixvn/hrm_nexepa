@@ -67,6 +67,10 @@
     <Compile Include="Services\Interfaces\ICommonService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NexEPA.Authority\NexEPA.Authority.csproj">
+      <Project>{612DA4C6-D37E-4A4C-A1CE-2789456AFB16}</Project>
+      <Name>NexEPA.Authority</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
       <Name>NexEPA.Core</Name>

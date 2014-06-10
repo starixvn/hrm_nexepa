@@ -15,10 +15,13 @@ namespace NexEPA.Controllers.API
     using System.Net;
     using System.Net.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
+    using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
     /// <summary>
@@ -43,6 +46,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="projectId">Project id.</param>
         /// <returns>List Milestone Model.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
         public IEnumerable<MilestoneModel> GetMilestones(int projectId)
         {
             IEnumerable<MilestoneModel> result = null;
@@ -65,6 +69,7 @@ namespace NexEPA.Controllers.API
         /// <param name="request">Http Request Message.</param>
         /// <param name="milestone">Milestone Model.</param>
         /// <returns>Http Message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage POST(HttpRequestMessage request, MilestoneModel milestone)
         {
             if (ModelState.IsValid)
@@ -100,6 +105,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="milestoneId">Milestone Id.</param>
         /// <returns>Http message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage DELETE(int milestoneId)
         {
             if (milestoneId > 0)
@@ -131,6 +137,7 @@ namespace NexEPA.Controllers.API
         /// <param name="request">Http request message.</param>
         /// <param name="milestone">Milestone model.</param>
         /// <returns>Http message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
         public HttpResponseMessage PUT(HttpRequestMessage request, MilestoneModel milestone)
         {
             if (ModelState.IsValid)
