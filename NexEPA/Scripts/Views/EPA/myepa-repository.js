@@ -29,7 +29,8 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		getEPAOfCurrentMember: function (projectId, status) {
 			var deferred = $q.defer();
 			$http.get('/api/EmployeeEPA/GetEPAOfCurrentMember',
-					{ params: { projectId: projectId,
+					{ params: { 
+						projectId: projectId,
 						status: status
 					}
 					}).success(deferred.resolve).error(deferred.reject);

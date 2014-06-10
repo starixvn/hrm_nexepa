@@ -7,12 +7,21 @@
 	</ul>
 </div>
 <div class="col-sm-12">
-	<div class="col-sm-4">
-		<div data-angular-treeview="true" data-tree-id="departmentTree" data-tree-model="department"
-			data-node-id="departmentId" data-node-label="name" data-node-children="children"
-			class="childrenList tree">
-			
-		</div>
+	<div class="col-sm-4 tree">
+		<ul>
+			<li><span><i class="company-root glyphicon glyphicon-globe" ng-click="treeEvent()"></i>
+			</span>
+				<a href="javascript:;" ng-click="viewDetails(department[0])" ng-context-menu="menuOptions(department[0])">
+					{{department[0].name}}</a>
+				<ul>
+					<li ng-repeat="data in department[0].children" ng-include src="'/Templates/Organization/Department/TreeTemplate.html'">
+						<span><i class="glyphicon glyphicon-chevron-right" ng-click="treeEvent()"></i></span>
+						<a href="javascript:;" ng-click="viewDetails(data)" ng-context-menu="menuOptions(data)">
+							{{data.name}}</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
 	</div>
 	<div class="col-sm-8" ng-show="addMode">
 		<div class="row">
@@ -96,7 +105,8 @@
 					<select ng-disabled="isDisabled" class="form-control" ng-model="detailsNode.parentId"
 						required>
 						<option style="display: none" value="">-- Select a Parent Node --</option>
-						<option ng-repeat="dept in departments" value="{{dept.departmentId}}">{{dept.name}}</option>
+						<option ng-repeat="dept in departments" value="{{dept.departmentId}}" ng-hide="hideChildNode(dept) || dept.departmentId == detailsNode.departmentId">
+							{{dept.name}}</option>
 					</select>
 				</div>
 			</div>

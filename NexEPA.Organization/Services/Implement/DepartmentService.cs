@@ -67,5 +67,17 @@ namespace NexEPA.Organization.Services.Implement
 
             return result;
         }
+
+        public CommandResult DeleteDepartment(DeleteDepartmentCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this._Repository.Delete(criteria);
+            }
+
+            return result;
+        }
     }
 }

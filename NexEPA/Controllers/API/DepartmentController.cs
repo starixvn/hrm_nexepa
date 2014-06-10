@@ -14,6 +14,7 @@ namespace NexEPA.Controllers.API
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Web.Mvc;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Organization.Criteria;
     using NexEPA.Organization.Models;
@@ -117,6 +118,30 @@ namespace NexEPA.Controllers.API
             {
                 var errorMessage = new List<string>() { result.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Delete Node.
+        /// </summary>
+        /// <param name="departmentId">Department Id.</param>
+        /// <returns>Http Response Message.</returns>
+        public HttpResponseMessage Delete(int departmentId)
+        {
+            var deleteDepartmentCriteria = new DeleteDepartmentCriteria()
+            {
+                DepartmentId = departmentId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            CommandResult result = _departmentService.DeleteDepartment(deleteDepartmentCriteria);
+            if (result.Code != 0)
+            {
+                var errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);

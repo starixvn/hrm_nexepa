@@ -25,5 +25,7 @@ namespace NexEPA.Organization.Services.Interface
         CommandResult AddDepartment(AddDepartmentCriteria criteria);
 
         CommandResult UpdateDepartment(UpdateDepartmentCriteria criteria);
+
+        CommandResult DeleteDepartment(DeleteDepartmentCriteria criteria);
     }
 }

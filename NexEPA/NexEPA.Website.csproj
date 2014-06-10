@@ -313,6 +313,7 @@
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\Logout.html" />
     <Content Include="Templates\Organization\Department\Index.html" />
+    <Content Include="Templates\Organization\Department\TreeTemplate.html" />
     <Content Include="Templates\Target\TargetKPI.html" />
     <Content Include="Templates\Test\LoginAsAnotherUser.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />

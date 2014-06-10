@@ -82,10 +82,10 @@ registrationModule.directive('treeModel', ['$compile', function ($compile) {
 			var treeModel = attrs.treeModel;
 
 			//node id
-			var nodeId = attrs.nodeId || 'id' || 'departmentId';
+			var nodeId = attrs.nodeId || 'id';
 
 			//node label
-			var nodeLabel = attrs.nodeLabel || 'label' ||'name';
+			var nodeLabel = attrs.nodeLabel || 'label';
 
 			//children
 			var nodeChildren = attrs.nodeChildren || 'children';
@@ -102,8 +102,8 @@ registrationModule.directive('treeModel', ['$compile', function ($compile) {
 							+ treeId + '.selectNodeHead(node)"></i>' + '<i class="normal" data-ng-hide="node.'
 							+ nodeChildren + '.length"></i> ' +
 							'<span data-ng-class="node.selected" data-ng-click="'
-							+ treeId + '.selectNodeLabel(node)"><a href="javascript:;" ng-click="viewDetails(node)" ng-context-menu="menuOptions(node)">'
-							+ '{{node.' + nodeLabel + '}}</a></span>' +
+							+ treeId + '.selectNodeLabel(node)">'
+							+ '{{node.' + nodeLabel + '}}</span>' +
 							'<div data-ng-hide="!node.collapsed" data-tree-id="'
 							+ treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id='
 							+ nodeId + ' data-node-label=' + nodeLabel + ' data-node-children='

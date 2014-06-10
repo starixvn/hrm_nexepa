@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\AddDepartmentCriteria.cs" />
+    <Compile Include="Criteria\DeleteDepartmentCriteria.cs" />
     <Compile Include="Criteria\GetAllDepartmentCriteria.cs" />
     <Compile Include="Criteria\UpdateDepartmentCriteria.cs" />
     <Compile Include="Models\DepartmentModel.cs" />

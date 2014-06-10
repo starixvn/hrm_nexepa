@@ -120,5 +120,6 @@
 		</Setting>
 		<Setting Key="Department_Insert" SpName="Department_Insert" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Department_Update" SpName="Department_Update" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Department_Delete" SpName="Department_Delete" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 </Functions>

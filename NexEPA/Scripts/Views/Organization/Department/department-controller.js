@@ -2,12 +2,13 @@
 'use strict';
 
 departmentModule.controller("ManageDepartmentController",
-['$scope', '$window', 'departmentDataFactory', 'notificationFactory', 'projectDataFactory', 'commonFactory',
-function ($scope, $window, departmentDataFactory, notificationFactory, projectDataFactory, commonFactory) {
+['$scope', '$window', '$modal', 'departmentDataFactory', 'notificationFactory', 'projectDataFactory', 'commonFactory', 'ErrorService',
+function ($scope, $window, $modal, departmentDataFactory, notificationFactory, projectDataFactory, commonFactory, ErrorService) {
 	/**
 	* Scope Variable. 
 	*/
 	var selectedNode;
+	$scope.hasTreeEvent = false;
 	var departmentValid = function (code, name, managerId) {
 		var error = $("#departmentValid");
 		if (code !== "" && name !== "" && managerId > 0) {
@@ -21,10 +22,22 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 	var resetCurrentData = function () {
 		$scope.addMode = false;
 		$scope.editMode = false;
+		$scope.hasTreeEvent = false;
 		$scope.newNode = {};
 		$scope.detailsNode = {};
 		$scope.selectedNode = {};
 		$("#txtManager").val(null);
+	};
+
+	// find Child of a Node
+	var findChild = function (data) {
+		$.each(data.children, function (i) {
+			var currentItem = data.children[i];
+			if (currentItem != null) {
+				$scope.exclusiveItem.push(currentItem.departmentId);
+				findChild(currentItem);
+			}
+		});
 	};
 
 	/**
@@ -50,6 +63,25 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 	};
 
 	var errorAddNode = function (response) { notificationFactory.error('', response); };
+
+	var successDeleteNode = function (response) {
+		if (response.data !== "") {
+			notificationFactory.error('', response.data);
+		}
+		else {
+			notificationFactory.success('SuccessSaveData', '');
+		}
+		departmentDataFactory.getAllDepartment().then(successGetAllDepartment, errorNotification);
+	};
+
+	var errorDeleteNode = function (response) {
+		if (response.status === 405) {
+			ErrorService.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
+	};
 
 	/**
 	* Initialize data to view Index.
@@ -90,8 +122,23 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 					$scope.addMode = true;
 					$scope.editMode = false;
 				} ],
-				['Delete', function ($itemScope) {
-					$scope.player.gold += $itemScope.item.cost;
+				['Delete', function () {
+					var deleteModalInstance = $modal.open({
+						templateUrl: '/templates/Common/ModalConfirmContent.html',
+						controller: "ModalConfirmController",
+						resolve: {
+							name: function () {
+								return selectedNode.name;
+							},
+							action: function () {
+								return "delete node";
+							}
+						}
+					});
+					deleteModalInstance.result.then(function () {
+						departmentDataFactory.deleteDepartment(selectedNode.departmentId).then(successDeleteNode, errorDeleteNode);
+					});
+					
 				} ]
 			];
 	};
@@ -123,6 +170,17 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 
 	$scope.toggleEditMode = function () {
 		$scope.isDisabled = false;
+		$scope.exclusiveItem = [];
+		findChild($scope.detailsNode);
+	};
+
+	// check child node and hide it in dropdown list - screen Add.
+	$scope.hideChildNode = function (data) {
+		var check = $.inArray(data.departmentId, $scope.exclusiveItem);
+		if (check !== -1) {
+			return true;
+		}
+		return false;
 	};
 
 	$scope.editChild = function (detailsNode) {
@@ -134,4 +192,24 @@ function ($scope, $window, departmentDataFactory, notificationFactory, projectDa
 			departmentDataFactory.updateDepartment(model).then(successAddNode, errorAddNode);
 		}
 	};
+
+	$scope.treeEvent = function () {
+		if (!$scope.hasTreeEvent) {
+			$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+			$('.tree li.parent_li > span').on('click', function (e) {
+				var children = $(this).parent('li.parent_li').find(' > ul > li');
+				if (children.is(":visible")) {
+					children.hide('fast');
+					$(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus-sign').removeClass('glyphicon-chevron-right');
+				} else {
+					children.show('fast');
+					$(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-chevron-right').removeClass('glyphicon-plus-sign');
+				}
+				e.stopPropagation();
+			});
+			$scope.hasTreeEvent = true;
+		}
+
+	};
+
 } ]);

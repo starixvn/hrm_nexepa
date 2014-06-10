@@ -17,6 +17,17 @@ departmentModule.factory('departmentDataFactory', ['$http', '$q', function ($htt
 			var deferred = $q.defer();
 			$http.post('/api/Department/UpdateDepartment', model).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		deleteDepartment: function (departmentId) {
+			var deferred = $q.defer();
+			var response = {};
+			$http['delete']('/api/Department/', { params: { departmentId: departmentId} })
+			.success(function (data, status) {
+				deferred.resolve(response = { data: data, status: status });
+			}).error(function (data, status) {
+				deferred.reject(response = { data: data, status: status });
+			});
+			return deferred.promise;
 		}
 	};
 } ]);
