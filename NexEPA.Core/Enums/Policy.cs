@@ -17,19 +17,19 @@ namespace NexEPA.Core.Enums
     public enum Policy
     {
         /// <summary>
-        /// Open items.
+        /// None policy.
         /// </summary>
         [Description("None")]
         None = 0,
 
         /// <summary>
-        /// Open items.
+        /// Read policy.
         /// </summary>
         [Description("Read")]
         Read = 1,
 
         /// <summary>
-        /// Closed item.
+        /// Host policy.
         /// </summary>
         [Description("Host")]
         Host = 2,

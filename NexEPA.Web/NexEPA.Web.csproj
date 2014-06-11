@@ -56,6 +56,8 @@
     <Compile Include="Attributes\ApiAuthorizeAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Criteria\GetEmployeeByDomainUsernameCriteria.cs" />
+    <Compile Include="Models\MenuGroup.cs" />
+    <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\SessionManager.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\UserSession.cs" />

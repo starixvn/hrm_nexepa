@@ -37,6 +37,10 @@ namespace NexEPA.Web.Models
 
         public IList<FunctionModel> Functions { get; set; }
 
+        public IList<MenuItem> MenuItems { get; set; }
+
+        public IList<MenuGroup> MenuGroups { get; set; }
+
         public bool IsDisabled { get; set; }
 
         public bool HasRole(short roleId)

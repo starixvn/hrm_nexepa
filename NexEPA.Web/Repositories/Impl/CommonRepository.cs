@@ -35,6 +35,7 @@ namespace NexEPA.Web.Repositories.Impl
                     UserSession user = multi.Read<UserSession>().FirstOrDefault();
                     user.Roles = multi.Read<UserRole>().ToList();
                     user.Functions = multi.Read<FunctionModel>().ToList();
+                    user.MenuItems = multi.Read<MenuItem>().ToList();
 
                     return user;
                 }
