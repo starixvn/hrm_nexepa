@@ -14,9 +14,10 @@ namespace NexEPA.Controllers.API
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
-    using System.Text;
     using System.Web.Http;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
@@ -47,7 +48,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">EPA Info Model.</param>
         /// <returns>Http Response.</returns>
-        [ApiAuthorize(Roles = "PM,SA")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMemberEPA, Policy = Policy.Host)]
         [HttpPost]
         public HttpResponseMessage AddEmployeeEPA(EPAInfoModel model)
         {
@@ -79,6 +80,7 @@ namespace NexEPA.Controllers.API
         /// <param name="targetId">Target id.</param>
         /// <param name="employeeId">Employee id.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMyEPA, Policy = Policy.Read)]
         public HttpResponseMessage GetMyEPA(int targetId, int employeeId)
         {
             int currentUserId = this.CurrentUser.UserId;
@@ -105,7 +107,7 @@ namespace NexEPA.Controllers.API
         /// <param name="targetId">Target Id.</param>
         /// <param name="employeeId">Employee Id.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "PM,SA,Leader")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMemberEPA, Policy = Policy.Read)]
         public HttpResponseMessage GetEmployeeEPA(int targetId, int employeeId)
         {
             EPAInfoModel epaInfo = null;
@@ -133,6 +135,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMyEPA, Policy = Policy.Read)]
         public List<MemberEPAModel> GetEPAOfCurrentMember(int? projectId = null, int? status = null)
         {
             var criteria = new GetEPAByEmployeeCriteria
@@ -153,7 +156,7 @@ namespace NexEPA.Controllers.API
         /// <param name="status">The status.</param>
         /// <param name="employeeId">The employee id.</param>
         /// <returns>The list Member EPA Model.</returns>
-        [ApiAuthorize(Roles = "PM,SA,Leader")]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMemberEPA, Policy = Policy.Read)]
         [HttpGet]
         public List<MemberEPAModel> GetEPAOfEmployeeByManager(
             int? targetId = null,
@@ -178,6 +181,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">EPA Information Model.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMemberEPA, Policy = Policy.Host)]
         public HttpResponseMessage UpdateEPAStatus(EPAInfoModel model)
         {
             var updateEPAStatusCriteria = new UpdateEPAStatusCriteria()

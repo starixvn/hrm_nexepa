@@ -44,7 +44,6 @@ namespace NexEPA.Controllers.API
         /// Method Get All Department.
         /// </summary>
         /// <returns>Tuple List Department.</returns>
-        [ApiAuthorize(Roles = "SA")]
         public Tuple<List<DepartmentModel>, List<DepartmentModel>> GetAllDeparment()
         {
             List<DepartmentModel> treeList = null;
@@ -64,7 +63,6 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Department Model.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage AddDepartment(DepartmentModel model)
         {
             if (ModelState.IsValid)
@@ -98,7 +96,6 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Department Model.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "SA")]
         public HttpResponseMessage UpdateDepartment(DepartmentModel model)
         {
             var updateDepartment = new UpdateDepartmentCriteria()

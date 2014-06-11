@@ -164,6 +164,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetEmployeeByTargetId(int targetId)
         {
             var criteria = new GetAllEmployeeByTargetIdCriteria
@@ -208,6 +209,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
         public List<TargetKPIGroupModel> GetKPIByTargetId(int targetId, int? groupId = null)
         {
             var criteria = new GetKPIByTargetIdCriteria
@@ -232,6 +234,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
         public IEnumerable<dynamic> GetKPIGroupByTargetId(int targetId)
         {
             var criteria = new GetKPIGroupByTargetIdCriteria
@@ -243,6 +246,7 @@ namespace NexEPA.Controllers.Target
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
         public IEnumerable<TargetFilterModel> GetTargetToFilter()
         {
             var criteria = new GetTargetToFilterCriteria
