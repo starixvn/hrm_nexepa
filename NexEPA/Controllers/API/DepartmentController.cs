@@ -16,14 +16,14 @@ namespace NexEPA.Controllers.API
     using System.Net.Http;
     using System.Web.Mvc;
     using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
     using NexEPA.Organization.Criteria;
     using NexEPA.Organization.Models;
     using NexEPA.Organization.Services.Implement;
     using NexEPA.Organization.Services.Interface;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
-    using NexEPA.Core.Constants;
-    using NexEPA.Core.Enums;
 
     /// <summary>
     /// Department Controller.
