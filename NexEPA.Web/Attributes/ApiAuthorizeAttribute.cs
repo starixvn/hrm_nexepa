@@ -19,6 +19,7 @@ namespace NexEPA.Web.Attributes
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Web.Models;
+    using NexEPA.Web.Services.Impl;
 
     /// <summary>
     /// APIAuthorize Attribute.
@@ -28,6 +29,18 @@ namespace NexEPA.Web.Attributes
         private string _functionKey;
 
         private Policy _policy;
+
+        private CommonService _commonService;
+
+        public ApiAuthorizeAttribute()
+            : this(null)
+        {
+        }
+
+        public ApiAuthorizeAttribute(CommonService commonService)
+        {
+            _commonService = commonService ?? new CommonService();
+        }
 
         public string FunctionKey
         {
@@ -81,7 +94,7 @@ namespace NexEPA.Web.Attributes
                 if (HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
                 {
                     currentUser = SessionManager.CurrentUser;
-                    CheckUserPermission(actionContext, currentUser);
+                    CheckUserPermission(actionContext);
 
                     var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
                     actionContext.Response = responseMessage;
@@ -94,7 +107,7 @@ namespace NexEPA.Web.Attributes
 
             if (currentUser != null)
             {
-                CheckUserPermission(actionContext, currentUser);
+                CheckUserPermission(actionContext);
                 return;
             }
         }
@@ -118,19 +131,15 @@ namespace NexEPA.Web.Attributes
         /// Check user permission.
         /// </summary>
         /// <param name="actionContext">The action context.</param>
-        /// <param name="currentUser">The current user.</param>
-        private void CheckUserPermission(HttpActionContext actionContext, UserSession currentUser)
+        private void CheckUserPermission(HttpActionContext actionContext)
         {
-            if (currentUser != null)
-            {
-                Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
+            Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();
 
-                foreach (ApiAuthorizeAttribute item in attributes)
+            foreach (ApiAuthorizeAttribute item in attributes)
+            {
+                if (!_commonService.HasPermissionOnFunction(item.FunctionKey, item.Policy))
                 {
-                    if (!currentUser.HasPermissionOnFunction(item.FunctionKey, item.Policy))
-                    {
-                        HandlePermissionRequest(actionContext);
-                    }
+                    HandlePermissionRequest(actionContext);
                 }
             }
         }

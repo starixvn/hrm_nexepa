@@ -12,6 +12,8 @@ namespace NexEPA.Web.Services.Impl
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
+    using NexEPA.Authority.Models;
+    using NexEPA.Core.Enums;
     using NexEPA.Web.Criteria;
     using NexEPA.Web.Models;
     using NexEPA.Web.Repositories.Impl;
@@ -48,6 +50,35 @@ namespace NexEPA.Web.Services.Impl
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Check current user has permission on current function or not.
+        /// </summary>
+        /// <param name="functionKey">The function key.</param>
+        /// <param name="policy">THe policy.</param>
+        /// <returns>True if has permission, false: otherwise.</returns>
+        public bool HasPermissionOnFunction(string functionKey, Policy policy)
+        {
+            FunctionModel currentFunction = SessionManager.CurrentUser.Functions
+                                    .Where(func => func.FunctionKey.Equals(functionKey)).FirstOrDefault();
+
+            if (currentFunction != null)
+            {
+                switch (policy)
+                {
+                    case Policy.None:
+                        return true;
+
+                    case Policy.Read:
+                        return currentFunction.IsRead || currentFunction.IsHost;
+
+                    case Policy.Host:
+                        return currentFunction.IsHost;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
