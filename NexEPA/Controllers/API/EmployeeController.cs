@@ -62,6 +62,7 @@ namespace NexEPA.Controllers.API
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IList<SelectListModel> GetAllGroup()
         {
             var criteria = new GetAllEmployeeGroupCriteria();
@@ -78,6 +79,7 @@ namespace NexEPA.Controllers.API
         /// <param name="keyword">The keyword.</param>
         /// <returns>The enumerator Employee Model.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetEmployeeByProjectId(int? projectId = null, string keyword = "")
         {
             var criteria = new GetEmployeeByProjectIdCriteria
@@ -91,6 +93,7 @@ namespace NexEPA.Controllers.API
             return employees;
         }
 
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(string keyword = "")
         {
             var criteria = new GetAllEmployeeByCurrentUserIdCriteria

@@ -104,6 +104,7 @@ namespace NexEPA.Controllers.API
             return targetTemplate;
         }
 
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTargetTemplate, Policy = Policy.Read)]
         public IEnumerable<TargetTemplateKPIModel> GetSelectedKPIByTargetTemplate(int targetTemplateId)
         {
             IEnumerable<TargetTemplateKPIModel> selectedKPIs = null;
@@ -124,6 +125,7 @@ namespace NexEPA.Controllers.API
         /// <param name="targetTypeId">Target Type Id.</param>
         /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTargetTemplate, Policy = Policy.Read)]
         public List<TargetTemplateViewModel> GetKPI(
             bool onlySelected, 
             int? targetTemplateId = null, 
@@ -169,6 +171,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="targetTemplateId">TargetTemplate Id.</param>
         /// <returns>List KPIGroup Items.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTargetTemplate, Policy = Policy.Read)]
         public IEnumerable<KPIGroupModel> GetSelectedKPIGroupByTargetTemplate(int targetTemplateId)
         {
             var getSelectedKPIGroupCriteria = new GetSelectedKPIGroupCriteria() { TargetTemplateId = targetTemplateId };
