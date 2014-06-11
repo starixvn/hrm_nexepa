@@ -23,6 +23,9 @@ kpiSettingModule.factory('KPIGroupRepository', ['$http', function ($http) {
 		},
 		updateGroupStatus: function (group) {
 			return $http.put('/api/KPIGroup/UpdateKPIGroupStatus', group);
+		},
+		getPermission: function () {
+			return $http.get('/api/KPIGroup/GetPermission');
 		}
 	};
 } ]);

@@ -21,6 +21,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Enums;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Services.Impl;
+    using NexEPA.Web.Services.Interfaces;
 
     /// <summary>
     /// The Authority Controller.
@@ -29,14 +31,17 @@ namespace NexEPA.Controllers.API
     {
         private IAuthorityService _authorityService;
 
+        private ICommonService _commonService;
+
         public AuthorityController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public AuthorityController(IAuthorityService authorityService) 
+        public AuthorityController(IAuthorityService authorityService, ICommonService commonService) 
         {
             _authorityService = authorityService ?? new AuthorityService();
+            _commonService = commonService ?? new CommonService();
         }
 
         [HttpGet]
@@ -70,6 +75,18 @@ namespace NexEPA.Controllers.API
             }
 
             return _authorityService.AssignPermissionToRole(criteria);
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAuthority, Policy = Policy.Read)]
+        public int GetPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageAuthority);
+            return policy;
         }
     }
 }

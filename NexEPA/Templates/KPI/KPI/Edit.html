@@ -22,28 +22,31 @@
         <div class="form-group required">
             <label class="col-sm-2 control-label" data-translate="Title"></label>
             <div class="col-sm-10">
-                <input type="text" maxlength="500" name="itemName" ng-model="item.name" required class="form-control" />
+                <input type="text" maxlength="500" name="itemName" ng-model="item.name" required 
+                    class="form-control" ng-disabled="permission.policy == 1"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" data-translate="Description"></label>
             <div class="col-sm-10">
-                <textarea ng-model="item.description" class="form-control"></textarea>
+                <textarea ng-model="item.description" class="form-control" ng-disabled="permission.policy == 1"></textarea>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="checkbox" ng-checked="item.hasComment" ng-model="item.hasComment" />
+                <input type="checkbox" ng-checked="item.hasComment" ng-model="item.hasComment" ng-disabled="permission.policy == 1"/>
                 <span data-translate="HasComment"></span>
                 <input class="KPI-require-comment" type="checkbox" ng-checked="item.isRequireComment" 
-                    ng-model="item.isRequireComment" ng-disabled="!item.hasComment"/> 
+                    ng-model="item.isRequireComment" ng-disabled="!item.hasComment || permission.policy == 1" /> 
                 <span data-translate="RequireComment"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button class="button" ng-click="save(item)" ng-disabled="disabledSubmitButton" data-translate="Save"></button>
-                <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+                <button class="button" ng-click="save(item)" ng-disabled="disabledSubmitButton" data-translate="Save" ng-if="permission.policy == 2">
+                </button>
+                <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+                </button>
             </div>
         </div>
     </form>

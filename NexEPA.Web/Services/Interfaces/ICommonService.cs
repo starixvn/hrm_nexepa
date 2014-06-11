@@ -18,5 +18,7 @@ namespace NexEPA.Web.Services.Interfaces
         UserSession GetUserByDomainUsername(GetEmployeeByDomainUsernameCriteria criteria);
 
         bool HasPermissionOnFunction(string functionKey, Policy policy);
+
+        int GetPermission(string functionKey);
     }
 }

@@ -1,10 +1,10 @@
 ﻿<div class="align-center" ng-if="!data.parentFunctionId">
     <input id="funcRead{{data.functionId}}" name="funcRead" value="{{data.functionId}}" pid="{{data.parentFunctionId}}" 
-            ng-model="data.isRead" assign-permission type="checkbox" />
+            ng-model="data.isRead" assign-permission type="checkbox" ng-disabled="policy.policy == 1" />
 </div>
 
 <input id="funcRead{{data.functionId}}" name="funcRead" value="{{data.functionId}}" pid="{{data.parentFunctionId}}" 
-        ng-model="data.isRead" assign-permission type="checkbox" ng-if="data.parentFunctionId"/>
+        ng-model="data.isRead" assign-permission type="checkbox" ng-if="data.parentFunctionId" ng-disabled="policy.policy == 1"/>
 
 <div class="child-check-box" ng-repeat="data in data.childFunctions" 
      ng-include src="'/Templates/Authority/TreeReadCheckbox.html'">

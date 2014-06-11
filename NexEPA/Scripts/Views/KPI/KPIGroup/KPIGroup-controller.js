@@ -2,13 +2,31 @@
 /*global kpiSettingModule*/
 
 // View KPI Group
-kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', '$route',
-'$modal', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
-	function ($scope, $location, $route, $modal, KPIGroupRepository, KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
+kpiSettingModule.controller("GetAllKPIGroupController", ['$scope', '$location', '$route', '$modal',
+'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
+'KPIRepository',
+function ($scope, $location, $route, $modal, KPIGroupRepository, KPICommonRepository, commonFactory,
+notificationFactory, ErrorService, KPIRepository) {
 		$scope.filter = {
 			targetTypeId: "",
 			active: ""
 		};
+
+		KPIGroupRepository.getPermission().success(function (policy) {
+			$scope.permission = {
+				policy : policy
+			};
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+
+		KPIRepository.getPermission().success(function (policy) {
+			$scope.permissionKPI = {
+				policy: policy
+			};
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
 
 		KPICommonRepository.getFormOptionsExceptAll().then(function (listTargetType) {
 			$scope.formOptions = listTargetType;
@@ -253,6 +271,14 @@ function ($scope, $location, $timeout, $translate, $window, KPIGroupRepository, 
 	function ($scope, $location, $routeParams, $timeout, $route, $translate, $window, KPIGroupRepository,
 	KPICommonRepository, notificationFactory, ErrorService) {
 		var groupId = parseInt($routeParams.id);
+
+		KPIGroupRepository.getPermission().success(function (policy) {
+			$scope.permission = {
+				policy: policy
+			};
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
 
 		KPIGroupRepository.getGroupById(groupId).success(function (group) {
 			$scope.editGroup = group;

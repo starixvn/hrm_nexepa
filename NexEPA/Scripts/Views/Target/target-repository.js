@@ -2,55 +2,58 @@
 /*global targetModule*/
 
 targetModule.factory('targetFactory', ['$http', function ($http) {
-    return {
-        getTarget: function (targetTypeId, startDate, endDate) {
-            return $http.get('/api/Target/GetTarget',
+	return {
+		getTarget: function (targetTypeId, startDate, endDate) {
+			return $http.get('/api/Target/GetTarget',
 				{ params: { targetTypeId: targetTypeId, startDate: startDate, endDate: endDate} });
-        },
-        getTargetById: function (targetId) {
-            return $http.get('/api/Target/GetTargetById', { params: { targetId: targetId} });
-        },
-        createTarget: function (target) {
-            return $http.post('/api/Target/InsertTarget', target);
-        },
-        editTarget: function (target) {
-            return $http.put('/api/Target/Put', target);
-        },
-        updateTargetStatus: function (targetStatus) {
-            return $http.put('/api/Target/UpdateStatus', targetStatus);
-        },
-        deleteTarget: function (targetId) {
-            return $http['delete']('/api/Target', { params: { targetId: targetId} });
-        },
-        getAllProject: function (projectId) {
-            return $http.get('/api/Core/GetAllProject', { params: { IncludeProjectId: projectId} });
-        },
-        getMilestoneOfProject: function (projectId) {
-            return $http.get('/api/Target/GetMilestoneByProjectId', { params: { projectId: projectId} });
-        },
-        getAllStatus: function () {
-            return $http.get('/api/Core/GetAllStatus');
-        },
-        getEmployeeByTargetId: function (targetId) {
-            return $http.get('/api/Target/GetEmployeeByTargetId', { params: { targetId: targetId} });
-        },
-        insertTargetEmployee: function (employee) {
-            return $http.post('/api/Target/InsertTargetEmployee', employee);
-        },
-        deleteTargetEmployee: function (targetId, employeeId) {
-            return $http['delete']('/api/Target/DeleteTargetEmployee',
+		},
+		getTargetById: function (targetId) {
+			return $http.get('/api/Target/GetTargetById', { params: { targetId: targetId} });
+		},
+		createTarget: function (target) {
+			return $http.post('/api/Target/InsertTarget', target);
+		},
+		editTarget: function (target) {
+			return $http.put('/api/Target/Put', target);
+		},
+		updateTargetStatus: function (targetStatus) {
+			return $http.put('/api/Target/UpdateStatus', targetStatus);
+		},
+		deleteTarget: function (targetId) {
+			return $http['delete']('/api/Target', { params: { targetId: targetId} });
+		},
+		getAllProject: function (projectId) {
+			return $http.get('/api/Core/GetAllProject', { params: { IncludeProjectId: projectId} });
+		},
+		getMilestoneOfProject: function (projectId) {
+			return $http.get('/api/Target/GetMilestoneByProjectId', { params: { projectId: projectId} });
+		},
+		getAllStatus: function () {
+			return $http.get('/api/Core/GetAllStatus');
+		},
+		getEmployeeByTargetId: function (targetId) {
+			return $http.get('/api/Target/GetEmployeeByTargetId', { params: { targetId: targetId} });
+		},
+		insertTargetEmployee: function (employee) {
+			return $http.post('/api/Target/InsertTargetEmployee', employee);
+		},
+		deleteTargetEmployee: function (targetId, employeeId) {
+			return $http['delete']('/api/Target/DeleteTargetEmployee',
 				{ params: { targetId: targetId, employeeId: employeeId} });
-        },
-        getKPIByTargetId: function (targetId, groupId) {
-            return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId} });
-        },
-        getProjectOrMilestoneDateById: function (projectId, miletoneId) {
-            return $http.get('/api/Target/GetProjectOrMilestoneDateById', { params: { projectId: projectId, milestoneId: miletoneId} });
-        },
-        getKPIGroupByTargetId: function (targetId) {
-            return $http.get('/api/Target/GetKPIGroupByTargetId', { params: { targetId: targetId} });
-        }
-    };
+		},
+		getKPIByTargetId: function (targetId, groupId) {
+			return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId} });
+		},
+		getProjectOrMilestoneDateById: function (projectId, miletoneId) {
+			return $http.get('/api/Target/GetProjectOrMilestoneDateById', { params: { projectId: projectId, milestoneId: miletoneId} });
+		},
+		getKPIGroupByTargetId: function (targetId) {
+			return $http.get('/api/Target/GetKPIGroupByTargetId', { params: { targetId: targetId} });
+		},
+		getPermission: function () {
+			return $http.get('/api/Target/GetPermission');
+		}
+	};
 } ]);
 
 targetModule.factory('targetCacheFactory', ['$cacheFactory', function ($cacheFactory) {

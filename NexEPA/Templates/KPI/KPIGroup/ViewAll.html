@@ -6,7 +6,7 @@
 			</li>
 			<li class="current" data-translate="ManageKPIGroup"></li>
 		</ul>
-		<div class="button-icon">
+		<div class="button-icon" ng-if="permission.policy == 2">
 			<span class="icon plus"></span>
 			<a href="" ng-click="create()" data-translate="CreateKPIGroup" ng-href={{createKPIGroupUrl}}></a>
 		</div>
@@ -70,7 +70,8 @@
 				<td class="KPI-form" ng-bind="group.form">
 				</td>
 				<td class="KPI-group-active">
-					<input type="checkbox" ng-checked="!group.isDisabled" ng-click="confirmActive(group)" />
+					<input type="checkbox" ng-checked="!group.isDisabled" ng-click="confirmActive(group)" ng-if="permission.policy == 2"/>
+                    <img class="ico-tick" ng-if="permission.policy == 1 && !group.isDisabled"/>
 				</td>
 				<td class="KPI-group-description">
 					{{group.description | limitTo:group.numLimit > 0 ? group.numLimit : maxLengthDescription}}
@@ -81,8 +82,10 @@
 				</td>
 				<td class="KPI-group-action">
 					<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(group.kpiGroupID)" ng-href={{editKPIGroupUrl}} />
-					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(group)" />
-					<a class="glyphicon glyphicon-plus icon-add" title="Add KPI" href="" ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" ng-href={{addKPIUrl}}/>
+					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(group)" 
+                        ng-if="permission.policy == 2"/>
+					<a class="glyphicon glyphicon-plus icon-add" title="Add KPI" ng-if="permissionKPI.policy == 2" href=""
+                        ng-click="addKPI(group.targetTypeId, group.kpiGroupID)" ng-href={{addKPIUrl}}/>
 				</td>
 			</tr>
 			<tr ng-show="KPIGroupList == ''">

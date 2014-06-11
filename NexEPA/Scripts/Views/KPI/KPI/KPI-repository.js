@@ -27,6 +27,9 @@ kpiSettingModule.factory('KPIRepository', ['$http', function ($http) {
 		},
 		updateKPIStatus: function (kpiItem) {
 			return $http.put('/api/KPI/UpdateKPIStatus', kpiItem);
+		},
+		getPermission: function () {
+			return $http.get('/api/KPI/GetPermission');
 		}
 	};
 } ]);

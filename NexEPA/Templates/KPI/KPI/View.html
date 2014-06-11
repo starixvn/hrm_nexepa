@@ -7,7 +7,7 @@
 		</span><span ng-show="!isViewAll && KPIList != ''">of "{{KPIList[0].kpiGroupNames[0]}}"</span>
 		</li>
 	</ul>
-	<div class="button-icon">
+	<div class="button-icon" ng-if="permission.policy == 2">
 		<span class="icon plus"></span>
 		<a href="" ng-click="create()" data-translate="CreateKPI" ng-href="{{createKPIUrl}}">
 		</a>
@@ -95,7 +95,8 @@
 					</div>
 				</td>
 				<td class="KPI-group-active">
-					<input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)" />
+					<input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)" ng-if="permission.policy == 2"/>
+                    <img class="ico-tick" ng-if="permission.policy == 1 && !item.isDisabled"/>
 				</td>
 				<td class="KPI-description">
 					{{item.description | limitTo:item.numLimit > 0 ? item.numLimit : maxLengthDescription}}
@@ -107,7 +108,7 @@
 				<td class="KPI-action">
 					<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"
 						ng-href="{{editKPIUrl}}" />
-					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
+					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" ng-if="permission.policy == 2"/>
 				</td>
 			</tr>
 		</tbody>
@@ -144,7 +145,8 @@
 				</div>
 			</td>
 			<td class="KPI-group-active">
-				<input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)" />
+				<input type="checkbox" ng-checked="!item.isDisabled" ng-click="confirmActive(item)" ng-if="permission.policy == 2"/>
+                <img class="ico-tick" ng-if="permission.policy == 1 && !item.isDisabled"/>
 			</td>
 			<td class="KPI-description">
 				{{item.description | limitTo:item.numLimit > 0 ? item.numLimit : maxLengthDescription}}
@@ -156,7 +158,7 @@
 			<td class="KPI-action">
 				<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(item.kpiId)"
 					ng-href="{{editKPIUrl}}" />
-				<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" />
+				<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(item)" ng-if="permission.policy == 2"/>
 			</td>
 		</tr>
 		<tr ng-show="KPIList == ''">

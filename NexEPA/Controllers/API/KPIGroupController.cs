@@ -23,6 +23,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Services.Impl;
+    using NexEPA.Web.Services.Interfaces;
 
     /// <summary>
     /// KPI Group Controller.
@@ -33,15 +35,21 @@ namespace NexEPA.Controllers.API
 
         private IEPAService _epaService;
 
+        private ICommonService _commonService;
+
         public KPIGroupController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public KPIGroupController(IKPIGroupService kpiGroupService, IEPAService epaService)
+        public KPIGroupController(
+            IKPIGroupService kpiGroupService, 
+            IEPAService epaService,
+            ICommonService commonService)
         {
             _kpiGroupServices = kpiGroupService ?? new KPIGroupService();
             _epaService = epaService ?? new EPAService();
+            _commonService = commonService ?? new CommonService();
         }
 
         [HttpGet]
@@ -133,6 +141,18 @@ namespace NexEPA.Controllers.API
             }
 
             return _kpiGroupServices.UpdateKPIGroupStatus(criteria);
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPIGroup, Policy = Policy.Read)]
+        public int GetPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageKPIGroup);
+            return policy;
         }
     }
 }

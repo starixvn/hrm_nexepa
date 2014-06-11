@@ -14,6 +14,14 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 			active: ""
 		};
 
+		KPIRepository.getPermission().success(function (policy) {
+			$scope.permission = {
+				policy : policy
+			};
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+
 		if (groupId) {
 			$scope.backToList = function () {
 				$window.history.back();
@@ -360,6 +368,14 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 	'$timeout', '$window', 'KPIRepository', 'KPICommonRepository', 'notificationFactory', 'ErrorService',
 	function ($scope, $routeParams, $location, $timeout, $window, KPIRepository, KPICommonRepository, notificationFactory, ErrorService) {
 		var kpiId = $routeParams.id;
+
+		KPIRepository.getPermission().success(function (policy) {
+			$scope.permission = {
+				policy: policy
+			};
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
 
 		KPIRepository.getKPIById(kpiId).success(function (kpiItem) {
 			$scope.item = kpiItem;

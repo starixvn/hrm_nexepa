@@ -4,7 +4,7 @@
             <li><a href="#" data-translate="Target" ng-click="reload()"></a></li>
             <li class="current" data-translate="ManageTarget"></li>
         </ul>
-        <div class="button-icon">
+        <div class="button-icon" ng-if="permission.policy == 2">
             <span class="icon plus"></span><a href="" ng-href={{createTargetUrl}} ng-click="create()" data-translate="CreateTarget">
             </a>
         </div>
@@ -72,7 +72,7 @@
                     <span ng-show="target.numberKPI === 0" ng-bind="0"></span>
                 </td>
                 <td>
-                    <span class="dropdown">
+                    <span class="dropdown" ng-if="permission.policy == 2">
                          <a class="dropdown-toggle changeStatus" href="" ng-bind="target.statusName">
                          </a>
                          <ul class="dropdown-menu dropdown-menu-width">
@@ -82,6 +82,7 @@
                             </li>
                          </ul>
                     </span>
+                    <span ng-if="permission.policy == 1" ng-bind="target.statusName"></span>
                 </td>
                 <td>
                     <a data-translate="MemberEPA" href="" ng-href={{viewMemberEPAUrl}} ng-click="viewMemberEPA(target.targetId)" title="View Member EPA"/>
@@ -90,7 +91,8 @@
                 <td class="text-center" ng-bind="target.endDate"></td>
                 <td class="action">
                     <a class="glyphicon glyphicon-edit icon-edit" title="Edit Target" href="" ng-click="edit(target)" ng-href={{editTargetUrl}}/>
-                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete Target" href="" ng-click="openDeletePopup(target)"/>
+                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete Target" href="" 
+                        ng-click="openDeletePopup(target)" ng-if="permission.policy == 2"/>
                 </td>
             </tr>
             <tr ng-show="targetList == ''">

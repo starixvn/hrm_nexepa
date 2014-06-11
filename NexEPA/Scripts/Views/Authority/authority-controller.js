@@ -10,6 +10,14 @@ function ($scope, $route, authorityRepository, notificationFactory, ErrorService
 		roleId: ''
 	};
 
+	authorityRepository.getPermission().success(function (policy) {
+		$scope.policy = {
+			policy : policy
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
 	authorityRepository.getAllSystemRole().success(function (roles) {
 		if (roles) {
 			var roleId = roles[0].roleId;

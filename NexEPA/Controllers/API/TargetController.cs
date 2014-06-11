@@ -29,6 +29,8 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Target.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Services.Impl;
+    using NexEPA.Web.Services.Interfaces;
 
     /// <summary>
     /// Target Controller.
@@ -36,19 +38,24 @@ namespace NexEPA.Controllers.Target
     public class TargetController : BaseController
     {
         private ITargetService _targetService;
+
         private IProjectService _projectService;
 
+        private ICommonService _commonService;
+
         public TargetController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public TargetController(
-            TargetService targetService, 
-            ProjectService projectService)
+            ITargetService targetService, 
+            IProjectService projectService,
+            ICommonService commonService)
         {
             _targetService = targetService ?? new TargetService();
             _projectService = projectService ?? new ProjectService();
+            _commonService = commonService ?? new CommonService();
         }
 
         /// <summary>
@@ -255,6 +262,18 @@ namespace NexEPA.Controllers.Target
             };
 
             return _targetService.GetTargetToFilter(criteria);
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
+        public int GetPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageTarget);
+            return policy;
         }
     }
 }

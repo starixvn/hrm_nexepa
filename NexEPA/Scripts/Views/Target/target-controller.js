@@ -7,6 +7,14 @@ targetModule.controller('ViewTargetController',
 	function ($scope, $location, $translate, $modal, $route,
 		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
 
+		targetFactory.getPermission().success(function (policy) {
+			$scope.permission = {
+				policy: policy
+			};
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+
 		// get Form Options
 		targetUtility.getFormOptions($scope, KPICommonRepository);
 

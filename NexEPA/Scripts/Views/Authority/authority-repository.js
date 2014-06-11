@@ -11,6 +11,9 @@ authorityModule.factory('authorityRepository', ['$http', function ($http) {
 		},
 		assignPermissionToRole: function (roleFunction) {
 			return $http.post('/api/Authority/AssignPermissionToRole', roleFunction);
+		},
+		getPermission: function () {
+			return $http.get('/api/Authority/GetPermission');
 		}
 	};
 } ]);

@@ -21,6 +21,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Services.Impl;
+    using NexEPA.Web.Services.Interfaces;
 
     /// <summary>
     /// KPI controller.
@@ -29,14 +31,17 @@ namespace NexEPA.Controllers.API
     {
         private readonly IKPIService _kpiServices;
 
+        private ICommonService _commonService;
+
         public KPIController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public KPIController(IKPIService kpiServices)
+        public KPIController(IKPIService kpiServices, ICommonService commonServices)
         {
             _kpiServices = kpiServices ?? new KPIService();
+            _commonService = commonServices ?? new CommonService();
         }
 
         [HttpGet]
@@ -117,6 +122,18 @@ namespace NexEPA.Controllers.API
             }
 
             return _kpiServices.UpdateKPIStatus(criteria);
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Read)]
+        public int GetPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageKPI);
+            return policy;
         }
     }
 }
