@@ -47,15 +47,15 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <returns>Tuple List Department.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageDepartment, Policy = Policy.Read)] 
-        public Tuple<List<DepartmentModel>, List<DepartmentModel>> GetAllDeparment()
+        public Tuple<DepartmentModel, List<DepartmentModel>> GetAllDeparment()
         {
-            List<DepartmentModel> treeList = null;
+            DepartmentModel treeList = null;
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
             List<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
             if (departments != null)
             {
-                treeList = new List<DepartmentModel>();
-                treeList.Add(departments.Where(x => x.ParentId == null).SingleOrDefault());
+                treeList = new DepartmentModel();
+                treeList.Children.Add(departments.Where(x => x.ParentId == null).SingleOrDefault());
             }
 
             return Tuple.Create(treeList, departments);

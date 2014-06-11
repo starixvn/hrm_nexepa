@@ -22,7 +22,6 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 	var resetCurrentData = function () {
 		$scope.addMode = false;
 		$scope.editMode = false;
-		$scope.hasTreeEvent = false;
 		$scope.newNode = {};
 		$scope.detailsNode = {};
 		$scope.selectedNode = {};
@@ -46,6 +45,8 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 	var successGetAllDepartment = function (data) {
 		$scope.department = data.item1;
 		$scope.departments = data.item2;
+		resetCurrentData();
+		$scope.hasTreeEvent = false;
 	};
 	var errorNotification = function (response) {
 		if (response != null) {
@@ -58,7 +59,6 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 
 	var successAddNode = function () {
 		notificationFactory.success('SuccessSaveData', '');
-		resetCurrentData();
 		departmentDataFactory.getAllDepartment().then(successGetAllDepartment, errorNotification);
 	};
 
@@ -101,7 +101,9 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 	};
 
 	// Cancel
-	$scope.cancel = function () { resetCurrentData(); };
+	$scope.cancel = function () {
+		resetCurrentData();
+	};
 
 	// show start date calendar when click button start date
 	$scope.openPopupStartDate = function ($event) {
@@ -138,7 +140,7 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 					deleteModalInstance.result.then(function () {
 						departmentDataFactory.deleteDepartment(selectedNode.departmentId).then(successDeleteNode, errorDeleteNode);
 					});
-					
+
 				} ]
 			];
 	};

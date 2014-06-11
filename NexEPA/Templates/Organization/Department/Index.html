@@ -7,21 +7,13 @@
 	</ul>
 </div>
 <div class="col-sm-12">
-	<div class="col-sm-4 tree">
-		<ul>
-			<li><span><i class="company-root glyphicon glyphicon-globe" ng-click="treeEvent()"></i>
-			</span>
-				<a href="javascript:;" ng-click="viewDetails(department[0])" ng-context-menu="menuOptions(department[0])">
-					{{department[0].name}}</a>
-				<ul>
-					<li ng-repeat="data in department[0].children" ng-include src="'/Templates/Organization/Department/TreeTemplate.html'">
-						<span><i class="glyphicon glyphicon-chevron-right" ng-click="treeEvent()"></i></span>
-						<a href="javascript:;" ng-click="viewDetails(data)" ng-context-menu="menuOptions(data)">
-							{{data.name}}</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
+	<div class="col-sm-4">
+		<div class="tree">
+			<ul>
+				<li ng-repeat="data in department.children" ng-include src="'/Templates/Organization/Department/TreeTemplate.html'">
+				</li>
+			</ul>
+		</div>
 	</div>
 	<div class="col-sm-8" ng-show="addMode">
 		<div class="row">
