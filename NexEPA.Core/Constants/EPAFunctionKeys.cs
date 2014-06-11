@@ -40,6 +40,10 @@ namespace NexEPA.Core.Constants
 
         public const string ManageAuthority = "ManageAuthority";
 
+        public const string ManageDepartment = "ManageDepartment";
+
+        public const string Organization = "Organization";
+
         public const string PersonReport = "PersonReport";
 
         public const string Project = "Project";

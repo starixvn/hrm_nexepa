@@ -22,6 +22,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.Organization.Services.Interface;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Core.Constants;
+    using NexEPA.Core.Enums;
 
     /// <summary>
     /// Department Controller.
@@ -44,6 +46,7 @@ namespace NexEPA.Controllers.API
         /// Method Get All Department.
         /// </summary>
         /// <returns>Tuple List Department.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageDepartment, Policy = Policy.Read)] 
         public Tuple<List<DepartmentModel>, List<DepartmentModel>> GetAllDeparment()
         {
             List<DepartmentModel> treeList = null;
@@ -63,6 +66,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Department Model.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageDepartment, Policy = Policy.Host)] 
         public HttpResponseMessage AddDepartment(DepartmentModel model)
         {
             if (ModelState.IsValid)
@@ -96,6 +100,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Department Model.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageDepartment, Policy = Policy.Host)] 
         public HttpResponseMessage UpdateDepartment(DepartmentModel model)
         {
             var updateDepartment = new UpdateDepartmentCriteria()
@@ -125,6 +130,7 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="departmentId">Department Id.</param>
         /// <returns>Http Response Message.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageDepartment, Policy = Policy.Host)] 
         public HttpResponseMessage Delete(int departmentId)
         {
             var deleteDepartmentCriteria = new DeleteDepartmentCriteria()
