@@ -28,7 +28,7 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 		$("#txtManager").val(null);
 	};
 
-	// find Child of a Node
+	// find Children of a Node
 	var findChild = function (data) {
 		$.each(data.children, function (i) {
 			var currentItem = data.children[i];
