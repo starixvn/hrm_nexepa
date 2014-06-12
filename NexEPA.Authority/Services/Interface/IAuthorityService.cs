@@ -24,5 +24,9 @@ namespace NexEPA.Authority.Services.Interface
         IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria);
 
         CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria);
+
+        IEnumerable<RoleSystemModel> GetRolesByEmployeeId(GetRoleByEmployeeIdCriteria criteria);
+
+        CommandResult UpdateRole(UpdateRoleOfEmployeeCriteria criteria);
     }
 }

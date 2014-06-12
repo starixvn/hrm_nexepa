@@ -53,6 +53,8 @@
     <Compile Include="Criteria\AssignPermissionToRoleCriteria.cs" />
     <Compile Include="Criteria\GetAllSystemRoleCriteria.cs" />
     <Compile Include="Criteria\GetFunctionByRoleCriteria.cs" />
+    <Compile Include="Criteria\GetRoleByEmployeeIdCriteria.cs" />
+    <Compile Include="Criteria\UpdateRoleOfEmployeeCriteria.cs" />
     <Compile Include="Models\FunctionModel.cs" />
     <Compile Include="Models\RoleSystemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,7 +10,7 @@ function ($scope, $route, authorityRepository, notificationFactory, ErrorService
 		roleId: ''
 	};
 
-	authorityRepository.getPermission().success(function (policy) {
+	authorityRepository.getManageRolePermission().success(function (policy) {
 		$scope.policy = {
 			policy : policy
 		};
@@ -52,8 +52,14 @@ function ($scope, $route, authorityRepository, notificationFactory, ErrorService
 	$scope.save = function (roleFunction) {
 		$scope.disabledSubmitButton = true;
 
-		authorityRepository.assignPermissionToRole(roleFunction).success(function () {
-			notificationFactory.success("DataChangeSuccessfully");
+		authorityRepository.assignPermissionToRole(roleFunction).success(function (response) {
+			if (response.isSuccessful === true) {
+				notificationFactory.success("DataChangeSuccessfully");
+			}
+			else {
+				notificationFactory.error("", response.message);
+			}
+
 			$scope.disabledSubmitButton = false;
 		}).error(function (response, status) {
 			if (status === 405) {
@@ -69,5 +75,113 @@ function ($scope, $route, authorityRepository, notificationFactory, ErrorService
 
 	$scope.reload = function () {
 		$route.reload();
+	};
+} ]);
+
+authorityModule.controller('ManageUserPermissionController',
+['$scope', '$modal', '$route', 'employeeRepository', 'commonFactory', 'authorityRepository', 'ErrorService', 'notificationFactory',
+function ($scope, $modal, $route, employeeRepository, commonFactory, authorityRepository, ErrorService, notificationFactory) {
+
+	authorityRepository.getManageUserPermission().success(function (policy) {
+		$scope.permission = {
+			policy: policy
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	employeeRepository.getAllGroup().success(function (groupList) {
+		$scope.groupOptions = groupList;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	var getEmployee = function (keyword, groupId) {
+		authorityRepository.getAllEmployee(keyword, groupId).success(function (employees) {
+			$scope.employees = employees;
+		}).error();
+	};
+
+	getEmployee(null, null);
+
+	$scope.query = function (keyword, groupId) {
+		getEmployee(keyword, groupId);
+	};
+
+	var getSelectedRole = function (roles) {
+		var selectedRoles = '';
+
+		for (var i = 0; i < roles.length; i++) {
+			var role = roles[i];
+
+			if (roles[i].permission) {
+				if (selectedRoles === '') {
+					selectedRoles += role.roleId;
+				}
+				else {
+					selectedRoles += ',' + role.roleId;
+				}
+			}
+		}
+
+		return selectedRoles;
+	};
+
+	$scope.assignRole = function (employee) {
+
+		var modalAssignInstance = $modal.open({
+			templateUrl: '/templates/Authority/UserPermission/AssignRole.html',
+			controller: "AssignRoleController",
+			resolve: {
+				employee: function () {
+					return employee;
+				}
+			}
+		});
+
+		modalAssignInstance.result.then(function (roles) {
+			var selectedRole = getSelectedRole(roles),
+				userRole = {
+					employeeId: employee.employeeId,
+					roleIds: selectedRole
+				};
+
+			authorityRepository.updateRole(userRole).success(function (response) {
+				if (response.isSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$route.reload();
+				}
+				else {
+					notificationFactory.error("", response.message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		});
+	};
+} ]);
+
+authorityModule.controller('AssignRoleController',
+['$scope', '$modalInstance', 'employee', 'authorityRepository', 'notificationFactory',
+function ($scope, $modalInstance, employee, authorityRepository, notificationFactory) {
+	$scope.employee = employee;
+
+	authorityRepository.getRolesByEmployeeId(employee.employeeId).success(function (roles) {
+		$scope.roles = roles;
+	}).error(function () {
+		notificationFactory.error("DataChangeFail");
+	});
+
+	$scope.save = function (roles) {
+		$modalInstance.close(roles);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
 	};
 } ]);

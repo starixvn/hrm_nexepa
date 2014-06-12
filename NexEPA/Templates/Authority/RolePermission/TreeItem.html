@@ -1,0 +1,5 @@
+﻿<span class="relative-icon" ng-if="data.parentFunctionId">&#9492;&#9472;&#9472;</span>
+{{data.name}}
+<div class="child-function-name" ng-repeat="data in data.childFunctions"
+     ng-include src="'/Templates/Authority/RolePermission/TreeItem.html'">
+</div>

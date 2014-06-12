@@ -17,5 +17,7 @@ namespace NexEPA.Authority.Models
         public int RoleId { get; set; }
 
         public string Name { get; set; }
+
+        public bool Permission { get; set; }
     }
 }

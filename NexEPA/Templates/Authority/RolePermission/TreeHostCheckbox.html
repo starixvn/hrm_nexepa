@@ -1,0 +1,13 @@
+﻿<input type="checkbox" class="host-only-read" ng-if="data.isReadOnly == 1"/>
+
+<div class="align-center" ng-if="data.isReadOnly == 0 && !data.parentFunctionId">
+    <input id="funcHost{{data.functionId}}" name="funcHost" pid="{{data.parentFunctionId}}" ng-disabled="policy.policy == 1"
+            value="{{data.functionId}}" ng-model="data.isHost" assign-permission type="checkbox" />
+</div>
+
+<input id="funcHost{{data.functionId}}" name="funcHost" pid="{{data.parentFunctionId}}" ng-if="data.isReadOnly == 0 && data.parentFunctionId"
+    value="{{data.functionId}}" ng-model="data.isHost" assign-permission type="checkbox" ng-disabled="policy.policy == 1" />
+
+<div class="child-check-box" ng-repeat="data in data.childFunctions" 
+     ng-include src="'/Templates/Authority/RolePermission/TreeHostCheckbox.html'">
+</div>

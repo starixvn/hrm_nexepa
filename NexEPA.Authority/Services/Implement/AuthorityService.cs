@@ -84,6 +84,42 @@ namespace NexEPA.Authority.Services.Implement
         }
 
         /// <summary>
+        /// Get roles by employee ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Role System Model.</returns>
+        public IEnumerable<RoleSystemModel> GetRolesByEmployeeId(GetRoleByEmployeeIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<RoleSystemModel> roles = null;
+
+            if (criteria.IsValid())
+            {
+                roles = GetData<RoleSystemModel>(criteria);
+            }
+
+            return roles;
+        }
+
+        /// <summary>
+        /// Update role.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateRole(UpdateRoleOfEmployeeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
         /// Get function by role recursion.
         /// </summary>
         /// <param name="rawFunctions">The all functions.</param>

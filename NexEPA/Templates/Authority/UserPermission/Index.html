@@ -1,0 +1,86 @@
+﻿<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="ManageUser" ng-click="reload()"></a></li>
+            <li class="current" data-translate="AssignRoleToUser"></li>
+        </ul>
+    </div>
+
+    <div class="col-sm-8">
+		<form novalidate class="row form-inline filter">
+		<div class="form-group">
+			<label data-translate="Keyword">
+			</label>
+			<input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
+		</div>
+		<div class="form-group">
+			<label data-translate="Team">
+			</label>
+			<select ng-model="filter.groupId" ng-options="opt.id as opt.name for opt in groupOptions"
+				class="form-control lstBox-limit">
+				<option value="" data-translate="AllTeam"></option>
+			</select>
+		</div>
+		<button class="button" ng-click="query(filter.keyword, filter.groupId)" ng-disabled="disabledSubmitButton"
+			data-translate="Submit">
+		</button>
+		</form>
+	</div>
+</div> 
+
+<div class="row">
+    <table class="table table-bordered table-striped" >
+		<thead>
+			<th class="employee-no" data-translate="SymbolCount">
+			</th>
+			<th class="employee-code" data-translate="Code">
+			</th>
+			<th class="employee-nick" data-translate="NickName">
+			</th>
+			<th class="employee-team" data-translate="FullName">
+			</th>
+			<th class="employee-name" data-translate="Job Title">
+			</th>
+			<th class="employee-team" data-translate="Team">
+			</th>
+			<th data-translate="Roles">
+			</th>
+            <th data-translate="Action" ng-if="permission.policy == 2">
+            </th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="employee in employees">
+				<td class="index employee-no">
+					{{$index+1}}
+				</td>
+				<td class="code employee-code">
+					{{employee.code}}
+				</td>
+				<td class="nick-name employee-nick">
+					{{employee.nickName}}
+				</td>
+				<td class="employee-team">
+					{{employee.fullName}}
+				</td>
+				<td class="employee-name">
+					{{employee.jobTitle.name}}
+				</td>
+				<td class="employee-team">
+					{{employee.group.name}}
+				</td>
+				<td>
+					{{employee.roles}}
+				</td>
+                <td class="align-center" ng-if="permission.policy == 2">
+                    <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
+               </td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr ng-show="employees == '' || employees == 'null'">
+				<td class="empty-result" colspan="7" data-translate="EmptyResult">
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>

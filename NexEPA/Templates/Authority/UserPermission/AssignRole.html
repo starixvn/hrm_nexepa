@@ -1,0 +1,43 @@
+﻿ <div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"AssignRoleToUser" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+        </div>
+	</div>
+
+	<div class="modal-body assign-role-modal">
+		<form class="col-sm-11 form-horizontal common-form" novalidate>
+		    <div class="form-group">
+                <label class="col-sm-3 control-label" data-translate="Code">
+                </label>
+                <div class="col-sm-8">
+                    <span ng-bind="employee.code"></span>
+                </div>
+		    </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" data-translate="NickName">
+                </label>
+                <div class="col-sm-8">
+                    <span ng-bind="employee.nickName" tooltip={{employee.fullName}}></span>
+                </div>
+		    </div>
+            <div class="form-group">
+            	<label class="col-sm-3 control-label" data-translate="Roles">
+			    </label>
+                <div class="col-sm-8">
+                    <div ng-repeat="role in roles">
+                        <input type="checkbox" ng-model="role.permission"/>
+                        <span ng-bind="role.name"></span>
+                    </div>
+                </div>
+            </div>
+		</form>
+	</div>
+
+	<div class="modal-footer">
+		<button class="button" ng-click="save(roles)" data-translate="Save">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>
