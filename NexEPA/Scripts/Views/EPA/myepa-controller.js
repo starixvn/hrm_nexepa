@@ -398,6 +398,12 @@ epaModule.controller('ViewCurrentMemberEPAController',
 			}
 		});
 
+		employeeEPAFactory.getPermission().then(function (policy) {
+			$scope.permission = {
+				policy: policy
+			};
+		});
+
 		if (targetId) {
 			$scope.filter = {
 				targetId: targetId

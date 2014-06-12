@@ -2,10 +2,10 @@
 /*global targetModule*/
 
 targetModule.controller('ViewTargetController',
-['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory',
-'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory',
-	function ($scope, $location, $translate, $modal, $route,
-		targetUtility, targetFactory, targetCacheFactory, KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
+['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory', 
+'targetCacheFactory', 'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory', 'employeeEPAFactory',
+function ($scope, $location, $translate, $modal, $route, targetUtility, targetFactory, targetCacheFactory,
+KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeEPAFactory) {
 
 		targetFactory.getPermission().success(function (policy) {
 			$scope.permission = {
@@ -13,6 +13,12 @@ targetModule.controller('ViewTargetController',
 			};
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
+		});
+
+		employeeEPAFactory.getPermission().then(function (policy) {
+			$scope.permissionMemberEPA = {
+				policy: policy
+			};
 		});
 
 		// get Form Options
@@ -334,8 +340,8 @@ targetModule.controller('ViewTargetController',
 
 // View Detail of Target or Edit Target Controller
 	targetModule.controller("TargetDetailAndEditController",
-['$scope', '$location', '$routeParams', '$window', 'targetUtility',
-function ($scope, $location, $routeParams, $window, targetUtility) {
+['$scope', '$location', '$routeParams', '$window', 'targetUtility', 'targetFactory', 'employeeEPAFactory',
+function ($scope, $location, $routeParams, $window, targetUtility, targetFactory, employeeEPAFactory) {
 
 	var targetId = parseInt($routeParams.id),
 			projectId = parseInt($routeParams.projectId),
@@ -348,12 +354,24 @@ function ($scope, $location, $routeParams, $window, targetUtility) {
 		$scope.tabKPISelect = isKPISelect;
 	}
 
+	targetFactory.getPermission().success(function (policy) {
+		$scope.permission = {
+			policy: policy
+		};
+	});
+
+	employeeEPAFactory.getPermission().then(function (policy) {
+		$scope.permissionMemberEPA = {
+			policy: policy
+		};
+	});
+
 	// get Tab Heading
 	targetUtility.getTabHeading($scope);
 
 	// Edit Target
 	$scope.editTarget = function () {
-		var tabSelect = isMemberSelect ? '&viewMembers' : ( isKPISelect ? '&viewKPIs' : '');
+		var tabSelect = isMemberSelect ? '&viewMembers' : (isKPISelect ? '&viewKPIs' : '');
 		$scope.editTargetUrl = '/Target/EditTarget/' + targetId + '?projectId=' + projectId + '&isEditMode' + tabSelect;
 	};
 

@@ -25,6 +25,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.MemberEPA.Services.Interface;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Services.Impl;
+    using NexEPA.Web.Services.Interfaces;
 
     /// <summary>
     /// MyEPA Controller.
@@ -33,14 +35,17 @@ namespace NexEPA.Controllers.API
     {
         private readonly IMemberEPAService _memberEPAService;
 
+        private ICommonService _commonService;
+
         public EmployeeEPAController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public EmployeeEPAController(IMemberEPAService memberEPAService)
+        public EmployeeEPAController(IMemberEPAService memberEPAService, ICommonService commonService)
         {
             this._memberEPAService = memberEPAService ?? new MemberEPAService();
+            this._commonService = commonService ?? new CommonService();
         }
 
         /// <summary>
@@ -201,6 +206,17 @@ namespace NexEPA.Controllers.API
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        public int GetPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageMemberEPA);
+            return policy;
         }
 
         /// <summary>

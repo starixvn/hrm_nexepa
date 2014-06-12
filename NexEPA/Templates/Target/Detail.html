@@ -4,7 +4,7 @@
             <li><a href="#" data-translate="Target" ng-click="cancel()"></a></li>
             <li class="current" data-translate="TargetDetail"></li>
         </ul>
-        <div class="button-icon">
+        <div class="button-icon" ng-if="permission.policy == 2">
             <span class="glyphicon glyphicon-edit icon-edit"></span><a href="" ng-click="editTarget()"
                 ng-href={{editTargetUrl}} data-translate="EditTarget"></a>
         </div>

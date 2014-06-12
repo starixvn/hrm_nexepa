@@ -29,7 +29,7 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		getEPAOfCurrentMember: function (projectId, status) {
 			var deferred = $q.defer();
 			$http.get('/api/EmployeeEPA/GetEPAOfCurrentMember',
-					{ params: { 
+					{ params: {
 						projectId: projectId,
 						status: status
 					}
@@ -78,6 +78,11 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		getCurrentUser: function () {
 			var deferred = $q.defer();
 			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		getPermission: function () {
+			var deferred = $q.defer();
+			$http.get('/api/EmployeeEPA/GetPermission').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
 	};

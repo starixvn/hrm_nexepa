@@ -84,7 +84,7 @@
 					ng-show="epaItem.score <= 0" />
 			</td>
 			<td>
-				<span class="dropdown" on-toggle="toggled(open)">
+				<span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2">
 					<a href="javascript:;" class="dropdown-toggle changeStatus">{{epaItem.statusName}}</a>
 					<ul class="dropdown-menu dropdown-menu-width">
 						<li ng-repeat="item in epaStatus | filter:{name:'!'+epaItem.statusName}">
@@ -92,6 +92,9 @@
 						</li>
 					</ul>
 				</span>
+                <div class="epa-center" ng-if="permission.policy == 1">
+                      <span ng-bind="epaItem.statusName"></span>
+                </div>
 			</td>
 			<td>
 				<span ng-bind="epaItem.evaluator.evaluatorNickName" tooltip="{{epaItem.evaluator.evaluatorFullName}}">

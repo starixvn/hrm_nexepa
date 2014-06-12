@@ -387,7 +387,7 @@
     <Content Include="Content\Site\Report\report.less" />
     <Content Include="Content\Site\Login\login.less" />
     <Content Include="Content\Site\Organization\department.less" />
-    <None Include="Content\Site\Authority\authority.less" />
+    <Content Include="Content\Site\Authority\authority.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

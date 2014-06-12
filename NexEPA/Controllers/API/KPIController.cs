@@ -129,7 +129,6 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <returns>The policy.</returns>
         [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Read)]
         public int GetPermission()
         {
             int policy = _commonService.GetPermission(EPAFunctionKeys.ManageKPI);

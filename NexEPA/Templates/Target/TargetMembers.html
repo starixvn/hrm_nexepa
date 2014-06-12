@@ -1,5 +1,5 @@
 ﻿<div ng-controller="TargetMembersController">
-    <div class="row" ng-show="isEditMode">
+    <div class="row" ng-show="isEditMode" ng-if="permission.policy == 2">
         <div class="form-inline filter target-col-sm-6">
             <form novalidate class="form-inline">
                 <div class="form-group">
@@ -19,16 +19,18 @@
                 <th data-translate="FullName"></th>
                 <th data-translate="NickName"></th>
                 <th data-translate="Team"></th>
-                <th data-translate="Action" ng-show="isEditMode"></th>
+                <th data-translate="Action" ng-show="isEditMode" ng-if="permission.policy == 2"></th>
             </thead>
             <tr ng-repeat="employee in employees">
                 <td class="index" ng-bind="$index + 1"></td>
                 <td>
-                    <a href="" ng-bind="employee.fullName" ng-click="viewEPADetail(employee.employeeId)" ng-href={{viewEPADetailUrl}} title="View EPA detail"/>
+                    <a href="" ng-bind="employee.fullName" ng-click="viewEPADetail(employee.employeeId)" 
+                        ng-if="permissionMemberEPA.policy == 1 || permissionMemberEPA.policy == 2" ng-href={{viewEPADetailUrl}} title="View EPA detail"/>
+                    <span ng-if="permissionMemberEPA.policy == 0" ng-bind="employee.fullName"></span>
                 </td>
                 <td ng-bind="employee.nickName"></td>
                 <td ng-bind="employee.group.name"></td>
-                <td class="action" ng-show="isEditMode">
+                <td class="action" ng-show="isEditMode" ng-if="permission.policy == 2">
                     <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(employee)"/>
                 </td>
             </tr>
