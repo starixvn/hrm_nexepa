@@ -60,28 +60,28 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	};
 
-	var errorNotification = function (response) { notificationFactory.error('', response); };
+	var successGetPermission = function (data) {
+		$scope.permission = {
+			policy: parseInt(data)
+		};
+	};
+
+	var errorNotification = function (response) {
+		if (response !== null || response !== "") {
+			notificationFactory.error('', response);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
+	};
 
 	/**
 	* Initialize data to view Index.
 	*/
 	linkToEPAService.setProperty(null);
-	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
-	projectDataFactory.currentUser().then(function (data) {
-		if (data != null) {
-			$scope.currentUser = data;
-			var userRoles = data.roles;
-			$.each(userRoles, function (i) {
-				var currentRoleId = userRoles[i].roleId;
-				if (currentRoleId === 1 || currentRoleId === 3) {
-					$scope.createProjectPermission = true;
-				}
-			});
-		}
-	});
-
 	tabService.setProperty(null);
-
+	projectDataFactory.getPermission().then(successGetPermission, errorNotification);
+	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 
 	// Check for list ProjectManager has cache data.
 	if (cacheListPM) {

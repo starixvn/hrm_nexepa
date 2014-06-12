@@ -2,7 +2,7 @@
 'use strict';
 
 departmentModule.controller("ManageDepartmentController",
-['$scope', '$window', '$modal', 'departmentDataFactory', 'notificationFactory', 'projectDataFactory', 'commonFactory', 'ErrorService',
+['$scope', '$window', '$modal', 'departmentDataFactory', 'notificationFactory', 'projectDataFactory','commonFactory', 'ErrorService',
 function ($scope, $window, $modal, departmentDataFactory, notificationFactory, projectDataFactory, commonFactory, ErrorService) {
 	/**
 	* Scope Variable. 
@@ -49,11 +49,11 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 		$scope.hasTreeEvent = false;
 	};
 	var errorNotification = function (response) {
-		if (response != null) {
-			notificationFactory.error('', response);
+		if (response.status === 405) {
+			ErrorService.errorHandle(response.status);
 		}
 		else {
-			notificationFactory.error('ErrorMessage', '');
+			notificationFactory.error('ErrorMessage');
 		}
 	};
 

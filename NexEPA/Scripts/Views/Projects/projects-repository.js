@@ -68,6 +68,13 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
 			var deferred = $q.defer();
 			$http.get('/api/core/GetCurrentUser').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		getPermission: function () {
+			var deferred = $q.defer();
+			$http.get('/api/Project/GetPermission').success(deferred.resolve).error(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
 		}
 	};
 } ]);

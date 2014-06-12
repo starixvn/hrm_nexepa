@@ -5,7 +5,7 @@
 	</div>
 	<div class="row">
 		<div class="span10 tbl-member">
-			<a class="button button-icon btn-addMember" ng-show="permission == 2" ng-click="addMember()">
+			<a class="button button-icon btn-addMember" ng-if"permission == 2" ng-click="addMember()">
 				<span class="icon plus"></span>Add member</a>
 			<table class="table table-bordered table-striped table-hover">
 				<thead>
@@ -36,7 +36,7 @@
 						<td class="text-center">
 							{{member.joinDate | customDate }}
 						</td>
-						<td class="text-center" ng-hide="formReadOnly">
+						<td class="text-center" ng-if="!formReadOnly">
 							<div class="btn-group">
 								<a href="javascript:;" ng-click="updateMember(member)" class="glyphicon glyphicon-edit icon-edit"
 									title="Edit"></a>

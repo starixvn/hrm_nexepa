@@ -4,7 +4,7 @@
 			<a href="#">Project</a></li>
 		<li class="current">Manage Project</li>
 	</ul>
-	<div class="button-icon" ng-show="createProjectPermission">
+	<div class="button-icon" ng-if="permission.policy == 2">
 		<span class="icon plus"></span>
 		<a href="/Projects/Create" data-translate="CreateProject"></a>
 	</div>
@@ -96,22 +96,22 @@
 						{{project.members}}</a>
 				</td>
 				<td class="text-center project-pm">
-					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">
+					<a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">
 						{{project.totalOpenEPA}}</a>
-					<span ng-hide="project.permission == 2">{{project.totalOpenEPA}}</span> /
-					<a ng-show="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">
+					<span ng-if="project.permission != 2">{{project.totalOpenEPA}}</span> /
+					<a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">
 						{{project.totalEPA}}</a>
-					<span ng-hide="project.permission == 2">{{project.totalEPA}}</span>
+					<span ng-if="project.permission != 2">{{project.totalEPA}}</span>
 				</td>
 				<td class="project-status">
-					<span class="dropdown" on-toggle="toggled(open)" ng-show="project.permission == 2">
+					<span class="dropdown" on-toggle="toggled(open)" ng-if="project.permission == 2">
 						<a href="javascript:;" class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
 						<ul class="dropdown-menu dropdown-menu-width">
 							<li ng-repeat="item in status" ng-hide="item.id == project.status">
 								<a ng-click="updateProjectStatus(project, item.id)" href="javascript:;">{{item.name}}</a>
 							</li>
 						</ul>
-					</span><span ng-hide="project.permission == 2">{{project.status|enumStatusText}}</span>
+					</span><span ng-if="project.permission != 2">{{project.status|enumStatusText}}</span>
 				</td>
 				<td class="text-center project-date">
 					{{project.startDate | customDate}}
@@ -120,7 +120,7 @@
 					{{project.endDate| customDate}}
 				</td>
 				<td class="text-center project-status">
-					<div ng-show="project.permission == 2">
+					<div ng-if="project.permission == 2">
 						<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="/Projects/Edit/{{project.projectId}}"
 							ng-click="editProject(project.projectId)" />
 						<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="javascript:;"

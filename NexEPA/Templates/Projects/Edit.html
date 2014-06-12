@@ -9,7 +9,7 @@
 <div class="row target-tabset">
 	<tabset id="projectInfoTab">
 
-	<div class="btn btn-default customize pull-right" ng-show="projectUpdate.permission == 2 && formReadOnly">
+	<div class="btn btn-default customize pull-right" ng-if="projectUpdate.permission == 2 && formReadOnly">
 		<a  href="/Projects/Edit/{{projectUpdate.projectId}}">
 			<i class="glyphicon glyphicon-edit"></i>
 			<span data-translate="EditProject"></span>
@@ -92,7 +92,7 @@
 
             <div class="row action-button">
                 <button class="button" ng-disabled="addProjectForm.$invalid" ng-click="update(projectUpdate)"
-                    data-translate="Submit" ng-hide="formReadOnly">
+                    data-translate="Submit" ng-if="!formReadOnly">
                 </button>
                 <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
                 </button>

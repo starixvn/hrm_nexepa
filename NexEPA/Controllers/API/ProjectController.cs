@@ -31,6 +31,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.Project.Services.Interface;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Services.Impl;
+    using NexEPA.Web.Services.Interfaces;
 
     /// <summary>
     /// Project Controller.
@@ -39,16 +41,18 @@ namespace NexEPA.Controllers.API
     {
         private readonly IProjectService _projectService;
         private readonly IEmployeeService _employeeService;
+        private readonly ICommonService _commonService;
 
         public ProjectController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public ProjectController(IProjectService projectService, IEmployeeService employeeService)
+        public ProjectController(IProjectService projectService, IEmployeeService employeeService, ICommonService commonService)
         {
             this._projectService = projectService ?? new ProjectService();
             this._employeeService = employeeService ?? new EmployeeService();
+            this._commonService = commonService ?? new CommonService();
         }
 
         /// <summary>
@@ -219,6 +223,17 @@ namespace NexEPA.Controllers.API
             ProjectModel project = _projectService.GetById(getProjectByIdCriteria);
 
             return project;
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        public int GetPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageProject);
+            return policy;
         }
 
         /// <summary>

@@ -5,7 +5,12 @@ departmentModule.factory('departmentDataFactory', ['$http', '$q', function ($htt
 	return {
 		getAllDepartment: function () {
 			var deferred = $q.defer();
-			$http.get('/api/Department/GetAllDeparment').success(deferred.resolve).error(deferred.reject);
+			var response = {};
+			$http.get('/api/Department/GetAllDeparment')
+			.success(deferred.resolve).
+			error(function (data, status) {
+				deferred.reject(response = { data: data, status: status });
+			});
 			return deferred.promise;
 		},
 		addDepartment: function (model) {
