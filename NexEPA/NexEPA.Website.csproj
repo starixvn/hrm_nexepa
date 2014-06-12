@@ -306,10 +306,12 @@
     <Content Include="Scripts\Views\Target\target-repository.js" />
     <Content Include="Scripts\Views\Test\test-controller.js" />
     <Content Include="Scripts\Views\Test\test-repository.js" />
-    <Content Include="Templates\Authority\Index.html" />
-    <Content Include="Templates\Authority\TreeHostCheckbox.html" />
-    <Content Include="Templates\Authority\TreeItem.html" />
-    <Content Include="Templates\Authority\TreeReadCheckbox.html" />
+    <Content Include="Templates\Authority\RolePermission\Index.html" />
+    <Content Include="Templates\Authority\RolePermission\TreeHostCheckbox.html" />
+    <Content Include="Templates\Authority\RolePermission\TreeItem.html" />
+    <Content Include="Templates\Authority\RolePermission\TreeReadCheckbox.html" />
+    <Content Include="Templates\Authority\UserPermission\AssignRole.html" />
+    <Content Include="Templates\Authority\UserPermission\Index.html" />
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\Logout.html" />
     <Content Include="Templates\Organization\Department\Index.html" />

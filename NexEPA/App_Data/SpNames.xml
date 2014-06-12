@@ -9,6 +9,8 @@
 		<Setting Key="EmployeeGroup_GetAll" SpName="EmployeeGroup_GetAll" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Employee_GetByProject" SpName="Employee_GetByProject" DbName="NexEPA" Plain="1" ></Setting>
     <Setting Key="Employee_GetMembers" SpName="Employee_GetMembers" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Employee_GetRole" SpName="Employee_GetRole" DbName="NexEPA" Plain="1" ></Setting>
+    <Setting Key="Employee_UpdateRole" SpName="Employee_UpdateRole" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="Project">

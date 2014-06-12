@@ -609,4 +609,13 @@
   <data name="RolePermission" xml:space="preserve">
     <value>Role Permission</value>
   </data>
+  <data name="ManageRole" xml:space="preserve">
+    <value>Manage Role</value>
+  </data>
+  <data name="ManageUser" xml:space="preserve">
+    <value>Manage User</value>
+  </data>
+  <data name="AssignRoleToUser" xml:space="preserve">
+    <value>Assign Role to User</value>
+  </data>
 </root>

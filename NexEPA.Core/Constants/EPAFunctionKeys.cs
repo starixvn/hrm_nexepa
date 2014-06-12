@@ -38,7 +38,9 @@ namespace NexEPA.Core.Constants
 
         public const string ManageSetting = "ManageSetting";
 
-        public const string ManageAuthority = "ManageAuthority";
+        public const string ManageRole = "ManageRole";
+
+        public const string ManageUser = "ManageUser";
 
         public const string ManageDepartment = "ManageDepartment";
 

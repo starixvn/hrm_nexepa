@@ -95,8 +95,10 @@ var departmentModule = angular.module("departmentModule", ['ngRoute', 'ngResourc
 
 var authorityModule = angular.module("authorityModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
-	$routeProvider.when('/Authority/Index',
-		{ templateUrl: '/templates/Authority/Index.html', controller: 'AssignPermissionController' });
+	$routeProvider.when('/Authority/ManageRole',
+		{ templateUrl: '/templates/Authority/RolePermission/Index.html', controller: 'AssignPermissionController' });
+	$routeProvider.when('/Authority/ManageUser',
+		{ templateUrl: '/templates/Authority/UserPermission/Index.html', controller: 'ManageUserPermissionController' });
 } ]);
 
 var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])

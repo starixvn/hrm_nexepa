@@ -198,8 +198,13 @@ namespace NexEPA
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
-              name: "Assign Permission",
-              url: "Authority/Index",
+              name: "Assign Permission to Role",
+              url: "Authority/ManageRole",
+              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+              name: "Assign Role to User",
+              url: "Authority/ManageUser",
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
