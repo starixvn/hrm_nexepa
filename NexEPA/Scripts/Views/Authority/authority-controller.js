@@ -96,11 +96,18 @@ function ($scope, $modal, employeeRepository, commonFactory, authorityRepository
 		notificationFactory.error("ErrorMessage");
 	});
 
+	$scope.entrySelected = 20;
+	commonFactory.numberEntryList($scope);
+
 	var getEmployee = function (keyword, groupId) {
 		authorityRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
-			commonFactory.tablePagination($scope, employees, 25);
+			commonFactory.tablePagination($scope, employees, $scope.entrySelected);
 		}).error();
+	};
+
+	$scope.showEntries = function () {
+		commonFactory.tablePagination($scope, $scope.employees, $scope.entrySelected);
 	};
 
 	getEmployee(null, null);

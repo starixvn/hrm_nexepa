@@ -27,7 +27,16 @@
 		</form>
 	</div>
 </div> 
-
+<div class="col-sm-12">
+	<span class="pull-left table-entries"><span data-translate="Show"></span>
+		<select ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
+		</select>
+		<span data-translate="entries"></span></span><span class="pull-right">
+			<label data-translate="Search:">
+			</label>
+			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
+		</span>
+</div>
 <div class="row">
     <table class="table table-bordered table-striped" id="data" fixed-header>
 		<thead class="headerName">
@@ -46,8 +55,6 @@
 			<th class="authority-employee-role" data-translate="Roles">
 			</th>
             <th class="authority-employee-action" data-translate="Action" ng-if="permission.policy == 2">
-            </th>
-            <th>
             </th>
 		</thead>
 		<tbody class="table-body">
