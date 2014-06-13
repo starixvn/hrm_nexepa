@@ -6,7 +6,7 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 	var limitNumber = 100;
 
 	common.numberEntryList = function ($scope) {
-		$scope.entries = [5, 10, 15, 20, 30, 50, 100];
+		$scope.entries = [10, 15, 20, 50, 100, 200];
 	};
 
 	common.getDateFormat = function ($scope) {
@@ -88,7 +88,7 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		/**
 		* Scope Variable. 
 		*/
-		$scope.gap = 5;
+		$scope.gap = 7;
 		$scope.filteredItems = [];
 		$scope.groupedItems = [];
 		if (itemPerPage != null) {

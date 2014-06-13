@@ -178,12 +178,13 @@
 							<div class="col-sm-9 criteria-description" ng-show="item.description!=''">
 								{{item.description}}</div>
 						</div>
-						<div class="row">
+						<div class="row ">
 							<div class="epa-error-message" ng-show="item.checkNullComment">
 								This field is required!
 							</div>
 							<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment criteria-comment"
 								ng-model="item.comment" ng-show="item.hasComment">{{item.comment}}</textarea>
+								<label ng-if="item.score > 0 && item.hasComment && item.isRequireComment" class="error-message" data-translate="*"></label>
 						</div>
 					</div>
 				</ol>
@@ -199,6 +200,7 @@
 			This field is required!
 		</div>
 		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>
+		<label class="error-message" data-translate="*"></label>
 		<div class="col-sm-3">
 			<div class="total">
 				<p>
@@ -208,6 +210,9 @@
 				</p>
 			</div>
 		</div>
+	</div>
+	<div>
+		<span class="left-buffer error-message">Note: (*) Required field !</span>
 	</div>
 </div>
 <div class="col-sm-12 action-button epa">

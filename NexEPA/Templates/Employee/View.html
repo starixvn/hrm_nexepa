@@ -30,7 +30,7 @@
 </div>
 <div class="col-sm-12">
 	<span class="pull-left table-entries"><span data-translate="Show"></span>
-		<select ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
+		<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
 		</select>
 		<span data-translate="entries"></span></span><span class="pull-right">
 			<label data-translate="Search:">
@@ -62,7 +62,7 @@
 		</thead>
 		<tbody class="table-body">
 			<tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
-				<td class="index">
+				<td class="index column-count">
 					{{$index+1}}
 				</td>
 				<td class="code">

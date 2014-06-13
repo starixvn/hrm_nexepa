@@ -53,7 +53,7 @@
 </div>
 <div class="col-sm-12">
 	<span class="pull-left table-entries"><span data-translate="Show"></span>
-		<select ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
+		<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
 		</select>
 		<span data-translate="entries"></span></span><span class="pull-right">
 			<label data-translate="Search:">
@@ -81,9 +81,9 @@
 		</thead>
 		<tbody class="table-body">
 			<tr ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
-				<td class="KPI-index project-no" ng-bind="$index + 1">
+				<td class="KPI-index column-count" ng-bind="$index + 1">
 				</td>
-				<td class="KPI-title kpi-title" ng-bind="item.name">
+				<td class="KPI-title" ng-bind="item.name">
 				</td>
 				<td class="KPI-group">
 					<div ng-show="item.kpiGroupNames.length == 1">
