@@ -12,7 +12,7 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 	* Scope Variable. 
 	*/
 	$scope.createProjectPermission = false;
-
+	$scope.entrySelected = 15;
 	/**
 	* Project Setting Cache. 
 	*/
@@ -43,7 +43,8 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 	// Filter data by criteria.
 	var successFilterData = function (data) {
 		$scope.projects = data;
-		commonFactory.tablePagination($scope, data, 25);
+		commonFactory.tablePagination($scope, data, $scope.entrySelected);
+		$scope.totalEntries = data.length;
 	};
 
 	var errorHandle = function (status) {
@@ -82,6 +83,7 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 	tabService.setProperty(null);
 	projectDataFactory.getPermission().then(successGetPermission, errorNotification);
 	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+	commonFactory.numberEntryList($scope);
 
 	// Check for list ProjectManager has cache data.
 	if (cacheListPM) {
@@ -166,6 +168,10 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 	$scope.linkToEPA = function (projectId, status) {
 		var objectQuery = { projectId: projectId, status: status };
 		linkToEPAService.setProperty(objectQuery);
+	};
+
+	$scope.showEntries = function () {
+		commonFactory.tablePagination($scope, $scope.projects, $scope.entrySelected);
 	};
 } ]);
 

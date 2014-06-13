@@ -5,6 +5,10 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 	var common = {};
 	var limitNumber = 100;
 
+	common.numberEntryList = function ($scope) {
+		$scope.entries = [5, 10, 15, 20, 30, 50, 100];
+	};
+
 	common.getDateFormat = function ($scope) {
 		$scope.dateFormat = "dd MMM, yyyy";
 	};
@@ -84,7 +88,7 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		/**
 		* Scope Variable. 
 		*/
-		$scope.gap = 7;
+		$scope.gap = 5;
 		$scope.filteredItems = [];
 		$scope.groupedItems = [];
 		if (itemPerPage != null) {
@@ -93,7 +97,7 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		else {
 			$scope.itemsPerPage = 20;
 		}
-		
+
 		$scope.pagedItems = [];
 		$scope.currentPage = 0;
 
@@ -146,6 +150,7 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
 				} else {
 					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+					//$scope.gap = $scope.pagedItems.length;
 				}
 			}
 		};
@@ -157,7 +162,10 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 			var ret = [];
 			if (size < end) {
 				end = size;
-				start = 0;
+				start = size - $scope.gap;
+				if (start < 0) {
+					start = 0;
+				}
 			}
 			for (var i = start; i < end; i++) {
 				ret.push(i);
@@ -175,6 +183,7 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 			if ($scope.currentPage < $scope.pagedItems.length - 1) {
 				$scope.currentPage = $scope.pagedItems.length - 1;
 			}
+
 		};
 
 		$scope.prevPage = function () {

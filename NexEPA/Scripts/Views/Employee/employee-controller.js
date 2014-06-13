@@ -5,11 +5,14 @@ employeeModule.controller("ViewAllEmployeeController", ['$scope', '$translate', 
 	'employeeCacheFactory', 'notificationFactory', 'commonFactory',
 function ($scope, $translate, $route, employeeRepository, employeeCacheFactory,
 notificationFactory, commonFactory) {
+	// Scope variable
+	$scope.entrySelected = 15;
 
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
-			commonFactory.tablePagination($scope, employees, 25);
+			$scope.totalEntries = employees.length;
+			commonFactory.tablePagination($scope, employees, $scope.entrySelected);
 			$scope.disabledSubmitButton = false;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -19,6 +22,8 @@ notificationFactory, commonFactory) {
 
 	//get all employee
 	getEmployee(null, null);
+
+	commonFactory.numberEntryList($scope);
 
 	var groupOptions = employeeCacheFactory.get("groupOptions");
 
@@ -47,6 +52,10 @@ notificationFactory, commonFactory) {
 	// reload
 	$scope.reload = function () {
 		$route.reload();
+	};
+
+	$scope.showEntries = function () {
+		commonFactory.tablePagination($scope, $scope.employees, $scope.entrySelected);
 	};
 
 } ]);

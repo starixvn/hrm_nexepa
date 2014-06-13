@@ -50,19 +50,22 @@
 		</button>
 		</form>
 	</div>
-	<div ng-show="isViewAll" class="col-sm-3 pull-right table-quicksort">
-		<span class="pull-right">
+</div>
+<div class="col-sm-12">
+	<span class="pull-left table-entries"><span data-translate="Show"></span>
+		<select ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
+		</select>
+		<span data-translate="entries"></span></span><span class="pull-right">
 			<label data-translate="Search:">
 			</label>
 			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
 		</span>
-	</div>
 </div>
 <div class="row">
-	<table ng-show="isViewAll" class="table table-bordered table-striped" id="data" fixed-header>
+	<table ng-show="isViewAll" class="table table-bordered table-striped" id="data">
 		<thead class="headerName">
 			<tr>
-				<th class="project-no" data-translate="SymbolCount">
+				<th data-translate="SymbolCount">
 				</th>
 				<th class="KPI-title" data-translate="Title">
 				</th>
@@ -73,8 +76,6 @@
 				<th class="KPI-description" data-translate="Description">
 				</th>
 				<th class="KPI-action" data-translate="Action">
-				</th>
-				<th>
 				</th>
 			</tr>
 		</thead>

@@ -27,65 +27,66 @@
 		</button>
 		</form>
 	</div>
-	<div class="col-sm-3 pull-right table-quicksort">
-		<span class="pull-right">
+</div>
+<div class="col-sm-12">
+	<span class="pull-left table-entries"><span data-translate="Show"></span>
+		<select ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
+		</select>
+		<span data-translate="entries"></span></span><span class="pull-right">
 			<label data-translate="Search:">
 			</label>
 			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
 		</span>
-	</div>
 </div>
 <div class="row">
-	<table class="table table-bordered table-striped" id="data" fixed-header>
+	<table class="table table-bordered table-striped" id="data">
 		<thead class="headerName">
-			<th class="employee-no" data-translate="SymbolCount">
+			<th data-translate="SymbolCount">
 			</th>
-			<th class="employee-code" data-translate="Code">
+			<th data-translate="Code">
 			</th>
-			<th class="employee-nick" data-translate="NickName">
+			<th data-translate="NickName">
 			</th>
-			<th class="employee-team" data-translate="FullName">
+			<th data-translate="FullName">
 			</th>
-			<th class="employee-name" data-translate="Job Title">
+			<th data-translate="Job Title">
 			</th>
-			<th class="employee-team" data-translate="Team">
+			<th data-translate="Team">
 			</th>
-			<th class="employee-skype" data-translate="Skype">
+			<th data-translate="Skype">
 			</th>
-			<th class="employee-team" data-translate="Email">
+			<th data-translate="Email">
 			</th>
-			<th class="employee-nick" data-translate="JoinedDate">
-			</th>
-			<th>
+			<th data-translate="JoinedDate">
 			</th>
 		</thead>
 		<tbody class="table-body">
 			<tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
-				<td class="index employee-no">
+				<td class="index">
 					{{$index+1}}
 				</td>
-				<td class="code employee-code">
+				<td class="code">
 					{{employee.code}}
 				</td>
-				<td class="nick-name employee-nick">
+				<td class="nick-name">
 					{{employee.nickName}}
 				</td>
-				<td class="employee-team">
+				<td>
 					{{employee.fullName}}
 				</td>
-				<td class="employee-name">
+				<td>
 					{{employee.jobTitle.name}}
 				</td>
-				<td class="employee-team">
+				<td>
 					{{employee.group.name}}
 				</td>
-				<td class="employee-skype">
+				<td>
 					<a href="skype:{{employee.skype}}?chat">{{employee.skype}}</a>
 				</td>
-				<td class="employee-team">
+				<td>
 					{{employee.email}}
 				</td>
-				<td class="joined-date employee-nick">
+				<td class="joined-date">
 					{{employee.joinedDate | customDate}}
 				</td>
 			</tr>

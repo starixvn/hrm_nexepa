@@ -6,6 +6,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 	'KPIRepository', 'KPIGroupRepository', 'KPICommonRepository', 'commonFactory', 'notificationFactory', 'ErrorService',
 	function ($scope, $routeParams, $location, $modal, $route, $window, KPIRepository, KPIGroupRepository,
 		KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
+
+		$scope.entrySelected = 15;
 		var groupId = $routeParams.groupId;
 		$scope.isViewAll = false;
 		$scope.filter = {
@@ -16,7 +18,7 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 		KPIRepository.getPermission().success(function (policy) {
 			$scope.permission = {
-				policy : policy
+				policy: policy
 			};
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -42,7 +44,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 		var getKPI = function (targetTypeId, groupId, isDisabled) {
 			KPIRepository.viewKPI(targetTypeId, groupId, isDisabled).success(function (KPIList) {
 				$scope.KPIList = KPIList;
-				commonFactory.tablePagination($scope, KPIList, 25);
+				$scope.totalEntries = KPIList.length;
+				commonFactory.tablePagination($scope, KPIList, $scope.entrySelected);
 				$scope.disabledSubmitButton = false;
 			}).error(function (response, status) {
 				if (status === 405) {
@@ -58,6 +61,8 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 		// get KPI
 		getKPI(null, groupId, null);
+
+		commonFactory.numberEntryList($scope);
 
 		// add new KPI
 		$scope.create = function () {
@@ -195,6 +200,10 @@ kpiSettingModule.controller("ViewKPIController", ['$scope', '$routeParams', '$lo
 
 		$scope.readLess = function (item) {
 			commonFactory.readLess(item);
+		};
+
+		$scope.showEntries = function () {
+			commonFactory.tablePagination($scope, $scope.KPIList, $scope.entrySelected);
 		};
 
 	} ]);

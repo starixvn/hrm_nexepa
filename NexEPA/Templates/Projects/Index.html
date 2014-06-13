@@ -37,65 +37,66 @@
 		<a class="button" ng-click="getProjectList(filter)" data-translate="Submit"></a>
 		</form>
 	</div>
-	<div class="col-sm-3 pull-right table-quicksort">
-		<span class="pull-right">
+</div>
+<div class="col-sm-12">
+	<span class="pull-left table-entries"><span data-translate="Show"></span>
+		<select ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
+		</select>
+		<span data-translate="entries"></span></span><span class="pull-right">
 			<label data-translate="Search:">
 			</label>
 			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
 		</span>
-	</div>
 </div>
 <div class="row">
-	<table class="table table-bordered table-striped" id="data" fixed-header>
+	<table class="table table-bordered table-striped" id="data">
 		<thead class="headerName">
 			<tr>
-				<th class="middle-align project-no" data-translate="SymbolCount">
+				<th class="middle-align" data-translate="SymbolCount">
 				</th>
-				<th class="middle-align project-name" data-translate="ProjectName">
+				<th class="middle-align" data-translate="ProjectName">
 				</th>
-				<th class="middle-align project-milestone" data-translate="Milestone">
+				<th class="middle-align" data-translate="Milestone">
 				</th>
-				<th class="middle-align project-pm" data-translate="PM">
+				<th class="middle-align" data-translate="PM">
 				</th>
-				<th class="middle-align project-member" data-translate="Members">
+				<th class="middle-align" data-translate="Members">
 				</th>
-				<th class="middle-align project-pm break-line" data-translate="ProjectEPAStatistic">
+				<th class="middle-align" data-translate="ProjectEPAStatistic">
 				</th>
-				<th class="middle-align project-status" data-translate="Status">
+				<th class="middle-align" data-translate="Status">
 				</th>
-				<th class="middle-align project-date" data-translate="StartDate">
+				<th class="middle-align" data-translate="StartDate">
 				</th>
-				<th class="middle-align project-date" data-translate="EndDate">
+				<th class="middle-align" data-translate="EndDate">
 				</th>
-				<th class="middle-align project-status" data-translate="Action">
-				</th>
-				<th>
+				<th class="middle-align" data-translate="Action">
 				</th>
 			</tr>
 		</thead>
 		<tbody class="table-body">
 			<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse ">
-				<td class="text-center project-no">
+				<td class="text-center">
 					{{$index + 1}}
 				</td>
-				<td class="project-name">
+				<td>
 					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,false)">
 						{{project.name}} </a>
 				</td>
-				<td class="project-milestone">
+				<td>
 					<div data-angular-treeview="true" data-tree-id="milestoneTree" data-tree-model="project.milestoneTreeView"
 						data-node-id="id" data-node-label="label" data-node-children="children" class="childrenList">
 					</div>
 					{{project.milestone.name}}
 				</td>
-				<td class="project-pm">
+				<td>
 					<span tooltip="{{project.fullName}}">{{project.nickName}}</span>
 				</td>
-				<td class="text-center project-member">
+				<td class="text-center">
 					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">
 						{{project.members}}</a>
 				</td>
-				<td class="text-center project-pm">
+				<td class="text-center">
 					<a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">
 						{{project.totalOpenEPA}}</a>
 					<span ng-if="project.permission != 2">{{project.totalOpenEPA}}</span> /
@@ -103,7 +104,7 @@
 						{{project.totalEPA}}</a>
 					<span ng-if="project.permission != 2">{{project.totalEPA}}</span>
 				</td>
-				<td class="project-status">
+				<td>
 					<span class="dropdown" on-toggle="toggled(open)" ng-if="project.permission == 2">
 						<a href="javascript:;" class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
 						<ul class="dropdown-menu dropdown-menu-width">
@@ -113,13 +114,13 @@
 						</ul>
 					</span><span ng-if="project.permission != 2">{{project.status|enumStatusText}}</span>
 				</td>
-				<td class="text-center project-date">
+				<td class="text-center">
 					{{project.startDate | customDate}}
 				</td>
-				<td class="text-center project-date">
+				<td class="text-center">
 					{{project.endDate| customDate}}
 				</td>
-				<td class="text-center project-status">
+				<td class="text-center">
 					<div ng-if="project.permission == 2">
 						<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="/Projects/Edit/{{project.projectId}}"
 							ng-click="editProject(project.projectId)" />
