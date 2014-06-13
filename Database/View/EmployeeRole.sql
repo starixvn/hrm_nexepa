@@ -10,7 +10,7 @@ GO
 
 CREATE VIEW [dbo].[EmployeeRole]
 AS
-SELECT        empRole.EmployeeId, empRole.RoleId
+SELECT    DISTINCT     empRole.EmployeeId, empRole.RoleId
 FROM            (SELECT        EmployeeId, RoleId
                           FROM            dbo.EmployeePermission WITH (NOLOCK)
                           WHERE        (IsAllow = 1) AND (IsDeny = 0)
