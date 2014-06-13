@@ -29,49 +29,51 @@
 </div> 
 
 <div class="row">
-    <table class="table table-bordered table-striped" >
-		<thead>
+    <table class="table table-bordered table-striped" id="data" fixed-header>
+		<thead class="headerName">
 			<th class="employee-no" data-translate="SymbolCount">
 			</th>
 			<th class="employee-code" data-translate="Code">
 			</th>
-			<th class="employee-nick" data-translate="NickName">
+			<th class="authority-employee-nick" data-translate="NickName">
 			</th>
-			<th class="employee-team" data-translate="FullName">
+			<th class="authority-employee-name" data-translate="FullName">
 			</th>
-			<th class="employee-name" data-translate="Job Title">
+			<th class="authority-employee-job-title" data-translate="Job Title">
 			</th>
-			<th class="employee-team" data-translate="Team">
+			<th class="authority-employee-team" data-translate="Team">
 			</th>
-			<th data-translate="Roles">
+			<th class="authority-employee-role" data-translate="Roles">
 			</th>
-            <th data-translate="Action" ng-if="permission.policy == 2">
+            <th class="authority-employee-action" data-translate="Action" ng-if="permission.policy == 2">
+            </th>
+            <th>
             </th>
 		</thead>
-		<tbody>
-			<tr ng-repeat="employee in employees">
+		<tbody class="table-body">
+			<tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
 				<td class="index employee-no">
 					{{$index+1}}
 				</td>
 				<td class="code employee-code">
 					{{employee.code}}
 				</td>
-				<td class="nick-name employee-nick">
+				<td class="nick-name authority-employee-nick">
 					{{employee.nickName}}
 				</td>
-				<td class="employee-team">
+				<td class="authority-employee-name">
 					{{employee.fullName}}
 				</td>
-				<td class="employee-name">
+				<td class="authority-employee-job-title">
 					{{employee.jobTitle.name}}
 				</td>
-				<td class="employee-team">
+				<td class="authority-employee-team">
 					{{employee.group.name}}
 				</td>
-				<td>
+				<td class="authority-employee-role">
 					{{employee.roles}}
 				</td>
-                <td class="align-center" ng-if="permission.policy == 2">
+                <td class="index authority-employee-action" ng-if="permission.policy == 2">
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
                </td>
 			</tr>
@@ -83,4 +85,5 @@
 			</tr>
 		</tfoot>
 	</table>
+    <pagination-bar></pagination-bar>
 </div>

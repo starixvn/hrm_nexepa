@@ -79,8 +79,8 @@ function ($scope, $route, authorityRepository, notificationFactory, ErrorService
 } ]);
 
 authorityModule.controller('ManageUserPermissionController',
-['$scope', '$modal', '$route', 'employeeRepository', 'commonFactory', 'authorityRepository', 'ErrorService', 'notificationFactory',
-function ($scope, $modal, $route, employeeRepository, commonFactory, authorityRepository, ErrorService, notificationFactory) {
+['$scope', '$modal', 'employeeRepository', 'commonFactory', 'authorityRepository', 'ErrorService', 'notificationFactory',
+function ($scope, $modal, employeeRepository, commonFactory, authorityRepository, ErrorService, notificationFactory) {
 
 	authorityRepository.getManageUserPermission().success(function (policy) {
 		$scope.permission = {
@@ -99,6 +99,7 @@ function ($scope, $modal, $route, employeeRepository, commonFactory, authorityRe
 	var getEmployee = function (keyword, groupId) {
 		authorityRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
+			commonFactory.tablePagination($scope, employees, 25);
 		}).error();
 	};
 
@@ -109,17 +110,22 @@ function ($scope, $modal, $route, employeeRepository, commonFactory, authorityRe
 	};
 
 	var getSelectedRole = function (roles) {
-		var selectedRoles = '';
+		var selectedRoles = {
+			selectedRolesId : '',
+			selectedRolesName : ''
+		};
 
 		for (var i = 0; i < roles.length; i++) {
 			var role = roles[i];
 
 			if (roles[i].permission) {
-				if (selectedRoles === '') {
-					selectedRoles += role.roleId;
+				if (selectedRoles.selectedRolesId === '') {
+					selectedRoles.selectedRolesId += role.roleId;
+					selectedRoles.selectedRolesName = role.name;
 				}
 				else {
-					selectedRoles += ',' + role.roleId;
+					selectedRoles.selectedRolesId += ',' + role.roleId;
+					selectedRoles.selectedRolesName += ', ' + role.name;
 				}
 			}
 		}
@@ -143,13 +149,13 @@ function ($scope, $modal, $route, employeeRepository, commonFactory, authorityRe
 			var selectedRole = getSelectedRole(roles),
 				userRole = {
 					employeeId: employee.employeeId,
-					roleIds: selectedRole
+					roleIds: selectedRole.selectedRolesId
 				};
 
 			authorityRepository.updateRole(userRole).success(function (response) {
 				if (response.isSuccessful === true) {
+					employee.roles = selectedRole.selectedRolesName;
 					notificationFactory.success("DataChangeSuccessfully");
-					$route.reload();
 				}
 				else {
 					notificationFactory.error("", response.message);
