@@ -50,6 +50,9 @@ var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'n
 
 	$routeProvider.when('/TargetTemplate/Details/:targetTemplateId',
 	{ templateUrl: '/templates/TargetTemplate/Details.html', controller: 'DetailTargetTemplateController' });
+
+	$routeProvider.when('/TargetEmployeeSetting/Index',
+	{ templateUrl: '/templates/TargetEmployeeSetting/Index.html', controller: 'ViewTargetEmployeeSettingController' });
 } ]);
 
 var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])

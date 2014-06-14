@@ -300,6 +300,8 @@
     <Content Include="Scripts\Views\KPI\KPIGroup\KPIGroup-repository.js" />
     <Content Include="Scripts\Views\Setting\generalsetting-repository.js" />
     <Content Include="Scripts\Views\Setting\generalsetting-controller.js" />
+    <Content Include="Scripts\Views\TargetTemplate\targetEmployeeSetting-controller.js" />
+    <Content Include="Scripts\Views\TargetTemplate\targetEmployeeSetting-repository.js" />
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-controller.js" />
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-repository.js" />
     <Content Include="Scripts\Views\Target\target-controller.js" />
@@ -314,8 +316,15 @@
     <Content Include="Templates\Authority\UserPermission\Index.html" />
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\Logout.html" />
+    <Content Include="Templates\KPI\KPIGroup\Create.html" />
+    <Content Include="Templates\KPI\KPIGroup\Edit.html" />
+    <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />
+    <Content Include="Templates\KPI\KPI\Create.html" />
+    <Content Include="Templates\KPI\KPI\Edit.html" />
+    <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Organization\Department\Index.html" />
     <Content Include="Templates\Organization\Department\TreeTemplate.html" />
+    <Content Include="Templates\TargetEmployeeSetting\Index.html" />
     <Content Include="Templates\Target\TargetKPI.html" />
     <Content Include="Templates\Test\LoginAsAnotherUser.html" />
     <Content Include="Templates\Common\ModalConfirmContent.html" />
@@ -337,11 +346,6 @@
     <Content Include="Templates\Projects\ProjectFilterPanel.html" />
     <Content Include="Templates\ProjectMembers\ProjectMembersFilterPanel.html" />
     <Content Include="Templates\Projects\ProjectMilestone.html" />
-    <Content Include="Templates\KPI\KPIGroup\Create.html" />
-    <Content Include="Templates\KPI\KPIGroup\Edit.html" />
-    <Content Include="Templates\KPI\KPI\Create.html" />
-    <Content Include="Templates\KPI\KPI\Edit.html" />
-    <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Report\EmployeePerformanceByTeam\View.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\GeneralInformation.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\HistoryProject.html" />
@@ -393,7 +397,6 @@
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Authority\NexEPA.Authority.csproj">

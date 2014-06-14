@@ -178,6 +178,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign Target Template To User.
+        /// </summary>
+        public static string AssignTargetTemplateToUser {
+            get {
+                return ResourceManager.GetString("AssignTargetTemplateToUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authority.
         /// </summary>
         public static string Authority {
@@ -561,6 +570,15 @@ namespace NexEPA.Resources {
         public static string EPAs {
             get {
                 return ResourceManager.GetString("EPAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EPA Type.
+        /// </summary>
+        public static string EPAType {
+            get {
+                return ResourceManager.GetString("EPAType", resourceCulture);
             }
         }
         
@@ -1416,6 +1434,15 @@ namespace NexEPA.Resources {
         public static string TargetDetail {
             get {
                 return ResourceManager.GetString("TargetDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Employee Setting.
+        /// </summary>
+        public static string TargetEmployeeSetting {
+            get {
+                return ResourceManager.GetString("TargetEmployeeSetting", resourceCulture);
             }
         }
         

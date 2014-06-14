@@ -1,0 +1,59 @@
+﻿<div class="row">
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li><a href="#" data-translate="TargetEmployeeSetting" ng-click="reload()"></a></li>
+			<li class="current" data-translate="AssignTargetTemplateToUser"></li>
+		</ul>
+	</div>
+
+	<div class="form-inline filter">
+		<form novalidate class="form-inline">
+			<div class="form-group">
+				<label data-translate="EPAType"></label>
+				<select name="formSelect" ng-model="filter.epaTypeId" 
+					ng-options="opt.epaTypeId as opt.name for opt in listEPAType" required class="form-control">
+				<option value="">-- Select EPA Type --</option>
+				</select>
+			</div>
+			<button class="button" ng-click="query(filter.epaTypeId, null)" ng-disabled="submitted" data-translate="Submit"></button>
+		</form>
+	</div>
+</div>
+
+<div class="row">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<th data-translate="SymbolCount"></th>
+			<th data-translate="Code"></th>
+			<th data-translate="NickName"></th>
+			<th data-translate="FullName"></th>
+			<th data-translate="TargetTemplate"></th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="employee in targetEmployees">
+				<td ng-bind="$index + 1"></td>
+				<td ng-bind="employee.code"></td>
+				<td ng-bind="employee.nickName"></td>
+				<td ng-bind="employee.fullName"></td>
+				<td>
+					<span class="dropdown">
+						<a class="dropdown-toggle changeStatus" href="" ng-bind="employee.name" ng-if="employee.name">
+						</a>
+						<a class="dropdown-toggle changeStatus" href="" ng-if="!employee.name">Choose target template!
+						</a>
+						<ul class="dropdown-menu ">
+							<li ng-repeat="template in targetTemplates | filter:{name:'!'+employee.name}">
+								<a href="" ng-bind="template.name" ng-click="updateTargetTemplate(employee, template, filter.epaTypeId)">
+								</a>
+							</li>
+						</ul>
+					</span>
+				</td>
+			</tr>
+			<tr ng-show="targetList == ''">
+				<td class="empty-result" colspan="5" data-translate="EmptyResult">
+				</td>
+			</tr>
+		</tbody>
+    </table>
+</div>

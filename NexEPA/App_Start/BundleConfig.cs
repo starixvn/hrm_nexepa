@@ -90,7 +90,9 @@ namespace NexEPA
                 "~/Scripts/Views/Organization/Department/department-controller.js",
                 "~/Scripts/Views/Organization/Department/department-repository.js",
                 "~/Scripts/Views/Authority/authority-controller.js",
-                "~/Scripts/Views/Authority/authority-repository.js"));
+                "~/Scripts/Views/Authority/authority-repository.js",
+                "~/Scripts/Views/TargetTemplate/targetEmployeeSetting-controller.js",
+                "~/Scripts/Views/TargetTemplate/targetEmployeeSetting-repository.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/epa-extension").Include(
                 "~/Scripts/Extensions/Filters/epa-filter.js",

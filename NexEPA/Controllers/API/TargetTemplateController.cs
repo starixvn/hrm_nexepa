@@ -27,6 +27,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;
     using NexEPA.KPI.ViewModels;
+    using NexEPA.Target.Criteria.TargetEmployeeSetting;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Implement;
@@ -383,6 +384,55 @@ namespace NexEPA.Controllers.API
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Get all EPA type.
+        /// </summary>
+        /// <returns>The enumerator EPA type.</returns>
+        [HttpGet]
+        public IEnumerable<EPATypeModel> GetEPAType()
+        {
+            var criteria = new GetEPATypeCriteria();
+
+            return _targetTemplateService.GetEPAType(criteria);
+        }
+
+        /// <summary>
+        /// Get Target Employee Setting.
+        /// </summary>
+        /// <param name="epaTypeId">The EPA type Id.</param>
+        /// <param name="departmentId">The department Id.</param>
+        /// <returns>The enumerator Target Employee Setting.</returns>
+        [HttpGet]
+        public IEnumerable<TargetEmployeeSettingModel> GetTargetEmployeeSetting(
+            int epaTypeId, 
+            int? departmentId = null)
+        {
+            var criteria = new GetTargetEmployeeSettingCriteria
+            {
+                EPATypeId = epaTypeId,
+                DepartmentId = departmentId
+            };
+
+            return _targetTemplateService.GetTargetEmployeeSetting(criteria);
+        }
+
+        /// <summary>
+        /// Update Target Employee Setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        [HttpPut]
+        public CommandResult UpdateTargetEmployeeSetting(UpdateTargeEmployeeSettingCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _targetTemplateService.UpdateTargetEmployeeSetting(criteria);
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

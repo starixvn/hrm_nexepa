@@ -124,4 +124,9 @@
 		<Setting Key="Department_Update" SpName="Department_Update" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Department_Delete" SpName="Department_Delete" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
+  <Function Name="TargetEmployeeSetting">
+	<Setting Key="EPAType_Get" SpName="EPAType_Get" DbName="NexEPA" Plain="1" ></Setting>
+	<Setting Key="TargetEmployeeSetting_Get" SpName="TargetEmployeeSetting_Get" DbName="NexEPA" Plain="1" ></Setting>
+	<Setting Key="TargetEmployeeSetting_Update" SpName="TargetEmployeeSetting_Update" DbName="NexEPA" Plain="1" ></Setting>
+  </Function>
 </Functions>

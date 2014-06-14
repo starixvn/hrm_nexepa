@@ -12,6 +12,7 @@ namespace NexEPA.Target.Services.Interface
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using NexEPA.KPI.Model;
+    using NexEPA.Target.Criteria.TargetEmployeeSetting;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
 
@@ -43,5 +44,11 @@ namespace NexEPA.Target.Services.Interface
         CommandResult SetDefaultTargetTemplate(SetTargetSettingCriteria criteria);
 
         CommandResult RemoveKPIGroup(RemoveKPIGroupCriteria criteria);
+
+        IEnumerable<TargetEmployeeSettingModel> GetTargetEmployeeSetting(GetTargetEmployeeSettingCriteria criteria);
+
+        IEnumerable<EPATypeModel> GetEPAType(GetEPATypeCriteria criteria);
+
+        CommandResult UpdateTargetEmployeeSetting(UpdateTargeEmployeeSettingCriteria criteria);
     }
 }

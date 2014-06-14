@@ -14,6 +14,7 @@ namespace NexEPA.Target.Services.Implement
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Services;
     using NexEPA.KPI.Model;
+    using NexEPA.Target.Criteria.TargetEmployeeSetting;
     using NexEPA.Target.Criteria.TargetTemplate;
     using NexEPA.Target.Models;
     using NexEPA.Target.Repositories.Implement;
@@ -195,6 +196,60 @@ namespace NexEPA.Target.Services.Implement
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Get all EPA type.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator EPA Type.</returns>
+        public IEnumerable<EPATypeModel> GetEPAType(GetEPATypeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EPATypeModel> epaTypeList = null;
+
+            if (criteria.IsValid())
+            {
+                epaTypeList = GetData<EPATypeModel>(criteria);
+            }
+
+            return epaTypeList;
+        }
+
+        /// <summary>
+        /// Get target employee setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Target Employee Setting.</returns>
+        public IEnumerable<TargetEmployeeSettingModel> GetTargetEmployeeSetting(GetTargetEmployeeSettingCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<TargetEmployeeSettingModel> targetEmployees = null;
+
+            if (criteria.IsValid())
+            {
+                targetEmployees = GetData<TargetEmployeeSettingModel>(criteria);
+            }
+
+            return targetEmployees;
+        }
+
+        /// <summary>
+        /// Update Target Employee Setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateTargetEmployeeSetting(UpdateTargeEmployeeSettingCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

@@ -54,6 +54,9 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\TargetEmployeeSetting\GetEPATypeCriteria.cs" />
+    <Compile Include="Criteria\TargetEmployeeSetting\GetTargetEmployeeSettingCriteria.cs" />
+    <Compile Include="Criteria\TargetEmployeeSetting\UpdateTargeEmployeeSettingCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\AddKPIGroupWeightCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\AddTargetTemplateCriteria.cs" />
     <Compile Include="Criteria\TargetTemplate\DeleteTargetTemplateCriteria.cs" />
@@ -74,7 +77,9 @@
     <Compile Include="Criteria\Target\Target\GetProjectOrMilestoneDateCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetToFilterCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetStatusCriteria.cs" />
+    <Compile Include="Models\EPATypeModel.cs" />
     <Compile Include="Models\TargetDateModel.cs" />
+    <Compile Include="Models\TargetEmployeeSettingModel.cs" />
     <Compile Include="Models\TargetFilterModel.cs" />
     <Compile Include="Models\TargetTemplateKPIModel.cs" />
     <Compile Include="Criteria\Target\Target\DeleteTargetCriteria.cs" />
