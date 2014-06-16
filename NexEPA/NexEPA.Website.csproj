@@ -322,8 +322,8 @@
     <Content Include="Templates\KPI\KPI\Create.html" />
     <Content Include="Templates\KPI\KPI\Edit.html" />
     <Content Include="Templates\KPI\KPI\View.html" />
-    <Content Include="Templates\Organization\Department\Index.html" />
-    <Content Include="Templates\Organization\Department\TreeTemplate.html" />
+    <Content Include="Templates\Department\Index.html" />
+    <Content Include="Templates\Department\TreeTemplate.html" />
     <Content Include="Templates\TargetEmployeeSetting\Index.html" />
     <Content Include="Templates\Target\TargetKPI.html" />
     <Content Include="Templates\Test\LoginAsAnotherUser.html" />

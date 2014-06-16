@@ -93,7 +93,7 @@ var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
 
 var departmentModule = angular.module("departmentModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
-	$routeProvider.when('/Department/Index', { templateUrl: '/templates/Organization/Department/Index.html', controller: 'ManageDepartmentController' });
+	$routeProvider.when('/Department/Index', { templateUrl: '/templates/Department/Index.html', controller: 'ManageDepartmentController' });
 } ]);
 
 var authorityModule = angular.module("authorityModule", ['ngRoute', 'ngResource'])

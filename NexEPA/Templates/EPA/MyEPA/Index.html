@@ -200,7 +200,7 @@
 			This field is required!
 		</div>
 		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>
-		<label class="error-message" data-translate="*"></label>
+		<label ng-if="employeeEPA.comment==null || employeeEPA.comment==''" class="error-message" data-translate="*"></label>
 		<div class="col-sm-3">
 			<div class="total">
 				<p>
