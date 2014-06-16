@@ -274,11 +274,13 @@
     <Content Include="Scripts\Views\Authority\authority-repository.js" />
     <Content Include="Scripts\Views\EPA\myepa-controller.js" />
     <Content Include="Scripts\Views\EPA\myepa-repository.js" />
+    <Content Include="Scripts\Views\FlowManagement\flowmanagement-repository.js" />
+    <Content Include="Scripts\Views\FlowManagement\flowmanagement-controller.js" />
     <Content Include="Scripts\Views\Home\home-controller.js" />
     <Content Include="Scripts\Views\Home\home-repository.js" />
     <Content Include="Scripts\Views\Login\login-controller.js" />
-    <Content Include="Scripts\Views\Organization\Department\department-repository.js" />
-    <Content Include="Scripts\Views\Organization\Department\department-controller.js" />
+    <Content Include="Scripts\Views\Department\department-repository.js" />
+    <Content Include="Scripts\Views\Department\department-controller.js" />
     <Content Include="Scripts\Views\Report\report-controller.js" />
     <Content Include="Scripts\Views\Report\report-repository.js" />
     <Content Include="Scripts\Views\Resource\resource-controller.js" />
@@ -316,6 +318,7 @@
     <Content Include="Templates\Authority\UserPermission\Index.html" />
     <Content Include="Templates\Common\AccessDenied.html" />
     <Content Include="Templates\Common\Logout.html" />
+    <Content Include="Templates\FlowManagement\Index.html" />
     <Content Include="Templates\KPI\KPIGroup\Create.html" />
     <Content Include="Templates\KPI\KPIGroup\Edit.html" />
     <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />
