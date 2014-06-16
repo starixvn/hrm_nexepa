@@ -1,4 +1,14 @@
-﻿<div class="row">
+﻿<div class="row sub-header">
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="#" data-translate="TargetEmployeeSetting" ng-click="reload()"></a></li>
+        <li class="current" data-translate="AssignTargetTemplateToUser"></li>
+    </ul>
+</div>
+<div class="row">
+    <form novalidate class="filter form-inline">
+    <div class="form-group">
+        <label data-translate="EPAType">
+<div class="row">
 	<div class="row sub-header">
 		<ul class="breadcrumb list-inline pull-left">
 			<li><a href="#" data-translate="TargetEmployeeSetting" ng-click="reload()"></a></li>
@@ -11,10 +21,11 @@
 			<div class="form-group">
 				<label data-translate="EPAType"></label>
 				<select ng-model="filter.epaTypeId" 
-					ng-options="opt.epaTypeId as opt.name for opt in listEPAType" required class="form-control">
-				<option value="">-- Select EPA Type --</option>
-				</select>
-			</div>
+        <select name="formSelect" ng-model="filter.epaTypeId" ng-options="opt.epaTypeId as opt.name for opt in listEPAType"
+            required class="form-control">
+            <option value="">-- Select EPA Type --</option>
+        </select>
+    </div>
 			<div class="form-group">
 				<label data-translate="Department"></label>
 				<select ng-model="filter.departmentId" 
@@ -23,27 +34,46 @@
 				</select>
 			</div>
 			<button class="button" ng-click="query(filter.epaTypeId, filter.departmentId)" ng-disabled="submitted" data-translate="Submit"></button>
+    </div>
+    </form>
 		</form>
 	</div>
 </div>
 
 <div class="row">
 	<table class="table table-bordered table-striped target-employee-setting">
-		<thead>
-			<th data-translate="SymbolCount"></th>
-			<th data-translate="Code"></th>
-			<th data-translate="NickName"></th>
-			<th data-translate="FullName"></th>
-			<th data-translate="TargetTemplate"></th>
-		</thead>
-		<tbody>
-			<tr ng-repeat="employee in targetEmployees">
+        <thead>
+            <th data-translate="SymbolCount">
+            </th>
+            <th data-translate="Code">
+            </th>
+            <th data-translate="NickName">
+            </th>
+            <th data-translate="FullName">
+            </th>
+            <th data-translate="TargetTemplate">
+            </th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="employee in targetEmployees">
 				<td class="index" ng-bind="$index + 1"></td>
 				<td class="code" ng-bind="employee.code"></td>
 				<td class="nick-name" ng-bind="employee.nickName"></td>
-				<td ng-bind="employee.fullName"></td>
-				<td>
+                </td>
+                <td ng-bind="employee.nickName">
+                </td>
+                <td ng-bind="employee.fullName">
+                </td>
+                <td>
 					<span class="dropdown" ng-if="permission.policy == 2">
+                        ng-if="employee.name"></a><a class="dropdown-toggle changeStatus" href="" ng-if="!employee.name">
+                            Choose target template! </a>
+                        <ul class="dropdown-menu ">
+                            <li ng-repeat="template in targetTemplates | filter:{name:'!'+employee.name}"><a
+                                href="" ng-bind="template.name" ng-click="updateTargetTemplate(employee, template, filter.epaTypeId)">
+                            </a></li>
+                        </ul>
+                    </span>
 						<a class="dropdown-toggle changeStatus" href="" ng-bind="employee.name" ng-if="employee.name">
 						</a>
 						<a class="dropdown-toggle changeStatus" href="" ng-if="!employee.name">Choose target template!
@@ -57,12 +87,12 @@
 					</span>
 					<span ng-if="permission.policy == 1" ng-bind="employee.name">
 					</span>
-				</td>
-			</tr>
+                </td>
+            </tr>
 			<tr ng-show="targetEmployees == ''">
-				<td class="empty-result" colspan="5" data-translate="EmptyResult">
-				</td>
-			</tr>
-		</tbody>
+                <td class="empty-result" colspan="5" data-translate="EmptyResult">
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>

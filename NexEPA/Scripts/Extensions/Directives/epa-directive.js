@@ -207,8 +207,8 @@ registrationModule.directive('paginationBar', function () {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		template: '<div class="custom-paging">'
-			+ '<ul class="pagination pull-right paging-margin">'
+		template:
+			'<ul class="pagination pull-right custom-paging">'
 				+ '<li ng-class="{disabled: currentPage == 0}">'
 					+ '<a class="first" href ng-click="firstPage()" title="First Page">«</a>'
 				+ '</li>'
@@ -225,7 +225,6 @@ registrationModule.directive('paginationBar', function () {
 					+ '<a class="last" href ng-click="lastPage()" title="Last Page">»</a>'
 				+ '</li>'
 			+ '</ul>'
-		+ '</div>'
 	};
 });
 

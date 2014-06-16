@@ -1,141 +1,142 @@
 ﻿<div class="row sub-header">
-	<ul class="breadcrumb list-inline pull-left">
-		<li>
-			<a href="#">Project</a></li>
-		<li class="current">Manage Project</li>
-	</ul>
-	<div class="button-icon" ng-if="permission.policy == 2">
-		<span class="icon plus"></span>
-		<a href="/Projects/Create" data-translate="CreateProject"></a>
-	</div>
-</div>
-<div class="row col-sm-12">
-	<div class="col-sm-8">
-		<form class="row form-inline filter" role="form">
-		<div class="form-group">
-			<label data-translate="ProjectManager">
-			</label>
-			<select class="form-control lstBox-limit" ng-model="filter.projectManager" required>
-				<option value="">-- All --</option>
-				<option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label data-translate="Status">
-			</label>
-			<select class="form-control" ng-options="s.id as s.name for s in status" ng-model="filter.status">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label data-translate="Period">
-			</label>
-			<select class="form-control" ng-options="p.id as p.name for p in periods" ng-model="filter.period">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-		<a class="button" ng-click="getProjectList(filter)" data-translate="Submit"></a>
-		</form>
-	</div>
-</div>
-<div class="col-sm-12">
-	<span class="pull-left table-entries"><span data-translate="Show"></span>
-		<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
-		</select>
-		<span data-translate="entries"></span></span><span class="pull-right">
-			<label data-translate="Search:">
-			</label>
-			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
-		</span>
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="#">Project</a></li>
+        <li class="current">Manage Project</li>
+    </ul>
+    <div class="button-icon" ng-if="permission.policy == 2">
+        <span class="icon plus"></span><a href="/Projects/Create" data-translate="CreateProject">
+        </a>
+    </div>
 </div>
 <div class="row">
-	<table class="table table-bordered table-striped" id="data">
-		<thead class="headerName">
-			<tr>
-				<th class="middle-align" data-translate="SymbolCount">
-				</th>
-				<th class="middle-align" data-translate="ProjectName">
-				</th>
-				<th class="middle-align" data-translate="Milestone">
-				</th>
-				<th class="middle-align" data-translate="PM">
-				</th>
-				<th class="middle-align" data-translate="Members">
-				</th>
-				<th class="middle-align" data-translate="ProjectEPAStatistic">
-				</th>
-				<th class="middle-align" data-translate="Status">
-				</th>
-				<th class="middle-align" data-translate="StartDate">
-				</th>
-				<th class="middle-align" data-translate="EndDate">
-				</th>
-				<th class="middle-align" data-translate="Action">
-				</th>
-			</tr>
-		</thead>
-		<tbody class="table-body">
-			<tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse ">
-				<td class="text-center column-count">
-					{{$index + 1}}
-				</td>
-				<td>
-					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,false)">
-						{{project.name}} </a>
-				</td>
-				<td>
-					<div data-angular-treeview="true" data-tree-id="milestoneTree" data-tree-model="project.milestoneTreeView"
-						data-node-id="id" data-node-label="label" data-node-children="children" class="childrenList">
-					</div>
-					{{project.milestone.name}}
-				</td>
-				<td>
-					<span tooltip="{{project.fullName}}">{{project.nickName}}</span>
-				</td>
-				<td class="text-center">
-					<a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">
-						{{project.members}}</a>
-				</td>
-				<td class="text-center">
-					<a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">
-						{{project.totalOpenEPA}}</a>
-					<span ng-if="project.permission != 2">{{project.totalOpenEPA}}</span> /
-					<a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">
-						{{project.totalEPA}}</a>
-					<span ng-if="project.permission != 2">{{project.totalEPA}}</span>
-				</td>
-				<td>
-					<span class="dropdown" on-toggle="toggled(open)" ng-if="project.permission == 2">
-						<a href="javascript:;" class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
-						<ul class="dropdown-menu dropdown-menu-width">
-							<li ng-repeat="item in status" ng-hide="item.id == project.status">
-								<a ng-click="updateProjectStatus(project, item.id)" href="javascript:;">{{item.name}}</a>
-							</li>
-						</ul>
-					</span><span ng-if="project.permission != 2">{{project.status|enumStatusText}}</span>
-				</td>
-				<td class="text-center">
-					{{project.startDate | customDate}}
-				</td>
-				<td class="text-center">
-					{{project.endDate| customDate}}
-				</td>
-				<td class="text-center">
-					<div ng-if="project.permission == 2">
-						<a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="/Projects/Edit/{{project.projectId}}"
-							ng-click="editProject(project.projectId)" />
-						<a class="glyphicon glyphicon-remove icon-remove" title="Delete Project" href="javascript:;"
-							ng-click="deleteProject(project)" />
-					</div>
-				</td>
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr ng-show="projects == '' || projects == 'null'">
-				<td class="empty-result" colspan="10" data-translate="EmptyResult">
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-	<pagination-bar></pagination-bar>
+    <form class="form-inline filter" role="form">
+    <div class="form-group">
+        <label data-translate="ProjectManager">
+        </label>
+        <select class="form-control lstBox-limit" ng-model="filter.projectManager" required>
+            <option value="">-- All --</option>
+            <option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label data-translate="Status">
+        </label>
+        <select class="form-control" ng-options="s.id as s.name for s in status" ng-model="filter.status">
+            <option value="">-- All --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label data-translate="Period">
+        </label>
+        <select class="form-control" ng-options="p.id as p.name for p in periods" ng-model="filter.period">
+            <option value="">-- All --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <a class="button" ng-click="getProjectList(filter)" data-translate="Submit"></a>
+    </div>
+    </form>
+</div>
+<div class="row">
+    <table class="col-sm-12 table table-bordered table-striped" id="data">
+        <thead>
+            <tr class="header-table">
+                <th colspan="10">
+                    <div class="pull-left table-entries">
+                        <span data-translate="Show"></span>
+                        <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+                            ng-options="entry for entry in entries">
+                        </select>
+                        <span data-translate="entries"></span>
+                    </div>
+                    <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+                </th>
+            </tr>
+            <tr class="headerName">
+                <th class="middle-align" data-translate="SymbolCount">
+                </th>
+                <th class="middle-align" data-translate="ProjectName">
+                </th>
+                <th class="middle-align" data-translate="Milestone">
+                </th>
+                <th class="middle-align" data-translate="PM">
+                </th>
+                <th class="middle-align" data-translate="Members">
+                </th>
+                <th class="middle-align" data-translate="ProjectEPAStatistic">
+                </th>
+                <th class="middle-align" data-translate="Status">
+                </th>
+                <th class="middle-align" data-translate="StartDate">
+                </th>
+                <th class="middle-align" data-translate="EndDate">
+                </th>
+                <th class="middle-align" data-translate="Action">
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            <tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse ">
+                <td class="text-center column-count">
+                    {{$index + 1}}
+                </td>
+                <td>
+                    <a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,false)">
+                        {{project.name}} </a>
+                </td>
+                <td>
+                    <div data-angular-treeview="true" data-tree-id="milestoneTree" data-tree-model="project.milestoneTreeView"
+                        data-node-id="id" data-node-label="label" data-node-children="children" class="childrenList">
+                    </div>
+                    {{project.milestone.name}}
+                </td>
+                <td>
+                    <span tooltip="{{project.fullName}}">{{project.nickName}}</span>
+                </td>
+                <td class="text-center">
+                    <a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,true)">
+                        {{project.members}}</a>
+                </td>
+                <td class="text-center">
+                    <a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">
+                        {{project.totalOpenEPA}}</a> <span ng-if="project.permission != 2">{{project.totalOpenEPA}}</span>
+                    / <a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">
+                        {{project.totalEPA}}</a> <span ng-if="project.permission != 2">{{project.totalEPA}}</span>
+                </td>
+                <td>
+                    <span class="dropdown" on-toggle="toggled(open)" ng-if="project.permission == 2"><a
+                        href="javascript:;" class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
+                        <ul class="dropdown-menu dropdown-menu-width">
+                            <li ng-repeat="item in status" ng-hide="item.id == project.status"><a ng-click="updateProjectStatus(project, item.id)"
+                                href="javascript:;">{{item.name}}</a> </li>
+                        </ul>
+                    </span><span ng-if="project.permission != 2">{{project.status|enumStatusText}}</span>
+                </td>
+                <td class="text-center">
+                    {{project.startDate | customDate}}
+                </td>
+                <td class="text-center">
+                    {{project.endDate| customDate}}
+                </td>
+                <td class="text-center">
+                    <div ng-if="project.permission == 2">
+                        <a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="/Projects/Edit/{{project.projectId}}"
+                            ng-click="editProject(project.projectId)" /><a class="glyphicon glyphicon-remove icon-remove"
+                                title="Delete Project" href="javascript:;" ng-click="deleteProject(project)" />
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr ng-show="projects == '' || projects == 'null'">
+                <td class="empty-result" colspan="10" data-translate="EmptyResult">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10" class="paging">
+                    <pagination-bar></pagination-bar>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>

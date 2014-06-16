@@ -1,102 +1,106 @@
 ﻿<div class="row sub-header">
-	<ul class="col-xs-12 breadcrumb list-inline pull-left">
-		<li>
-			<a href="#" data-translate="Employee" ng-click="reload()"></a>
-		</li>
-		<li class="current" data-translate="ManageEmployee"></li>
-	</ul>
-</div>
-<div class="col-sm-12">
-	<div class="col-sm-8">
-		<form novalidate class="row form-inline filter">
-		<div class="form-group">
-			<label data-translate="Keyword">
-			</label>
-			<input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
-		</div>
-		<div class="form-group">
-			<label data-translate="Team">
-			</label>
-			<select ng-model="filter.groupId" ng-options="opt.id as opt.name for opt in groupOptions"
-				class="form-control lstBox-limit">
-				<option value="" data-translate="AllTeam"></option>
-			</select>
-		</div>
-		<button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton"
-			data-translate="Submit">
-		</button>
-		</form>
-	</div>
-</div>
-<div class="col-sm-12">
-	<span class="pull-left table-entries"><span data-translate="Show"></span>
-		<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()" ng-options="entry for entry in entries">
-		</select>
-		<span data-translate="entries"></span></span><span class="pull-right">
-			<label data-translate="Search:">
-			</label>
-			<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox">
-		</span>
+    <ul class="col-xs-12 breadcrumb list-inline pull-left">
+        <li><a href="#" data-translate="Employee" ng-click="reload()"></a></li>
+        <li class="current" data-translate="ManageEmployee"></li>
+    </ul>
 </div>
 <div class="row">
-	<table class="table table-bordered table-striped" id="data">
-		<thead class="headerName">
-			<th data-translate="SymbolCount">
-			</th>
-			<th data-translate="Code">
-			</th>
-			<th data-translate="NickName">
-			</th>
-			<th data-translate="FullName">
-			</th>
-			<th data-translate="Job Title">
-			</th>
-			<th data-translate="Team">
-			</th>
-			<th data-translate="Skype">
-			</th>
-			<th data-translate="Email">
-			</th>
-			<th data-translate="JoinedDate">
-			</th>
-		</thead>
-		<tbody class="table-body">
-			<tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
-				<td class="index column-count">
-					{{$index+1}}
-				</td>
-				<td class="code">
-					{{employee.code}}
-				</td>
-				<td class="nick-name">
-					{{employee.nickName}}
-				</td>
-				<td>
-					{{employee.fullName}}
-				</td>
-				<td>
-					{{employee.jobTitle.name}}
-				</td>
-				<td>
-					{{employee.group.name}}
-				</td>
-				<td>
-					<a href="skype:{{employee.skype}}?chat">{{employee.skype}}</a>
-				</td>
-				<td>
-					{{employee.email}}
-				</td>
-				<td class="joined-date">
-					{{employee.joinedDate | customDate}}
-				</td>
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr ng-show="employees == '' || employees == 'null'">
-				<td class="empty-result" colspan="9" data-translate="EmptyResult">
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-	<pagination-bar></pagination-bar>
+    <form novalidate class="form-inline filter">
+    <div class="form-group">
+        <label data-translate="Keyword">
+        </label>
+        <input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
+    </div>
+    <div class="form-group">
+        <label data-translate="Team">
+        </label>
+        <select ng-model="filter.groupId" ng-options="opt.id as opt.name for opt in groupOptions"
+            class="form-control lstBox-limit">
+            <option value="" data-translate="AllTeam"></option>
+        </select>
+    </div>
+    <button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton"
+        data-translate="Submit">
+    </button>
+    </form>
+</div>
+<div class="row">
+    <table class="col-sm-12 table table-bordered table-striped" id="data">
+        <thead>
+            <tr class="header-table">
+                <th colspan="9">
+                    <div class="pull-left table-entries">
+                        <span data-translate="Show"></span>
+                        <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+                            ng-options="entry for entry in entries">
+                        </select>
+                        <span data-translate="entries"></span>
+                    </div>
+                    <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+                </th>
+            </tr>
+            <tr>
+                <th data-translate="SymbolCount">
+                </th>
+                <th data-translate="Code">
+                </th>
+                <th data-translate="NickName">
+                </th>
+                <th data-translate="FullName">
+                </th>
+                <th data-translate="Job Title">
+                </th>
+                <th data-translate="Team">
+                </th>
+                <th data-translate="Skype">
+                </th>
+                <th data-translate="Email">
+                </th>
+                <th data-translate="JoinedDate">
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            <tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+                <td class="index column-count">
+                    {{$index+1}}
+                </td>
+                <td class="code">
+                    {{employee.code}}
+                </td>
+                <td class="nick-name">
+                    {{employee.nickName}}
+                </td>
+                <td>
+                    {{employee.fullName}}
+                </td>
+                <td>
+                    {{employee.jobTitle.name}}
+                </td>
+                <td>
+                    {{employee.group.name}}
+                </td>
+                <td>
+                    <a href="skype:{{employee.skype}}?chat">{{employee.skype}}</a>
+                </td>
+                <td>
+                    {{employee.email}}
+                </td>
+                <td class="joined-date">
+                    {{employee.joinedDate | customDate}}
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr ng-show="employees == '' || employees == 'null'">
+                <td class="empty-result" colspan="9" data-translate="EmptyResult">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9" class="paging">
+                    <pagination-bar></pagination-bar>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>

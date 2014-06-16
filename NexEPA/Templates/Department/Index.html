@@ -6,7 +6,7 @@
 		<li class="current" data-translate="Department"></li>
 	</ul>
 </div>
-<div class="col-sm-12">
+<div class="row">
 	<div class="col-sm-4">
 		<div class="tree">
 			<ul>
@@ -57,12 +57,15 @@
 						maxlength="200" placeholder="Manager" required id="txtManager" />
 				</div>
 			</div>
-			<div class="col-sm-offset-5">
+            <div class="form-group">
+                <div class="col-sm-offset-2">
 				<button class="button" ng-click="addChild(newNode)" data-translate="Submit">
 				</button>
 				<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 				</button>
 			</div>
+            </div>
+			
 			</form>
 		</div>
 	</div>
@@ -134,7 +137,8 @@
 						id="endDate" readonly required />
 				</div>
 			</div>
-			<div class="col-sm-offset-5">
+			 <div class="form-group">
+                <div class="col-sm-offset-3">
 				<button class="button" ng-click="toggleEditMode()" data-translate="Edit" ng-show="isDisabled">
 				</button>
 				<button class="button" ng-click="editChild(detailsNode)" data-translate="Submit"
