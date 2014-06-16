@@ -20,6 +20,8 @@ namespace NexEPA.Target.Criteria.TargetEmployeeSetting
 
         public int? DepartmentId { get; set; }
 
+        public int? GroupId { get; set; }
+
         public override string GetSettingKey()
         {
             return "TargetEmployeeSetting_Get";
