@@ -44,6 +44,8 @@ namespace NexEPA.Core.Constants
 
         public const string ManageDepartment = "ManageDepartment";
 
+        public const string ManageTargetEmployeeSetting = "ManageTargetEmployeeSetting";
+
         public const string Organization = "Organization";
 
         public const string PersonReport = "PersonReport";

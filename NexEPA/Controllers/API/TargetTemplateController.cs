@@ -35,6 +35,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.Target.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
+    using NexEPA.Web.Services.Impl;
+    using NexEPA.Web.Services.Interfaces;
 
     /// <summary>
     /// Target Template Controller.
@@ -45,9 +47,10 @@ namespace NexEPA.Controllers.API
         private readonly IEPAService _epaService;
         private readonly IKPIService _kpiServices;
         private readonly IKPIGroupService _kpiGroupServices;
+        private readonly ICommonService _commonService;
 
         public TargetTemplateController()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -55,12 +58,14 @@ namespace NexEPA.Controllers.API
             ITargetTemplateService targetTemplateService,
             IEPAService epaService,
             IKPIService kpiServices,
-            IKPIGroupService kpiGroupServices)
+            IKPIGroupService kpiGroupServices,
+            ICommonService commonServices)
         {
             this._targetTemplateService = targetTemplateService ?? new TargetTemplateService();
             _epaService = epaService ?? new EPAService();
             _kpiServices = kpiServices ?? new KPIService();
             _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
+            _commonService = commonServices ?? new CommonService();
         }
 
         /// <summary>
@@ -403,16 +408,20 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="epaTypeId">The EPA type Id.</param>
         /// <param name="departmentId">The department Id.</param>
+        /// <param name="groupId">The group Id.</param>
         /// <returns>The enumerator Target Employee Setting.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTargetEmployeeSetting, Policy = Policy.Read)]
         public IEnumerable<TargetEmployeeSettingModel> GetTargetEmployeeSetting(
             int epaTypeId, 
-            int? departmentId = null)
+            int? departmentId = null,
+            int? groupId = null)
         {
             var criteria = new GetTargetEmployeeSettingCriteria
             {
                 EPATypeId = epaTypeId,
-                DepartmentId = departmentId
+                DepartmentId = departmentId,
+                GroupId = groupId
             };
 
             return _targetTemplateService.GetTargetEmployeeSetting(criteria);
@@ -424,6 +433,7 @@ namespace NexEPA.Controllers.API
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Command Result.</returns>
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTargetEmployeeSetting, Policy = Policy.Host)]
         public CommandResult UpdateTargetEmployeeSetting(UpdateTargeEmployeeSettingCriteria criteria)
         {
             if (criteria != null)
@@ -433,6 +443,17 @@ namespace NexEPA.Controllers.API
             }
 
             return _targetTemplateService.UpdateTargetEmployeeSetting(criteria);
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        public int GetPermissionTargetEmployeeSetting()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageTargetEmployeeSetting);
+            return policy;
         }
 
         private IEnumerable<string> RetrieveErrorMessages()
