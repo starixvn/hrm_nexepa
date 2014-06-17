@@ -63,7 +63,7 @@
 						</a>
 						<a class="dropdown-toggle changeStatus" href="" ng-if="employee.name" ng-bind="employee.name">
 						</a>
-						<ul class="dropdown-menu ">
+						<ul class="dropdown-menu dropdown-menu-width">
 							<li ng-repeat="template in targetTemplates | filter:{name:'!'+employee.name}">
 								<a href="" ng-bind="template.name" ng-click="updateTargetTemplate(employee, template, filter.epaTypeId)">
 								</a>
