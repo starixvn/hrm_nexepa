@@ -51,7 +51,7 @@ namespace NexEPA.Authority.Services.Implement
         /// Get all role system.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>THe enumerator Role System Model.</returns>
+        /// <returns>The enumerator Role System Model.</returns>
         public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -137,10 +137,6 @@ namespace NexEPA.Authority.Services.Implement
                 {
                     rawChildFunctionItem.ChildFunctions = GetFunctionByRoleRecursion(rawFunctions, rawChildFunctionItem);
                 }
-            }
-            else
-            {
-                return null;
             }
 
             return rawChildFunctions;

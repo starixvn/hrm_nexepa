@@ -25,7 +25,7 @@ namespace NexEPA.Authority.Criteria
 
         public override bool IsValid()
         {
-            return true;
+            return EmployeeId > 0;
         }
     }
 }

@@ -79,8 +79,8 @@ function ($scope, $route, authorityRepository, notificationFactory, ErrorService
 } ]);
 
 authorityModule.controller('ManageUserPermissionController',
-['$scope', '$modal', 'employeeRepository', 'commonFactory', 'authorityRepository', 'ErrorService', 'notificationFactory',
-function ($scope, $modal, employeeRepository, commonFactory, authorityRepository, ErrorService, notificationFactory) {
+['$scope', '$modal', '$route', 'employeeRepository', 'commonFactory', 'authorityRepository', 'ErrorService', 'notificationFactory',
+function ($scope, $modal, $route, employeeRepository, commonFactory, authorityRepository, ErrorService, notificationFactory) {
 
 	authorityRepository.getManageUserPermission().success(function (policy) {
 		$scope.permission = {
@@ -176,6 +176,10 @@ function ($scope, $modal, employeeRepository, commonFactory, authorityRepository
 				}
 			});
 		});
+	};
+
+	$scope.reload = function () {
+		$route.reload();
 	};
 } ]);
 

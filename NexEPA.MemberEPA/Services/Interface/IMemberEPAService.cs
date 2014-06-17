@@ -32,5 +32,7 @@ namespace NexEPA.MemberEPA.Services.Interface
         CommandResult UpdateEPAStatus(UpdateEPAStatusCriteria criteria);
 
         int CheckEmployeePermission(GetEmployeePermissionCriteria criteria);
+
+        IList<AppraisalFormModel> GetAppraisalForm(GetAppraisalFormCriteria criteria);
     }
 }

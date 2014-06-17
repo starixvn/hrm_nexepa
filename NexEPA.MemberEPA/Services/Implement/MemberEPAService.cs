@@ -10,6 +10,7 @@
 
 namespace NexEPA.MemberEPA.Services.Implement
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
@@ -142,6 +143,41 @@ namespace NexEPA.MemberEPA.Services.Implement
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Get appraisal form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Appraisal Form.</returns>
+        public IList<AppraisalFormModel> GetAppraisalForm(GetAppraisalFormCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<AppraisalFormModel> appraisalList = null;
+
+            if (criteria.IsValid())
+            {
+                ////appraisalList = GetData<AppraisalFormModel>(criteria);
+                for (int i = 0; i < 4; i++)
+                {
+                    var appraisal = new AppraisalFormModel
+                    {
+                        Id = i,
+                        Code = "02111",
+                        NickName = "Josh.Test",
+                        FullName = "Test",
+                        Year = "2014",
+                        Month = "06",
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now,
+                        Status = "Test"
+                    };
+
+                    appraisalList.Add(appraisal);
+                }
+            }
+
+            return appraisalList;
         }
     }
 }

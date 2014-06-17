@@ -2,9 +2,9 @@
 /* global targetTemplateModule */
 
 targetTemplateModule.controller('ViewTargetEmployeeSettingController',
-['$scope', '$modal', 'targetEmployeeSettingFactory', 'targetTemplateFactory', 'notificationFactory', 'ErrorService',
+['$scope', '$modal', '$route', 'targetEmployeeSettingFactory', 'targetTemplateFactory', 'notificationFactory', 'ErrorService',
 'departmentDataFactory',
-function ($scope, $modal, targetEmployeeSettingFactory, targetTemplateFactory, notificationFactory, ErrorService,
+function ($scope, $modal, $route, targetEmployeeSettingFactory, targetTemplateFactory, notificationFactory, ErrorService,
 departmentDataFactory) {
 
 	targetEmployeeSettingFactory.getPermissionTargetEmployeeSetting().success(function (policy) {
@@ -142,5 +142,9 @@ departmentDataFactory) {
 				});
 			});
 		}
+	};
+
+	$scope.reload = function () {
+		$route.reload();
 	};
 } ]);

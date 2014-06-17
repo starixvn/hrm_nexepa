@@ -220,6 +220,32 @@ namespace NexEPA.Controllers.API
         }
 
         /// <summary>
+        /// Get appraisal form.
+        /// </summary>
+        /// <param name="epaTypeId">The EPA type Id.</param>
+        /// <param name="employeeId">The employee Id.</param>
+        /// <param name="year">The EPA year.</param>
+        /// <param name="month">The EPA month.</param>
+        /// <returns>The enumerator Appraisal Form.</returns>
+        [HttpGet]
+        public IEnumerable<AppraisalFormModel> GetAppraisalForm(
+            int epaTypeId, 
+            int employeeId,
+            int year,
+            int month)
+        {
+            var criteria = new GetAppraisalFormCriteria
+            {
+                EPATypeId = epaTypeId,
+                EmployeeId = employeeId,
+                Month = month,
+                Year = year
+            };
+
+            return _memberEPAService.GetAppraisalForm(criteria);
+        }
+
+        /// <summary>
         /// Method Get EPAInfo.
         /// </summary>
         /// <param name="targetId">Target Id.</param>

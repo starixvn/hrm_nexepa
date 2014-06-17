@@ -66,6 +66,9 @@ var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
 
 	$routeProvider.when('/MemberEPA/ViewMember',
 		{ templateUrl: '/templates/EPA/MemberEPA/ViewAllMemberOfManager.html', controller: 'ViewMemberByManagerEPAController' });
+
+	$routeProvider.when('/AppraisalForm/Index',
+		{ templateUrl: '/templates/AppraisalForm/Index.html', controller: 'ViewAppraisalFormController' });
 } ]);
 
 var generalSettingModule = angular.module("generalSettingModule", ['ngRoute', 'ngResource'])

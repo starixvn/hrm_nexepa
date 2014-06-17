@@ -270,6 +270,8 @@
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />
+    <Content Include="Scripts\Views\AppraisalForm\appraisalForm-controller.js" />
+    <Content Include="Scripts\Views\AppraisalForm\appraisalForm-repository.js" />
     <Content Include="Scripts\Views\Authority\authority-controller.js" />
     <Content Include="Scripts\Views\Authority\authority-repository.js" />
     <Content Include="Scripts\Views\EPA\myepa-controller.js" />
@@ -310,6 +312,7 @@
     <Content Include="Scripts\Views\Target\target-repository.js" />
     <Content Include="Scripts\Views\Test\test-controller.js" />
     <Content Include="Scripts\Views\Test\test-repository.js" />
+    <Content Include="Templates\AppraisalForm\Index.html" />
     <Content Include="Templates\Authority\RolePermission\Index.html" />
     <Content Include="Templates\Authority\RolePermission\TreeHostCheckbox.html" />
     <Content Include="Templates\Authority\RolePermission\TreeItem.html" />
