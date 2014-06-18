@@ -18,5 +18,7 @@ namespace NexEPA.Core.Constants
         public const string CurrentSessionKey = "NexEPA.CurrentSession";
 
         public const string ShortDateStringFormat = "dd MMM, yyyy";
+
+        public const string DefaultGravatarUrl = "?d=mm&amp;f=y";
     }
 }

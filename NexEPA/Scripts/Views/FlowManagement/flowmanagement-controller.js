@@ -2,27 +2,72 @@
 'use strict';
 
 flowManagementModule.controller("FlowManagementController", ['$scope', 'employeeRepository',
-'notificationFactory', '$modal', 'flowManagementService',
-function ($scope, employeeRepository, notificationFactory, $modal, flowManagementService) {
+'notificationFactory', '$modal', 'flowManagementService', 'ErrorService', 'departmentDataFactory',
+function ($scope, employeeRepository, notificationFactory, $modal, flowManagementService, ErrorService, departmentDataFactory) {
 	/**
 	* Scope Variable. 
 	*/
 	$scope.admins = [];
-	$scope.selfs = [];
+	$scope.selfs = [{ nickName: "Self"}];
 	$scope.evaluators = [];
 	$scope.reviewers = [];
 	$scope.currentSelectedEmployee;
 	$scope.showList = false;
 
 	/**
-	* Ajax data loaded. 
+	* Validation. 
 	*/
+	var addEmployeeToList = function (listIdentity, employee, position) {
+		var list;
+		var allowAdd = true;
+		switch (listIdentity) {
+			case "adminList":
+				list = $scope.admins;
+				break;
+			case "evaluatorList":
+				list = $scope.evaluators;
+				break;
+			case "reviewerList":
+				list = $scope.reviewers;
+				break;
+		}
+		$.each(list, function (i) {
+			if (list[i].employeeId === employee.employeeId) {
+				allowAdd = false;
+			}
+		});
+
+		if (allowAdd) {
+			if (position != null) {
+				list.splice(position, 0, employee);
+			}
+			else {
+				list.push(employee);
+			}
+		}
+		else {
+			notificationFactory.error('', 'This employee has already exists');
+		}
+	};
+
+	/**
+	* Ajax Event loaded. 
+	*/
+	var successGetAllDepartment = function (data) {
+		$scope.departments = data.item2;
+	};
+	var errorNotification = function (response) {
+		if (response.status === 405) {
+			ErrorService.errorHandle(response.status);
+		}
+		else {
+			notificationFactory.error('ErrorMessage');
+		}
+	};
 
 	/**
 	* Popup Add Member. 
 	*/
-	// Popup Add New Memeber.
-
 	var addEmployeeToFlow = function (currentList) {
 		$modal.open({
 			templateUrl: '/templates/FlowManagement/AddEmployee.html',
@@ -37,7 +82,7 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 	};
 
 	/**
-	* Initialize. 
+	* Initialize data to view. 
 	*/
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
@@ -53,28 +98,22 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 		return flowManagementService.getProperty();
 	}, function (value) {
 		if (value != null) {
-			switch (value.currentList) {
-				case "adminList":
-					$scope.admins.push(value.employee);
-					debugger;
-					break;
-				case "evaluatorList":
-					$scope.evaluators.push(value.employee);
-					break;
-				case "reviewerList":
-					$scope.reviewers.push(value.employee);
-					break;
-			}
+			addEmployeeToList(value.currentList, value.employee);
 		}
 	});
+
+	departmentDataFactory.getAllDepartment().then(successGetAllDepartment, errorNotification);
 
 	/**
 	* Events.
 	*/
+
+	// Show or hide list Employee.
 	$scope.toggleShowList = function () {
 		$scope.showList = !$scope.showList;
 	};
 
+	// Sort item in list.
 	$scope.$on('list-sorted', function (ev, val) {
 		if (val.sender === "adminList") {
 			$scope.admins.splice(val.to, 0, $scope.admins.splice(val.from, 1)[0]);
@@ -90,33 +129,23 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 		}
 	});
 
+	// On Created list after Drag & Drop.
 	$scope.$on('list-created', function (ev, val) {
 		employeeRepository.getEmployeeById(parseInt(val.id)).success(function (data) {
-			if (val.sender === "adminList") {
-				$scope.admins.splice(val.to, 0, data);
-			}
-			if (val.sender === "selfList") {
-				$scope.selfs.splice(val.to, 0, data);
-			}
-			if (val.sender === "evaluatorList") {
-				$scope.evaluators.splice(val.to, 0, data);
-			}
-			if (val.sender === "reviewerList") {
-				$scope.reviewers.splice(val.to, 0, data);
-			}
+			addEmployeeToList(val.sender, data, val.to);
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});
 	});
 
+	// Remove item from list.
 	var removeItemFromList = function (item, list) {
 		var index = list.indexOf(item);
 		if (index !== -1) {
 			list.splice(index, 1);
 		}
 	};
-
-	// Remove item from list.
+	
 	$scope.removeAdmin = function (admin) {
 		removeItemFromList(admin, $scope.admins);
 	};

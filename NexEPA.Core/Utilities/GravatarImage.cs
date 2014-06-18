@@ -41,6 +41,8 @@ namespace NexEPA.Core.Utilities
                 stringBuilder.Append(data[i].ToString("x2"));
             }
 
+            stringBuilder.Append(Constants.Constants.DefaultGravatarUrl);
+
             return stringBuilder.ToString();  // Return the hexadecimal string. 
         }
     }
