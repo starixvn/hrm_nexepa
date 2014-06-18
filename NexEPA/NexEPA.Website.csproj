@@ -313,6 +313,9 @@
     <Content Include="Scripts\Views\Target\target-repository.js" />
     <Content Include="Scripts\Views\Test\test-controller.js" />
     <Content Include="Scripts\Views\Test\test-repository.js" />
+    <Content Include="Templates\AppraisalForm\BasicInformation.html" />
+    <Content Include="Templates\AppraisalForm\Create.html" />
+    <Content Include="Templates\AppraisalForm\DateDetail.html" />
     <Content Include="Templates\AppraisalForm\Index.html" />
     <Content Include="Templates\Authority\RolePermission\Index.html" />
     <Content Include="Templates\Authority\RolePermission\TreeHostCheckbox.html" />

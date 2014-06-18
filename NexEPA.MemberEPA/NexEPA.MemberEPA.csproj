@@ -53,6 +53,7 @@
     <Compile Include="Criteria\GetEPAByEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetEPAInfoCriteria.cs" />
     <Compile Include="Criteria\GetEPAOfAllEmployeeByManagerCriteria.cs" />
+    <Compile Include="Criteria\InsertAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\UpdateEPAStatusCriteria.cs" />
     <Compile Include="Models\AppraisalFormModel.cs" />
     <Compile Include="Models\EPAInfoModel.cs" />
@@ -74,9 +75,17 @@
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
       <Name>NexEPA.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Employee\NexEPA.Employee.csproj">
+      <Project>{80C95EAA-B6BC-4E4F-93B9-DF0312D0C425}</Project>
+      <Name>NexEPA.Employee</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexEPA.KPI\NexEPA.KPI.csproj">
       <Project>{EC6531E6-095E-4E78-BA9D-C1EBAA0B3547}</Project>
       <Name>NexEPA.KPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Target\NexEPA.Target.csproj">
+      <Project>{F8B34F7A-9461-4861-A5BA-B69B4C9302DA}</Project>
+      <Name>NexEPA.Target</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

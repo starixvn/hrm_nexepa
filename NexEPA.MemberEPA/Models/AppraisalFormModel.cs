@@ -10,32 +10,30 @@
 namespace NexEPA.MemberEPA.Models
 {
     using System;
+    using NexEPA.Employee.Models;
+    using NexEPA.Target.Models;
 
     /// <summary>
     /// The Appraisal Form model.
     /// </summary>
     public class AppraisalFormModel
     {
-        public int Id { get; set; }
+        public int EPAId { get; set; }
 
-        public string EPAType { get; set; }
+        public int Year { get; set; }
 
-        public string Code { get; set; }
-
-        public string NickName { get; set; }
-
-        public string FullName { get; set; }
-
-        public string FormName { get; set; }
-
-        public string Year { get; set; }
-
-        public string Month { get; set; }
+        public int Month { get; set; }
 
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
 
-        public string Status { get; set; }
+        public int Status { get; set; }
+
+        public string StatusName { get; set; }
+
+        public EmployeeModel Employee { get; set; }
+
+        public EPATypeModel EPAType { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace NexEPA.MemberEPA.Criteria
     {
         public int EPATypeId { get; set; }
 
-        public int EmployeeId { get; set; }
+        public string Keyword { get; set; }
 
         public int Year { get; set; }
 
@@ -26,12 +26,12 @@ namespace NexEPA.MemberEPA.Criteria
 
         public override string GetSettingKey()
         {
-            return string.Empty;
+            return "EPAForm_Get";
         }
 
         public override bool IsValid()
         {
-            return EPATypeId > 0 && EmployeeId > 0;
+            return EPATypeId > 0;
         }
     }
 }

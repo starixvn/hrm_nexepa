@@ -440,3 +440,29 @@ registrationModule.directive('listDraggable', function () {
 		}
 	};
 });
+registrationModule.directive('closeOtherCalendar', function () {
+	return {
+		restrict: "A",
+		link: function (scope, iElement) {
+			iElement.on("click", function ($event) {
+				var allCalendar = $("[name='appraisalForm']").find("[name='calendar']"),
+					currentCalendar = $(this).prevAll().get(1),
+					currentIsOpen = $(currentCalendar).attr('is-open');
+
+				for (var i = 0; i < allCalendar.length; i++) {
+					var calendar = allCalendar[i];
+
+					if (calendar !== currentCalendar) {
+						var isOpen = $(calendar).attr('is-open').replace('calendar.', '');
+						scope.calendar[isOpen] = false;
+					}
+				}
+
+				if (currentIsOpen.indexOf('startDateOpened') !== -1) {
+					var id = currentIsOpen.replace('calendar.startDateOpened', '');
+					scope.openPopupStartDate.call(this, $event, id);
+				}
+			});
+		}
+	};
+});

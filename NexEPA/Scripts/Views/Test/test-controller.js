@@ -10,7 +10,7 @@ testModule.controller("LoginAsAnotherUserController",
 			searchKey: ''
 		};
 
-		// get all employee by target Id 
+		// get all employee
 		$scope.getEmployee = function (searchKey) {
 			employeeRepository.getAllEmployee(searchKey, null).success(function (employees) {
 				$scope.searchEmployees = employees;

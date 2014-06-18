@@ -15,10 +15,12 @@ namespace NexEPA.MemberEPA.Repositories.Implement
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Utilities;
+    using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Interface;
+    using NexEPA.Target.Models;
 
     /// <summary>
     /// The implement of Member EPA Repository.
@@ -114,6 +116,27 @@ namespace NexEPA.MemberEPA.Repositories.Implement
                         return me;
                     },
                     "TargetId,ProjectId,MilestoneId,EvaluatorId",
+                    criteria.GetSpParams());
+            }
+        }
+
+        /// <summary>
+        /// Get Appraisal Form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Appraisal Form model.</returns>
+        public IEnumerable<AppraisalFormModel> GetAppraisalForm(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<AppraisalFormModel, EmployeeModel, EPATypeModel, AppraisalFormModel>(
+                    (app, emp, epa) =>
+                    {
+                        app.Employee = emp;
+                        app.EPAType = epa;
+                        return app;
+                    },
+                    "EmployeeId,EPATypeId",
                     criteria.GetSpParams());
             }
         }

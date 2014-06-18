@@ -639,4 +639,35 @@
   <data name="Self" xml:space="preserve">
     <value>Self</value>
   </data>
+  <data name="AppraisalForm" xml:space="preserve">
+    <value>Appraisal Form</value>
+  </data>
+  <data name="ManageAppraisalForm" xml:space="preserve">
+    <value>Manage Appraisal Form</value>
+  </data>
+  <data name="EPATypeName" xml:space="preserve">
+    <value>EPA Type Name</value>
+  </data>
+  <data name="CreateAppraisalForm" xml:space="preserve">
+    <value>Create Appraisal Form</value>
+  </data>
+
+  <data name="AlarmDate" xml:space="preserve">
+    <value>Alarm Date</value>
+  </data>
+  <data name="NoticeAtBegin" xml:space="preserve">
+    <value>Notice At Begin</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+  <data name="DateDetail" xml:space="preserve">
+    <value>Date Detail</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>Reviewer</value>
+  </data>
+  <data name="Self" xml:space="preserve">
+    <value>Self</value>
+  </data>
 </root>

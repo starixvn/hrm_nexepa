@@ -151,11 +151,29 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alarm Date.
+        /// </summary>
+        public static string AlarmDate {
+            get {
+                return ResourceManager.GetString("AlarmDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- All teams --.
         /// </summary>
         public static string AllTeam {
             get {
                 return ResourceManager.GetString("AllTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appraisal Form.
+        /// </summary>
+        public static string AppraisalForm {
+            get {
+                return ResourceManager.GetString("AppraisalForm", resourceCulture);
             }
         }
         
@@ -232,6 +250,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basic Information.
+        /// </summary>
+        public static string BasicInformation {
+            get {
+                return ResourceManager.GetString("BasicInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to german.
         /// </summary>
         public static string BUTTON_TEXT_DE {
@@ -291,6 +318,15 @@ namespace NexEPA.Resources {
         public static string CreateAndContinue {
             get {
                 return ResourceManager.GetString("CreateAndContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Appraisal Form.
+        /// </summary>
+        public static string CreateAppraisalForm {
+            get {
+                return ResourceManager.GetString("CreateAppraisalForm", resourceCulture);
             }
         }
         
@@ -381,6 +417,15 @@ namespace NexEPA.Resources {
         public static string DataChangeSuccessfully {
             get {
                 return ResourceManager.GetString("DataChangeSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Detail.
+        /// </summary>
+        public static string DateDetail {
+            get {
+                return ResourceManager.GetString("DateDetail", resourceCulture);
             }
         }
         
@@ -579,6 +624,15 @@ namespace NexEPA.Resources {
         public static string EPAType {
             get {
                 return ResourceManager.GetString("EPAType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EPA Type Name.
+        /// </summary>
+        public static string EPATypeName {
+            get {
+                return ResourceManager.GetString("EPATypeName", resourceCulture);
             }
         }
         
@@ -880,6 +934,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Appraisal Form.
+        /// </summary>
+        public static string ManageAppraisalForm {
+            get {
+                return ResourceManager.GetString("ManageAppraisalForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Employee.
         /// </summary>
         public static string ManageEmployee {
@@ -1047,6 +1110,15 @@ namespace NexEPA.Resources {
         public static string NickName {
             get {
                 return ResourceManager.GetString("NickName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notice At Begin.
+        /// </summary>
+        public static string NoticeAtBegin {
+            get {
+                return ResourceManager.GetString("NoticeAtBegin", resourceCulture);
             }
         }
         

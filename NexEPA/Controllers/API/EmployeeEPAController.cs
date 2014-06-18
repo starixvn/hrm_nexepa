@@ -223,26 +223,43 @@ namespace NexEPA.Controllers.API
         /// Get appraisal form.
         /// </summary>
         /// <param name="epaTypeId">The EPA type Id.</param>
-        /// <param name="employeeId">The employee Id.</param>
         /// <param name="year">The EPA year.</param>
         /// <param name="month">The EPA month.</param>
+        /// <param name="keyword">The keyword.</param>
         /// <returns>The enumerator Appraisal Form.</returns>
         [HttpGet]
         public IEnumerable<AppraisalFormModel> GetAppraisalForm(
             int epaTypeId, 
-            int employeeId,
             int year,
-            int month)
+            int month,
+            string keyword = "")
         {
             var criteria = new GetAppraisalFormCriteria
             {
                 EPATypeId = epaTypeId,
-                EmployeeId = employeeId,
                 Month = month,
-                Year = year
+                Year = year,
+                Keyword = keyword
             };
 
             return _memberEPAService.GetAppraisalForm(criteria);
+        }
+
+        /// <summary>
+        /// Insert appraisal form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        [HttpPost]
+        public CommandResult InsertAppraisalForm(InsertAppraisalFormCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.CreatedBy = this.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+            }
+
+            return _memberEPAService.InsertAppraisalForm(criteria);
         }
 
         /// <summary>

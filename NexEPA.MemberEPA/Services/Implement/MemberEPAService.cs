@@ -150,34 +150,40 @@ namespace NexEPA.MemberEPA.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The enumerator Appraisal Form.</returns>
-        public IList<AppraisalFormModel> GetAppraisalForm(GetAppraisalFormCriteria criteria)
+        public IEnumerable<AppraisalFormModel> GetAppraisalForm(GetAppraisalFormCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<AppraisalFormModel> appraisalList = null;
+            IEnumerable<AppraisalFormModel> appraisalList = null;
 
             if (criteria.IsValid())
             {
-                ////appraisalList = GetData<AppraisalFormModel>(criteria);
-                for (int i = 0; i < 4; i++)
-                {
-                    var appraisal = new AppraisalFormModel
-                    {
-                        Id = i,
-                        Code = "02111",
-                        NickName = "Josh.Test",
-                        FullName = "Test",
-                        Year = "2014",
-                        Month = "06",
-                        StartDate = DateTime.Now,
-                        EndDate = DateTime.Now,
-                        Status = "Test"
-                    };
+                IEnumerable<AppraisalFormModel> rawAppraisalFormList = _memberEPARepository.GetAppraisalForm(criteria);
 
-                    appraisalList.Add(appraisal);
+                foreach (AppraisalFormModel rawAppraisalFormItem in rawAppraisalFormList)
+                {
+                    rawAppraisalFormItem.StatusName = EnumStatus.GetDescripton((Status)rawAppraisalFormItem.Status);
                 }
             }
 
             return appraisalList;
+        }
+
+        /// <summary>
+        /// Insert appraisal form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult InsertAppraisalForm(InsertAppraisalFormCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

@@ -33,6 +33,8 @@ namespace NexEPA.MemberEPA.Services.Interface
 
         int CheckEmployeePermission(GetEmployeePermissionCriteria criteria);
 
-        IList<AppraisalFormModel> GetAppraisalForm(GetAppraisalFormCriteria criteria);
+        IEnumerable<AppraisalFormModel> GetAppraisalForm(GetAppraisalFormCriteria criteria);
+
+        CommandResult InsertAppraisalForm(InsertAppraisalFormCriteria criteria);
     }
 }
