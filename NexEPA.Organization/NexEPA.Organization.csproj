@@ -54,14 +54,26 @@
   <ItemGroup>
     <Compile Include="Criteria\AddDepartmentCriteria.cs" />
     <Compile Include="Criteria\DeleteDepartmentCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\AddDepartmentFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\AddEmployeeFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\AddGroupFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\DeleteDepartmentFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\DeleteEmployeeFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\DeleteGroupFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\GetDepartmentFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\GetEmployeeFlowCriteria.cs" />
+    <Compile Include="Criteria\FlowManagement\GetGroupFlowCriteria.cs" />
     <Compile Include="Criteria\GetAllDepartmentCriteria.cs" />
     <Compile Include="Criteria\UpdateDepartmentCriteria.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
+    <Compile Include="Models\EPAFlowModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\DepartmentRepository.cs" />
     <Compile Include="Repositories\Interface\IDepartmentRepository.cs" />
     <Compile Include="Services\Implement\DepartmentService.cs" />
+    <Compile Include="Services\Implement\FlowManagementService.cs" />
     <Compile Include="Services\Interface\IDepartmentService.cs" />
+    <Compile Include="Services\Interface\IFlowManagementService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

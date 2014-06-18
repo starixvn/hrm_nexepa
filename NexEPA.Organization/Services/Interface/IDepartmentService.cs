@@ -9,7 +9,6 @@
 
 namespace NexEPA.Organization.Services.Interface
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Organization.Criteria;

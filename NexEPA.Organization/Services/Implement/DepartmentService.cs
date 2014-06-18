@@ -9,7 +9,6 @@
 
 namespace NexEPA.Organization.Services.Implement
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;

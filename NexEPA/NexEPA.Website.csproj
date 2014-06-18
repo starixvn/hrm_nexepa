@@ -162,6 +162,7 @@
     <Compile Include="Controllers\API\DepartmentController.cs" />
     <Compile Include="Controllers\API\AuthorityController.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
+    <Compile Include="Controllers\API\FlowManagementController.cs" />
     <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\LoginController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
