@@ -14,6 +14,9 @@ employeeModule.factory('employeeRepository', ['$http', function ($http) {
 		},
 		getEmployeeByCurrentUserId: function (keyword) {
 			return $http.get('/api/Employee/GetEmployeeByCurrentUserId', { params: { keyword: keyword } });
+		},
+		getEmployeeById: function (employeeId) {
+			return $http.get('/api/Employee/GetEmployeeById', { params: { employeeId: employeeId} });
 		}
 	};
 } ]);

@@ -627,4 +627,16 @@
   <data name="EPAType" xml:space="preserve">
     <value>EPA Type</value>
   </data>
+  <data name="Flow" xml:space="preserve">
+    <value>Flow</value>
+  </data>
+  <data name="FlowManagement" xml:space="preserve">
+    <value>Flow Management</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>Reviewer</value>
+  </data>
+  <data name="Self" xml:space="preserve">
+    <value>Self</value>
+  </data>
 </root>

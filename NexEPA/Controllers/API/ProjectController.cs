@@ -243,11 +243,11 @@ namespace NexEPA.Controllers.API
         /// <param name="searchKey">The keyword to search employee.</param>
         /// <returns>IEnumerable employee.</returns>
         [HttpGet]
-        public IEnumerable<dynamic> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
+        public IEnumerable<EmployeeModel> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
         {
             var getEmployeeByRoleCriteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
             IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByRole(getEmployeeByRoleCriteria);
-            IEnumerable<dynamic> selectListEmployee = null;
+            IEnumerable<EmployeeModel> selectListEmployee = null;
 
             if (!string.IsNullOrEmpty(searchKey))
             {
@@ -256,7 +256,23 @@ namespace NexEPA.Controllers.API
 
             if (employees != null)
             {
-                selectListEmployee = employees.Select(x => new { x.FullName, x.NickName, x.EmployeeId, x.ProjectRoleId });
+                selectListEmployee = employees.Select(x => new EmployeeModel
+                {
+                    FullName = x.FullName,
+                    NickName = x.NickName,
+                    Email = x.Email,
+                    EmployeeId = x.EmployeeId,
+                    ProjectRoleId = x.ProjectRoleId,
+                    Gravatar = x.Gravatar
+                }).ToList();
+
+                foreach (var item in selectListEmployee)
+                {
+                    if (item.Email != null)
+                    {
+                        item.Gravatar = GravatarImage.HashEmailForGravatar(item.Email);
+                    }
+                }
             }
 
             return selectListEmployee;

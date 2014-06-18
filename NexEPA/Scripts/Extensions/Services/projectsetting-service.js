@@ -1,4 +1,4 @@
-﻿/*global projectsSettingModule, registrationModule*/
+﻿/*global projectsSettingModule, registrationModule, flowManagementModule*/
 'use strict';
 
 var epaGeneralService = function () {
@@ -22,3 +22,5 @@ projectsSettingModule.service('projectMemberService', epaGeneralService);
 registrationModule.service('tabService', epaGeneralService);
 
 registrationModule.service('linkToEPAService', epaGeneralService);
+
+flowManagementModule.service('flowManagementService', epaGeneralService);

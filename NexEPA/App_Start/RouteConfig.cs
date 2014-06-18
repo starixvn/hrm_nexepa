@@ -193,6 +193,11 @@ namespace NexEPA
                 defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
+                name: "Manage Flow",
+                url: "Flow/Index",
+                defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
               name: "Test Change User Login",
               url: "Test/LoginAsAnotherUser",
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });

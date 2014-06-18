@@ -1,5 +1,5 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule, epaModule*/
-/* exported employeeModule, homeModule, reportModule, generalSettingModule, testModule, departmentModule, authorityModule*/
+/* exported employeeModule, homeModule, reportModule, generalSettingModule, testModule, departmentModule, authorityModule, flowManagementModule*/
 /*global angular*/
 'use strict';
 
@@ -99,6 +99,11 @@ var departmentModule = angular.module("departmentModule", ['ngRoute', 'ngResourc
 	$routeProvider.when('/Department/Index', { templateUrl: '/templates/Department/Index.html', controller: 'ManageDepartmentController' });
 } ]);
 
+var flowManagementModule = angular.module("flowManagementModule", ['ngRoute', 'ngResource'])
+.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider.when('/Flow/Index', { templateUrl: '/templates/FlowManagement/Index.html', controller: 'FlowManagementController' });
+} ]);
+
 var authorityModule = angular.module("authorityModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/Authority/ManageRole',
@@ -114,9 +119,9 @@ var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
 } ]);
 
 var registrationModule = angular.module("registrationModule",
-['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'generalSettingModule',
-'epaModule', 'homeModule', 'reportModule', 'testModule', 'departmentModule', 'authorityModule', 'ui.bootstrap', 'ngRoute', 
-'ngResource', 'pascalprecht.translate'])
+['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'generalSettingModule', 'epaModule',
+'homeModule', 'reportModule', 'testModule', 'departmentModule', 'authorityModule', 'flowManagementModule',
+'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig) {
 	$translateProvider.useLoader('resourceRepository', {});

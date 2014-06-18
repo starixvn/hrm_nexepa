@@ -13,6 +13,7 @@ namespace NexEPA.Employee.Services.Implement
     using Fanex.Common.Helper;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Utilities;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Repositories.Implement;
@@ -119,6 +120,32 @@ namespace NexEPA.Employee.Services.Implement
             }
 
             return employees;
+        }
+
+        /// <summary>
+        /// Get Employee By Id.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Employee Model.</returns>
+        public EmployeeModel GetEmployeeById(GetEmployeeByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            EmployeeModel employee = null;
+            if (criteria.IsValid())
+            {
+                employee = GetDataEntity<EmployeeModel>(criteria);
+            }
+
+            if (employee != null)
+            {
+                string userEmail = employee.Email;
+                if (userEmail != null)
+                {
+                    employee.Gravatar = GravatarImage.HashEmailForGravatar(employee.Email);
+                }
+            }
+
+            return employee;
         }
     }
 }

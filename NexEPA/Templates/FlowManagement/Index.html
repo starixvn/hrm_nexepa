@@ -1,1 +1,104 @@
-﻿Test
+﻿<div class="row sub-header">
+	<ul class="col-xs-12 breadcrumb list-inline pull-left">
+		<li>
+			<a href="/Flow/Index" data-translate="Flow"></a>
+		</li>
+		<li class="current" data-translate="FlowManagement"></li>
+	</ul>
+</div>
+
+<tabset id="flowManagement">
+	<tab heading="DEPARTMENT / GROUP" class="tab-cursor" select="tabDeparment()">
+		<a class="left-buffer" ng-if="!showList" href="javascript:;" ng-click="toggleShowList()">Show Employee List</a>
+		<div style="height: auto;">
+			<div class="col-sm-3 employee-list" id="employeeList" ng-if="showList">
+				<div class="flow-header">
+					<span data-translate="Employee"></span>
+					<a ng-click="toggleShowList()" href="javascript:;" class="pull-right glyphicon glyphicon-arrow-left"></a>
+				</div>
+				<div>
+					<ul class="custom-ul employee-ul">
+						<li class="ui-state-highlight" list-draggable=".sortable" ng-repeat="employee in employees" id="{{employee.employeeId}}">
+						{{employee.nickName}} ({{employee.fullName}})</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-3 flow-group">
+				<div class="flow-header" >
+					<span data-translate="Admin"></span>
+					<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Admin" ng-click="addAdmin()"></a>
+				</div>
+				<div class="flow-body">
+					<ul list-sortable class="sortable custom-ul" id="adminList">
+						<li class="alert alert-info nomargin" ng-repeat="admin in admins">
+							<div>
+								<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeAdmin(admin)"></a>
+							</div>
+							<div>
+								<div class="img-user"><img tooltip="{{admin.fullName}}" class="img-flow" 
+									src="http://www.gravatar.com/avatar/{{admin.gravatar}}">
+								</div>
+								<span>{{admin.nickName}}</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-3 flow-group">
+				<div class="flow-header" data-translate="Employee"></div>
+				<div>
+					<ul list-sortable class="sortable custom-ul" id="selfList">
+						<li class="alert alert-info nomargin" ng-repeat="self in selfs">
+							<div>
+								<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeAdmin(admin)"></a>
+							</div>
+							<div>
+								<div class="img-user">
+									<img tooltip="{{self.fullName}}" class="img-flow" src="http://www.gravatar.com/avatar/{{self.gravatar}}">
+								</div>
+								{{self.nickName}}
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-3 flow-group">
+				<div class="flow-header" data-translate="EvaluatorTitle"></div>
+				<div>
+					<ul list-sortable class="sortable custom-ul" id="evaluatorList">
+						<li class="alert alert-info nomargin" ng-repeat="evaluator in evaluators">
+							<div>
+								<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeEvaluator(evaluator)"></a>
+							</div>
+							<div>
+								<div class="img-user">
+									<img tooltip="{{evaluator.fullName}}" class="img-flow" src="http://www.gravatar.com/avatar/{{evaluator.gravatar}}">
+								</div>
+								{{evaluator.nickName}}
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-3 flow-group">
+				<div class="flow-header" data-translate="Reviewer"></div>
+				<div>
+					<ul list-sortable class="sortable custom-ul" id="reviewerList">
+						<li class="alert alert-info nomargin" ng-repeat="reviewer in reviewers">
+							<div>
+								<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeReviewer(reviewer)"></a>
+							</div>
+							<div>
+								<div class="img-user">
+									<img tooltip="{{reviewer.fullName}}" class="img-flow" src="http://www.gravatar.com/avatar/{{reviewer.gravatar}}">
+								</div>
+								{{reviewer.nickName}}
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</tab>
+	<tab heading="PERSONAL" class="tab-cursor" select="tabPersonal()"></tab>
+</tabset>

@@ -28,5 +28,7 @@ namespace NexEPA.Employee.Services.Interface
         IEnumerable<EmployeeModel> GetEmployeeByRole(GetEmployeeByRoleCriteria criteria);
 
         IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(GetAllEmployeeByCurrentUserIdCriteria criteria);
+
+        EmployeeModel GetEmployeeById(GetEmployeeByIdCriteria criteria);
     }
 }

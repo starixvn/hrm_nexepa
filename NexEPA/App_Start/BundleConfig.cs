@@ -42,7 +42,8 @@ namespace NexEPA
                 "~/Content/Site/EPA/EPA.less",
                 "~/Content/Site/Home/home.less",
                 "~/Content/Site/Report/report.less",
-                "~/Content/Site/Organization/department.less",
+                "~/Content/Site/Admin/department.less",
+                "~/Content/Site/Admin/flowmanagement.less",
                 "~/Content/Site/Authority/authority.less");
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(

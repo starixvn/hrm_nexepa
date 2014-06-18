@@ -105,5 +105,17 @@ namespace NexEPA.Controllers.API
             IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByCurrentUserId(criteria);
             return employees;
         }
+
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
+        public EmployeeModel GetEmployeeById(int employeeId)
+        {
+            var criteria = new GetEmployeeByIdCriteria
+            {
+                EmployeeId = employeeId
+            };
+            EmployeeModel employee = _employeeService.GetEmployeeById(criteria);
+
+            return employee;
+        }
     }
 }
