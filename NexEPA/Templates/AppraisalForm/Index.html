@@ -1,1 +1,106 @@
-﻿
+﻿<div class="row sub-header">
+	<ul class="breadcrumb list-inline pull-left">
+		<li><a href="#" data-translate="AppraisalForm" ng-click="reload()"></a></li>
+		<li class="current" data-translate="ManageAppraisalForm"></li>
+	</ul>
+	<div class="button-icon" >
+	<span class="icon plus"></span><a href="" ng-href="{{createAppraisalUrl}}" ng-click="create()"
+		data-translate="CreateAppraisalForm"></a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="form-inline filter">
+		<form novalidate class="form-inline">
+			<div class="form-group">
+				<label data-translate="EPAType">
+				</label>
+				<select ng-model="filter.epaTypeId" ng-options="opt.epaTypeId as opt.name for opt in listEPAType"
+					class="form-control">
+					<option value="">-- Select EPA Type --</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label data-translate="Year">
+				</label>
+				<select ng-model="filter.year" ng-options="opt.value as opt.label for opt in listYear" class="form-control">
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label data-translate="Month">
+				</label>
+				<select ng-model="filter.month" ng-options="opt.value as opt.label for opt in listMonth" class="form-control">
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label data-translate="Keyword">
+				</label>
+				<input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
+			</div>
+
+			<div class="form-group">
+				<button class="button" ng-click="query(filter)" data-translate="Submit">
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="row">
+	<table class="col-sm-12 table table-bordered table-striped">
+		<thead>
+			<th data-translate="SymbolCount">
+			</th>
+			<th data-translate="Code">
+			</th>
+			<th data-translate="NickName">
+			</th>
+			<th data-translate="Year">
+			</th>
+			<th data-translate="Month">
+			</th>
+			<th data-translate="EPATypeName">
+			</th>
+			<th data-translate="FromDate">
+			</th>
+			<th data-translate="ToDate">
+			</th>
+			<th data-translate="Status">
+			</th>
+			<th data-translate="Action">
+			</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="appraisal in appraisalFormList">
+				<td class="index" ng-bind="$index + 1">
+				</td>
+				<td class="code" ng-bind="appraisal.employee.code">
+				</td>
+				<td ng-bind="appraisal.employee.nickName" tooltip={{appraisal.employee.fullName}} >
+				</td>
+				<td ng-bind="appraisal.year">
+				</td>
+				<td ng-bind="appraisal.month">
+				</td>
+				<td ng-bind="appraisal.epaType.name">
+				</td>
+				<td ng-bind="appraisal.startDate">
+				</td>
+				<td ng-bind="appraisal.toDate">
+				</td>
+				<td ng-bind="appraisal.statusName">
+				</td>
+				<td>
+				</td>
+			</tr>
+
+			<tr ng-show="appraisalFormList == ''">
+				<td class="empty-result" colspan="10" data-translate="EmptyResult">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

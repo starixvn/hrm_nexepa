@@ -1,0 +1,44 @@
+﻿<div ng-controller="DateDetailController">
+	<div class="row boxtitle" ng-click="collapseTable()">
+		<span class="home-label" data-translate="DateDetail"></span>
+	</div>
+
+	<div class="row" collapse="isCollapsed">
+		<table class="table table-bordered" name="appraisalForm">
+			<thead>
+				<th data-translate="Role">
+				</th>
+				<th data-translate="NoticeAtBegin">
+				</th>
+				<th data-translate="StartDate">
+				</th>
+				<th data-translate="EndDate">
+				</th>
+				<th data-translate="AlarmDate">
+				</th>
+			</thead>
+			<tr ng-repeat="role in roles">
+				<td ng-bind="role.name">
+				</td>
+				<td style="width:80px;">
+					<input type="checkbox" />
+				</td>
+				<td>
+					<input class="calendar-form-control" name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
+						is-open="calendar.startDateOpened{{role.roleId}}" show-button-bar="false" />
+					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
+				</td>
+				<td>
+					<input class="calendar-form-control" name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
+						is-open="calendar.endDateOpened{{role.roleId}}" show-button-bar="false" />
+					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
+				</td>
+				<td>
+					<input class="calendar-form-control" name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
+						is-open="calendar.alarmDateOpened{{role.roleId}}" show-button-bar="false" />
+					<calendar-image class="calendar-image" ng-click="openPopupAlarmDate($event, role.roleId)"></calendar-image>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
