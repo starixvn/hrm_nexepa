@@ -1,59 +1,160 @@
-﻿.flow-group
-{
-	width: 16%;
-	min-height: 400px;
-	margin-left: 5px;
-	background-color: #f4f4f4;
-	margin-top: 10px;
-	border: 1px solid #999;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-}
+﻿@import "../variables.less";
+@import "../mixins.less";
+.container.page {
+    .col {
+        padding: 0 5px;
+    }
 
-.flow-header
-{
-	font-size: 20px;
-	text-transform: uppercase;
-	text-align: center;
-	margin-bottom: 20px;
-	margin-top: 7px;
-}
+    .flow-group {
+	    min-height: 400px;
+	    margin: 10px 0 0;
+        padding: 0;
+	    background-color: #fff;
+	    border: 1px solid @border-light-color;
+	    .border-radius(4px);
+	    .box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.05));
 
-.employee-list
-{
-	background-color: #f4f4f4;
-	margin-top: 10px;
-	margin-left: 10px;
-	border: 1px solid #999;
-}
+        &.admin {
+            .flow-header {
+                background-color: #4b77be;
+            }
+        }
 
-.sortable
-{
-	min-height: 300px;
-}
+        &.employee {
+            .flow-header {
+                background-color: #44b6ae;
+            }
+        }
 
-.custom-ul
-{
-	list-style-type: none;
-	margin: 0; 
-	padding: 0;
-}
+        &.evaluator {
+            .flow-header {
+                background-color: #9b59b6;
+            }
+        }
 
-.employee-ul
-{
-	height: 79vh;
-	overflow: auto;
-}
+        &.reviewer {
+            .flow-header {
+                background-color: #e26a6a;
+            }
+        }
 
-img.img-flow
-{
-	width: 60px !important;
-    height: 60px !important;
-    margin-top: 12px;
+        .sortable {
+            padding: 10px;
+        }
+    }
+
+    .flow-header {
+	    font-size: @font-size + 3;
+	    text-transform: uppercase;
+	    text-align: center;
+        color: #fff;
+        padding: 7px  10px;
+
+        .glyphicon.glyphicon-plus {
+            color: #fff;
+            font-size: @font-size;
+            float: right;
+        }
+    }
+
+    .department-form {
+        margin: 20px 0;
+
+        .sel-department {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            height: 29px;
+        }
+
+        .btn.customize {
+            margin-top: 6px;
+        }
+
+        label {
+            font-weight: normal;
+        }
+    }
+
+    .custom-ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .img-flow {
+	        width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .sortable {
+	    min-height: 300px;
+    }
+
+    .employee-list {
+	    background-color: #fff;
+	    padding: 0;
+        margin-top: 10px;
+	    border: 1px solid @border-light-color;
+        .border-radius(4px);
+
+        .employee-ul {
+	        height: 620px;
+	        overflow: auto;
+            padding: 0 5%;
+
+            li {
+                text-align: left;
+                background: #e1e1e1;
+                margin-bottom: 1px;
+                border: none;
+                padding: 3px 5px;
+            }
+        }
+
+        .flow-header {
+            background-color: #acacac;
+
+            .glyphicon.glyphicon-arrow-left {
+                color: #fff;
+                font-size: @font-size;
+            }
+        }
+
+        .txt-search {
+            border: 1px solid #ccc;
+            .border-radius(3px);
+            height: 30px;
+            margin: 10px 5%;
+            width: 90%;
+        }
+    }
+
+    .tab-pane {
+        position: relative;
+    }
+
+    .expand-user {
+        background-color: #acacac;
+        left: -7px;
+        position: absolute;
+        top: 11px;
+        width: 22px;
+        height: 37px;
+        z-index: 200;
+        padding: 7px 5px;
+        cursor: pointer;
+        .border-radius( 0 4px 4px 0);
+
+        .icon-user {
+            color: #fff;
+            font-size: @font-size - 2;
+        }
+    }
 }
 
 .modal-flow .modal-body
