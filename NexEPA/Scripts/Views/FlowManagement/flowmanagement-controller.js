@@ -241,6 +241,7 @@ departmentDataFactory, flowDataFactory, $window) {
 	//Dropdownlist Change.
 	$scope.OnSelectedDepartment = function () {
 		$scope.flowType = $scope.EPAFlow.departmentId;
+		debugger;
 		flowDataFactory.getFlow($scope.EPAFlow.departmentId, $scope.flowType).then(successGetFlow, errorNotification);
 	};
 

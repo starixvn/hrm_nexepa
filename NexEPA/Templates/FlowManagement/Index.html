@@ -109,17 +109,17 @@
                 </div>
                 <form class="row form-inline department-form" role="form">
 		            <label data-translate="Department"></label>
-		            <select ng-change="OnSelectedDepartment()" ng-model="EPAFLow.departmentId" class="sel-department" required>
+		            <select ng-change="OnSelectedDepartment()" ng-model="EPAFlow.departmentId" class="sel-department" required>
 			            <option style="display: none" value="">-- Select a Department / Group --</option>
 			            <option ng-repeat="dept in departments" value="{{dept.departmentId}}">
 				            {{dept.name}}</option>
 		            </select>
-                    <button class="button" ng-click="saveFlow()" data-translate="Save">
+                    <button class="button button-buffer" ng-click="saveFlow()" data-translate="Save">
 		            </button>
-		            <button class="button" ng-click="deleteFlow()" data-translate="Delete"
+		            <button class="button button-buffer" ng-click="deleteFlow()" data-translate="Delete"
 			            ng-show="!isDisabled">
 		            </button>
-		            <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		            <button class="btn btn-default customize button-buffer" ng-click="cancel()" data-translate="Cancel">
 		            </button>
                 </form>
             </div>
