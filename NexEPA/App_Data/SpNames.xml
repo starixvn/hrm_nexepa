@@ -144,7 +144,7 @@
 			<Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
 		</Setting>
 
-		<Setting Key="SettingFlowDepartment_Delete" SpName="SettingFlowDepartment_Set" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="SettingFlowDepartment_Delete" SpName="SettingFlowDepartment_Delete" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="SettingFlowEmployee_Delete" SpName="SettingFlowEmployee_Delete" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="SettingFlowGroup_Delete" SpName="SettingFlowGroup_Delete" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>

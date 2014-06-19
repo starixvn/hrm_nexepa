@@ -51,10 +51,10 @@ namespace NexEPA.Controllers.API
         {
             CommandResult result = null;
             List<string> errorMessage = null;
-            if (model.FlowType >= 0)
+            if (model.FlowType > 0)
             {
-                AddDepartmentFlowCriteria departmentFlowCriteria = new AddDepartmentFlowCriteria() 
-                { 
+                AddDepartmentFlowCriteria departmentFlowCriteria = new AddDepartmentFlowCriteria()
+                {
                     DepartmentId = model.DepartmentId,
                     ModifiedBy = this.CurrentUser.UserId,
                     ModifiedDate = DateTime.Now,
@@ -65,8 +65,8 @@ namespace NexEPA.Controllers.API
 
             if (model.FlowType < 0)
             {
-                AddGroupFlowCriteria groupFlowCriteria = new AddGroupFlowCriteria() 
-                { 
+                AddGroupFlowCriteria groupFlowCriteria = new AddGroupFlowCriteria()
+                {
                     GroupId = model.DepartmentId,
                     ModifiedBy = this.CurrentUser.UserId,
                     ModifiedDate = DateTime.Now,
@@ -93,7 +93,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<EPAFlowModel> GetFlow(int departmentId, int flowType)
         {
             IEnumerable<EPAFlowModel> data = null;
-            if (flowType >= 0)
+            if (flowType > 0)
             {
                 GetDepartmentFlowCriteria departmentFlowCriteria = new GetDepartmentFlowCriteria() { DepartmentId = departmentId };
                 data = _flowManagementService.GetFlowDepartment(departmentFlowCriteria);
@@ -106,6 +106,46 @@ namespace NexEPA.Controllers.API
             }
 
             return data;
+        }
+
+        /// <summary>
+        /// Method Delete Flow.
+        /// </summary>
+        /// <param name="departmentId">Department id.</param>
+        /// <param name="flowType">Flow type.</param>
+        /// <returns>Http response message.</returns>
+        public HttpResponseMessage DeleteFlow(int departmentId, int flowType)
+        {
+            CommandResult result = null;
+            List<string> errorMessage = null;
+            if (flowType > 0)
+            {
+                var deleteDepartmentFlowCriteria = new DeleteDepartmentFlowCriteria()
+                {
+                    DepartmentId = departmentId,
+                    ModifiedBy = this.CurrentUser.UserId,
+                    ModifiedDate = DateTime.Now
+                };
+                result = _flowManagementService.DeleteDepartmentFlow(deleteDepartmentFlowCriteria);
+            }
+
+            if (flowType < 0)
+            {
+                var deleteGroupFlowCriteria = new DeleteGroupFlowCriteria()
+                {
+                    GroupId = departmentId,
+                    ModifiedBy = this.CurrentUser.UserId,
+                    ModifiedDate = DateTime.Now
+                };
+                result = _flowManagementService.DeleteGroupFlow(deleteGroupFlowCriteria);
+            }
+
+            if (result.Code != 0)
+            {
+                errorMessage = new List<string>() { result.Message };
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

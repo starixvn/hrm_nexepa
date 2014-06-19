@@ -2,9 +2,9 @@
 'use strict';
 
 flowManagementModule.controller("FlowManagementController", ['$scope', 'employeeRepository',
-'notificationFactory', '$modal', 'flowManagementService', 'ErrorService', 'departmentDataFactory', 'flowDataFactory',
+'notificationFactory', '$modal', 'flowManagementService', 'ErrorService', 'departmentDataFactory', 'flowDataFactory', '$window',
 function ($scope, employeeRepository, notificationFactory, $modal, flowManagementService, ErrorService,
-departmentDataFactory, flowDataFactory) {
+departmentDataFactory, flowDataFactory, $window) {
 	/**
 	* Scope Variable. 
 	*/
@@ -78,11 +78,16 @@ departmentDataFactory, flowDataFactory) {
 				}
 			});
 		}
-		//$scope.flowData = data;
 	};
 
 	var successSaveFlow = function () {
 		notificationFactory.success('SuccessSaveData', '');
+	};
+
+	var successDeleteFlow = function () {
+		notificationFactory.success('SuccessDeleteData', '');
+		resetCurrentData();
+		$scope.EPAFlow = {};
 	};
 
 	var errorNotification = function (response) {
@@ -211,18 +216,32 @@ departmentDataFactory, flowDataFactory) {
 		addEmployeeToFlow("reviewerList");
 	};
 
-	//Dropdownlist Change.
-	$scope.OnSelectedDepartment = function () {
+	// Cancel
+	$scope.cancel = function () { $window.history.back(); };
 
-		var listDepartment = $scope.departments;
-		var selectedDepartment = $scope.EPAFlow.departmentId;
-		$.each(listDepartment, function (i) {
-			if (listDepartment[i].departmentId === parseInt(selectedDepartment)) {
-				$scope.flowType = listDepartment[i].departmentLevel;
+	// Delete
+	$scope.deleteFlow = function () {
+		var deleteModalInstance = $modal.open({
+			templateUrl: '/templates/Common/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return "";
+				},
+				action: function () {
+					return "delete";
+				}
 			}
 		});
+		deleteModalInstance.result.then(function () {
+			flowDataFactory.deleteFlow($scope.EPAFlow.departmentId, $scope.flowType).then(successDeleteFlow, errorNotification);
+		});
+	};
 
-		flowDataFactory.getFlow(selectedDepartment, $scope.flowType).then(successGetFlow, errorNotification);
+	//Dropdownlist Change.
+	$scope.OnSelectedDepartment = function () {
+		$scope.flowType = $scope.EPAFlow.departmentId;
+		flowDataFactory.getFlow($scope.EPAFlow.departmentId, $scope.flowType).then(successGetFlow, errorNotification);
 	};
 
 	$scope.saveFlow = function () {
@@ -233,7 +252,6 @@ departmentDataFactory, flowDataFactory) {
 			var model = { departmentId: $scope.EPAFlow.departmentId, flowType: $scope.flowType,
 				admins: $scope.admins, evaluators: $scope.evaluators, reviewers: $scope.reviewers
 			};
-
 			flowDataFactory.saveFlow(model).then(successSaveFlow, errorNotification);
 		}
 	};

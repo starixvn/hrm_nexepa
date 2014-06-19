@@ -16,6 +16,15 @@ flowManagementModule.factory('flowDataFactory', ['$http', '$q', function ($http,
 			var deferred = $q.defer();
 			$http.post('/api/FlowManagement/InsertFlow', model).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		deleteFlow: function (departmentId, flowType) {
+			var deferred = $q.defer();
+			$http['delete']('/api/FlowManagement/DeleteFlow', { params: {
+				departmentId: departmentId,
+				flowType: flowType
+			}
+			}).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);
