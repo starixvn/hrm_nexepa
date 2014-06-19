@@ -157,9 +157,9 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                IEnumerable<AppraisalFormModel> rawAppraisalFormList = _memberEPARepository.GetAppraisalForm(criteria);
+                appraisalList = _memberEPARepository.GetAppraisalForm(criteria);
 
-                foreach (AppraisalFormModel rawAppraisalFormItem in rawAppraisalFormList)
+                foreach (AppraisalFormModel rawAppraisalFormItem in appraisalList)
                 {
                     rawAppraisalFormItem.StatusName = EnumStatus.GetDescripton((Status)rawAppraisalFormItem.Status);
                 }
@@ -184,6 +184,24 @@ namespace NexEPA.MemberEPA.Services.Implement
             }
 
             return commandResult;
+        }
+
+        /// <summary>
+        /// Get all process period.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Process Period Model.</returns>
+        public IEnumerable<ProcessPeriodModel> GetAllProcessPeriod(GetAllProcessPeriodCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<ProcessPeriodModel> processPeriodList = null;
+
+            if (criteria.IsValid())
+            {
+                processPeriodList = GetData<ProcessPeriodModel>(criteria);
+            }
+
+            return processPeriodList;
         }
     }
 }

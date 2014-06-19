@@ -44,7 +44,8 @@ namespace NexEPA
                 "~/Content/Site/Report/report.less",
                 "~/Content/Site/Admin/department.less",
                 "~/Content/Site/Admin/flowmanagement.less",
-                "~/Content/Site/Authority/authority.less");
+                "~/Content/Site/Authority/authority.less",
+                "~/Content/Site/AppraisalForm/appraisalForm.less");
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",

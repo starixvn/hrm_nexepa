@@ -262,6 +262,14 @@ namespace NexEPA.Controllers.API
             return _memberEPAService.InsertAppraisalForm(criteria);
         }
 
+        [HttpGet]
+        public IEnumerable<ProcessPeriodModel> GetAllProcessPeriod()
+        {
+            var criteria = new GetAllProcessPeriodCriteria();
+
+            return _memberEPAService.GetAllProcessPeriod(criteria);
+        }
+
         /// <summary>
         /// Method Get EPAInfo.
         /// </summary>

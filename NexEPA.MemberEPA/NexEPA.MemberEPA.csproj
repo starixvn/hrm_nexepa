@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\AddOrUpdateEPAScoreCriteria.cs" />
+    <Compile Include="Criteria\GetAllProcessPeriodCriteria.cs" />
     <Compile Include="Criteria\GetAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\GetEmployeePermissionCriteria.cs" />
     <Compile Include="Criteria\GetEPAByEmployeeCriteria.cs" />
@@ -64,10 +65,13 @@
     <Compile Include="Models\MemberEPA\Milestone.cs" />
     <Compile Include="Models\MemberEPA\Project.cs" />
     <Compile Include="Models\MemberEPA\Target.cs" />
+    <Compile Include="Models\ProcessPeriodModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implement\MemberEPARepository.cs" />
     <Compile Include="Repositories\Interface\IMemberEPARepository.cs" />
-    <Compile Include="Services\Implement\MemberEPAService.cs" />
+    <Compile Include="Services\Implement\MemberEPAService.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Services\Interface\IMemberEPAService.cs" />
   </ItemGroup>
   <ItemGroup>

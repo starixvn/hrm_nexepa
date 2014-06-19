@@ -651,7 +651,6 @@
   <data name="CreateAppraisalForm" xml:space="preserve">
     <value>Create Appraisal Form</value>
   </data>
-
   <data name="AlarmDate" xml:space="preserve">
     <value>Alarm Date</value>
   </data>
@@ -664,10 +663,19 @@
   <data name="DateDetail" xml:space="preserve">
     <value>Date Detail</value>
   </data>
-  <data name="Reviewer" xml:space="preserve">
-    <value>Reviewer</value>
+  <data name="EmployeeRequire" xml:space="preserve">
+    <value>The Employee field is required!</value>
   </data>
-  <data name="Self" xml:space="preserve">
-    <value>Self</value>
+  <data name="EPATypeRequire" xml:space="preserve">
+    <value>The EPA Type field is required!</value>
+  </data>
+  <data name="MonthRequire" xml:space="preserve">
+    <value>The Month field is required!</value>
+  </data>
+  <data name="DateRequire" xml:space="preserve">
+    <value>All Date field is required!</value>
+  </data>
+  <data name="YearRequire" xml:space="preserve">
+    <value>The Year field is required!</value>
   </data>
 </root>

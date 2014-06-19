@@ -440,6 +440,8 @@ registrationModule.directive('listDraggable', function () {
 		}
 	};
 });
+
+// Close other open calendar on Create Appraisal Form page
 registrationModule.directive('closeOtherCalendar', function () {
 	return {
 		restrict: "A",
@@ -458,10 +460,53 @@ registrationModule.directive('closeOtherCalendar', function () {
 					}
 				}
 
-				if (currentIsOpen.indexOf('startDateOpened') !== -1) {
-					var id = currentIsOpen.replace('calendar.startDateOpened', '');
-					scope.openPopupStartDate.call(this, $event, id);
+				var dateOpened = currentIsOpen.replace('calendar.', '');
+				scope.openPopupDate.call(this, $event, dateOpened);
+			});
+		}
+	};
+});
+
+// Get date of all open calendar and create template when create new Appraisal Form
+registrationModule.directive('getDetailProcess', function () {
+
+	var createTemplate = function (processId, startDate, endDate, alarmDate, noticeAtBegin) {
+		var process = '<Process ProcessId="' + processId + '"' +
+								' NoticeAtBegin="' + noticeAtBegin + '"' +
+								' StartDate="' + startDate + '"' +
+								' EndDate="' + endDate + '"' +
+								' RemindDate="' + alarmDate + '"></Process>';
+
+		return process;
+	};
+
+	return {
+		restrict: "A",
+		link: function (scope, iElement) {
+			iElement.on("click", function () {
+				var allProcess = $("[name='appraisalForm']").find("tbody tr:visible"),
+					processTemplate = '<ROOT>',
+					violation = false;
+
+				for (var i = 0; i < allProcess.length; i++) {
+					var rowProcess = allProcess[i],
+						firstCalendarItem = $(rowProcess).find('[name="calendar"]').get(0),
+						processId = $(firstCalendarItem).attr("processId"),
+						startDate = $(rowProcess).find('[name="calendar"][start=' + processId + ']').val(),
+						endDate = $(rowProcess).find('[name="calendar"][end=' + processId + ']').val(),
+						alarmDate = $(rowProcess).find('[name="calendar"][alarm=' + processId + ']').val(),
+						noticeAtBegin = $(rowProcess).find('[name="notice"]').is(':checked') ? 1 : 0,
+						process = createTemplate(processId, startDate, endDate, alarmDate, noticeAtBegin);
+
+					if (!startDate || !endDate || !alarmDate) {
+						violation = true;
+					}
+
+					processTemplate += process;
 				}
+
+				processTemplate += '</ROOT>';
+				scope.create.call(this, processTemplate, violation);
 			});
 		}
 	};

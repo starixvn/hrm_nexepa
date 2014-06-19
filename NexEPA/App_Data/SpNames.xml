@@ -103,6 +103,7 @@
 		<Setting Key="EPA_CheckPermission" SpName="EPA_CheckPermission" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPAForm_Get" SpName="EPAForm_Get" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPAForm_Insert" SpName="EPAForm_Insert" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="ProcessPeriod_GetAll" SpName="ProcessPeriod_GetAll" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="Report">
