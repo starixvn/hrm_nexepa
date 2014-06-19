@@ -27,6 +27,12 @@ namespace NexEPA.Organization.Models
 
         public int ProcessId { get; set; }
 
-        public List<int> EvaluatorId { get; set; }
+        public int EvaluatorId { get; set; }
+
+        public string Code { get; set; }
+
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
     }
 }

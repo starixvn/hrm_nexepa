@@ -9,8 +9,10 @@
 
 namespace NexEPA.Organization.Services.Interface
 {
+    using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Organization.Criteria.FlowManagement;
+    using NexEPA.Organization.Models;
 
     /// <summary>
     /// Interface Flow Management Service.
@@ -28,5 +30,11 @@ namespace NexEPA.Organization.Services.Interface
         CommandResult DeleteGroupFlow(DeleteGroupFlowCriteria criteria);
 
         CommandResult DeleteEmployeeFlow(DeleteEmployeeFlowCriteria criteria);
+
+        IEnumerable<EPAFlowModel> GetFlowDepartment(GetDepartmentFlowCriteria criteria);
+
+        IEnumerable<EPAFlowModel> GetFlowGroup(GetGroupFlowCriteria criteria);
+
+        IEnumerable<EPAFlowModel> GetFlowEmployee(GetEmployeeFlowCriteria criteria);
     }
 }

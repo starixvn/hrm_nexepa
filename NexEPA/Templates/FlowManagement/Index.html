@@ -113,10 +113,10 @@
 			<label class="col-sm-3 control-label" data-translate="Department">
 			</label>
 			<div class="col-sm-8">
-				<select ng-disabled="isDisabled" class="form-control" ng-model="detailsNode.parentId"
+				<select ng-change="OnSelectedDepartment()" class="form-control" ng-model="EPAFLow.departmentId"
 					required>
 					<option style="display: none" value="">-- Select a Department / Group --</option>
-					<option ng-repeat="dept in departments" value="{{dept.departmentId}}" ng-hide="hideChildNode(dept) || dept.departmentId == detailsNode.departmentId">
+					<option ng-repeat="dept in departments" value="{{dept.departmentId}}">
 						{{dept.name}}</option>
 				</select>
 			</div>

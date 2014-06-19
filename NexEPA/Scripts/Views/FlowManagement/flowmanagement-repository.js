@@ -3,9 +3,13 @@
 
 flowManagementModule.factory('flowDataFactory', ['$http', '$q', function ($http, $q) {
 	return {
-		getMilestone: function (projectId) {
+		getFlow: function (departmentId, flowType) {
 			var deferred = $q.defer();
-			$http.get('/api/Milestone/GetMilestones', { params: { projectId: projectId} }).success(deferred.resolve).error(deferred.reject);
+			$http.get('/api/FlowManagement/GetFlow', { params: {
+				departmentId: departmentId,
+				flowType: flowType
+			}
+			}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
 	};

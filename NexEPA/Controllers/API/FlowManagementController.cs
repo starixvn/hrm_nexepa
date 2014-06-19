@@ -51,7 +51,7 @@ namespace NexEPA.Controllers.API
         {
             CommandResult result = null;
             List<string> errorMessage = null;
-            if (flowType > 0)
+            if (flowType >= 0)
             {
                 AddDepartmentFlowCriteria departmentFlowCriteria = new AddDepartmentFlowCriteria();
                 result = _flowManagementService.AddDepartmentFlow(departmentFlowCriteria);
@@ -69,6 +69,30 @@ namespace NexEPA.Controllers.API
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
+        }
+
+        /// <summary>
+        /// Method Get Flow Information.
+        /// </summary>
+        /// <param name="departmentId">Department / Group id.</param>
+        /// <param name="flowType">Department or Group.</param>
+        /// <returns>IEnumerable EPAFlowModel.</returns>
+        public IEnumerable<EPAFlowModel> GetFlow(int departmentId, int flowType)
+        {
+            IEnumerable<EPAFlowModel> data = null;
+            if (flowType >= 0)
+            {
+                GetDepartmentFlowCriteria departmentFlowCriteria = new GetDepartmentFlowCriteria() { DepartmentId = departmentId };
+                data = _flowManagementService.GetFlowDepartment(departmentFlowCriteria);
+            }
+
+            if (flowType < 0)
+            {
+                GetGroupFlowCriteria groupFlowCriteria = new GetGroupFlowCriteria() { GroupId = departmentId };
+                data = _flowManagementService.GetFlowGroup(groupFlowCriteria);
+            }
+
+            return data;
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

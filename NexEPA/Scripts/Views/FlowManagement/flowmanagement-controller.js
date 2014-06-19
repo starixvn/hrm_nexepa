@@ -13,6 +13,7 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 	$scope.reviewers = [];
 	$scope.currentSelectedEmployee;
 	$scope.showList = false;
+	$scope.EPAFlow = {};
 
 	/**
 	* Validation. 
@@ -145,7 +146,7 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 			list.splice(index, 1);
 		}
 	};
-	
+
 	$scope.removeAdmin = function (admin) {
 		removeItemFromList(admin, $scope.admins);
 	};
