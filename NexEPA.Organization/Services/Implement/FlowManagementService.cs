@@ -15,6 +15,8 @@ namespace NexEPA.Organization.Services.Implement
     using NexEPA.Core.Services;
     using NexEPA.Organization.Criteria.FlowManagement;
     using NexEPA.Organization.Models;
+    using NexEPA.Organization.Repositories.Implement;
+    using NexEPA.Organization.Repositories.Interface;
     using NexEPA.Organization.Services.Interface;
 
     /// <summary>
@@ -22,6 +24,18 @@ namespace NexEPA.Organization.Services.Implement
     /// </summary>
     public class FlowManagementService : BaseService, IFlowManagementService
     {
+        private readonly IFlowManagementRepository _flowManagementRepository;
+
+        public FlowManagementService()
+            : this(null)
+        {
+        }
+
+        public FlowManagementService(IFlowManagementRepository flowManagementRepository)
+        {
+            this._flowManagementRepository = flowManagementRepository ?? new FlowManagementRepository();
+        }
+
         public CommandResult AddDepartmentFlow(AddDepartmentFlowCriteria criteria)
         {
             CommandResult result = null;
@@ -100,7 +114,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                flowDepartment = GetData<EPAFlowModel>(criteria);
+                flowDepartment = _flowManagementRepository.GetFlowManagement(criteria);
             }
 
             return flowDepartment;
@@ -112,7 +126,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                flowDepartment = GetData<EPAFlowModel>(criteria);
+                flowDepartment = _flowManagementRepository.GetFlowManagement(criteria);
             }
 
             return flowDepartment;
@@ -124,7 +138,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                flowDepartment = GetData<EPAFlowModel>(criteria);
+                flowDepartment = _flowManagementRepository.GetFlowManagement(criteria);
             }
 
             return flowDepartment;

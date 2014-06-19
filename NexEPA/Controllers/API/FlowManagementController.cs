@@ -9,6 +9,7 @@
 
 namespace NexEPA.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
@@ -44,22 +45,33 @@ namespace NexEPA.Controllers.API
         /// Method Insert EPA Flow.
         /// </summary>
         /// <param name="model">EPA Flow Model.</param>
-        /// <param name="flowType">Flow Type.</param>
         /// <returns>Http Response Message.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.FlowManagement, Policy = Policy.Host)]
-        public HttpResponseMessage InsertFlow(List<EPAFlowModel> model, int flowType)
+        public HttpResponseMessage InsertFlow(InsertEPAFlowModel model)
         {
             CommandResult result = null;
             List<string> errorMessage = null;
-            if (flowType >= 0)
+            if (model.FlowType >= 0)
             {
-                AddDepartmentFlowCriteria departmentFlowCriteria = new AddDepartmentFlowCriteria();
+                AddDepartmentFlowCriteria departmentFlowCriteria = new AddDepartmentFlowCriteria() 
+                { 
+                    DepartmentId = model.DepartmentId,
+                    ModifiedBy = this.CurrentUser.UserId,
+                    ModifiedDate = DateTime.Now,
+                    FlowDetails = model.FlowDetails
+                };
                 result = _flowManagementService.AddDepartmentFlow(departmentFlowCriteria);
             }
 
-            if (flowType < 0)
+            if (model.FlowType < 0)
             {
-                AddGroupFlowCriteria groupFlowCriteria = new AddGroupFlowCriteria();
+                AddGroupFlowCriteria groupFlowCriteria = new AddGroupFlowCriteria() 
+                { 
+                    GroupId = model.DepartmentId,
+                    ModifiedBy = this.CurrentUser.UserId,
+                    ModifiedDate = DateTime.Now,
+                    FlowDetails = model.FlowDetails
+                };
                 result = _flowManagementService.AddGroupFlow(groupFlowCriteria);
             }
 
@@ -77,6 +89,7 @@ namespace NexEPA.Controllers.API
         /// <param name="departmentId">Department / Group id.</param>
         /// <param name="flowType">Department or Group.</param>
         /// <returns>IEnumerable EPAFlowModel.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.FlowManagement, Policy = Policy.Read)]
         public IEnumerable<EPAFlowModel> GetFlow(int departmentId, int flowType)
         {
             IEnumerable<EPAFlowModel> data = null;

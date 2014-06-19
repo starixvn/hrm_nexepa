@@ -2,8 +2,9 @@
 'use strict';
 
 flowManagementModule.controller("FlowManagementController", ['$scope', 'employeeRepository',
-'notificationFactory', '$modal', 'flowManagementService', 'ErrorService', 'departmentDataFactory',
-function ($scope, employeeRepository, notificationFactory, $modal, flowManagementService, ErrorService, departmentDataFactory) {
+'notificationFactory', '$modal', 'flowManagementService', 'ErrorService', 'departmentDataFactory', 'flowDataFactory',
+function ($scope, employeeRepository, notificationFactory, $modal, flowManagementService, ErrorService,
+departmentDataFactory, flowDataFactory) {
 	/**
 	* Scope Variable. 
 	*/
@@ -14,6 +15,7 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 	$scope.currentSelectedEmployee;
 	$scope.showList = false;
 	$scope.EPAFlow = {};
+	$scope.flowType = null;
 
 	/**
 	* Validation. 
@@ -57,6 +59,32 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 	var successGetAllDepartment = function (data) {
 		$scope.departments = data.item2;
 	};
+
+	var successGetFlow = function (data) {
+		resetCurrentData();
+		if (data !== "null") {
+			$.each(data, function (i) {
+				var processId = data[i].processId;
+				switch (processId) {
+					case 2:
+						$scope.admins.push(data[i].evaluatorInfo);
+						break;
+					case 4:
+						$scope.evaluators.push(data[i].evaluatorInfo);
+						break;
+					case 5:
+						$scope.reviewers.push(data[i].evaluatorInfo);
+						break;
+				}
+			});
+		}
+		//$scope.flowData = data;
+	};
+
+	var successSaveFlow = function () {
+		notificationFactory.success('SuccessSaveData', '');
+	};
+
 	var errorNotification = function (response) {
 		if (response.status === 405) {
 			ErrorService.errorHandle(response.status);
@@ -85,6 +113,14 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 	/**
 	* Initialize data to view. 
 	*/
+
+	var resetCurrentData = function () {
+		$scope.admins = [];
+		$scope.selfs = [{ nickName: "Self"}];
+		$scope.evaluators = [];
+		$scope.reviewers = [];
+	};
+
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
 			$scope.employees = employees;
@@ -92,6 +128,15 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 			notificationFactory.error("ErrorMessage");
 		});
 	};
+
+	var getEmployeeById = function (sender, employeeId, position) {
+		employeeRepository.getEmployeeById(parseInt(employeeId)).success(function (data) {
+			addEmployeeToList(sender, data, position);
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
 	getEmployee(null, null);
 
 	// Watch for Employee is added to list.
@@ -132,11 +177,7 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 
 	// On Created list after Drag & Drop.
 	$scope.$on('list-created', function (ev, val) {
-		employeeRepository.getEmployeeById(parseInt(val.id)).success(function (data) {
-			addEmployeeToList(val.sender, data, val.to);
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
-		});
+		getEmployeeById(val.sender, val.id, val.to);
 	});
 
 	// Remove item from list.
@@ -168,6 +209,33 @@ function ($scope, employeeRepository, notificationFactory, $modal, flowManagemen
 	};
 	$scope.addReviewer = function () {
 		addEmployeeToFlow("reviewerList");
+	};
+
+	//Dropdownlist Change.
+	$scope.OnSelectedDepartment = function () {
+
+		var listDepartment = $scope.departments;
+		var selectedDepartment = $scope.EPAFlow.departmentId;
+		$.each(listDepartment, function (i) {
+			if (listDepartment[i].departmentId === parseInt(selectedDepartment)) {
+				$scope.flowType = listDepartment[i].departmentLevel;
+			}
+		});
+
+		flowDataFactory.getFlow(selectedDepartment, $scope.flowType).then(successGetFlow, errorNotification);
+	};
+
+	$scope.saveFlow = function () {
+		if ($scope.flowType === null) {
+			notificationFactory.error('', 'Please select a department!');
+		}
+		else {
+			var model = { departmentId: $scope.EPAFlow.departmentId, flowType: $scope.flowType,
+				admins: $scope.admins, evaluators: $scope.evaluators, reviewers: $scope.reviewers
+			};
+
+			flowDataFactory.saveFlow(model).then(successSaveFlow, errorNotification);
+		}
 	};
 
 } ]);

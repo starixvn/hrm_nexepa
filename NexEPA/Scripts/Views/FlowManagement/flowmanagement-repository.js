@@ -11,6 +11,11 @@ flowManagementModule.factory('flowDataFactory', ['$http', '$q', function ($http,
 			}
 			}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		saveFlow: function (model) {
+			var deferred = $q.defer();
+			$http.post('/api/FlowManagement/InsertFlow', model).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

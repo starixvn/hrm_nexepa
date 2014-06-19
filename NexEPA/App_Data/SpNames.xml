@@ -132,9 +132,17 @@
 		<Setting Key="SettingFlowDepartment_Set" SpName="SettingFlowDepartment_Set" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="SettingFlowEmployee_Set" SpName="SettingFlowEmployee_Set" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="SettingFlowGroup_Set" SpName="SettingFlowGroup_Set" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="SettingFlowDepartment_Get" SpName="SettingFlowDepartment_Get" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="SettingFlowEmployee_Get" SpName="SettingFlowEmployee_Get" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="SettingFlowGroup_Get" SpName="SettingFlowGroup_Get" DbName="NexEPA" Plain="1" ></Setting>
+
+		<Setting Key="SettingFlowDepartment_Get" SpName="SettingFlowDepartment_Get" DbName="NexEPA" Plain="1" >
+			<Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
+		</Setting>
+		<Setting Key="SettingFlowEmployee_Get" SpName="SettingFlowEmployee_Get" DbName="NexEPA" Plain="1" >
+			<Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
+		</Setting>
+		<Setting Key="SettingFlowGroup_Get" SpName="SettingFlowGroup_Get" DbName="NexEPA" Plain="1" >
+			<Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
+		</Setting>
+
 		<Setting Key="SettingFlowDepartment_Delete" SpName="SettingFlowDepartment_Set" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="SettingFlowEmployee_Delete" SpName="SettingFlowEmployee_Delete" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="SettingFlowGroup_Delete" SpName="SettingFlowGroup_Delete" DbName="NexEPA" Plain="1" ></Setting>

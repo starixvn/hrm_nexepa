@@ -52,6 +52,7 @@
     <Compile Include="Criteria\GetAllTargetTypeCriteria.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\Policy.cs" />
+    <Compile Include="Enums\ProcessTypeEnum.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\StatusProject.cs" />
     <Compile Include="Enums\RolesEnum.cs" />

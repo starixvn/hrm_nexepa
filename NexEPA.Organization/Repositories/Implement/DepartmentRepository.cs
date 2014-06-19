@@ -9,7 +9,6 @@
 
 namespace NexEPA.Organization.Repositories.Implement
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
