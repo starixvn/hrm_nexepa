@@ -52,17 +52,17 @@
 <div class="row">
 	<table class="col-sm-12 table table-bordered table-striped">
 		<thead>
-			<th data-translate="SymbolCount">
+			<th class="appraisal-index" data-translate="SymbolCount">
 			</th>
-			<th data-translate="Code">
+			<th class="appraisal-code" data-translate="Code">
 			</th>
-			<th data-translate="NickName">
+			<th class="appraisal-nickName" data-translate="NickName">
 			</th>
-			<th data-translate="Year">
+			<th class="appraisal-year" data-translate="Year">
 			</th>
-			<th data-translate="Month">
+			<th class="appraisal-month" data-translate="Month">
 			</th>
-			<th data-translate="EPATypeName">
+			<th class="appraisal-epaType" data-translate="EPATypeName">
 			</th>
 			<th data-translate="FromDate">
 			</th>
@@ -75,23 +75,24 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="appraisal in appraisalFormList">
-				<td class="index" ng-bind="$index + 1">
+				<td class="appraisal-index" ng-bind="$index + 1">
 				</td>
-				<td class="code" ng-bind="appraisal.employee.code">
+				<td class="appraisal-code" ng-bind="appraisal.employee.code">
 				</td>
-				<td ng-bind="appraisal.employee.nickName" tooltip={{appraisal.employee.fullName}} >
+				<td class="appraisal-nickName">
+					<div ng-bind="appraisal.employee.nickName" tooltip={{appraisal.employee.fullName}} ></div>
 				</td>
-				<td ng-bind="appraisal.year">
+				<td class="appraisal-year" ng-bind="appraisal.year">
 				</td>
-				<td ng-bind="appraisal.month">
+				<td class="appraisal-month" ng-bind="appraisal.month">
 				</td>
-				<td ng-bind="appraisal.epaType.name">
+				<td class="appraisal-epaType" ng-bind="appraisal.epaType.name">
 				</td>
-				<td ng-bind="appraisal.startDate">
+				<td class="appraisal-fromDate">{{appraisal.startDate | customDate}}
 				</td>
-				<td ng-bind="appraisal.toDate">
+				<td class="appraisal-toDate">{{appraisal.endDate | customDate}}
 				</td>
-				<td ng-bind="appraisal.statusName">
+				<td class="appraisal-status" ng-bind="appraisal.statusName">
 				</td>
 				<td>
 				</td>

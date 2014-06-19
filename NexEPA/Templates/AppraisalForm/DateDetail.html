@@ -4,39 +4,41 @@
 	</div>
 
 	<div class="row" collapse="isCollapsed">
-		<table class="table table-bordered" name="appraisalForm">
-			<thead>
-				<th data-translate="Role">
-				</th>
-				<th data-translate="NoticeAtBegin">
-				</th>
-				<th data-translate="StartDate">
-				</th>
-				<th data-translate="EndDate">
-				</th>
-				<th data-translate="AlarmDate">
-				</th>
+		<table class="table table-bordered appraisal-table" name="appraisalForm">
+			<thead class="required">
+				<tr>
+					<th data-translate="Role">
+					</th>
+					<th data-translate="NoticeAtBegin">
+					</th>
+					<th class="control-label center" data-translate="StartDate">
+					</th>
+					<th class="control-label center" data-translate="EndDate">
+					</th>
+					<th class="control-label center" data-translate="AlarmDate">
+					</th>
+				</tr>
 			</thead>
-			<tr ng-repeat="role in roles">
-				<td ng-bind="role.name">
+			<tr ng-repeat="process in processList">
+				<td ng-bind="process.name">
 				</td>
-				<td style="width:80px;">
-					<input type="checkbox" />
+				<td class="notice-at-begin">
+					<input type="checkbox" name="notice"/>
 				</td>
-				<td>
-					<input class="calendar-form-control" name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
-						is-open="calendar.startDateOpened{{role.roleId}}" show-button-bar="false" />
+				<td class="center">
+					<input class="calendar-form-control" required name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
+						is-open="calendar.startDateOpened{{process.processId}}" show-button-bar="false" start="{{process.processId}}" processId="{{process.processId}}"/>
 					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
 				</td>
-				<td>
-					<input class="calendar-form-control" name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
-						is-open="calendar.endDateOpened{{role.roleId}}" show-button-bar="false" />
+				<td class="center">
+					<input class="calendar-form-control" required name="calendar" type="text" ng-model="filter.endDate" datepicker-popup="{{dateFormat}}"
+						is-open="calendar.endDateOpened{{process.processId}}" show-button-bar="false" end="{{process.processId}}"  processId="{{process.processId}}"/>
 					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
 				</td>
-				<td>
-					<input class="calendar-form-control" name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
-						is-open="calendar.alarmDateOpened{{role.roleId}}" show-button-bar="false" />
-					<calendar-image class="calendar-image" ng-click="openPopupAlarmDate($event, role.roleId)"></calendar-image>
+				<td class="center">
+					<input class="calendar-form-control" required name="calendar" type="text" ng-model="filter.alarmDate" datepicker-popup="{{dateFormat}}"
+						is-open="calendar.alarmDateOpened{{process.processId}}" show-button-bar="false" alarm="{{process.processId}}"  processId="{{process.processId}}"/>
+					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
 				</td>
 			</tr>
 		</table>

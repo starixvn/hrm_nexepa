@@ -50,8 +50,8 @@ ErrorService, $route) {
 	$scope.appraisalFormList = [];
 
 	var getAppraisalForm = function (epaTypeId, keyword, year, month) {
-		appraisalFormFactory.getAppraisalForm(epaTypeId, keyword, year, month).success(function (appraisalFormList) {
-			$scope.appraisalFormList = appraisalFormList;
+		appraisalFormFactory.getAppraisalForm(epaTypeId, keyword, year, month).success(function (test) {
+			$scope.appraisalFormList = test;
 		}).error(function (reaponse, status) {
 			if (status === 405) {
 				ErrorService.errorHandle(status);
@@ -82,8 +82,10 @@ ErrorService, $route) {
 
 // Create Appraisal Form controller
 epaModule.controller('CreateAppraisalFormController',
-['$scope', 'targetEmployeeSettingFactory', 'notificationFactory', 'employeeRepository',
-function ($scope, targetEmployeeSettingFactory, notificationFactory, employeeRepository) {
+['$scope', 'targetEmployeeSettingFactory', 'notificationFactory', 'employeeRepository', 'appraisalFormFactory',
+'ErrorService', 'commonAppraisalFormFactory', '$timeout', '$window', '$location',
+function ($scope, targetEmployeeSettingFactory, notificationFactory, employeeRepository, appraisalFormFactory,
+ErrorService, commonAppraisalFormFactory, $timeout, $window, $location) {
 
 	var currentDate = new Date();
 
@@ -103,6 +105,63 @@ function ($scope, targetEmployeeSettingFactory, notificationFactory, employeeRep
 
 	// initialize filter
 	init($scope, targetEmployeeSettingFactory, notificationFactory);
+
+	commonAppraisalFormFactory.showRequireMessage($scope, notificationFactory);
+
+	$scope.create = function (processTemplate, violation) {
+		$scope.disabledSubmit = true;
+		$scope.submitted = true;
+		$scope.$apply();
+
+		if (!violation) {
+			var appraisal = {
+				epaTypeId: $scope.appraisal.epaTypeId,
+				employeeId: $scope.appraisal.employee.employeeId,
+				month: $scope.appraisal.month,
+				year: $scope.appraisal.year,
+				processDetails: processTemplate
+			};
+
+			if (commonAppraisalFormFactory.validateAppraisalForm(appraisal)) {
+				appraisalFormFactory.insertAppraisalForm(appraisal).success(function (response) {
+					if (response.isSuccessful === true) {
+						notificationFactory.success("DataChangeSuccessfully");
+
+						$timeout(function () {
+							if (!$scope.isCreatedFromKPI) {
+								$window.history.back();
+							}
+							else {
+								$location.url('/AppraisalForm/Index/');
+							}
+						}, 2000);
+					}
+					else {
+						notificationFactory.error("DataChangeFail", response.message);
+					}
+
+					$scope.disabledSubmit = false;
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+
+					$scope.disabledSubmit = false;
+				});
+			}
+		}
+		else {
+			$scope.disabledSubmit = false;
+			$scope.submitted = false;
+		}
+	};
+
+	$scope.back = function () {
+		$window.history.back();
+	};
 } ]);
 
 // Basic Information controller
@@ -114,67 +173,40 @@ function ($scope) {
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;
 	};
+
+	$scope.$watch('search.searchKey', function (newValue) {
+		if (!newValue) {
+			$scope.appraisal.employee = '';
+		}
+	});
 } ]);
 
 // Date Detail controller
 epaModule.controller('DateDetailController',
-['$scope', function ($scope) {
+['$scope', 'commonFactory', 'appraisalFormFactory', 'notificationFactory',
+function ($scope, commonFactory, appraisalFormFactory, notificationFactory) {
 	$scope.isCollapsed = false;
 
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;
 	};
 
-	$scope.roles = [
-		{
-			roleId: 0,
-			name: 'Admin'
-		},
-		{
-			roleId: 1,
-			name: 'Self'
-		},
-		{
-			roleId: 2,
-			name: 'Evaluator'
-		},
-		{
-			roleId: 3,
-			name: 'Reviewer'
-		}
-	];
+	appraisalFormFactory.getAllProcessPeriod().success(function (processList) {
+		$scope.processList = processList;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
-	$scope.calendar = {
-		startDateOpened: '',
-		endDateOpened: '',
-		alarmDateOpened: ''
-	};
+	// get Date Format
+	commonFactory.getDateFormat($scope);
 
+	$scope.calendar = {};
 
-	$scope.openPopupStartDate = function ($event, roleId) {
+	$scope.openPopupDate = function ($event, dateOpened) {
 		$event.preventDefault();
 		$event.stopPropagation();
 
-		var dateOpened = 'startDateOpened'.concat(roleId);
-
 		$scope.calendar[dateOpened] = true;
-	};
-
-	$scope.openPopupEndDate = function ($event, roleId) {
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		var dateOpened = 'endDateOpened'.concat(roleId);
-
-		$scope.calendar[dateOpened] = true;
-	};
-
-	$scope.openPopupAlarmDate = function ($event, roleId) {
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		var dateOpened = 'alarmDateOpened'.concat(roleId);
-
-		$scope.calendar[dateOpened] = true;
+		$scope.$apply();
 	};
 } ]);

@@ -5,41 +5,41 @@
 
 	<div class="row" collapse="isCollapsed">
 		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="EPAType">
+			<label class="col-sm-2 control-label" data-translate="EPAType">
 			</label>
-			<div class="col-sm-8">
-				<select ng-model="appraisal.epaTypeId" ng-options="opt.epaTypeId as opt.name for opt in listEPAType"
-					class="form-control">
+			<div class="col-sm-6">
+				<select name="epaType" ng-model="appraisal.epaTypeId" ng-options="opt.epaTypeId as opt.name for opt in listEPAType"
+					class="form-control" required >
 				<option value="">-- Select type --</option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="Year">
+			<label class="col-sm-2 control-label" data-translate="Year">
 			</label>
-			<div class="col-sm-8">
-				<select ng-model="appraisal.year" ng-options="opt.value as opt.label for opt in listYear"
-					class="form-control">
+			<div class="col-sm-6">
+				<select name="year" ng-model="appraisal.year" ng-options="opt.value as opt.label for opt in listYear"
+					class="form-control" required>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="Month">
+			<label class="col-sm-2 control-label" data-translate="Month">
 			</label>
-			<div class="col-sm-8">
-				<select ng-model="appraisal.month" ng-options="opt.value as opt.label for opt in listMonth"
-					class="form-control">
+			<div class="col-sm-6">
+				<select name="month" ng-model="appraisal.month" ng-options="opt.value as opt.label for opt in listMonth"
+					class="form-control" required>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="Employee">
+			<label class="col-sm-2 control-label" data-translate="Employee">
 			</label>
-			<div class="col-sm-8">
-				<input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
+			<div class="col-sm-6">
+				<input class="form-control" name="employee" required ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
 					search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="appraisal.employee"/>
 			</div>
 		</div>
