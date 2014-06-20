@@ -41,6 +41,16 @@
         .sortable {
             padding: 10px;
         }
+
+        .custom-ul li {
+            position: relative;
+        }
+
+        .icon-close {
+            position: absolute;
+            right: 9px;
+            top: 9px; 
+        }
     }
 
     .flow-header {
@@ -58,12 +68,13 @@
     }
 
     .department-form {
-        margin: 20px 0;
+        margin: 10px 0 5px 5px;
 
         .sel-department {
             border: 1px solid #ccc;
-            border-radius: 3px;
+            .border-radius(3px);
             height: 29px;
+            padding: 2px 5px;
         }
 
         .btn.customize {
@@ -97,7 +108,7 @@
 
     .employee-list {
 	    background-color: #fff;
-	    padding: 0;
+	    padding: 0 0 15px;
         margin-top: 10px;
 	    border: 1px solid @border-light-color;
         .border-radius(4px);
@@ -105,7 +116,7 @@
         .employee-ul {
 	        height: 620px;
 	        overflow: auto;
-            padding: 0 5%;
+            padding: 0 5% 0;
 
             li {
                 text-align: left;
@@ -126,21 +137,18 @@
         }
 
         .txt-search {
+            background: url(../images/icon-search.png) no-repeat right center;
             border: 1px solid #ccc;
-            .border-radius(3px);
             height: 30px;
-            margin: 10px 5%;
+            margin: 15px 5%;
             width: 90%;
+            .border-radius(3px);
         }
-    }
-
-    .tab-pane {
-        position: relative;
     }
 
     .expand-user {
         background-color: #acacac;
-        left: -7px;
+        left: -15px;
         position: absolute;
         top: 11px;
         width: 22px;
@@ -155,15 +163,24 @@
             font-size: @font-size - 2;
         }
     }
+
+    .flow-management {
+        .tab-content {
+            padding: 5px 0 15px 15px;
+        }
+
+        .tab-pane {
+            position: relative;
+        }
+    }
+
+    .modal-flow .modal-body {
+        height: 200px;
+        overflow-y: auto;
+    }
+
+    .button-buffer {
+	    margin-bottom: 8px;
+    }
 }
 
-.modal-flow .modal-body
-{
-    height: 200px;
-    overflow-y: auto;
-}
-
-.button-buffer
-{
-	margin-bottom: 8px;
-}
