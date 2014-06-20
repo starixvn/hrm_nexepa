@@ -202,10 +202,10 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 				var children = $(this).parent('li.parent_li').find(' > ul > li');
 				if (children.is(":visible")) {
 					children.hide('fast');
-					$(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus-sign').removeClass('glyphicon-chevron-right');
+					$(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus-sign').removeClass('glyphicon-minus-sign');
 				} else {
 					children.show('fast');
-					$(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-chevron-right').removeClass('glyphicon-plus-sign');
+					$(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-minus-sign').removeClass('glyphicon-plus-sign');
 				}
 				e.stopPropagation();
 			});

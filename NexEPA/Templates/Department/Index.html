@@ -7,10 +7,10 @@
 	</ul>
 </div>
 <div class="row">
-	<div class="col-sm-4">
+	<div class="col-sm-4 treeview">
 		<div class="tree">
 			<ul>
-				<li ng-repeat="data in department.children" ng-include src="'/Templates/Department/TreeTemplate.html'">
+				<li ng-repeat="data in department.children" class="root" ng-include src="'/Templates/Department/TreeTemplate.html'">
 				</li>
 			</ul>
 		</div>
