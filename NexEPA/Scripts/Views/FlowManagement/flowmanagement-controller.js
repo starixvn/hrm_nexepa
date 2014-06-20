@@ -13,7 +13,7 @@ departmentDataFactory, flowDataFactory, $window) {
 	$scope.evaluators = [];
 	$scope.reviewers = [];
 	$scope.currentSelectedEmployee;
-	$scope.showList = false;
+	$scope.showList = true;
 	$scope.EPAFlow = {};
 	$scope.flowType = null;
 
@@ -241,7 +241,6 @@ departmentDataFactory, flowDataFactory, $window) {
 	//Dropdownlist Change.
 	$scope.OnSelectedDepartment = function () {
 		$scope.flowType = $scope.EPAFlow.departmentId;
-		debugger;
 		flowDataFactory.getFlow($scope.EPAFlow.departmentId, $scope.flowType).then(successGetFlow, errorNotification);
 	};
 

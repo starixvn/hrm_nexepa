@@ -1,11 +1,13 @@
 ﻿<div class="row sub-header">
-    <ul class="col-xs-12 breadcrumb list-inline pull-left">
-        <li><a href="/Flow/Index" data-translate="Flow"></a></li>
-        <li class="current" data-translate="FlowManagement"></li>
-    </ul>
+	<ul class="col-xs-12 breadcrumb list-inline pull-left">
+		<li>
+			<a href="/Flow/Index" data-translate="Flow"></a>
+		</li>
+		<li class="current" data-translate="FlowManagement"></li>
+	</ul>
 </div>
 <div class="row target-tabset">
-    <tabset id="flowManagement">
+	<tabset id="flowManagement">
 	<tab heading="DEPARTMENT / GROUP" class="tab-cursor" select="tabDeparment()">
 		<div class="expand-user" title="Show Employee List" ng-if="!showList" ng-click="toggleShowList()">
             <span class="glyphicon glyphicon-user icon-user"></span>
@@ -26,6 +28,14 @@
 				</ul>
 			</div>
             <div class="col-sm-9">
+				 <form class="row form-inline department-form left-buffer">
+					<label data-translate="Department"></label>
+		            <select ng-change="OnSelectedDepartment()" ng-model="EPAFlow.departmentId" class="sel-department" required>
+			            <option style="display: none" value="">-- Select a Department / Group --</option>
+			            <option ng-repeat="dept in departments" value="{{dept.departmentId}}">
+				            {{dept.name}}</option>
+		            </select>
+				</form>
                 <div class="row">
                     <div class="col-sm-3 col">
                         <div class="flow-group admin">
@@ -108,12 +118,6 @@
 			        </div>
                 </div>
                 <form class="row form-inline department-form" role="form">
-		            <label data-translate="Department"></label>
-		            <select ng-change="OnSelectedDepartment()" ng-model="EPAFlow.departmentId" class="sel-department" required>
-			            <option style="display: none" value="">-- Select a Department / Group --</option>
-			            <option ng-repeat="dept in departments" value="{{dept.departmentId}}">
-				            {{dept.name}}</option>
-		            </select>
                     <button class="button button-buffer" ng-click="saveFlow()" data-translate="Save">
 		            </button>
 		            <button class="button button-buffer" ng-click="deleteFlow()" data-translate="Delete"
