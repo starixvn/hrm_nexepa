@@ -38,5 +38,9 @@ namespace NexEPA.MemberEPA.Services.Interface
         CommandResult InsertAppraisalForm(InsertAppraisalFormCriteria criteria);
 
         IEnumerable<ProcessPeriodModel> GetAllProcessPeriod(GetAllProcessPeriodCriteria criteria);
+
+        AppraisalFormModel GetAppraisalFormById(GetAppraisalFormByIdCriteria criteria);
+
+        CommandResult UpdateAppraisalForm(UpdateAppraisalFormCriteria criteria);
     }
 }

@@ -27,5 +27,7 @@ namespace NexEPA.MemberEPA.Repositories.Interface
         IEnumerable<MemberEPAModel> GetEPAOfEmployeeByManager(ICriteria criteria);
 
         IEnumerable<AppraisalFormModel> GetAppraisalForm(ICriteria criteria);
+
+        AppraisalFormModel GetAppraisalFormById(ICriteria criteria);
     }
 }

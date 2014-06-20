@@ -511,6 +511,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Appraisal Form.
+        /// </summary>
+        public static string EditAppraisalForm {
+            get {
+                return ResourceManager.GetString("EditAppraisalForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit KPI.
         /// </summary>
         public static string EditKPI {

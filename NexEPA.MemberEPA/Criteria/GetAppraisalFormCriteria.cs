@@ -16,7 +16,7 @@ namespace NexEPA.MemberEPA.Criteria
     /// </summary>
     public class GetAppraisalFormCriteria : CriteriaBase
     {
-        public int EPATypeId { get; set; }
+        public int? EPATypeId { get; set; }
 
         public string Keyword { get; set; }
 
@@ -31,7 +31,7 @@ namespace NexEPA.MemberEPA.Criteria
 
         public override bool IsValid()
         {
-            return EPATypeId > 0;
+            return true;
         }
     }
 }

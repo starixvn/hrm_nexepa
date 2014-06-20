@@ -506,7 +506,7 @@ registrationModule.directive('getDetailProcess', function () {
 				}
 
 				processTemplate += '</ROOT>';
-				scope.create.call(this, processTemplate, violation);
+				scope.save.call(this, processTemplate, violation);
 			});
 		}
 	};

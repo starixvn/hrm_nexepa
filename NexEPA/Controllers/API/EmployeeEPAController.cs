@@ -222,16 +222,16 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Get appraisal form.
         /// </summary>
-        /// <param name="epaTypeId">The EPA type Id.</param>
         /// <param name="year">The EPA year.</param>
         /// <param name="month">The EPA month.</param>
+        /// <param name="epaTypeId">The EPA type Id.</param>
         /// <param name="keyword">The keyword.</param>
         /// <returns>The enumerator Appraisal Form.</returns>
         [HttpGet]
         public IEnumerable<AppraisalFormModel> GetAppraisalForm(
-            int epaTypeId, 
             int year,
             int month,
+            int? epaTypeId = null,
             string keyword = "")
         {
             var criteria = new GetAppraisalFormCriteria
@@ -268,6 +268,39 @@ namespace NexEPA.Controllers.API
             var criteria = new GetAllProcessPeriodCriteria();
 
             return _memberEPAService.GetAllProcessPeriod(criteria);
+        }
+
+        /// <summary>
+        /// Get Appraisal Form by Id.
+        /// </summary>
+        /// <param name="epaId">The EPA Id.</param>
+        /// <returns>The Appraisal Form model.</returns>
+        [HttpGet]
+        public AppraisalFormModel GetAppraisalFormById(int epaId)
+        {
+            var criteria = new GetAppraisalFormByIdCriteria
+            {
+                EPAId = epaId
+            };
+
+            return _memberEPAService.GetAppraisalFormById(criteria);
+        }
+
+        /// <summary>
+        /// Update Appraisal Form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        [HttpPut]
+        public CommandResult UpdateAppraisalForm(UpdateAppraisalFormCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _memberEPAService.UpdateAppraisalForm(criteria);
         }
 
         /// <summary>

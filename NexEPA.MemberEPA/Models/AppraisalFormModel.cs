@@ -10,6 +10,7 @@
 namespace NexEPA.MemberEPA.Models
 {
     using System;
+    using System.Collections.Generic;
     using NexEPA.Employee.Models;
     using NexEPA.Target.Models;
 
@@ -35,5 +36,7 @@ namespace NexEPA.MemberEPA.Models
         public EmployeeModel Employee { get; set; }
 
         public EPATypeModel EPAType { get; set; }
+
+        public IEnumerable<EPAProcessModel> EPAProcess { get; set; }
     }
 }

@@ -10,8 +10,8 @@
 
 namespace NexEPA.MemberEPA.Services.Implement
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Enums;
@@ -202,6 +202,74 @@ namespace NexEPA.MemberEPA.Services.Implement
             }
 
             return processPeriodList;
+        }
+
+        /// <summary>
+        /// Get Appraisal Form by Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Appraisal From model.</returns>
+        public AppraisalFormModel GetAppraisalFormById(GetAppraisalFormByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            AppraisalFormModel appraisal = new AppraisalFormModel();
+
+            if (criteria.IsValid())
+            {
+                appraisal = _memberEPARepository.GetAppraisalFormById(criteria);
+                appraisal.StatusName = EnumStatus.GetDescripton((Status)appraisal.Status);
+                appraisal.EPAProcess = GroupEPAProcess(appraisal.EPAProcess);
+            }
+
+            return appraisal;
+        }
+
+        /// <summary>
+        /// Update Appraisal Form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateAppraisalForm(UpdateAppraisalFormCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Group EPA Process.
+        /// </summary>
+        /// <param name="epaProcess">The EPA process list.</param>
+        /// <returns>The EPA process list after group process.</returns>
+        private IEnumerable<EPAProcessModel> GroupEPAProcess(IEnumerable<EPAProcessModel> epaProcess)
+        {
+            List<EPAProcessModel> epaProcessList = epaProcess.ToList();
+
+            for (int i = 0; i < epaProcessList.Count(); i++)
+            {
+                EPAProcessModel process = epaProcessList[i];
+                process.EvaluatorList.Add(process.Evaluator);
+
+                List<EPAProcessModel> rawSameProcess = epaProcessList.Where(pro => pro.ProcessId == process.ProcessId &&
+                                                        pro.Evaluator.EmployeeId != process.Evaluator.EmployeeId).ToList();
+
+                for (int j = 0; j < rawSameProcess.Count(); j++)
+                {
+                    EPAProcessModel sameProcess = rawSameProcess[j];
+                    process.EvaluatorList.Add(sameProcess.Evaluator);
+                    epaProcessList.Remove(sameProcess);
+                }
+
+                process.Evaluator = null;
+            }
+
+            return epaProcessList;
         }
     }
 }

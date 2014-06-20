@@ -140,5 +140,38 @@ namespace NexEPA.MemberEPA.Repositories.Implement
                     criteria.GetSpParams());
             }
         }
+
+        /// <summary>
+        /// Get Appraisal Form by Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Appraisal Form model.</returns>
+        public AppraisalFormModel GetAppraisalFormById(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    AppraisalFormModel appraisal = multi.Read<AppraisalFormModel, EmployeeModel, EPATypeModel, AppraisalFormModel>(
+                    (app, emp, epa) =>
+                    {
+                        app.Employee = emp;
+                        app.EPAType = epa;
+                        return app;
+                    },
+                    "EmployeeId,EPATypeId").FirstOrDefault();
+
+                    appraisal.EPAProcess = multi.Read<EPAProcessModel, EmployeeModel, EPAProcessModel>(
+                        (epa, eva) =>
+                        {
+                            epa.Evaluator = eva;
+                            return epa;
+                        },
+                        "EvaluatorId");
+
+                    return appraisal;
+                }
+            }
+        }
     }
 }

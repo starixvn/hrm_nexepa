@@ -72,6 +72,9 @@ var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
 
 	$routeProvider.when('/AppraisalForm/Create',
 		{ templateUrl: '/templates/AppraisalForm/Create.html', controller: 'CreateAppraisalFormController' });
+
+	$routeProvider.when('/AppraisalForm/Edit/:id',
+		{ templateUrl: '/templates/AppraisalForm/Edit.html', controller: 'EditAppraisalFormController' });
 } ]);
 
 var generalSettingModule = angular.module("generalSettingModule", ['ngRoute', 'ngResource'])
