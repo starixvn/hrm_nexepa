@@ -23,20 +23,20 @@
 				<td ng-bind="process.name">
 				</td>
 				<td class="notice-at-begin">
-					<input type="checkbox" name="notice"/>
+					<input type="checkbox" name="notice" ng-model="process.noticeAtBegin"/>
 				</td>
 				<td class="center">
-					<input class="calendar-form-control" required name="calendar" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
+					<input class="calendar-form-control" required name="calendar" type="text" ng-model="process.startDate" datepicker-popup="{{dateFormat}}"
 						is-open="calendar.startDateOpened{{process.processId}}" show-button-bar="false" start="{{process.processId}}" processId="{{process.processId}}"/>
 					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
 				</td>
 				<td class="center">
-					<input class="calendar-form-control" required name="calendar" type="text" ng-model="filter.endDate" datepicker-popup="{{dateFormat}}"
+					<input class="calendar-form-control" required name="calendar" type="text" ng-model="process.endDate" datepicker-popup="{{dateFormat}}"
 						is-open="calendar.endDateOpened{{process.processId}}" show-button-bar="false" end="{{process.processId}}"  processId="{{process.processId}}"/>
 					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
 				</td>
 				<td class="center">
-					<input class="calendar-form-control" required name="calendar" type="text" ng-model="filter.alarmDate" datepicker-popup="{{dateFormat}}"
+					<input class="calendar-form-control" required name="calendar" type="text" ng-model="process.remindDate" datepicker-popup="{{dateFormat}}"
 						is-open="calendar.alarmDateOpened{{process.processId}}" show-button-bar="false" alarm="{{process.processId}}"  processId="{{process.processId}}"/>
 					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
 				</td>

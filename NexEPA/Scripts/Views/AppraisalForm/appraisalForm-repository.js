@@ -12,6 +12,12 @@ epaModule.factory('appraisalFormFactory', ['$http', function ($http) {
 		},
 		getAllProcessPeriod: function () {
 			return $http.get('/api/EmployeeEPA/GetAllProcessPeriod');
+		},
+		getAppraisalFormById: function (epaId) {
+			return $http.get('/api/EmployeeEPA/GetAppraisalFormById', { params: { epaId: epaId} });
+		},
+		updateAppraisalForm: function (appraisal) {
+			return $http.put('/api/EmployeeEPA/UpdateAppraisalForm', appraisal);
 		}
 	};
 } ]);

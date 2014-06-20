@@ -65,6 +65,8 @@ ErrorService, $route) {
 	// initialize filter
 	init($scope, targetEmployeeSettingFactory, notificationFactory);
 
+	getAppraisalForm(null, null, $scope.filter.year, $scope.filter.month);
+
 	$scope.query = function (filter) {
 		if (filter) {
 			getAppraisalForm(filter.epaTypeId, filter.keyword, filter.year, filter.month);
@@ -73,6 +75,10 @@ ErrorService, $route) {
 
 	$scope.create = function () {
 		$scope.createAppraisalUrl = '/AppraisalForm/Create';
+	};
+
+	$scope.edit = function (epaId) {
+		$scope.editAppraisalUrl = '/AppraisalForm/Edit/' + epaId;
 	};
 
 	$scope.reload = function () {
@@ -106,9 +112,15 @@ ErrorService, commonAppraisalFormFactory, $timeout, $window, $location) {
 	// initialize filter
 	init($scope, targetEmployeeSettingFactory, notificationFactory);
 
+	appraisalFormFactory.getAllProcessPeriod().success(function (processList) {
+		$scope.processList = processList;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
 	commonAppraisalFormFactory.showRequireMessage($scope, notificationFactory);
 
-	$scope.create = function (processTemplate, violation) {
+	$scope.save = function (processTemplate, violation) {
 		$scope.disabledSubmit = true;
 		$scope.submitted = true;
 		$scope.$apply();
@@ -128,12 +140,7 @@ ErrorService, commonAppraisalFormFactory, $timeout, $window, $location) {
 						notificationFactory.success("DataChangeSuccessfully");
 
 						$timeout(function () {
-							if (!$scope.isCreatedFromKPI) {
-								$window.history.back();
-							}
-							else {
-								$location.url('/AppraisalForm/Index/');
-							}
+							$location.url('/AppraisalForm/Index/');
 						}, 2000);
 					}
 					else {
@@ -156,6 +163,7 @@ ErrorService, commonAppraisalFormFactory, $timeout, $window, $location) {
 		else {
 			$scope.disabledSubmit = false;
 			$scope.submitted = false;
+			$scope.$apply();
 		}
 	};
 
@@ -183,19 +191,13 @@ function ($scope) {
 
 // Date Detail controller
 epaModule.controller('DateDetailController',
-['$scope', 'commonFactory', 'appraisalFormFactory', 'notificationFactory',
-function ($scope, commonFactory, appraisalFormFactory, notificationFactory) {
+['$scope', 'commonFactory',
+function ($scope, commonFactory) {
 	$scope.isCollapsed = false;
 
 	$scope.collapseTable = function () {
 		$scope.isCollapsed = !$scope.isCollapsed;
 	};
-
-	appraisalFormFactory.getAllProcessPeriod().success(function (processList) {
-		$scope.processList = processList;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
-	});
 
 	// get Date Format
 	commonFactory.getDateFormat($scope);
@@ -208,5 +210,105 @@ function ($scope, commonFactory, appraisalFormFactory, notificationFactory) {
 
 		$scope.calendar[dateOpened] = true;
 		$scope.$apply();
+	};
+} ]);
+
+// Edit Appraisal Form controller
+epaModule.controller('EditAppraisalFormController',
+['$scope', '$window', 'targetEmployeeSettingFactory', 'notificationFactory', 'employeeRepository', 'targetUtility',
+'appraisalFormFactory', 'ErrorService', '$routeParams', 'commonAppraisalFormFactory', '$timeout', '$location',
+function ($scope, $window, targetEmployeeSettingFactory, notificationFactory, employeeRepository, targetUtility,
+appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $timeout, $location) {
+
+	var epaId = parseInt($routeParams.id);
+
+	$scope.isEditMode = true;
+	$scope.appraisal = {};
+
+	// get all employee
+	$scope.getEmployee = function (searchKey) {
+		employeeRepository.getAllEmployee(searchKey, null).success(function (employees) {
+			$scope.searchEmployees = employees;
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	// get all status
+	targetUtility.getAllStatus($scope);
+
+	// Initialize
+	init($scope, targetEmployeeSettingFactory, notificationFactory);
+
+	appraisalFormFactory.getAppraisalFormById(epaId).success(function (appraisal) {
+		$scope.appraisal = {
+			epaTypeId: appraisal.epaType.epaTypeId,
+			employeeId: appraisal.employee.employeeId,
+			year: appraisal.year,
+			month: appraisal.month
+		};
+
+		$scope.processList = appraisal.epaProcess;
+
+		$scope.search = {
+			searchKey: appraisal.employee.nickName + ' (' + appraisal.employee.fullName + ')'
+		};
+	}).error(function (response, status) {
+		if (status === 405) {
+			ErrorService.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
+	});
+
+	commonAppraisalFormFactory.showRequireMessage($scope, notificationFactory);
+
+	$scope.save = function (processTemplate, violation) {
+		$scope.disabledSubmit = true;
+		$scope.submitted = true;
+		$scope.$apply();
+
+		if (!violation) {
+			var appraisal = {
+				epaId: epaId,
+				processDetails: processTemplate
+			};
+
+			if (epaId && epaId > 0) {
+				appraisalFormFactory.updateAppraisalForm(appraisal).success(function (response) {
+					if (response.isSuccessful === true) {
+						notificationFactory.success("DataChangeSuccessfully");
+
+						$timeout(function () {
+							$location.url('/AppraisalForm/Index/');
+						}, 2000);
+					}
+					else {
+						notificationFactory.error("DataChangeFail", response.message);
+					}
+
+					$scope.disabledSubmit = false;
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+
+					$scope.disabledSubmit = false;
+				});
+			}
+		}
+		else {
+			$scope.disabledSubmit = false;
+			$scope.submitted = false;
+			$scope.$apply();
+		}
+	};
+
+	$scope.back = function () {
+		$window.history.back();
 	};
 } ]);

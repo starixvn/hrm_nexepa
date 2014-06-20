@@ -9,7 +9,7 @@
 			</label>
 			<div class="col-sm-6">
 				<select name="epaType" ng-model="appraisal.epaTypeId" ng-options="opt.epaTypeId as opt.name for opt in listEPAType"
-					class="form-control" required >
+					class="form-control" required ng-disabled="isEditMode">
 				<option value="">-- Select type --</option>
 				</select>
 			</div>
@@ -20,7 +20,7 @@
 			</label>
 			<div class="col-sm-6">
 				<select name="year" ng-model="appraisal.year" ng-options="opt.value as opt.label for opt in listYear"
-					class="form-control" required>
+					class="form-control" required ng-disabled="isEditMode">
 				</select>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 			</label>
 			<div class="col-sm-6">
 				<select name="month" ng-model="appraisal.month" ng-options="opt.value as opt.label for opt in listMonth"
-					class="form-control" required>
+					class="form-control" required ng-disabled="isEditMode">
 				</select>
 			</div>
 		</div>
@@ -40,7 +40,17 @@
 			</label>
 			<div class="col-sm-6">
 				<input class="form-control" name="employee" required ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
-					search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="appraisal.employee"/>
+					search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" employee="appraisal.employee" ng-disabled="isEditMode"/>
+			</div>
+		</div>
+
+		<div class="form-group required" ng-if="isEditMode">
+			<label class="col-sm-2 control-label" data-translate="Status">
+			</label>
+			<div class="col-sm-6">
+				<select name="month" ng-model="appraisal.status" ng-options="opt.id as opt.name for opt in statusOptions"
+					class="form-control" required>
+				</select>
 			</div>
 		</div>
 	</div>

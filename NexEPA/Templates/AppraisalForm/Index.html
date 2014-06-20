@@ -94,7 +94,9 @@
 				</td>
 				<td class="appraisal-status" ng-bind="appraisal.statusName">
 				</td>
-				<td>
+				<td class="appraisal-action">
+					<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(appraisal.epaId)" ng-href="{{editAppraisalUrl}}" />
+					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(appraisal)" />
 				</td>
 			</tr>
 
