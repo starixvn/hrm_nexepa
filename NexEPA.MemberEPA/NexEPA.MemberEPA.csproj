@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\AddOrUpdateEPAScoreCriteria.cs" />
+    <Compile Include="Criteria\DeleteAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\GetAllProcessPeriodCriteria.cs" />
     <Compile Include="Criteria\GetAppraisalFormByIdCriteria.cs" />
     <Compile Include="Criteria\GetAppraisalFormCriteria.cs" />
@@ -58,6 +59,9 @@
     <Compile Include="Criteria\InsertAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\UpdateAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\UpdateEPAStatusCriteria.cs" />
+    <Compile Include="Criteria\UpdateStatusAppraisalFormCriteria.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Models\AppraisalFormModel.cs" />
     <Compile Include="Models\EPAInfoModel.cs" />
     <Compile Include="Models\EPAProcessModel.cs" />

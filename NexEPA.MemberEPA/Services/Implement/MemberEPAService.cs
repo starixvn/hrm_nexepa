@@ -243,6 +243,42 @@ namespace NexEPA.MemberEPA.Services.Implement
         }
 
         /// <summary>
+        /// Delete Appraisal Form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult DeleteAppraisalForm(DeleteAppraisalFormCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Delete(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Update status of Appraisal Form.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateStatusAppraisalForm(UpdateStatusAppraisalFormCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
         /// Group EPA Process.
         /// </summary>
         /// <param name="epaProcess">The EPA process list.</param>

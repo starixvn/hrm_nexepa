@@ -3,7 +3,7 @@
 		<li><a href="#" data-translate="AppraisalForm" ng-click="reload()"></a></li>
 		<li class="current" data-translate="ManageAppraisalForm"></li>
 	</ul>
-	<div class="button-icon" >
+	<div class="button-icon" ng-if="permission.policy == 2">
 	<span class="icon plus"></span><a href="" ng-href="{{createAppraisalUrl}}" ng-click="create()"
 		data-translate="CreateAppraisalForm"></a>
 	</div>
@@ -64,13 +64,13 @@
 			</th>
 			<th class="appraisal-epaType" data-translate="EPATypeName">
 			</th>
-			<th data-translate="FromDate">
+			<th class="appraisal-fromDate" data-translate="FromDate">
 			</th>
-			<th data-translate="ToDate">
+			<th class="appraisal-toDate" data-translate="ToDate">
 			</th>
-			<th data-translate="Status">
+			<th class="appraisal-status" data-translate="Status">
 			</th>
-			<th data-translate="Action">
+			<th class="appraisal-action" data-translate="Action">
 			</th>
 		</thead>
 		<tbody>
@@ -92,11 +92,22 @@
 				</td>
 				<td class="appraisal-toDate">{{appraisal.endDate | customDate}}
 				</td>
-				<td class="appraisal-status" ng-bind="appraisal.statusName">
+				<td class="appraisal-status">
+					<span class="dropdown" ng-if="permission.policy == 2">
+						<a class="dropdown-toggle changeStatus" href="" ng-bind="appraisal.statusName"></a>
+						<ul class="dropdown-menu dropdown-menu-width">
+							<li ng-repeat="status in statusOptions | filter:{name:'!'+appraisal.statusName}">
+								<a href="" ng-bind="status.name" ng-click="updateStatus(appraisal, status)"></a>
+							</li>
+						</ul>
+					</span>
+					<span ng-if="permission.policy == 1" ng-bind="appraisal.statusName">
+					</span>
 				</td>
 				<td class="appraisal-action">
 					<a class="glyphicon glyphicon-edit icon-edit" title="Edit" href="" ng-click="edit(appraisal.epaId)" ng-href="{{editAppraisalUrl}}" />
-					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(appraisal)" />
+					<a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" 
+						ng-click="openDeletePopup(appraisal)" ng-if="permission.policy == 2" />
 				</td>
 			</tr>
 

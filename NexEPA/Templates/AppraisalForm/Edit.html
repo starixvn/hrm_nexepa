@@ -16,7 +16,7 @@
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-8">
-				<button class="button" get-detail-process ng-disabled="disabledSubmit" data-translate="Save"></button>
+				<button class="button" get-detail-process ng-if="permission.policy == 2" ng-disabled="disabledSubmit" data-translate="Save"></button>
 				<button class="btn btn-default customize" ng-click="back()" data-translate="Cancel"></button>
 			</div>
 		</div>

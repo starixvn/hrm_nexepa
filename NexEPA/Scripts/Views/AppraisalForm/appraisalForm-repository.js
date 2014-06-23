@@ -18,6 +18,15 @@ epaModule.factory('appraisalFormFactory', ['$http', function ($http) {
 		},
 		updateAppraisalForm: function (appraisal) {
 			return $http.put('/api/EmployeeEPA/UpdateAppraisalForm', appraisal);
+		},
+		deleteAppraisalForm: function (epaId) {
+			return $http['delete']('/api/EmployeeEPA/DeleteAppraisalForm', { params: { epaId: epaId} });
+		},
+		getAppraisalFormPermission: function () {
+			return $http.get('/api/EmployeeEPA/GetAppraisalFormPermission');
+		},
+		updateStatusAppraisalForm: function (appraisal) {
+			return $http.put('/api/EmployeeEPA/UpdateStatusAppraisalForm', appraisal);
 		}
 	};
 } ]);
@@ -47,9 +56,16 @@ epaModule.factory('commonAppraisalFormFactory', function () {
 	common.showRequireMessage = function (scope, notificationFactory) {
 		scope.$watchCollection('[submitted,form.$invalid,form.epaType.$error.required, \
 							form.year.$error.required,form.month.$error.required, \
-							form.employee.$error.required,form.calendar.$error.required]',
+							form.employee.$error.required,requireDateViolation, \
+							sameProcessDateViolation, differentProcessDateViolation]',
 			function (newVals) {
-				if (newVals[0] && newVals[1]) {
+				if (newVals[0] || ( newVals[0] && newVals[1])) {
+					if (newVals[8]) {
+						notificationFactory.error("DifferentProcessDateViolation");
+					}
+					if (newVals[7]) {
+						notificationFactory.error("SameProcessDateViolation");
+					}
 					if (newVals[6]) {
 						notificationFactory.error("DateRequire");
 					}

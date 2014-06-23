@@ -681,4 +681,10 @@
   <data name="EditAppraisalForm" xml:space="preserve">
     <value>Edit Appraisal Form</value>
   </data>
+  <data name="DifferentProcessDateViolation" xml:space="preserve">
+    <value>The Start Date of subsequent role must be greater than End Date of previous role</value>
+  </data>
+  <data name="SameProcessDateViolation" xml:space="preserve">
+    <value>In same row, the Start Date must be less than or equal the End Date</value>
+  </data>
 </root>

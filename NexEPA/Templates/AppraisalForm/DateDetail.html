@@ -9,7 +9,7 @@
 				<tr>
 					<th data-translate="Role">
 					</th>
-					<th data-translate="NoticeAtBegin">
+					<th class="notice-at-begin" data-translate="NoticeAtBegin">
 					</th>
 					<th class="control-label center" data-translate="StartDate">
 					</th>
@@ -23,22 +23,25 @@
 				<td ng-bind="process.name">
 				</td>
 				<td class="notice-at-begin">
-					<input type="checkbox" name="notice" ng-model="process.noticeAtBegin"/>
+					<input type="checkbox" name="notice" ng-model="process.noticeAtBegin" ng-disabled="permission.policy == 1"/>
 				</td>
 				<td class="center">
 					<input class="calendar-form-control" required name="calendar" type="text" ng-model="process.startDate" datepicker-popup="{{dateFormat}}"
-						is-open="calendar.startDateOpened{{process.processId}}" show-button-bar="false" start="{{process.processId}}" processId="{{process.processId}}"/>
-					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
+						is-open="calendar.startDateOpened{{process.processId}}" show-button-bar="false" start="{{process.processId}}" 
+						processId="{{process.processId}}" ng-disabled="permission.policy == 1" />
+					<calendar-image class="calendar-image" close-other-calendar ng-if="permission.policy == 2"></calendar-image>
 				</td>
 				<td class="center">
 					<input class="calendar-form-control" required name="calendar" type="text" ng-model="process.endDate" datepicker-popup="{{dateFormat}}"
-						is-open="calendar.endDateOpened{{process.processId}}" show-button-bar="false" end="{{process.processId}}"  processId="{{process.processId}}"/>
-					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
+						is-open="calendar.endDateOpened{{process.processId}}" show-button-bar="false" end="{{process.processId}}" 
+						processId="{{process.processId}}" ng-disabled="permission.policy == 1" />
+					<calendar-image class="calendar-image" close-other-calendar ng-if="permission.policy == 2"></calendar-image>
 				</td>
 				<td class="center">
 					<input class="calendar-form-control" required name="calendar" type="text" ng-model="process.remindDate" datepicker-popup="{{dateFormat}}"
-						is-open="calendar.alarmDateOpened{{process.processId}}" show-button-bar="false" alarm="{{process.processId}}"  processId="{{process.processId}}"/>
-					<calendar-image class="calendar-image" close-other-calendar ></calendar-image>
+						is-open="calendar.alarmDateOpened{{process.processId}}" show-button-bar="false" alarm="{{process.processId}}" 
+						processId="{{process.processId}}" ng-disabled="permission.policy == 1" />
+					<calendar-image class="calendar-image" close-other-calendar ng-if="permission.policy == 2"></calendar-image>
 				</td>
 			</tr>
 		</table>

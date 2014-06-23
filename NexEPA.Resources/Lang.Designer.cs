@@ -502,6 +502,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Start Date of subsequent role must be greater than End Date of previous role.
+        /// </summary>
+        public static string DifferentProcessDateViolation {
+            get {
+                return ResourceManager.GetString("DifferentProcessDateViolation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -1443,6 +1452,15 @@ namespace NexEPA.Resources {
         public static string Roles {
             get {
                 return ResourceManager.GetString("Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In same row, the Start Date must be less than or equal the End Date.
+        /// </summary>
+        public static string SameProcessDateViolation {
+            get {
+                return ResourceManager.GetString("SameProcessDateViolation", resourceCulture);
             }
         }
         

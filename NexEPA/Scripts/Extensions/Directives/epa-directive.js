@@ -486,7 +486,10 @@ registrationModule.directive('getDetailProcess', function () {
 			iElement.on("click", function () {
 				var allProcess = $("[name='appraisalForm']").find("tbody tr:visible"),
 					processTemplate = '<ROOT>',
-					violation = false;
+					requireViolation = false,
+					sameProcessDateViolation = false,
+					differentProcessDateViolation = false,
+					beforeEndDate = '';
 
 				for (var i = 0; i < allProcess.length; i++) {
 					var rowProcess = allProcess[i],
@@ -496,17 +499,24 @@ registrationModule.directive('getDetailProcess', function () {
 						endDate = $(rowProcess).find('[name="calendar"][end=' + processId + ']').val(),
 						alarmDate = $(rowProcess).find('[name="calendar"][alarm=' + processId + ']').val(),
 						noticeAtBegin = $(rowProcess).find('[name="notice"]').is(':checked') ? 1 : 0,
-						process = createTemplate(processId, startDate, endDate, alarmDate, noticeAtBegin);
+						process = createTemplate(processId, startDate, endDate, alarmDate, noticeAtBegin); 
 
 					if (!startDate || !endDate || !alarmDate) {
-						violation = true;
+						requireViolation = true;
+					}
+					if (new Date(startDate) > new Date(endDate)) {
+						sameProcessDateViolation = true;
+					}
+					if (i > 0 && new Date(startDate) < new Date(beforeEndDate)) {
+						differentProcessDateViolation = true;
 					}
 
 					processTemplate += process;
+					beforeEndDate = endDate;
 				}
 
 				processTemplate += '</ROOT>';
-				scope.save.call(this, processTemplate, violation);
+				scope.save.call(this, processTemplate, requireViolation, sameProcessDateViolation, differentProcessDateViolation);
 			});
 		}
 	};

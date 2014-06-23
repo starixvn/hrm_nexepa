@@ -228,6 +228,7 @@ namespace NexEPA.Controllers.API
         /// <param name="keyword">The keyword.</param>
         /// <returns>The enumerator Appraisal Form.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Read)]
         public IEnumerable<AppraisalFormModel> GetAppraisalForm(
             int year,
             int month,
@@ -251,6 +252,7 @@ namespace NexEPA.Controllers.API
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Command Result.</returns>
         [HttpPost]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Host)]
         public CommandResult InsertAppraisalForm(InsertAppraisalFormCriteria criteria)
         {
             if (criteria != null)
@@ -276,6 +278,7 @@ namespace NexEPA.Controllers.API
         /// <param name="epaId">The EPA Id.</param>
         /// <returns>The Appraisal Form model.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Read)]
         public AppraisalFormModel GetAppraisalFormById(int epaId)
         {
             var criteria = new GetAppraisalFormByIdCriteria
@@ -286,12 +289,8 @@ namespace NexEPA.Controllers.API
             return _memberEPAService.GetAppraisalFormById(criteria);
         }
 
-        /// <summary>
-        /// Update Appraisal Form.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Command Result.</returns>
         [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Host)]
         public CommandResult UpdateAppraisalForm(UpdateAppraisalFormCriteria criteria)
         {
             if (criteria != null)
@@ -301,6 +300,39 @@ namespace NexEPA.Controllers.API
             }
 
             return _memberEPAService.UpdateAppraisalForm(criteria);
+        }
+
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Host)]
+        public CommandResult DeleteAppraisalForm(int epaId)
+        {
+            var criteria = new DeleteAppraisalFormCriteria
+            {
+                EPAId = epaId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            return _memberEPAService.DeleteAppraisalForm(criteria);
+        }
+
+        [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Host)]
+        public CommandResult UpdateStatusAppraisalForm(UpdateStatusAppraisalFormCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _memberEPAService.UpdateStatusAppraisalForm(criteria);
+        }
+
+        [HttpGet]
+        public int GetAppraisalFormPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageAppraisalForm);
+            return policy;
         }
 
         /// <summary>

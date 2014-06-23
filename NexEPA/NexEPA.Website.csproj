@@ -166,7 +166,9 @@
     <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\LoginController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
-    <Compile Include="Controllers\API\EmployeeEPAController.cs" />
+    <Compile Include="Controllers\API\EmployeeEPAController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Controllers\API\ProjectController.cs" />
     <Compile Include="Controllers\API\ProjectMemberController.cs" />
     <Compile Include="Controllers\API\ReportController.cs" />

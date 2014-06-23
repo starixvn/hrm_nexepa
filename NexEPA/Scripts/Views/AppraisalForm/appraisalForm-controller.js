@@ -38,9 +38,9 @@ var init = function ($scope, targetEmployeeSettingFactory, notificationFactory) 
 // View Appraisal Form controller
 epaModule.controller('ViewAppraisalFormController',
 ['$scope', 'targetEmployeeSettingFactory', 'notificationFactory', 'employeeRepository', 'appraisalFormFactory',
-'ErrorService', '$route',
+'ErrorService', '$route', '$modal', 'targetUtility',
 function ($scope, targetEmployeeSettingFactory, notificationFactory, employeeRepository, appraisalFormFactory,
-ErrorService, $route) {
+ErrorService, $route, $modal, targetUtility) {
 
 	var currentDate = new Date();
 	$scope.filter = {
@@ -65,6 +65,17 @@ ErrorService, $route) {
 	// initialize filter
 	init($scope, targetEmployeeSettingFactory, notificationFactory);
 
+	// get all status
+	targetUtility.getAllStatus($scope);
+
+	appraisalFormFactory.getAppraisalFormPermission().success(function (policy) {
+		$scope.permission = {
+			policy : policy
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
 	getAppraisalForm(null, null, $scope.filter.year, $scope.filter.month);
 
 	$scope.query = function (filter) {
@@ -79,6 +90,81 @@ ErrorService, $route) {
 
 	$scope.edit = function (epaId) {
 		$scope.editAppraisalUrl = '/AppraisalForm/Edit/' + epaId;
+	};
+
+	$scope.openDeletePopup = function (appraisal) {
+		var epaId = appraisal.epaId;
+
+		var modalDeleteInstance = $modal.open({
+			templateUrl: '/templates/Common/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return "";
+				},
+				action: function () {
+					return "delete";
+				}
+			},
+			windowClass: "modal-confirm-center"
+		});
+
+		modalDeleteInstance.result.then(function () {
+			appraisalFormFactory.deleteAppraisalForm(epaId).success(function (response) {
+				if (response.isSuccessful === true) {
+					var index = $scope.appraisalFormList.indexOf(appraisal);
+					$scope.appraisalFormList.splice(index, 1);
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("DataChangeFail", response.message);
+				}
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		});
+	};
+
+	$scope.updateStatus = function (appraisal, status) {
+		if (appraisal && status) {
+			var appraisalStatus = {
+				epaId: appraisal.epaId,
+				status: status.id
+			};
+
+			var modalUpdateStatusInstance = $modal.open({
+				templateUrl: '/templates/Common/modalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return "";
+					},
+					action: function () {
+						return status.name;
+					}
+				},
+				windowClass: "modal-confirm-center"
+			});
+
+			modalUpdateStatusInstance.result.then(function () {
+				appraisalFormFactory.updateStatusAppraisalForm(appraisalStatus).success(function (response) {
+					if (response.isSuccessful === true) {
+						appraisal.statusName = status.name;
+						notificationFactory.success("DataChangeSuccessfully");
+					}
+					else {
+						notificationFactory.error("", response.message);
+					}
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+				});
+			});
+		}
 	};
 
 	$scope.reload = function () {
@@ -109,6 +195,14 @@ ErrorService, commonAppraisalFormFactory, $timeout, $window, $location) {
 		});
 	};
 
+	appraisalFormFactory.getAppraisalFormPermission().success(function (policy) {
+		$scope.permission = {
+			policy: policy
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
 	// initialize filter
 	init($scope, targetEmployeeSettingFactory, notificationFactory);
 
@@ -120,9 +214,13 @@ ErrorService, commonAppraisalFormFactory, $timeout, $window, $location) {
 
 	commonAppraisalFormFactory.showRequireMessage($scope, notificationFactory);
 
-	$scope.save = function (processTemplate, violation) {
+	$scope.save = function (processTemplate, requireDateViolation, sameProcessDateViolation, differentProcessDateViolation) {
+		var violation = requireDateViolation || sameProcessDateViolation || differentProcessDateViolation;
 		$scope.disabledSubmit = true;
 		$scope.submitted = true;
+		$scope.requireDateViolation = requireDateViolation;
+		$scope.sameProcessDateViolation = sameProcessDateViolation;
+		$scope.differentProcessDateViolation = differentProcessDateViolation;
 		$scope.$apply();
 
 		if (!violation) {
@@ -163,6 +261,9 @@ ErrorService, commonAppraisalFormFactory, $timeout, $window, $location) {
 		else {
 			$scope.disabledSubmit = false;
 			$scope.submitted = false;
+			$scope.requireViolation = false;
+			$scope.sameProcessDateViolation = false;
+			$scope.differentProcessDateViolation = false;
 			$scope.$apply();
 		}
 	};
@@ -237,6 +338,14 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 	// get all status
 	targetUtility.getAllStatus($scope);
 
+	appraisalFormFactory.getAppraisalFormPermission().success(function (policy) {
+		$scope.permission = {
+			policy: policy
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
 	// Initialize
 	init($scope, targetEmployeeSettingFactory, notificationFactory);
 
@@ -245,7 +354,8 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 			epaTypeId: appraisal.epaType.epaTypeId,
 			employeeId: appraisal.employee.employeeId,
 			year: appraisal.year,
-			month: appraisal.month
+			month: appraisal.month,
+			status: appraisal.status
 		};
 
 		$scope.processList = appraisal.epaProcess;
@@ -264,14 +374,19 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 
 	commonAppraisalFormFactory.showRequireMessage($scope, notificationFactory);
 
-	$scope.save = function (processTemplate, violation) {
+	$scope.save = function (processTemplate, requireDateViolation, sameProcessDateViolation, differentProcessDateViolation) {
+		var violation = requireDateViolation || sameProcessDateViolation || differentProcessDateViolation;
 		$scope.disabledSubmit = true;
 		$scope.submitted = true;
+		$scope.requireDateViolation = requireDateViolation;
+		$scope.sameProcessDateViolation = sameProcessDateViolation;
+		$scope.differentProcessDateViolation = differentProcessDateViolation;
 		$scope.$apply();
 
 		if (!violation) {
 			var appraisal = {
 				epaId: epaId,
+				status: $scope.appraisal.status,
 				processDetails: processTemplate
 			};
 
@@ -304,6 +419,8 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 		else {
 			$scope.disabledSubmit = false;
 			$scope.submitted = false;
+			$scope.sameProcessDateViolation = false;
+			$scope.differentProcessDateViolation = false;
 			$scope.$apply();
 		}
 	};

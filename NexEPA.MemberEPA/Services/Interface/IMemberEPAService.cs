@@ -42,5 +42,9 @@ namespace NexEPA.MemberEPA.Services.Interface
         AppraisalFormModel GetAppraisalFormById(GetAppraisalFormByIdCriteria criteria);
 
         CommandResult UpdateAppraisalForm(UpdateAppraisalFormCriteria criteria);
+
+        CommandResult DeleteAppraisalForm(DeleteAppraisalFormCriteria criteria);
+
+        CommandResult UpdateStatusAppraisalForm(UpdateStatusAppraisalFormCriteria criteria);
     }
 }

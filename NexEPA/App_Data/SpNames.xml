@@ -108,6 +108,8 @@
 		</Setting>
 		<Setting Key="EPAForm_Update" SpName="EPAForm_Update" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="ProcessPeriod_GetAll" SpName="ProcessPeriod_GetAll" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="EPAForm_Delete" SpName="EPAForm_Delete" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="EPAForm_UpdateStatus" SpName="EPAForm_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="Report">

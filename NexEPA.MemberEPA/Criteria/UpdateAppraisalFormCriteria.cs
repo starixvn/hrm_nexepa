@@ -19,6 +19,8 @@ namespace NexEPA.MemberEPA.Criteria
     {
         public int EPAId { get; set; }
 
+        public int Status { get; set; }
+
         public string ProcessDetails { get; set; }
 
         public int ModifiedBy { get; set; }
