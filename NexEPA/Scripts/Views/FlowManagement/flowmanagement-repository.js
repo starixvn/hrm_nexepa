@@ -12,9 +12,22 @@ flowManagementModule.factory('flowDataFactory', ['$http', '$q', function ($http,
 			}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
+		getPersonalFlow: function (employeeId) {
+			var deferred = $q.defer();
+			$http.get('/api/FlowManagement/GetPersonalFlow', { params: {
+				employeeId: employeeId
+			}
+			}).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
 		saveFlow: function (model) {
 			var deferred = $q.defer();
 			$http.post('/api/FlowManagement/InsertFlow', model).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
+		},
+		savePersonalFlow: function (model) {
+			var deferred = $q.defer();
+			$http.post('/api/FlowManagement/InsertPersonalFlow', model).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		},
 		deleteFlow: function (departmentId, flowType) {

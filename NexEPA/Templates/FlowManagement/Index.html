@@ -26,7 +26,7 @@
 				</ul>
 			</div>
             <div class="col-sm-9">
-				 <form class="row form-inline department-form">
+				<form class="row form-inline department-form">
 					<label data-translate="Department"></label>
 		            <select ng-change="OnSelectedDepartment()" ng-model="EPAFlow.departmentId" class="sel-department" required>
 			            <option style="display: none" value="">-- Select a Department / Group --</option>
@@ -98,7 +98,7 @@
 			        </div>
                 </div>
                 <form class="row form-inline department-form" role="form">
-                    <button class="button left-buffer" ng-click="saveFlow()" data-translate="Save">
+                    <button class="button" ng-click="saveFlow()" data-translate="Save">
 		            </button>
 		            <button class="button" ng-click="deleteFlow()" data-translate="Delete"
 			            ng-show="!isDisabled">

@@ -40,6 +40,8 @@ namespace NexEPA.Organization.Models
 
         public List<EmployeeModel> Selfs { get; set; }
 
+        public List<EmployeeModel> Personal { get; set; }
+
         public string FlowDetails
         {
             get
@@ -58,6 +60,14 @@ namespace NexEPA.Organization.Models
                     foreach (var self in Selfs)
                     {
                         value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Self, -Math.Abs(self.EmployeeId));
+                    }
+                }
+
+                if (Personal != null)
+                {
+                    foreach (var p in Personal)
+                    {
+                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Self, p.EmployeeId);
                     }
                 }
 

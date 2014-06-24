@@ -111,8 +111,9 @@ departmentDataFactory, flowDataFactory, $window) {
 	};
 
 	var successGetFlow = function (data) {
+		debugger;
 		resetCurrentDepartmentData();
-		if (data !== "null") {
+		if (data.length > 0) {
 			$.each(data, function (i) {
 				var processId = data[i].processId;
 				switch (processId) {
@@ -137,6 +138,9 @@ departmentDataFactory, flowDataFactory, $window) {
 						break;
 				}
 			});
+		}
+		else {
+			$scope.selfs = [{ nickName: "Self", employeeId: -1}];
 		}
 	};
 
@@ -342,7 +346,8 @@ departmentDataFactory, flowDataFactory, $window) {
 		* Scope variable.
 		*/
 		$scope.DepartmentList = {};
-		$scope.personalDraggable = false;
+		$scope.personalDraggable = true;
+		$scope.showDeleteButton = false;
 
 		$scope.moveItem = function (item, from, to) {
 			$.each(from, function (i) {
@@ -361,11 +366,75 @@ departmentDataFactory, flowDataFactory, $window) {
 			from.length = 0;
 		};
 
+		var removeAllPersonalFlowData = function () {
+			$scope.personalAdmins = [];
+			$scope.personalEmployees = [];
+			$scope.personalEvaluators = [];
+			$scope.personalReviewers = [];
+		};
+
+		var successGetPersonalFlow = function (data) {
+			removeAllPersonalFlowData();
+			if (data.length > 0) {
+				$scope.showDeleteButton = true;
+				$.each(data, function (i) {
+					var processId = data[i].processId;
+					switch (processId) {
+						case 2:
+							$scope.personalAdmins.push(data[i].evaluatorInfo);
+							break;
+						case 3:
+							$scope.personalEmployees.push(data[i].evaluatorInfo);
+							break;
+						case 4:
+							$scope.personalEvaluators.push(data[i].evaluatorInfo);
+							break;
+						case 5:
+							$scope.personalReviewers.push(data[i].evaluatorInfo);
+							break;
+					}
+				});
+			}
+			else {
+				$scope.showDeleteButton = false;
+				getEmployeeById("personalEmployeeList", $scope.currentSelectedEmployee);
+			}
+		};
+
+		var successDeletePersonalFlow = function () {
+			notificationFactory.success('SuccessDeleteData', '');
+			removeAllPersonalFlowData();
+			$scope.currentSelectedEmployee = null;
+		};
+
 		/**
 		* Events.
 		*/
+		// Add item to list
+		$scope.addPersonalAdmin = function () {
+			addEmployeeToFlow("personalAdminList");
+		};
+		$scope.addPersonalEvaluator = function () {
+			addEmployeeToFlow("personalEvaluatorList");
+		};
+		$scope.addPersonalReviewer = function () {
+			addEmployeeToFlow("personalReviewerList");
+		};
+
 		$scope.toggleDepartmentDragableList = function () {
 			$scope.personalDraggable = !$scope.personalDraggable;
+		};
+
+		$scope.removePersonalAdmin = function (admin) {
+			removeItemFromList(admin, $scope.personalAdmins);
+		};
+
+		$scope.removePersonalEvaluator = function (evaluator) {
+			removeItemFromList(evaluator, $scope.personalEvaluators);
+		};
+
+		$scope.removePersonalReviewer = function (reviewer) {
+			removeItemFromList(reviewer, $scope.personalReviewers);
 		};
 
 		$scope.OnSelectedPersonalDepartment = function () {
@@ -379,13 +448,46 @@ departmentDataFactory, flowDataFactory, $window) {
 
 		$scope.setEmployeeFlow = function (item) {
 			var employeeId = parseInt(item[0]);
-			$scope.personalEmployees = [];
-			getEmployeeById("personalEmployeeList", employeeId);
+			$scope.currentSelectedEmployee = employeeId;
+			flowDataFactory.getPersonalFlow(employeeId).then(successGetPersonalFlow, errorNotification);
 		};
 
-		$scope.onSelecteEmployeeInDepartment = function () {
+		$scope.savePersonalFlow = function () {
+			if ($scope.personalEmployees.length === 0) {
+				notificationFactory.error('', 'Please select an employee!');
+			}
+			else {
+				if ($scope.personalAdmins.length === 0 || $scope.personalEvaluators.lenth === 0 || $scope.personalReviewers.length === 0) {
+					notificationFactory.error('', 'Admin list, Evaluator list and Reviewer list can not be null');
+				}
+				else {
+					var model = { admins: $scope.personalAdmins, evaluators: $scope.personalEvaluators,
+						reviewers: $scope.personalReviewers, personal: $scope.personalEmployees
+					};
+
+					flowDataFactory.savePersonalFlow(model).then(successSaveFlow, errorNotification);
+				}
+			}
 		};
 
+		$scope.deletePersonalFlow = function () {
+			var deleteModalInstance = $modal.open({
+				templateUrl: '/templates/Common/ModalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return "";
+					},
+					action: function () {
+						return "delete";
+					}
+				}
+			});
+			deleteModalInstance.result.then(function () {
+				var flowType = 0;
+				flowDataFactory.deleteFlow($scope.currentSelectedEmployee, flowType).then(successDeletePersonalFlow, errorNotification);
+			});
+		};
 
 	};
 

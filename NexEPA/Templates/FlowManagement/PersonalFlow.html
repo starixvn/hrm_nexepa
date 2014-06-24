@@ -25,9 +25,11 @@
 					<a title="Move Left" class="button glyphicon glyphicon-arrow-left top-buffer" ng-click="moveItem(toModel, personalSettingFlowEmployees, defaultSettingFlowEmployees)">
 					</a>
 					<a title="Move Right All" class="button glyphicon glyphicon-fast-forward top-buffer"
-						ng-click="moveAll(defaultSettingFlowEmployees, personalSettingFlowEmployees)"></a>
+						ng-click="moveAll(defaultSettingFlowEmployees, personalSettingFlowEmployees)">
+					</a>
 					<a title="Move Left All" class="button glyphicon glyphicon-fast-backward top-buffer"
-						ng-click="moveAll(personalSettingFlowEmployees, defaultSettingFlowEmployees)"></a>
+						ng-click="moveAll(personalSettingFlowEmployees, defaultSettingFlowEmployees)">
+					</a>
 				</div>
 			</div>
 			<div class="col-sm-3">
@@ -66,13 +68,13 @@
 					<div class="flow-group admin">
 						<div class="flow-header">
 							<span data-translate="Admin"></span>
-							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Admin" ng-click="addAdmin()">
+							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Admin" ng-click="addPersonalAdmin()">
 							</a>
 						</div>
 						<ul list-sortable class="sortable custom-ul list-unstyled" id="personalAdminList">
 							<li class="alert alert-info nomargin" ng-repeat="admin in personalAdmins">
 								<div>
-									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeAdmin(admin)">
+									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removePersonalAdmin(admin)">
 									</a>
 								</div>
 								<div>
@@ -103,13 +105,13 @@
 					<div class="flow-group evaluator">
 						<div class="flow-header">
 							<span data-translate="EvaluatorTitle"></span>
-							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Evaluator" ng-click="addEvaluator()">
+							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Evaluator" ng-click="addPersonalEvaluator()">
 							</a>
 						</div>
 						<ul list-sortable class="sortable custom-ul list-unstyled" id="personalEvaluatorList">
 							<li class="alert alert-info nomargin" ng-repeat="evaluator in personalEvaluators">
 								<div>
-									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeEvaluator(evaluator)">
+									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removePersonalEvaluator(evaluator)">
 									</a>
 								</div>
 								<div>
@@ -126,13 +128,13 @@
 					<div class="flow-group reviewer">
 						<div class="flow-header">
 							<span data-translate="Reviewer"></span>
-							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Reviewer" ng-click="addReviewer()">
+							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Reviewer" ng-click="addPersonalReviewer()">
 							</a>
 						</div>
 						<ul list-sortable class="sortable custom-ul list-unstyled" id="personalReviewerList">
 							<li class="alert alert-info nomargin" ng-repeat="reviewer in personalReviewers">
 								<div>
-									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeReviewer(reviewer)">
+									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removePersonalReviewer(reviewer)">
 									</a>
 								</div>
 								<div>
@@ -145,6 +147,16 @@
 						</ul>
 					</div>
 				</div>
+			</div>
+			<div class="row col-sm-9">
+				<form class="row form-inline department-form" role="form">
+				<button class="button" ng-click="savePersonalFlow()" data-translate="Save">
+				</button>
+				<button class="button" ng-if="showDeleteButton" ng-click="deletePersonalFlow()" data-translate="Delete" ng-show="!isDisabled">
+				</button>
+				<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+				</button>
+				</form>
 			</div>
 		</div>
 	</div>
