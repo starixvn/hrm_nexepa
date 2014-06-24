@@ -1,0 +1,52 @@
+﻿<div class="edit-evaluator-modal">
+	<div class="modal-header">
+		<div class="popup-header">
+			<span data-translate="EditEvaluator"></span>
+			<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<form class="row form-inline left-buffer">
+				<label data-translate="Department">
+				</label>
+				<select ng-model="department.departmentId" ng-options="opt.value as opt.label for opt in departmentOptions" 
+					ng-change="getEmployee(department.departmentId)">
+					<option style="display: none" value="">-- Select a Department / Group --</option>
+				</select>
+			</form>
+			<div>
+				<div class="col-sm-5">
+					<select class="flow-personal" multiple="true" ng-model="fromModel" 
+						ng-options="emp.employeeId as '[' + emp.code +'] ' + emp.nickName for emp in defaultEmployees">
+					</select>
+				</div>
+				<div class="col-sm-2">
+					<div class="flow-action">
+						<a title="Move Right" class="button glyphicon glyphicon-arrow-right top-buffer" 
+							ng-click="moveItem(fromModel, defaultEmployees, currentEvaluator)">
+						</a>
+						<a title="Move Left" class="button glyphicon glyphicon-arrow-left top-buffer" 
+							ng-click="moveItem(toModel, currentEvaluator, defaultEmployees)">
+						</a>
+						<a title="Move Right All" class="button glyphicon glyphicon-fast-forward top-buffer"
+							ng-click="moveAll(defaultEmployees, currentEvaluator)"></a>
+						<a title="Move Left All" class="button glyphicon glyphicon-fast-backward top-buffer"
+							ng-click="moveAll(currentEvaluator, defaultEmployees)"></a>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<select class="flow-personal" multiple="true" ng-model="toModel" 
+						ng-options="e.employeeId as '[' + e.code +'] ' + e.nickName for e in currentEvaluator">
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="button" ng-click="ok()" data-translate="Save">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>

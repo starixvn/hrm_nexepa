@@ -218,7 +218,7 @@ namespace NexEPA.MemberEPA.Services.Implement
             {
                 appraisal = _memberEPARepository.GetAppraisalFormById(criteria);
                 appraisal.StatusName = EnumStatus.GetDescripton((Status)appraisal.Status);
-                appraisal.EPAProcess = GroupEPAProcess(appraisal.EPAProcess);
+                appraisal.EPAProcess = GroupEPAProcess(appraisal.EPAProcess, appraisal.Employee.Code);
             }
 
             return appraisal;
@@ -282,14 +282,23 @@ namespace NexEPA.MemberEPA.Services.Implement
         /// Group EPA Process.
         /// </summary>
         /// <param name="epaProcess">The EPA process list.</param>
+        /// <param name="selfCode">The code of employee.</param>
         /// <returns>The EPA process list after group process.</returns>
-        private IEnumerable<EPAProcessModel> GroupEPAProcess(IEnumerable<EPAProcessModel> epaProcess)
+        private IEnumerable<EPAProcessModel> GroupEPAProcess(
+            IEnumerable<EPAProcessModel> epaProcess,
+            string selfCode)
         {
             List<EPAProcessModel> epaProcessList = epaProcess.ToList();
 
             for (int i = 0; i < epaProcessList.Count(); i++)
             {
                 EPAProcessModel process = epaProcessList[i];
+
+                if (process.Evaluator.Code == null)
+                {
+                    process.Evaluator.Code = selfCode;
+                }
+
                 process.EvaluatorList.Add(process.Evaluator);
 
                 List<EPAProcessModel> rawSameProcess = epaProcessList.Where(pro => pro.ProcessId == process.ProcessId &&

@@ -681,7 +681,7 @@
   <data name="PersonalFlow" xml:space="preserve">
     <value>Personal Flow</value>
   </data>
-   <data name="EditAppraisalForm" xml:space="preserve">
+  <data name="EditAppraisalForm" xml:space="preserve">
     <value>Edit Appraisal Form</value>
   </data>
   <data name="DifferentProcessDateViolation" xml:space="preserve">
@@ -689,5 +689,8 @@
   </data>
   <data name="SameProcessDateViolation" xml:space="preserve">
     <value>In same row, the Start Date must be less than or equal the End Date</value>
+  </data>
+  <data name="EditEvaluator" xml:space="preserve">
+    <value>Edit Evaluator</value>
   </data>
 </root>

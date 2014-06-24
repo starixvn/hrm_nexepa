@@ -17,6 +17,10 @@
 					</th>
 					<th class="control-label center" data-translate="AlarmDate">
 					</th>
+					<th data-translate="Code" ng-if="isEditMode">
+					</th>
+					<th ng-if="isEditMode">
+					</th>
 				</tr>
 			</thead>
 			<tr ng-repeat="process in processList">
@@ -42,6 +46,16 @@
 						is-open="calendar.alarmDateOpened{{process.processId}}" show-button-bar="false" alarm="{{process.processId}}" 
 						processId="{{process.processId}}" ng-disabled="permission.policy == 1" />
 					<calendar-image class="calendar-image" close-other-calendar ng-if="permission.policy == 2"></calendar-image>
+				</td>
+				<td ng-if="isEditMode">
+					<div ng-repeat="evaluator in process.evaluatorList" >
+						<span ng-if="!$last">{{evaluator.code + ';'}}</span>
+						<span ng-if="$last">{{evaluator.code}}</span>
+					</div>
+				</td>
+				<td ng-if="isEditMode">
+					<a ng-if="process.evaluatorList[0].employeeId != -1" class="glyphicon glyphicon-user" title="Edit"
+						href="" ng-click="editEvaluator(process, process.evaluatorList)" />
 				</td>
 			</tr>
 		</table>

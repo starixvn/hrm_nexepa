@@ -3,9 +3,9 @@
 
 targetTemplateModule.controller('ViewTargetEmployeeSettingController',
 ['$scope', '$modal', '$route', 'targetEmployeeSettingFactory', 'targetTemplateFactory', 'notificationFactory', 'ErrorService',
-'departmentDataFactory',
+'departmentDataFactory', 'commonFactory',
 function ($scope, $modal, $route, targetEmployeeSettingFactory, targetTemplateFactory, notificationFactory, ErrorService,
-departmentDataFactory) {
+departmentDataFactory, commonFactory) {
 
 	targetEmployeeSettingFactory.getPermissionTargetEmployeeSetting().success(function (policy) {
 		$scope.permission = {
@@ -29,39 +29,9 @@ departmentDataFactory) {
 		$scope.departments = departments.item1.children;
 	});
 
-	var createLabel = function (departmentItem, level) {
-		var label = '',
-			space = '',
-			levelTemp = level;
-
-		if (level > 0) {
-			while (levelTemp > 0) {
-				label = label + " " + space;
-				space = String.fromCharCode(160) + String.fromCharCode(160) + String.fromCharCode(160);
-				levelTemp--;
-			}
-
-			label = label + "└── " + departmentItem.name;
-		}
-		else {
-			label = departmentItem.name;
-		}
-
-		return label;
-	};
-
-	var generateOptions = function (departments, options, level) {
-		angular.forEach(departments, function (departmentItem) {
-			options.push({ label: createLabel(departmentItem, level), value: departmentItem.departmentId });
-			generateOptions(departmentItem.children, options, level + 1);
-		});
-
-		return options;
-	};
-
 	$scope.$watch('departments', function () {
 		if ($scope.departments !== undefined) {
-			$scope.departmentOptions = generateOptions($scope.departments, [], 0);
+			$scope.departmentOptions = commonFactory.generateOptions($scope.departments, [], 0);
 		}
 	});
 

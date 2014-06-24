@@ -319,6 +319,7 @@
     <Content Include="Templates\AppraisalForm\Create.html" />
     <Content Include="Templates\AppraisalForm\DateDetail.html" />
     <Content Include="Templates\AppraisalForm\Edit.html" />
+    <Content Include="Templates\AppraisalForm\EditEvaluator.html" />
     <Content Include="Templates\AppraisalForm\Index.html" />
     <Content Include="Templates\Authority\RolePermission\Index.html" />
     <Content Include="Templates\Authority\RolePermission\TreeHostCheckbox.html" />

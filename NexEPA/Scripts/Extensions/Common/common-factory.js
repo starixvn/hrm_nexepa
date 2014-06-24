@@ -206,6 +206,36 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		$scope.search();
 	};
 
+	var createLabel = function (departmentItem, level) {
+		var label = '',
+			space = '',
+			levelTemp = level;
+
+		if (level > 0) {
+			while (levelTemp > 0) {
+				label = label + " " + space;
+				space = String.fromCharCode(160) + String.fromCharCode(160) + String.fromCharCode(160);
+				levelTemp--;
+			}
+
+			label = label + "└── " + departmentItem.name;
+		}
+		else {
+			label = departmentItem.name;
+		}
+
+		return label;
+	};
+
+	common.generateOptions = function (departments, options, level) {
+		angular.forEach(departments, function (departmentItem) {
+			options.push({ label: createLabel(departmentItem, level), value: departmentItem.departmentId });
+			common.generateOptions(departmentItem.children, options, level + 1);
+		});
+
+		return options;
+	};
+
 	return common;
 } ]);
 

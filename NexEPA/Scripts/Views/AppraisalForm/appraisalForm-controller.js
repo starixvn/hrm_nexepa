@@ -50,8 +50,8 @@ ErrorService, $route, $modal, targetUtility) {
 	$scope.appraisalFormList = [];
 
 	var getAppraisalForm = function (epaTypeId, keyword, year, month) {
-		appraisalFormFactory.getAppraisalForm(epaTypeId, keyword, year, month).success(function (test) {
-			$scope.appraisalFormList = test;
+		appraisalFormFactory.getAppraisalForm(epaTypeId, keyword, year, month).success(function (appraisalFormList) {
+			$scope.appraisalFormList = appraisalFormList;
 		}).error(function (reaponse, status) {
 			if (status === 405) {
 				ErrorService.errorHandle(status);
@@ -292,8 +292,8 @@ function ($scope) {
 
 // Date Detail controller
 epaModule.controller('DateDetailController',
-['$scope', 'commonFactory',
-function ($scope, commonFactory) {
+['$scope', 'commonFactory', '$modal',
+function ($scope, commonFactory, $modal) {
 	$scope.isCollapsed = false;
 
 	$scope.collapseTable = function () {
@@ -311,6 +311,23 @@ function ($scope, commonFactory) {
 
 		$scope.calendar[dateOpened] = true;
 		$scope.$apply();
+	};
+
+	$scope.editEvaluator = function (process, evaluatorList) {
+		var modalUpdateStatusInstance = $modal.open({
+			templateUrl: '/templates/AppraisalForm/EditEvaluator.html',
+			controller: "EditEvaluatorController",
+			resolve: {
+				currentEvaluator: function () {
+					return evaluatorList;
+				}
+			},
+			windowClass: "modal-confirm-center"
+		});
+
+		modalUpdateStatusInstance.result.then(function (evaluatorList) {
+			process.evaluatorList = evaluatorList;
+		});
 	};
 } ]);
 
@@ -353,6 +370,7 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 		$scope.appraisal = {
 			epaTypeId: appraisal.epaType.epaTypeId,
 			employeeId: appraisal.employee.employeeId,
+			code: appraisal.employee.code,
 			year: appraisal.year,
 			month: appraisal.month,
 			status: appraisal.status
@@ -427,5 +445,84 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 
 	$scope.back = function () {
 		$window.history.back();
+	};
+} ]);
+
+epaModule.controller("EditEvaluatorController",
+['$scope', 'currentEvaluator', 'departmentDataFactory', 'employeeRepository', '$modalInstance', 'commonFactory',
+'notificationFactory',
+function ($scope, currentEvaluator, departmentDataFactory, employeeRepository, $modalInstance, commonFactory,
+notificationFactory) {
+	$scope.currentEvaluator = angular.copy(currentEvaluator);
+
+	departmentDataFactory.getAllDepartment().then(function (departments) {
+		$scope.departments = departments.item1.children;
+	});
+
+	$scope.$watch('departments', function () {
+		if ($scope.departments !== undefined) {
+			$scope.departmentOptions = commonFactory.generateOptions($scope.departments, [], 0);
+		}
+	});
+
+	var removeExistEmployees = function (employees, currentEvaluator) {
+		angular.forEach(currentEvaluator, function (evaluator) {
+			for (var i = 0; i < employees.length; i++) {
+				var employee = employees[i];
+
+				if (employee.employeeId === evaluator.employeeId) {
+					employees.splice(i, 1);
+				}
+			}
+		});
+
+		return employees;
+	};
+
+	$scope.defaultEmployees = [];
+
+	$scope.getEmployee = function (departmentId) {
+		employeeRepository.getEmployeeInDepartment(departmentId).success(function (data) {
+			$scope.defaultEmployees = removeExistEmployees(data.item1, $scope.currentEvaluator);
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	var moveEmployee = function (employeeIds, from, to) {
+		angular.forEach(employeeIds, function (employeeId) {
+			for (var index = 0; index < from.length; index++) {
+				var employee = from[index];
+
+				if (employee.employeeId === employeeId) {
+					to.push(employee);
+					from.splice(index, 1);
+				}
+			}
+		});
+	};
+
+	var moveAllEmployee = function (from, to) {
+		angular.forEach(from, function (employee) {
+			to.push(employee);
+		});
+
+		from.length = 0;
+	};
+
+	$scope.moveItem = function (employeeIds, from, to) {
+		moveEmployee(employeeIds, from, to);
+	};
+
+	$scope.moveAll = function (from, to) {
+		moveAllEmployee(from, to);
+	};
+
+	$scope.ok = function () {
+		$modalInstance.close($scope.currentEvaluator);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
 	};
 } ]);
