@@ -13,10 +13,13 @@ employeeModule.factory('employeeRepository', ['$http', function ($http) {
 			return $http.get('/api/Employee/GetEmployeeByProjectId', { params: { projectId: projectId, keyword: keyword} });
 		},
 		getEmployeeByCurrentUserId: function (keyword) {
-			return $http.get('/api/Employee/GetEmployeeByCurrentUserId', { params: { keyword: keyword } });
+			return $http.get('/api/Employee/GetEmployeeByCurrentUserId', { params: { keyword: keyword} });
 		},
 		getEmployeeById: function (employeeId) {
 			return $http.get('/api/Employee/GetEmployeeById', { params: { employeeId: employeeId} });
+		},
+		getEmployeeInDepartment: function (departmentId) {
+			return $http.get('/api/Employee/GetEmployeeInDepartment', { params: { departmentId: departmentId} });
 		}
 	};
 } ]);

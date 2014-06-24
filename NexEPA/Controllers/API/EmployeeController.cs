@@ -9,6 +9,7 @@
 
 namespace NexEPA.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
@@ -116,6 +117,37 @@ namespace NexEPA.Controllers.API
             EmployeeModel employee = _employeeService.GetEmployeeById(criteria);
 
             return employee;
+        }
+
+        /// <summary>
+        /// Get Employee In A Department.
+        /// </summary>
+        /// <param name="departmentId">Department Id.</param>
+        /// <returns>List Employee Model.</returns>
+        public Tuple<IEnumerable<EmployeeModel>, IEnumerable<EmployeeModel>> GetEmployeeInDepartment(int departmentId)
+        {
+            IEnumerable<EmployeeModel> employees = null;
+            IEnumerable<EmployeeModel> personalSettingFlowEmployees = null;
+            IEnumerable<EmployeeModel> defaultSettingFlowEmployees = null;
+            if (departmentId > 0)
+            {
+                var getEmployeeByDepartment = new GetEmployeeByDepartmentCriteria() { DepartmentId = departmentId };
+                employees = _employeeService.GetByDepartment(getEmployeeByDepartment);
+            }
+
+            if (departmentId < 0)
+            {
+                var getEmployeeByGroup = new GetEmployeeByGroupCriteria() { GroupId = Math.Abs(departmentId) };
+                employees = _employeeService.GetByGroup(getEmployeeByGroup);
+            }
+
+            if (employees != null)
+            {
+                personalSettingFlowEmployees = employees.Where(x => x.IsExistsSetting == true);
+                defaultSettingFlowEmployees = employees.Where(x => x.IsExistsSetting == false);
+            }
+
+            return Tuple.Create(defaultSettingFlowEmployees, personalSettingFlowEmployees);
         }
     }
 }

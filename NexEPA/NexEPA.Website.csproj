@@ -330,6 +330,7 @@
     <Content Include="Templates\Common\Logout.html" />
     <Content Include="Templates\FlowManagement\AddEmployee.html" />
     <Content Include="Templates\FlowManagement\Index.html" />
+    <Content Include="Templates\FlowManagement\PersonalFlow.html" />
     <Content Include="Templates\KPI\KPIGroup\Create.html" />
     <Content Include="Templates\KPI\KPIGroup\Edit.html" />
     <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />

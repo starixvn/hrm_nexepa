@@ -25,6 +25,14 @@ flowManagementModule.factory('flowDataFactory', ['$http', '$q', function ($http,
 			}
 			}).success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		getEmployeePersonalFlow: function(departmentId){
+			var deferred = $q.defer();
+			$http.get('/api/FlowManagement/EmployeePersonalFlow', { params: {
+				departmentId: departmentId
+			}
+			}).success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

@@ -40,6 +40,8 @@ namespace NexEPA.Employee.Models
 
         public string Gravatar { get; set; }
 
+        public bool IsExistsSetting { get; set; }
+
         public DateTime? JoinedDate { get; set; }
 
         public bool IsDisabled { get; set; }

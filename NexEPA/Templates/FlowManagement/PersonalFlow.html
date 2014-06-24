@@ -1,0 +1,151 @@
+﻿<div class="row">
+	<div class="row boxtitle" data-translate="PersonalFlow">
+	</div>
+	<div class="row boxcontent information">
+		<form class="row form-inline department-form left-buffer">
+		<label data-translate="Department">
+		</label>
+		<select ng-change="OnSelectedPersonalDepartment()" ng-model="DepartmentList.departmentId"
+			class="sel-department" required>
+			<option style="display: none" value="">-- Select a Department / Group --</option>
+			<option ng-repeat="opt in departmentOptions" value="{{opt.value}}">{{opt.label}}
+			</option>
+		</select>
+		</form>
+		<div>
+			<div class="col-sm-3">
+				<select class="flow-personal" multiple="true" ng-model="fromModel" ng-change="onSelecteEmployeeInDepartment()"
+					ng-options="e.employeeId as e.nickName +' (' + e.fullName + ')'  for e in defaultSettingFlowEmployees">
+				</select>
+			</div>
+			<div class="col-sm-1">
+				<div class="flow-action">
+					<a title="Move Right" class="button glyphicon glyphicon-arrow-right top-buffer" ng-click="moveItem(fromModel, defaultSettingFlowEmployees, personalSettingFlowEmployees)">
+					</a>
+					<a title="Move Left" class="button glyphicon glyphicon-arrow-left top-buffer" ng-click="moveItem(toModel, personalSettingFlowEmployees, defaultSettingFlowEmployees)">
+					</a>
+					<a title="Move Right All" class="button glyphicon glyphicon-fast-forward top-buffer"
+						ng-click="moveAll(defaultSettingFlowEmployees, personalSettingFlowEmployees)"></a>
+					<a title="Move Left All" class="button glyphicon glyphicon-fast-backward top-buffer"
+						ng-click="moveAll(personalSettingFlowEmployees, defaultSettingFlowEmployees)"></a>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<select class="flow-personal" multiple="true" ng-model="toModel" ng-change="setEmployeeFlow(toModel)"
+					ng-options="e.employeeId as e.nickName +' (' + e.fullName + ')'  for e in personalSettingFlowEmployees">
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="row boxtitle" data-translate="EPA Processing">
+	</div>
+	<div class="row boxcontent information">
+		<div class="expand-user personal-user" title="Show Employee List" ng-if="!personalDraggable"
+			ng-click="toggleDepartmentDragableList()">
+			<span class="glyphicon glyphicon-user icon-user"></span>
+		</div>
+		<div class="row">
+			<div class="col-sm-3 employee-list" id="employeeList" ng-if="personalDraggable">
+				<div class="row flow-header">
+					<span data-translate="Employee"></span>
+					<a ng-click="toggleDepartmentDragableList()" href="javascript:;" class="pull-right glyphicon glyphicon-arrow-left">
+					</a>
+				</div>
+				<div class="row">
+					<input type="text" ng-model="employeeName" class="txt-search">
+				</div>
+				<ul class="row custom-ul employee-ul list-unstyled">
+					<li class="ui-state-highlight" list-draggable=".sortable" ng-repeat="employee in employees | filter: employeeName"
+						id="{{employee.employeeId}}">{{employee.nickName}} ({{employee.fullName}})</li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div class="col-sm-3 col">
+					<div class="flow-group admin">
+						<div class="flow-header">
+							<span data-translate="Admin"></span>
+							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Admin" ng-click="addAdmin()">
+							</a>
+						</div>
+						<ul list-sortable class="sortable custom-ul list-unstyled" id="personalAdminList">
+							<li class="alert alert-info nomargin" ng-repeat="admin in personalAdmins">
+								<div>
+									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeAdmin(admin)">
+									</a>
+								</div>
+								<div>
+									<div class="img-user">
+										<img tooltip="{{admin.fullName}}" class="img-flow" src="http://www.gravatar.com/avatar/{{admin.gravatar}}">
+									</div>
+									<span>{{admin.nickName}}</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-3 col">
+					<div class="flow-group employee">
+						<div class="flow-header">
+							<span data-translate="Employee"></span>
+						</div>
+						<ul class="sortable custom-ul list-unstyled" id="personalEmployeeList">
+							<li class="alert alert-info nomargin" ng-repeat="self in personalEmployees">
+								<img tooltip="{{self.fullName}}" class="img-flow" src="http://www.gravatar.com/avatar/{{self.gravatar}}">
+								<p class="username">
+									{{self.nickName}}</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-3 col">
+					<div class="flow-group evaluator">
+						<div class="flow-header">
+							<span data-translate="EvaluatorTitle"></span>
+							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Evaluator" ng-click="addEvaluator()">
+							</a>
+						</div>
+						<ul list-sortable class="sortable custom-ul list-unstyled" id="personalEvaluatorList">
+							<li class="alert alert-info nomargin" ng-repeat="evaluator in personalEvaluators">
+								<div>
+									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeEvaluator(evaluator)">
+									</a>
+								</div>
+								<div>
+									<div class="img-user">
+										<img tooltip="{{evaluator.fullName}}" class="img-flow" src="http://www.gravatar.com/avatar/{{evaluator.gravatar}}">
+									</div>
+									{{evaluator.nickName}}
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-3 col">
+					<div class="flow-group reviewer">
+						<div class="flow-header">
+							<span data-translate="Reviewer"></span>
+							<a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Reviewer" ng-click="addReviewer()">
+							</a>
+						</div>
+						<ul list-sortable class="sortable custom-ul list-unstyled" id="personalReviewerList">
+							<li class="alert alert-info nomargin" ng-repeat="reviewer in personalReviewers">
+								<div>
+									<a href="javascript:;" class="pull-right glyphicon glyphicon-remove" ng-click="removeReviewer(reviewer)">
+									</a>
+								</div>
+								<div>
+									<div class="img-user">
+										<img tooltip="{{reviewer.fullName}}" class="img-flow" src="http://www.gravatar.com/avatar/{{reviewer.gravatar}}">
+									</div>
+									{{reviewer.nickName}}
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -12,6 +12,8 @@
 		<Setting Key="Employee_GetRole" SpName="Employee_GetRole" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Employee_UpdateRole" SpName="Employee_UpdateRole" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Employee_GetByDepartment" SpName="Employee_GetByDepartment" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Employee_GetByGroup" SpName="Employee_GetByGroup" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="Project">

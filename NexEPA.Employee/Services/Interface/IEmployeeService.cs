@@ -30,5 +30,9 @@ namespace NexEPA.Employee.Services.Interface
         IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(GetAllEmployeeByCurrentUserIdCriteria criteria);
 
         EmployeeModel GetEmployeeById(GetEmployeeByIdCriteria criteria);
+
+        IEnumerable<EmployeeModel> GetByGroup(GetEmployeeByGroupCriteria criteria);
+
+        IEnumerable<EmployeeModel> GetByDepartment(GetEmployeeByDepartmentCriteria criteria);
     }
 }

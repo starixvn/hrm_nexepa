@@ -9,13 +9,19 @@ departmentDataFactory, flowDataFactory, $window) {
 	* Scope Variable. 
 	*/
 	$scope.admins = [];
-	$scope.selfs = [{ nickName: "Self"}];
+	$scope.selfs = [{ nickName: "Self", employeeId: -1}];
 	$scope.evaluators = [];
 	$scope.reviewers = [];
-	$scope.currentSelectedEmployee;
+
+	$scope.personalAdmins = [];
+	$scope.personalEmployees = [];
+	$scope.personalEvaluators = [];
+	$scope.personalReviewers = [];
+
 	$scope.showList = true;
 	$scope.EPAFlow = {};
 	$scope.flowType = null;
+	$scope.selectedEmployee = false;
 
 	/**
 	* Validation. 
@@ -32,6 +38,18 @@ departmentDataFactory, flowDataFactory, $window) {
 				break;
 			case "reviewerList":
 				list = $scope.reviewers;
+				break;
+			case "personalAdminList":
+				list = $scope.personalAdmins;
+				break;
+			case "personalEmployeeList":
+				list = $scope.personalEmployees;
+				break;
+			case "personalEvaluatorList":
+				list = $scope.personalEvaluators;
+				break;
+			case "personalReviewerList":
+				list = $scope.personalReviewers;
 				break;
 		}
 		$.each(list, function (i) {
@@ -56,18 +74,60 @@ departmentDataFactory, flowDataFactory, $window) {
 	/**
 	* Ajax Event loaded. 
 	*/
+
+	var createLabel = function (departmentItem, level) {
+		var label = '',
+			space = '',
+			levelTemp = level;
+
+		if (level > 0) {
+			while (levelTemp > 0) {
+				label = label + " " + space;
+				space = String.fromCharCode(160) + String.fromCharCode(160) + String.fromCharCode(160);
+				levelTemp--;
+			}
+
+			label = label + departmentItem.name;
+		}
+		else {
+			label = departmentItem.name;
+		}
+
+		return label;
+	};
+
+	var generateOptions = function (departments, options, level) {
+		angular.forEach(departments, function (departmentItem) {
+			options.push({ label: createLabel(departmentItem, level), value: departmentItem.departmentId });
+			generateOptions(departmentItem.children, options, level + 1);
+		});
+
+		return options;
+	};
+
 	var successGetAllDepartment = function (data) {
 		$scope.departments = data.item2;
+		$scope.departmentOptions = generateOptions(data.item1.children, [], 0);
 	};
 
 	var successGetFlow = function (data) {
-		resetCurrentData();
+		resetCurrentDepartmentData();
 		if (data !== "null") {
 			$.each(data, function (i) {
 				var processId = data[i].processId;
 				switch (processId) {
 					case 2:
 						$scope.admins.push(data[i].evaluatorInfo);
+						break;
+					case 3:
+						var object;
+						if (data[i].evaluatorInfo.employeeId === -1) {
+							object = { nickName: "Self", employeeId: -1 };
+						}
+						else {
+							object = data[i].evaluatorInfo;
+						}
+						$scope.selfs.push(object);
 						break;
 					case 4:
 						$scope.evaluators.push(data[i].evaluatorInfo);
@@ -86,7 +146,7 @@ departmentDataFactory, flowDataFactory, $window) {
 
 	var successDeleteFlow = function () {
 		notificationFactory.success('SuccessDeleteData', '');
-		resetCurrentData();
+		resetCurrentDepartmentData();
 		$scope.EPAFlow = {};
 	};
 
@@ -119,9 +179,9 @@ departmentDataFactory, flowDataFactory, $window) {
 	* Initialize data to view. 
 	*/
 
-	var resetCurrentData = function () {
+	var resetCurrentDepartmentData = function () {
 		$scope.admins = [];
-		$scope.selfs = [{ nickName: "Self"}];
+		$scope.selfs = [];
 		$scope.evaluators = [];
 		$scope.reviewers = [];
 	};
@@ -160,23 +220,38 @@ departmentDataFactory, flowDataFactory, $window) {
 	*/
 
 	// Show or hide list Employee.
-	$scope.toggleShowList = function () {
+	$scope.toggleDepartmentDraggableList = function () {
 		$scope.showList = !$scope.showList;
 	};
 
 	// Sort item in list.
 	$scope.$on('list-sorted', function (ev, val) {
-		if (val.sender === "adminList") {
-			$scope.admins.splice(val.to, 0, $scope.admins.splice(val.from, 1)[0]);
-		}
-		if (val.sender === "selfList") {
-			$scope.selfs.splice(val.to, 0, $scope.selfs.splice(val.from, 1)[0]);
-		}
-		if (val.sender === "evaluatorList") {
-			$scope.evaluators.splice(val.to, 0, $scope.evaluators.splice(val.from, 1)[0]);
-		}
-		if (val.sender === "reviewerList") {
-			$scope.reviewers.splice(val.to, 0, $scope.reviewers.splice(val.from, 1)[0]);
+		var sender = val.sender;
+		switch (sender) {
+			case "adminList":
+				$scope.admins.splice(val.to, 0, $scope.admins.splice(val.from, 1)[0]);
+				break;
+			case "selfList":
+				$scope.selfs.splice(val.to, 0, $scope.selfs.splice(val.from, 1)[0]);
+				break;
+			case "evaluatorList":
+				$scope.evaluators.splice(val.to, 0, $scope.evaluators.splice(val.from, 1)[0]);
+				break;
+			case "reviewerList":
+				$scope.reviewers.splice(val.to, 0, $scope.reviewers.splice(val.from, 1)[0]);
+				break;
+			case "personalAdminList":
+				$scope.personalAdmins.splice(val.to, 0, $scope.personalAdmins.splice(val.from, 1)[0]);
+				break;
+			case "personalEmployeeList":
+				$scope.personalEmployees.splice(val.to, 0, $scope.personalEmployees.splice(val.from, 1)[0]);
+				break;
+			case "personalEvaluatorList":
+				$scope.personalEvaluators.splice(val.to, 0, $scope.personalEvaluators.splice(val.from, 1)[0]);
+				break;
+			case "personalReviewerList":
+				$scope.personalReviewers.splice(val.to, 0, $scope.personalReviewers.splice(val.from, 1)[0]);
+				break;
 		}
 	});
 
@@ -221,21 +296,26 @@ departmentDataFactory, flowDataFactory, $window) {
 
 	// Delete
 	$scope.deleteFlow = function () {
-		var deleteModalInstance = $modal.open({
-			templateUrl: '/templates/Common/ModalConfirmContent.html',
-			controller: "ModalConfirmController",
-			resolve: {
-				name: function () {
-					return "";
-				},
-				action: function () {
-					return "delete";
+		if ($scope.EPAFlow.departmentId == null) {
+			notificationFactory.error('', 'Please select a department!');
+		}
+		else {
+			var deleteModalInstance = $modal.open({
+				templateUrl: '/templates/Common/ModalConfirmContent.html',
+				controller: "ModalConfirmController",
+				resolve: {
+					name: function () {
+						return "";
+					},
+					action: function () {
+						return "delete";
+					}
 				}
-			}
-		});
-		deleteModalInstance.result.then(function () {
-			flowDataFactory.deleteFlow($scope.EPAFlow.departmentId, $scope.flowType).then(successDeleteFlow, errorNotification);
-		});
+			});
+			deleteModalInstance.result.then(function () {
+				flowDataFactory.deleteFlow($scope.EPAFlow.departmentId, $scope.flowType).then(successDeleteFlow, errorNotification);
+			});
+		}
 	};
 
 	//Dropdownlist Change.
@@ -250,11 +330,65 @@ departmentDataFactory, flowDataFactory, $window) {
 		}
 		else {
 			var model = { departmentId: $scope.EPAFlow.departmentId, flowType: $scope.flowType,
-				admins: $scope.admins, evaluators: $scope.evaluators, reviewers: $scope.reviewers
+				admins: $scope.admins, evaluators: $scope.evaluators, reviewers: $scope.reviewers, selfs: $scope.selfs
 			};
 			flowDataFactory.saveFlow(model).then(successSaveFlow, errorNotification);
 		}
 	};
+
+	// TAB PERSONAL.
+	$scope.tabPersonal = function () {
+		/**
+		* Scope variable.
+		*/
+		$scope.DepartmentList = {};
+		$scope.personalDraggable = false;
+
+		$scope.moveItem = function (item, from, to) {
+			$.each(from, function (i) {
+				var currentItem = from[i];
+				if (currentItem.employeeId === parseInt(item)) {
+					from.splice(i, 1);
+					to.push(currentItem);
+					return false;
+				}
+			});
+		};
+		$scope.moveAll = function (from, to) {
+			$.each(from, function (i) {
+				to.push(from[i]);
+			});
+			from.length = 0;
+		};
+
+		/**
+		* Events.
+		*/
+		$scope.toggleDepartmentDragableList = function () {
+			$scope.personalDraggable = !$scope.personalDraggable;
+		};
+
+		$scope.OnSelectedPersonalDepartment = function () {
+			employeeRepository.getEmployeeInDepartment($scope.DepartmentList.departmentId).success(function (data) {
+				$scope.defaultSettingFlowEmployees = data.item1;
+				$scope.personalSettingFlowEmployees = data.item2;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		};
+
+		$scope.setEmployeeFlow = function (item) {
+			var employeeId = parseInt(item[0]);
+			$scope.personalEmployees = [];
+			getEmployeeById("personalEmployeeList", employeeId);
+		};
+
+		$scope.onSelecteEmployeeInDepartment = function () {
+		};
+
+
+	};
+
 
 } ]);
 

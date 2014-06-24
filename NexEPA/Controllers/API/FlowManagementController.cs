@@ -67,7 +67,7 @@ namespace NexEPA.Controllers.API
             {
                 AddGroupFlowCriteria groupFlowCriteria = new AddGroupFlowCriteria()
                 {
-                    GroupId = model.DepartmentId,
+                    GroupId = Math.Abs(model.DepartmentId),
                     ModifiedBy = this.CurrentUser.UserId,
                     ModifiedDate = DateTime.Now,
                     FlowDetails = model.FlowDetails
@@ -101,7 +101,7 @@ namespace NexEPA.Controllers.API
 
             if (flowType < 0)
             {
-                GetGroupFlowCriteria groupFlowCriteria = new GetGroupFlowCriteria() { GroupId = departmentId };
+                GetGroupFlowCriteria groupFlowCriteria = new GetGroupFlowCriteria() { GroupId = Math.Abs(departmentId) };
                 data = _flowManagementService.GetFlowGroup(groupFlowCriteria);
             }
 

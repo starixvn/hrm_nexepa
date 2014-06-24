@@ -234,7 +234,6 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="model">Target Template model.</param>
         /// <returns>Http Response Message.</returns>
-        [ApiAuthorize(Roles = "SA")]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTargetTemplate, Policy = Policy.Host)]
         public HttpResponseMessage Put(TargetTemplateModel model)
         {

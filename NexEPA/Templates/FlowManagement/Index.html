@@ -7,14 +7,14 @@
 <div class="row target-tabset">
     <tabset id="flowManagement" class="flow-management">
 	<tab heading="DEPARTMENT / GROUP" class="tab-cursor" select="tabDeparment()">
-		<div class="expand-user" title="Show Employee List" ng-if="!showList" ng-click="toggleShowList()">
+		<div class="expand-user" title="Show Employee List" ng-if="!showList" ng-click="toggleDepartmentDraggableList()">
             <span class="glyphicon glyphicon-user icon-user"></span>
         </div>
-		<div class="row">   
+		<div class="row">
 			<div class="col-sm-3 employee-list" id="employeeList" ng-if="showList">
 				<div class="row flow-header">
 					<span data-translate="Employee"></span>
-					<a ng-click="toggleShowList()" href="javascript:;" class="pull-right glyphicon glyphicon-arrow-left"></a>
+					<a ng-click="toggleDepartmentDraggableList()" href="javascript:;" class="pull-right glyphicon glyphicon-arrow-left"></a>
 				</div>
 				<div class="row">
 					<input type="text" ng-model="employeeName" class="txt-search">
@@ -41,7 +41,6 @@
 					            <span data-translate="Admin"></span>
 					            <a href="javascript:;" class="glyphicon glyphicon-plus" title="Add Admin" ng-click="addAdmin()"></a>
 				            </div>
-				
 				            <ul list-sortable class="sortable custom-ul list-unstyled" id="adminList">
 					            <li class="alert alert-info nomargin" ng-repeat="admin in admins">
 							        <a href="javascript:;" class="glyphicon glyphicon-remove icon-close" ng-click="removeAdmin(admin)"></a>
@@ -99,17 +98,20 @@
 			        </div>
                 </div>
                 <form class="row form-inline department-form" role="form">
-                    <button class="button button-buffer" ng-click="saveFlow()" data-translate="Save">
+                    <button class="button left-buffer" ng-click="saveFlow()" data-translate="Save">
 		            </button>
-		            <button class="button button-buffer" ng-click="deleteFlow()" data-translate="Delete"
+		            <button class="button" ng-click="deleteFlow()" data-translate="Delete"
 			            ng-show="!isDisabled">
 		            </button>
-		            <button class="btn btn-default customize button-buffer" ng-click="cancel()" data-translate="Cancel">
+		            <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		            </button>
                 </form>
             </div>
 		</div>
 	</tab>
-	<tab heading="PERSONAL" class="tab-cursor" select="tabPersonal()"></tab>
+	<tab heading="PERSONAL" class="tab-cursor" select="tabPersonal()">
+		<div class="row" ng-include src="'/Templates/FlowManagement/PersonalFlow.html'">
+		</div>
+	</tab>
 </tabset>
 </div>

@@ -9,6 +9,7 @@
 
 namespace NexEPA.Organization.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
     using NexEPA.Core.Enums;
@@ -37,6 +38,8 @@ namespace NexEPA.Organization.Models
 
         public List<EmployeeModel> Reviewers { get; set; }
 
+        public List<EmployeeModel> Selfs { get; set; }
+
         public string FlowDetails
         {
             get
@@ -47,6 +50,14 @@ namespace NexEPA.Organization.Models
                     foreach (var admin in Admins)
                     {
                         value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Admin, admin.EmployeeId);
+                    }
+                }
+
+                if (Selfs != null)
+                {
+                    foreach (var self in Selfs)
+                    {
+                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Self, -Math.Abs(self.EmployeeId));
                     }
                 }
 

@@ -678,7 +678,10 @@
   <data name="YearRequire" xml:space="preserve">
     <value>The Year field is required!</value>
   </data>
-  <data name="EditAppraisalForm" xml:space="preserve">
+  <data name="PersonalFlow" xml:space="preserve">
+    <value>Personal Flow</value>
+  </data>
+   <data name="EditAppraisalForm" xml:space="preserve">
     <value>Edit Appraisal Form</value>
   </data>
   <data name="DifferentProcessDateViolation" xml:space="preserve">

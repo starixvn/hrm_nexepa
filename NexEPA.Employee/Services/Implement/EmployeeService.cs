@@ -147,5 +147,41 @@ namespace NexEPA.Employee.Services.Implement
 
             return employee;
         }
+
+        /// <summary>
+        /// Get Employee By Group.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetByGroup(GetEmployeeByGroupCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeModel> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = GetData<EmployeeModel>(criteria);
+            }
+
+            return employees;
+        }
+
+        /// <summary>
+        /// Get Employee By Department.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetByDepartment(GetEmployeeByDepartmentCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeModel> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = GetData<EmployeeModel>(criteria);
+            }
+
+            return employees;
+        }
     }
 }
