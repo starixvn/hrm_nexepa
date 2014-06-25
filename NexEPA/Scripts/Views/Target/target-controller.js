@@ -689,4 +689,23 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 	$scope.filter = function (kpiGroupId) {
 		getKPIByTargetId(targetId, kpiGroupId);
 	};
+
+	$scope.calculateIndex = function (parentIndex, childIndex, listKPI) {
+		var index = 0;
+
+		if (parentIndex === 0) {
+			index = childIndex + 1;
+		}
+		else {
+			$.each(listKPI, function (i) {
+				if (i < parentIndex) {
+					index += listKPI[i].kpIs.length;
+				}
+			});
+
+			index += childIndex + 1;
+		}
+
+		return index;
+	};
 } ]);

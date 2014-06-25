@@ -30,9 +30,7 @@
                     <td class="row-highlight target-kpi-weight" ng-bind="kpiGroupItem.group.weight"></td>
                 </tr>
                 <tr ng-repeat="kpiItem in kpiGroupItem.kpIs">
-                    <td class="count" ng-bind="$index + 1" ng-show="$parent.$first == true"></td>
-                    <td class="count" ng-bind="$parent.$index * listGroupKPI[$parent.$index - 1].kpIs.length + $index + 1" 
-                                ng-show="$parent.$first == false"></td>
+                    <td class="count" ng-bind="calculateIndex($parent.$index, $index, listGroupKPI)" ></td>
                     <td ng-bind="kpiItem.name"></td>
                     <td class="target-kpi-weight">
                         <span ng-bind="kpiItem.weight" ng-show="!kpiGroupItem.group.isSpreadKPI"></span>
@@ -40,7 +38,7 @@
                     </td>
                 </tr>
                 </tbody>
-            <tr ng-show="listKPI == ''">
+            <tr ng-show="listGroupKPI == ''">
                 <td colspan="3" class="empty-result" data-translate="EmptyResult"></td>
             </tr>
         </table>
