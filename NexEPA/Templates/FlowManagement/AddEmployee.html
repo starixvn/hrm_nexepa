@@ -5,17 +5,14 @@
 		</div>
 	</div>
 	<div class="modal-body">
-		<form class="col-sm-11 form-horizontal common-form project-form" name="addMemberForm"
-		novalidate>
 		<div class="form-group">
-			<label class="col-sm-2 control-label" data-translate="Employee" />
-			<div class="col-sm-8">
+			<label class="col-sm-2 control-label top-buffer" data-translate="Employee" />
+			<div class="col-sm-7">
 				<input class="form-control" type="text" ng-model="searchKey" search-auto-complete
 					search-employees="searchEmployees" ng-change="getEmployee(searchKey)" employee="newEmployee.employee"
-					maxlength="200" placeholder="Manager" required id="txtManager" autofocus />
+					maxlength="200" placeholder="nick name or full name" required id="txtManager" autofocus />
 			</div>
 		</div>
-		</form>
 	</div>
 	<div class="modal-footer">
 		<button class="button" ng-click="ok()">

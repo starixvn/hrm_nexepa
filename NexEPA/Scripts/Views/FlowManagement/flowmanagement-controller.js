@@ -111,7 +111,6 @@ departmentDataFactory, flowDataFactory, $window) {
 	};
 
 	var successGetFlow = function (data) {
-		debugger;
 		resetCurrentDepartmentData();
 		if (data.length > 0) {
 			$.each(data, function (i) {
@@ -366,6 +365,15 @@ departmentDataFactory, flowDataFactory, $window) {
 			from.length = 0;
 		};
 
+		var getEmployeeFlowList = function () {
+			employeeRepository.getEmployeeInDepartment($scope.DepartmentList.departmentId).success(function (data) {
+				$scope.defaultSettingFlowEmployees = data.item1;
+				$scope.personalSettingFlowEmployees = data.item2;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		};
+
 		var removeAllPersonalFlowData = function () {
 			$scope.personalAdmins = [];
 			$scope.personalEmployees = [];
@@ -405,6 +413,13 @@ departmentDataFactory, flowDataFactory, $window) {
 			notificationFactory.success('SuccessDeleteData', '');
 			removeAllPersonalFlowData();
 			$scope.currentSelectedEmployee = null;
+			getEmployeeFlowList();
+		};
+
+		var successSavePersonalFlow = function () {
+			notificationFactory.success('SuccessSaveData', '');
+			$scope.showDeleteButton = true;
+			getEmployeeFlowList();
 		};
 
 		/**
@@ -438,12 +453,7 @@ departmentDataFactory, flowDataFactory, $window) {
 		};
 
 		$scope.OnSelectedPersonalDepartment = function () {
-			employeeRepository.getEmployeeInDepartment($scope.DepartmentList.departmentId).success(function (data) {
-				$scope.defaultSettingFlowEmployees = data.item1;
-				$scope.personalSettingFlowEmployees = data.item2;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
-			});
+			getEmployeeFlowList();
 		};
 
 		$scope.setEmployeeFlow = function (item) {
@@ -465,7 +475,7 @@ departmentDataFactory, flowDataFactory, $window) {
 						reviewers: $scope.personalReviewers, personal: $scope.personalEmployees
 					};
 
-					flowDataFactory.savePersonalFlow(model).then(successSaveFlow, errorNotification);
+					flowDataFactory.savePersonalFlow(model).then(successSavePersonalFlow, errorNotification);
 				}
 			}
 		};

@@ -3,10 +3,9 @@
 	</div>
 	<div class="row boxcontent information">
 		<form class="row form-inline department-form left-buffer">
-		<label data-translate="Department">
-		</label>
+
 		<select ng-change="OnSelectedPersonalDepartment()" ng-model="DepartmentList.departmentId"
-			class="sel-department" required>
+			class="sel-department departmentList" required>
 			<option style="display: none" value="">-- Select a Department / Group --</option>
 			<option ng-repeat="opt in departmentOptions" value="{{opt.value}}">{{opt.label}}
 			</option>
