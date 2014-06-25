@@ -390,6 +390,23 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 		}
 	});
 
+	var getEvaluatorDetail = function (processList) {
+		var evaluatorDetails = '<ROOT>';
+
+		angular.forEach(processList, function (process) {
+			var evaluatorList = process.evaluatorList;
+
+			angular.forEach(evaluatorList, function (evaluator) {
+				var evaluatorPattern = '<Process ProcessId="' + process.processId +
+						'" EvaluatorId="' + evaluator.employeeId + '" ></Process>';
+					evaluatorDetails += evaluatorPattern;
+			});
+		});
+
+		evaluatorDetails += '</ROOT>';
+		return evaluatorDetails;
+	};
+
 	commonAppraisalFormFactory.showRequireMessage($scope, notificationFactory);
 
 	$scope.save = function (processTemplate, requireDateViolation, sameProcessDateViolation, differentProcessDateViolation) {
@@ -405,7 +422,8 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 			var appraisal = {
 				epaId: epaId,
 				status: $scope.appraisal.status,
-				processDetails: processTemplate
+				processDetails: processTemplate,
+				evaluateDetails: getEvaluatorDetail($scope.processList)
 			};
 
 			if (epaId && epaId > 0) {
