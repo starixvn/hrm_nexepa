@@ -10,9 +10,9 @@ GO
 DROP TABLE [dbo].[EPAProcess]
 CREATE TABLE [dbo].[EPAProcess](
 	[EPAId] [int] NOT NULL,
+	[ProcessId] [int] NOT NULL,
 	[EvaluatorId] [int] NOT NULL,
 	[Priority] [int] NOT NULL,
-	[ProcessId] [int] NOT NULL,
 	[Comment] [nvarchar](max) NULL,
 	[StartDate] [datetime] NULL,
 	[EndDate] [datetime] NULL,
@@ -27,6 +27,7 @@ CREATE TABLE [dbo].[EPAProcess](
  CONSTRAINT [PK_EPAProcess] PRIMARY KEY CLUSTERED 
 (
 	[EPAId] ASC,
+	[ProcessId] ASC,
 	[EvaluatorId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

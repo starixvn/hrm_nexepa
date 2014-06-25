@@ -7,7 +7,7 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
+DROP TABLE [dbo].[TargetPeriod]
 CREATE TABLE [dbo].[TargetPeriod](
 	[TargetId] [int] NOT NULL,
 	[Month] [int] NOT NULL,

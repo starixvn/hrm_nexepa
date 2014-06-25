@@ -13,6 +13,7 @@ GO
 DROP TABLE [dbo].[EPADetail]
 CREATE TABLE [dbo].[EPADetail](
 	[EPAId] [int] NOT NULL,
+	[ProcessId] [int] NOT NULL,
 	[EvaluatorId] [int] NOT NULL,
 	[KPIId] [int] NOT NULL,
 	[KPIGroupId] [int] NOT NULL,
@@ -31,6 +32,7 @@ CREATE TABLE [dbo].[EPADetail](
  CONSTRAINT [PK_EPADetailId] PRIMARY KEY CLUSTERED 
 (
 	[EPAId] ASC,
+	[ProcessId] ASC,
 	[EvaluatorId] ASC,
 	[KPIId] ASC,
 	[KPIGroupId] ASC

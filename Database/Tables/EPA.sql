@@ -10,7 +10,7 @@ GO
 
 SET ANSI_PADDING ON
 GO
-
+DROP TABLE [dbo].[EPA]
 CREATE TABLE [dbo].[EPA](
 	[EPAId] [int] IDENTITY(1,1) NOT NULL,
 	[EmployeeId] [int] NOT NULL,
