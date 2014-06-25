@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[Department]    Script Date: 6/6/2014 1:55:36 PM ******/
+/****** Object:  Table [dbo].[Department]    Script Date: 6/19/2014 10:17:32 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,7 +11,6 @@ GO
 SET ANSI_PADDING ON
 GO
 
-DROP TABLE [dbo].[Department]
 CREATE TABLE [dbo].[Department](
 	[DepartmentId] [int] IDENTITY(1,1) NOT NULL,
 	[Code] [varchar](20) NOT NULL,

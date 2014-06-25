@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetType]    Script Date: 5/16/2014 9:02:35 AM ******/
+/****** Object:  Table [dbo].[TargetType]    Script Date: 6/19/2014 3:12:47 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,12 +9,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[TargetType](
-	[TargetTypeId] [tinyint] IDENTITY(1,1) NOT NULL,
+	[TargetTypeId] [tinyint] NOT NULL,
 	[Name] [nvarchar](200) NULL,
 	[IsDisabled] [bit] NULL,
 	[DisplayOrder] [tinyint] NULL,
 	[ScoreTypeId] [tinyint] NULL,
 	[ProcessGroupId] [int] NULL,
+	[TargetTemplateId] [int] NULL,
+	[ModifiedBy] [int] NULL,
+	[ModifiedDate] [datetime] NULL,
  CONSTRAINT [PK_TargetTypeId] PRIMARY KEY CLUSTERED 
 (
 	[TargetTypeId] ASC

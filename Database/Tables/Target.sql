@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[Target]    Script Date: 5/6/2014 3:22:28 PM ******/
+/****** Object:  Table [dbo].[Target]    Script Date: 6/19/2014 10:16:51 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,7 +10,7 @@ GO
 
 SET ANSI_PADDING ON
 GO
-
+DROP TABLE [dbo].[Target]
 CREATE TABLE [dbo].[Target](
 	[TargetId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](500) NOT NULL,
@@ -18,15 +18,16 @@ CREATE TABLE [dbo].[Target](
 	[TargetTypeId] [tinyint] NOT NULL,
 	[ScoreTypeId] [tinyint] NOT NULL,
 	[ProcessGroupId] [int] NOT NULL,
-	[ProjectId] [int] NULL,
-	[MilestoneId] [int] NULL,
 	[StartDate] [datetime] NULL,
 	[EndDate] [datetime] NULL,
 	[Status] [tinyint] NULL,
+	[KPICount] [int] NULL,
+	[MemberCount] [int] NULL,
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NULL,
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL,
+	[CreateFrom] [tinyint] NOT NULL,
  CONSTRAINT [PK_TargetId] PRIMARY KEY CLUSTERED 
 (
 	[TargetId] ASC
@@ -36,5 +37,8 @@ CREATE TABLE [dbo].[Target](
 GO
 
 SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Target] ADD  CONSTRAINT [DF_Target_CreateFrom]  DEFAULT ((1)) FOR [CreateFrom]
 GO
 
