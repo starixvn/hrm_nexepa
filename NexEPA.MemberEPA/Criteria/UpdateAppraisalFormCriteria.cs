@@ -23,6 +23,8 @@ namespace NexEPA.MemberEPA.Criteria
 
         public string ProcessDetails { get; set; }
 
+        public string EvaluateDetails { get; set; }
+
         public int ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }
