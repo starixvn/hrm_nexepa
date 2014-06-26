@@ -52,12 +52,12 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 	};
 
 	var successUpdateProjectStatus = function () {
-		notificationFactory.success('SuccessSaveData', '');
+		notificationFactory.success('DataChangeSuccessfully', '');
 		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	};
 
 	var successDeleteProject = function () {
-		notificationFactory.success('SuccessDeleteData', '');
+		notificationFactory.success('DataChangeSuccessfully', '');
 		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
 	};
 
@@ -204,7 +204,7 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 	// Success add new project callback.
 	var successAddProject = function () {
 		$scope.errors = [];
-		notificationFactory.success('SuccessSaveData', '');
+		notificationFactory.success('DataChangeSuccessfully', '');
 		$timeout(function () {
 			$location.url('/Projects/Index');
 		}, 2000);
@@ -315,7 +315,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 	};
 
 	// Update Project success callback.
-	var successUpdateProject = function () { notificationFactory.success('SuccessSaveData', ''); };
+	var successUpdateProject = function () { notificationFactory.success('DataChangeSuccessfully', ''); };
 
 	// Update Project failure callback.
 	var errorUpdateProject = function (response) {
@@ -421,13 +421,13 @@ commonFactory, ProjectSettingCache) {
 	* Ajax event. 
 	*/
 	// Notify error popup when action is failure.
-	var errorNotification = function (data) {
-		notificationFactory.error('', data);
+	var errorNotification = function () {
+		notificationFactory.error('ErrorMessage');
 	};
 
 	// Notify success popup when action is succeed.
 	var successNotification = function () {
-		notificationFactory.success('SuccessSaveData', '');
+		notificationFactory.success('DataChangeSuccessfully', '');
 		return milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
 	};
 
@@ -451,7 +451,7 @@ commonFactory, ProjectSettingCache) {
 	};
 
 	var successDeleteMilestone = function () {
-		notificationFactory.success('SuccessDeleteData', '');
+		notificationFactory.success('DataChangeSuccessfully', '');
 		return milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
 	};
 

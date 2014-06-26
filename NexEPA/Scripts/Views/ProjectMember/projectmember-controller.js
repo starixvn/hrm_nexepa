@@ -188,7 +188,7 @@ notificationFactory, projectMemberService) {
 	commonFactory.getDateFormat($scope);
 	var errorNotification = function (data) { notificationFactory.error('', data); };
 	var successAddProjectMember = function () {
-		notificationFactory.success('SuccessSaveData', '');
+		notificationFactory.success('DataChangeSuccessfully', '');
 		$scope.newMember = { joinDate: new Date() };
 		$.each($scope.roles, function (i) {
 			$scope.roles[i].selected = false;

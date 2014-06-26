@@ -42,12 +42,10 @@
 			<label class="col-sm-3 control-label">
 				{{"Role" | translate}}</label>
 			<div class="col-sm-8">
-				<span ng-repeat="role in roles">
-					<label class="checkbox">
-						<input type="checkbox" value="{{role.name}}" ng-model="role.selected" />
-						{{role.name}}
-					</label>
-				</span>
+				<div class="checkbox" ng-repeat="role in roles">
+					<input type="checkbox" value="{{role.name}}" ng-model="role.selected" />
+					<span ng-bind="role.name"></span>
+				</div>
 			</div>
 		</div>
 		</form>
