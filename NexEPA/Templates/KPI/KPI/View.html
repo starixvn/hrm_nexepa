@@ -6,12 +6,12 @@
         </li>
     </ul>
     <div class="button-icon" ng-if="permission.policy == 2">
-        <span class="icon plus"></span><a href="" ng-click="create()" data-translate="CreateKPI"
-            ng-href="{{createKPIUrl}}"></a>
+        <span class="glyphicon glyphicon-plus icon-plus"></span>
+        <a href="" ng-click="create()" data-translate="CreateKPI" ng-href="{{createKPIUrl}}"></a>
     </div>
     <div class="button-icon" ng-show="!isViewAll">
-        <span class="glyphicon glyphicon-arrow-left icon-back"></span><a href="" ng-click="backToList()"
-            data-translate="BackToList"></a>
+        <span class="glyphicon glyphicon-arrow-left icon-back"></span>
+        <a href="" ng-click="backToList()" data-translate="BackToList"></a>
     </div>
 </div>
 <div class="row" ng-show="isViewAll">
