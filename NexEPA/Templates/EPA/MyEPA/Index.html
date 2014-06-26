@@ -199,9 +199,9 @@
 		<div class="epa-error-message" ng-show="!generalCommentValid">
 			This field is required!
 		</div>
-		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment" ng-model="employeeEPA.comment"></textarea>
+		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment comment" ng-model="employeeEPA.comment"></textarea>
 		<label ng-if="employeeEPA.comment==null || employeeEPA.comment==''" class="error-message" data-translate="*"></label>
-		<div class="col-sm-3">
+		<div class="col-sm-3 pull-right">
 			<div class="total">
 				<p>
 					Total</p>
@@ -211,8 +211,8 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<span class="left-buffer error-message">Note: (*) Required field !</span>
+	<div class="txtRequired error-message">
+		Note: (*) Required field !
 	</div>
 </div>
 <div class="col-sm-12 action-button epa">

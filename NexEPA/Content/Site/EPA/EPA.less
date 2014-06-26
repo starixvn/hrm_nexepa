@@ -51,11 +51,19 @@
 }
 
 .list-item {
-    padding: 7px 30px 15px;
+    padding: 7px 10px 15px 30px;
 
     li {
         line-height: 25px;
     }
+}
+
+.list-group-item {
+    padding: 0 0;
+
+   [class*='col-'] {
+        padding: 0;
+   }
 }
 
 .list-star {
@@ -81,25 +89,36 @@
 
         &.glyphicon-star {
             font-size: 16px;
-			color: #6F6E75;
+			color: #f67f46;
         }
     }
 }
 
 .comment {
-    padding: 15px 30px;
+    padding: 15px 13px 15px 30px;
+
+    .total {
+        background-color: #fcd9c9;
+        border: 1px solid #F9AE8C;
+        text-align: center;
+        width: 215px;
+        float: right;
+        min-height: 120px;
+        padding: 23px 30px 10px;
+        font-size: 17px;
+        color: #222;
+
+        .finalscore {
+            line-height: 40px;
+            text-align: center;
+            font-size: 30px;
+            color: #f00;
+        }
+    }
 }
 
-.total {
-    background-color: #FFFFFF;
-    border: 1px solid #F9AE8C;
-    text-align: center;
-    width: 215px;
-    float: right;
-    min-height: 120px;
-    padding: 23px 30px 10px;
-    font-size: 17px;
-    color: #df1501;
+.txtRequired {
+    margin-left: 30px;
 }
 
 .epa-criteria-name
