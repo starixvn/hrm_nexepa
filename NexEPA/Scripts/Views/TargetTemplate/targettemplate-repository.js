@@ -54,24 +54,46 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 		},
 		addTargetTemplate: function (template) {
 			var deferred = $q.defer();
-			$http.post('/api/targetTemplate/Post', template).success(deferred.resolve).error(deferred.reject);
+			var response = {};
+			$http.post('/api/targetTemplate/Post', template)
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
+			}).error(function (data, status) {
+				deferred.reject(response = { status: status });
+			});
 			return deferred.promise;
 		},
 		addKPIGroups: function (objectKPIGroup) {
 			var deferred = $q.defer();
+			var response = {};
 			$http.post('/api/targetTemplate/AddKPIGroupWeight/', objectKPIGroup)
-            .success(deferred.resolve).error(deferred.reject);
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
+			}).error(function (data, status) {
+				deferred.reject(response = { status: status });
+			});
 			return deferred.promise;
 		},
 		updateTargetTemplate: function (template) {
 			var deferred = $q.defer();
-			$http.put('/api/TargetTemplate/Put', template).success(deferred.resolve).error(deferred.reject);
+			var response = {};
+			$http.put('/api/TargetTemplate/Put', template)
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
+			}).error(function (data, status) {
+				deferred.reject(response = { status: status });
+			});
 			return deferred.promise;
 		},
 		deleteTargetTemplate: function (targetTemplateId) {
 			var deferred = $q.defer();
+			var response = {};
 			$http['delete'](url, { params: { targetTemplateId: targetTemplateId} })
-            .success(deferred.resolve).error(deferred.reject);
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
+			}).error(function (data, status) {
+				deferred.reject(response = { status: status });
+			});
 			return deferred.promise;
 		},
 		updateTargetTemplateStatus: function (template) {
@@ -81,7 +103,13 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 		},
 		removeKPIGroup: function (model) {
 			var deferred = $q.defer();
-			$http.post('/api/targetTemplate/RemoveKPIGroup', model).success(deferred.resolve).error(deferred.reject);
+			var response = {};
+			$http.post('/api/targetTemplate/RemoveKPIGroup', model)
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
+			}).error(function (data, status) {
+				deferred.reject(response = { status: status });
+			});
 			return deferred.promise;
 		}
 	};

@@ -13,8 +13,13 @@ generalSettingModule.factory("generalSettingFactory", ['$http', '$q', function (
 		},
 		setDefaultTargetTemplate: function (targetTemplate) {
 			var deferred = $q.defer();
+			var response = {};
 			$http.post('/api/targetTemplate/setDefaultTargetTemplate', targetTemplate)
-			.success(deferred.resolve).error(deferred.reject);
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
+			}).error(function (data, status) {
+				deferred.reject(response = { status: status });
+			});
 			return deferred.promise;
 		}
 	};

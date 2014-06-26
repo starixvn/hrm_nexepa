@@ -696,4 +696,7 @@
   <data name="TargetTypeRequire" xml:space="preserve">
     <value>The Target Type field is required!</value>
   </data>
+  <data name="EPANotAvailable" xml:space="preserve">
+    <value>There is no EPA content available !</value>
+  </data>
 </root>

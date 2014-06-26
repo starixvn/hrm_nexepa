@@ -88,11 +88,25 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	/**
 	* Ajax event. 
 	*/
-	var successAddOrUpdateEPA = function () {
-		notificationFactory.success('SuccessSaveData', '');
-		$scope.dataSaved = true;
+	var successAddOrUpdateEPA = function (response) {
+		if (response.data !== "") {
+			notificationFactory.error('', response.data);
+		}
+		else {
+			notificationFactory.success('SuccessSaveData', '');
+			$scope.dataSaved = true;
+		}
 	};
-	var errorAddOrUpdateEPA = function (response) { notificationFactory.error('', response); };
+
+	var errorNotify = function (response) {
+		if (response.status === 405) {
+			ErrorService.errorHandle(response.status);
+		}
+		else {
+			notificationFactory.error('ErrorMessage');
+		}
+	};
+
 	var successGetEmployeeEPA = function (data) {
 		if (data !== "null") {
 			if (data.kpiInfo.length > 0) {
@@ -128,24 +142,20 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			calculateScore($scope, data.kpiInfo);
 		}
 		else {
-			notificationFactory.error('', 'There is no EPA content available !');
+			notificationFactory.error('EPANotAvailable');
 		}
 	};
 
 	var successUpdateEPAStatus = function (response) {
 		if (response.data !== "") {
-			errorUpdateEPAStatus(response);
+			$scope.employeeEPA.status = currentEPAStatus;
+			checkStatus(currentEPAStatus);
+			notificationFactory.error('', response.data);
 		}
 		else {
 			notificationFactory.success('SuccessSaveData', '');
 			checkStatus(newEPAStatus);
 		}
-	};
-
-	var errorUpdateEPAStatus = function (response) {
-		$scope.employeeEPA.status = currentEPAStatus;
-		checkStatus(currentEPAStatus);
-		notificationFactory.error('', response);
 	};
 
 	var errorGetEmployeeEPA = function (status) {
@@ -192,7 +202,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 		if ($scope.generalCommentValid && $scope.itemCommentValid) {
 			employeeEPAResult.finalScore = $scope.finalScore;
 			employeeEPAResult.targetId = targetId;
-			employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorAddOrUpdateEPA);
+			employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorNotify);
 		}
 	};
 
@@ -232,7 +242,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			newEPAStatus = status;
 			employeeEPA.status = status;
 			employeeEPA.targetId = targetId;
-			employeeEPAFactory.updateEPAStatus(employeeEPA).then(successUpdateEPAStatus, errorUpdateEPAStatus);
+			employeeEPAFactory.updateEPAStatus(employeeEPA).then(successUpdateEPAStatus, errorNotify);
 		});
 	};
 
@@ -256,7 +266,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	* Ajax event. 
 	*/
 	var successGetEmployeeEPA = function (data) {
-		if (data != null) {
+		if (data !=="null") {
 			if (data.kpiInfo.length > 0) {
 				$.each(data.kpiInfo, function (i) {
 					var currentKPIInfo = data.kpiInfo[i];
@@ -281,7 +291,9 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 			calculateScore($scope, data.kpiInfo);
 		}
-
+		else {
+			notificationFactory.error('EPANotAvailable');
+		}
 	};
 
 	var errorHandle = function (status) {

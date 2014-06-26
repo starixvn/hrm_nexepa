@@ -220,10 +220,10 @@ namespace NexEPA.Controllers.API
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                    return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
                 }
 
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return new HttpResponseMessage(HttpStatusCode.OK);  
             }
 
             return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
@@ -254,7 +254,7 @@ namespace NexEPA.Controllers.API
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                    return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
                 }
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -281,7 +281,7 @@ namespace NexEPA.Controllers.API
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -306,7 +306,7 @@ namespace NexEPA.Controllers.API
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -358,7 +358,7 @@ namespace NexEPA.Controllers.API
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -384,7 +384,7 @@ namespace NexEPA.Controllers.API
             if (result.Code != 0)
             {
                 List<string> errorMessage = new List<string>() { result.Message };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);

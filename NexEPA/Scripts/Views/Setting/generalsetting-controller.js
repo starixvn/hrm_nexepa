@@ -39,15 +39,28 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 	};
 
 	var successGetTargetSetting = function (data) { $scope.targetSettings = data; };
-	var successSetDefaultTargetTemplate = function () {
-		notificationFactory.success('SuccessSaveData', '');
-		generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorHandle);
+
+	var successSetDefaultTargetTemplate = function (response) {
+		if (response.data !== "") {
+			$scope.errors = response.data;
+		}
+		else {
+			notificationFactory.success('SuccessSaveData', '');
+			generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorHandle);
+		}
 	};
 	var errorHandle = function (status) {
 		ErrorService.errorHandle(status);
 	};
 
-	var errorNotification = function (response) { notificationFactory.error('', response); };
+	var errorNotification = function (response) {
+		if (response.status === 405) {
+			ErrorService.errorHandle(response.status);
+		}
+		else {
+			notificationFactory.error('ErrorMessage');
+		}
+	};
 
 	$scope.defaultTargetTemplate = function (targetTemplateId, targetTypeId) {
 		$scope.currentTargetTemplate = { targetTemplateId: targetTemplateId };

@@ -42,13 +42,25 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 
 	// Success delete target template.
-	var successDeleteTargetTemplate = function () {
-		notificationFactory.success('SuccessDeleteData', '');
-		return targetTemplateFactory.getAllTargetTemplate(null, null).then(successGetAllTargetTemplate);
+	var successDeleteTargetTemplate = function (response) {
+		if (response.data !== "") {
+			notificationFactory.error('', response.data);
+		}
+		else {
+			notificationFactory.success('SuccessDeleteData', '');
+			return targetTemplateFactory.getAllTargetTemplate(null, null).then(successGetAllTargetTemplate);
+		}
 	};
 
 	// Error notify when action failure.
-	var errorNotify = function (data) { notificationFactory.error('', data); };
+	var errorNotification = function (response) {
+		if (response.status === 405) {
+			ErrorService.errorHandle(response.status);
+		}
+		else {
+			notificationFactory.error('ErrorMessage');
+		}
+	};
 
 	var errorHandle = function (status) {
 		ErrorService.errorHandle(status);
@@ -85,7 +97,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 		});
 
 		deleteModalInstance.result.then(function () {
-			targetTemplateFactory.deleteTargetTemplate(template.targetTemplateId).then(successDeleteTargetTemplate, errorNotify);
+			targetTemplateFactory.deleteTargetTemplate(template.targetTemplateId).then(successDeleteTargetTemplate, errorNotification);
 		});
 	};
 
@@ -183,15 +195,33 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
 
-	var successUpdateTargetTemplate = function () {
-		notificationFactory.success('SuccessSaveData', '');
-	};
-	var successRemoveKPIGroup = function () {
-		notificationFactory.success('SuccessSaveData', '');
-		targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
+	var successUpdateTargetTemplate = function (response) {
+		if (response.data !== "") {
+			$scope.errors = response.data;
+		}
+		else {
+			notificationFactory.success('SuccessSaveData', '');
+		}
 	};
 
-	var errorNotify = function (response) { $scope.errors = response; };
+	var successRemoveKPIGroup = function (response) {
+		if (response.data !== "") {
+			$scope.errors = response.data;
+		}
+		else {
+			notificationFactory.success('SuccessSaveData', '');
+			targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
+		}
+	};
+
+	var errorNotification = function (response) {
+		if (response.status === 405) {
+			ErrorService.errorHandle(response.status);
+		}
+		else {
+			notificationFactory.error('ErrorMessage');
+		}
+	};
 
 	/**
 	* Initialize data to view Edit.
@@ -278,7 +308,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 
 					}
 					editTemplate.kpiIds = selectedKPIs;
-					targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorNotify);
+					targetTemplateFactory.updateTargetTemplate(editTemplate).then(successUpdateTargetTemplate, errorNotification);
 				}
 			}
 			else {
@@ -293,11 +323,15 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 	};
 
 	$scope.addKPIGroup = function () {
-		var successAddKPIGroups = function () {
-			notificationFactory.success('SuccessSaveData', '');
-			targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
+		var successAddKPIGroups = function (response) {
+			if (response.data !== "") {
+				$scope.errors = response.data;
+			}
+			else {
+				notificationFactory.success('SuccessSaveData', '');
+				targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
+			}
 		};
-		var errorAddKPIGroups = function (data) { notificationFactory.error('', data); };
 		var successGetAllKPIGroup = function (data) {
 			var addModalInstance = $modal.open({
 				templateUrl: '/templates/TargetTemplate/AddKPIGroup.html',
@@ -312,7 +346,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 			});
 			addModalInstance.result.then(function (model) {
 				model.TargetTemplateId = targetTemplateId;
-				targetTemplateFactory.addKPIGroups(model).then(successAddKPIGroups, errorAddKPIGroups);
+				targetTemplateFactory.addKPIGroups(model).then(successAddKPIGroups, errorNotification);
 			});
 		};
 
@@ -379,7 +413,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 			}
 		});
 		deleteModalInstance.result.then(function () {
-			targetTemplateFactory.removeKPIGroup(model).then(successRemoveKPIGroup, errorNotify);
+			targetTemplateFactory.removeKPIGroup(model).then(successRemoveKPIGroup, errorNotification);
 		});
 	};
 
@@ -505,19 +539,22 @@ targetTemplateUtility) {
 	* Ajax event Loaded. 
 	*/
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
-	var successAddTargetTemplate = function () {
-		notificationFactory.success("DataChangeSuccessfully");
 
-		$timeout(function () {
-			$location.url('/TargetTemplate/Index');
-		}, 2000);
-	};
-	var errorAddTargetTemplate = function (response, status) {
-		if (status === 405) {
-			ErrorService.errorHandle(status);
+	var successAddTargetTemplate = function (response) {
+		if (response.data !== "") {
+			$scope.errors = response.data;
 		}
 		else {
-			notificationFactory.error("ErrorMessage");
+			$location.url('/TargetTemplate/Index');
+		}
+
+	};
+	var errorAddTargetTemplate = function (response) {
+		if (response.status === 405) {
+			ErrorService.errorHandle(response.status);
+		}
+		else {
+			notificationFactory.error('ErrorMessage');
 		}
 	};
 
@@ -534,7 +571,9 @@ targetTemplateUtility) {
 	// Submit
 	$scope.addTargetTemplate = function (template) {
 		$scope.submitted = true;
-
+		if (template.targetTypeId === undefined) {
+			template.targetTypeId = null;
+		}
 		if (targetTemplateUtility.targetTemplateValidation(template)) {
 			targetTemplateFactory.addTargetTemplate(template).then(successAddTargetTemplate, errorAddTargetTemplate);
 		}

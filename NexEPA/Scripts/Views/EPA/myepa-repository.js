@@ -23,7 +23,13 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 		},
 		addEmployeeEPA: function (employeeEPAResult) {
 			var deferred = $q.defer();
-			$http.post('/api/EmployeeEPA/AddEmployeeEPA', employeeEPAResult).success(deferred.resolve).error(deferred.reject);
+			var response = {};
+			$http.post('/api/EmployeeEPA/AddEmployeeEPA', employeeEPAResult)
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
+			}).error(function (data, status) {
+				deferred.reject(response = { status: status });
+			});
 			return deferred.promise;
 		},
 		getEPAOfCurrentMember: function (projectId, status) {
@@ -63,10 +69,10 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 			var deferred = $q.defer();
 			var response = {};
 			$http.post('/api/EmployeeEPA/UpdateEPAStatus', employeeEPA)
-			.success(function (data, status) {
-				deferred.resolve(response = { data: data, status: status });
+			.success(function (data) {
+				deferred.resolve(response = { data: data });
 			}).error(function (data, status) {
-				deferred.reject(status);
+				deferred.reject(response = { status: status });
 			});
 			return deferred.promise;
 		},

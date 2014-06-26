@@ -73,7 +73,7 @@ namespace NexEPA.Controllers.API
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
+                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -93,12 +93,7 @@ namespace NexEPA.Controllers.API
             if (currentUserId == employeeId)
             {
                 epaInfo = GetEPAInformation(targetId, employeeId);
-                if (epaInfo != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, epaInfo);
-                }
-
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return Request.CreateResponse(HttpStatusCode.OK, epaInfo);
             }
             else
             {
