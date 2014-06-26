@@ -67,7 +67,7 @@ namespace NexEPA.Organization.Models
                 {
                     foreach (var p in Personal)
                     {
-                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Self, p.EmployeeId);
+                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Self, -1);
                     }
                 }
 

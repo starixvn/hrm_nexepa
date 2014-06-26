@@ -134,12 +134,12 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 	var successUpdateEPAStatus = function (response) {
 		if (response.data !== "") {
-			notificationFactory.error('', response.data);
+			errorUpdateEPAStatus(response);
 		}
 		else {
 			notificationFactory.success('SuccessSaveData', '');
+			checkStatus(newEPAStatus);
 		}
-		checkStatus(newEPAStatus);
 	};
 
 	var errorUpdateEPAStatus = function (response) {
