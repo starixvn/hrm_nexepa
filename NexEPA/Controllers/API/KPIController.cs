@@ -47,8 +47,8 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageKPI, Policy = Policy.Read)]
         public List<KPIViewModel> ViewKPI(
-            int? targetTypeId = null, 
-            int? groupId = null, 
+            int? targetTypeId = null,
+            int? groupId = null,
             bool? isDisabled = null)
         {
             var getKPIByGroupIdCriteria = new GetKPICriteria

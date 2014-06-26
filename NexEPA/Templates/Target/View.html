@@ -57,7 +57,7 @@
             </th>
             <th data-translate="Status">
             </th>
-            <th data-translate="EPAs" ng-if="permissionMemberEPA.policy >= 1">
+            <th data-translate="ProjectEPAStatistic" ng-if="permissionMemberEPA.policy >= 1">
             </th>
             <th data-translate="StartDate">
             </th>
@@ -99,9 +99,12 @@
                         </ul>
                     </span><span ng-if="permission.policy == 1" ng-bind="target.statusName"></span>
                 </td>
-                <td ng-if="permissionMemberEPA.policy >= 1">
-                    <a data-translate="MemberEPA" href="" ng-href="{{viewMemberEPAUrl}}" ng-click="viewMemberEPA(target.targetId)"
-                        title="View Member EPA" />
+                <td class="text-center" ng-if="permissionMemberEPA.policy >= 1">
+                    <a href="" ng-href="{{viewOpenEPAUrl}}" ng-click="viewOpenEPA(target.targetId)" 
+						title="View Open EPA" ng-bind="target.totalOpenEPA" />
+					<span> / </span>
+					<a href="" ng-href="{{viewAllEPAUrl}}" ng-click="viewAllEPA(target.targetId)"
+                        title="View all EPA" ng-bind="target.totalEPA" />
                 </td>
                 <td class="text-center" ng-bind="target.startDate">
                 </td>

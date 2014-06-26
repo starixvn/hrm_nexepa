@@ -14,7 +14,7 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					groupId: filter.groupId,
 					projectId: filter.projectId
 				}
-				});
+			});
 		}
 	};
 } ]);

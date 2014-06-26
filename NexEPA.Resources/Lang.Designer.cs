@@ -1285,7 +1285,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening /Total EPA.
+        ///   Looks up a localized string similar to Open /Total EPA.
         /// </summary>
         public static string ProjectEPAStatistic {
             get {

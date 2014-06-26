@@ -25,15 +25,15 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 		};
 
 		common.validateGroup = function (group) {
-			if (group === undefined) {
+			if (!group) {
 				return false;
 			}
 			else {
-				if (group.name === undefined || group.name === null) {
+				if (!group.name) {
 					return false;
 				}
 
-				if (group.targetTypeId === undefined || group.targetTypeId === null) {
+				if (!group.targetTypeId) {
 					return false;
 				}
 			}
@@ -41,15 +41,15 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 			return true;
 		};
 
-		common.validateKPI = function (item) {
-			if (item === undefined) {
+		common.validateKPI = function (kpi) {
+			if (!kpi) {
 				return false;
 			}
 			else {
-				if (item.name === undefined || item.name === null) {
+				if (!kpi.name) {
 					return false;
 				}
-				else if (common.validateAndCreateStringKPIGroupId(item) === false) {
+				else if (!common.validateAndCreateStringKPIGroupId(kpi)) {
 					return false;
 				}
 			}
@@ -58,7 +58,7 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 		};
 
 		common.validateAndCreateStringKPIGroupId = function (item) {
-			if (item.kpiGroupIds === null || item.kpiGroupIds === undefined || item.kpiGroupIds.length === 0) {
+			if (!item.kpiGroupIds || item.kpiGroupIds.length === 0) {
 				return false;
 			}
 
@@ -69,11 +69,11 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 		common.showMessageAfterValidateKPI = function ($scope) {
 			$scope.$watchCollection('[submitted, form.$invalid, \
 				form.itemGroupSelect.$error.required, form.itemName.$error.required ]', function (newVals) {
-					if (newVals[0] === true && newVals[1] === true) {
-						if (newVals[3] === true) {
+					if (newVals[0] && newVals[1]) {
+						if (newVals[3]) {
 							notificationFactory.error("TitleRequire");
 						}
-						if (newVals[2] === true) {
+						if (newVals[2]) {
 							notificationFactory.error("GroupRequire");
 						}
 
@@ -85,11 +85,11 @@ kpiSettingModule.factory('KPICommonRepository', ['$http', '$q', '$translate', 'n
 		common.showMessageAfterValidateKPIGroup = function ($scope) {
 			$scope.$watchCollection('[submitted, form.$invalid, form.groupName.$error.required, form.groupSelect.$error.required ]',
 			function (newVals) {
-				if (newVals[0] === true && newVals[1] === true) {
-					if (newVals[2] === true) {
+				if (newVals[0] && newVals[1]) {
+					if (newVals[2]) {
 						notificationFactory.error("NameRequire");
 					}
-					if (newVals[3] === true) {
+					if (newVals[3]) {
 						notificationFactory.error("FormRequire");
 					}
 

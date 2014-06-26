@@ -75,6 +75,8 @@ namespace NexEPA.Target.Services.Implement
                         StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
                         NumberKPI = rawTarget.KPIs,
                         NumberMember = rawTarget.Members,
+                        TotalEPA = rawTarget.TotalEPA,
+                        TotalOpenEPA = rawTarget.TotalOpenEPA,
                         TargetType = rawTarget.TargetType,
                         Project = rawTarget.Project,
                         Milestone = rawTarget.Milestone

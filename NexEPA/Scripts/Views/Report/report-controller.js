@@ -5,7 +5,7 @@ reportModule.controller('ViewEmployeePerformanceTendencyController',
 ['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService',
 function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService) {
 
-	var employeeId = parseInt($routeParams.employeeId);
+	$scope.employeeId = parseInt($routeParams.employeeId);
 
 	$scope.report = {
 		generalInformation: '',
@@ -16,7 +16,6 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		searchKey: ''
 	};
 
-	// get all employee by current user
 	$scope.getEmployee = function (searchKey) {
 		employeeRepository.getEmployeeByCurrentUserId(searchKey, null).success(function (employees) {
 			$scope.searchEmployees = employees;
@@ -42,7 +41,6 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		});
 	};
 
-	// get Employee Performance Tendency report
 	var getEmployeeReport = function (employee, employeeId) {
 		if (employee) {
 			employeeId = employee.employeeId;
@@ -53,11 +51,11 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 	};
 
+	getEmployeeReport(null, $scope.employeeId);
+
 	$scope.getReport = function (employee) {
 		getEmployeeReport(employee);
 	};
-
-	getEmployeeReport(null, employeeId);
 
 	$scope.reload = function () {
 		$route.reload();
@@ -78,15 +76,23 @@ reportModule.controller('EmployeeHistoryProjectController', ['$scope', function 
 	};
 
 	$scope.EPADetail = function (targetId) {
-		$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + $scope.employee.employeeId;
+		if ($scope.employee) {
+			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' +
+					$scope.employee.employeeId;
+		}
+		else if ($scope.employeeId) {
+			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' +
+					$scope.employeeId;
+		}
 	};
 } ]);
 
 // View Employee Performance By Team Controller
 reportModule.controller('ViewEmployeePerformanceByTeamController',
-['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository', 'employeeEPAFactory',
-'ErrorService',
-function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository, employeeEPAFactory, ErrorService) {
+['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
+'employeeEPAFactory', 'ErrorService',
+function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
+employeeEPAFactory, ErrorService) {
 
 	var fromDate = new Date();
 	fromDate.setMonth(fromDate.getMonth() - 3);
@@ -102,7 +108,6 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 		searchKey: ''
 	};
 
-	// get all employee by target Id 
 	$scope.getEmployee = function (searchKey) {
 		employeeRepository.getEmployeeByCurrentUserId(searchKey).success(function (employees) {
 			$scope.searchEmployees = employees;
@@ -111,15 +116,12 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 		});
 	};
 
-	// get all project to filter
 	employeeEPAFactory.getAllProject().then(function (projectList) {
 		$scope.projectOptions = projectList;
 	});
 
-	// get Date Format
 	commonFactory.getDateFormat($scope);
 
-	// get all Group
 	employeeRepository.getAllGroup().success(function (groupList) {
 		$scope.groupOptions = groupList;
 	}).error(function () {
@@ -146,7 +148,6 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 		$scope.isCollapsed = !$scope.isCollapsed;
 	};
 
-	// Get employee performance by team report
 	var getEmployeePerformanceByTeamReport = function (filter) {
 		var fromDate = filter.fromDate,
 			toDate = filter.toDate,
@@ -159,7 +160,8 @@ function ($scope, $route, $location, reportFactory, notificationFactory, commonF
 			employeeId = $scope.employee.employeeId;
 		}
 
-		reportFactory.getEmployeePerformanceByTeamReport(filter, fromDate, toDate, employeeId).success(function (report) {
+		reportFactory.getEmployeePerformanceByTeamReport(filter, fromDate, toDate, employeeId)
+		.success(function (report) {
 			if (report != null) {
 				$scope.reportByProject = report.reportByProject;
 			}

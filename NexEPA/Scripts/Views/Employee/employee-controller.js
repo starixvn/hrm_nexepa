@@ -1,12 +1,11 @@
 ﻿/* global employeeModule */
 'use strict';
 
-employeeModule.controller("ViewAllEmployeeController", ['$scope', '$translate', '$route', 'employeeRepository',
-	'employeeCacheFactory', 'notificationFactory', 'commonFactory',
-function ($scope, $translate, $route, employeeRepository, employeeCacheFactory,
-notificationFactory, commonFactory) {
-	// Scope variable
-	$scope.entrySelected = 15;
+employeeModule.controller("ViewAllEmployeeController",
+['$scope', '$translate', '$route', 'employeeRepository', 'employeeCacheFactory', 'notificationFactory', 'commonFactory',
+function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, notificationFactory, commonFactory) {
+
+	$scope.entrySelected = 20;
 
 	var getEmployee = function (keyword, groupId) {
 		employeeRepository.getAllEmployee(keyword, groupId).success(function (employees) {
@@ -39,7 +38,6 @@ notificationFactory, commonFactory) {
 		});
 	}
 
-	// when filter data
 	$scope.query = function (filter) {
 		if (filter) {
 			getEmployee(filter.keyword, filter.groupId);
@@ -49,7 +47,6 @@ notificationFactory, commonFactory) {
 		}
 	};
 
-	// reload
 	$scope.reload = function () {
 		$route.reload();
 	};
@@ -57,5 +54,4 @@ notificationFactory, commonFactory) {
 	$scope.showEntries = function () {
 		commonFactory.tablePagination($scope, $scope.employees, $scope.entrySelected);
 	};
-
 } ]);

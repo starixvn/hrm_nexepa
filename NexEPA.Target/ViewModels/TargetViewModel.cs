@@ -36,6 +36,10 @@ namespace NexEPA.Target.ViewModels
 
         public int NumberMember { get; set; }
 
+        public int TotalOpenEPA { get; set; }
+
+        public int TotalEPA { get; set; }
+
         public TargetType TargetType { get; set; }
 
         public ProjectModel Project { get; set; }

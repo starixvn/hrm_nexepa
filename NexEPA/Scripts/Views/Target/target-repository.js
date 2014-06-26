@@ -60,127 +60,128 @@ targetModule.factory('targetCacheFactory', ['$cacheFactory', function ($cacheFac
 	return $cacheFactory('targetCache');
 }]);
 
-targetModule.factory('targetUtility', ['$translate', 'targetFactory', 'targetCacheFactory', 'notificationFactory',
-	function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
-		var utility = {};
+targetModule.factory('targetUtility', 
+['$translate', 'targetFactory', 'targetCacheFactory', 'notificationFactory',
+function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
+	var utility = {};
 
-		utility.getAllProject = function ($scope, projectId) {
-				targetFactory.getAllProject(projectId).success(function (projectList) {
-				$scope.projectOptions = projectList;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
+	utility.getAllProject = function ($scope, projectId) {
+			targetFactory.getAllProject(projectId).success(function (projectList) {
+			$scope.projectOptions = projectList;
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	utility.getMilestone = function (projectId, $scope) {
+		targetFactory.getMilestoneOfProject(projectId).success(function (milestoneList) {
+			$scope.milestoneOptions = milestoneList;
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	utility.getFormOptions = function ($scope, KPICommonRepository) {
+		var formOptionsCache = targetCacheFactory.get("formOptions");
+
+		if (formOptionsCache) {
+			$scope.formOptions = formOptionsCache;
+		}
+		else {
+			KPICommonRepository.getFormOptionsExceptAll().then(function (listTargetType) {
+				$scope.formOptions = listTargetType;
+				targetCacheFactory.put("formOptions", listTargetType);
 			});
-		};
+		}
+	};
 
-		utility.getMilestone = function (projectId, $scope) {
-			targetFactory.getMilestoneOfProject(projectId).success(function (milestoneList) {
-				$scope.milestoneOptions = milestoneList;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
-			});
-		};
+	utility.getAllStatus = function ($scope) {
+		targetFactory.getAllStatus().success(function (statusList) {
+			$scope.statusOptions = statusList;
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
 
-		utility.getFormOptions = function ($scope, KPICommonRepository) {
-			var formOptionsCache = targetCacheFactory.get("formOptions");
-
-			if (formOptionsCache) {
-				$scope.formOptions = formOptionsCache;
-			}
-			else {
-				KPICommonRepository.getFormOptionsExceptAll().then(function (listTargetType) {
-					$scope.formOptions = listTargetType;
-					targetCacheFactory.put("formOptions", listTargetType);
-				});
-			}
-		};
-
-		utility.getAllStatus = function ($scope) {
-			targetFactory.getAllStatus().success(function (statusList) {
-				$scope.statusOptions = statusList;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
-			});
-		};
-
-		utility.validateTarget = function (target) {
-			if (target === undefined) {
+	utility.validateTarget = function (target) {
+		if (!target) {
+			return false;
+		}
+		else {
+			if (!target.name) {
 				return false;
 			}
-			else {
-				if (target.name === undefined) {
-					return false;
-				}
-				else if (target.projectId === undefined || target.projectId === null) {
-					return false;
-				}
+			else if (!target.projectId) {
+				return false;
 			}
+		}
 
-			return true;
-		}; 
+		return true;
+	}; 
 
-		utility.showMessageAfterValidate = function ($scope) {
-			$scope.$watchCollection('[submitted, createForm.$invalid, createForm.targetName.$error.required, \
-				createForm.targetProjectSelect.$error.required ]', function (newVals) {
-					if (newVals[0] === true && newVals[1] === true) {
-						if (newVals[3] === true) {
-							notificationFactory.error("ProjectRequire");
-						}
-						if (newVals[2] === true) {
-							notificationFactory.error("NameRequire");
-						}
-
-						$scope.submitted = false;
+	utility.showMessageAfterValidate = function ($scope) {
+		$scope.$watchCollection('[submitted, createForm.$invalid, createForm.targetName.$error.required, \
+			createForm.targetProjectSelect.$error.required ]', function (newVals) {
+				if (newVals[0] && newVals[1]) {
+					if (newVals[3]) {
+						notificationFactory.error("ProjectRequire");
 					}
-				});
-		};
+					if (newVals[2]) {
+						notificationFactory.error("NameRequire");
+					}
 
-		utility.resetProjectInformation = function ($scope) {
-			$scope.formIsProject = false;
-			$scope.isSelectedProject = false;
+					$scope.submitted = false;
+				}
+			});
+	};
 
-			$scope.target.projectId = null;
-			$scope.target.milestoneId = null;
-		};
+	utility.resetProjectInformation = function ($scope) {
+		$scope.formIsProject = false;
+		$scope.isSelectedProject = false;
 
-		utility.getTabHeading = function ($scope) {
-			var targetInformationsHeadingCache = targetCacheFactory.get("targetInformationsHeading");
+		$scope.target.projectId = null;
+		$scope.target.milestoneId = null;
+	};
 
-			if (targetInformationsHeadingCache) {
-				$scope.targetInformationsHeading = targetInformationsHeadingCache;
-			}
-			else {
-				$translate("TargetInformation").then(function (message) {
-					$scope.targetInformationHeading = message;
-					targetCacheFactory.put("targetInformationHeading", message);
-				});
-			}
+	utility.getTabHeading = function ($scope) {
+		var targetInformationsHeadingCache = targetCacheFactory.get("targetInformationsHeading");
 
-			var targetMembersHeadingCache = targetCacheFactory.get("targetMembersHeading");
+		if (targetInformationsHeadingCache) {
+			$scope.targetInformationsHeading = targetInformationsHeadingCache;
+		}
+		else {
+			$translate("TargetInformation").then(function (message) {
+				$scope.targetInformationHeading = message;
+				targetCacheFactory.put("targetInformationHeading", message);
+			});
+		}
 
-			if (targetMembersHeadingCache) {
-				$scope.targetMembersHeading = targetMembersHeadingCache;
-			}
-			else {
-				$translate("TargetMembers").then(function (message) {
-					$scope.targetMembersHeading = message;
-					targetCacheFactory.put("targetMembersHeading", message);
-				});
-			}
+		var targetMembersHeadingCache = targetCacheFactory.get("targetMembersHeading");
 
-			var targetKPIHeadingCache = targetCacheFactory.get("targetKPIHeading");
+		if (targetMembersHeadingCache) {
+			$scope.targetMembersHeading = targetMembersHeadingCache;
+		}
+		else {
+			$translate("TargetMembers").then(function (message) {
+				$scope.targetMembersHeading = message;
+				targetCacheFactory.put("targetMembersHeading", message);
+			});
+		}
 
-			if (targetKPIHeadingCache) {
-				$scope.targetKPIHeading = targetKPIHeadingCache;
-			}
-			else {
-				$translate("TargetKPI").then(function (message) {
-					$scope.targetKPIHeading = message;
-					targetCacheFactory.put("targetKPIHeading", message);
-				});
-			}
-		};
+		var targetKPIHeadingCache = targetCacheFactory.get("targetKPIHeading");
 
-		return utility;
-	} ]);
+		if (targetKPIHeadingCache) {
+			$scope.targetKPIHeading = targetKPIHeadingCache;
+		}
+		else {
+			$translate("TargetKPI").then(function (message) {
+				$scope.targetKPIHeading = message;
+				targetCacheFactory.put("targetKPIHeading", message);
+			});
+		}
+	};
+
+	return utility;
+} ]);
 
 

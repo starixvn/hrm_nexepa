@@ -22,7 +22,8 @@
                         <a class="dropdown-toggle changeStatus" href="" ng-bind="historyProject.project.name" title="View Target"/>
                         <ul class="dropdown-menu dropdown-menu-width">
                             <li ng-repeat="target in historyProject.targetList">
-                                <a href="" ng-bind="target.name" ng-click="EPADetail(target.targetId)" ng-href={{viewEPADetailUrl}} title="View EPA of '{{target.name}}' target">
+                                <a href="" ng-bind="target.name" ng-click="EPADetail(target.targetId)" 
+										ng-href={{viewEPADetailUrl}} title="View EPA of '{{target.name}}' target">
                                 </a>
                             </li>
                         </ul>

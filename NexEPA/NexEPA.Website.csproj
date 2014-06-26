@@ -174,7 +174,9 @@
     <Compile Include="Controllers\API\ReportController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\CoreController.cs" />
-    <Compile Include="Controllers\API\KPIController.cs" />
+    <Compile Include="Controllers\API\KPIController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Controllers\API\KPIGroupController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>

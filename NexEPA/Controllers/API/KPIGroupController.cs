@@ -43,7 +43,7 @@ namespace NexEPA.Controllers.API
         }
 
         public KPIGroupController(
-            IKPIGroupService kpiGroupService, 
+            IKPIGroupService kpiGroupService,
             IEPAService epaService,
             ICommonService commonService)
         {
