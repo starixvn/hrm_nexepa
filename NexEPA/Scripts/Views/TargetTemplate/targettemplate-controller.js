@@ -197,7 +197,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 
 	var successUpdateTargetTemplate = function (response) {
 		if (response.data !== "") {
-			$scope.errors = response.data;
+			notificationFactory.error('', response.data);
 		}
 		else {
 			notificationFactory.success('SuccessSaveData', '');
@@ -206,7 +206,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 
 	var successRemoveKPIGroup = function (response) {
 		if (response.data !== "") {
-			$scope.errors = response.data;
+			notificationFactory.error('', response.data);
 		}
 		else {
 			notificationFactory.success('SuccessSaveData', '');
@@ -325,7 +325,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 	$scope.addKPIGroup = function () {
 		var successAddKPIGroups = function (response) {
 			if (response.data !== "") {
-				$scope.errors = response.data;
+				notificationFactory.error('', response.data);
 			}
 			else {
 				notificationFactory.success('SuccessSaveData', '');
@@ -571,9 +571,6 @@ targetTemplateUtility) {
 	// Submit
 	$scope.addTargetTemplate = function (template) {
 		$scope.submitted = true;
-		if (template.targetTypeId === undefined) {
-			template.targetTypeId = null;
-		}
 		if (targetTemplateUtility.targetTemplateValidation(template)) {
 			targetTemplateFactory.addTargetTemplate(template).then(successAddTargetTemplate, errorAddTargetTemplate);
 		}
