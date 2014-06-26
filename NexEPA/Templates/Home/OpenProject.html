@@ -1,45 +1,49 @@
 ﻿<div ng-controller="OpenProjectController">
     <div class="row boxtitle first" ng-click="collapseTable()">
-        <span class="home-label" data-translate="OpenProject" ></span>
+        <span class="home-label" data-translate="OpenProject"></span>
     </div>
-
     <div class="row" collapse="isCollapsed">
         <table class="table table-bordered table-striped target-member-table">
             <thead>
-                <th data-translate="SymbolCount">
-                </th>
-                <th data-translate="Project">
-                </th>
-                <th data-translate="ProjectManager">
-                </th>
-                <th data-translate="StartDate">
-                </th>
-                <th data-translate="EndDate">
-                </th>
-                <th data-translate="Role">
-                </th>
+                <tr>
+                    <th data-translate="SymbolCount">
+                    </th>
+                    <th data-translate="Project">
+                    </th>
+                    <th data-translate="ProjectManager">
+                    </th>
+                    <th data-translate="StartDate">
+                    </th>
+                    <th data-translate="EndDate">
+                    </th>
+                    <th data-translate="Role">
+                    </th>
+                </tr>
             </thead>
-            <tr ng-repeat="openProject in dashboradInformation.openProjects">
-                <td class="home-index" ng-bind="$index + 1">
-                </td>
-                <td class="home-vertical-center" ng-bind="openProject.project.name">
-                </td>
-                <td class="home-vertical-center">
-                    <span ng-bind="openProject.evaluator.nickName" tooltip={{openProject.evaluator.fullName}}></span>
-                </td>
-                <td class="home-center">
-                    {{openProject.project.startDate | customDate}}
-                </td>
-                <td class="home-center">
-                    {{openProject.project.endDate | customDate}}
-                </td>
-                <td class="home-role" ng-bind="openProject.roles">
-                </td>
-            </tr>
-            <tr ng-show="dashboradInformation.openProjects == ''">
-                <td class="empty-result" colspan="6" data-translate="EmptyResult">
-                </td>
-            </tr>
+            <tbody>
+                <tr ng-repeat="openProject in dashboradInformation.openProjects">
+                    <td class="home-index" ng-bind="$index + 1">
+                    </td>
+                    <td class="home-vertical-center" ng-bind="openProject.project.name">
+                    </td>
+                    <td class="home-vertical-center">
+                        <span ng-bind="openProject.evaluator.nickName" tooltip="{{openProject.evaluator.fullName}}">
+                        </span>
+                    </td>
+                    <td class="home-center">
+                        {{openProject.project.startDate | customDate}}
+                    </td>
+                    <td class="home-center">
+                        {{openProject.project.endDate | customDate}}
+                    </td>
+                    <td class="home-role" ng-bind="openProject.roles">
+                    </td>
+                </tr>
+                <tr ng-show="dashboradInformation.openProjects == ''">
+                    <td class="empty-result" colspan="6" data-translate="EmptyResult">
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>

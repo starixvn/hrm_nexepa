@@ -2,46 +2,66 @@
     <div class="row boxtitle" ng-click="collapseTable()">
         <span class="home-label" data-translate="ProjectHistory"></span>
     </div>
-
     <div class="row" collapse="isCollapsed">
         <table class="table table-bordered table-striped history-table">
             <thead>
-                <th data-translate="SymbolCount"></th>
-                <th data-translate="Project"></th>
-                <th data-translate="ProjectManager"></th>
-                <th data-translate="StartDate"></th>
-                <th data-translate="EndDate"></th>
-                <th data-translate="AverageScore"></th>
-                <th data-translate="Role"></th>
-                <th data-translate="ProjectManagerComment"></th>
+                <tr>
+                    <th data-translate="SymbolCount">
+                    </th>
+                    <th data-translate="Project">
+                    </th>
+                    <th data-translate="ProjectManager">
+                    </th>
+                    <th data-translate="StartDate">
+                    </th>
+                    <th data-translate="EndDate">
+                    </th>
+                    <th data-translate="AverageScore">
+                    </th>
+                    <th data-translate="Role">
+                    </th>
+                    <th data-translate="ProjectManagerComment">
+                    </th>
+                </tr>
             </thead>
-            <tr ng-repeat="historyProject in dashboradInformation.historyProjects">
-                <td class="home-index" ng-bind="$index + 1"></td>
-                <td>
-                    <span class="dropdown">
-                        <a class="dropdown-toggle changeStatus" href="" ng-bind="historyProject.project.name" title="View Target"/>
-                        <ul class="dropdown-menu dropdown-menu-width">
-                            <li ng-repeat="target in historyProject.targetList">
-                                <a href="" ng-bind="target.name" ng-click="EPADetail(target.targetId)" ng-href={{viewEPADetailUrl}} title="View EPA of '{{target.name}}' target">
-                                </a>
-                            </li>
-                        </ul>
-                    </span>
-                </td>
-                <td class="home-vertical-center">
-                    <span ng-bind="historyProject.evaluator.nickName" tooltip={{historyProject.evaluator.fullName}}></span>
-                </td>
-                <td class="home-center">{{historyProject.project.startDate | customDate}}</td>
-                <td class="home-center">{{historyProject.project.endDate | customDate}}</td>
-                <td class="home-score" ng-bind="historyProject.score"></td>
-                <td class="home-role" ng-bind="historyProject.roles"></td>
-                <td class="home-comment">
-                    <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></span>
-                </td>
-            </tr>
-            <tr ng-show="dashboradInformation.historyProjects == ''">
-                    <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
-           </tr>
+            <tbody>
+                <tr ng-repeat="historyProject in dashboradInformation.historyProjects">
+                    <td class="home-index" ng-bind="$index + 1">
+                    </td>
+                    <td>
+                        <span class="dropdown"><a class="dropdown-toggle changeStatus" href="" ng-bind="historyProject.project.name"
+                            title="View Target" />
+                            <ul class="dropdown-menu dropdown-menu-width">
+                                <li ng-repeat="target in historyProject.targetList"><a href="" ng-bind="target.name"
+                                    ng-click="EPADetail(target.targetId)" ng-href="{{viewEPADetailUrl}}" title="View EPA of '{{target.name}}' target">
+                                </a></li>
+                            </ul>
+                        </span>
+                    </td>
+                    <td class="home-vertical-center">
+                        <span ng-bind="historyProject.evaluator.nickName" tooltip="{{historyProject.evaluator.fullName}}">
+                        </span>
+                    </td>
+                    <td class="home-center">
+                        {{historyProject.project.startDate | customDate}}
+                    </td>
+                    <td class="home-center">
+                        {{historyProject.project.endDate | customDate}}
+                    </td>
+                    <td class="home-score" ng-bind="historyProject.score">
+                    </td>
+                    <td class="home-role" ng-bind="historyProject.roles">
+                    </td>
+                    <td class="home-comment">
+                        <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate
+                            tooltip="{{historyProject.comment}}"></span>
+                    </td>
+                </tr>
+                <tr ng-show="dashboradInformation.historyProjects == ''">
+                    <td class="empty-result" colspan="8" data-translate="EmptyResult">
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>
