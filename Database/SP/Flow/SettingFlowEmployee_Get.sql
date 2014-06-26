@@ -1,8 +1,10 @@
 USE [NexEPA]
 GO
+
 /****** Object:  StoredProcedure [dbo].[SettingFlowDepartment_Get]    Script Date: 6/18/2014 4:14:13 PM ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -29,7 +31,16 @@ BEGIN
 		,e.NickName
 		,e.FullName
 		,e.Email
-	FROM dbo.SettingEmployeeFlow AS ef WITH (NOLOCK)
+	FROM (
+		SELECT (CASE 
+				WHEN EvaluatorId = - 1 THEN @EmployeeId
+				ELSE EvaluatorId END
+				) AS EvaluatorId,
+				ProcessId,
+				[Priority],
+				EmployeeId
+		FROM dbo.SettingEmployeeFlow WITH (NOLOCK)
+		) AS ef
 		LEFT JOIN dbo.Employee AS e WITH (NOLOCK) ON ef.EvaluatorId = e.EmployeeId
 	WHERE ef.EmployeeId = @EmployeeId
 END
