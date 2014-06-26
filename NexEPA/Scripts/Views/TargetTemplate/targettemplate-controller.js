@@ -542,7 +542,7 @@ targetTemplateUtility) {
 
 	var successAddTargetTemplate = function (response) {
 		if (response.data !== "") {
-			$scope.errors = response.data;
+			notificationFactory.error('', response.data);
 		}
 		else {
 			$location.url('/TargetTemplate/Index');
