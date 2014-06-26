@@ -111,6 +111,7 @@ KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 				if (response.isSuccessful === true) {
 					var index = $scope.KPIList.indexOf(item);
 					$scope.KPIList.splice(index, 1);
+					commonFactory.tablePagination($scope, $scope.KPIList, $scope.entrySelected);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {

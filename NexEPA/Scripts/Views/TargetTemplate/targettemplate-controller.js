@@ -1,16 +1,6 @@
 ﻿/* global targetTemplateModule */
 'use strict';
 
-var targetTemplateValidation = function (name, targetTypeId) {
-	var error = $("#targetTemplateValid");
-	if (targetTypeId !== null && (name !== "")) {
-		error.hide();
-		return true;
-	}
-	error.show();
-	return false;
-};
-
 // Show warning message if total Weight of all KPI in KPI Group is greater than 100 %
 var showWarningWeightMessage = function (kpiIds, notificationFactory) {
 	var totalWeight = 0;
@@ -161,10 +151,10 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 } ]);
 
 targetTemplateModule.controller('EditTargetTemplateController',
-['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory',
-'$modal', 'tabService', 'notificationFactory', '$timeout', 'ErrorService',
-function ($scope, $routeParams, $window, $location, targetTemplateFactory,
-$modal, tabService, notificationFactory, $timeout, ErrorService) {
+['$scope', '$routeParams', '$window', '$location', 'targetTemplateFactory', '$modal', 'tabService',
+'notificationFactory', '$timeout', 'ErrorService', 'targetTemplateUtility',
+function ($scope, $routeParams, $window, $location, targetTemplateFactory, $modal, tabService,
+notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 	/**
 	* Variables. 
 	*/
@@ -241,10 +231,14 @@ $modal, tabService, notificationFactory, $timeout, ErrorService) {
 	/**
 	* Events. 
 	*/
+	targetTemplateUtility.showMessageAfterValidate($scope);
+
 	$scope.cancel = function () { $window.history.back(); };
 
 	$scope.update = function (editTemplate) {
-		if (targetTemplateValidation(editTemplate.name, editTemplate.targetTypeId)) {
+		$scope.submitted = true;
+
+		if (targetTemplateUtility.targetTemplateValidation(editTemplate)) {
 			var selectedKPIs = $scope.selection;
 			var checkSelectedKPIValid = true;
 			var arrayNumber = [];
@@ -498,8 +492,10 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 } ]);
 
 targetTemplateModule.controller('CreateTargetTemplateController',
-['$scope', '$location', '$window', 'targetTemplateFactory',
-function ($scope, $location, $window, targetTemplateFactory) {
+['$scope', '$location', '$window', 'targetTemplateFactory', 'notificationFactory', '$timeout', 'ErrorService',
+'targetTemplateUtility',
+function ($scope, $location, $window, targetTemplateFactory, notificationFactory, $timeout, ErrorService,
+targetTemplateUtility) {
 	/**
 	* Variables. 
 	*/
@@ -509,8 +505,21 @@ function ($scope, $location, $window, targetTemplateFactory) {
 	* Ajax event Loaded. 
 	*/
 	var successGetAllTargetType = function (data) { $scope.tgTypes = data; };
-	var successAddTargetTemplate = function () { $location.url('/TargetTemplate/Index'); };
-	var errorAddTargetTemplate = function (response) { $scope.errors = response; };
+	var successAddTargetTemplate = function () {
+		notificationFactory.success("DataChangeSuccessfully");
+
+		$timeout(function () {
+			$location.url('/TargetTemplate/Index');
+		}, 2000);
+	};
+	var errorAddTargetTemplate = function (response, status) {
+		if (status === 405) {
+			ErrorService.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
+	};
 
 	/**
 	* Initialize data to view Index.
@@ -520,15 +529,14 @@ function ($scope, $location, $window, targetTemplateFactory) {
 	/**
 	* Events 
 	*/
+	targetTemplateUtility.showMessageAfterValidate($scope);
+
 	// Submit
 	$scope.addTargetTemplate = function (template) {
-		if (template == null) {
-			targetTemplateValidation(null, null);
-		}
-		else {
-			if (targetTemplateValidation(template.name, template.targetTypeId)) {
-				targetTemplateFactory.addTargetTemplate(template).then(successAddTargetTemplate, errorAddTargetTemplate);
-			}
+		$scope.submitted = true;
+
+		if (targetTemplateUtility.targetTemplateValidation(template)) {
+			targetTemplateFactory.addTargetTemplate(template).then(successAddTargetTemplate, errorAddTargetTemplate);
 		}
 	};
 

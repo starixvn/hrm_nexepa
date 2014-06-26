@@ -86,3 +86,42 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 		}
 	};
 } ]);
+
+targetTemplateModule.factory('targetTemplateUtility', ['notificationFactory', function (notificationFactory) {
+	var utility = {};
+
+	utility.targetTemplateValidation = function (targetTemplate) {
+		if (!targetTemplate) {
+			return false;
+		}
+		else {
+			if (!targetTemplate.name) {
+				return false;
+			}
+			if (!targetTemplate.targetTypeId) {
+				return false;
+			}
+		}
+
+		return true;
+	};
+
+	utility.showMessageAfterValidate = function (scope) {
+		scope.$watchCollection('[submitted, targetTemplateForm.$invalid, \
+						targetTemplateForm.targetName.$error.required, \
+						targetTemplateForm.targetType.$error.required ]', function (newVals) {
+				if (newVals[0] && newVals[1]) {
+					if (newVals[3]) {
+						notificationFactory.error("TargetTypeRequire");
+					}
+					if (newVals[2]) {
+						notificationFactory.error("NameRequire");
+					}
+
+					scope.submitted = false;
+				}
+			});
+	};
+
+	return utility;
+} ]);

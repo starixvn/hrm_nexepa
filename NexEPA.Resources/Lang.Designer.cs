@@ -1681,6 +1681,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Target Type field is required!.
+        /// </summary>
+        public static string TargetTypeRequire {
+            get {
+                return ResourceManager.GetString("TargetTypeRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Team.
         /// </summary>
         public static string Team {
