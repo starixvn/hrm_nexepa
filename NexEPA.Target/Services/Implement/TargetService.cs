@@ -79,7 +79,8 @@ namespace NexEPA.Target.Services.Implement
                         TotalOpenEPA = rawTarget.TotalOpenEPA,
                         TargetType = rawTarget.TargetType,
                         Project = rawTarget.Project,
-                        Milestone = rawTarget.Milestone
+                        Milestone = rawTarget.Milestone,
+                        ProjectManager = rawTarget.ProjectManager
                     };
 
                     targetList.Add(targetItem);

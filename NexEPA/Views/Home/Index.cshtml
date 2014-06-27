@@ -57,13 +57,12 @@
                 </ul>
             </div>
         </nav>
-		<div class="user-info info" ng-controller="LogoutController">
-			<div class="username">
-				<span ng-mouseover="isShowMenu = !isShowMenu">@ViewBag.User</span>
-			</div>
-			<a class="dropdown-arrow" href="javascript:;" ng-click="isShowMenu = !isShowMenu">
+		<div id="user_utilities" class="user-info info" ng-controller="LogoutController">
+			<h2>@ViewBag.User
+			</h2>
+			<a class="dropdown-arrow" href="javascript:;">
 			</a>
-			<ol ng-show="isShowMenu">
+			<ol>
 				<li>
 					<a href="" ng-click="logout()">Logout</a>
 				</li>

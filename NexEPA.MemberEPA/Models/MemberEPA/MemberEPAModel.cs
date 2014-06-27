@@ -30,6 +30,8 @@ namespace NexEPA.MemberEPA.Models.MyEPA
 
         public string StatusName { get; set; }
 
+        public int Permission { get; set; }
+
         public Target Target { get; set; }
 
         public Project Project { get; set; }

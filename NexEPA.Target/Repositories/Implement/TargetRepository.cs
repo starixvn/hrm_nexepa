@@ -33,15 +33,16 @@ namespace NexEPA.Target.Repositories.Implement
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<TargetModel, TargetType, ProjectModel, MilestoneModel, TargetModel>(
-                    (tm, tt, pro, mi) => 
+                return db.Query<TargetModel, TargetType, ProjectModel, MilestoneModel, EmployeeModel, TargetModel>(
+                    (tm, tt, pro, mi, emp) => 
                     {
                         tm.TargetType = tt;
                         tm.Project = pro;
                         tm.Milestone = mi;
+                        tm.ProjectManager = emp;
                         return tm;
                     },
-                    "TargetTypeId,ProjectId,MilestoneId",
+                    "TargetTypeId,ProjectId,MilestoneId,EmployeeId",
                     criteria.GetSpParams());
             }
         }

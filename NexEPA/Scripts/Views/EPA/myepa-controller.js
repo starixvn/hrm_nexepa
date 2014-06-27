@@ -380,8 +380,16 @@ epaModule.controller('ViewMemberByManagerEPAController',
 function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory, notificationFactory,
 $modal, employeeRepository, linkToEPAService) {
 
-	var targetId = $routeParams.targetId,
-		status = $routeParams.status;
+	var targetId = parseInt($routeParams.targetId),
+		status = parseInt($routeParams.status),
+		isShowAll = $routeParams.isShowAll === "true" ? true : false;
+
+	$scope.filter = {
+		targetId: null,
+		status: null,
+		isShowAll: null,
+		projectId: null
+	};
 
 	targetId = targetId ? parseInt(targetId) : null;
 	status = status ? parseInt(status) : null;
@@ -394,15 +402,18 @@ $modal, employeeRepository, linkToEPAService) {
 
 	var objectQuery = linkToEPAService.getProperty();
 
-	// only SA or PM can see Target filter
 	$scope.$watch("currentUser", function (newValue) {
 		if (newValue) {
 			var roles = newValue.roles;
 
 			$.each(roles, function (index, value) {
 				if (value.name === 'SA' || value.name === 'PM') {
+					// only SA or PM can see Target filter
 					$scope.showTargetFilter = true;
-					return false;
+				}
+				if (value.name === 'SA') {
+					// only SA can see checkbox Show all member EPA
+					$scope.showAllMemberEPA = true;
 				}
 			});
 		}
@@ -415,10 +426,9 @@ $modal, employeeRepository, linkToEPAService) {
 	});
 
 	if (targetId) {
-		$scope.filter = {
-			targetId: targetId,
-			status: status
-		};
+		$scope.filter.targetId = targetId;
+		$scope.filter.status = status;
+		$scope.filter.isShowAll = isShowAll;
 	}
 
 	employeeEPAFactory.getTargetToFilter().then(function (targetList) {
@@ -450,22 +460,6 @@ $modal, employeeRepository, linkToEPAService) {
 		$scope.submitted = false;
 	};
 
-	var successChangeEPAStatus = function (response) {
-		getEPAOfEmployeeByManager(null, null);
-		if (response.data !== "") {
-			notificationFactory.error('', response.data);
-		}
-		else {
-			notificationFactory.success('SuccessSaveData', '');
-		}
-
-	};
-
-	var errorChangeEPAStatus = function (response) {
-		notificationFactory.error('', response);
-		getEPAOfEmployeeByManager(null, null);
-	};
-
 	var errorHandle = function (status) {
 		if (status === 405) {
 			ErrorService.errorHandle(status);
@@ -477,36 +471,29 @@ $modal, employeeRepository, linkToEPAService) {
 		$scope.submitted = false;
 	};
 
-	var getEPAOfEmployeeByManager = function (targetId, projectId, status, employeeId) {
-		employeeEPAFactory.getEPAOfEmployeeByManager(targetId, projectId, status, employeeId).then(successGetEPA, errorHandle);
+	var getEPAOfEmployeeByManager = function (targetId, projectId, status, employeeId, isShowAll) {
+		employeeEPAFactory.getEPAOfEmployeeByManager(targetId, projectId, status, employeeId, isShowAll)
+					.then(successGetEPA, errorHandle);
 	};
 
 	if (objectQuery != null) {
-		if (objectQuery.status != null) {
-			getEPAOfEmployeeByManager(targetId, objectQuery.projectId, objectQuery.status, null);
-		}
-		else {
-			getEPAOfEmployeeByManager(targetId, objectQuery.projectId, null, null);
-		}
+		getEPAOfEmployeeByManager(null, objectQuery.projectId, objectQuery.status, null, objectQuery.isShowAll);
 
 		if ($scope.filter) {
 			$scope.filter.projectId = objectQuery.projectId;
 			$scope.filter.status = objectQuery.status;
-		}
-		else {
-			$scope.filter = {
-				projectId: objectQuery.projectId,
-				status: objectQuery.status
-			};
+			$scope.filter.isShowAll = objectQuery.isShowAll;
 		}
 	}
 	else {
-		getEPAOfEmployeeByManager(targetId, null, status, null);
+		getEPAOfEmployeeByManager(targetId, null, status, null, isShowAll);
 	}
 
-	$scope.query = function (targetId, projectId, status, employeeId) {
-		$scope.submitted = true;
-		getEPAOfEmployeeByManager(targetId, projectId, status, employeeId);
+	$scope.query = function (filter, employeeId) {
+		if (filter) {
+			$scope.submitted = true;
+			getEPAOfEmployeeByManager(filter.targetId, filter.projectId, filter.status, employeeId, filter.isShowAll);
+		}
 	};
 
 	$scope.$watch('search.searchKey', function (newValue) {
@@ -531,6 +518,11 @@ $modal, employeeRepository, linkToEPAService) {
 	};
 
 	$scope.updateEPAStatus = function (epaItem, status) {
+		var updateStatus = angular.copy(epaItem);
+		updateStatus.statusName = status.name;
+		updateStatus.status = status.id;
+		updateStatus.targetId = epaItem.target.targetId;
+
 		var updateEPAModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
@@ -543,11 +535,19 @@ $modal, employeeRepository, linkToEPAService) {
 				}
 			}
 		});
+
 		updateEPAModalInstance.result.then(function () {
-			epaItem.statusName = status.name;
-			epaItem.status = status.id;
-			epaItem.targetId = epaItem.target.targetId;
-			employeeEPAFactory.updateEPAStatus(epaItem).then(successChangeEPAStatus, errorChangeEPAStatus);
+			employeeEPAFactory.updateEPAStatus(updateStatus).then(function (response) {
+				if (response.data !== "") {
+					notificationFactory.error('', response.data);
+				}
+				else {
+					epaItem.statusName = status.name;
+					notificationFactory.success('SuccessSaveData', '');
+				}
+			}, function (response) {
+				notificationFactory.error('', response);
+			});
 		});
 	};
 

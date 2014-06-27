@@ -26,6 +26,8 @@ namespace NexEPA.MemberEPA.Criteria
 
         public int? Status { get; set; }
 
+        public bool? IsShowAll { get; set; }
+
         public override string GetSettingKey()
         {
             return "EPA_GetMemberEPA";

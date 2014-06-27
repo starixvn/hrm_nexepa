@@ -11,6 +11,7 @@
 namespace NexEPA.Target.ViewModels
 {
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
     using NexEPA.Project.Models;
 
     /// <summary>
@@ -45,5 +46,7 @@ namespace NexEPA.Target.ViewModels
         public ProjectModel Project { get; set; }
 
         public MilestoneModel Milestone { get; set; }
+
+        public EmployeeModel ProjectManager { get; set; }
     }
 }

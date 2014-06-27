@@ -6,42 +6,47 @@
 </div>
 <div class="row">
     <form novalidate class="form-inline filter">
-    <div class="form-group">
-        <label data-translate="Employee">
-        </label>
-        <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name"
-            ng-change="getEmployee(search.searchKey)" search-auto-complete search-key="search.searchKey"
-            search-employees="searchEmployees" employee="employee" />
-    </div>
-    <div class="form-group" ng-show="showTargetFilter">
-        <label data-translate="Target">
-        </label>
-        <select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
-            class="form-control">
-            <option value="">-- All --</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label data-translate="Project">
-        </label>
-        <select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
-            class="form-control">
-            <option value="">-- All --</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label data-translate="Status">
-        </label>
-        <select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
-            class="form-control">
-            <option value="">-- All --</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <button class="button" ng-click="query(filter.targetId,filter.projectId,filter.status,employee.employeeId)"
-            ng-disabled="submitted" data-translate="Submit">
-        </button>
-    </div>
+		<div class="form-group">
+			<label data-translate="Employee">
+			</label>
+			<input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name"
+				ng-change="getEmployee(search.searchKey)" search-auto-complete search-key="search.searchKey"
+				search-employees="searchEmployees" employee="employee" />
+		</div>
+		<div class="form-group" ng-if="showTargetFilter">
+			<label data-translate="Target">
+			</label>
+			<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+				class="form-control">
+				<option value="">-- All --</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label data-translate="Project">
+			</label>
+			<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+				class="form-control">
+				<option value="">-- All --</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label data-translate="Status">
+			</label>
+			<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
+				class="form-control">
+				<option value="">-- All --</option>
+			</select>
+		</div>
+		<div class="form-group" ng-if="showAllMemberEPA">
+			<input type="checkbox" ng-model="filter.isShowAll" />
+			<label data-translate="Show all member EPA">
+			</label>
+		</div>
+		<div class="form-group">
+			<button class="button" ng-click="query(filter, employee.employeeId)"
+				ng-disabled="submitted" data-translate="Submit">
+			</button>
+		</div>
     </form>
 </div>
 <div class="row">
@@ -84,14 +89,14 @@
                         ng-href="{{viewEPADetailUrl}}" ng-show="epaItem.score <= 0" />
             </td>
             <td>
-                <span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2"><a
+                <span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epaItem.permission == 2"><a
                     href="javascript:;" class="dropdown-toggle changeStatus">{{epaItem.statusName}}</a>
                     <ul class="dropdown-menu dropdown-menu-width">
                         <li ng-repeat="item in epaStatus | filter:{name:'!'+epaItem.statusName}"><a ng-click="updateEPAStatus(epaItem, item)"
                             href="javascript:;">{{item.name}}</a> </li>
                     </ul>
                 </span>
-                <div class="epa-center" ng-if="permission.policy == 1">
+                <div class="epa-center" ng-if="permission.policy == 1 || epaItem.permission == 1">
                     <span ng-bind="epaItem.statusName"></span>
                 </div>
             </td>

@@ -155,6 +155,7 @@ namespace NexEPA.Controllers.API
         /// <param name="projectId">The project id.</param>
         /// <param name="status">The status.</param>
         /// <param name="employeeId">The employee id.</param>
+        /// <param name="isShowAll">Show all EPA.</param>
         /// <returns>The list Member EPA Model.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMemberEPA, Policy = Policy.Read)]
         [HttpGet]
@@ -162,7 +163,8 @@ namespace NexEPA.Controllers.API
             int? targetId = null,
             int? projectId = null,
             int? status = null,
-            int? employeeId = null)
+            int? employeeId = null,
+            bool? isShowAll = null)
         {
             var criteria = new GetEPAOfAllEmployeeByManagerCriteria
             {
@@ -170,7 +172,8 @@ namespace NexEPA.Controllers.API
                 EmployeeId = employeeId,
                 TargetId = targetId,
                 ProjectId = projectId,
-                Status = status
+                Status = status,
+                IsShowAll = isShowAll
             };
 
             return _memberEPAService.GetEPAOfEmployeeByManager(criteria);

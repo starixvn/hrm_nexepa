@@ -5,9 +5,9 @@
 
 projectsSettingModule.controller('ProjectController',
 ['$scope', '$location', 'projectDataFactory', 'ProjectSettingCache', 'ErrorService', 'tabService',
-'notificationFactory', '$modal', 'linkToEPAService', 'commonFactory',
+'notificationFactory', '$modal', 'linkToEPAService', 'commonFactory', 'employeeEPAFactory',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService,
-notificationFactory, $modal, linkToEPAService, commonFactory) {
+notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory) {
 	/**
 	* Scope Variable. 
 	*/
@@ -165,8 +165,26 @@ notificationFactory, $modal, linkToEPAService, commonFactory) {
 		$scope.status.isopen = !$scope.status.isopen;
 	};
 
+	employeeEPAFactory.getCurrentUser().then(function (currentUser) {
+		$scope.currentUser = currentUser;
+	}, function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	$scope.$watch("currentUser", function (newValue) {
+		if (newValue) {
+			var roles = newValue.roles;
+
+			$.each(roles, function (index, value) {
+				if (value.name === 'SA') {
+					$scope.showAllMemberEPA = true;
+				}
+			});
+		}
+	});
+
 	$scope.linkToEPA = function (projectId, status) {
-		var objectQuery = { projectId: projectId, status: status };
+		var objectQuery = { projectId: projectId, status: status, isShowAll: $scope.showAllMemberEPA };
 		linkToEPAService.setProperty(objectQuery);
 	};
 
