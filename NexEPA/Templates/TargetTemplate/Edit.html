@@ -72,9 +72,8 @@
 									<th class="middle-align" data-translate="Priority">
 									</th>
 							    </thead>
-							    <tbody ng-repeat="kpi in lstKPI | filter: KPIName">
-								    <tr class="row-header">
-										
+							    <tbody ng-repeat="kpi in lstKPI | filter: KPIName" class="kpiItemBody" list-sortable>
+								    <tr class="row-header unsortable">
 									    <td class="text-center row-highlight">
 										    <input type="checkbox" ng-model="kpi.groupSelected" ng-click="checkAllGroup(kpi.groupSelected, kpi)"/>
 									    </td>

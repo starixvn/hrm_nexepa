@@ -699,4 +699,7 @@
   <data name="EPANotAvailable" xml:space="preserve">
     <value>There is no EPA content available !</value>
   </data>
+  <data name="EPARequiredComment" xml:space="preserve">
+    <value>Please input all required comment</value>
+  </data>
 </root>

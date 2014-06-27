@@ -2,7 +2,7 @@
 'use strict';
 
 departmentModule.controller("ManageDepartmentController",
-['$scope', '$window', '$modal', 'departmentDataFactory', 'notificationFactory', 'projectDataFactory','commonFactory', 'ErrorService',
+['$scope', '$window', '$modal', 'departmentDataFactory', 'notificationFactory', 'projectDataFactory', 'commonFactory', 'ErrorService',
 function ($scope, $window, $modal, departmentDataFactory, notificationFactory, projectDataFactory, commonFactory, ErrorService) {
 	/**
 	* Scope Variable. 

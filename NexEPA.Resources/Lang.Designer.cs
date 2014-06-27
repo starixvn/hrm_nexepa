@@ -664,6 +664,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please input all required comment.
+        /// </summary>
+        public static string EPARequiredComment {
+            get {
+                return ResourceManager.GetString("EPARequiredComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EPAs.
         /// </summary>
         public static string EPAs {

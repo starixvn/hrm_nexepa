@@ -12,7 +12,7 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 	* Scope Variable. 
 	*/
 	$scope.createProjectPermission = false;
-	$scope.entrySelected = 15;
+	$scope.entrySelected = 20;
 	/**
 	* Project Setting Cache. 
 	*/

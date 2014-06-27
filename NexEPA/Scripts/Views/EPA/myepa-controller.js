@@ -204,6 +204,9 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			employeeEPAResult.targetId = targetId;
 			employeeEPAFactory.addEmployeeEPA(employeeEPAResult).then(successAddOrUpdateEPA, errorNotify);
 		}
+		else {
+			notificationFactory.error('EPARequiredComment');
+		}
 	};
 
 	//Cancel Rating
