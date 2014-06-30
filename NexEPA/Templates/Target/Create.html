@@ -10,36 +10,47 @@
 <div class="row">
     <form class="col-sm-5 form-horizontal common-form" name="createForm" novalidate>
         <div class="form-group required">
-            <label class="col-sm-3 control-label" data-translate="Name"></label>
+            <label class="col-sm-4 control-label" data-translate="Name"></label>
             <div class="col-sm-8">
                 <input class="form-control" maxlength="500" name="targetName" ng-model="target.name" required type="text"/>
             </div>
         </div>
 
         <div class="form-group required">
-            <label class="col-sm-3 control-label" data-translate="Project"></label>
+            <label class="col-sm-4 control-label" data-translate="Project"></label>
             <div class="col-sm-8">
                  <select name="targetProjectSelect" ng-model="target.projectId"
                     ng-options="opt.id as opt.name for opt in projectOptions"
                     ng-change="projectOnChange(target.projectId)"
                     required class="form-control">
-                    <option value="">-- Select the project --</option>
+                    <option value="">-- Select the Project --</option>
                  </select>
             </div>
         </div>
-        <div class="form-group" ng-show="isSelectedProject">
-            <label class="col-sm-3 control-label" data-translate="Milestone"></label>
+        <div class="form-group" ng-show="isSelectedProject && milestoneOptions">
+            <label class="col-sm-4 control-label" data-translate="Milestone"></label>
             <div class="col-sm-8">
-                 <select name="targetMilestoneSelect" ng-model="target.milestoneId"
+                 <select ng-model="target.milestoneId"
                     ng-options="opt.milestoneId as opt.name for opt in milestoneOptions"
                     ng-change="milestoneOnChange(target.projectId, target.milestoneId)" class="form-control">
-                    <option value="">-- Select the milestone --</option>
+                    <option value="">-- Select the Milestone --</option>
+                 </select>
+            </div>
+        </div>
+
+        <div class="form-group required">
+            <label class="col-sm-4 control-label" data-translate="ProjectManager"></label>
+            <div class="col-sm-8">
+                 <select name="targetProjectManagerSelect" ng-model="target.projectManager"
+                    ng-options="opt.employeeId as opt.nickName + ' (' + opt.fullName + ')' for opt in projectManagerOptions"
+                    class="form-control" required>
+                    <option value="">-- Select the Project Manager --</option>
                  </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label" data-translate="StartDate"></label>
+            <label class="col-sm-4 control-label" data-translate="StartDate"></label>
             <div class="col-sm-8">
                 <input class="calendar-form-control" type="text" ng-model="target.startDate" datepicker-popup="{{dateFormat}}" is-open="calendar.startDateOpened"/>
                 <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
@@ -47,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label" data-translate="EndDate"></label>
+            <label class="col-sm-4 control-label" data-translate="EndDate"></label>
             <div class="col-sm-8">
                 <input class="calendar-form-control" type="text" ng-model="target.endDate" datepicker-popup="{{dateFormat}}" is-open="calendar.endDateOpened"/>
                 <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
@@ -55,14 +66,14 @@
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label" data-translate="Description"></label>
+            <label class="col-sm-4 control-label" data-translate="Description"></label>
             <div class="col-sm-8">
                 <textarea ng-model="target.description" class="form-control" ></textarea>
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-8">
+            <div class="col-sm-offset-4 col-sm-8">
                 <button class="button" ng-click="save(target)" ng-disabled="disabledSubmit" data-translate="Create"></button>
                 <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
             </div>

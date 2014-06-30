@@ -231,9 +231,9 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 // Create Target Controller
 targetModule.controller("CreateTargetController",
 ['$scope', '$timeout', '$location', '$translate', '$window', 'targetFactory', 'targetUtility', 'targetCacheFactory',
-'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory',
+'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory', 'projectDataFactory',
 function ($scope, $timeout, $location, $translate, $window, targetFactory, targetUtility, targetCacheFactory,
-KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
+KPICommonRepository, commonFactory, ErrorService, notificationFactory, projectDataFactory) {
 
 	var targetDate = {
 		projectStartDate: null,
@@ -247,6 +247,10 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
 	commonFactory.getDateFormat($scope);
 
 	targetUtility.getAllProject($scope);
+
+	projectDataFactory.getEmployeeSelectList(3).then(function (projectManagers) {
+		$scope.projectManagerOptions = projectManagers;
+	});
 
 	$scope.projectOnChange = function (projectId) {
 		$scope.isSelectedProject = false;
@@ -263,6 +267,12 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
 				targetDate.projectEndDate = $scope.target.endDate;
 			}).error(function () {
 				notificationFactory.error("ErrorMessage");
+			});
+
+			projectDataFactory.getProjectById(projectId).then(function (project) {
+				$scope.target.projectManager = project.projectManager;
+			}, function (status) {
+				ErrorService.errorHandle(status);
 			});
 		}
 		else {
@@ -310,7 +320,7 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory) {
 
 			targetFactory.createTarget(newTarget).success(function (response) {
 				if (response.isSuccessful === true) {
-					notificationFactory.success("DataChangeSuccessfully"); 
+					notificationFactory.success("DataChangeSuccessfully");
 					$timeout(function () {
 						$location.url('/Target/ViewTarget/');
 					}, 2000);
@@ -395,9 +405,9 @@ function ($scope, $location, $routeParams, $window, targetUtility, targetFactory
 // Target General Information Controller
 targetModule.controller('TargetGeneralInformationController',
 ['$scope', '$routeParams', '$timeout', 'targetFactory', 'targetUtility', 'KPICommonRepository', 'commonFactory',
-'notificationFactory', 'ErrorService',
+'notificationFactory', 'ErrorService', 'projectDataFactory',
 function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommonRepository, commonFactory,
-notificationFactory, ErrorService) {
+notificationFactory, ErrorService, projectDataFactory) {
 
 	var targetId = parseInt($routeParams.id),
 		isEditMode = $routeParams.isEditMode ? true : false;
@@ -432,6 +442,9 @@ notificationFactory, ErrorService) {
 					}
 				}
 
+				if (target.projectManager) {
+					$scope.target.projectManagerId = target.projectManager.employeeId;
+				}
 			})
 			.error(function (response, status) {
 				if (status === 405) {
@@ -445,6 +458,9 @@ notificationFactory, ErrorService) {
 			targetUtility.getFormOptions($scope, KPICommonRepository);
 			commonFactory.getDateFormat($scope);
 			targetUtility.getAllStatus($scope);
+			projectDataFactory.getEmployeeSelectList(3).then(function (projectManagers) {
+				$scope.projectManagerOptions = projectManagers;
+			});
 			$scope.generalInformationLoaded = true;
 		}
 	});
@@ -459,6 +475,12 @@ notificationFactory, ErrorService) {
 
 			$scope.isSelectedProject = true;
 			targetUtility.getMilestone(projectId, $scope);
+
+			projectDataFactory.getProjectById(projectId).then(function (project) {
+				$scope.target.projectManagerId = project.projectManager;
+			}, function (status) {
+				ErrorService.errorHandle(status);
+			});
 		}
 	};
 
@@ -484,17 +506,20 @@ notificationFactory, ErrorService) {
 			$scope.submitted = true;
 			$scope.disabledSubmit = true;
 
-			if (targetUtility.validateTarget(target) === true) {
-				var newTarget = angular.copy(target);
+			var newTarget = {
+				targetId: target.targetId,
+				name: target.name,
+				description: target.description,
+				targetTypeId: target.targetTypeId,
+				projectId: target.projectId,
+				projectManager: target.projectManagerId,
+				milestoneId: target.milestoneId,
+				status: target.status,
+				startDate: target.startDate ? target.startDate.toDateString() : null,
+				endDate: target.endDate ? target.endDate.toDateString() : null
+			};
 
-				if (newTarget.targetTypeId !== 2) {
-					newTarget.projectId = null;
-					newTarget.milestoneId = null;
-				}
-
-				newTarget.startDate = newTarget.startDate ? newTarget.startDate.toDateString() : null;
-				newTarget.endDate = newTarget.endDate ? newTarget.endDate.toDateString() : null;
-
+			if (targetUtility.validateTarget(newTarget) === true) {
 				targetFactory.editTarget(newTarget).success(function (response) {
 					if (response.isSuccessful === true) {
 						notificationFactory.success("DataChangeSuccessfully");

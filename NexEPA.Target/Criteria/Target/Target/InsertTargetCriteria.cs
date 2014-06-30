@@ -25,6 +25,8 @@ namespace NexEPA.Target.Criteria.Target.Target
 
         public int? ProjectId { get; set; }
 
+        public int? ProjectManager { get; set; }
+
         public int? MilestoneId { get; set; }
 
         public DateTime? StartDate { get; set; }

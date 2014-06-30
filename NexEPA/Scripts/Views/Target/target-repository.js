@@ -60,13 +60,13 @@ targetModule.factory('targetCacheFactory', ['$cacheFactory', function ($cacheFac
 	return $cacheFactory('targetCache');
 }]);
 
-targetModule.factory('targetUtility', 
+targetModule.factory('targetUtility',
 ['$translate', 'targetFactory', 'targetCacheFactory', 'notificationFactory',
 function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
 	var utility = {};
 
 	utility.getAllProject = function ($scope, projectId) {
-			targetFactory.getAllProject(projectId).success(function (projectList) {
+		targetFactory.getAllProject(projectId).success(function (projectList) {
 			$scope.projectOptions = projectList;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -111,18 +111,25 @@ function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
 			if (!target.name) {
 				return false;
 			}
-			else if (!target.projectId) {
+			if (!target.projectId) {
+				return false;
+			}
+			if (!target.projectManager) {
 				return false;
 			}
 		}
 
 		return true;
-	}; 
+	};
 
 	utility.showMessageAfterValidate = function ($scope) {
 		$scope.$watchCollection('[submitted, createForm.$invalid, createForm.targetName.$error.required, \
-			createForm.targetProjectSelect.$error.required ]', function (newVals) {
+			createForm.targetProjectSelect.$error.required, createForm.targetProjectManagerSelect.$error.required ]',
+			function (newVals) {
 				if (newVals[0] && newVals[1]) {
+					if (newVals[4]) {
+						notificationFactory.error("ProjectManagerRequire");
+					}
 					if (newVals[3]) {
 						notificationFactory.error("ProjectRequire");
 					}

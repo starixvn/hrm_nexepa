@@ -702,4 +702,7 @@
   <data name="EPARequiredComment" xml:space="preserve">
     <value>Please input all required comment</value>
   </data>
+  <data name="ProjectManagerRequire" xml:space="preserve">
+    <value>The Project Manager field is required!</value>
+  </data>
 </root>

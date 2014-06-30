@@ -122,7 +122,8 @@ namespace NexEPA.Target.Services.Implement
                     Status = rawTarget.Status,
                     TargetType = rawTarget.TargetType,
                     Project = rawTarget.Project,
-                    Milestone = rawTarget.Milestone
+                    Milestone = rawTarget.Milestone,
+                    ProjectManager = rawTarget.ProjectManager
                 };
             }
 
