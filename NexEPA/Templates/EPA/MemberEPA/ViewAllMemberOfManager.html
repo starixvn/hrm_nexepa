@@ -5,47 +5,63 @@
     </ul>
 </div>
 <div class="row">
-    <form novalidate class="form-inline filter">
-		<div class="form-group">
-			<label data-translate="Employee">
-			</label>
-			<input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name"
-				ng-change="getEmployee(search.searchKey)" search-auto-complete search-key="search.searchKey"
-				search-employees="searchEmployees" employee="employee" />
-		</div>
-		<div class="form-group" ng-if="showTargetFilter">
-			<label data-translate="Target">
-			</label>
-			<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
-				class="form-control">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label data-translate="Project">
-			</label>
-			<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
-				class="form-control">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label data-translate="Status">
-			</label>
-			<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
-				class="form-control">
-				<option value="">-- All --</option>
-			</select>
-		</div>
-		<div class="form-group" ng-if="showAllMemberEPA">
-			<input type="checkbox" ng-model="filter.isShowAll" />
-			<label data-translate="Show all member EPA">
-			</label>
-		</div>
-		<div class="form-group">
-			<button class="button" ng-click="query(filter, employee.employeeId)"
-				ng-disabled="submitted" data-translate="Submit">
-			</button>
+    <form novalidate class="form-horizontal common-form col-sm-10 filter">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label class="col-sm-3 control-label" data-translate="Employee">
+					</label>
+					<div class="col-sm-8">
+						<input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name"
+							ng-change="getEmployee(search.searchKey)" search-auto-complete search-key="search.searchKey"
+							search-employees="searchEmployees" employee="employee" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" data-translate="Status">
+					</label>
+					<div class="col-sm-8">
+						<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
+							class="form-control">
+							<option value="">-- All --</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="form-group" ng-if="showTargetFilter">
+					<label class="col-sm-2 control-label" data-translate="Target">
+					</label>
+					<div class="col-sm-9">
+						<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+							class="form-control">
+							<option value="">-- All --</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" data-translate="Project">
+					</label>
+					<div class="col-sm-9">
+						<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+							class="form-control">
+							<option value="">-- All --</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group" ng-if="showAllMemberEPA">
+					<input type="checkbox" ng-model="filter.isShowAll" />
+					<label data-translate="Show all member EPA">
+					</label>
+				</div>
+				<div class="form-group epa-button-submit" >
+					<button class="button" ng-click="query(filter, employee.employeeId)"
+						ng-disabled="submitted" data-translate="Submit">
+					</button>
+				</div>
+			</div>
 		</div>
     </form>
 </div>

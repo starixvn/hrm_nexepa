@@ -258,20 +258,22 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 	*/
 	// Save
 	$scope.save = function (project) {
-		if (project == null) {
+		var newProject = angular.copy(project);
+
+		if (newProject == null) {
 			$("#projectValid").show();
 		}
 		else {
 			$("#projectValid").hide();
-			if (project.startDate != null) {
-				var selectedStartDate = new Date(project.startDate);
-				project.startDate = selectedStartDate ? selectedStartDate.toDateString() : null;
+			if (newProject.startDate != null) {
+				var selectedStartDate = new Date(newProject.startDate);
+				newProject.startDate = selectedStartDate ? selectedStartDate.toDateString() : null;
 			}
-			if (project.endDate != null) {
-				var selectedEndDate = new Date(project.endDate);
-				project.endDate = selectedEndDate ? selectedEndDate.toDateString() : null;
+			if (newProject.endDate != null) {
+				var selectedEndDate = new Date(newProject.endDate);
+				newProject.endDate = selectedEndDate ? selectedEndDate.toDateString() : null;
 			}
-			projectDataFactory.addProject(project).then(successAddProject, errorAddProject);
+			projectDataFactory.addProject(newProject).then(successAddProject, errorAddProject);
 		}
 	};
 

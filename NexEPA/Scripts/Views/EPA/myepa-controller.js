@@ -383,8 +383,8 @@ epaModule.controller('ViewMemberByManagerEPAController',
 function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory, notificationFactory,
 $modal, employeeRepository, linkToEPAService) {
 
-	var targetId = parseInt($routeParams.targetId),
-		status = parseInt($routeParams.status),
+	var targetId = $routeParams.targetId,
+		status = $routeParams.status,
 		isShowAll = $routeParams.isShowAll === "true" ? true : false;
 
 	$scope.filter = {
