@@ -271,6 +271,9 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, projectDa
 
 			projectDataFactory.getProjectById(projectId).then(function (project) {
 				$scope.target.projectManager = project.projectManager;
+				$scope.projectManagerName = targetUtility.findProjectManagerName(project.projectManager, $scope);
+				$scope.originalPMName = $scope.projectManagerName;
+				$scope.originalPMId = project.projectManager;
 			}, function (status) {
 				ErrorService.errorHandle(status);
 			});
@@ -349,6 +352,16 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, projectDa
 
 	targetUtility.showMessageAfterValidate($scope);
 
+	$scope.editPM = function () {
+		$scope.isEditProjectManager = true;
+	};
+
+	$scope.cancelEditPM = function () {
+		$scope.isEditProjectManager = false;
+		$scope.projectManagerName = $scope.originalPMName;
+		$scope.target.projectManager = $scope.originalPMId;
+	};
+
 	$scope.cancel = function () {
 		$window.history.back();
 	};
@@ -356,6 +369,7 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, projectDa
 	$scope.backToView = function () {
 		$location.url('/Target/ViewTarget/');
 	};
+
 } ]);
 
 // View Detail of Target or Edit Target Controller
@@ -418,42 +432,46 @@ notificationFactory, ErrorService, projectDataFactory) {
 	$scope.$watch("tabGeneralSelect", function (newVal) {
 		if (newVal === true && $scope.generalInformationLoaded === false) {
 			targetFactory.getTargetById(targetId)
-			.success(function (target) {
-				if (isEditMode) {
-					target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
-					target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
-				}
-
-				$scope.target = target;
-
-				if (target.targetType && target.targetType.targetTypeId) {
-					$scope.target.targetTypeId = target.targetType.targetTypeId;
-				}
-
-				if (target.project && target.project.projectId) {
-					targetUtility.getAllProject($scope, target.project.projectId);
-					$scope.target.projectId = target.project.projectId;
-
-					$scope.isSelectedProject = true;
-					targetUtility.getMilestone($scope.target.projectId, $scope);
-
-					if (target.milestone && target.milestone.milestoneId) {
-						$scope.target.milestoneId = target.milestone.milestoneId;
+				.success(function (target) {
+					if (isEditMode) {
+						target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
+						target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
 					}
-				}
 
-				if (target.projectManager) {
-					$scope.target.projectManagerId = target.projectManager.employeeId;
-				}
-			})
-			.error(function (response, status) {
-				if (status === 405) {
-					ErrorService.errorHandle(status);
-				}
-				else {
-					notificationFactory.error('ErrorMessage');
-				}
-			});
+					$scope.target = target;
+
+					if (target.targetType && target.targetType.targetTypeId) {
+						$scope.target.targetTypeId = target.targetType.targetTypeId;
+					}
+
+					if (target.project && target.project.projectId) {
+						targetUtility.getAllProject($scope, target.project.projectId);
+						$scope.target.projectId = target.project.projectId;
+
+						$scope.isSelectedProject = true;
+						targetUtility.getMilestone($scope.target.projectId, $scope);
+
+						if (target.milestone && target.milestone.milestoneId) {
+							$scope.target.milestoneId = target.milestone.milestoneId;
+						}
+					}
+
+					if (target.projectManager) {
+						$scope.target.projectManagerId = target.projectManager.employeeId;
+						$scope.projectManagerName = target.projectManager.nickName + ' (' +
+														target.projectManager.fullName + ')';
+						$scope.originalPMName = $scope.projectManagerName;
+						$scope.originalPMId = $scope.target.projectManagerId;
+					}
+				})
+				.error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error('ErrorMessage');
+					}
+				});
 
 			targetUtility.getFormOptions($scope, KPICommonRepository);
 			commonFactory.getDateFormat($scope);
@@ -478,6 +496,9 @@ notificationFactory, ErrorService, projectDataFactory) {
 
 			projectDataFactory.getProjectById(projectId).then(function (project) {
 				$scope.target.projectManagerId = project.projectManager;
+				$scope.projectManagerName = targetUtility.findProjectManagerName(project.projectManager, $scope);
+				$scope.originalPMName = $scope.projectManagerName;
+				$scope.originalPMId = project.projectManager;
 			}, function (status) {
 				ErrorService.errorHandle(status);
 			});
@@ -544,6 +565,16 @@ notificationFactory, ErrorService, projectDataFactory) {
 			else {
 				$scope.disabledSubmit = false;
 			}
+		};
+
+		$scope.editPM = function () {
+			$scope.isEditProjectManager = true;
+		};
+
+		$scope.cancelEditPM = function () {
+			$scope.isEditProjectManager = false;
+			$scope.projectManagerName = $scope.originalPMName;
+			$scope.target.projectManagerId = $scope.originalPMId;
 		};
 	}
 } ]);

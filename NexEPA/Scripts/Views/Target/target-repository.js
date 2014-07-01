@@ -188,6 +188,21 @@ function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
 		}
 	};
 
+	utility.findProjectManagerName = function (projectManagerId, scope) {
+		var projectManagerName = '';
+
+		if (scope.projectManagerOptions) {
+			angular.forEach(scope.projectManagerOptions, function (projectManager) {
+				if (projectManager.employeeId === projectManagerId) {
+					projectManagerName = projectManager.nickName + ' (' + projectManager.fullName + ')';
+					return false;
+				}
+			});
+		}
+
+		return projectManagerName;
+	};
+
 	return utility;
 } ]);
 

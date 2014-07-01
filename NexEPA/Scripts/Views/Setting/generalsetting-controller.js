@@ -67,6 +67,10 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 		targetTemplateFactory.getAllTargetTemplate(targetTypeId, false).then(successGetAllTargetTemplate);
 	};
 
+	$scope.viewDetailTargetTemplate = function (targetTemplateId) {
+		$scope.viewTargetTemplateUrl = '/TargetTemplate/Details/' + targetTemplateId;
+	};
+
 	/**
 	* Initialize data to view Index.
 	*/

@@ -11,14 +11,14 @@
     <form class="col-sm-5 form-horizontal common-form" name="createForm" novalidate>
         <div class="form-group required">
             <label class="col-sm-4 control-label" data-translate="Name"></label>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <input class="form-control" maxlength="500" name="targetName" ng-model="target.name" required type="text"/>
             </div>
         </div>
 
         <div class="form-group required">
             <label class="col-sm-4 control-label" data-translate="Project"></label>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                  <select name="targetProjectSelect" ng-model="target.projectId"
                     ng-options="opt.id as opt.name for opt in projectOptions"
                     ng-change="projectOnChange(target.projectId)"
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group" ng-show="isSelectedProject && milestoneOptions">
             <label class="col-sm-4 control-label" data-translate="Milestone"></label>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                  <select ng-model="target.milestoneId"
                     ng-options="opt.milestoneId as opt.name for opt in milestoneOptions"
                     ng-change="milestoneOnChange(target.projectId, target.milestoneId)" class="form-control">
@@ -38,20 +38,33 @@
             </div>
         </div>
 
-        <div class="form-group required">
+        <div class="form-group required" ng-if="isEditProjectManager && isSelectedProject">
             <label class="col-sm-4 control-label" data-translate="ProjectManager"></label>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                  <select name="targetProjectManagerSelect" ng-model="target.projectManager"
                     ng-options="opt.employeeId as opt.nickName + ' (' + opt.fullName + ')' for opt in projectManagerOptions"
                     class="form-control" required>
                     <option value="">-- Select the Project Manager --</option>
                  </select>
             </div>
+			<div class="col-sm-1 target-project-manager">
+				<a class="btn-cancel" href="javascript:;" ng-click="cancelEditPM()" title="Cancel"></a>
+			</div>
         </div>
+
+		<div class="form-group" ng-if="!isEditProjectManager && isSelectedProject">
+			<label class="col-sm-4 control-label" data-translate="ProjectManager"></label>
+			<div class="col-sm-7" style="margin-top:6px;">
+				<span ng-bind="projectManagerName"></span>
+			</div>
+			<div class="col-sm-1 target-project-manager">
+				<a class="btn-edit" href="javascript:;" ng-click="editPM()" title="Edit PM"></a>
+			</div>
+		</div>
 
         <div class="form-group">
             <label class="col-sm-4 control-label" data-translate="StartDate"></label>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <input class="calendar-form-control" type="text" ng-model="target.startDate" datepicker-popup="{{dateFormat}}" is-open="calendar.startDateOpened"/>
                 <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
             </div>
@@ -59,7 +72,7 @@
 
         <div class="form-group">
             <label class="col-sm-4 control-label" data-translate="EndDate"></label>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <input class="calendar-form-control" type="text" ng-model="target.endDate" datepicker-popup="{{dateFormat}}" is-open="calendar.endDateOpened"/>
                 <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
             </div>
@@ -67,7 +80,7 @@
 
         <div class="form-group">
             <label class="col-sm-4 control-label" data-translate="Description"></label>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <textarea ng-model="target.description" class="form-control" ></textarea>
             </div>
         </div>

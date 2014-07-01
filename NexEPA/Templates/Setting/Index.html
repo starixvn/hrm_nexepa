@@ -18,11 +18,11 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="setting in targetSettings">
-				<td class="text-center">
-					{{setting.name}}
+				<td class="text-center" ng-bind="setting.name">
 				</td>
 				<td>
-					{{setting.targetTemplate.name}}
+					<a href="" ng-href={{viewTargetTemplateUrl}} ng-bind="setting.targetTemplate.name"
+						ng-click="viewDetailTargetTemplate(setting.targetTemplate.targetTemplateId)" />
 				</td>
 				<td class="text-center">
 					<a class="glyphicon glyphicon-edit icon-edit" href="javascript:;" ng-click="defaultTargetTemplate(setting.targetTemplate.targetTemplateId, setting.targetTypeId)">

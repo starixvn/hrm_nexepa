@@ -94,20 +94,20 @@ registrationModule.directive('treeModel', ['$compile', function ($compile) {
 			var template =
 					'<ul>' +
 						'<li data-ng-repeat="node in ' + treeModel + '">' +
-							'<i class="collapsed" data-ng-show="node.'
-							+ nodeChildren + '.length && node.collapsed" data-ng-click="'
-							+ treeId + '.selectNodeHead(node)"></i>'
-							+ '<i class="expanded" data-ng-show="node.'
-							+ nodeChildren + '.length && !node.collapsed" data-ng-click="'
-							+ treeId + '.selectNodeHead(node)"></i>' + '<i class="normal" data-ng-hide="node.'
-							+ nodeChildren + '.length"></i> ' +
-							'<span data-ng-class="node.selected" data-ng-click="'
-							+ treeId + '.selectNodeLabel(node)">'
-							+ '{{node.' + nodeLabel + '}}</span>' +
-							'<div data-ng-hide="!node.collapsed" data-tree-id="'
-							+ treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id='
-							+ nodeId + ' data-node-label=' + nodeLabel + ' data-node-children='
-							+ nodeChildren + '></div>' +
+							'<i class="collapsed" data-ng-show="node.' +
+							nodeChildren + '.length && node.collapsed" data-ng-click="' +
+							treeId + '.selectNodeHead(node)"></i>' +
+							'<i class="expanded" data-ng-show="node.' +
+							nodeChildren + '.length && !node.collapsed" data-ng-click="' +
+							treeId + '.selectNodeHead(node)"></i>' + '<i class="normal" data-ng-hide="node.' +
+							nodeChildren + '.length"></i> ' +
+							'<span data-ng-class="node.selected" data-ng-click="' +
+							treeId + '.selectNodeLabel(node)">' +
+							'{{node.' + nodeLabel + '}}</span>' +
+							'<div data-ng-hide="!node.collapsed" data-tree-id="' +
+							treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' +
+							nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' +
+							nodeChildren + '></div>' +
 						'</li>' +
 					'</ul>';
 
@@ -208,23 +208,23 @@ registrationModule.directive('paginationBar', function () {
 		restrict: 'AE',
 		replace: 'true',
 		template:
-			'<ul class="pagination pull-right custom-paging">'
-				+ '<li ng-class="{disabled: currentPage == 0}">'
-					+ '<a class="first" href ng-click="firstPage()" title="First Page">«</a>'
-				+ '</li>'
-				+ '<li ng-class="{disabled: currentPage == 0}">'
-					+ '<a class="pre" href ng-click="prevPage()" title="Previous Page">‹</a>'
-				+ '</li>'
-				+ '<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-click="setPage()">'
-					+ '<a href ng-bind="n + 1" ng-class="{pagingactive: n == currentPage}">1</a>'
-				+ '</li>'
-				+ '<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
-					+ '<a class="next" href ng-click="nextPage()" title="Next Page">›</a>'
-				+ '</li>'
-				+ '<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">'
-					+ '<a class="last" href ng-click="lastPage()" title="Last Page">»</a>'
-				+ '</li>'
-			+ '</ul>'
+			'<ul class="pagination pull-right custom-paging">' +
+				'<li ng-class="{disabled: currentPage == 0}">' +
+					'<a class="first" href ng-click="firstPage()" title="First Page">«</a>' +
+				'</li>' +
+				'<li ng-class="{disabled: currentPage == 0}">' +
+					'<a class="pre" href ng-click="prevPage()" title="Previous Page">‹</a>' +
+				'</li>' +
+				'<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-click="setPage()">' +
+					'<a href ng-bind="n + 1" ng-class="{pagingactive: n == currentPage}">1</a>' +
+				'</li>' +
+				'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">' +
+					'<a class="next" href ng-click="nextPage()" title="Next Page">›</a>' +
+				'</li>' +
+				'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">' +
+					'<a class="last" href ng-click="lastPage()" title="Last Page">»</a>' +
+				'</li>' +
+			'</ul>'
 	};
 });
 
