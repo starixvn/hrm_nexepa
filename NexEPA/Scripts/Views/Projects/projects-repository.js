@@ -104,3 +104,55 @@ projectsSettingModule.factory('milestoneFactory', ['$http', '$q', function ($htt
 		}
 	};
 } ]);
+
+projectsSettingModule.factory('projectUtility', ['notificationFactory', function (notificationFactory) {
+	var utility = {};
+
+	utility.validateProject = function (project) {
+		if (!project) {
+			return false;
+		}
+		else {
+			if (!project.name) {
+				return false;
+			}
+			if (!project.startDate) {
+				return false;
+			}
+			if (!project.projectManager) {
+				return false;
+			}
+			if (!project.status && project.status < 0) {
+				return false;
+			}
+		}
+
+		return true;
+	};
+
+	utility.showMessageAfterValidate = function ($scope) {
+		$scope.$watchCollection('[submitted, projectForm.$invalid, projectForm.projectName.$error.required, \
+			projectForm.startDate.$error.required, projectForm.projectManager.$error.required, \
+			projectForm.status.$error.required ]',
+			function (newVals) {
+				if (newVals[0] && newVals[1]) {
+					if (newVals[5]) {
+						notificationFactory.error("StatusRequire");
+					}
+					if (newVals[4]) {
+						notificationFactory.error("ProjectManagerRequire");
+					}
+					if (newVals[3]) {
+						notificationFactory.error("StartDateRequire");
+					}
+					if (newVals[2]) {
+						notificationFactory.error("NameRequire");
+					}
+
+					$scope.submitted = false;
+				}
+			});
+	};
+
+	return utility;
+}]);

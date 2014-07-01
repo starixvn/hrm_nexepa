@@ -194,8 +194,10 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 } ]);
 
 projectsSettingModule.controller('CreateProjectController',
-['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', '$timeout', 'notificationFactory',
-function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, $timeout, notificationFactory) {
+['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', '$timeout',
+'notificationFactory', 'projectUtility',
+function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, $timeout,
+notificationFactory, projectUtility) {
 	/**
 	* Variables. 
 	*/
@@ -221,7 +223,7 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 
 	// Success add new project callback.
 	var successAddProject = function () {
-		$scope.errors = [];
+		$scope.disabledSubmit = false;
 		notificationFactory.success('DataChangeSuccessfully', '');
 		$timeout(function () {
 			$location.url('/Projects/Index');
@@ -229,7 +231,9 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 	};
 
 	// Errors occur during Add process.
-	var errorAddProject = function (response) { $scope.errors = response; };
+	var errorAddProject = function () {
+		$scope.disabledSubmit = false;
+	};
 
 	/**
 	* Initialize data to view Create Project. 
@@ -256,15 +260,16 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 	/**
 	* Events 
 	*/
+	projectUtility.showMessageAfterValidate($scope);
+
 	// Save
 	$scope.save = function (project) {
+		$scope.disabledSubmit = true;
+		$scope.submitted = true;
+
 		var newProject = angular.copy(project);
 
-		if (newProject == null) {
-			$("#projectValid").show();
-		}
-		else {
-			$("#projectValid").hide();
+		if (newProject) {
 			if (newProject.startDate != null) {
 				var selectedStartDate = new Date(newProject.startDate);
 				newProject.startDate = selectedStartDate ? selectedStartDate.toDateString() : null;
@@ -273,7 +278,16 @@ function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, c
 				var selectedEndDate = new Date(newProject.endDate);
 				newProject.endDate = selectedEndDate ? selectedEndDate.toDateString() : null;
 			}
-			projectDataFactory.addProject(newProject).then(successAddProject, errorAddProject);
+
+			if (projectUtility.validateProject(newProject)) {
+				projectDataFactory.addProject(newProject).then(successAddProject, errorAddProject);
+			}
+			else {
+				$scope.disabledSubmit = false;
+			}
+		}
+		else {
+			$scope.disabledSubmit = false;
 		}
 	};
 

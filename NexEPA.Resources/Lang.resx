@@ -705,4 +705,10 @@
   <data name="ProjectManagerRequire" xml:space="preserve">
     <value>The Project Manager field is required!</value>
   </data>
+  <data name="StartDateRequire" xml:space="preserve">
+    <value>The Start Date field is required!</value>
+  </data>
+  <data name="StatusRequire" xml:space="preserve">
+    <value>The Status field is required!</value>
+  </data>
 </root>
