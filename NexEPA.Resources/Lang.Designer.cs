@@ -1114,6 +1114,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Managet Target Template.
+        /// </summary>
+        public static string ManageTargetTemplate {
+            get {
+                return ResourceManager.GetString("ManageTargetTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage User.
         /// </summary>
         public static string ManageUser {
