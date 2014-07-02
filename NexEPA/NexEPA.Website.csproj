@@ -200,6 +200,8 @@
     <Content Include="Content\Common\Images\animated-overlay.gif" />
     <Content Include="Content\Common\chosen-sprite.png" />
     <Content Include="Content\Common\Images\auth-bg.png" />
+    <Content Include="Content\Common\Images\delete.png" />
+    <Content Include="Content\Common\Images\edit.png" />
     <Content Include="Content\Common\Images\EPA.png" />
     <Content Include="Content\Common\Images\lock.png" />
     <Content Include="Content\Common\Images\sprite_btn.png" />
