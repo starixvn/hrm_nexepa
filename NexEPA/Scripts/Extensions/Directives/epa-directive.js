@@ -409,7 +409,7 @@ registrationModule.directive('listSortable', function () {
 					currentUserId = ui.sender.attr("id");
 				},
 				items: "tr:not(.unsortable), li:not(.unsortable)"
-			}).disableSelection();
+			});
 
 			el.on("sortdeactivate", function (event, ui) {
 				var from = angular.element(ui.item).scope().$index;
