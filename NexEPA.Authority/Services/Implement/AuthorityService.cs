@@ -122,7 +122,7 @@ namespace NexEPA.Authority.Services.Implement
         /// <summary>
         /// Get function by role recursion.
         /// </summary>
-        /// <param name="rawFunctions">The all functions.</param>
+        /// <param name="rawFunctions">The enumerator contain all functions.</param>
         /// <param name="rawParentFunctionItem">The current parent function.</param>
         /// <returns>The list Function Model.</returns>
         private List<FunctionModel> GetFunctionByRoleRecursion(
