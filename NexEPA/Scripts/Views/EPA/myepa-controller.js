@@ -93,7 +93,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			notificationFactory.error('', response.data);
 		}
 		else {
-			notificationFactory.success('SuccessSaveData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 			$scope.dataSaved = true;
 		}
 	};
@@ -153,7 +153,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 			notificationFactory.error('', response.data);
 		}
 		else {
-			notificationFactory.success('SuccessSaveData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 			checkStatus(newEPAStatus);
 		}
 	};
@@ -238,7 +238,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 				action: function () {
 					return "change status";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 		updateEPAModalInstance.result.then(function () {
 			currentEPAStatus = employeeEPA.status;
@@ -536,7 +537,8 @@ $modal, employeeRepository, linkToEPAService) {
 				action: function () {
 					return "change status";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		updateEPAModalInstance.result.then(function () {
@@ -546,7 +548,7 @@ $modal, employeeRepository, linkToEPAService) {
 				}
 				else {
 					epaItem.statusName = status.name;
-					notificationFactory.success('SuccessSaveData', '');
+					notificationFactory.success('DataChangeSuccessfully', '');
 				}
 			}, function (response) {
 				notificationFactory.error('', response);

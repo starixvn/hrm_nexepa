@@ -107,10 +107,13 @@
                     <span class="dropdown" on-toggle="toggled(open)" ng-if="project.permission == 2"><a
                         href="javascript:;" class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
                         <ul class="dropdown-menu dropdown-menu-width">
-                            <li ng-repeat="item in status" ng-hide="item.id == project.status"><a ng-click="updateProjectStatus(project, item.id)"
-                                href="javascript:;">{{item.name}}</a> </li>
+                            <li ng-repeat="item in status|filter:{id:'!'+project.status} ">
+								<a ng-click="updateProjectStatus(project, item)" href="javascript:;">{{item.name}}
+								</a>
+							</li>
                         </ul>
-                    </span><span ng-if="project.permission != 2">{{project.status|enumStatusText}}</span>
+                    </span>
+					<span ng-if="project.permission != 2">{{project.status|enumStatusText}}</span>
                 </td>
                 <td class="text-center">
                     {{project.startDate | customDate}}

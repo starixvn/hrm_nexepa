@@ -24,7 +24,7 @@ namespace NexEPA.KPI.Services.Implement
     /// <summary>
     /// The implement of KPI service.
     /// </summary>
-    public class KPIService : BaseService, IKPIService 
+    public class KPIService : BaseService, IKPIService
     {
         private IKPIRepository _kpiRepository;
 
@@ -47,7 +47,10 @@ namespace NexEPA.KPI.Services.Implement
             {
                 var listKPIInfo = (List<KPIModel>)_kpiRepository.GetKPI(criteria);
 
-                listKPI = GroupKPIGroupsSameKPI(listKPI, listKPIInfo);
+                if (listKPIInfo != null)
+                {
+                    listKPI = GroupKPIGroupsSameKPI(listKPI, listKPIInfo);
+                }
             }
 
             return listKPI; 

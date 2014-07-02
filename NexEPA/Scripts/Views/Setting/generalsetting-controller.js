@@ -12,8 +12,8 @@ var memberValidation = function (targetTemplateId) {
 };
 
 generalSettingModule.controller('GeneralSettingController',
-['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'generalSettingFactory', 'ErrorService',
-function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSettingFactory, ErrorService) {
+['$scope', '$modal', 'targetTemplateFactory', 'notificationFactory', 'generalSettingFactory', 'ErrorService', '$route',
+function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSettingFactory, ErrorService, $route) {
 	/**
 	* Ajax event Loaded. 
 	*/
@@ -69,6 +69,10 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 
 	$scope.viewDetailTargetTemplate = function (targetTemplateId) {
 		$scope.viewTargetTemplateUrl = '/TargetTemplate/Details/' + targetTemplateId;
+	};
+
+	$scope.reload = function () {
+		$route.reload();
 	};
 
 	/**

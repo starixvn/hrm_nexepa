@@ -1,21 +1,20 @@
-﻿<div class="row sub-header">
+﻿<div class="row">
+<div class="row sub-header">
 	<ul class="breadcrumb list-inline pull-left">
 		<li>
 			<a href="/Projects/Index" data-translate="Project"></a>
 		</li>
-		<li class="current">Edit Project - {{projectUpdate.name}}</li>
+		<li class="current" data-translate="EditProject"></li>
 	</ul>
+	<div class="button-icon" ng-if="projectUpdate.permission == 2 && formReadOnly">
+		<span class="glyphicon glyphicon-edit icon-edit"></span>
+		<a href="/Projects/Edit/{{projectUpdate.projectId}}" data-translate="EditProject">
+		</a>
+	</div>
+</div>
 </div>
 <div class="row target-tabset">
 	<tabset id="projectInfoTab">
-
-	<div class="btn btn-default customize pull-right" ng-if="projectUpdate.permission == 2 && formReadOnly">
-		<a  href="/Projects/Edit/{{projectUpdate.projectId}}">
-			<i class="glyphicon glyphicon-edit"></i>
-			<span data-translate="EditProject"></span>
-		</a>
-	</div>
-
     <tab heading="GENERAL INFORMATION" class="tab-cursor" active="dataTab.information" select="tabInfoSelect()">
         <form class="row common-form project-form" name="addProjectForm" novalidate>
             <div class="row boxtitle first" data-translate="ProjectInformation">

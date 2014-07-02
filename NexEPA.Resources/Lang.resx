@@ -220,7 +220,7 @@
     <value>KPI Group</value>
   </data>
   <data name="ManageKPIGroup" xml:space="preserve">
-    <value>Manage Group</value>
+    <value>Manage KPI Group</value>
   </data>
   <data name="CreateKPIGroup" xml:space="preserve">
     <value>Create KPI Group</value>
@@ -710,5 +710,26 @@
   </data>
   <data name="StatusRequire" xml:space="preserve">
     <value>The Status field is required!</value>
+  </data>
+  <data name="AllFieldRequire" xml:space="preserve">
+    <value>Please input all required (*) fields.</value>
+  </data>
+  <data name="EditTargetTemplate" xml:space="preserve">
+    <value>Edit Target Template</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="TargetTemplateDetail" xml:space="preserve">
+    <value>Target Template Detail</value>
+  </data>
+  <data name="TargetTemplateInformation" xml:space="preserve">
+    <value>TARGET TEMPLATE INFORMATION</value>
+  </data>
+  <data name="UncheckKPIGroupWarning" xml:space="preserve">
+    <value>* Note: All KPIs in KPI Group setting will be removed. Please check carefully before unchecked KPI Group !</value>
+  </data>
+  <data name="AddEmployee" xml:space="preserve">
+    <value>Add Employee</value>
   </data>
 </root>

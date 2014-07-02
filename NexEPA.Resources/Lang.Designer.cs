@@ -115,6 +115,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Employee.
+        /// </summary>
+        public static string AddEmployee {
+            get {
+                return ResourceManager.GetString("AddEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add KPI Group.
         /// </summary>
         public static string AddKPIGroup {
@@ -156,6 +165,15 @@ namespace NexEPA.Resources {
         public static string AlarmDate {
             get {
                 return ResourceManager.GetString("AlarmDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please input all required (*) fields..
+        /// </summary>
+        public static string AllFieldRequire {
+            get {
+                return ResourceManager.GetString("AllFieldRequire", resourceCulture);
             }
         }
         
@@ -570,6 +588,15 @@ namespace NexEPA.Resources {
         public static string EditTarget {
             get {
                 return ResourceManager.GetString("EditTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Target Template.
+        /// </summary>
+        public static string EditTargetTemplate {
+            get {
+                return ResourceManager.GetString("EditTargetTemplate", resourceCulture);
             }
         }
         
@@ -1033,7 +1060,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Group.
+        ///   Looks up a localized string similar to Manage KPI Group.
         /// </summary>
         public static string ManageKPIGroup {
             get {
@@ -1200,6 +1227,15 @@ namespace NexEPA.Resources {
         public static string NoticeAtBegin {
             get {
                 return ResourceManager.GetString("NoticeAtBegin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -1717,6 +1753,24 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Target Template Detail.
+        /// </summary>
+        public static string TargetTemplateDetail {
+            get {
+                return ResourceManager.GetString("TargetTemplateDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TARGET TEMPLATE INFORMATION.
+        /// </summary>
+        public static string TargetTemplateInformation {
+            get {
+                return ResourceManager.GetString("TargetTemplateInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Target Type.
         /// </summary>
         public static string TargetType {
@@ -1785,6 +1839,15 @@ namespace NexEPA.Resources {
         public static string TotalFinishedProject {
             get {
                 return ResourceManager.GetString("TotalFinishedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to * Note: All KPIs in KPI Group setting will be removed. Please check carefully before unchecked KPI Group !.
+        /// </summary>
+        public static string UncheckKPIGroupWarning {
+            get {
+                return ResourceManager.GetString("UncheckKPIGroupWarning", resourceCulture);
             }
         }
         

@@ -163,20 +163,18 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Method update project status.
         /// </summary>
-        /// <param name="model">Project Information Model.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>Http Response Message.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
-        public HttpResponseMessage UpdateProjectStatus(ProjectInformationModel model)
+        public HttpResponseMessage UpdateProjectStatus(UpdateProjectStatusCriteria criteria)
         {
-            var updateProjectStatusCriteria = new UpdateProjectStatusCriteria
+            if (criteria != null)
             {
-                Status = model.Status,
-                ProjectId = model.ProjectId,
-                ModifiedBy = this.CurrentUser.UserId,
-                ModifiedDate = DateTime.Now
-            };
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
 
-            CommandResult result = _projectService.UpdateProjectStatus(updateProjectStatusCriteria);
+            CommandResult result = _projectService.UpdateProjectStatus(criteria);
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };

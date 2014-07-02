@@ -104,27 +104,30 @@ namespace NexEPA.Target.Services.Implement
             {
                 TargetModel rawTarget = _targetRepository.GetTargetById(criteria);
 
-                string startDate = rawTarget.StartDate != null 
-                    ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
-                    : string.Empty;
-                string endDate = rawTarget.EndDate != null 
-                    ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) 
-                    : string.Empty;
-
-                targetItem = new TargetViewModel
+                if (rawTarget != null)
                 {
-                    TargetId = rawTarget.TargetId,
-                    Name = rawTarget.Name,
-                    Description = rawTarget.Description,
-                    StartDate = startDate,
-                    EndDate = endDate,
-                    StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
-                    Status = rawTarget.Status,
-                    TargetType = rawTarget.TargetType,
-                    Project = rawTarget.Project,
-                    Milestone = rawTarget.Milestone,
-                    ProjectManager = rawTarget.ProjectManager
-                };
+                    string startDate = rawTarget.StartDate != null
+                        ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat)
+                        : string.Empty;
+                    string endDate = rawTarget.EndDate != null
+                        ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat)
+                        : string.Empty;
+
+                    targetItem = new TargetViewModel
+                    {
+                        TargetId = rawTarget.TargetId,
+                        Name = rawTarget.Name,
+                        Description = rawTarget.Description,
+                        StartDate = startDate,
+                        EndDate = endDate,
+                        StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
+                        Status = rawTarget.Status,
+                        TargetType = rawTarget.TargetType,
+                        Project = rawTarget.Project,
+                        Milestone = rawTarget.Milestone,
+                        ProjectManager = rawTarget.ProjectManager
+                    };
+                }
             }
 
             return targetItem;
@@ -270,27 +273,30 @@ namespace NexEPA.Target.Services.Implement
             {
                 var rawKPIsInfo = (List<KPIModel>)_targetRepository.GetKPIByTargetId(criteria);
 
-                for (int i = 0; i < rawKPIsInfo.Count; i++) 
+                if (rawKPIsInfo != null && rawKPIsInfo.Count > 0)
                 {
-                    KPIModel rawKPIInfo = rawKPIsInfo[i];
-
-                    var kpiGroupItem = new TargetKPIGroupModel
+                    for (int i = 0; i < rawKPIsInfo.Count; i++)
                     {
-                        Group = rawKPIInfo.Group
-                    };
+                        KPIModel rawKPIInfo = rawKPIsInfo[i];
 
-                    kpiGroupItem.KPIs.Add(rawKPIInfo);
+                        var kpiGroupItem = new TargetKPIGroupModel
+                        {
+                            Group = rawKPIInfo.Group
+                        };
 
-                    List<KPIModel> kpiSameGroup = rawKPIsInfo.Where(item => item.Group.KPIGroupId == rawKPIInfo.Group.KPIGroupId
-                                            && item.KPIId != rawKPIInfo.KPIId).ToList();
+                        kpiGroupItem.KPIs.Add(rawKPIInfo);
 
-                    foreach (KPIModel kpiInfo in kpiSameGroup)
-                    {
-                        kpiGroupItem.KPIs.Add(kpiInfo);
-                        rawKPIsInfo.Remove(kpiInfo);
+                        List<KPIModel> kpiSameGroup = rawKPIsInfo.Where(item => item.Group.KPIGroupId == rawKPIInfo.Group.KPIGroupId
+                                                && item.KPIId != rawKPIInfo.KPIId).ToList();
+
+                        foreach (KPIModel kpiInfo in kpiSameGroup)
+                        {
+                            kpiGroupItem.KPIs.Add(kpiInfo);
+                            rawKPIsInfo.Remove(kpiInfo);
+                        }
+
+                        kpiGroupItemList.Add(kpiGroupItem);
                     }
-
-                    kpiGroupItemList.Add(kpiGroupItem);
                 }
             }
 

@@ -3,12 +3,12 @@
 		<li>
 			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
 		</li>
-		<li class="current">Edit Target Template - {{currentTargetTemplateName}}</li>
+		<li class="current" data-translate="EditTargetTemplate"></li>
 	</ul>
 </div>
 <div class="row target-tabset">
 	<tabset id="TargetTemplateTab">
-	<tab heading="GENERAL INORMATION" class="tab-cursor" active="dataTab.information" select="tabInfoSelect()">
+	<tab heading="GENERAL INFORMATION" class="tab-cursor" active="dataTab.information" select="tabInfoSelect()">
         <div class="row">
             <form class="col-sm-8 form-horizontal common-form info-form" name="targetTemplateForm" novalidate>
 				<div class="form-group required top-buffer required">
@@ -53,9 +53,9 @@
         <div class="row">
             <form class="col-sm-11 form-horizontal common-form project-form" novalidate>
 		    <div class="row first boxtitle">
-			    <a class="button-icon btn-boxTitle" title="Add KPI Group" ng-click="addKPIGroup()">
-				    <span></span>Manage KPI Group</a>
-				    <input class="search-textbox pull-right" placeholder="filter kpi..." type="text" ng-model="KPIName" />
+			    <a class="button-icon btn-boxTitle" title="Add KPI Group" ng-click="addKPIGroup()" data-translate="ManageKPIGroup">
+				</a>
+					<input class="search-textbox pull-right" placeholder="filter kpi..." type="text" ng-model="KPIName" />
 		    </div>
 			    <div class="row boxcontent">
 					<div class="line top-buffer">

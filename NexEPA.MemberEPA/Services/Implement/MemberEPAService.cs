@@ -217,8 +217,12 @@ namespace NexEPA.MemberEPA.Services.Implement
             if (criteria.IsValid())
             {
                 appraisal = _memberEPARepository.GetAppraisalFormById(criteria);
-                appraisal.StatusName = EnumStatus.GetDescripton((Status)appraisal.Status);
-                appraisal.EPAProcess = GroupEPAProcess(appraisal.EPAProcess, appraisal.Employee.Code);
+
+                if (appraisal != null)
+                {
+                    appraisal.StatusName = EnumStatus.GetDescripton((Status)appraisal.Status);
+                    appraisal.EPAProcess = GroupEPAProcess(appraisal.EPAProcess, appraisal.Employee.Code);
+                }
             }
 
             return appraisal;

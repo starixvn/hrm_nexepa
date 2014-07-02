@@ -47,7 +47,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 			notificationFactory.error('', response.data);
 		}
 		else {
-			notificationFactory.success('SuccessDeleteData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 			return targetTemplateFactory.getAllTargetTemplate(null, null).then(successGetAllTargetTemplate);
 		}
 	};
@@ -93,7 +93,8 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 				action: function () {
 					return "delete";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		deleteModalInstance.result.then(function () {
@@ -120,8 +121,8 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 				action: function () {
 					return action;
 				}
-			}
-
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		var keyMessage = '';
@@ -200,7 +201,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 			notificationFactory.error('', response.data);
 		}
 		else {
-			notificationFactory.success('SuccessSaveData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 		}
 	};
 
@@ -209,7 +210,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 			notificationFactory.error('', response.data);
 		}
 		else {
-			notificationFactory.success('SuccessSaveData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 			targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
 		}
 	};
@@ -328,7 +329,7 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 				notificationFactory.error('', response.data);
 			}
 			else {
-				notificationFactory.success('SuccessSaveData', '');
+				notificationFactory.success('DataChangeSuccessfully', '');
 				targetTemplateFactory.getKPI(targetTemplateId, null, null, false).then(succesGetListKPI);
 			}
 		};
@@ -410,7 +411,8 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 				action: function () {
 					return "delete";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 		deleteModalInstance.result.then(function () {
 			targetTemplateFactory.removeKPIGroup(model).then(successRemoveKPIGroup, errorNotification);
@@ -527,7 +529,7 @@ function ($scope, $modalInstance, KPIGroups, notificationFactory) {
 
 targetTemplateModule.controller('CreateTargetTemplateController',
 ['$scope', '$location', '$window', 'targetTemplateFactory', 'notificationFactory', '$timeout', 'ErrorService',
-'targetTemplateUtility',
+'targetTemplateUtility', 
 function ($scope, $location, $window, targetTemplateFactory, notificationFactory, $timeout, ErrorService,
 targetTemplateUtility) {
 	/**
@@ -545,7 +547,10 @@ targetTemplateUtility) {
 			notificationFactory.error('', response.data);
 		}
 		else {
-			$location.url('/TargetTemplate/Index');
+			notificationFactory.success("DataChangeSuccessfully");
+			$timeout(function () {
+				$location.url('/TargetTemplate/Index');
+			}, 2000);
 		}
 
 	};

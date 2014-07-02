@@ -2,20 +2,19 @@
 	<ul class="col-xs-12 breadcrumb list-inline pull-left">
 		<li>
 			<a href="/TargetTemplate/Index" data-translate="TargetTemplate"></a>
-			<li class="current">Details Target Template - {{currentTargetTemplateName}}</li>
+			<li class="current" data-translate="TargetTemplateDetail"></li>
 	</ul>
 </div>
 <form class="row common-form project-form" name="detailTargetTemplate" id="detailTargetTemplate"
 novalidate>
 <div>
-	<div class="row boxtitle first">
-		TARGET TEMPLATE INFORMATION
+	<div class="row boxtitle first" data-translate="TargetTemplateInformation">
 	</div>
 	<div class="row boxcontent information">
 		<div class="col-sm-6 line">
 			<label class="col-sm-4 label-bold">
 				{{"Name" | translate}}</label>
-			<div class="col-sm-8">
+			<div class="col-sm-8 target-template-information">
 				<span>{{editTemplate.name}}</span>
 			</div>
 		</div>
@@ -23,48 +22,47 @@ novalidate>
 			<label class="col-sm-4 label-bold">
 				{{"TargetType" | translate}}
 			</label>
-			<div class="col-sm-8">
+			<div class="col-sm-8 target-template-information">
 				<span>{{editTemplate.targetTypeName}}</span>
 			</div>
 		</div>
 		<div class="col-sm-6 line">
 			<label class="col-sm-4 label-bold">
 				{{"CreatedBy" | translate}}</label>
-			<div class="col-sm-8">
+			<div class="col-sm-8 target-template-information">
 				<span>{{editTemplate.createdFullName}} ({{editTemplate.createdNickName}})</span>
 			</div>
 		</div>
 		<div class="col-sm-6 line">
 			<label class="col-sm-4 label-bold">
 				{{"LastModifyBy" | translate}}</label>
-			<div class="col-sm-8">
+			<div class="col-sm-8 target-template-information">
 				<span>{{editTemplate.modifiedFullName}} ({{editTemplate.modifiedNickName}})</span>
 			</div>
 		</div>
 		<div class="col-sm-6 line">
 			<label class="col-sm-4 label-bold">
 				{{"CreatedDate" | translate}}</label>
-			<div class="col-sm-8">
+			<div class="col-sm-8 target-template-information">
 				<span>{{editTemplate.createdDate | customDate}}</span>
 			</div>
 		</div>
 		<div class="col-sm-6 line">
 			<label class="col-sm-4 label-bold">
 				{{"LastModifyDate" | translate}}</label>
-			<div class="col-sm-8">
+			<div class="col-sm-8 target-template-information">
 				<span>{{editTemplate.modifiedDate | customDate}}</span>
 			</div>
 		</div>
 		<div class="col-sm-12">
 			<label class="col-sm-2 label-bold" data-translate="Description">
 			</label>
-			<div class="col-sm-6">
+			<div class="col-sm-6 target-template-information">
 				<span class="positive-margin">{{editTemplate.description}}</span>
 			</div>
 		</div>
 	</div>
-	<div class="row boxtitle">
-		KPI LIST
+	<div class="row boxtitle" data-translate="KPIList" style="text-transform:uppercase;">
 	</div>
 	<div class="row boxcontent kpi-content">
 		<div class="col-sm-6 no-padding" ng-repeat="kpi in lstKPI | filter: KPIName" ng-class="{'self-clear': $index % 2 == 0}">

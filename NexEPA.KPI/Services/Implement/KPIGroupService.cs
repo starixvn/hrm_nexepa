@@ -46,20 +46,23 @@ namespace NexEPA.KPI.Services.Implement
             {
                 IEnumerable<KPIGroupModel> groupInfoList = _kpiGroupRepository.GetAllKPIGroup(criteria);
 
-                foreach (KPIGroupModel group in groupInfoList)
+                if (groupInfoList != null)
                 {
-                    var groupItem = new KPIGroupViewModel
+                    foreach (KPIGroupModel group in groupInfoList)
                     {
-                        KPIGroupID = group.KPIGroupId,
-                        Name = group.Name,
-                        Description = group.Description,
-                        TargetTypeId = group.TargetType.TargetTypeId,
-                        Form = group.TargetType.Name,
-                        IsDisabled = group.IsDisabled,
-                        NumberKPI = group.NumberKPI
-                    };
+                        var groupItem = new KPIGroupViewModel
+                        {
+                            KPIGroupID = group.KPIGroupId,
+                            Name = group.Name,
+                            Description = group.Description,
+                            TargetTypeId = group.TargetType.TargetTypeId,
+                            Form = group.TargetType.Name,
+                            IsDisabled = group.IsDisabled,
+                            NumberKPI = group.NumberKPI
+                        };
 
-                    groupList.Add(groupItem);
+                        groupList.Add(groupItem);
+                    }
                 }
             }
 

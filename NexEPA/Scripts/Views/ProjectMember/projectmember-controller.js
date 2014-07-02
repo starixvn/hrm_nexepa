@@ -94,7 +94,8 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 					projectId: function () {
 						return projectIdInUrl;
 					}
-				}
+				},
+				windowClass: "modal-confirm-center"
 			});
 			addModalInstance.result.then(function (member) {
 				if (member.joinDate != null) {
@@ -136,7 +137,8 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 					editMember: function () {
 						return editMember;
 					}
-				}
+				},
+				windowClass: "modal-confirm-center"
 			});
 			addModalInstance.result.then(function (member) {
 				projectMembersFactory.updateMember(member).then(successUpdateProjectMember, errorNotification);
@@ -166,7 +168,8 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 				action: function () {
 					return "delete";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 		deleteModalInstance.result.then(function () {
 			projectMembersFactory.deleteMember(member).then(successDeleteMember, errorNotification);

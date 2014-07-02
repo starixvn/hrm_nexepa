@@ -51,16 +51,6 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 		ErrorService.errorHandle(status);
 	};
 
-	var successUpdateProjectStatus = function () {
-		notificationFactory.success('DataChangeSuccessfully', '');
-		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
-	};
-
-	var successDeleteProject = function () {
-		notificationFactory.success('DataChangeSuccessfully', '');
-		projectDataFactory.filterData(null).then(successFilterData, errorHandle);
-	};
-
 	var successGetPermission = function (data) {
 		$scope.permission = {
 			policy: parseInt(data)
@@ -122,6 +112,11 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 	};
 
 	$scope.updateProjectStatus = function (project, status) {
+		var projectStatus = {
+			projectId: project.projectId,
+			status: status.id
+		};
+
 		var updateModalInstance = $modal.open({
 			templateUrl: '/templates/Common/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
@@ -132,11 +127,15 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 				action: function () {
 					return "change status";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
+
 		updateModalInstance.result.then(function () {
-			project.status = status;
-			projectDataFactory.updateProjectStatus(project).then(successUpdateProjectStatus, errorNotification);
+			projectDataFactory.updateProjectStatus(projectStatus).then(function () {
+				project.status = status.id;
+				notificationFactory.success('DataChangeSuccessfully', '');
+			}, errorNotification);
 		});
 	};
 
@@ -152,10 +151,17 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 				action: function () {
 					return "delete";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
+
 		deleteModalInstance.result.then(function () {
-			projectDataFactory.deleteProject(project.projectId).then(successDeleteProject, errorNotification);
+			projectDataFactory.deleteProject(project.projectId).then(function () {
+				var index = $scope.projects.indexOf(project);
+				$scope.projects.splice(index, 1);
+				commonFactory.tablePagination($scope, $scope.projects, $scope.entrySelected);
+				notificationFactory.success("DataChangeSuccessfully");
+			}, errorNotification);
 		});
 	};
 
@@ -587,7 +593,8 @@ commonFactory, ProjectSettingCache) {
 				action: function () {
 					return "delete";
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 		deleteModalInstance.result.then(function () {
 			milestoneFactory.deleteMilestone(milestone.milestoneId).then(successDeleteMilestone, errorNotification);

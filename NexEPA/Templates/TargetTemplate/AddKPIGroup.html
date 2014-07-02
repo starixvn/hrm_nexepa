@@ -1,7 +1,7 @@
 ﻿<div class="modal-addKPI" id="modal-addKPI">
 	<div class="modal-header">
 		<div class="popup-header">
-			KPI Group <span class="close-popup" ng-click="cancel()"></span>
+			<span data-translate="KPIGroup"></span><span class="close-popup" ng-click="cancel()"></span>
 		</div>
 	</div>
 	<div class="modal-body">
@@ -9,8 +9,8 @@
 			<div class="error-message buffer-error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
 				{{error}}
 			</div>
-			<div class="error-message hide-errormessage buffer-error-message" id="memberValid">
-				Please input all required (*) fields.</div>
+			<div class="error-message hide-errormessage buffer-error-message" id="memberValid" data-translate="AllFieldRequire">
+			</div>
 		</div>
 		<table class="table table-bordered table-striped table-hover" id="tblKPIGroup" table-row-level>
 			<thead>
@@ -55,11 +55,10 @@
 		</table>
 	</div>
 	<div class="modal-footer error-message">
-		<span class="pull-left">* Note: All KPIs in KPI Group setting will be removed. Please
-			check carefully before unchecked KPI Group !</span>
-		<button class="button" ng-click="ok()">
-			OK</button>
-		<button class="btn btn-default customize" ng-click="cancel()">
-			Cancel</button>
+		<span class="pull-left" data-translate="UncheckKPIGroupWarning"></span>
+		<button class="button" ng-click="ok()" data-translate="OK">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
 	</div>
 </div>
