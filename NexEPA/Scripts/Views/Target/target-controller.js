@@ -34,9 +34,14 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 	targetUtility.getAllStatus($scope);
 
 	// set default date is today
+	var startDate = new Date(),
+		endDate = new Date();
+	startDate.setMonth(startDate.getMonth() - 6);
+	endDate.setMonth(endDate.getMonth() + 6);
+
 	$scope.filter = {
-		startDate: new Date(),
-		endDate: new Date()
+		startDate: startDate,
+		endDate: endDate
 	};
 
 	var getTarget = function (targetTypeId, startDate, endDate) {

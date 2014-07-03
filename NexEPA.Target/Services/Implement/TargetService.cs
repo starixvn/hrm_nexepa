@@ -9,13 +9,11 @@
 
 namespace NexEPA.Target.Services.Implement
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
-    using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Core.Services;
     using NexEPA.Core.Utilities;
@@ -28,7 +26,6 @@ namespace NexEPA.Target.Services.Implement
     using NexEPA.Target.Repositories.Implement;
     using NexEPA.Target.Repositories.Interface;
     using NexEPA.Target.Services.Interface;
-    using NexEPA.Target.ViewModels;
 
     /// <summary>
     /// The implement of Target Service.
@@ -46,87 +43,42 @@ namespace NexEPA.Target.Services.Implement
         /// Get target.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List Target View Model.</returns>
-        public List<TargetViewModel> GetAllTarget(GetTargetCriteria criteria)
+        /// <returns>The enumerator Target Model.</returns>
+        public IEnumerable<TargetModel> GetAllTarget(GetTargetCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var targetList = new List<TargetViewModel>();
+            IEnumerable<TargetModel> rawTargets = null;
 
             if (criteria.IsValid())
             {
-                IEnumerable<TargetModel> rawTargets = _targetRepository.GetTarget(criteria);
+                rawTargets = _targetRepository.GetTarget(criteria);
 
                 foreach (TargetModel rawTarget in rawTargets)
                 {
-                    string startDate = rawTarget.StartDate != null 
-                        ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat) 
-                        : string.Empty;
-                    string endDate = rawTarget.EndDate != null 
-                        ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat) 
-                        : string.Empty;
-
-                    var targetItem = new TargetViewModel
-                    {
-                        TargetId = rawTarget.TargetId,
-                        Name = rawTarget.Name,
-                        Description = rawTarget.Description,
-                        StartDate = startDate,
-                        EndDate = endDate,
-                        StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
-                        NumberKPI = rawTarget.KPIs,
-                        NumberMember = rawTarget.Members,
-                        TotalEPA = rawTarget.TotalEPA,
-                        TotalOpenEPA = rawTarget.TotalOpenEPA,
-                        TargetType = rawTarget.TargetType,
-                        Project = rawTarget.Project,
-                        Milestone = rawTarget.Milestone,
-                        ProjectManager = rawTarget.ProjectManager
-                    };
-
-                    targetList.Add(targetItem);
+                    rawTarget.StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status);
                 }
             }
 
-            return targetList;
+            return rawTargets;
         }
 
         /// <summary>
         /// Get Target by ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The Target Item.</returns>
-        public TargetViewModel GetTargetById(GetTargetByIdCriteria criteria)
+        /// <returns>The Target Model.</returns>
+        public TargetModel GetTargetById(GetTargetByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var targetItem = new TargetViewModel();
+            var targetItem = new TargetModel();
 
             if (criteria.IsValid())
             {
-                TargetModel rawTarget = _targetRepository.GetTargetById(criteria);
+                targetItem = _targetRepository.GetTargetById(criteria);
 
-                if (rawTarget != null)
+                if (targetItem != null)
                 {
-                    string startDate = rawTarget.StartDate != null
-                        ? ((DateTime)rawTarget.StartDate).ToString(Constants.ShortDateStringFormat)
-                        : string.Empty;
-                    string endDate = rawTarget.EndDate != null
-                        ? ((DateTime)rawTarget.EndDate).ToString(Constants.ShortDateStringFormat)
-                        : string.Empty;
-
-                    targetItem = new TargetViewModel
-                    {
-                        TargetId = rawTarget.TargetId,
-                        Name = rawTarget.Name,
-                        Description = rawTarget.Description,
-                        StartDate = startDate,
-                        EndDate = endDate,
-                        StatusName = EnumStatus.GetDescripton((Status)rawTarget.Status),
-                        Status = rawTarget.Status,
-                        TargetType = rawTarget.TargetType,
-                        Project = rawTarget.Project,
-                        Milestone = rawTarget.Milestone,
-                        ProjectManager = rawTarget.ProjectManager
-                    };
+                    targetItem.StatusName = EnumStatus.GetDescripton((Status)targetItem.Status);
                 }
             }
 

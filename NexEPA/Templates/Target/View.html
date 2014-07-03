@@ -78,16 +78,16 @@
                 </td>
                 <td ng-bind="target.project.name">
                 </td>
-                <td ng-bind="target.milestone.name">
+                <td class="target-milestone" ng-bind="target.milestone.name">
                 </td>
                 <td class="text-center">
-                    <a href="" ng-bind="target.numberMember" ng-click="viewTargetEmployee(target)" ng-show="target.numberMember > 0"
+                    <a href="" ng-bind="target.members" ng-click="viewTargetEmployee(target)" ng-show="target.members > 0"
                         ng-href="{{viewTargetEmployeeUrl}}" title="View Members of '{{target.name}}'">
-                    </a><span ng-show="target.numberMember === 0" ng-bind="0"></span>
+                    </a><span ng-show="target.members === 0" ng-bind="0"></span>
                 </td>
                 <td class="text-center">
-                    <a href="" ng-bind="target.numberKPI" ng-click="viewTargetKPI(target)" ng-href="{{viewTargetKPIUrl}}"
-                        ng-show="target.numberKPI > 0" title="View KPIs of '{{target.name}}'"></a><span ng-show="target.numberKPI === 0"
+                    <a href="" ng-bind="target.kpIs" ng-click="viewTargetKPI(target)" ng-href="{{viewTargetKPIUrl}}"
+                        ng-show="target.kpIs > 0" title="View KPIs of '{{target.name}}'"></a><span ng-show="target.kpIs === 0"
                             ng-bind="0"></span>
                 </td>
                 <td>
@@ -106,9 +106,9 @@
 					<a href="" ng-href="{{viewAllEPAUrl}}" ng-click="viewAllEPA(target.targetId, target.projectManager.employeeId)"
                         title="View all EPA" ng-bind="target.totalEPA" />
                 </td>
-                <td class="text-center" ng-bind="target.startDate">
+                <td class="text-center" ng-bind="target.startDate | customDate">
                 </td>
-                <td class="text-center" ng-bind="target.endDate">
+                <td class="text-center" ng-bind="target.endDate | customDate">
                 </td>
                 <td class="action">
                     <a class="glyphicon glyphicon-edit icon-edit" title="Edit Target" href="" ng-click="edit(target)"

@@ -26,7 +26,6 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Target.Models;
     using NexEPA.Target.Services.Implement;
     using NexEPA.Target.Services.Interface;
-    using NexEPA.Target.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
     using NexEPA.Web.Services.Impl;
@@ -64,10 +63,10 @@ namespace NexEPA.Controllers.Target
         /// <param name="targetTypeId">Target Type Id.</param>
         /// <param name="startDate">Query Start date.</param>
         /// <param name="endDate">Query End Date.</param>
-        /// <returns>Target View Model.</returns>
+        /// <returns>The Target Model.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
-        public List<TargetViewModel> GetTarget(
+        public IEnumerable<TargetModel> GetTarget(
             int? targetTypeId = null,
             DateTime? startDate = null,
             DateTime? endDate = null)
@@ -85,7 +84,7 @@ namespace NexEPA.Controllers.Target
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
-        public TargetViewModel GetTargetById(int targetId)
+        public TargetModel GetTargetById(int targetId)
         {
             var criteria = new GetTargetByIdCriteria
             {

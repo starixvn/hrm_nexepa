@@ -16,16 +16,15 @@ namespace NexEPA.Target.Services.Interface
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
     using NexEPA.Target.Models;
-    using NexEPA.Target.ViewModels;
 
     /// <summary>
     /// The interface of Target Service.
     /// </summary>
     public interface ITargetService
     {
-        List<TargetViewModel> GetAllTarget(GetTargetCriteria criteria);
+        IEnumerable<TargetModel> GetAllTarget(GetTargetCriteria criteria);
 
-        TargetViewModel GetTargetById(GetTargetByIdCriteria criteria);
+        TargetModel GetTargetById(GetTargetByIdCriteria criteria);
 
         CommandResult Insert(InsertTargetCriteria criteria);
 

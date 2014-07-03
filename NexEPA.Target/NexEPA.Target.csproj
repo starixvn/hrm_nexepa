@@ -103,7 +103,6 @@
     <Compile Include="ViewModels\TargetTemplateViewModel.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="ViewModels\TargetViewModel.cs" />
     <Compile Include="Services\Implement\TargetTemplateService.cs" />
     <Compile Include="Services\Interface\ITargetTemplateService.cs" />
     <Compile Include="Models\TargetKPIGroupModel.cs" />

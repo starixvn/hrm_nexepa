@@ -32,6 +32,8 @@ namespace NexEPA.Target.Models
 
         public int Status { get; set; }
 
+        public string StatusName { get; set; }
+
         public int ScoreTypeId { get; set; }
 
         public int ProcessGroupId { get; set; }
