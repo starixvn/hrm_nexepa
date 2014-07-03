@@ -2,8 +2,8 @@
 /*global homeModule*/
 
 homeModule.controller('ViewHomePageController',
-['$scope', '$route', 'homeFactory', 'notificationFactory',
-function ($scope, $route, homeFactory, notificationFactory) {
+['$scope', '$route', 'homeFactory', 'notificationFactory', 'ErrorService',
+function ($scope, $route, homeFactory, notificationFactory, ErrorService) {
 
 	$scope.dashboradInformation = {
 		generalInformation: '',
@@ -21,8 +21,13 @@ function ($scope, $route, homeFactory, notificationFactory) {
 				listKPIs: dashboardInformation.listKPIs
 			};
 		}
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		if (status === 405) {
+			ErrorService.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
 	});
 
 	$scope.reload = function () {

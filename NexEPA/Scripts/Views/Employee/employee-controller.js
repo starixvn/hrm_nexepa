@@ -3,7 +3,9 @@
 
 employeeModule.controller("ViewAllEmployeeController",
 ['$scope', '$translate', '$route', 'employeeRepository', 'employeeCacheFactory', 'notificationFactory', 'commonFactory',
-function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, notificationFactory, commonFactory) {
+'ErrorService',
+function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, notificationFactory, commonFactory,
+ErrorService) {
 
 	$scope.entrySelected = 20;
 
@@ -13,8 +15,14 @@ function ($scope, $translate, $route, employeeRepository, employeeCacheFactory, 
 			$scope.totalEntries = employees.length;
 			commonFactory.tablePagination($scope, employees, $scope.entrySelected);
 			$scope.disabledSubmitButton = false;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+
 			$scope.disabledSubmitButton = true;
 		});
 	};
