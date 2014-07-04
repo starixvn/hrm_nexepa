@@ -72,6 +72,7 @@
     <Compile Include="Criteria\Target\TargetEmployee\AddTargetEmployeeCriteria.cs" />
     <Compile Include="Criteria\Target\TargetEmployee\DeleteTargetEmployeeCriteria.cs" />
     <Compile Include="Criteria\Target\TargetEmployee\GetAllEmployeeByTargetIdCriteria.cs" />
+    <Compile Include="Criteria\Target\TargetEmployee\GetEmployeeByKPICriteria.cs" />
     <Compile Include="Criteria\Target\TargetKPI\GetKPIByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\TargetKPI\GetKPIGroupByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetProjectOrMilestoneDateCriteria.cs" />

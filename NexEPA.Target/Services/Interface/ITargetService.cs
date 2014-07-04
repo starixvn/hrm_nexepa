@@ -47,5 +47,7 @@ namespace NexEPA.Target.Services.Interface
         IEnumerable<dynamic> GetKPIGroupByTargetId(GetKPIGroupByTargetIdCriteria criteria);
 
         IEnumerable<TargetFilterModel> GetTargetToFilter(GetTargetToFilterCriteria criteria);
+
+        IEnumerable<EmployeeModel> GetEmployeeByKPI(GetEmployeeByKPICriteria criteria);
     }
 }

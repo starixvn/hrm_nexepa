@@ -26,6 +26,6 @@ namespace NexEPA.Target.Repositories.Interface
 
         IEnumerable<KPIModel> GetKPIByTargetId(ICriteria criteria);
 
-        IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(ICriteria criteria);
+        IEnumerable<EmployeeModel> GetEmployee(ICriteria criteria);
     }
 }

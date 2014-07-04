@@ -273,5 +273,27 @@ namespace NexEPA.Controllers.Target
             int policy = _commonService.GetPermission(EPAFunctionKeys.ManageTarget);
             return policy;
         }
+
+        /// <summary>
+        /// Get employee by KPI.
+        /// </summary>
+        /// <param name="targetId">The target ID.</param>
+        /// <param name="kpiGroupId">The KPI group ID.</param>
+        /// <param name="kpiId">The KPI ID.</param>
+        /// <returns>The enumerator Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetEmployeeByKPI(
+            int targetId,
+            int kpiGroupId,
+            int kpiId)
+        {
+            var criteria = new GetEmployeeByKPICriteria
+            {
+                TargetId = targetId,
+                KPIGroupId = kpiGroupId,
+                KPIId = kpiId
+            };
+
+            return _targetService.GetEmployeeByKPI(criteria);
+        }
     }
 }

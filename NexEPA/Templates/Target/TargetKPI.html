@@ -22,12 +22,14 @@
                 <th data-translate="SymbolCount"></th>
                 <th data-translate="Name"></th>
                 <th data-translate="Weight"></th>
+                <th data-translate="Action"></th>
             </thead>
             <tbody ng-repeat="kpiGroupItem in listGroupKPI">
                 <tr class="target-kpi-group">
                     <td class="row-highlight"></td>
                     <td class="row-highlight" ng-bind="kpiGroupItem.group.name"></td>
                     <td class="row-highlight target-kpi-weight" ng-bind="kpiGroupItem.group.weight"></td>
+                    <td></td>
                 </tr>
                 <tr ng-repeat="kpiItem in kpiGroupItem.kpIs">
                     <td class="count" ng-bind="calculateIndex($parent.$index, $index, listGroupKPI)" ></td>
@@ -35,6 +37,10 @@
                     <td class="target-kpi-weight">
                         <span ng-bind="kpiItem.weight" ng-show="!kpiGroupItem.group.isSpreadKPI"></span>
                         <span ng-bind="'-'" ng-show="kpiGroupItem.group.isSpreadKPI"></span>
+                    </td>
+                    <td class="target-center">
+                      <a class="glyphicon glyphicon-floppy-open icon-edit" title="Evalute" href="" 
+                          ng-click="evaluate(kpiGroupItem.group, kpiItem)"/>
                     </td>
                 </tr>
                 </tbody>

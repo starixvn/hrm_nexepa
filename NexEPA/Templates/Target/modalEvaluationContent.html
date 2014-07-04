@@ -1,0 +1,97 @@
+﻿<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			<span data-translate="Evaluation"></span>
+			<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+	<div class="modal-body">
+		<div class="container-content common-form">
+			<div>
+				<div class="boxtitle" ng-click="collapseInformation()">
+					<span class="home-label" data-translate="GeneralInfo">
+					</span>
+				</div>
+				<div collapse="isInformationCollapsed">
+					<div>
+						<span>{{kpiGroup.name}} ({{kpiGroup.weight}}%)</span>
+					</div>
+					<div>
+						<span ng-bind="kpiItem.name">
+						</span>
+					</div>
+					<div class="criteria-description" ng-bind="kpiItem.description">
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div class="boxtitle first" id="ratingScale" ng-click="collapseInstructions()">
+					<span data-translate="RatingInstruction"></span>
+				</div>
+				<div class="epa-boxcontent" collapse="isInstructionsCollapsed">
+					<div class="row-item line rating">
+						<span class="note">* Rating criteria:</span> please evaluate by point as this scale
+						<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div class="boxtitle first" ng-click="collapseEvaluation()">
+					<span data-translate="Evaluation" style="text-transform: uppercase;"></span>
+				</div>
+				<div collapse="isEvaluationCollapsed">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<th data-translate="SymbolCount">
+							</th>
+							<th data-translate="NickName">
+							</th>
+							<th data-translate="Team">
+							</th>
+							<th data-translate="JobTitle">
+							</th>
+							<th data-translate="Score">
+							</th>
+							<th data-translate="Comment">
+							</th>
+						</thead>
+						<tr ng-repeat="employee in employees">
+							<td ng-bind="$index + 1">
+							</td>
+							<td>
+								<span ng-bind="employee.nickName" tooltip={{employee.fullName}}>
+								</span>
+							</td>
+							<td ng-bind="employee.group.name">
+							</td>
+							<td ng-bind="employee.jobTitle.name">
+							</td>
+							<td>
+								<div class="list-star">
+									<a ng-show="!isReadonly && kpiItem.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
+										title="Cancel" href="javascript:;" ng-click="cancelRating(kpiItem)"></a>
+									<rating value="kpiItem.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, kpiItem)"
+										ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(kpiItem)"></rating>
+									<span class="badge percent" ng-show="kpiItem.percent > 0">{{kpiItem.percent}}%</span>
+									<span class="badge percent" ng-show="kpiItem.percent <= 0">N/A</span>
+								</div>
+							</td>
+							<td>
+								<textarea></textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="button" ng-click="save()" data-translate="Save">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>

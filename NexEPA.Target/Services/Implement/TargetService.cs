@@ -169,7 +169,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                employeeList = _targetRepository.GetTargetEmployeeByTargetId(criteria);
+                employeeList = _targetRepository.GetEmployee(criteria);
             }
 
             return employeeList;
@@ -308,6 +308,24 @@ namespace NexEPA.Target.Services.Implement
             }
 
             return targets;
+        }
+
+        /// <summary>
+        /// Get employee by KPI.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetEmployeeByKPI(GetEmployeeByKPICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeModel> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = _targetRepository.GetEmployee(criteria);
+            }
+
+            return employees;
         }
     }
 }

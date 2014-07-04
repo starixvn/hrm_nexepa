@@ -52,6 +52,10 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 		},
 		getPermission: function () {
 			return $http.get('/api/Target/GetPermission');
+		},
+		getEmployeeByKPI: function (targetId, kpiGroupId, kpiId) {
+			return $http.get('/api/Target/GetEmployeeByKPI', 
+				{ params: { targetId: targetId, kpiGroupId: kpiGroupId, kpiId: kpiId } });
 		}
 	};
 } ]);

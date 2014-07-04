@@ -92,11 +92,11 @@ namespace NexEPA.Target.Repositories.Implement
         }
 
         /// <summary>
-        /// Get Target Employee by Target ID.
+        /// Get Employee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The enumerator Employee Model.</returns>
-        public IEnumerable<EmployeeModel> GetTargetEmployeeByTargetId(ICriteria criteria)
+        public IEnumerable<EmployeeModel> GetEmployee(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

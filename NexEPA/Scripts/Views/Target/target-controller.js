@@ -707,8 +707,8 @@ notificationFactory) {
 
 // Target KPI Controller
 targetModule.controller("TargetKPIController",
-['$scope', '$routeParams', 'targetFactory', 'ErrorService', 'notificationFactory',
-function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory) {
+['$scope', '$routeParams', 'targetFactory', 'ErrorService', 'notificationFactory', '$modal',
+function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory, $modal) {
 
 	var targetId = parseInt($routeParams.id);
 	$scope.kpiLoaded = false;
@@ -765,5 +765,80 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 		}
 
 		return index;
+	};
+
+	$scope.evaluate = function (kpiGroup, kpiItem) {
+		var modalEvaluationInstance = $modal.open({
+			templateUrl: '/templates/Target/modalEvaluationContent.html',
+			controller: "ModalEvaluationController",
+			resolve: {
+				kpiGroup: function () {
+					return kpiGroup;
+				},
+				kpiItem: function () {
+					return kpiItem;
+				},
+				targetId: function () {
+					return targetId;
+				}
+			},
+			windowClass: 'app-modal-window'
+		});
+
+		modalEvaluationInstance.result.then(function () {
+
+		});
+	};
+} ]);
+
+//The evaluation controller
+targetModule.controller('ModalEvaluationController',
+['$scope', 'kpiGroup', 'kpiItem', 'targetId', '$modalInstance', 'targetFactory',
+function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
+
+	$scope.kpiItem = kpiItem;
+	$scope.kpiGroup = kpiGroup;
+
+	$scope.max = 5;
+	$scope.isReadonly = false;
+
+	$scope.isInstructionsCollapsed = true;
+	$scope.isInformationCollapsed = false;
+	$scope.isEvaluationCollapsed = false;
+
+	targetFactory.getEmployeeByKPI(targetId, kpiGroup.kpiGroupId, kpiItem.kpiId).success(function (employees) {
+		$scope.employees = employees;
+	}).error();
+
+	$scope.collapseInformation = function () {
+		$scope.isInformationCollapsed = !$scope.isInformationCollapsed;
+	};
+
+	$scope.collapseInstructions = function () {
+		$scope.isInstructionsCollapsed = !$scope.isInstructionsCollapsed;
+	};
+
+	$scope.collapseEvaluation = function () {
+		$scope.isEvaluationCollapsed = !$scope.isEvaluationCollapsed;
+	};
+
+	$scope.cancelRating = function (item) {
+		item.score = 0;
+		item.percent = 0;
+	};
+
+	$scope.hoveringOver = function (value, object) {
+		object.percent = (100 * value) / $scope.max;
+	};
+
+	$scope.hoveringLeave = function (item) {
+		item.percent = (100 * item.score) / $scope.max;
+	};
+
+	$scope.save = function () {
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss();
 	};
 } ]);
