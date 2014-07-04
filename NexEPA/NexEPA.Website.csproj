@@ -251,11 +251,11 @@
     <Content Include="Content\Site\images\sprite_ico_2012-05-15.png" />
     <Content Include="Content\Site\images\table_header_repeat.jpg" />
     <Content Include="Content\Site\Employee\employee.less" />
-    <None Include="Content\fonts\big_noodle_titling.ttf" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\big_noodle_titling.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Site\EPA\EPA.less" />
     <Content Include="Content\Site\KPI\KPI.less" />
     <Content Include="Content\Site\Projects\project.less" />
