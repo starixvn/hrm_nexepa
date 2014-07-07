@@ -111,5 +111,34 @@ namespace NexEPA.Target.Repositories.Implement
                     criteria.GetSpParams());
             }
         }
+
+        /// <summary>
+        /// Get employee information by KPI.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The temporary Employees and EPA Model.</returns>
+        public TemporaryEPAAndEmployeeModel GetEmployeeByKPI(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var temporaryEPA = new TemporaryEPAAndEmployeeModel();
+
+                    temporaryEPA.Employees = multi.Read<EmployeeModel, JobTitle, Group, EmployeeModel>(
+                        (emp, job, gr) =>
+                        {
+                            emp.JobTitle = job;
+                            emp.Group = gr;
+                            return emp;
+                        },
+                        "JobTitleId,GroupId");
+
+                    temporaryEPA.RawEPAs = multi.Read<TemporaryEPAModel>();
+
+                    return temporaryEPA;
+                }
+            }
+        }
     }
 }

@@ -322,10 +322,68 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                employees = _targetRepository.GetEmployee(criteria);
+                TemporaryEPAAndEmployeeModel temporaryEPA = _targetRepository.GetEmployeeByKPI(criteria);
+
+                employees = GetEPAInformationOfEmployee(temporaryEPA.Employees, temporaryEPA.RawEPAs);
             }
 
             return employees;
+        }
+
+        private IEnumerable<EmployeeModel> GetEPAInformationOfEmployee(
+            IEnumerable<EmployeeModel> employees,
+            IEnumerable<TemporaryEPAModel> kpiItems)
+        {
+            foreach (EmployeeModel employee in employees)
+            {
+                IEnumerable<TemporaryEPAModel> kpiItemsOfEmployee = kpiItems.Where(item =>
+                                                                item.EmployeeId == employee.EmployeeId);
+                employee.EPAInfo = GetEPAInformationOfEmployeeDetails(kpiItemsOfEmployee);
+            }
+
+            return employees;
+        }
+
+        /// <summary>
+        /// Get EPA information of employee in details.
+        /// </summary>
+        /// <param name="kpiItems">The enumerator KPI information.</param>
+        /// <returns>The list Core EPA Model.</returns>
+        private List<CoreEPAModel> GetEPAInformationOfEmployeeDetails(IEnumerable<TemporaryEPAModel> kpiItems)
+        {
+            var coreEPAInfoList = new List<CoreEPAModel>();
+            IEnumerable<int> kpiGroupIds = kpiItems.Select(item => item.KPIGroupId).Distinct();
+
+            foreach (int kpiGroupId in kpiGroupIds)
+            {
+                IEnumerable<TemporaryEPAModel> kpiItemsOfGroup = kpiItems.Where(item => item.KPIGroupId == kpiGroupId);
+
+                if (kpiItemsOfGroup != null && kpiItemsOfGroup.Count() > 0)
+                {
+                    var epaInfo = new CoreEPAModel
+                    {
+                        KPIGroupId = kpiGroupId,
+                        IsSpreadKPI = kpiItemsOfGroup.First().IsSpreadKPI,
+                        KPIGroupWeight = kpiItemsOfGroup.First().KPIGroupWeight
+                    };
+
+                    foreach (TemporaryEPAModel rawKPIItem in kpiItemsOfGroup)
+                    {
+                        var kpiItem = new KPIModel
+                        {
+                            KPIId = rawKPIItem.KPIId,
+                            Score = rawKPIItem.Score,
+                            Weight = rawKPIItem.Weight,
+                        };
+
+                        epaInfo.KPIItems.Add(kpiItem);
+                    }
+
+                    coreEPAInfoList.Add(epaInfo);
+                }
+            }
+
+            return coreEPAInfoList;
         }
     }
 }

@@ -55,7 +55,9 @@
 							</th>
 							<th data-translate="Score">
 							</th>
-							<th data-translate="Comment">
+							<th data-translate="Comment" ng-if="kpiItem.hasComment">
+							</th>
+							<th data-translate="Score">
 							</th>
 						</thead>
 						<tr ng-repeat="employee in employees">
@@ -71,16 +73,18 @@
 							</td>
 							<td>
 								<div class="list-star">
-									<a ng-show="!isReadonly && kpiItem.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
-										title="Cancel" href="javascript:;" ng-click="cancelRating(kpiItem)"></a>
-									<rating value="kpiItem.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, kpiItem)"
-										ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(kpiItem)"></rating>
-									<span class="badge percent" ng-show="kpiItem.percent > 0">{{kpiItem.percent}}%</span>
-									<span class="badge percent" ng-show="kpiItem.percent <= 0">N/A</span>
+									<a ng-show="!isReadonly && employee.kpiItem.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
+										title="Cancel" href="javascript:;" ng-click="cancelRating(employee.kpiItem)"></a>
+									<rating value="employee.kpiItem.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, employee.kpiItem)"
+										ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(employee.kpiItem, employee)"></rating>
+									<span class="badge percent" ng-show="employee.kpiItem.percent > 0">{{employee.kpiItem.percent}}%</span>
+									<span class="badge percent" ng-show="employee.kpiItem.percent <= 0">N/A</span>
 								</div>
 							</td>
-							<td>
-								<textarea></textarea>
+							<td ng-if="kpiItem.hasComment">
+								<textarea ng-bind="employee.kpiItem.comment"></textarea>
+							</td>
+							<td ng-bind="employee.finalScore">
 							</td>
 						</tr>
 					</table>

@@ -11,6 +11,7 @@
 namespace NexEPA.Employee.Models
 {
     using System;
+    using System.Collections.Generic;
     using NexEPA.Core.Models;
 
     /// <summary>
@@ -49,5 +50,7 @@ namespace NexEPA.Employee.Models
         public Group Group { get; set; }
 
         public JobTitle JobTitle { get; set; }
+
+        public List<CoreEPAModel> EPAInfo { get; set; }
     }
 }

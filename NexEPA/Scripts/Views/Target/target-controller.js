@@ -1,6 +1,50 @@
 ﻿'use strict';
 /*global targetModule*/
 
+var calculateScoreTarget = function (epaInfo) {
+	var totalGroupScore = 0,
+		totalGroupWeight = 0,
+		finalScore = 0;
+
+	angular.forEach(epaInfo, function (kpiGroup) {
+		var kpiGroupWeight = kpiGroup.kpiGroupWeight,
+			totalItemScore = 0,
+			totalItemWeight = 0,
+			isSpreadKPI = kpiGroup.isSpreadKPI;
+
+		angular.forEach(kpiGroup.kpiItems, function (kpiItem) {
+			if (kpiItem.score > 0) {
+				if (!isSpreadKPI) {
+					totalItemWeight += kpiItem.weight;
+					totalItemScore += kpiItem.score * 2 * kpiItem.weight;
+				}
+				else {
+					totalItemWeight = kpiGroupWeight;
+					totalItemScore += kpiItem.score * 2 * kpiGroupWeight / kpiGroup.kpiItems.length;
+				}
+			}
+		});
+
+		var groupScore = (totalItemScore / totalItemWeight) * kpiGroupWeight;
+
+		if (isNaN(groupScore)) {
+			totalGroupScore += 0;
+		}
+		else {
+			totalGroupScore += groupScore;
+			totalGroupWeight += kpiGroupWeight;
+		}
+	});
+
+	finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
+
+	if (isNaN(finalScore)) {
+		finalScore = 0;
+	}
+
+	return finalScore;
+};
+
 targetModule.controller('ViewTargetController',
 ['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory', 'targetCacheFactory',
 'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory', 'employeeEPAFactory',
@@ -796,8 +840,8 @@ targetModule.controller('ModalEvaluationController',
 ['$scope', 'kpiGroup', 'kpiItem', 'targetId', '$modalInstance', 'targetFactory',
 function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
 
-	$scope.kpiItem = kpiItem;
 	$scope.kpiGroup = kpiGroup;
+	$scope.kpiItem = kpiItem;
 
 	$scope.max = 5;
 	$scope.isReadonly = false;
@@ -806,8 +850,25 @@ function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
 	$scope.isInformationCollapsed = false;
 	$scope.isEvaluationCollapsed = false;
 
+	var addKPIItemProperty = function (employees) {
+		angular.forEach(employees, function (employee) {
+			if (employee.epaInfo) {
+				angular.forEach(employee.epaInfo, function (group) {
+					if (group.kpiGroupId === kpiGroup.kpiGroupId) {
+						angular.forEach(group.kpiItems, function (kpi) {
+							if (kpi.kpiId === kpiItem.kpiId) {
+								employee.kpiItem = kpi;
+							}
+						});
+					}
+				});
+			}
+		});
+	};
+
 	targetFactory.getEmployeeByKPI(targetId, kpiGroup.kpiGroupId, kpiItem.kpiId).success(function (employees) {
 		$scope.employees = employees;
+		addKPIItemProperty(employees);
 	}).error();
 
 	$scope.collapseInformation = function () {
@@ -831,8 +892,9 @@ function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
 		object.percent = (100 * value) / $scope.max;
 	};
 
-	$scope.hoveringLeave = function (item) {
+	$scope.hoveringLeave = function (item, employee) {
 		item.percent = (100 * item.score) / $scope.max;
+		employee.finalScore = calculateScoreTarget(employee.epaInfo);
 	};
 
 	$scope.save = function () {
