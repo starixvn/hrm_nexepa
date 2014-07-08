@@ -735,4 +735,16 @@
   <data name="ManageTargetTemplate" xml:space="preserve">
     <value>Managet Target Template</value>
   </data>
+  <data name="MessageRatingInstructions" xml:space="preserve">
+    <value>please evaluate by point as this scale</value>
+  </data>
+  <data name="RatingCriteria" xml:space="preserve">
+    <value>Rating criteria</value>
+  </data>
+  <data name="FinalScore" xml:space="preserve">
+    <value>Final Score</value>
+  </data>
+  <data name="CommentRequire" xml:space="preserve">
+    <value>The Comment field is requried!</value>
+  </data>
 </root>

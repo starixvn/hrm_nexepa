@@ -322,6 +322,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Comment field is requried!.
+        /// </summary>
+        public static string CommentRequire {
+            get {
+                return ResourceManager.GetString("CommentRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Create {
@@ -799,6 +808,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Final Score.
+        /// </summary>
+        public static string FinalScore {
+            get {
+                return ResourceManager.GetString("FinalScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Flow.
         /// </summary>
         public static string Flow {
@@ -1150,6 +1168,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to please evaluate by point as this scale.
+        /// </summary>
+        public static string MessageRatingInstructions {
+            get {
+                return ResourceManager.GetString("MessageRatingInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Milestone.
         /// </summary>
         public static string Milestone {
@@ -1443,6 +1470,15 @@ namespace NexEPA.Resources {
         public static string ProjectRequire {
             get {
                 return ResourceManager.GetString("ProjectRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rating criteria.
+        /// </summary>
+        public static string RatingCriteria {
+            get {
+                return ResourceManager.GetString("RatingCriteria", resourceCulture);
             }
         }
         

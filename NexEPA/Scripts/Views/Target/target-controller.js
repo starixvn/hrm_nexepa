@@ -1,50 +1,6 @@
 ﻿'use strict';
 /*global targetModule*/
 
-var calculateScoreTarget = function (epaInfo) {
-	var totalGroupScore = 0,
-		totalGroupWeight = 0,
-		finalScore = 0;
-
-	angular.forEach(epaInfo, function (kpiGroup) {
-		var kpiGroupWeight = kpiGroup.kpiGroupWeight,
-			totalItemScore = 0,
-			totalItemWeight = 0,
-			isSpreadKPI = kpiGroup.isSpreadKPI;
-
-		angular.forEach(kpiGroup.kpiItems, function (kpiItem) {
-			if (kpiItem.score > 0) {
-				if (!isSpreadKPI) {
-					totalItemWeight += kpiItem.weight;
-					totalItemScore += kpiItem.score * 2 * kpiItem.weight;
-				}
-				else {
-					totalItemWeight = kpiGroupWeight;
-					totalItemScore += kpiItem.score * 2 * kpiGroupWeight / kpiGroup.kpiItems.length;
-				}
-			}
-		});
-
-		var groupScore = (totalItemScore / totalItemWeight) * kpiGroupWeight;
-
-		if (isNaN(groupScore)) {
-			totalGroupScore += 0;
-		}
-		else {
-			totalGroupScore += groupScore;
-			totalGroupWeight += kpiGroupWeight;
-		}
-	});
-
-	finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
-
-	if (isNaN(finalScore)) {
-		finalScore = 0;
-	}
-
-	return finalScore;
-};
-
 targetModule.controller('ViewTargetController',
 ['$scope', '$location', '$translate', '$modal', '$route', 'targetUtility', 'targetFactory', 'targetCacheFactory',
 'KPICommonRepository', 'commonFactory', 'ErrorService', 'notificationFactory', 'employeeEPAFactory',
@@ -837,8 +793,10 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 
 //The evaluation controller
 targetModule.controller('ModalEvaluationController',
-['$scope', 'kpiGroup', 'kpiItem', 'targetId', '$modalInstance', 'targetFactory',
-function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
+['$scope', 'kpiGroup', 'kpiItem', 'targetId', '$modalInstance', 'targetFactory', 'targetUtility', 'ErrorService',
+'notificationFactory', '$timeout',
+function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory, targetUtility, ErrorService,
+notificationFactory, $timeout) {
 
 	$scope.kpiGroup = kpiGroup;
 	$scope.kpiItem = kpiItem;
@@ -853,6 +811,8 @@ function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
 	var addKPIItemProperty = function (employees) {
 		angular.forEach(employees, function (employee) {
 			if (employee.epaInfo) {
+				employee.finalScore = targetUtility.calculateScoreTarget(employee.epaInfo);
+
 				angular.forEach(employee.epaInfo, function (group) {
 					if (group.kpiGroupId === kpiGroup.kpiGroupId) {
 						angular.forEach(group.kpiItems, function (kpi) {
@@ -866,10 +826,33 @@ function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
 		});
 	};
 
+	var getEmployeeScore = function (employees) {
+		var employeeScore = '<ROOT>';
+
+		angular.forEach(employees, function (employee) {
+			if (employee.kpiItem) {
+				var pattern = '<Employee EmployeeId="' + employee.employeeId + '" ScoreId="' + employee.kpiItem.score +
+						'" Comment="' + employee.kpiItem.comment + '" AverageScore="' + employee.finalScore + '">\
+						</Employee>';
+				employeeScore += pattern;
+			}
+		});
+
+		employeeScore += '</ROOT>';
+		return employeeScore;
+	};
+
 	targetFactory.getEmployeeByKPI(targetId, kpiGroup.kpiGroupId, kpiItem.kpiId).success(function (employees) {
 		$scope.employees = employees;
 		addKPIItemProperty(employees);
-	}).error();
+	}).error(function (response, status) {
+		if (status === 405) {
+			ErrorService.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("DataChangeFail");
+		}
+	});
 
 	$scope.collapseInformation = function () {
 		$scope.isInformationCollapsed = !$scope.isInformationCollapsed;
@@ -894,10 +877,43 @@ function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory) {
 
 	$scope.hoveringLeave = function (item, employee) {
 		item.percent = (100 * item.score) / $scope.max;
-		employee.finalScore = calculateScoreTarget(employee.epaInfo);
+		employee.finalScore = targetUtility.calculateScoreTarget(employee.epaInfo);
 	};
 
-	$scope.save = function () {
+	targetUtility.showMessageAfterValidateTargetRating($scope);
+
+	$scope.save = function (employees) {
+		$scope.submitted = true;
+		$scope.violationRating = targetUtility.validateTargetRating(employees, kpiItem);
+
+		if (!$scope.violationRating) {
+			var kpiScore = {
+				targetId: targetId,
+				kpiId: kpiItem.kpiId,
+				kpiGroupId: kpiGroup.kpiGroupId,
+				employeeScore: getEmployeeScore(employees)
+			};
+
+			targetFactory.updateKPIScore(kpiScore).success(function (response) {
+				if (response.isSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+
+					$timeout(function () {
+						$modalInstance.dismiss();
+					}, 2000);
+				}
+				else {
+					notificationFactory.error("DataChangeFail", response.message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		}
 	};
 
 	$scope.cancel = function () {

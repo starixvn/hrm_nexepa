@@ -54,8 +54,11 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 			return $http.get('/api/Target/GetPermission');
 		},
 		getEmployeeByKPI: function (targetId, kpiGroupId, kpiId) {
-			return $http.get('/api/Target/GetEmployeeByKPI', 
-				{ params: { targetId: targetId, kpiGroupId: kpiGroupId, kpiId: kpiId } });
+			return $http.get('/api/Target/GetEmployeeByKPI',
+				{ params: { targetId: targetId, kpiGroupId: kpiGroupId, kpiId: kpiId} });
+		},
+		updateKPIScore: function (kpiScore) {
+			return $http.put('/api/Target/UpdateKPIScore', kpiScore);
 		}
 	};
 } ]);
@@ -146,6 +149,30 @@ function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
 			});
 	};
 
+	utility.validateTargetRating = function (employees, kpiItem) {
+		var violation = false;
+
+		angular.forEach(employees, function (employee) {
+			if (employee.kpiItem) {
+				if (employee.kpiItem.score > 0 && !employee.kpiItem.comment && kpiItem.isRequireComment) {
+					violation = true;
+				}
+			}
+		});
+
+		return violation;
+	};
+
+	utility.showMessageAfterValidateTargetRating = function (scope) {
+		scope.$watchCollection('[submitted, violationRating]', function (newVals) {
+			if (newVals[0] && newVals[1]) {
+				notificationFactory.error("CommentRequire");
+			}
+
+			scope.submitted = false;
+		});
+	};
+
 	utility.resetProjectInformation = function ($scope) {
 		$scope.formIsProject = false;
 		$scope.isSelectedProject = false;
@@ -207,6 +234,50 @@ function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
 		return projectManagerName;
 	};
 
+	utility.calculateScoreTarget = function (epaInfo) {
+		var totalGroupScore = 0,
+		totalGroupWeight = 0,
+		finalScore = 0;
+
+		angular.forEach(epaInfo, function (kpiGroup) {
+			var kpiGroupWeight = kpiGroup.kpiGroupWeight,
+			totalItemScore = 0,
+			totalItemWeight = 0,
+			isSpreadKPI = kpiGroup.isSpreadKPI,
+			averageWeight = isSpreadKPI && kpiGroup.kpiItems ? 100 / kpiGroup.kpiItems.length : 0;
+
+			angular.forEach(kpiGroup.kpiItems, function (kpiItem) {
+				if (kpiItem.score > 0) {
+					if (!isSpreadKPI) {
+						totalItemWeight += kpiItem.weight;
+						totalItemScore += kpiItem.score * 2 * kpiItem.weight;
+					}
+					else {
+						totalItemWeight += averageWeight;
+						totalItemScore += kpiItem.score * 2 * averageWeight;
+					}
+				}
+			});
+
+			var groupScore = (totalItemScore / totalItemWeight) * kpiGroupWeight;
+
+			if (isNaN(groupScore)) {
+				totalGroupScore += 0;
+			}
+			else {
+				totalGroupScore += groupScore;
+				totalGroupWeight += kpiGroupWeight;
+			}
+		});
+
+		finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
+
+		if (isNaN(finalScore)) {
+			finalScore = 0;
+		}
+
+		return finalScore;
+	};
 	return utility;
 } ]);
 

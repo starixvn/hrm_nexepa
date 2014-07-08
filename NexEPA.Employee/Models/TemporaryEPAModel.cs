@@ -10,7 +10,7 @@
 namespace NexEPA.Employee.Models
 {
     /// <summary>
-    /// The temporary.
+    /// The temporary EPA model.
     /// </summary>
     public class TemporaryEPAModel
     {
@@ -21,6 +21,8 @@ namespace NexEPA.Employee.Models
         public int Score { get; set; }
 
         public int Weight { get; set; }
+
+        public string Comment { get; set; }
 
         public int KPIGroupId { get; set; }
 

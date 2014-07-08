@@ -283,6 +283,24 @@ namespace NexEPA.MemberEPA.Services.Implement
         }
 
         /// <summary>
+        /// Update KPI score.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateKPIScore(UpdateKPIScoreCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = _Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
         /// Group EPA Process.
         /// </summary>
         /// <param name="epaProcess">The EPA process list.</param>

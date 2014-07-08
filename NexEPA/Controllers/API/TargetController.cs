@@ -17,6 +17,9 @@ namespace NexEPA.Controllers.Target
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Employee.Models;
+    using NexEPA.MemberEPA.Criteria;
+    using NexEPA.MemberEPA.Services.Implement;
+    using NexEPA.MemberEPA.Services.Interface;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
@@ -42,19 +45,23 @@ namespace NexEPA.Controllers.Target
 
         private ICommonService _commonService;
 
+        private IMemberEPAService _memberEPAService;
+
         public TargetController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public TargetController(
             ITargetService targetService, 
             IProjectService projectService,
-            ICommonService commonService)
+            ICommonService commonService,
+            IMemberEPAService memberEPAService)
         {
             _targetService = targetService ?? new TargetService();
             _projectService = projectService ?? new ProjectService();
             _commonService = commonService ?? new CommonService();
+            _memberEPAService = memberEPAService ?? new MemberEPAService();
         }
 
         /// <summary>
@@ -294,6 +301,18 @@ namespace NexEPA.Controllers.Target
             };
 
             return _targetService.GetEmployeeByKPI(criteria);
+        }
+
+        [HttpPut]
+        public CommandResult UpdateKPIScore(UpdateKPIScoreCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _memberEPAService.UpdateKPIScore(criteria);
         }
     }
 }

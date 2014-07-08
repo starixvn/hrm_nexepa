@@ -46,5 +46,7 @@ namespace NexEPA.MemberEPA.Services.Interface
         CommandResult DeleteAppraisalForm(DeleteAppraisalFormCriteria criteria);
 
         CommandResult UpdateStatusAppraisalForm(UpdateStatusAppraisalFormCriteria criteria);
+
+        CommandResult UpdateKPIScore(UpdateKPIScoreCriteria criteria);
     }
 }
