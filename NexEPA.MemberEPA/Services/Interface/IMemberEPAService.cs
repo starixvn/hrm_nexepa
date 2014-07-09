@@ -48,5 +48,7 @@ namespace NexEPA.MemberEPA.Services.Interface
         CommandResult UpdateStatusAppraisalForm(UpdateStatusAppraisalFormCriteria criteria);
 
         CommandResult UpdateKPIScore(UpdateKPIScoreCriteria criteria);
+
+        int GetUserPermissionOnTarget(GetUserPermissionOnTargetCriteria criteria);
     }
 }

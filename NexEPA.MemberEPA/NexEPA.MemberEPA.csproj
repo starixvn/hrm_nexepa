@@ -56,6 +56,9 @@
     <Compile Include="Criteria\GetEPAByEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetEPAInfoCriteria.cs" />
     <Compile Include="Criteria\GetEPAOfAllEmployeeByManagerCriteria.cs" />
+    <Compile Include="Criteria\GetUserPermissionOnTargetCriteria.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Criteria\InsertAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\UpdateAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\UpdateEPAStatusCriteria.cs" />

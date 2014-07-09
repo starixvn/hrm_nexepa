@@ -28,6 +28,8 @@ namespace NexEPA.Employee.Models
 
         public bool IsSpreadKPI { get; set; }
 
+        public int Status { get; set; }
+
         public List<KPIModel> KPIItems { get; set; }
     }
 }

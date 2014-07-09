@@ -301,6 +301,24 @@ namespace NexEPA.MemberEPA.Services.Implement
         }
 
         /// <summary>
+        /// Get user permission on target.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The permission.</returns>
+        public int GetUserPermissionOnTarget(GetUserPermissionOnTargetCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            int permission = 0;
+
+            if (criteria.IsValid())
+            {
+                permission = GetData<int>(criteria).FirstOrDefault();
+            }
+
+            return permission;
+        }
+
+        /// <summary>
         /// Group EPA Process.
         /// </summary>
         /// <param name="epaProcess">The EPA process list.</param>

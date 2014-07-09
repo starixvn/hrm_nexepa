@@ -711,13 +711,42 @@ targetModule.controller("TargetKPIController",
 function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory, $modal) {
 
 	var targetId = parseInt($routeParams.id);
+	$scope.isEditMode = $routeParams.isEditMode ? true : false;
 	$scope.kpiLoaded = false;
+	$scope.rating = {};
+
+	var setRatingProperty = function (listGroupKPI) {
+		var rating = "isRating",
+			allRating = "isAllRating";
+
+		angular.forEach(listGroupKPI, function (group) {
+			if (group.kpIs) {
+				angular.forEach(group.kpIs, function (kpi) {
+					var ratingProperty = rating + kpi.kpiId,
+							allRatingProperty = allRating + kpi.kpiId;
+
+					if (kpi.isAllRating === null) {
+						$scope.rating[ratingProperty] = false;
+					}
+					else if (kpi.isAllRating === true) {
+						$scope.rating[ratingProperty] = true;
+						$scope.rating[allRatingProperty] = true;
+					}
+					else {
+						$scope.rating[ratingProperty] = true;
+						$scope.rating[allRatingProperty] = false;
+					}
+				});
+			}
+		});
+	};
 
 	var getKPIByTargetId = function (targetId, groupId) {
 		$scope.disabledSubmitButton = true;
 
 		targetFactory.getKPIByTargetId(targetId, groupId).success(function (listGroupKPI) {
 			$scope.listGroupKPI = listGroupKPI;
+			setRatingProperty($scope.listGroupKPI);
 			$scope.disabledSubmitButton = false;
 		}).error(function (response, status) {
 			if (status === 405) {
@@ -730,6 +759,17 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 			$scope.disabledSubmitButton = false;
 		});
 	};
+
+	targetFactory.getUserPermissionOnTarget(targetId).success(function (permission) {
+		$scope.permissonOnTarget = permission;
+	}).error(function (response, status) {
+		if (status === 405) {
+			ErrorService.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
+	});
 
 	$scope.$watch("tabKPISelect", function (newValue) {
 		if (newValue === true && $scope.kpiLoaded === false) {
@@ -780,13 +820,23 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 				},
 				targetId: function () {
 					return targetId;
+				},
+				permissionOnTarget: function () {
+					return $scope.permissonOnTarget;
+				},
+				policyMemberEPA: function () {
+					return $scope.permissionMemberEPA.policy;
 				}
 			},
 			windowClass: 'app-modal-window'
 		});
 
-		modalEvaluationInstance.result.then(function () {
+		modalEvaluationInstance.result.then(function (ratingResult) {
+			var ratingProperty = "isRating" + kpiItem.kpiId;
+			$scope.rating[ratingProperty] = ratingResult.rating;
 
+			var allRatingProperty = "isAllRating" + kpiItem.kpiId;
+			$scope.rating[allRatingProperty] = ratingResult.isAllRating;
 		});
 	};
 } ]);
@@ -794,15 +844,16 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 //The evaluation controller
 targetModule.controller('ModalEvaluationController',
 ['$scope', 'kpiGroup', 'kpiItem', 'targetId', '$modalInstance', 'targetFactory', 'targetUtility', 'ErrorService',
-'notificationFactory', '$timeout',
+'notificationFactory', '$timeout', 'permissionOnTarget', 'policyMemberEPA',
 function ($scope, kpiGroup, kpiItem, targetId, $modalInstance, targetFactory, targetUtility, ErrorService,
-notificationFactory, $timeout) {
+notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
 
 	$scope.kpiGroup = kpiGroup;
 	$scope.kpiItem = kpiItem;
+	$scope.permissionOnTarget = permissionOnTarget;
 
 	$scope.max = 5;
-	$scope.isReadonly = false;
+	$scope.policy = {};
 
 	$scope.isInstructionsCollapsed = true;
 	$scope.isInformationCollapsed = false;
@@ -818,6 +869,13 @@ notificationFactory, $timeout) {
 						angular.forEach(group.kpiItems, function (kpi) {
 							if (kpi.kpiId === kpiItem.kpiId) {
 								employee.kpiItem = kpi;
+
+								var isRead = "isReadOnly" + kpi.kpiId,
+									isHost = "isHost" + kpi.kpiId;
+								// has host permission on Member EPA function, has permisson on Target and status of EPA is open
+								$scope.policy[isHost] = policyMemberEPA === 2 && permissionOnTarget === 2 &&
+																group.status === 0;
+								$scope.policy[isRead] = group.status === 1 || policyMemberEPA === 1 || permissionOnTarget === 1;
 							}
 						});
 					}
@@ -828,13 +886,28 @@ notificationFactory, $timeout) {
 
 	var getEmployeeScore = function (employees) {
 		var employeeScore = '<ROOT>';
+		$scope.ratingResult = {
+			allRating: true,
+			rating: false
+		};
 
 		angular.forEach(employees, function (employee) {
 			if (employee.kpiItem) {
+				if (!employee.kpiItem.comment) {
+					employee.kpiItem.comment = '';
+				}
+
 				var pattern = '<Employee EmployeeId="' + employee.employeeId + '" ScoreId="' + employee.kpiItem.score +
 						'" Comment="' + employee.kpiItem.comment + '" AverageScore="' + employee.finalScore + '">\
 						</Employee>';
 				employeeScore += pattern;
+
+				if (!employee.kpiItem.score) {
+					$scope.ratingResult.allRating = false;
+				}
+				else {
+					$scope.ratingResult.rating = true;
+				}
 			}
 		});
 
@@ -866,9 +939,10 @@ notificationFactory, $timeout) {
 		$scope.isEvaluationCollapsed = !$scope.isEvaluationCollapsed;
 	};
 
-	$scope.cancelRating = function (item) {
+	$scope.cancelRating = function (item, employee) {
 		item.score = 0;
 		item.percent = 0;
+		employee.finalScore = targetUtility.calculateScoreTarget(employee.epaInfo);
 	};
 
 	$scope.hoveringOver = function (value, object) {
@@ -899,7 +973,7 @@ notificationFactory, $timeout) {
 					notificationFactory.success("DataChangeSuccessfully");
 
 					$timeout(function () {
-						$modalInstance.dismiss();
+						$modalInstance.close($scope.ratingResult);
 					}, 2000);
 				}
 				else {

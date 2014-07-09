@@ -55,7 +55,9 @@
     <Compile Include="Criteria\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByProjectIdCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByRoleCriteria.cs" />
-    <Compile Include="Models\CoreEPAModel.cs" />
+    <Compile Include="Models\CoreEPAModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\TemporaryEPAModel.cs" />
     <Compile Include="Models\TemporaryEPAAndEmployeeModel.cs" />

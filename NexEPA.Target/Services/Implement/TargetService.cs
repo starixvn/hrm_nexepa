@@ -364,7 +364,8 @@ namespace NexEPA.Target.Services.Implement
                     {
                         KPIGroupId = kpiGroupId,
                         IsSpreadKPI = kpiItemsOfGroup.First().IsSpreadKPI,
-                        KPIGroupWeight = kpiItemsOfGroup.First().KPIGroupWeight
+                        KPIGroupWeight = kpiItemsOfGroup.First().KPIGroupWeight,
+                        Status = kpiItemsOfGroup.First().Status
                     };
 
                     foreach (TemporaryEPAModel rawKPIItem in kpiItemsOfGroup)

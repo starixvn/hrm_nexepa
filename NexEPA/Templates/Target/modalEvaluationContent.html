@@ -76,16 +76,16 @@
 							</td>
 							<td>
 								<div class="list-star score-target-rating">
-									<a ng-show="!isReadonly && employee.kpiItem.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
-										title="Cancel" href="javascript:;" ng-click="cancelRating(employee.kpiItem)"></a>
-									<rating value="employee.kpiItem.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, employee.kpiItem)"
+									<a ng-show="isHost{{kpiItem.kpiId}} && employee.kpiItem.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
+										title="Cancel" href="javascript:;" ng-click="cancelRating(employee.kpiItem, employee)"></a>
+									<rating value="employee.kpiItem.score" max="max" on-hover="hoveringOver(value, employee.kpiItem)"
 										ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(employee.kpiItem, employee)"></rating>
 									<span class="badge percent" ng-show="employee.kpiItem.percent > 0">{{employee.kpiItem.percent}}%</span>
 									<span class="badge percent" ng-show="employee.kpiItem.percent <= 0">N/A</span>
 								</div>
 							</td>
 							<td class="target-center" ng-if="kpiItem.hasComment">
-								<textarea ng-model="employee.kpiItem.comment"></textarea>
+								<textarea ng-model="employee.kpiItem.comment" ></textarea>
 							</td>
 							<td ng-bind="employee.finalScore" class="target-center">
 							</td>

@@ -333,6 +333,18 @@ namespace NexEPA.Controllers.API
             return policy;
         }
 
+        [HttpGet]
+        public int GetUserPermissonOnTarget(int targetId)
+        {
+            var criteria = new GetUserPermissionOnTargetCriteria 
+            {
+                TargetId = targetId,
+                ActorUserId = this.CurrentUser.UserId
+            };
+
+            return _memberEPAService.GetUserPermissionOnTarget(criteria);
+        }
+
         /// <summary>
         /// Method Get EPAInfo.
         /// </summary>

@@ -29,5 +29,7 @@ namespace NexEPA.Employee.Models
         public int KPIGroupWeight { get; set; }
 
         public bool IsSpreadKPI { get; set; }
+
+        public int Status { get; set; }
     }
 }

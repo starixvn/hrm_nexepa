@@ -30,6 +30,8 @@ namespace NexEPA.KPI.Model
 
         public int Score { get; set; }
 
+        public bool? IsAllRating { get; set; }
+
         public int Percent 
         {
             get

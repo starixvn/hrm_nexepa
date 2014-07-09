@@ -59,6 +59,9 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
 		},
 		updateKPIScore: function (kpiScore) {
 			return $http.put('/api/Target/UpdateKPIScore', kpiScore);
+		},
+		getUserPermissionOnTarget: function (targetId) {
+			return $http.get('/api/EmployeeEPA/GetUserPermissonOnTarget', { params: { targetId: targetId } });
 		}
 	};
 } ]);
