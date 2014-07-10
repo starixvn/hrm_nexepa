@@ -1,94 +1,72 @@
 ﻿<table class="table-rating table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th>
-				Stars
+			<th data-translate="Stars">
 			</th>
-			<th>
-				Assessment
+			<th data-translate="Assessment">
 			</th>
-			<th>
-				Description
+			<th data-translate="Description">
 			</th>
 		</tr>
 	</thead>
 	<tr>
 		<td class="star-limit text-center">
 			<rating value="0" max="5" readonly="true"></rating>
-			<span class="star-rating">0 star</span>
+			<span class="star-rating">{{"0 " + "star" | translate}}</span>
 		</td>
-		<td class="text-center">
-			N/A
+		<td class="text-center" data-translate="NotAvailable">
 		</td>
-		<td class="column-limit">
-			Unable to judge, if the nature or extent of your interaction does not enable you
-			to provide feedback on a particular category for a particular individual, select
-			the “NA” rating.
+		<td class="column-limit" data-translate="NotAvailableDescription">
 		</td>
 	</tr>
 	<tr>
 		<td class="star-limit text-center">
 			<rating value="1" max="5" readonly="true"></rating>
-			<span class="star-rating">1 star</span>
+			<span class="star-rating">{{"1 " + "star" | translate}}</span>
 		</td>
-		<td class="text-center">
-			Poor
+		<td class="text-center" data-translate="Poor">
 		</td>
-		<td class="column-limit">
-			Needs much Improvement: refers to performance which fails to measure up to standard
-			and must be improved through corrective action steps.
+		<td class="column-limit" data-translate="PoorDescription">
 		</td>
 	</tr>
 	<tr>
 		<td class="star-limit text-center">
 			<rating value="2" max="5" readonly="true"></rating>
-			<span class="star-rating">2 stars</span>
+			<span class="star-rating">{{"2 " + "stars" | translate}}</span>
 		</td>
-		<td class="text-center">
-			Below Average
+		<td class="text-center" data-translate="BelowAverage">
 		</td>
-		<td class="column-limit">
-			Partially meets expectations: refers to performance and skills which are adequate
-			in some respects but not fully up to standard; some corrective action is needed.
+		<td class="column-limit" data-translate="BelowAverageDescription">
 		</td>
 	</tr>
 	<tr>
 		<td class="star-limit text-center">
 			<rating value="3" max="5" readonly="true"></rating>
-			<span class="star-rating">3 stars</span>
+			<span class="star-rating">{{"3 " + "stars" | translate}}</span>
 		</td>
-		<td class="text-center">
-			Satisfactory
+		<td class="text-center" data-translate="Satisfactory">
 		</td>
-		<td class="column-limit">
-			Meets expectations: refers to solid performance with a full skills base; most people
-			fall into this category.
+		<td class="column-limit" data-translate="SatisfactoryDescription">
 		</td>
 	</tr>
 	<tr>
 		<td class="star-limit text-center">
 			<rating value="4" max="5" readonly="true"></rating>
-			<span class="star-rating">4 stars</span>
+			<span class="star-rating">{{"4 " + "star" | translate}}</span>
 		</td>
-		<td class="text-center">
-			Good
+		<td class="text-center" data-translate="Good">
 		</td>
-		<td class="column-limit">
-			Exceeds expectations: refers to significant performance ability; only very strong
-			performers should receive this rating.
+		<td class="column-limit" data-translate="GoodDescription">
 		</td>
 	</tr>
 	<tr>
 		<td class="star-limit text-center">
 			<rating value="5" max="5" readonly="true"></rating>
-			<span class="star-rating">5 stars</span>
+			<span class="star-rating">{{"5 " + "stars" | translate}}</span>
 		</td>
-		<td class="text-center">
-			Excellent
+		<td class="text-center" data-translate="Excellent">
 		</td>
-		<td class="column-limit">
-			Substantially exceeds expectations: refers to truly outstanding performance; should
-			be someone you regard as a role model in the area rated.
+		<td class="column-limit" data-translate="ExcellentDescription">
 		</td>
 	</tr>
 </table>

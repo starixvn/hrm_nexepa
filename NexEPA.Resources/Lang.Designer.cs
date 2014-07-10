@@ -196,6 +196,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assessment.
+        /// </summary>
+        public static string Assessment {
+            get {
+                return ResourceManager.GetString("Assessment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign Permission To Role.
         /// </summary>
         public static string AssignPermissionToRole {
@@ -277,6 +286,24 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Below Average.
+        /// </summary>
+        public static string BelowAverage {
+            get {
+                return ResourceManager.GetString("BelowAverage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partially meets expectations: refers to performance and skills which are adequate in some respects but not fully up to standard; some corrective action is needed..
+        /// </summary>
+        public static string BelowAverageDescription {
+            get {
+                return ResourceManager.GetString("BelowAverageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to german.
         /// </summary>
         public static string BUTTON_TEXT_DE {
@@ -327,6 +354,15 @@ namespace NexEPA.Resources {
         public static string CommentRequire {
             get {
                 return ResourceManager.GetString("CommentRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
             }
         }
         
@@ -754,6 +790,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evaluated.
+        /// </summary>
+        public static string Evaluated {
+            get {
+                return ResourceManager.GetString("Evaluated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Evaluate Date.
         /// </summary>
         public static string EvaluateDate {
@@ -795,6 +840,33 @@ namespace NexEPA.Resources {
         public static string EvaluatorTitle {
             get {
                 return ResourceManager.GetString("EvaluatorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excellent.
+        /// </summary>
+        public static string Excellent {
+            get {
+                return ResourceManager.GetString("Excellent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Substantially exceeds expectations: refers to truly outstanding performance; should be someone you regard as a role model in the area rated..
+        /// </summary>
+        public static string ExcellentDescription {
+            get {
+                return ResourceManager.GetString("ExcellentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is required!.
+        /// </summary>
+        public static string FieldRequire {
+            get {
+                return ResourceManager.GetString("FieldRequire", resourceCulture);
             }
         }
         
@@ -876,6 +948,24 @@ namespace NexEPA.Resources {
         public static string GeneralInfo {
             get {
                 return ResourceManager.GetString("GeneralInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good.
+        /// </summary>
+        public static string Good {
+            get {
+                return ResourceManager.GetString("Good", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exceeds expectations: refers to significant performance ability; only very strong performers should receive this rating..
+        /// </summary>
+        public static string GoodDescription {
+            get {
+                return ResourceManager.GetString("GoodDescription", resourceCulture);
             }
         }
         
@@ -1258,6 +1348,33 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to judge, if the nature or extent of your interaction does not enable you to provide feedback on a particular category for a particular individual, select the “NA” rating..
+        /// </summary>
+        public static string NotAvailableDescription {
+            get {
+                return ResourceManager.GetString("NotAvailableDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notice At Begin.
         /// </summary>
         public static string NoticeAtBegin {
@@ -1335,6 +1452,24 @@ namespace NexEPA.Resources {
         public static string PM {
             get {
                 return ResourceManager.GetString("PM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poor.
+        /// </summary>
+        public static string Poor {
+            get {
+                return ResourceManager.GetString("Poor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Needs much Improvement: refers to performance which fails to measure up to standard and must be improved through corrective action steps..
+        /// </summary>
+        public static string PoorDescription {
+            get {
+                return ResourceManager.GetString("PoorDescription", resourceCulture);
             }
         }
         
@@ -1546,6 +1681,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Required field.
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reviewer.
         /// </summary>
         public static string Reviewer {
@@ -1587,6 +1731,24 @@ namespace NexEPA.Resources {
         public static string SameProcessDateViolation {
             get {
                 return ResourceManager.GetString("SameProcessDateViolation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Satisfactory.
+        /// </summary>
+        public static string Satisfactory {
+            get {
+                return ResourceManager.GetString("Satisfactory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meets expectations: refers to solid performance with a full skills base; most people fall into this category..
+        /// </summary>
+        public static string SatisfactoryDescription {
+            get {
+                return ResourceManager.GetString("SatisfactoryDescription", resourceCulture);
             }
         }
         
@@ -1659,6 +1821,24 @@ namespace NexEPA.Resources {
         public static string StaffId {
             get {
                 return ResourceManager.GetString("StaffId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Star.
+        /// </summary>
+        public static string Star {
+            get {
+                return ResourceManager.GetString("Star", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stars.
+        /// </summary>
+        public static string Stars {
+            get {
+                return ResourceManager.GetString("Stars", resourceCulture);
             }
         }
         
@@ -1875,6 +2055,15 @@ namespace NexEPA.Resources {
         public static string TitleRequire {
             get {
                 return ResourceManager.GetString("TitleRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

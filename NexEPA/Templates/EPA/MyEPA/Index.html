@@ -1,13 +1,13 @@
 ﻿<div class="row sub-header ng-scope">
 	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-show="isPMPage">
 		<li>
-			<a href="/MemberEPA/ViewMember">Manage Member EPA</a></li>
-		<li class="current">Member EPA</li>
+			<a href="/MemberEPA/ViewMember" data-translate="ManageMemberEPA"></a></li>
+		<li class="current" data-translate="MemberEPA"></li>
 	</ul>
 	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-hide="isPMPage">
 		<li>
-			<a href="/MemberEPA/ViewCurrentMember">Manage My EPA</a></li>
-		<li class="current">My EPA</li>
+			<a href="/MemberEPA/ViewCurrentMember" data-translate="ManageMyEPA"></a></li>
+		<li class="current" data-translate="MyEPA"></li>
 	</ul>
 </div>
 <form class="epa-form" name="addProjectForm" ng-show="employeeEPA != null" novalidate>
@@ -120,8 +120,7 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<div class="col-sm-3">
-							Evaluated
+						<div class="col-sm-3" data-translate="Evaluated">
 						</div>
 						<div class="col-sm-8" ng-show="employeeEPA != null">
 							<div class="col-sm-12 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
@@ -143,7 +142,8 @@
 	</div>
 	<div class="epa-boxcontent">
 		<div class="row row-item line rating">
-			<span class="note">* Rating criteria:</span> please evaluate by point as this scale
+			<span class="note">* {{"RatingCriteria" | translate}}:</span>
+			<span data-translate="MessageRatingInstructions"></span>
 			<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
 			</div>
 		</div>
@@ -171,7 +171,7 @@
 								<rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
 									ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(item)"></rating>
 								<span class="badge percent" ng-show="item.percent > 0">{{item.percent}}%</span>
-								<span class="badge percent" ng-show="item.percent <= 0">N/A</span>
+								<span class="badge percent" ng-show="item.percent <= 0" data-translate="NotAvailable"></span>
 							</div>
 						</div>
 						<div class="row">
@@ -179,8 +179,7 @@
 								{{item.description}}</div>
 						</div>
 						<div class="row ">
-							<div class="epa-error-message" ng-show="item.checkNullComment">
-								This field is required!
+							<div class="epa-error-message" ng-show="item.checkNullComment" data-translate="FieldRequire">
 							</div>
 							<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment criteria-comment"
 								ng-model="item.comment" ng-show="item.hasComment">{{item.comment}}</textarea>
@@ -193,18 +192,17 @@
 	</ol>
 </div>
 <div class="col-sm-12 list-group-item">
-	<div class="boxtitle first">
-		COMMENTS</div>
+	<div class="boxtitle first" data-translate="Comments" style="text-transform:uppercase;">
+	</div>
 	<div class="row comment">
-		<div class="epa-error-message" ng-show="!generalCommentValid">
-			This field is required!
+		<div class="epa-error-message" ng-show="!generalCommentValid" data-translate="FieldRequire">
 		</div>
 		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment comment" ng-model="employeeEPA.comment"></textarea>
 		<label ng-if="employeeEPA.comment==null || employeeEPA.comment==''" class="error-message" data-translate="*"></label>
 		<div class="col-sm-3 pull-right">
 			<div class="total">
-				<p>
-					Total</p>
+				<p data-translate="Total">
+				</p>
 				<p class="finalscore">
 					{{finalScore}}
 				</p>
@@ -212,7 +210,7 @@
 		</div>
 	</div>
 	<div class="txtRequired error-message">
-		Note: (*) Required field !
+		{{"Note" | translate }}: (*) {{"RequiredField" | translate}} !
 	</div>
 </div>
 <div class="col-sm-12 action-button epa">
