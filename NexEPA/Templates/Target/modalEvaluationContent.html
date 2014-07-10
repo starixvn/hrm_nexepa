@@ -76,16 +76,20 @@
 							</td>
 							<td>
 								<div class="list-star score-target-rating">
-									<a ng-show="isHost{{kpiItem.kpiId}} && employee.kpiItem.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
+									<a ng-show="policy.isHost{{kpiItem.kpiId + '_' + employee.employeeId}} && employee.kpiItem.score > 0" 
+										class="glyphicon glyphicon-remove-circle remove-star"
 										title="Cancel" href="javascript:;" ng-click="cancelRating(employee.kpiItem, employee)"></a>
-									<rating value="employee.kpiItem.score" max="max" on-hover="hoveringOver(value, employee.kpiItem)"
-										ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(employee.kpiItem, employee)"></rating>
+									<rating value="employee.kpiItem.score" max="max" on-hover="hoveringOver(value, employee)"
+										on-leave="hoveringLeave(employee.kpiItem, employee)" readonly="checkReadOnly(kpiItem, employee)">
+									</rating>
 									<span class="badge percent" ng-show="employee.kpiItem.percent > 0">{{employee.kpiItem.percent}}%</span>
 									<span class="badge percent" ng-show="employee.kpiItem.percent <= 0">N/A</span>
 								</div>
 							</td>
 							<td class="target-center" ng-if="kpiItem.hasComment">
-								<textarea ng-model="employee.kpiItem.comment" ></textarea>
+								<textarea ng-model="employee.kpiItem.comment" 
+									ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}">
+								</textarea>
 							</td>
 							<td ng-bind="employee.finalScore" class="target-center">
 							</td>
@@ -96,7 +100,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button class="button" ng-click="save(employees)" data-translate="Save">
+		<button class="button" ng-click="save(employees)" data-translate="Save" >
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

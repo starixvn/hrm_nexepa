@@ -22,14 +22,14 @@
                 <th data-translate="SymbolCount"></th>
                 <th data-translate="Name"></th>
                 <th data-translate="Weight"></th>
-                <th data-translate="Action" ng-show="isEditMode"></th>
+                <th data-translate="Action" ng-show="isEditMode && permissionMemberEPA.policy > 0"></th>
             </thead>
             <tbody ng-repeat="kpiGroupItem in listGroupKPI">
                 <tr class="target-kpi-group">
                     <td class="row-highlight"></td>
                     <td class="row-highlight" ng-bind="kpiGroupItem.group.name"></td>
                     <td class="row-highlight target-kpi-weight" ng-bind="kpiGroupItem.group.weight"></td>
-                    <td ng-if="isEditMode"></td>
+                    <td ng-if="isEditMode && permissionMemberEPA.policy > 0"></td>
                 </tr>
                 <tr ng-repeat="kpiItem in kpiGroupItem.kpIs">
                     <td class="count" ng-bind="calculateIndex($parent.$index, $index, listGroupKPI)" ></td>
@@ -38,14 +38,14 @@
                         <span ng-bind="kpiItem.weight" ng-show="!kpiGroupItem.group.isSpreadKPI"></span>
                         <span ng-bind="'-'" ng-show="kpiGroupItem.group.isSpreadKPI"></span>
                     </td>
-                    <td class="target-center" ng-if="isEditMode">
+                    <td class="target-center" ng-if="isEditMode && permissionMemberEPA.policy > 0">
                       <a class="glyphicon glyphicon-new-window new-rating" title="Evalute" href="" 
                           ng-click="evaluate(kpiGroupItem.group, kpiItem)" 
                           ng-show="!rating.isRating{{kpiItem.kpiId}}"/>
-                      <a class="glyphicon glyphicon-saved epa-saved" title="Evalute" href="" 
+                      <a class="glyphicon glyphicon-saved epa-saved" title="Done" href="" 
                           ng-click="evaluate(kpiGroupItem.group, kpiItem)" 
                           ng-show="rating.isRating{{kpiItem.kpiId}} && rating.isAllRating{{kpiItem.kpiId}}"/>
-                      <a class="glyphicon glyphicon-list-alt epa-unsaved" title="Evalute" href="" 
+                      <a class="glyphicon glyphicon-list-alt epa-unsaved" title="Not done" href="" 
                           ng-click="evaluate(kpiGroupItem.group, kpiItem)" 
                           ng-show="rating.isRating{{kpiItem.kpiId}} && !rating.isAllRating{{kpiItem.kpiId}}"/>
                     </td>

@@ -710,20 +710,20 @@ targetModule.controller("TargetKPIController",
 ['$scope', '$routeParams', 'targetFactory', 'ErrorService', 'notificationFactory', '$modal',
 function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory, $modal) {
 
-	var targetId = parseInt($routeParams.id);
+	var targetId = parseInt($routeParams.id),
+		isRating = "isRating",
+		isAllRating = "isAllRating";
+
 	$scope.isEditMode = $routeParams.isEditMode ? true : false;
 	$scope.kpiLoaded = false;
 	$scope.rating = {};
 
 	var setRatingProperty = function (listGroupKPI) {
-		var rating = "isRating",
-			allRating = "isAllRating";
-
 		angular.forEach(listGroupKPI, function (group) {
 			if (group.kpIs) {
 				angular.forEach(group.kpIs, function (kpi) {
-					var ratingProperty = rating + kpi.kpiId,
-							allRatingProperty = allRating + kpi.kpiId;
+					var ratingProperty = isRating + kpi.kpiId,
+							allRatingProperty = isAllRating + kpi.kpiId;
 
 					if (kpi.isAllRating === null) {
 						$scope.rating[ratingProperty] = false;
@@ -822,21 +822,21 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 					return targetId;
 				},
 				permissionOnTarget: function () {
-					return $scope.permissonOnTarget;
+					return parseInt($scope.permissonOnTarget);
 				},
 				policyMemberEPA: function () {
-					return $scope.permissionMemberEPA.policy;
+					return  parseInt($scope.permissionMemberEPA.policy);
 				}
 			},
 			windowClass: 'app-modal-window'
 		});
 
 		modalEvaluationInstance.result.then(function (ratingResult) {
-			var ratingProperty = "isRating" + kpiItem.kpiId;
+			var ratingProperty = isRating + kpiItem.kpiId;
 			$scope.rating[ratingProperty] = ratingResult.rating;
 
-			var allRatingProperty = "isAllRating" + kpiItem.kpiId;
-			$scope.rating[allRatingProperty] = ratingResult.isAllRating;
+			var allRatingProperty = isAllRating + kpiItem.kpiId;
+			$scope.rating[allRatingProperty] = ratingResult.allRating;
 		});
 	};
 } ]);
@@ -850,7 +850,6 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
 
 	$scope.kpiGroup = kpiGroup;
 	$scope.kpiItem = kpiItem;
-	$scope.permissionOnTarget = permissionOnTarget;
 
 	$scope.max = 5;
 	$scope.policy = {};
@@ -870,8 +869,8 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
 							if (kpi.kpiId === kpiItem.kpiId) {
 								employee.kpiItem = kpi;
 
-								var isRead = "isReadOnly" + kpi.kpiId,
-									isHost = "isHost" + kpi.kpiId;
+								var isRead = "isReadOnly" + kpi.kpiId + '_' + employee.employeeId,
+									isHost = "isHost" + kpi.kpiId + '_' + employee.employeeId;
 								// has host permission on Member EPA function, has permisson on Target and status of EPA is open
 								$scope.policy[isHost] = policyMemberEPA === 2 && permissionOnTarget === 2 &&
 																group.status === 0;
@@ -945,13 +944,28 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
 		employee.finalScore = targetUtility.calculateScoreTarget(employee.epaInfo);
 	};
 
-	$scope.hoveringOver = function (value, object) {
-		object.percent = (100 * value) / $scope.max;
+	$scope.hoveringOver = function (value, employee) {
+		var isRead = "isReadOnly" + kpiItem.kpiId + '_' + employee.employeeId;
+
+		if (!$scope.policy[isRead]) {
+			employee.kpiItem.percent = (100 * value) / $scope.max;
+		}
 	};
 
 	$scope.hoveringLeave = function (item, employee) {
 		item.percent = (100 * item.score) / $scope.max;
 		employee.finalScore = targetUtility.calculateScoreTarget(employee.epaInfo);
+	};
+
+	$scope.checkReadOnly = function (kpiItem, employee) {
+		var isRead = "isReadOnly" + kpiItem.kpiId + '_' + employee.employeeId;
+
+		if ($scope.policy[isRead]) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	};
 
 	targetUtility.showMessageAfterValidateTargetRating($scope);
