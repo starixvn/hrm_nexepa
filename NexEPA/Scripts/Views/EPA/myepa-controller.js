@@ -65,12 +65,12 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	*/
 
 	var checkStatus = function (status) {
-		if (status === 1 || $scope.permission.policy === 1) {
+		if (status === 1) {
 			$scope.isReadonly = true;
 			$scope.hoveringOver = null;
 			$scope.hoveringLeave = null;
 		}
-		else if (status === 0 && $scope.permission.policy === 2) {
+		else {
 			$scope.isReadonly = false;
 			// Rating Star Hover.
 			$scope.hoveringOver = function (value, object) {
@@ -172,7 +172,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 	$scope.$watchCollection('[employeeEPA,permission]', function (newVals) {
 		if (newVals[0] && newVals[1]) {
-			if ($scope.employeeEPA.permission === 2) {
+			if ($scope.employeeEPA.permission === 2 && $scope.permission.policy === 2) {
 				checkStatus($scope.employeeEPA.status);
 			}
 			else {
