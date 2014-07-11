@@ -12,9 +12,9 @@ namespace NexEPA.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
-    using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Models;
     using NexEPA.KPI.Criteria.KPI;
     using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;

@@ -11,7 +11,7 @@ namespace NexEPA.Organization.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
-    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Organization.Criteria;
     using NexEPA.Organization.Models;

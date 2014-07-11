@@ -9,7 +9,7 @@
 
 namespace NexEPA.Project.Criteria.Project
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Project By Id Criteria.

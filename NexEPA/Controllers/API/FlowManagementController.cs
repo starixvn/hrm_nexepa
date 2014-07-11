@@ -14,9 +14,9 @@ namespace NexEPA.Controllers.API
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Models;
     using NexEPA.Organization.Criteria.FlowManagement;
     using NexEPA.Organization.Models;
     using NexEPA.Organization.Services.Implement;

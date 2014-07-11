@@ -9,7 +9,7 @@
 
 namespace NexEPA.Target.Criteria.Target.TargetKPI
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get KPIs by Target ID criteria.

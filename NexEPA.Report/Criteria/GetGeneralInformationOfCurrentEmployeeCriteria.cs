@@ -9,7 +9,7 @@
 
 namespace NexEPA.Report.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get general information of current employee that used in dashboard.

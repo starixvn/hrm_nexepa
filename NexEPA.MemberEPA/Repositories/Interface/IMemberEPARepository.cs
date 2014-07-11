@@ -11,7 +11,7 @@
 namespace NexEPA.MemberEPA.Repositories.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
 

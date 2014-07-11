@@ -9,7 +9,7 @@
 
 namespace NexEPA.Target.Criteria.Target.TargetEmployee
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get all Employee by Target Id criteria.

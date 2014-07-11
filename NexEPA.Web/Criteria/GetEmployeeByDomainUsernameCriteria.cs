@@ -9,7 +9,7 @@
 
 namespace NexEPA.Web.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// GetEmployeeByDomainUsername Criteria.

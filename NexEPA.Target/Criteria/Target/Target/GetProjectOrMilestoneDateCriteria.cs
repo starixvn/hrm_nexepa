@@ -9,7 +9,7 @@
 
 namespace NexEPA.Target.Criteria.Target.Target
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get project date or milestone date criteria.

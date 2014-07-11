@@ -10,7 +10,7 @@
 namespace NexEPA.KPI.Services.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.ViewModels;
 

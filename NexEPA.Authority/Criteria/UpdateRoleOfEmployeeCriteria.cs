@@ -10,7 +10,7 @@
 namespace NexEPA.Authority.Criteria
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update role criteria.

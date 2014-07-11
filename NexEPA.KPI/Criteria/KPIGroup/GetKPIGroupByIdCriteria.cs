@@ -9,7 +9,7 @@
 
 namespace NexEPA.KPI.Criteria.KPIGroup
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get KPI group by id.

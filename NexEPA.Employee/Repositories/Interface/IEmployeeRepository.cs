@@ -10,7 +10,7 @@
 namespace NexEPA.Employee.Repositories.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Employee.Models;
 
     /// <summary>

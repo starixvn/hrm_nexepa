@@ -10,7 +10,7 @@
 namespace NexEPA.Target.Criteria.TargetEmployeeSetting
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update Target Template Setting criteria.

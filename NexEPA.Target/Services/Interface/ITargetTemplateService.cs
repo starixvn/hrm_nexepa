@@ -10,7 +10,7 @@
 namespace NexEPA.Target.Services.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.KPI.Model;
     using NexEPA.Target.Criteria.TargetEmployeeSetting;
     using NexEPA.Target.Criteria.TargetTemplate;

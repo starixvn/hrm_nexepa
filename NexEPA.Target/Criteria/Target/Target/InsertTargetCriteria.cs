@@ -10,7 +10,7 @@
 namespace NexEPA.Target.Criteria.Target.Target
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Insert target criteria.

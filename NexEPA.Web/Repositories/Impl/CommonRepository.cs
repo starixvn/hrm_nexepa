@@ -11,7 +11,7 @@ namespace NexEPA.Web.Repositories.Impl
 {
     using System.Linq;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Authority.Models;
     using NexEPA.Web.Models;
     using NexEPA.Web.Repositories.Interfaces;

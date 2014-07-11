@@ -12,7 +12,7 @@ namespace NexEPA.Authority.Services.Interface
     using System.Collections.Generic;
     using Authority.Criteria;
     using Authority.Models;
-    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
 
     /// <summary>
     /// The interface of Authority service.

@@ -10,7 +10,7 @@
 namespace NexEPA.KPI.Repositories.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.KPI.Model;
 
     /// <summary>

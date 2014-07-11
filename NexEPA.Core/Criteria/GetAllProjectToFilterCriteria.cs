@@ -9,7 +9,7 @@
 
 namespace NexEPA.Core.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get all project to filter criteria.

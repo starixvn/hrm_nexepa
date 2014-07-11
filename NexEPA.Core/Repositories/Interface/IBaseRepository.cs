@@ -9,7 +9,8 @@
 
 namespace NexEPA.Core.Repositories.Interface
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
+    using NexEPA.Core.Models;
 
     public interface IBaseRepository
     {

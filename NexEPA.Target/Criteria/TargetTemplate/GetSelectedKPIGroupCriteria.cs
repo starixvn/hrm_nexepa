@@ -9,7 +9,7 @@
 
 namespace NexEPA.Target.Criteria.TargetTemplate
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Selected KPI Group Criteria.

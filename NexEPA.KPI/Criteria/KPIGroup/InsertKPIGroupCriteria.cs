@@ -10,7 +10,7 @@
 namespace NexEPA.KPI.Criteria.KPIGroup
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Insert new KPI group criteria.

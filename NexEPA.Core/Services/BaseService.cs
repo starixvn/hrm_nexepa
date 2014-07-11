@@ -11,7 +11,7 @@ namespace NexEPA.Core.Services
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Core.Repositories.Implement;
     using NexEPA.Core.Repositories.Interface;
 

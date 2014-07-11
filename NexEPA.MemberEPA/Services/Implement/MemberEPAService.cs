@@ -13,8 +13,8 @@ namespace NexEPA.MemberEPA.Services.Implement
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
-    using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Core.Utilities;
     using NexEPA.MemberEPA.Criteria;

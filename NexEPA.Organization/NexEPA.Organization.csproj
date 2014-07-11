@@ -31,25 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.Common">
-      <HintPath>..\Dependencies\Fanex.Common.dll</HintPath>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Data">
-      <HintPath>..\Dependencies\Fanex.Data.dll</HintPath>
+    <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.NAP.Core">
-      <HintPath>..\Dependencies\Fanex.NAP.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.NAP.Framework">
-      <HintPath>..\Dependencies\Fanex.NAP.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\AddDepartmentCriteria.cs" />
@@ -78,7 +67,9 @@
     <Compile Include="Services\Interface\IDepartmentService.cs" />
     <Compile Include="Services\Interface\IFlowManagementService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
       <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>

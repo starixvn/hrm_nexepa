@@ -15,9 +15,10 @@ namespace NexEPA.Core.Repositories.Implement
     using System.Linq;
     using System.Reflection;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Core.Criteria;
     using NexEPA.Core.Extensions;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Repositories.Interface;
 
     /// <summary>

@@ -10,7 +10,7 @@
 namespace NexEPA.KPI.Criteria.KPI
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update KPI criteria.

@@ -10,7 +10,7 @@
 namespace NexEPA.Project.Criteria.ProjectMembers
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Delete Member Criteria.

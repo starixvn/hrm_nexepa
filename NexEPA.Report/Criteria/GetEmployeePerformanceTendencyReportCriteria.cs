@@ -9,7 +9,7 @@
 
 namespace NexEPA.Report.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get employee performance tendency report criteria.

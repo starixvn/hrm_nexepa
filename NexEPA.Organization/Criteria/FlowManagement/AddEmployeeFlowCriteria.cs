@@ -10,7 +10,7 @@
 namespace NexEPA.Organization.Criteria.FlowManagement
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Add Employee Flow Criteria.

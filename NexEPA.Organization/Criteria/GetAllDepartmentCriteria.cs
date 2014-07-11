@@ -9,7 +9,7 @@
 
 namespace NexEPA.Organization.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Department Criteria.

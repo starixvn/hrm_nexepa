@@ -13,7 +13,7 @@ namespace NexEPA.MemberEPA.Repositories.Implement
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;

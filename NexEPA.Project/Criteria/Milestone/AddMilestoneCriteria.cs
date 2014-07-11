@@ -10,7 +10,7 @@
 namespace NexEPA.Project.Criteria.Milestone
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Add Milestone Criteria.

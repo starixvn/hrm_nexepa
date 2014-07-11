@@ -10,7 +10,7 @@
 namespace NexEPA.Target.Criteria.TargetTemplate
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update Target Template Criteria.

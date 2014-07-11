@@ -13,9 +13,9 @@ namespace NexEPA.Controllers.Target
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using Fanex.NAP.Framework.Data;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Models;
     using NexEPA.Employee.Models;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Services.Implement;

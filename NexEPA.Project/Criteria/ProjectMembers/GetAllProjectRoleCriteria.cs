@@ -9,7 +9,7 @@
 
 namespace NexEPA.Project.Criteria.ProjectMembers
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Project Role Criteria.

@@ -9,7 +9,7 @@
 
 namespace NexEPA.Authority.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get all system role criteria.

@@ -12,7 +12,7 @@ namespace NexEPA.Project.Services.Implement
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
-    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Project.Criteria.ProjectMembers;
     using NexEPA.Project.Models;

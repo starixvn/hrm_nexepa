@@ -10,7 +10,7 @@
 namespace NexEPA.KPI.Criteria.KPIGroup
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update status of KPI Group criteria.

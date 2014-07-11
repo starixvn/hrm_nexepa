@@ -10,7 +10,7 @@
 namespace NexEPA.Project.Criteria.Project
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Project Criteria.

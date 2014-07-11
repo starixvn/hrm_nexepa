@@ -11,7 +11,7 @@ namespace NexEPA.Organization.Repositories.Implement
 {
     using System.Collections.Generic;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Models;
     using NexEPA.Organization.Models;

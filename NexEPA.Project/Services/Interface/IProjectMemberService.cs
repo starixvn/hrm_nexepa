@@ -10,7 +10,7 @@
 namespace NexEPA.Project.Services.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.Project.Criteria.ProjectMembers;
     using NexEPA.Project.Models;
 

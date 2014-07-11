@@ -12,13 +12,13 @@ namespace NexEPA.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
-    using Fanex.NAP.Framework.Data;
     using NexEPA.Authority.Criteria;
     using NexEPA.Authority.Models;
     using NexEPA.Authority.Services.Implement;
     using NexEPA.Authority.Services.Interface;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Models;
     using NexEPA.Employee.Criteria;
     using NexEPA.Employee.Models;
     using NexEPA.Employee.Services.Implement;

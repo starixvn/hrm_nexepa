@@ -9,7 +9,7 @@
 
 namespace NexEPA.Report.Repositories.Interface
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Models.EmployeePerformanceTendency;

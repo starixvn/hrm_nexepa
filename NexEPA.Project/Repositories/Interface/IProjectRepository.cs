@@ -10,7 +10,7 @@
 namespace NexEPA.Project.Repositories.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Project.Models;
 
     /// <summary>

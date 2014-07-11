@@ -9,7 +9,7 @@
 
 namespace NexEPA.MemberEPA.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get appraisal form criteria.

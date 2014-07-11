@@ -9,7 +9,7 @@
 
 namespace NexEPA.Target.Criteria.TargetEmployeeSetting
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get target employee setting criteria.

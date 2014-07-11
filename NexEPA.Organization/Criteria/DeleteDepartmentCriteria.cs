@@ -10,7 +10,7 @@
 namespace NexEPA.Organization.Criteria
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Delete Department Criteria.

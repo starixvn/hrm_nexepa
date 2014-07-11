@@ -15,7 +15,7 @@ namespace NexEPA.Authority.Services.Implement
     using Authority.Models;
     using Authority.Services.Interface;
     using Fanex.Common.Helper;
-    using Fanex.NAP.Framework.Data;
+    using NexEPA.Core.Models;
     using NexEPA.Core.Services;
 
     /// <summary>
