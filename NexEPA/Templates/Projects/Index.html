@@ -104,7 +104,7 @@
                         {{project.totalEPA}}</a> <span ng-if="project.permission != 2">{{project.totalEPA}}</span>
                 </td>
                 <td>
-                    <span class="dropdown" on-toggle="toggled(open)" ng-if="project.permission == 2"><a
+                    <span class="dropdown" on-toggle="toggled(open)" ng-if="project.permission == 2 && permission.policy == 2"><a
                         href="javascript:;" class="dropdown-toggle changeStatus">{{project.status|enumStatusText}}</a>
                         <ul class="dropdown-menu dropdown-menu-width">
                             <li ng-repeat="item in status|filter:{id:'!'+project.status} ">
@@ -113,7 +113,7 @@
 							</li>
                         </ul>
                     </span>
-					<span ng-if="project.permission != 2">{{project.status|enumStatusText}}</span>
+					<span ng-if="project.permission != 2 || permission.policy == 1">{{project.status|enumStatusText}}</span>
                 </td>
                 <td class="text-center">
                     {{project.startDate | customDate}}
@@ -124,8 +124,9 @@
                 <td class="text-center">
                     <div ng-if="project.permission == 2">
                         <a class="glyphicon glyphicon-edit icon-edit" title="Edit Project" href="/Projects/Edit/{{project.projectId}}"
-                            ng-click="editProject(project.projectId)" /><a class="glyphicon glyphicon-remove icon-remove"
-                                title="Delete Project" href="javascript:;" ng-click="deleteProject(project)" />
+                            ng-click="editProject(project.projectId)" />
+                        <a class="glyphicon glyphicon-remove icon-remove" ng-if="permission.policy == 2"
+                           title="Delete Project" href="javascript:;" ng-click="deleteProject(project)" />
                     </div>
                 </td>
             </tr>

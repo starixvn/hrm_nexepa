@@ -6,7 +6,7 @@
 		</li>
 		<li class="current" data-translate="EditProject"></li>
 	</ul>
-	<a class="button-icon" ng-if="projectUpdate.permission == 2 && formReadOnly" href="/Projects/Edit/{{projectUpdate.projectId}}">
+	<a class="button-icon" ng-if="projectUpdate.permission == 2 && formReadOnly && permissionProject.policy == 2" href="/Projects/Edit/{{projectUpdate.projectId}}">
 		<span class="glyphicon glyphicon-edit icon-edit"></span>
 		<span class="button-text" data-translate="EditProject"></span>
 	</a>
@@ -28,7 +28,7 @@
                     <label class="col-sm-2 col-md-2" data-translate="ProjectName" />
                     <div class="col-sm-6 col-md-4">
                         <input class="custom-textbox" type="text" name="projectname" ng-model="projectUpdate.name"
-                           ng-disabled="formReadOnly" maxlength="200" placeholder="Project Name" />
+                           ng-disabled="formReadOnly || permissionProject.policy == 1" maxlength="200" placeholder="Project Name" />
                     </div>
                 </div>
                 <div class="col-sm-12 line">
@@ -37,8 +37,8 @@
                     <div class="col-sm-6 col-md-4">
                         <input type="text" class="custom-textbox custom-date" ng-model="projectUpdate.startDate"
                             is-open="calendar.startDateOpened" datepicker-popup="{{dateFormat}}" placeholder="Start Date"
-                            id="startDate" readonly ng-disabled="formReadOnly"/>
-                        <calendar-image ng-click="openPopupStartDate($event)" ng-hide="formReadOnly"></calendar-image>
+                            id="startDate" readonly ng-disabled="formReadOnly || permissionProject.policy == 1"/>
+                        <calendar-image ng-click="openPopupStartDate($event)" ng-hide="formReadOnly || permissionProject.policy == 1"></calendar-image>
                     </div>
                 </div>
                 <div class="col-sm-12 line">
@@ -47,15 +47,15 @@
                     <div class="col-sm-6 col-md-4">
                         <input type="text" class="custom-textbox custom-date" ng-model="projectUpdate.endDate"
                             is-open="calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{dateFormat}}"
-                            id="endDate" readonly ng-disabled="formReadOnly"/>
-                            <calendar-image ng-click="openPopupEndDate($event)" ng-hide="formReadOnly"></calendar-image>
+                            id="endDate" readonly ng-disabled="formReadOnly || permissionProject.policy == 1"/>
+                            <calendar-image ng-click="openPopupEndDate($event)" ng-hide="formReadOnly || permissionProject.policy == 1"></calendar-image>
                     </div>
                 </div>
                 <div class="col-sm-12 line">
                     <label class="col-sm-2 col-md-2" data-translate="PM">
                     </label>
                     <div class="col-sm-6 col-md-4">
-                        <select class="custom-textbox" ng-model="projectUpdate.projectManager" ng-disabled="formReadOnly">
+                        <select class="custom-textbox" ng-model="projectUpdate.projectManager" ng-disabled="formReadOnly || permissionProject.policy == 1">
 							<option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
                         </select>
                     </div>
@@ -65,7 +65,7 @@
                     </label>
                     <div class="col-sm-6 col-md-4">
                         <select class="custom-textbox" ng-options="s.id as s.name for s in status"
-						ng-model="projectUpdate.status" ng-disabled="formReadOnly">
+						ng-model="projectUpdate.status" ng-disabled="formReadOnly || permissionProject.policy == 1">
                             <option style="display: none" value="">-- Select a status --</option>
                         </select>
                     </div>
@@ -75,7 +75,7 @@
                     </label>
                     <div class="col-sm-6 col-md-4">
                         <textarea class="custom-textarea" ng-model="projectUpdate.description" 
-						ng-disabled="formReadOnly" maxlength="500"></textarea>
+						ng-disabled="formReadOnly || permissionProject.policy == 1" maxlength="500"></textarea>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
 
             <div class="row action-button">
                 <button class="button" ng-disabled="addProjectForm.$invalid" ng-click="update(projectUpdate)"
-                    data-translate="Submit" ng-if="!formReadOnly">
+                    data-translate="Submit" ng-if="!formReadOnly && permissionProject.policy == 2">
                 </button>
                 <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
                 </button>

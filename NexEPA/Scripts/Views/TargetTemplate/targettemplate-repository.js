@@ -8,8 +8,8 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 			var deferred = $q.defer();
 			$http.get('/api/targetTemplate/GetTargetTemplateById/', { params: { targetTemplateId: targetTemplateId} })
 			.success(deferred.resolve).error(function (data, status) {
-             deferred.reject(status);
-            });
+				deferred.reject(status);
+			});
 			return deferred.promise;
 		},
 		getAllTargetType: function () {
@@ -110,6 +110,12 @@ targetTemplateModule.factory("targetTemplateFactory", ['$http', '$q', function (
 			}).error(function (data, status) {
 				deferred.reject(response = { status: status });
 			});
+			return deferred.promise;
+		},
+		getPermissionTargetTemplate: function () {
+			var deferred = $q.defer();
+			$http.get('/api/TargetTemplate/GetPermissionTargetTemplate')
+			.success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
 		}
 	};

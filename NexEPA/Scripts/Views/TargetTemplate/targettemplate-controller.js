@@ -52,6 +52,12 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 		}
 	};
 
+	var successGetPermission = function (policy) {
+		$scope.permission = {
+			policy: policy
+		};
+	};
+
 	// Error notify when action failure.
 	var errorNotification = function (response) {
 		if (response.status === 405) {
@@ -72,7 +78,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 	targetTemplateFactory.getAllTargetType().then(successGetAllTargetType, errorHandle);
 	commonFactory.maxLengthDescription($scope);
 	tabService.setProperty(null);
-
+	targetTemplateFactory.getPermissionTargetTemplate().then(successGetPermission, errorHandle);
 	/**
 	* Event: Filter 
 	*/

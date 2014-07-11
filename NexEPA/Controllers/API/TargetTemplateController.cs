@@ -443,14 +443,17 @@ namespace NexEPA.Controllers.API
             return _targetTemplateService.UpdateTargetEmployeeSetting(criteria);
         }
 
-        /// <summary>
-        /// Get permission of user on current function.
-        /// </summary>
-        /// <returns>The policy.</returns>
         [HttpGet]
         public int GetPermissionTargetEmployeeSetting()
         {
             int policy = _commonService.GetPermission(EPAFunctionKeys.ManageTargetEmployeeSetting);
+            return policy;
+        }
+
+        [HttpGet]
+        public int GetPermissionTargetTemplate()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageTargetTemplate);
             return policy;
         }
 

@@ -5,8 +5,10 @@
 	</div>
 	<div class="row">
 		<div class="span10 tbl-member">
-			<a class="button button-icon btn-addMember" ng-if"permission == 2" ng-click="addMember()">
-				<span class="icon plus"></span>Add member</a>
+			<a class="button button-icon btn-addMember" ng-if="permission == 2 && permissionProject.policy == 2" ng-click="addMember()">
+				<span class="icon plus"></span>
+				<span data-translate="AddMember"></span>
+			</a>
 			<table class="table table-bordered table-striped table-hover">
 				<thead>
 					<tr>

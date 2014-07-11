@@ -398,6 +398,14 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 	// get Date Format
 	commonFactory.getDateFormat($scope);
 
+	var successGetPermission = function (data) {
+		$scope.permissionProject = {
+			policy: parseInt(data)
+		};
+	};
+
+	projectDataFactory.getPermission().then(successGetPermission, errorHandle);
+
 	/**
 	* Events 
 	*/
