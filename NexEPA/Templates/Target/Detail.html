@@ -4,10 +4,10 @@
             <li><a href="#" data-translate="Target" ng-click="cancel()"></a></li>
             <li class="current" data-translate="TargetDetail"></li>
         </ul>
-        <div class="button-icon" ng-if="permission.policy == 2">
-            <span class="glyphicon glyphicon-edit icon-edit"></span>
-            <a href="" ng-click="editTarget()" ng-href={{editTargetUrl}} data-translate="EditTarget"></a>
-        </div>
+		<a class="button-icon" ng-if="permission.policy == 2" href="" ng-click="editTarget()" ng-href={{editTargetUrl}}>
+			<span class="glyphicon glyphicon-edit icon-edit"></span>
+			<span class="button-text" data-translate="EditTarget"></span>
+		</a>
     </div>
 </div>
 <div class="row target-tabset">

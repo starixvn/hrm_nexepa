@@ -6,11 +6,10 @@
 		</li>
 		<li class="current" data-translate="EditProject"></li>
 	</ul>
-	<div class="button-icon" ng-if="projectUpdate.permission == 2 && formReadOnly">
+	<a class="button-icon" ng-if="projectUpdate.permission == 2 && formReadOnly" href="/Projects/Edit/{{projectUpdate.projectId}}">
 		<span class="glyphicon glyphicon-edit icon-edit"></span>
-		<a href="/Projects/Edit/{{projectUpdate.projectId}}" data-translate="EditProject">
-		</a>
-	</div>
+		<span class="button-text" data-translate="EditProject"></span>
+	</a>
 </div>
 </div>
 <div class="row target-tabset">

@@ -3,10 +3,10 @@
         <li><a href="#">Project</a></li>
         <li class="current">Manage Project</li>
     </ul>
-    <div class="button-icon" ng-if="permission.policy == 2">
-        <span class="icon plus"></span><a href="/Projects/Create" data-translate="CreateProject">
-        </a>
-    </div>
+	<a class="button-icon" ng-if="permission.policy == 2" href="/Projects/Create">
+		<span class="icon plus"></span>
+		<span class="button-text" data-translate="CreateProject"></span>
+	</a>
 </div>
 <div class="row">
     <form class="form-inline filter" role="form">

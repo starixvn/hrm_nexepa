@@ -3,10 +3,10 @@
         <li><a href="#" data-translate="Target" ng-click="reload()"></a></li>
         <li class="current" data-translate="ManageTarget"></li>
     </ul>
-    <div class="button-icon" ng-if="permission.policy == 2">
-        <span class="icon plus"></span><a href="" ng-href="{{createTargetUrl}}" ng-click="create()"
-            data-translate="CreateTarget"></a>
-    </div>
+	<a class="button-icon" ng-if="permission.policy == 2" href="" ng-href="{{createTargetUrl}}" ng-click="create()">
+		<span class="icon plus"></span>
+		<span class="button-text" data-translate="CreateTarget"></span>
+	</a>
 </div>
 <div class="row">
     <form novalidate class="form-inline filter">
