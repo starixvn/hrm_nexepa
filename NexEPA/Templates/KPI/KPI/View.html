@@ -5,10 +5,10 @@
         </span><span ng-show="!isViewAll && KPIList != ''">of "{{KPIList[0].kpiGroupNames[0]}}"</span>
         </li>
     </ul>
-    <div class="button-icon" ng-if="permission.policy == 2">
-        <span class="glyphicon glyphicon-plus icon-plus"></span>
-        <a href="" ng-click="create()" data-translate="CreateKPI" ng-href="{{createKPIUrl}}"></a>
-    </div>
+	<a class="button-icon" ng-if="permission.policy == 2" href="" ng-click="create()" ng-href="{{createKPIUrl}}">
+		<span class="icon plus"></span>
+		<span class="button-text" data-translate="CreateKPI"></span>
+	</a>
     <div class="button-icon" ng-show="!isViewAll">
         <span class="glyphicon glyphicon-arrow-left icon-back"></span>
         <a href="" ng-click="backToList()" data-translate="BackToList"></a>

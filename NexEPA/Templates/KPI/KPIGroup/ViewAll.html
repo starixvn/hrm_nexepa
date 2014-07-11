@@ -6,10 +6,10 @@
 			</li>
 			<li class="current" data-translate="ManageKPIGroup"></li>
 		</ul>
-		<div class="button-icon" ng-if="permission.policy == 2">
+		<a class="button-icon" ng-if="permission.policy == 2" href="" ng-click="create()" ng-href={{createKPIGroupUrl}}>
 			<span class="icon plus"></span>
-			<a href="" ng-click="create()" data-translate="CreateKPIGroup" ng-href={{createKPIGroupUrl}}></a>
-		</div>
+			<span class="button-text" data-translate="CreateKPIGroup"></span>
+		</a>
 	</div>
 	<div class="form-inline filter">
 		<form novalidate class="form-inline">
