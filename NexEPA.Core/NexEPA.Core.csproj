@@ -38,6 +38,7 @@
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
@@ -64,7 +65,9 @@
     <Compile Include="Repositories\Implement\BaseRepository.cs" />
     <Compile Include="Repositories\Interface\IBaseRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\EncodeService.cs" />
     <Compile Include="Services\EPAService.cs" />
+    <Compile Include="Services\Interface\IEncodeService.cs" />
     <Compile Include="Services\Interface\IEPAService.cs" />
     <Compile Include="Utilities\EnumStatus.cs" />
     <Compile Include="Utilities\GravatarImage.cs" />

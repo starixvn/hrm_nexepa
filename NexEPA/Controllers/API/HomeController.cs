@@ -12,6 +12,8 @@ namespace NexEPA.Controllers.API
     using System.Web.Http;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Services;
+    using NexEPA.Core.Services.Interface;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Services.Implement;
@@ -26,15 +28,17 @@ namespace NexEPA.Controllers.API
     public class HomeController : BaseController
     {
         private IReportService _reportService;
+        private IEncodeService _encodeSerivce;
 
         public HomeController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public HomeController(IReportService reportService)
+        public HomeController(IReportService reportService, IEncodeService encodeService)
         {
             _reportService = reportService ?? new ReportService();
+            _encodeSerivce = encodeService ?? new EncodeService();
         }
 
         [HttpGet]
@@ -45,7 +49,8 @@ namespace NexEPA.Controllers.API
             {
                 EmployeeId = SessionManager.CurrentUser.UserId
             };
-
+            string cipherText = _encodeSerivce.Encode("Josh.Phan");
+            string plainText = _encodeSerivce.Decode(cipherText);
             return _reportService.GetGeneralInformationOfCurrentEmployee(criteria);
         }
 
