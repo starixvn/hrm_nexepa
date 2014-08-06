@@ -20,5 +20,13 @@ namespace NexEPA.Core.Constants
         public const string ShortDateStringFormat = "dd MMM, yyyy";
 
         public const string DefaultGravatarUrl = "?d=mm&amp;f=y";
+
+        public const string KeyCryptography = "NexEPA08062014";
+
+        public const string EmployeeEPAScore = "<KPI KPIId='{0}' KPIGroupId='{1}' ScoreId='{2}' Comment='{3}'></KPI>";
+
+        public const string BeginRootTag = "<ROOT>";
+
+        public const string EndRootTag = "</ROOT>";
     }
 }

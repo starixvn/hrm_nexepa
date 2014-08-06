@@ -18,10 +18,6 @@ namespace NexEPA.MemberEPA.Models
     /// </summary>
     public class EPAInfoModel
     {
-        private const string _EmployeeEPAScore = "<KPI KPIId='{0}' KPIGroupId='{1}' ScoreId='{2}' Comment='{3}'></KPI>";
-        private const string _BeginRootTag = "<ROOT>";
-        private const string _EndRootTag = "</ROOT>";
-
         public int TargetId { get; set; }
 
         public int EmployeeId { get; set; }
@@ -77,29 +73,5 @@ namespace NexEPA.MemberEPA.Models
         public List<EPAProjectRoleModel> ProjectRoles { get; set; }
 
         public List<GroupingKPIModel> KPIInfo { get; set; }
-
-        public string ConvertKPIInfoToXML
-        {
-            get
-            {
-                if (KPIInfo != null)
-                {
-                    var value = new StringBuilder(_BeginRootTag);
-                    foreach (var kpi in KPIInfo)
-                    {
-                        foreach (var item in kpi.KPIGroupItems)
-                        {
-                            value.AppendFormat(_EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, item.Score, item.Comment);
-                        }
-                    }
-
-                    return value.Append(_EndRootTag).ToString();
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
-        }
     }
 }

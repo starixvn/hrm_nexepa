@@ -9,11 +9,8 @@
 
 namespace NexEPA.Core.Services
 {
-    using System;
-    using System.IO;
-    using System.Security.Cryptography;
-    using System.Text;
-    using System.Xml.Serialization;
+    using Constants;
+    using IBCCrypt;
     using NexEPA.Core.Services.Interface;
 
     /// <summary>
@@ -22,25 +19,13 @@ namespace NexEPA.Core.Services
     public class EncodeService : IEncodeService
     {
         /// <summary>
-        /// Encrypt data use RSA and Base64.
+        /// Encode data.
         /// </summary>
         /// <param name="plainText">The plain text.</param>
         /// <returns>The cipher text.</returns>
         public string Encode(string plainText)
         {
-            string publicKeyText = File.ReadAllText(@"RSAKey\publicKey.txt");
-            RSAParameters publicKey = ConvertStringToKey(publicKeyText);
-
-            //// Encode use RSA
-            var csp = new RSACryptoServiceProvider();
-            csp.ImportParameters(publicKey);
-
-            byte[] bytesPlainText = Encoding.Unicode.GetBytes(plainText);
-            byte[] bytesCipherText = csp.Encrypt(bytesPlainText, false);
-
-            //// Encode use Base64
-            string cipherText = Convert.ToBase64String(bytesCipherText);
-
+            string cipherText = IBCCrypt.Encrypt(plainText, Constants.KeyCryptography);
             return cipherText;
         }
 
@@ -51,31 +36,8 @@ namespace NexEPA.Core.Services
         /// <returns>The plain text.</returns>
         public string Decode(string cipherText)
         {
-            string privateKeyText = File.ReadAllText(@"RSAKey\privateKey.txt");
-            RSAParameters privateKey = ConvertStringToKey(privateKeyText);
-
-            //// Decode use Base64
-            byte[] bytesCipherText = Convert.FromBase64String(cipherText);
-
-            //// Decode use RSA
-            var csp = new RSACryptoServiceProvider();
-            csp.ImportParameters(privateKey);
-
-            byte[] bytesPlainText = csp.Decrypt(bytesCipherText, false);
-            string plainText = Encoding.Unicode.GetString(bytesPlainText);
-
+            string plainText = IBCCrypt.Decrypt(cipherText, Constants.KeyCryptography);
             return plainText;
-        }
-
-        private RSAParameters ConvertStringToKey(string keyString)
-        {
-            //// get a stream from the string
-            var stringReader = new StringReader(keyString);
-            //// a deserializer
-            var xmlSerializer = new XmlSerializer(typeof(RSAParameters));
-            //// get the object back from the stream
-            RSAParameters key = (RSAParameters)xmlSerializer.Deserialize(stringReader);
-            return key;
         }
     }
 }

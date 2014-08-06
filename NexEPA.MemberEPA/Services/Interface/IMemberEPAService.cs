@@ -50,5 +50,7 @@ namespace NexEPA.MemberEPA.Services.Interface
         CommandResult UpdateKPIScore(UpdateKPIScoreCriteria criteria);
 
         int GetUserPermissionOnTarget(GetUserPermissionOnTargetCriteria criteria);
+
+        string ConvertKPIInfoToXML(List<GroupingKPIModel> kpiInfo);
     }
 }

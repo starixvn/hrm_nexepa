@@ -12,10 +12,13 @@ namespace NexEPA.MemberEPA.Services.Implement
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Fanex.Common.Helper;
+    using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
@@ -31,9 +34,17 @@ namespace NexEPA.MemberEPA.Services.Implement
     {
         private readonly IMemberEPARepository _memberEPARepository;
 
-        public MemberEPAService(IMemberEPARepository memberEPARepository = null)
+        private readonly IEncodeService _encodeService;
+
+        public MemberEPAService()
+            : this(null, null)
+        {
+        }
+
+        public MemberEPAService(IMemberEPARepository memberEPARepository, IEncodeService encodeService)
         {
             _memberEPARepository = memberEPARepository ?? new MemberEPARepository();
+            _encodeService = encodeService ?? new EncodeService();
         }
 
         public EPAInfoModel GetEPAInfo(GetEPAInfoCriteria criteria)
@@ -316,6 +327,34 @@ namespace NexEPA.MemberEPA.Services.Implement
             }
 
             return permission;
+        }
+
+        /// <summary>
+        /// Convert KPI info to XMl.
+        /// </summary>
+        /// <param name="kpiInfo">The KPI info.</param>
+        /// <returns>The EPA xml.</returns>
+        public string ConvertKPIInfoToXML(List<GroupingKPIModel> kpiInfo)
+        {
+            string epaXML = string.Empty;
+
+            if (kpiInfo != null)
+            {
+                var value = new StringBuilder(Constants.BeginRootTag);
+
+                foreach (GroupingKPIModel kpi in kpiInfo)
+                {
+                    foreach (var item in kpi.KPIGroupItems)
+                    {
+                        string cipherScore = _encodeService.Encode(item.Score + item.KPIId);
+                        value.AppendFormat(Constants.EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, cipherScore, item.Comment);
+                    }
+                }
+
+                epaXML = value.Append(Constants.EndRootTag).ToString();
+            }
+
+            return epaXML;
         }
 
         /// <summary>

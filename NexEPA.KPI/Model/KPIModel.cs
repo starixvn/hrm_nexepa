@@ -28,7 +28,7 @@ namespace NexEPA.KPI.Model
 
         public bool IsDisabled { get; set; }
 
-        public int Score { get; set; }
+        public string Score { get; set; }
 
         public bool? IsAllRating { get; set; }
 
@@ -36,7 +36,7 @@ namespace NexEPA.KPI.Model
         {
             get
             {
-                return Score * 20;
+                return Score != null ? int.Parse(Score) * 20 : 0;
             }
         }
 

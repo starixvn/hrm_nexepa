@@ -64,7 +64,7 @@ namespace NexEPA.Controllers.API
                 EvaluatorId = model.ProjectManagerId,
                 Comment = model.Comment,
                 Score = model.FinalScore,
-                KPIs = model.ConvertKPIInfoToXML,
+                KPIs = _memberEPAService.ConvertKPIInfoToXML(model.KPIInfo),
                 MarkedBy = this.CurrentUser.UserId,
                 MarkedDate = DateTime.Now
             };

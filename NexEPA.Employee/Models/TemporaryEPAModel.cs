@@ -18,7 +18,7 @@ namespace NexEPA.Employee.Models
 
         public int KPIId { get; set; }
 
-        public int Score { get; set; }
+        public string Score { get; set; }
 
         public int Weight { get; set; }
 
