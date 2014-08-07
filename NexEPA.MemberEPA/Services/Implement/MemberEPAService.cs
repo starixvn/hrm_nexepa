@@ -20,6 +20,7 @@ namespace NexEPA.MemberEPA.Services.Implement
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
+    using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MyEPA;
@@ -47,6 +48,11 @@ namespace NexEPA.MemberEPA.Services.Implement
             _encodeService = encodeService ?? new EncodeService();
         }
 
+        /// <summary>
+        /// Get EPA information.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The EPA info model.</returns>
         public EPAInfoModel GetEPAInfo(GetEPAInfoCriteria criteria)
         {
             EPAInfoModel result = null;
@@ -54,6 +60,8 @@ namespace NexEPA.MemberEPA.Services.Implement
             if (criteria.IsValid())
             { 
                 result = _memberEPARepository.GetEPAInfo(criteria);
+                result.KPIInfo = CalculatePercentOfKPI(result.KPIInfo);
+                result.FinalScore = result.FinalScore != null ? Decode(result.FinalScore) : string.Empty;
             }
 
             return result;
@@ -76,6 +84,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employeeEPA in employeeEPAs)
                 {
                     employeeEPA.StatusName = EnumStatus.GetDescripton((Status)employeeEPA.Status);
+                    employeeEPA.Score = employeeEPA.Score != null ? Decode(employeeEPA.Score) : string.Empty;
                 }
             }
 
@@ -116,6 +125,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employee in employees)
                 {
                     employee.StatusName = EnumStatus.GetDescripton((Status)employee.Status);
+                    employee.Score = employee.Score != null ? Decode(employee.Score) : string.Empty;
                 }
             }
 
@@ -329,6 +339,16 @@ namespace NexEPA.MemberEPA.Services.Implement
             return permission;
         }
 
+        public string Encode(string plainText)
+        {
+            return _encodeService.Encode(plainText);
+        }
+
+        public string Decode(string cipherText)
+        {
+            return _encodeService.Decode(cipherText);
+        }
+
         /// <summary>
         /// Convert KPI info to XMl.
         /// </summary>
@@ -346,7 +366,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 {
                     foreach (var item in kpi.KPIGroupItems)
                     {
-                        string cipherScore = _encodeService.Encode(item.Score + item.KPIId);
+                        string cipherScore = Encode(item.Score + "_" + item.KPIId);
                         value.AppendFormat(Constants.EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, cipherScore, item.Comment);
                     }
                 }
@@ -394,6 +414,28 @@ namespace NexEPA.MemberEPA.Services.Implement
             }
 
             return epaProcessList;
+        }
+
+        /// <summary>
+        /// Calculate percent of each KPI.
+        /// </summary>
+        /// <param name="allGroupKPIs">All group KPI.</param>
+        /// <returns>All group KPI has percent.</returns>
+        private List<GroupingKPIModel> CalculatePercentOfKPI(List<GroupingKPIModel> allGroupKPIs)
+        {
+            foreach (GroupingKPIModel group in allGroupKPIs)
+            {
+                List<KPIModel> kpiOfGroup = group.KPIGroupItems;
+
+                foreach (KPIModel kpiItem in kpiOfGroup)
+                {
+                    string plainScore = kpiItem.Score != null ? Decode(kpiItem.Score).Replace("_" + kpiItem.KPIId, string.Empty) : string.Empty;
+                    kpiItem.Percent = plainScore != string.Empty ? int.Parse(plainScore) * 20 : 0;
+                    kpiItem.Score = plainScore;
+                }
+            }
+
+            return allGroupKPIs;
         }
     }
 }

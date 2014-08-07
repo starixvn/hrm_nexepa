@@ -310,6 +310,7 @@ namespace NexEPA.Controllers.Target
             {
                 criteria.ModifiedBy = this.CurrentUser.UserId;
                 criteria.ModifiedDate = DateTime.Now;
+                criteria.EmployeeScore = _targetService.EncodeScoreOfKPI(criteria.EmployeeScore);
             }
 
             return _memberEPAService.UpdateKPIScore(criteria);

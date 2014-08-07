@@ -32,13 +32,7 @@ namespace NexEPA.KPI.Model
 
         public bool? IsAllRating { get; set; }
 
-        public int Percent 
-        {
-            get
-            {
-                return Score != null ? int.Parse(Score) * 20 : 0;
-            }
-        }
+        public int Percent { get; set; }
 
         public string Comment { get; set; }
 

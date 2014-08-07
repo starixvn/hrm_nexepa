@@ -13,9 +13,11 @@ namespace NexEPA.Target.Services.Implement
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
+    using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
@@ -33,10 +35,12 @@ namespace NexEPA.Target.Services.Implement
     public class TargetService : BaseService, ITargetService
     {
         private ITargetRepository _targetRepository;
+        private IEncodeService _encodeService;
 
-        public TargetService(ITargetRepository targetRepository = null)
+        public TargetService(ITargetRepository targetRepository = null, IEncodeService encodeService = null)
         {
             _targetRepository = targetRepository ?? new TargetRepository();
+            _encodeService = encodeService ?? new EncodeService();
         }
 
         /// <summary>
@@ -330,6 +334,30 @@ namespace NexEPA.Target.Services.Implement
             return employees;
         }
 
+        /// <summary>
+        /// Encode score of each KPI.
+        /// </summary>
+        /// <param name="employeeScore">The pattern of KPI and score of employee.</param>
+        /// <returns>The new pattern with score that encoded.</returns>
+        public string EncodeScoreOfKPI(string employeeScore)
+        {
+            string employeeEncodeScore = Constants.BeginRootTag;
+            employeeScore = employeeScore.Replace(Constants.BeginRootTag, string.Empty).Replace(Constants.EndRootTag, string.Empty);
+            string[] listEmployeeScore = employeeScore.Split("</Employee>".ToCharArray());
+
+            foreach (string employeeScoreItem in listEmployeeScore)
+            {
+                employeeEncodeScore += GetAndEncodeScoreOfKPI(employeeScoreItem) + "</Employee>";
+            }
+
+            return employeeEncodeScore;
+        }
+
+        private string GetAndEncodeScoreOfKPI(string employeeScoreItem)
+        {
+            return employeeScoreItem;
+        }
+
         private IEnumerable<EmployeeModel> GetEPAInformationOfEmployee(
             IEnumerable<EmployeeModel> employees,
             IEnumerable<TemporaryEPAModel> kpiItems)
@@ -370,10 +398,13 @@ namespace NexEPA.Target.Services.Implement
 
                     foreach (TemporaryEPAModel rawKPIItem in kpiItemsOfGroup)
                     {
+                        string kpiScore = rawKPIItem.Score != null 
+                            ? _encodeService.Decode(rawKPIItem.Score).Replace("_" + rawKPIItem.KPIId, string.Empty) 
+                            : string.Empty;
                         var kpiItem = new KPIModel
                         {
                             KPIId = rawKPIItem.KPIId,
-                            Score = rawKPIItem.Score,
+                            Score = kpiScore,
                             Weight = rawKPIItem.Weight,
                             Comment = rawKPIItem.Comment
                         };

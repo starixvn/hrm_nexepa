@@ -51,6 +51,10 @@ namespace NexEPA.MemberEPA.Services.Interface
 
         int GetUserPermissionOnTarget(GetUserPermissionOnTargetCriteria criteria);
 
+        string Encode(string plainText);
+
+        string Decode(string cipherText);
+
         string ConvertKPIInfoToXML(List<GroupingKPIModel> kpiInfo);
     }
 }

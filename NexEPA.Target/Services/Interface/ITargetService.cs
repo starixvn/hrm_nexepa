@@ -49,5 +49,7 @@ namespace NexEPA.Target.Services.Interface
         IEnumerable<TargetFilterModel> GetTargetToFilter(GetTargetToFilterCriteria criteria);
 
         IEnumerable<EmployeeModel> GetEmployeeByKPI(GetEmployeeByKPICriteria criteria);
+
+        string EncodeScoreOfKPI(string score);
     }
 }

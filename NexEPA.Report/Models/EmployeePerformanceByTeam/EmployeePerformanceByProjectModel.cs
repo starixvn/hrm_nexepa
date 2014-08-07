@@ -29,7 +29,7 @@ namespace NexEPA.Report.Models.EmployeePerformanceByTeam
 
         public int EPACount { get; set; }
 
-        public decimal AverageScore { get; set; }
+        public string AverageScore { get; set; }
 
         public Group Group { get; set; }
     }

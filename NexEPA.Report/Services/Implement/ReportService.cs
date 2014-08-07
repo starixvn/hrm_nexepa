@@ -13,7 +13,9 @@ namespace NexEPA.Report.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
+    using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
+    using NexEPA.KPI.Model;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
@@ -31,9 +33,17 @@ namespace NexEPA.Report.Services.Implement
     {
         private IReportRepository _reportRepository;
 
-        public ReportService(IReportRepository reportRepository = null)
+        private IEncodeService _encodeService;
+
+        public ReportService()
+            : this(null, null)
+        {
+        }
+
+        public ReportService(IReportRepository reportRepository, IEncodeService encodeService)
         {
             _reportRepository = reportRepository ?? new ReportRepository();
+            _encodeService = encodeService ?? new EncodeService();
         }
 
         /// <summary>
@@ -59,7 +69,7 @@ namespace NexEPA.Report.Services.Implement
                     IEnumerable<HistoryProjectViewModel> projectHistoryList = GetProjectHistory((List<HistoryProjectModel>)rawDashboardInformation.RawHistoryProjects);
                     dashboardInformation.HistoryProjects = projectHistoryList;
 
-                    dashboardInformation.ListKPIs = rawDashboardInformation.ListKPIs;
+                    dashboardInformation.ListKPIs = GetKPIsInformation(rawDashboardInformation.ListKPIs);
                 }
             }
 
@@ -109,14 +119,15 @@ namespace NexEPA.Report.Services.Implement
         public TeamPerformanceModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employeePerformanceByTeamReport = new TeamPerformanceModel();
+            var teamReport = new TeamPerformanceModel();
 
             if (criteria.IsValid())
             {
-                employeePerformanceByTeamReport = _reportRepository.GetEmployeePerformanceByTeamReport(criteria);
+                teamReport = _reportRepository.GetEmployeePerformanceByTeamReport(criteria);
+                teamReport.ReportByProject = GroupMember(teamReport.ReportByProject);
             }
 
-            return employeePerformanceByTeamReport;
+            return teamReport;
         }
 
         /// <summary>
@@ -172,7 +183,8 @@ namespace NexEPA.Report.Services.Implement
                     };
 
                     historyProjectItem.TargetList.Add(target);
-                    averageScore += project.Score;
+                    decimal projectScore = decimal.Parse(_encodeService.Decode(project.Score));
+                    averageScore += projectScore;
 
                     if (project != rawHistoryProjectItem)
                     {
@@ -187,6 +199,91 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return historyProjects;
+        }
+
+        /// <summary>
+        /// Get KPIs information.
+        /// </summary>
+        /// <param name="listKPIs">The list KPIs.</param>
+        /// <returns>The enumerator KPI model.</returns>
+        private IEnumerable<KPIModel> GetKPIsInformation(IEnumerable<KPIModel> listKPIs)
+        {
+            IEnumerable<KPIModel> groupKPIs = from kpi in listKPIs
+                                               group kpi by kpi.KPIId into groupKPI
+                                               select new KPIModel
+                                               {
+                                                   KPIId = groupKPI.Key,
+                                                   Name = groupKPI.First().Name,
+                                                   EvaluateTime = groupKPI.Count(),
+                                                   AverageScore = CalculateAverageScoreOfKPI(groupKPI)
+                                               };
+
+            return groupKPIs;
+        }
+
+        /// <summary>
+        /// Calculate average score of KPI.
+        /// </summary>
+        /// <param name="groupKPI">The group KPI.</param>
+        /// <returns>The average score.</returns>
+        private decimal CalculateAverageScoreOfKPI(IGrouping<int, KPIModel> groupKPI)
+        {
+            decimal totalScore = 0;
+
+            foreach (KPIModel kpi in groupKPI)
+            {
+                string itemScoreText = kpi.Score != null ? _encodeService.Decode(kpi.Score).Replace("_" + kpi.KPIId, string.Empty) : string.Empty;
+                decimal itemScore = itemScoreText != string.Empty ? decimal.Parse(itemScoreText) : 0;
+                totalScore += itemScore;
+            }
+
+            decimal averageScore = groupKPI.Count() > 0 ? totalScore / groupKPI.Count() : 0;
+            return averageScore;
+        }
+
+        /// <summary>
+        /// Group member.
+        /// </summary>
+        /// <param name="members">The list member.</param>
+        /// <returns>The enumerator members.</returns>
+        private IEnumerable<EmployeePerformanceByProjectModel> GroupMember(
+            IEnumerable<EmployeePerformanceByProjectModel> members)
+        {
+            IEnumerable<EmployeePerformanceByProjectModel> groupMembers = from member in members
+                                                    group member by member.EmployeeId into groupMember
+                                                    select new EmployeePerformanceByProjectModel
+                                                    {
+                                                        EmployeeId = groupMember.Key,
+                                                        NickName = groupMember.First().NickName,
+                                                        FullName = groupMember.First().FullName,
+                                                        JoinedDate = groupMember.First().JoinedDate,
+                                                        Group = groupMember.First().Group,
+                                                        ProjectCount = groupMember.Count(),
+                                                        EPACount = groupMember.Count(),
+                                                        AverageScore = CalculateAverageScoreOfMember(groupMember)
+                                                    };
+            return groupMembers;
+        }
+
+        /// <summary>
+        /// Calculate average score of member.
+        /// </summary>
+        /// <param name="groupMember">The group member.</param>
+        /// <returns>The average score.</returns>
+        private string CalculateAverageScoreOfMember(IGrouping<int, EmployeePerformanceByProjectModel> groupMember)
+        {
+            decimal totalScore = 0;
+
+            foreach (EmployeePerformanceByProjectModel member in groupMember)
+            {
+                string memberScoreText = member.AverageScore != null
+                    ? _encodeService.Decode(member.AverageScore) : string.Empty;
+                decimal memberScore = memberScoreText != string.Empty ? decimal.Parse(memberScoreText) : 0;
+                totalScore += memberScore;
+            }
+
+            decimal averageScore = groupMember.Count() > 0 ? totalScore / groupMember.Count() : 0;
+            return averageScore > 0 ? averageScore.ToString() : string.Empty;
         }
     }
 }

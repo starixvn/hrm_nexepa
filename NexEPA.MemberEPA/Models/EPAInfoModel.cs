@@ -66,7 +66,7 @@ namespace NexEPA.MemberEPA.Models
 
         public DateTime EndDate { get; set; }
 
-        public decimal FinalScore { get; set; }
+        public string FinalScore { get; set; }
 
         public int Permission { get; set; }
 

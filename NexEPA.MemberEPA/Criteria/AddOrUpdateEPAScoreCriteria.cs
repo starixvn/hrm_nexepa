@@ -25,7 +25,7 @@ namespace NexEPA.MemberEPA.Criteria
 
         public string Comment { get; set; }
 
-        public decimal Score { get; set; }
+        public string Score { get; set; }
 
         public string KPIs { get; set; }
 

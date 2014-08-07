@@ -23,7 +23,7 @@ namespace NexEPA.Core.Constants
 
         public const string KeyCryptography = "NexEPA08062014";
 
-        public const string EmployeeEPAScore = "<KPI KPIId='{0}' KPIGroupId='{1}' ScoreId='{2}' Comment='{3}'></KPI>";
+        public const string EmployeeEPAScore = "<KPI KPIId='{0}' KPIGroupId='{1}' Score='{2}' Comment='{3}'></KPI>";
 
         public const string BeginRootTag = "<ROOT>";
 
