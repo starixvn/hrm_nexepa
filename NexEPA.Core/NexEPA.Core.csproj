@@ -37,8 +37,9 @@
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
-    <Reference Include="IBCCrypt">
-      <HintPath>..\..\..\Work\NexEPA\Document\IBCCrypt.dll</HintPath>
+    <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\IBCCrypt\IBCCrypt.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
