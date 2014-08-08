@@ -825,7 +825,7 @@ function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory
 					return parseInt($scope.permissonOnTarget);
 				},
 				policyMemberEPA: function () {
-					return  parseInt($scope.permissionMemberEPA.policy);
+					return parseInt($scope.permissionMemberEPA.policy);
 				}
 			},
 			windowClass: 'app-modal-window'
@@ -883,35 +883,28 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
 		});
 	};
 
-	var getEmployeeScore = function (employees) {
-		var employeeScore = '<ROOT>';
+	var checkEmployeeScore = function (employees, kpiGroupId, kpiId) {
 		$scope.ratingResult = {
 			allRating: true,
 			rating: false
 		};
 
 		angular.forEach(employees, function (employee) {
-			if (employee.kpiItem) {
-				if (!employee.kpiItem.comment) {
-					employee.kpiItem.comment = '';
+			angular.forEach(employee.epaInfo, function (group) {
+				if (group.kpiGroupId === kpiGroupId) {
+					angular.forEach(group.kpiItems, function (kpi) {
+						if (kpi.kpiId === kpiId) {
+							if (!kpi.score || kpi.score === '0') {
+								$scope.ratingResult.allRating = false;
+							}
+							else {
+								$scope.ratingResult.rating = true;
+							}
+						}
+					});
 				}
-
-				var pattern = '<Employee EmployeeId="' + employee.employeeId + '" ScoreId="' + employee.kpiItem.score +
-						'" Comment="' + employee.kpiItem.comment + '" AverageScore="' + employee.finalScore + '">\
-						</Employee>';
-				employeeScore += pattern;
-
-				if (!employee.kpiItem.score) {
-					$scope.ratingResult.allRating = false;
-				}
-				else {
-					$scope.ratingResult.rating = true;
-				}
-			}
+			});
 		});
-
-		employeeScore += '</ROOT>';
-		return employeeScore;
 	};
 
 	targetFactory.getEmployeeByKPI(targetId, kpiGroup.kpiGroupId, kpiItem.kpiId).success(function (employees) {
@@ -939,7 +932,7 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
 	};
 
 	$scope.cancelRating = function (item, employee) {
-		item.score = 0;
+		item.score = '';
 		item.percent = 0;
 		employee.finalScore = targetUtility.calculateScoreTarget(employee.epaInfo);
 	};
@@ -975,14 +968,16 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
 		$scope.violationRating = targetUtility.validateTargetRating(employees, kpiItem);
 
 		if (!$scope.violationRating) {
-			var kpiScore = {
+			checkEmployeeScore(employees, kpiGroup.kpiGroupId, kpiItem.kpiId);
+
+			var epaInfoKPI = {
 				targetId: targetId,
 				kpiId: kpiItem.kpiId,
 				kpiGroupId: kpiGroup.kpiGroupId,
-				employeeScore: getEmployeeScore(employees)
+				employees: employees
 			};
 
-			targetFactory.updateKPIScore(kpiScore).success(function (response) {
+			targetFactory.updateKPIScore(epaInfoKPI).success(function (response) {
 				if (response.isSuccessful === true) {
 					notificationFactory.success("DataChangeSuccessfully");
 

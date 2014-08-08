@@ -102,7 +102,7 @@ namespace NexEPA.MemberEPA.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Insert(criteria);
+                result = this.Repository.Insert(criteria);
             }
 
             return result;
@@ -143,7 +143,7 @@ namespace NexEPA.MemberEPA.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Update(criteria);
+                result = this.Repository.Update(criteria);
             }
 
             return result;
@@ -201,7 +201,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Insert(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
             return commandResult;
@@ -261,7 +261,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;
@@ -279,7 +279,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Delete(criteria);
+                commandResult = Repository.Delete(criteria);
             }
 
             return commandResult;
@@ -297,7 +297,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;
@@ -315,7 +315,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;
@@ -366,7 +366,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 {
                     foreach (var item in kpi.KPIGroupItems)
                     {
-                        string cipherScore = Encode(item.Score + "_" + item.KPIId);
+                        string cipherScore = !string.IsNullOrEmpty(item.Score) ? Encode(item.Score + "_" + item.KPIId) : null;
                         value.AppendFormat(Constants.EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, cipherScore, item.Comment);
                     }
                 }
@@ -429,8 +429,8 @@ namespace NexEPA.MemberEPA.Services.Implement
 
                 foreach (KPIModel kpiItem in kpiOfGroup)
                 {
-                    string plainScore = kpiItem.Score != null ? Decode(kpiItem.Score).Replace("_" + kpiItem.KPIId, string.Empty) : string.Empty;
-                    kpiItem.Percent = plainScore != string.Empty ? int.Parse(plainScore) * 20 : 0;
+                    string plainScore = !string.IsNullOrEmpty(kpiItem.Score) ? Decode(kpiItem.Score).Replace("_" + kpiItem.KPIId, string.Empty) : string.Empty;
+                    kpiItem.Percent = !string.IsNullOrEmpty(plainScore) ? int.Parse(plainScore) * 20 : 0;
                     kpiItem.Score = plainScore;
                 }
             }

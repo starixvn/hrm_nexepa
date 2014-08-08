@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -41,6 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\IBCCrypt\IBCCrypt.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -50,15 +53,15 @@
     <Compile Include="Criteria\GetAllTargetTypeCriteria.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\Policy.cs" />
-    <Compile Include="Enums\ProcessTypeEnum.cs" />
+    <Compile Include="Enums\ProcessType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\StatusProject.cs" />
-    <Compile Include="Enums\RolesEnum.cs" />
+    <Compile Include="Enums\RolesSystem.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Extensions\StringValueAttribute.cs" />
+    <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\CommandResult.cs" />
     <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\JobTitle.cs" />
     <Compile Include="Models\ProjectFilterModel.cs" />
     <Compile Include="Models\SelectListModel.cs" />
@@ -74,7 +77,6 @@
     <Compile Include="Services\Interface\IEPAService.cs" />
     <Compile Include="Utilities\EnumStatus.cs" />
     <Compile Include="Utilities\GravatarImage.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

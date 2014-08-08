@@ -12,6 +12,7 @@ namespace NexEPA.Target.Services.Implement
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Fanex.Common.Helper;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
@@ -101,7 +102,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid()) 
             { 
-                commandResult = _Repository.Insert(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
             return commandResult;
@@ -119,7 +120,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;
@@ -137,7 +138,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;
@@ -155,7 +156,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Delete(criteria);
+                commandResult = Repository.Delete(criteria);
             }
 
             return commandResult;
@@ -191,7 +192,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                 commandResult = _Repository.Insert(criteria);
+                 commandResult = Repository.Insert(criteria);
             }
 
             return commandResult;
@@ -209,7 +210,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Delete(criteria);
+                commandResult = Repository.Delete(criteria);
             }
 
             return commandResult;
@@ -335,27 +336,37 @@ namespace NexEPA.Target.Services.Implement
         }
 
         /// <summary>
-        /// Encode score of each KPI.
+        /// Convert KPI info to XMl before update.
         /// </summary>
-        /// <param name="employeeScore">The pattern of KPI and score of employee.</param>
-        /// <returns>The new pattern with score that encoded.</returns>
-        public string EncodeScoreOfKPI(string employeeScore)
+        /// <param name="employees">The list employee.</param>
+        /// <param name="kpiGroupId">The KPI group Id.</param>
+        /// <param name="kpiId">THe KPI Id.</param>
+        /// <returns>The XML contains information about KPI.</returns>
+        public string ConvertTargetKPIInfoToXML(IEnumerable<EmployeeModel> employees, int kpiGroupId, int kpiId)
         {
-            string employeeEncodeScore = Constants.BeginRootTag;
-            employeeScore = employeeScore.Replace(Constants.BeginRootTag, string.Empty).Replace(Constants.EndRootTag, string.Empty);
-            string[] listEmployeeScore = employeeScore.Split("</Employee>".ToCharArray());
+            StringBuilder epaPattern = new StringBuilder(Constants.BeginRootTag);
 
-            foreach (string employeeScoreItem in listEmployeeScore)
+            foreach (EmployeeModel employee in employees)
             {
-                employeeEncodeScore += GetAndEncodeScoreOfKPI(employeeScoreItem) + "</Employee>";
+                foreach (CoreEPAModel epa in employee.EPAInfo)
+                {
+                    if (epa.KPIGroupId == kpiGroupId)
+                    {
+                        foreach (KPIModel kpiItem in epa.KPIItems)
+                        {
+                            if (kpiItem.KPIId == kpiId)
+                            {
+                                string cipherScore = !string.IsNullOrEmpty(kpiItem.Score) ? _encodeService.Encode(kpiItem.Score + "_" + kpiId) : null;
+                                string cipherAverageScore = _encodeService.Encode(employee.FinalScore);
+                                epaPattern.AppendFormat(Constants.TargetEPAScore, employee.EmployeeId, cipherScore, kpiItem.Comment, cipherAverageScore);
+                            }
+                        }
+                    }
+                }
             }
 
-            return employeeEncodeScore;
-        }
-
-        private string GetAndEncodeScoreOfKPI(string employeeScoreItem)
-        {
-            return employeeScoreItem;
+            epaPattern.Append(Constants.EndRootTag);
+            return epaPattern.ToString();
         }
 
         private IEnumerable<EmployeeModel> GetEPAInformationOfEmployee(
@@ -398,7 +409,7 @@ namespace NexEPA.Target.Services.Implement
 
                     foreach (TemporaryEPAModel rawKPIItem in kpiItemsOfGroup)
                     {
-                        string kpiScore = rawKPIItem.Score != null 
+                        string kpiScore = !string.IsNullOrEmpty(rawKPIItem.Score)
                             ? _encodeService.Decode(rawKPIItem.Score).Replace("_" + rawKPIItem.KPIId, string.Empty) 
                             : string.Empty;
                         var kpiItem = new KPIModel

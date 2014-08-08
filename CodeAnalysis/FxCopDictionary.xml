@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Dictionary>
+  <Words>
+    <Recognized />
+    <Unrecognized />
+    <Deprecated />
+    <Compound />
+    <DiscreteExceptions />
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>EPA</Acronym>
+      <Acronym>KPI</Acronym>
+      <Acronym>KPIs</Acronym>
+      <Acronym>XML</Acronym>
+      <Acronym>EPAs</Acronym>
+      <Acronym>ID</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

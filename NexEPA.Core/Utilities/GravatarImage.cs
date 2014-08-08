@@ -15,8 +15,12 @@ namespace NexEPA.Core.Utilities
     /// <summary>
     /// GRAVATAR Image.
     /// </summary>
-    public class GravatarImage
+    public sealed class GravatarImage
     {
+        private GravatarImage()
+        {
+        }
+
         /// <summary>
         /// Method get image from GRAVATAR site.
         /// </summary>

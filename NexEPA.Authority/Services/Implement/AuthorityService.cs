@@ -77,7 +77,7 @@ namespace NexEPA.Authority.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Insert(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
             return commandResult;
@@ -113,7 +113,7 @@ namespace NexEPA.Authority.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;

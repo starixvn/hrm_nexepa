@@ -10,11 +10,14 @@
 namespace NexEPA.Core.Extensions
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// StringValue Attribute.
     /// </summary>
-    public class StringValueAttribute : Attribute
+    [AttributeUsage(AttributeTargets.All)]
+    [SuppressMessage("Microsoft.Design", "CA1019:DefineAccessorsForAttributeArguments", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class StringValueAttribute : Attribute
     {
         private readonly string _value;
 

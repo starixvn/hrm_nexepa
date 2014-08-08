@@ -12,7 +12,7 @@ namespace NexEPA.Core.Models
     /// <summary>
     /// The Group Info model.
     /// </summary>
-    public class Group : IModel
+    public class Group
     {
         public int GroupId { get; set; }
 

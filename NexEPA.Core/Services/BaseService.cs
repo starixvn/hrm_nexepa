@@ -20,13 +20,21 @@ namespace NexEPA.Core.Services
     /// </summary>
     public class BaseService
     {
-        protected readonly IBaseRepository _Repository;
-        private readonly IDynamicRepository _dynamicRepository;
+        private IBaseRepository _repository;
+        private IDynamicRepository _dynamicRepository;
 
         public BaseService(IDynamicRepository dynamicRepository = null, IBaseRepository repository = null)
         {
             _dynamicRepository = dynamicRepository ?? new DynamicRepository();
-            _Repository = repository ?? new BaseRepository();
+            _repository = repository ?? new BaseRepository();
+        }
+
+        public IBaseRepository Repository
+        {
+            get
+            {
+                return _repository;
+            }
         }
 
         /// <summary>

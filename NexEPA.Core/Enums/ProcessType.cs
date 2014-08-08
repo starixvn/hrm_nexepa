@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ProcessTypeEnum.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ProcessType.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,11 +10,13 @@
 namespace NexEPA.Core.Enums
 {
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Process Type ENUM.
     /// </summary>
-    public enum ProcessTypeEnum : int
+    [SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "Reviewed. Suppression is OK here.")]
+    public enum ProcessType : int
     {
         /// <summary>
         /// Process by PM.

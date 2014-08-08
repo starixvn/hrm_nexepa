@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RolesEnum.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RolesSystem.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -9,9 +9,11 @@
 
 namespace NexEPA.Core.Enums
 {
+    using System.Diagnostics.CodeAnalysis;
     using NexEPA.Core.Extensions;
 
-    public enum RolesEnum : short
+    [SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "Reviewed. Suppression is OK here.")]
+    public enum RolesSystem : int
     {
         /// <summary>
         /// System Admin item.

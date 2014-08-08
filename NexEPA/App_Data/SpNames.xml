@@ -119,7 +119,7 @@
 
 	<Function Name="Report">
 		<Setting Key="Report_MySpace" SpName="Report_MySpace_xtest" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA_xtest" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA_xtest" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 	<Function Name="Authority">

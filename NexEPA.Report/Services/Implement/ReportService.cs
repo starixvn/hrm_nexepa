@@ -183,7 +183,8 @@ namespace NexEPA.Report.Services.Implement
                     };
 
                     historyProjectItem.TargetList.Add(target);
-                    decimal projectScore = decimal.Parse(_encodeService.Decode(project.Score));
+                    string plainScoreText = !string.IsNullOrEmpty(project.Score) ? _encodeService.Decode(project.Score) : "0";
+                    decimal projectScore = decimal.Parse(plainScoreText);
                     averageScore += projectScore;
 
                     if (project != rawHistoryProjectItem)
@@ -232,8 +233,8 @@ namespace NexEPA.Report.Services.Implement
 
             foreach (KPIModel kpi in groupKPI)
             {
-                string itemScoreText = kpi.Score != null ? _encodeService.Decode(kpi.Score).Replace("_" + kpi.KPIId, string.Empty) : string.Empty;
-                decimal itemScore = itemScoreText != string.Empty ? decimal.Parse(itemScoreText) : 0;
+                string itemScoreText = !string.IsNullOrEmpty(kpi.Score) ? _encodeService.Decode(kpi.Score).Replace("_" + kpi.KPIId, string.Empty) : string.Empty;
+                decimal itemScore = !string.IsNullOrEmpty(itemScoreText) ? decimal.Parse(itemScoreText) : 0;
                 totalScore += itemScore;
             }
 
@@ -276,9 +277,9 @@ namespace NexEPA.Report.Services.Implement
 
             foreach (EmployeePerformanceByProjectModel member in groupMember)
             {
-                string memberScoreText = member.AverageScore != null
+                string memberScoreText = !string.IsNullOrEmpty(member.AverageScore)
                     ? _encodeService.Decode(member.AverageScore) : string.Empty;
-                decimal memberScore = memberScoreText != string.Empty ? decimal.Parse(memberScoreText) : 0;
+                decimal memberScore = !string.IsNullOrEmpty(memberScoreText) ? decimal.Parse(memberScoreText) : 0;
                 totalScore += memberScore;
             }
 

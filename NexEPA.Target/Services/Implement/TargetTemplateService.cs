@@ -63,7 +63,7 @@ namespace NexEPA.Target.Services.Implement
             CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = this._Repository.Insert(criteria);
+                result = this.Repository.Insert(criteria);
             }
 
             return result;
@@ -75,7 +75,7 @@ namespace NexEPA.Target.Services.Implement
             CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = this._Repository.Update(criteria);
+                result = this.Repository.Update(criteria);
             }
 
             return result;
@@ -87,7 +87,7 @@ namespace NexEPA.Target.Services.Implement
             CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = this._Repository.Delete(criteria);
+                result = this.Repository.Delete(criteria);
             }
 
             return result;
@@ -99,7 +99,7 @@ namespace NexEPA.Target.Services.Implement
             CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = this._Repository.Insert(criteria);
+                result = this.Repository.Insert(criteria);
             }
 
             return result;
@@ -141,7 +141,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                result = _Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
 
             return result;
@@ -175,7 +175,7 @@ namespace NexEPA.Target.Services.Implement
             CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = _Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
 
             return result;
@@ -192,7 +192,7 @@ namespace NexEPA.Target.Services.Implement
             CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = _Repository.Delete(criteria);
+                result = Repository.Delete(criteria);
             }
 
             return result;
@@ -246,7 +246,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;

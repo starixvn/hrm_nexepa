@@ -31,7 +31,7 @@ namespace NexEPA.Organization.Criteria
 
         public override bool IsValid()
         {
-            return Code != string.Empty && Name != string.Empty;
+            return string.IsNullOrEmpty(Code) && string.IsNullOrEmpty(Name);
         }
 
         public override string GetSettingKey()

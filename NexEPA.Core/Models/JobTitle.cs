@@ -12,7 +12,7 @@ namespace NexEPA.Core.Models
     /// <summary>
     /// The Job Title model.
     /// </summary>
-    public class JobTitle : IModel
+    public class JobTitle
     {
         public int? JobTitleId { get; set; }
 

@@ -51,7 +51,7 @@ namespace NexEPA.Organization.Models
                 {
                     foreach (var admin in Admins)
                     {
-                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Admin, admin.EmployeeId);
+                        value.AppendFormat(_EPAFlow, (int)ProcessType.Admin, admin.EmployeeId);
                     }
                 }
 
@@ -59,15 +59,15 @@ namespace NexEPA.Organization.Models
                 {
                     foreach (var self in Selfs)
                     {
-                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Self, -Math.Abs(self.EmployeeId));
+                        value.AppendFormat(_EPAFlow, (int)ProcessType.Self, -Math.Abs(self.EmployeeId));
                     }
                 }
 
                 if (Personal != null)
                 {
-                    foreach (var p in Personal)
+                    for (int i = 0; i < Personal.Count; i++)
                     {
-                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Self, -1);
+                        value.AppendFormat(_EPAFlow, (int)ProcessType.Self, -1);
                     }
                 }
 
@@ -75,7 +75,7 @@ namespace NexEPA.Organization.Models
                 {
                     foreach (var evaluator in Evaluators)
                     {
-                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Evaluator, evaluator.EmployeeId);
+                        value.AppendFormat(_EPAFlow, (int)ProcessType.Evaluator, evaluator.EmployeeId);
                     }
                 }
 
@@ -83,7 +83,7 @@ namespace NexEPA.Organization.Models
                 {
                     foreach (var reviewer in Reviewers)
                     {
-                        value.AppendFormat(_EPAFlow, (int)ProcessTypeEnum.Reviewer, reviewer.EmployeeId);
+                        value.AppendFormat(_EPAFlow, (int)ProcessType.Reviewer, reviewer.EmployeeId);
                     }
                 }
 

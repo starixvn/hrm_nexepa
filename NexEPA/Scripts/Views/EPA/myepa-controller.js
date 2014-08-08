@@ -221,7 +221,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 
 	//Cancel Rating
 	$scope.cancelRating = function (item) {
-		item.score = 0;
+		item.score = '';
 		item.percent = 0;
 		calculateScore($scope, $scope.employeeEPA.kpiInfo);
 	};

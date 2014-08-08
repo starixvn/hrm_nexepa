@@ -50,6 +50,6 @@ namespace NexEPA.Target.Services.Interface
 
         IEnumerable<EmployeeModel> GetEmployeeByKPI(GetEmployeeByKPICriteria criteria);
 
-        string EncodeScoreOfKPI(string score);
+        string ConvertTargetKPIInfoToXML(IEnumerable<EmployeeModel> employees, int kpiGroupId, int kpiId);
     }
 }

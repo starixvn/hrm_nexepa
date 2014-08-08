@@ -42,7 +42,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Insert(criteria);
+                result = this.Repository.Insert(criteria);
             }
 
             return result;
@@ -54,7 +54,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Insert(criteria);
+                result = this.Repository.Insert(criteria);
             }
 
             return result;
@@ -66,7 +66,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Insert(criteria);
+                result = this.Repository.Insert(criteria);
             }
 
             return result;
@@ -78,7 +78,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Delete(criteria);
+                result = this.Repository.Delete(criteria);
             }
 
             return result;
@@ -90,7 +90,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Delete(criteria);
+                result = this.Repository.Delete(criteria);
             }
 
             return result;
@@ -102,7 +102,7 @@ namespace NexEPA.Organization.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                result = this._Repository.Delete(criteria);
+                result = this.Repository.Delete(criteria);
             }
 
             return result;

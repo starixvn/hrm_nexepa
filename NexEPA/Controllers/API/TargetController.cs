@@ -303,15 +303,23 @@ namespace NexEPA.Controllers.Target
             return _targetService.GetEmployeeByKPI(criteria);
         }
 
+        /// <summary>
+        /// Update KPI score.
+        /// </summary>
+        /// <param name="epaInfo">The EPA info.</param>
+        /// <returns>The command result.</returns>
         [HttpPut]
-        public CommandResult UpdateKPIScore(UpdateKPIScoreCriteria criteria)
+        public CommandResult UpdateKPIScore(EPAInfoKPIModel epaInfo)
         {
-            if (criteria != null)
+            var criteria = new UpdateKPIScoreCriteria
             {
-                criteria.ModifiedBy = this.CurrentUser.UserId;
-                criteria.ModifiedDate = DateTime.Now;
-                criteria.EmployeeScore = _targetService.EncodeScoreOfKPI(criteria.EmployeeScore);
-            }
+                TargetId = epaInfo.TargetId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now,
+                KPIId = epaInfo.KPIId,
+                KPIGroupId = epaInfo.KPIGroupId,
+                EmployeeScore = _targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
+            };
 
             return _memberEPAService.UpdateKPIScore(criteria);
         }

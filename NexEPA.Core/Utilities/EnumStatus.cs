@@ -20,8 +20,12 @@ namespace NexEPA.Core.Utilities
     /// <summary>
     /// ENUM Status.
     /// </summary>
-    public class EnumStatus
+    public sealed class EnumStatus
     {
+        private EnumStatus()
+        {
+        }
+
         /// <summary>
         /// Get ENUM Description.
         /// </summary>

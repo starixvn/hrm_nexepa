@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -39,6 +39,7 @@
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\AssignPermissionToRoleCriteria.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="Criteria\GetFunctionByRoleCriteria.cs" />
     <Compile Include="Criteria\GetRoleByEmployeeIdCriteria.cs" />
     <Compile Include="Criteria\UpdateRoleOfEmployeeCriteria.cs" />
+    <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\FunctionModel.cs" />
     <Compile Include="Models\RoleSystemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

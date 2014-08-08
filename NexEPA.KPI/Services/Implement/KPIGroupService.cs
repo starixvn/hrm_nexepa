@@ -111,7 +111,7 @@ namespace NexEPA.KPI.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Insert(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
             return commandResult;
@@ -129,7 +129,7 @@ namespace NexEPA.KPI.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;
@@ -147,7 +147,7 @@ namespace NexEPA.KPI.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Delete(criteria);
+                commandResult = Repository.Delete(criteria);
             }
 
             return commandResult;
@@ -183,7 +183,7 @@ namespace NexEPA.KPI.Services.Implement
 
             if (criteria.IsValid())
             {
-                commandResult = _Repository.Update(criteria);
+                commandResult = Repository.Update(criteria);
             }
 
             return commandResult;

@@ -13,7 +13,7 @@ namespace NexEPA.Core.Constants
     /// <summary>
     /// Constants value.
     /// </summary>
-    public class Constants
+    public sealed class Constants
     {
         public const string CurrentSessionKey = "NexEPA.CurrentSession";
 
@@ -25,8 +25,14 @@ namespace NexEPA.Core.Constants
 
         public const string EmployeeEPAScore = "<KPI KPIId='{0}' KPIGroupId='{1}' Score='{2}' Comment='{3}'></KPI>";
 
+        public const string TargetEPAScore = "<Employee EmployeeId='{0}' Score='{1}' Comment='{2}' AverageScore='{3}'></Employee>";
+
         public const string BeginRootTag = "<ROOT>";
 
         public const string EndRootTag = "</ROOT>";
+
+        private Constants()
+        {
+        }
     }
 }

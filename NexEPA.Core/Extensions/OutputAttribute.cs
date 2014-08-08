@@ -14,7 +14,8 @@ namespace NexEPA.Core.Extensions
     /// <summary>
     /// Output Attribute.
     /// </summary>
-    public class OutputAttribute : Attribute
+    [AttributeUsage(AttributeTargets.All)]
+    public sealed class OutputAttribute : Attribute
     {
         public OutputAttribute()
         {
