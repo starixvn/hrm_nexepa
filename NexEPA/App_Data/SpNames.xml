@@ -2,6 +2,7 @@
 <Functions>
 	<Function Name="Employee">
 		<Setting Key="Employee_GetByDomainUsername" SpName="Employee_GetByDomainUsername" DbName="NexEPA" Plain="1" >
+			<Mapping DataField="Url" ObjectProperty="MenuLink"/>
 		</Setting>
 		<Setting Key="Employee_GetByRole" SpName="Employee_GetByRole" DbName="NexEPA" Plain="1" >
 		</Setting>

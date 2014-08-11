@@ -208,11 +208,5 @@ namespace NexEPA.Controllers.API
 
             return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
         }
-
-        private IEnumerable<string> RetrieveErrorMessages()
-        {
-            IEnumerable<string> errors = ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
-            return errors;
-        }
     }
 }

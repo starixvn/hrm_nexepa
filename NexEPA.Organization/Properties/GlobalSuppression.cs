@@ -13,4 +13,3 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexEPA.Organization.Services.Interface", MessageId = "Interface", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "NexEPA.Organization.Repositories.Interface", MessageId = "Interface", Justification = "Reviewed. Suppression is OK here.")]
-[module: SuppressMessage("Microsoft.Design", "CA1014:MarkAssembliesWithClsCompliant", Justification = "Reviewed. Suppression is OK here.")]

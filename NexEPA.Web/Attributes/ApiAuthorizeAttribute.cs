@@ -9,7 +9,9 @@
 
 namespace NexEPA.Web.Attributes
 {
+    using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -24,7 +26,9 @@ namespace NexEPA.Web.Attributes
     /// <summary>
     /// APIAuthorize Attribute.
     /// </summary>
-    public class ApiAuthorizeAttribute : AuthorizeAttribute
+    [AttributeUsage(AttributeTargets.All)]
+    [SuppressMessage("Microsoft.Design", "CA1019:DefineAccessorsForAttributeArguments", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class ApiAuthorizeAttribute : AuthorizeAttribute
     {
         private string _functionKey;
 
@@ -80,7 +84,6 @@ namespace NexEPA.Web.Attributes
             }
 
             UserSession currentUser = null;
-            var session = HttpContext.Current.Session;
 
             if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization"))
             {

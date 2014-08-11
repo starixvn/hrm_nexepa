@@ -45,11 +45,10 @@ namespace NexEPA.Controllers.API
         private readonly ITargetTemplateService _targetTemplateService;
         private readonly IEPAService _epaService;
         private readonly IKPIService _kpiServices;
-        private readonly IKPIGroupService _kpiGroupServices;
         private readonly ICommonService _commonService;
 
         public TargetTemplateController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -57,13 +56,11 @@ namespace NexEPA.Controllers.API
             ITargetTemplateService targetTemplateService,
             IEPAService epaService,
             IKPIService kpiServices,
-            IKPIGroupService kpiGroupServices,
             ICommonService commonServices)
         {
             this._targetTemplateService = targetTemplateService ?? new TargetTemplateService();
             _epaService = epaService ?? new EPAService();
             _kpiServices = kpiServices ?? new KPIService();
-            _kpiGroupServices = kpiGroupServices ?? new KPIGroupService();
             _commonService = commonServices ?? new CommonService();
         }
 
@@ -127,15 +124,11 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="onlySelected">Filter only selected KPI.</param> 
         /// <param name="targetTemplateId">Target Template Id.</param>
-        /// <param name="targetTypeId">Target Type Id.</param>
-        /// <param name="groupId">KPI Group Id.</param>
         /// <returns>List KPI item after group by KPIGroupName.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTargetTemplate, Policy = Policy.Read)]
         public List<TargetTemplateViewModel> GetKPI(
             bool onlySelected, 
-            int? targetTemplateId = null, 
-            int? targetTypeId = null, 
-            int? groupId = null)
+            int? targetTemplateId = null)
         {
             List<TargetTemplateViewModel> targetTemplateVMs = null;
             IEnumerable<KPIViewModel> kpis = null;

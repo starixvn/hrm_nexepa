@@ -17,18 +17,19 @@ namespace NexEPA
     /// <summary>
     /// Exception Handling Attribute.
     /// </summary>
-    public class ExceptionHandlingAttribute : ExceptionFilterAttribute
+    [AttributeUsage(AttributeTargets.All)]
+    public sealed class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
         /// <summary>
         /// Function to write log for API controller exception.
         /// </summary>
-        /// <param name="context">HttpActionExecuted Context.</param>
-        public override void OnException(HttpActionExecutedContext context)
+        /// <param name="actionExecutedContext">HttpActionExecuted Context.</param>
+        public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
-            var localFlag = context.Request.Properties["MS_IsLocal"] as Lazy<bool>;
+            var localFlag = actionExecutedContext.Request.Properties["MS_IsLocal"] as Lazy<bool>;
             if (localFlag == null || !localFlag.Value)
             {
-                var exception = context.Exception;
+                var exception = actionExecutedContext.Exception;
                 string message = exception.Message +
                         "\r\nSource: " + exception.Source +
                         "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +

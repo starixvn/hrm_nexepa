@@ -16,7 +16,7 @@ namespace NexEPA
     /// <summary>
     /// Route Config.
     /// </summary>
-    public class RouteConfig
+    public static class RouteConfig
     {
         /// <summary>
         /// Function to register routes.

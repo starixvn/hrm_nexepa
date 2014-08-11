@@ -15,8 +15,6 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
-    using NexEPA.Core.Services;
-    using NexEPA.Core.Services.Interface;
     using NexEPA.KPI.Criteria.KPIGroup;
     using NexEPA.KPI.Services.Implement;
     using NexEPA.KPI.Services.Interface;
@@ -33,22 +31,18 @@ namespace NexEPA.Controllers.API
     {
         private IKPIGroupService _kpiGroupServices;
 
-        private IEPAService _epaService;
-
         private ICommonService _commonService;
 
         public KPIGroupController()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
         public KPIGroupController(
             IKPIGroupService kpiGroupService,
-            IEPAService epaService,
             ICommonService commonService)
         {
             _kpiGroupServices = kpiGroupService ?? new KPIGroupService();
-            _epaService = epaService ?? new EPAService();
             _commonService = commonService ?? new CommonService();
         }
 

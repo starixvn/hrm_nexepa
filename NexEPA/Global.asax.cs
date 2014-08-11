@@ -74,7 +74,7 @@ namespace NexEPA
 
         private static bool IsWebApiRequest()
         {
-            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webApiExecutionPath);
+            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webApiExecutionPath, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

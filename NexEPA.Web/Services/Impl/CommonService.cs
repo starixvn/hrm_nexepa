@@ -118,7 +118,7 @@ namespace NexEPA.Web.Services.Impl
                 {
                     MenuId = parent.MenuId,
                     Name = parent.Name,
-                    Url = parent.Url
+                    MenuLink = parent.MenuLink
                 };
 
                 menuGroupItem.MenuItems = menuItems.Where(menuItem => menuItem.ParentId == menuGroupItem.MenuId);

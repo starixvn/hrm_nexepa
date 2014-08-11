@@ -70,7 +70,7 @@ namespace NexEPA.Controllers.API
         /// <param name="milestone">Milestone Model.</param>
         /// <returns>Http Message.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
-        public HttpResponseMessage POST(HttpRequestMessage request, MilestoneModel milestone)
+        public HttpResponseMessage Post(HttpRequestMessage request, MilestoneModel milestone)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace NexEPA.Controllers.API
         /// <param name="milestoneId">Milestone Id.</param>
         /// <returns>Http message.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
-        public HttpResponseMessage DELETE(int milestoneId)
+        public HttpResponseMessage Delete(int milestoneId)
         {
             if (milestoneId > 0)
             {
@@ -138,7 +138,7 @@ namespace NexEPA.Controllers.API
         /// <param name="milestone">Milestone model.</param>
         /// <returns>Http message.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
-        public HttpResponseMessage PUT(HttpRequestMessage request, MilestoneModel milestone)
+        public HttpResponseMessage Put(HttpRequestMessage request, MilestoneModel milestone)
         {
             if (ModelState.IsValid)
             {
