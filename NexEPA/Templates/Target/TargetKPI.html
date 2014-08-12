@@ -52,7 +52,10 @@
                 </tr>
             </tbody>
             <tr ng-show="listGroupKPI == ''">
-                <td colspan="3" class="empty-result" data-translate="EmptyResult"></td>
+                <td colspan="3" class="empty-result" data-translate="EmptyResult" ng-if="!isEditMode">
+				</td>
+				<td colspan="4" class="empty-result" data-translate="EmptyResult" ng-if="isEditMode && permissionMemberEPA.policy > 0">
+				</td>
             </tr>
         </table>
     </div>

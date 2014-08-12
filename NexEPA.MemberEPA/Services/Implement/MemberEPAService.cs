@@ -61,7 +61,7 @@ namespace NexEPA.MemberEPA.Services.Implement
             { 
                 result = _memberEPARepository.GetEPAInfo(criteria);
                 result.KPIInfo = CalculatePercentOfKPI(result.KPIInfo);
-                result.FinalScore = result.FinalScore != null ? Decode(result.FinalScore) : string.Empty;
+                result.FinalScore = !string.IsNullOrEmpty(result.FinalScore) ? Decode(result.FinalScore) : string.Empty;
             }
 
             return result;
