@@ -501,7 +501,7 @@ notificationFactory) {
 
 	$scope.getEmployee = function (departmentId) {
 		employeeRepository.getEmployeeInDepartment(departmentId).success(function (data) {
-			$scope.defaultEmployees = removeExistEmployees(data.item1, $scope.currentEvaluator);
+			$scope.defaultEmployees = removeExistEmployees(data.defaultFlowSettingEmployees, $scope.currentEvaluator);
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});

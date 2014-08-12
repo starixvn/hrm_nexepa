@@ -282,7 +282,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<SelectListModel> RenderProjectStatusSelectList()
         {
-            IEnumerable<SelectListModel> data = EnumStatus.GetAllStatusOfProject();
+            IEnumerable<SelectListModel> data = EnumStatus.AllProjectStatus;
             return data;
         }
 

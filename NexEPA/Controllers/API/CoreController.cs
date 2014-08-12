@@ -69,7 +69,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<SelectListModel> GetAllStatus()
         {
-            return EnumStatus.GetAllStatus();
+            return EnumStatus.AllStatus;
         }
 
         [HttpGet]

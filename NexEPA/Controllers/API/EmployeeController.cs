@@ -124,11 +124,11 @@ namespace NexEPA.Controllers.API
         /// </summary>
         /// <param name="departmentId">Department Id.</param>
         /// <returns>List Employee Model.</returns>
-        public Tuple<IEnumerable<EmployeeModel>, IEnumerable<EmployeeModel>> GetEmployeeInDepartment(int departmentId)
+        public EmployeeDepartmentModel GetEmployeeInDepartment(int departmentId)
         {
             IEnumerable<EmployeeModel> employees = null;
-            IEnumerable<EmployeeModel> personalSettingFlowEmployees = null;
-            IEnumerable<EmployeeModel> defaultSettingFlowEmployees = null;
+            var employeeDepartment = new EmployeeDepartmentModel();
+
             if (departmentId > 0)
             {
                 var getEmployeeByDepartment = new GetEmployeeByDepartmentCriteria() { DepartmentId = departmentId };
@@ -143,11 +143,11 @@ namespace NexEPA.Controllers.API
 
             if (employees != null)
             {
-                personalSettingFlowEmployees = employees.Where(x => x.IsExistsSetting == true);
-                defaultSettingFlowEmployees = employees.Where(x => x.IsExistsSetting == false);
+                employeeDepartment.PersonalFlowSettingEmployees = employees.Where(x => x.IsExistsSetting == true);
+                employeeDepartment.DefaultFlowSettingEmployees = employees.Where(x => x.IsExistsSetting == false);
             }
 
-            return Tuple.Create(defaultSettingFlowEmployees, personalSettingFlowEmployees);
+            return employeeDepartment;
         }
     }
 }

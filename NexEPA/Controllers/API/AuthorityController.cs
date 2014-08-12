@@ -11,7 +11,6 @@ namespace NexEPA.Controllers.API
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
     using NexEPA.Authority.Criteria;
     using NexEPA.Authority.Models;
@@ -32,7 +31,6 @@ namespace NexEPA.Controllers.API
     /// <summary>
     /// The Authority Controller.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed. Suppression is OK here.")]
     public class AuthorityController : BaseController
     {
         private IAuthorityService _authorityService;

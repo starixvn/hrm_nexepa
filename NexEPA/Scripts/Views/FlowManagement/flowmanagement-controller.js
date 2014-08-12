@@ -106,8 +106,8 @@ departmentDataFactory, flowDataFactory, $window) {
 	};
 
 	var successGetAllDepartment = function (data) {
-		$scope.departments = data.item2;
-		$scope.departmentOptions = generateOptions(data.item1.children, [], 0);
+		$scope.departments = data.allDepartments;
+		$scope.departmentOptions = generateOptions(data.treeDepartment.children, [], 0);
 	};
 
 	var successGetFlow = function (data) {
@@ -367,8 +367,8 @@ departmentDataFactory, flowDataFactory, $window) {
 
 		var getEmployeeFlowList = function () {
 			employeeRepository.getEmployeeInDepartment($scope.DepartmentList.departmentId).success(function (data) {
-				$scope.defaultSettingFlowEmployees = data.item1;
-				$scope.personalSettingFlowEmployees = data.item2;
+				$scope.defaultSettingFlowEmployees = data.defaultFlowSettingEmployees;
+				$scope.personalSettingFlowEmployees = data.personalFlowSettingEmployees;
 			}).error(function () {
 				notificationFactory.error("ErrorMessage");
 			});

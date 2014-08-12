@@ -58,6 +58,7 @@
     <Compile Include="Criteria\FlowManagement\GetGroupFlowCriteria.cs" />
     <Compile Include="Criteria\GetAllDepartmentCriteria.cs" />
     <Compile Include="Criteria\UpdateDepartmentCriteria.cs" />
+    <Compile Include="Models\AllDepartmentInfoModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\EPAFlowModel.cs" />

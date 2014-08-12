@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.04.04">Created</change>
 // </history>
 
-namespace NexEPA.Controllers.Target
+namespace NexEPA.Controllers.API
 {
     using System;
     using System.Collections.Generic;

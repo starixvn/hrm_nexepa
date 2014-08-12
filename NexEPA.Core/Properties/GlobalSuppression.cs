@@ -13,7 +13,3 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexEPA.Core.Services.Interface", MessageId = "Interface", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "NexEPA.Core.Repositories.Interface", MessageId = "Interface", Justification = "Reviewed. Suppression is OK here.")]
-[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
-    Target = "NexEPA.Core.Utilities.EnumStatus.#GetAllStatusOfProject()", Justification = "Reviewed. Suppression is OK here.")]
-[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
-    Target = "NexEPA.Core.Utilities.EnumStatus.#GetAllStatus()", Justification = "Reviewed. Suppression is OK here.")]

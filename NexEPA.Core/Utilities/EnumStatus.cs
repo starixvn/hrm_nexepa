@@ -26,6 +26,22 @@ namespace NexEPA.Core.Utilities
         {
         }
 
+        public static IEnumerable<SelectListModel> AllStatus
+        {
+            get
+            {
+                return GetAllStatus();
+            }
+        }
+
+        public static IEnumerable<SelectListModel> AllProjectStatus
+        {
+            get
+            {
+                return GetAllStatusOfProject();
+            }
+        }
+
         /// <summary>
         /// Get ENUM Description.
         /// </summary>
@@ -45,7 +61,7 @@ namespace NexEPA.Core.Utilities
             }
         }
 
-        public static IEnumerable<SelectListModel> GetAllStatusOfProject()
+        private static IEnumerable<SelectListModel> GetAllStatusOfProject()
         {
             IEnumerable<StatusProject> statusList = Enum.GetValues(typeof(StatusProject)).Cast<StatusProject>();
             IEnumerable<SelectListModel> allStatus = statusList.Select(x => new SelectListModel
@@ -57,7 +73,7 @@ namespace NexEPA.Core.Utilities
             return allStatus;
         }
 
-        public static IEnumerable<SelectListModel> GetAllStatus()
+        private static IEnumerable<SelectListModel> GetAllStatus()
         {
             IEnumerable<Status> statusList = Enum.GetValues(typeof(Status)).Cast<Status>();
             IEnumerable<SelectListModel> allStatus = statusList.Select(x => new SelectListModel

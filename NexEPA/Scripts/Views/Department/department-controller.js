@@ -43,8 +43,8 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 	* Ajax event Loaded. 
 	*/
 	var successGetAllDepartment = function (data) {
-		$scope.department = data.item1;
-		$scope.departments = data.item2;
+		$scope.department = data.treeDepartment;
+		$scope.departments = data.allDepartments;
 		resetCurrentData();
 		$scope.hasTreeEvent = false;
 	};
