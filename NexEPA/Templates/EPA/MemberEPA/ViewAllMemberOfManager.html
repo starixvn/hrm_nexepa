@@ -85,8 +85,9 @@
             <td ng-bind="epaItem.target.targetName">
             </td>
             <td class="epa-score">
-                <a href="" ng-bind="epaItem.score" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}"
-                    ng-show="epaItem.score > 0" /><a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)"
+                <a href="" ng-bind="epaItem.score | customNumber" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}"
+                    ng-show="epaItem.score > 0" />
+                <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)"
                         ng-href="{{viewEPADetailUrl}}" ng-show="epaItem.score <= 0" />
             </td>
             <td>

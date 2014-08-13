@@ -55,3 +55,11 @@ registrationModule.filter('epaStatus', function () {
 		return statusText;
 	};
 });
+
+registrationModule.filter('customNumber', ['$filter', function ($filter) {
+	return function (input) {
+		if (input == null) { return ""; }
+		var _date = $filter('number')(input, 2);
+		return _date;
+	};
+} ]);

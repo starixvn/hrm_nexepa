@@ -105,7 +105,7 @@
                 </td>
                 <td class="report-joined-date" ng-bind="employee.joinedDate | customDate">
                 </td>
-                <td class="report-average-score" ng-bind="employee.averageScore">
+                <td class="report-average-score" ng-bind="employee.averageScore | customNumber">
                 </td>
             </tr>
             <tr ng-show="reportByProject == ''">

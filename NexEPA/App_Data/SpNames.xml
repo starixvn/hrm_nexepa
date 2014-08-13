@@ -65,8 +65,8 @@
 		<Setting Key="TargetTemplate_AddKPI" SpName="TargetTemplate_AddKPI" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="KPI_GetByTargetTemplate" SpName="KPI_GetByTargetTemplate" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetTemplate_SetKPIGroup" SpName="TargetTemplate_SetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups_xtest" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup_xtest" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetTemplate_UpdateStatus" SpName="TargetTemplate_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetSetting_Get" SpName="TargetSetting_Get" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="TargetSetting_Set" SpName="TargetSetting_Set" DbName="NexEPA" Plain="1" ></Setting>
@@ -95,14 +95,14 @@
 	</Function>
 
 	<Function Name="TargetKPI">
-		<Setting Key="KPI_GetByTarget" SpName="KPI_GetByTarget_xtest" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="KPI_GetByTarget" SpName="KPI_GetByTarget" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="MyEPA">
 		<Setting Key="EPA_GetInfo" SpName="EPA_GetInfo" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPA_GetByEmployee" SpName="EPA_GetByEmployee" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="EPA_InsertOrUpdateScore" SpName="EPA_InsertOrUpdateScore_xtest" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="EPA_GetMemberEPA" SpName="EPA_GetMemberEPA_xtest" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="EPA_InsertOrUpdateScore" SpName="EPA_InsertOrUpdateScore" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="EPA_GetMemberEPA" SpName="EPA_GetMemberEPA" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPA_UpdateStatus" SpName="EPA_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPA_CheckPermission" SpName="EPA_CheckPermission" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPAForm_Get" SpName="EPAForm_Get" DbName="NexEPA" Plain="1" ></Setting>
@@ -114,14 +114,14 @@
 		<Setting Key="ProcessPeriod_GetAll" SpName="ProcessPeriod_GetAll" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPAForm_Delete" SpName="EPAForm_Delete" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPAForm_UpdateStatus" SpName="EPAForm_UpdateStatus" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="EPADetail_UpdateKPIScore" SpName="EPADetail_UpdateKPIScore_xtest" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="EPADetail_UpdateKPIScore" SpName="EPADetail_UpdateKPIScore" DbName="NexEPA" Plain="1" ></Setting>
 		<Setting Key="EPADetail_CheckPermission" SpName="EPADetail_CheckPermission" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 
 	<Function Name="Report">
-		<Setting Key="Report_MySpace" SpName="Report_MySpace_xtest" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA_xtest" DbName="NexEPA" Plain="1" ></Setting>
-		<Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA_xtest" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="1" ></Setting>
+		<Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="1" ></Setting>
 	</Function>
 	<Function Name="Authority">
 		<Setting Key="Function_GetAll" SpName="Function_GetAll" DbName="NexEPA" Plain="1" ></Setting>

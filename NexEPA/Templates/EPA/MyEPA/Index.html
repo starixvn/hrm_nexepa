@@ -154,8 +154,8 @@
 		<div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo" ng-repeat-loaded>
 			<li class="boxtitle">{{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)
 				<div class="pull-right">
-					<span data-translate="GroupTotal"></span><span ng-show="kpi.groupFinalScore > 0">{{kpi.groupFinalScore}}</span>
-					<span ng-hide="kpi.groupFinalScore > 0">0</span>
+					<span data-translate="GroupTotal"></span><span ng-show="kpi.groupFinalScore > 0">{{kpi.groupFinalScore | customNumber}}</span>
+					<span ng-hide="kpi.groupFinalScore > 0">{{0 | customNumber}}</span>
 				</div>
 			</li>
 			<div class="col-sm-12">
@@ -204,7 +204,7 @@
 				<p data-translate="Total">
 				</p>
 				<p class="finalscore">
-					{{finalScore}}
+					{{finalScore | customNumber}}
 				</p>
 			</div>
 		</div>

@@ -34,7 +34,7 @@
                 </td>
                 <td class="home-center">{{historyProject.project.startDate | customDate}}</td>
                 <td class="home-center">{{historyProject.project.endDate | customDate}}</td>
-                <td class="home-score" ng-bind="historyProject.score"></td>
+                <td class="home-score" ng-bind="historyProject.score | customNumber"></td>
                 <td class="home-role" ng-bind="historyProject.roles"></td>
                 <td class="home-comment">
                     <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate tooltip={{historyProject.comment}}></span>

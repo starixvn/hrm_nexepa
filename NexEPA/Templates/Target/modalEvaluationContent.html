@@ -91,7 +91,7 @@
 									ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}">
 								</textarea>
 							</td>
-							<td ng-bind="employee.finalScore" class="target-center">
+							<td ng-bind="employee.finalScore | customNumber" class="target-center">
 							</td>
 						</tr>
 					</table>
