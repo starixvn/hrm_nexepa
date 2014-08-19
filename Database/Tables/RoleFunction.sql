@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[RoleFunction]    Script Date: 6/3/2014 4:36:38 PM ******/
+/****** Object:  Table [dbo].[RoleFunction]    Script Date: 8/19/2014 3:57:40 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,7 +11,8 @@ GO
 CREATE TABLE [dbo].[RoleFunction](
 	[RoleId] [int] NOT NULL,
 	[FunctionId] [int] NOT NULL,
-	[Permission] [tinyint] NULL,
+	[IsRead] [bit] NOT NULL,
+	[IsHost] [bit] NOT NULL,
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL,
  CONSTRAINT [PK_RoleFunction] PRIMARY KEY CLUSTERED 

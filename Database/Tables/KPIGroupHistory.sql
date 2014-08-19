@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[KPIGroupHistory]    Script Date: 5/6/2014 3:18:24 PM ******/
+/****** Object:  Table [dbo].[KPIGroupHistory]    Script Date: 8/19/2014 4:03:51 PM ******/
 SET ANSI_NULLS ON
 GO
 

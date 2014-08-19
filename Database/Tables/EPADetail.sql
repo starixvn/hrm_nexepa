@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[EPADetail]    Script Date: 6/19/2014 10:20:14 AM ******/
+/****** Object:  Table [dbo].[EPADetail]    Script Date: 8/18/2014 5:43:02 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,14 +10,14 @@ GO
 
 SET ANSI_PADDING ON
 GO
-DROP TABLE [dbo].[EPADetail]
+
 CREATE TABLE [dbo].[EPADetail](
 	[EPAId] [int] NOT NULL,
 	[ProcessId] [int] NOT NULL,
 	[EvaluatorId] [int] NOT NULL,
 	[KPIId] [int] NOT NULL,
 	[KPIGroupId] [int] NOT NULL,
-	[ScoreId] [int] NULL,
+	[Score] [nvarchar](50) NULL,
 	[IsRequireComment] [bit] NULL,
 	[Comment] [nvarchar](max) NULL,
 	[IsSpreadKPI] [bit] NULL,

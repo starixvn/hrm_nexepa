@@ -1,13 +1,13 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[EPAProcess]    Script Date: 6/19/2014 10:17:46 AM ******/
+/****** Object:  Table [dbo].[EPAProcess]    Script Date: 8/19/2014 4:01:34 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-DROP TABLE [dbo].[EPAProcess]
+
 CREATE TABLE [dbo].[EPAProcess](
 	[EPAId] [int] NOT NULL,
 	[ProcessId] [int] NOT NULL,
@@ -18,12 +18,13 @@ CREATE TABLE [dbo].[EPAProcess](
 	[EndDate] [datetime] NULL,
 	[IsEndProcess] [bit] NOT NULL,
 	[KPICount] [int] NULL,
-	[AverageScore] [decimal](18, 2) NULL,
+	[AverageScore] [nvarchar](50) NULL,
 	[NoticeAtBegin] [bit] NULL,
 	[RemindDate] [datetime] NULL,
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL,
 	[Status] [tinyint] NULL,
+	[EvaluateDate] [datetime] NULL,
  CONSTRAINT [PK_EPAProcess] PRIMARY KEY CLUSTERED 
 (
 	[EPAId] ASC,

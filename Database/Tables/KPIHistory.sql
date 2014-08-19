@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[KPIHistory]    Script Date: 5/6/2014 3:18:35 PM ******/
+/****** Object:  Table [dbo].[KPIHistory]    Script Date: 8/19/2014 4:03:44 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -20,6 +20,7 @@ CREATE TABLE [dbo].[KPIHistory](
 	[IsDisabled] [bit] NULL,
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL,
+	[HasComment] [bit] NULL,
  CONSTRAINT [PK_KPIHistory] PRIMARY KEY CLUSTERED 
 (
 	[KPIId] ASC,

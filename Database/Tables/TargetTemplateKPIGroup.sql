@@ -1,7 +1,7 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetTemplateKPIGroup]    Script Date: 5/6/2014 3:24:23 PM ******/
+/****** Object:  Table [dbo].[TargetTemplateKPIGroup]    Script Date: 8/19/2014 4:09:07 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,6 +17,7 @@ CREATE TABLE [dbo].[TargetTemplateKPIGroup](
 	[AddedDate] [datetime] NULL,
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL,
+	[IsSpreadKPI] [bit] NULL,
  CONSTRAINT [PK_TargetTemplateKPIGroup] PRIMARY KEY CLUSTERED 
 (
 	[TargetTemplateId] ASC,

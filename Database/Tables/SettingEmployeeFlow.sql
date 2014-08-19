@@ -1,27 +1,25 @@
 USE [NexEPA]
 GO
 
-/****** Object:  Table [dbo].[TargetEmployeeProcess]    Script Date: 5/6/2014 3:23:05 PM ******/
+/****** Object:  Table [dbo].[SettingEmployeeFlow]    Script Date: 8/19/2014 3:41:24 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[TargetEmployeeProcess](
-	[TargetId] [int] NOT NULL,
+CREATE TABLE [dbo].[SettingEmployeeFlow](
 	[EmployeeId] [int] NOT NULL,
 	[ProcessId] [int] NOT NULL,
 	[EvaluatorId] [int] NOT NULL,
-	[StartDate] [datetime] NULL,
-	[EndDate] [datetime] NULL,
+	[Priority] [tinyint] NULL,
 	[ModifiedBy] [int] NULL,
 	[ModifiedDate] [datetime] NULL,
- CONSTRAINT [PK_EmployeeKPIProces] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_EmployeeFlowSetting1] PRIMARY KEY CLUSTERED 
 (
-	[TargetId] ASC,
 	[EmployeeId] ASC,
-	[ProcessId] ASC
+	[ProcessId] ASC,
+	[EvaluatorId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
