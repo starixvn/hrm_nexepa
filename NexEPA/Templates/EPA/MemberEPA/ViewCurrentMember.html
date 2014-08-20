@@ -59,9 +59,9 @@
             </td>
             <td class="epa-score">
                 <a href="" ng-bind="epaItem.score | customNumber" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}"
-                    ng-show="epaItem.score > 0" />
+                    ng-show="epaItem.score" />
                 <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)"
-                        ng-href="{{viewEPADetailUrl}}" ng-show="epaItem.score <= 0" />
+                        ng-href="{{viewEPADetailUrl}}" ng-show="!epaItem.score" />
             </td>
             <td class="epa-status" ng-bind="epaItem.statusName">
             </td>

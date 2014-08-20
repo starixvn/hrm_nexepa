@@ -48,9 +48,9 @@
                 </th>
                 <th data-translate="FullName">
                 </th>
-                <th data-translate="Job Title">
-                </th>
                 <th data-translate="Team">
+                </th>
+                <th data-translate="Job Title">
                 </th>
                 <th data-translate="Skype">
                 </th>
@@ -74,11 +74,11 @@
                 <td>
                     {{employee.fullName}}
                 </td>
-                <td>
-                    {{employee.jobTitle.name}}
+                <td class="center">
+                    <span tooltip="{{employee.group.name}}">{{employee.group.code}}</span>
                 </td>
                 <td>
-                    {{employee.group.name}}
+                    {{employee.jobTitle.name}}
                 </td>
                 <td>
                     <a href="skype:{{employee.skype}}?chat">{{employee.skype}}</a>
