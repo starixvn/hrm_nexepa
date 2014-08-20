@@ -31,7 +31,7 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 	};
 
 	var successDeleteMember = function () {
-		notificationFactory.success('SuccessDeleteData', '');
+		notificationFactory.success('DataChangeSuccessfully', '');
 		return projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers, errorNotification);
 	};
 	var errorNotification = function (data) { notificationFactory.error('', data); };
@@ -77,7 +77,7 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 		* Ajax event loaded. 
 		*/
 		var successAddProjectMember = function () {
-			notificationFactory.success('SuccessSaveData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 			projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
 		};
 
@@ -118,7 +118,7 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 	// Update Member.
 	$scope.updateMember = function (member) {
 		var successUpdateProjectMember = function () {
-			notificationFactory.success('SuccessSaveData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 			projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
 		};
 

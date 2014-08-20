@@ -45,7 +45,7 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, generalSet
 			$scope.errors = response.data;
 		}
 		else {
-			notificationFactory.success('SuccessSaveData', '');
+			notificationFactory.success('DataChangeSuccessfully', '');
 			generalSettingFactory.getTargetSetting().then(successGetTargetSetting, errorHandle);
 		}
 	};

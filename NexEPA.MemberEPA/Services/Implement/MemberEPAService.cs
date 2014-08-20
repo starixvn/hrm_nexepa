@@ -84,7 +84,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employeeEPA in employeeEPAs)
                 {
                     employeeEPA.StatusName = EnumStatus.GetDescripton((Status)employeeEPA.Status);
-                    employeeEPA.Score = employeeEPA.Score != null ? Decode(employeeEPA.Score) : string.Empty;
+                    employeeEPA.Score = !string.IsNullOrEmpty(employeeEPA.Score) ? Decode(employeeEPA.Score) : string.Empty;
                 }
             }
 
@@ -125,7 +125,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employee in employees)
                 {
                     employee.StatusName = EnumStatus.GetDescripton((Status)employee.Status);
-                    employee.Score = employee.Score != null ? Decode(employee.Score) : string.Empty;
+                    employee.Score = !string.IsNullOrEmpty(employee.Score) ? Decode(employee.Score) : string.Empty;
                 }
             }
 
