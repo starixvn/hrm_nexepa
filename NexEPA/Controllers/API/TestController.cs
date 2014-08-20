@@ -36,6 +36,7 @@ namespace NexEPA.Controllers.API
         /// <param name="domainUsername">The domain username.</param>
         /// <returns>The integer value to identify success or not.</returns>
         [HttpGet]
+        [NonAction]
         public int LoginAsAnotherUser(string domainUsername)
         {
             var criteria = new GetEmployeeByDomainUsernameCriteria

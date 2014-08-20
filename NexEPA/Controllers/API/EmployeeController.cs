@@ -57,7 +57,6 @@ namespace NexEPA.Controllers.API
                 Keyword = keyword,
                 GroupId = groupId
             };
-
             IEnumerable<EmployeeModel> employees = _employeeService.GetAllEmployee(criteria);
             return employees;
         }
