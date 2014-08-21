@@ -439,6 +439,15 @@
     <Content Include="Content\Site\Authority\authority.less" />
     <Content Include="Content\Site\Admin\flowmanagement.less" />
     <None Include="Content\Site\AppraisalForm\appraisalForm.less" />
+    <Content Include="Web.pro.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.pro.Debug.config">
+      <DependentUpon>Web.pro.config</DependentUpon>
+    </Content>
+    <Content Include="Web.pro.Release.config">
+      <DependentUpon>Web.pro.config</DependentUpon>
+    </Content>
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
