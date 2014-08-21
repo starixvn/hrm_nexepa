@@ -57,11 +57,16 @@ namespace NexEPA.MemberEPA.Services.Implement
         {
             EPAInfoModel result = null;
             Check.Argument.IsNotNull(criteria, "criteria");
+
             if (criteria.IsValid())
             { 
                 result = _memberEPARepository.GetEPAInfo(criteria);
-                result.KPIInfo = CalculatePercentOfKPI(result.KPIInfo);
-                result.FinalScore = !string.IsNullOrEmpty(result.FinalScore) ? Decode(result.FinalScore) : string.Empty;
+
+                if (result != null)
+                {
+                    result.KPIInfo = CalculatePercentOfKPI(result.KPIInfo);
+                    result.FinalScore = !string.IsNullOrEmpty(result.FinalScore) ? Decode(result.FinalScore) : string.Empty;
+                }
             }
 
             return result;
