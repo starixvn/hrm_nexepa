@@ -76,9 +76,9 @@
             </tr>
         </thead>
         <tbody class="table-body">
-            <tr ng-repeat="project in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse ">
+            <tr ng-repeat="project in pagedItems[currentPage]">
                 <td class="text-center column-count">
-                    {{$index + 1}}
+                    {{project.itemIndex + 1}}
                 </td>
                 <td class="project-name">
                     <a href="/Projects/Detail/{{project.projectId}}" ng-click="detailProject(project,false)">

@@ -145,7 +145,7 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		$scope.groupToPages = function () {
 			$scope.pagedItems = [];
 			for (var i = 0; i < $scope.filteredItems.length; i++) {
-
+				$scope.filteredItems[i].itemIndex = i;
 				if (i % $scope.itemsPerPage === 0) {
 					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
 				} else {

@@ -61,9 +61,10 @@
             </tr>
         </thead>
         <tbody class="table-body">
-            <tr ng-repeat="employee in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+            <tr ng-repeat="employee in pagedItems[currentPage]">
+			<!--| orderBy:sort.sortingOrder:sort.reverse-->
                 <td class="index column-count">
-                    {{$index+1}}
+                    {{employee.itemIndex + 1}}
                 </td>
                 <td class="code">
                     {{employee.code}}

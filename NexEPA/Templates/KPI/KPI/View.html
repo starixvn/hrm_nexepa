@@ -79,8 +79,8 @@
             </tr>
         </thead>
         <tbody class="table-body">
-            <tr ng-repeat="item in pagedItems[currentPage] track by item.kpiId | orderBy:sort.sortingOrder:sort.reverse">
-                <td class="KPI-index column-count" ng-bind="$index + 1">
+            <tr ng-repeat="item in pagedItems[currentPage] track by item.kpiId">
+                <td class="KPI-index column-count" ng-bind="item.itemIndex + 1">
                 </td>
                 <td class="KPI-title" ng-bind="item.name">
                 </td>
