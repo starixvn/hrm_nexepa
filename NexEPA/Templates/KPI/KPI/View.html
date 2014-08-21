@@ -112,12 +112,12 @@
                             href="" ng-click="openDeletePopup(item)" ng-if="permission.policy == 2" />
                 </td>
             </tr>
-        </tbody>
-        <tfoot>
             <tr ng-show="KPIList == '' || KPIList == 'null'">
                 <td class="empty-result" colspan="6" data-translate="EmptyResult">
                 </td>
             </tr>
+        </tbody>
+        <tfoot>
             <tr>
                 <td colspan="9" class="paging">
                     <pagination-bar></pagination-bar>
@@ -168,12 +168,10 @@
                             href="" ng-click="openDeletePopup(item)" ng-if="permission.policy == 2" />
                 </td>
             </tr>
-        </tbody>
-        <tfoot>
             <tr ng-show="KPIList == ''">
                 <td class="empty-result" colspan="6" data-translate="EmptyResult">
                 </td>
             </tr>
-        </tfoot>
+        </tbody>
     </table>
 </div>

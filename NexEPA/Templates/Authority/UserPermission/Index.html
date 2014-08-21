@@ -50,9 +50,9 @@
                 </th>
                 <th class="authority-employee-name" data-translate="FullName">
                 </th>
-                <th class="authority-employee-job-title" data-translate="Job Title">
-                </th>
                 <th class="authority-employee-team" data-translate="Team">
+                </th>
+                <th class="authority-employee-job-title" data-translate="Job Title">
                 </th>
                 <th class="authority-employee-role" data-translate="Roles">
                 </th>
@@ -74,11 +74,11 @@
                 <td class="authority-employee-name">
                     {{employee.fullName}}
                 </td>
+               <td class="authority-employee-team">
+                    <span tooltip="{{employee.group.name}}">{{employee.group.code}}</span>
+                </td>
                 <td class="authority-employee-job-title">
                     {{employee.jobTitle.name}}
-                </td>
-                <td class="authority-employee-team">
-                    {{employee.group.name}}
                 </td>
                 <td class="authority-employee-role">
                     {{employee.roles}}
@@ -87,12 +87,12 @@
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
                 </td>
             </tr>
-        </tbody>
-        <tfoot>
             <tr ng-show="employees == '' || employees == 'null'">
                 <td class="empty-result" colspan="7" data-translate="EmptyResult">
                 </td>
             </tr>
+        </tbody>
+        <tfoot>
             <tr>
                 <td colspan="10" class="paging">
                     <pagination-bar></pagination-bar>
