@@ -133,9 +133,9 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 				return false;
 			});
 			// take care of the sorting order
-			if ($scope.sort.sortingOrder !== '') {
-				$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
-			}
+//			if ($scope.sort.sortingOrder !== '') {
+//				$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+//			}
 			$scope.currentPage = 0;
 			// now group by pages
 			$scope.groupToPages();
