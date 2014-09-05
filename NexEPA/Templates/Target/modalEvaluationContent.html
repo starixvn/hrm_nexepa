@@ -82,7 +82,7 @@
 									<rating value="employee.kpiItem.score" max="max" on-hover="hoveringOver(value, employee)"
 										on-leave="hoveringLeave(employee.kpiItem, employee)" readonly="checkReadOnly(kpiItem, employee)">
 									</rating>
-									<span class="badge percent" ng-show="employee.kpiItem.percent">{{employee.kpiItem.percent}}%</span>
+									<span class="badge percent" ng-show="employee.kpiItem.percent > 0">{{employee.kpiItem.percent}}%</span>
 									<span class="badge percent" ng-show="!employee.kpiItem.percent">N/A</span>
 								</div>
 							</td>

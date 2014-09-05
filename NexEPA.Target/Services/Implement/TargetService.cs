@@ -417,7 +417,8 @@ namespace NexEPA.Target.Services.Implement
                             KPIId = rawKPIItem.KPIId,
                             Score = kpiScore,
                             Weight = rawKPIItem.Weight,
-                            Comment = rawKPIItem.Comment
+                            Comment = rawKPIItem.Comment,
+                            Percent = !string.IsNullOrEmpty(kpiScore) ? int.Parse(kpiScore) * 20 : 0
                         };
 
                         epaInfo.KPIItems.Add(kpiItem);

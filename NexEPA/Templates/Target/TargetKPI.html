@@ -29,7 +29,7 @@
                     <td class="row-highlight"></td>
                     <td class="row-highlight target-kpi-name" ng-bind="kpiGroupItem.group.name"></td>
                     <td class="row-highlight target-kpi-weight" ng-bind="kpiGroupItem.group.weight"></td>
-                    <td ng-if="isEditMode && permissionMemberEPA.policy > 0"></td>
+                    <td class="row-highlight" ng-if="isEditMode && permissionMemberEPA.policy > 0"></td>
                 </tr>
                 <tr ng-repeat="kpiItem in kpiGroupItem.kpIs">
                     <td class="count" ng-bind="calculateIndex($parent.$index, $index, listGroupKPI)" ></td>
