@@ -13,6 +13,7 @@ namespace NexEPA.MemberEPA.Services.Implement
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
     using Fanex.Common.Helper;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
@@ -372,7 +373,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                     foreach (var item in kpi.KPIGroupItems)
                     {
                         string cipherScore = !string.IsNullOrEmpty(item.Score) ? Encode(item.Score + "_" + item.KPIId) : null;
-                        value.AppendFormat(Constants.EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, cipherScore, item.Comment);
+                        value.AppendFormat(Constants.EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, cipherScore, HttpUtility.HtmlEncode(item.Comment));
                     }
                 }
 

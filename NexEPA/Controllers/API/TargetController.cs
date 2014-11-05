@@ -320,7 +320,7 @@ namespace NexEPA.Controllers.API
                 KPIGroupId = epaInfo.KPIGroupId,
                 EmployeeScore = _targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
             };
-
+            
             return _memberEPAService.UpdateKPIScore(criteria);
         }
     }
