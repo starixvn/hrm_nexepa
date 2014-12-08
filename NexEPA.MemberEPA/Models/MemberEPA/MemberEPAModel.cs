@@ -24,6 +24,8 @@ namespace NexEPA.MemberEPA.Models.MyEPA
 
         public string Score { get; set; }
 
+        public string Comment { get; set; }
+
         public DateTime EvaluateDate { get; set; }
 
         public int Status { get; set; }

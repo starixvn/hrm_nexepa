@@ -414,6 +414,12 @@ $modal, employeeRepository, linkToEPAService) {
 		notificationFactory.error("ErrorMessage");
 	});
 
+	employeeEPAFactory.getIsShowFullEPAComment().then(function (isShowFullEPAComment) {
+		$scope.isShowFullEPAComment = isShowFullEPAComment === "true" ? true : false;
+	}, function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
 	var objectQuery = linkToEPAService.getProperty();
 
 	$scope.$watch("currentUser", function (newValue) {

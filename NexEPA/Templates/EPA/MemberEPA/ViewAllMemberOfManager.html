@@ -47,7 +47,6 @@
 				ng-disabled="submitted" data-translate="Submit">
 			</button>
 		</div>
-		</div>
     </form>
 </div>
 <div class="row">
@@ -71,6 +70,8 @@
             </th>
             <th data-translate="EvaluateDate">
             </th>
+			<th data-translate="ProjectManagerComment">
+			</th>
         </thead>
         <tr ng-repeat="epaItem in listEPA">
             <td class="epa-index" ng-bind="$index + 1">
@@ -109,6 +110,12 @@
             <td class="epa-evaluate-date">
                 {{epaItem.evaluateDate | customDate }}
             </td>
+            <td class="home-comment" ng-show="!isShowFullEPAComment" >
+                <span ng-bind="truncateComment" original-comment="epaItem.comment" truncate
+                    tooltip="{{epaItem.comment}}"></span>
+            </td>
+			<td class="home-comment" ng-show="isShowFullEPAComment" ng-bind="epaItem.comment">
+			</td>
         </tr>
         <tr ng-show="listEPA == ''">
             <td class="empty-result" colspan="9" data-translate="EmptyResult">

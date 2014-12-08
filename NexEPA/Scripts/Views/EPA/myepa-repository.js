@@ -91,6 +91,11 @@ epaModule.factory('employeeEPAFactory', ['$http', '$q', function ($http, $q) {
 			var deferred = $q.defer();
 			$http.get('/api/EmployeeEPA/GetPermission').success(deferred.resolve).error(deferred.reject);
 			return deferred.promise;
+		},
+		getIsShowFullEPAComment: function () {
+			var deferred = $q.defer();
+			$http.get('/api/EmployeeEPA/GetIsShowFullEPAComment').success(deferred.resolve).error(deferred.reject);
+			return deferred.promise;
 		}
 	};
 } ]);

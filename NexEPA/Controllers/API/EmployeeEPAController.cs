@@ -33,6 +33,7 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class EmployeeEPAController : BaseController
     {
+        private const string ShowFullEPACommentKey = "showFullEPAComment";
         private readonly IMemberEPAService _memberEPAService;
 
         private ICommonService _commonService;
@@ -343,6 +344,19 @@ namespace NexEPA.Controllers.API
             };
 
             return _memberEPAService.GetUserPermissionOnTarget(criteria);
+        }
+
+        [HttpGet]
+        public bool GetIsShowFullEPAComment()
+        {
+            string isShowFullEPAComment = System.Configuration.ConfigurationManager.AppSettings[ShowFullEPACommentKey];
+
+            if (!string.IsNullOrEmpty(isShowFullEPAComment))
+            {
+                return isShowFullEPAComment.Equals("true") ? true : false;
+            }
+
+            return false;
         }
 
         /// <summary>
