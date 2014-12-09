@@ -1,0 +1,4 @@
+\\*.local.config
+\\*.pro.config
+\\*.Debug.config
+\\*.Release.config
