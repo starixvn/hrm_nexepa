@@ -8,195 +8,213 @@ projectsSettingModule.controller('ProjectController',
 'notificationFactory', '$modal', 'linkToEPAService', 'commonFactory', 'employeeEPAFactory',
 function ($scope, $location, projectDataFactory, ProjectSettingCache, ErrorService, tabService,
 notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory) {
-	/**
-	* Scope Variable. 
-	*/
-	$scope.createProjectPermission = false;
-	$scope.entrySelected = 20;
-	/**
-	* Project Setting Cache. 
-	*/
-	var cacheListPM = ProjectSettingCache.get("CacheListPM");
-	var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
-	var cacheListPeriod = ProjectSettingCache.get("CacheListPeriod");
-	/**
-	* Ajax event Loaded. 
-	*/
-	// Get data to ProjectManager - Select List
-	var successGetEmployeeSelectList = function (data) {
-		$scope.pms = data;
-		ProjectSettingCache.put("CacheListPM", data);
-	};
+    /**
+    * Scope Variable. 
+    */
+    $scope.createProjectPermission = false;
+    $scope.entrySelected = 20;
+    /**
+    * Project Setting Cache. 
+    */
+    var cacheListPM = ProjectSettingCache.get("CacheListPM");
+    var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+    var cacheListPeriod = ProjectSettingCache.get("CacheListPeriod");
+    /**
+    * Ajax event Loaded. 
+    */
+    // Get data to ProjectManager - Select List
+    var successGetEmployeeSelectList = function (data) {
+        $scope.pms = data;
+        ProjectSettingCache.put("CacheListPM", data);
+    };
 
-	// Get data to Status - Select List
-	var successGetProjectStatusSelectList = function (data) {
-		$scope.status = data;
-		ProjectSettingCache.put("CacheListStatus", data);
-	};
+    // Get data to Status - Select List
+    var successGetProjectStatusSelectList = function (data) {
+        $scope.status = data;
+        ProjectSettingCache.put("CacheListStatus", data);
+    };
 
-	// Get data to Period - Select List
-	var successGetPeriodSelectList = function (data) {
-		$scope.periods = data;
-		ProjectSettingCache.put("CacheListPeriod", data);
-	};
+    // Get data to Period - Select List
+    var successGetPeriodSelectList = function (data) {
+        $scope.periods = data;
+        ProjectSettingCache.put("CacheListPeriod", data);
+    };
 
-	// Filter data by criteria.
-	var successFilterData = function (data) {
-		$scope.projects = data;
-		commonFactory.tablePagination($scope, data, $scope.entrySelected);
-		$scope.totalEntries = data.length;
-	};
+    // Filter data by criteria.
+    var successFilterData = function (data) {
+        $scope.projects = data;
+        commonFactory.tablePagination($scope, data, $scope.entrySelected);
+        $scope.totalEntries = data.length;
+    };
 
-	var errorHandle = function (status) {
-		ErrorService.errorHandle(status);
-	};
+    var errorHandle = function (status) {
+        ErrorService.errorHandle(status);
+    };
 
-	var successGetPermission = function (data) {
-		$scope.permission = {
-			policy: parseInt(data)
-		};
-	};
+    var successGetPermission = function (data) {
+        $scope.permission = {
+            policy: parseInt(data)
+        };
+    };
 
-	var errorNotification = function (response) {
-		if (response !== null || response !== "") {
-			notificationFactory.error('', response);
-		}
-		else {
-			notificationFactory.error("ErrorMessage");
-		}
-	};
+    var errorNotification = function (response) {
+        if (response !== null || response !== "") {
+            notificationFactory.error('', response);
+        }
+        else {
+            notificationFactory.error("ErrorMessage");
+        }
+    };
 
-	/**
-	* Initialize data to view Index.
-	*/
-	linkToEPAService.setProperty(null);
-	tabService.setProperty(null);
-	projectDataFactory.getPermission().then(successGetPermission, errorNotification);
-	projectDataFactory.filterData(null).then(successFilterData, errorHandle);
-	commonFactory.numberEntryList($scope);
+    /**
+    * Initialize data to view Index.
+    */
+    linkToEPAService.setProperty(null);
+    tabService.setProperty(null);
+    projectDataFactory.getPermission().then(successGetPermission, errorNotification);
+    //projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+    commonFactory.numberEntryList($scope);
 
-	// Check for list ProjectManager has cache data.
-	if (cacheListPM) {
-		$scope.pms = cacheListPM;
-	}
-	else {
-		projectDataFactory.getEmployeeSelectList(3).then(successGetEmployeeSelectList);
-	}
+    // Check for list ProjectManager has cache data.
+    if (cacheListPM) {
+        $scope.pms = cacheListPM;
+    }
+    else {
+        projectDataFactory.getEmployeeSelectList(3).then(successGetEmployeeSelectList);
+    }
 
-	// Check for list Status has cache data.
-	if (cacheListStatus) {
-		$scope.status = cacheListStatus;
-	}
-	else {
-		projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
-	}
+    // Check for list Status has cache data.
+    if (cacheListStatus) {
+        $scope.status = cacheListStatus;
+    }
+    else {
+        projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
+    }
 
-	// Check for list Periods has cache data.
-	if (cacheListPeriod) {
-		$scope.periods = cacheListPeriod;
-	}
-	else {
-		projectDataFactory.getProjectPeriodSelectList().then(successGetPeriodSelectList);
-	}
+    // Check for list Periods has cache data.
+    if (cacheListPeriod) {
+        $scope.periods = cacheListPeriod;
+    }
+    else {
+        projectDataFactory.getProjectPeriodSelectList().then(successGetPeriodSelectList);
+    }
 
-	/**
-	* Event: Filter 
-	*/
-	$scope.getProjectList = function (filter) {
-		projectDataFactory.filterData(filter).then(successFilterData);
-	};
+    employeeEPAFactory.getCurrentUser().then(function (currentUser) {
+        $scope.currentUser = currentUser;
+        debugger;
+        //check project manager
+        var checkPM = false;
+        var roles = currentUser.roles;
+        $.each(roles, function (index, value) {
+            if (value.name === 'PM') {
+                checkPM = true;
+            }
+        });
+        if (checkPM === true) {
+            $scope.filter = {
+                projectManager: currentUser.userId
+            };
+            projectDataFactory.filterData($scope.filter).then(successFilterData, errorHandle);
+        }
+        else {
+            projectDataFactory.filterData(null).then(successFilterData, errorHandle);
+        }
+    }, function () {
+        notificationFactory.error("ErrorMessage");
+    });
 
-	// View detail of project
-	$scope.detailProject = function (project, isMemberSelected) {
-		tabService.setProperty(isMemberSelected);
-	};
+    /**
+    * Event: Filter 
+    */
+    $scope.getProjectList = function (filter) {
+        projectDataFactory.filterData(filter).then(successFilterData);
+    };
 
-	$scope.updateProjectStatus = function (project, status) {
-		var projectStatus = {
-			projectId: project.projectId,
-			status: status.id
-		};
+    // View detail of project
+    $scope.detailProject = function (project, isMemberSelected) {
+        tabService.setProperty(isMemberSelected);
+    };
 
-		var updateModalInstance = $modal.open({
-			templateUrl: '/templates/Common/ModalConfirmContent.html',
-			controller: "ModalConfirmController",
-			resolve: {
-				name: function () {
-					return project.name;
-				},
-				action: function () {
-					return "change status";
-				}
-			},
-			windowClass: "modal-confirm-center"
-		});
+    $scope.updateProjectStatus = function (project, status) {
+        var projectStatus = {
+            projectId: project.projectId,
+            status: status.id
+        };
 
-		updateModalInstance.result.then(function () {
-			projectDataFactory.updateProjectStatus(projectStatus).then(function () {
-				project.status = status.id;
-				notificationFactory.success('DataChangeSuccessfully', '');
-			}, errorNotification);
-		});
-	};
+        var updateModalInstance = $modal.open({
+            templateUrl: '/templates/Common/ModalConfirmContent.html',
+            controller: "ModalConfirmController",
+            resolve: {
+                name: function () {
+                    return project.name;
+                },
+                action: function () {
+                    return "change status";
+                }
+            },
+            windowClass: "modal-confirm-center"
+        });
 
-	// Delete Milestone.
-	$scope.deleteProject = function (project) {
-		var deleteModalInstance = $modal.open({
-			templateUrl: '/templates/Common/ModalConfirmContent.html',
-			controller: "ModalConfirmController",
-			resolve: {
-				name: function () {
-					return project.name;
-				},
-				action: function () {
-					return "delete";
-				}
-			},
-			windowClass: "modal-confirm-center"
-		});
+        updateModalInstance.result.then(function () {
+            projectDataFactory.updateProjectStatus(projectStatus).then(function () {
+                project.status = status.id;
+                notificationFactory.success('DataChangeSuccessfully', '');
+            }, errorNotification);
+        });
+    };
 
-		deleteModalInstance.result.then(function () {
-			projectDataFactory.deleteProject(project.projectId).then(function () {
-				var index = $scope.projects.indexOf(project);
-				$scope.projects.splice(index, 1);
-				commonFactory.tablePagination($scope, $scope.projects, $scope.entrySelected);
-				notificationFactory.success("DataChangeSuccessfully");
-			}, errorNotification);
-		});
-	};
+    // Delete Milestone.
+    $scope.deleteProject = function (project) {
+        var deleteModalInstance = $modal.open({
+            templateUrl: '/templates/Common/ModalConfirmContent.html',
+            controller: "ModalConfirmController",
+            resolve: {
+                name: function () {
+                    return project.name;
+                },
+                action: function () {
+                    return "delete";
+                }
+            },
+            windowClass: "modal-confirm-center"
+        });
 
-	$scope.toggleDropdown = function ($event) {
-		$event.preventDefault();
-		$event.stopPropagation();
-		$scope.status.isopen = !$scope.status.isopen;
-	};
+        deleteModalInstance.result.then(function () {
+            projectDataFactory.deleteProject(project.projectId).then(function () {
+                var index = $scope.projects.indexOf(project);
+                $scope.projects.splice(index, 1);
+                commonFactory.tablePagination($scope, $scope.projects, $scope.entrySelected);
+                notificationFactory.success("DataChangeSuccessfully");
+            }, errorNotification);
+        });
+    };
 
-	employeeEPAFactory.getCurrentUser().then(function (currentUser) {
-		$scope.currentUser = currentUser;
-	}, function () {
-		notificationFactory.error("ErrorMessage");
-	});
+    $scope.toggleDropdown = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.status.isopen = !$scope.status.isopen;
+    };
 
-	$scope.$watch("currentUser", function (newValue) {
-		if (newValue) {
-			var roles = newValue.roles;
+    $scope.$watch("currentUser", function (newValue) {
+        if (newValue) {
+            var roles = newValue.roles;
 
-			$.each(roles, function (index, value) {
-				if (value.name === 'SA') {
-					$scope.showAllMemberEPA = true;
-				}
-			});
-		}
-	});
+            $.each(roles, function (index, value) {
+                if (value.name === 'SA') {
+                    $scope.showAllMemberEPA = true;
+                }
+            });
+        }
+    });
 
-	$scope.linkToEPA = function (projectId, status) {
-		var objectQuery = { projectId: projectId, status: status, isShowAll: $scope.showAllMemberEPA };
-		linkToEPAService.setProperty(objectQuery);
-	};
+    $scope.linkToEPA = function (projectId, status) {
+        var objectQuery = { projectId: projectId, status: status, isShowAll: $scope.showAllMemberEPA };
+        linkToEPAService.setProperty(objectQuery);
+    };
 
-	$scope.showEntries = function () {
-		commonFactory.tablePagination($scope, $scope.projects, $scope.entrySelected);
-	};
+    $scope.showEntries = function () {
+        commonFactory.tablePagination($scope, $scope.projects, $scope.entrySelected);
+    };
 } ]);
 
 projectsSettingModule.controller('CreateProjectController',
