@@ -1,31 +1,48 @@
-﻿<div class="row sub-header">
-    <ul class="breadcrumb list-inline pull-left">
-        <li><a href="#" data-translate="Report" ng-click="reload()"></a></li>
-        <li class="current" data-translate="EmployeePerformanceTendency"></li>
-    </ul>
-</div>
-<div class="row">
-    <form novalidate class="form-inline filter filter-tendency col-xs-10 col-sm-8 col-md-6">
-    <div class="col-sm-9 col-md-8 form-group">
-        <label data-translate="Employee" class="col-sm-3 col-md-3">
-        </label>
-        <input class="form-control col-sm-9 col-md-9 txt-search" ng-model="search.searchKey"
-            placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
-            search-auto-complete search-key="search.searchKey" search-employees="searchEmployees"
-            employee="employee" />
-    </div>
-    <div class="col-sm-3 col-md-2">
-        <button class="button" ng-click="getReport(employee)" ng-disabled="disabledSubmit"
-            data-translate="Submit">
-        </button>
-    </div>
-    </form>
-</div>
-<div class="row">
-    <div ng-include src="'/Templates/Report/EmployeePerformanceTendency/GeneralInformation.html'">
-    </div>
-</div>
-<div class="row">
-    <div ng-include src="'/Templates/Report/EmployeePerformanceTendency/HistoryProject.html'">
-    </div>
+﻿<div class="col-sm-12 person-report filter-max-width">
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li><a href="#" data-translate="Report" data-ng-click="reload()"></a></li>
+			<li class="current" data-translate="EmployeePerformanceTendency"></li>
+		</ul>
+	</div>
+	<div class="row row-filter">
+		<form novalidate class="form-horizontal form-multiLine filter col-sm-12">
+		<div class="form-group">
+			<label data-translate="Employee" class="col-sm-1 text-right">
+			</label>
+			<div class="col-sm-2">
+				<input class="form-control" data-ng-model="filter.searchKey" placeholder="full name or nick name"
+					data-ng-change="getEmployee(filter.searchKey)" data-search-auto-complete data-search-key="filter.searchKey"
+					data-search-employees="searchEmployees" data-employee="employee" />
+			</div>
+			<label data-translate="From" class="col-sm-1  text-right">
+			</label>			
+			<div class="col-sm-2 date-box">
+				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.fromDate"
+					data-is-open="fromOpened" data-ng-click="open($event,'from')" data-show-button-bar="false" />
+				<calendar-image class="calendar-image" ng-click="open($event,'from')"></calendar-image>
+			</div>
+			<label data-translate="To" class="col-sm-1  text-right">
+			</label>
+			<div class="col-sm-2 date-box">
+				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.toDate"
+					data-is-open="toOpened" data-ng-click="open($event,'to')" data-show-button-bar="false" />
+				<calendar-image class="calendar-image" ng-click="open($event,'to')"></calendar-image>
+			</div>
+			<div class="col-sm-2 text-center">
+				<button class="button" data-ng-click="getReportData()" data-ng-disabled="disabledSubmit"
+					data-translate="Submit">
+				</button>
+			</div>
+		</div>
+		</form>
+	</div>
+	<div class="row">
+		<div ng-include data-src="'/Templates/Report/EmployeePerformanceTendency/GeneralInformation.html'">
+		</div>
+	</div>
+	<div class="row">
+		<div ng-include data-src="'/Templates/Report/EmployeePerformanceTendency/HistoryProject.html'">
+		</div>
+	</div>
 </div>

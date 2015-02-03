@@ -810,4 +810,28 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="TargetEnd" xml:space="preserve">
+    <value>Target End</value>
+  </data>
+  <data name="TargetStart" xml:space="preserve">
+    <value>Target Start</value>
+  </data>
+  <data name="Average" xml:space="preserve">
+    <value>Average</value>
+  </data>
+  <data name="TargetScore" xml:space="preserve">
+    <value>Target Score</value>
+  </data>
+  <data name="ValidateFromToDate" xml:space="preserve">
+    <value>To date must not be before than From date</value>
+  </data>
+  <data name="ValidateMaximumOneYear" xml:space="preserve">
+    <value>Report period must not exceed 365 days</value>
+  </data>
 </root>

@@ -9,6 +9,7 @@
 
 namespace NexEPA.Report.Models.Dashboard
 {
+    using System;
     using NexEPA.Employee.Models;
     using NexEPA.Project.Models;
 
@@ -20,6 +21,10 @@ namespace NexEPA.Report.Models.Dashboard
         public int TargetId { get; set; }
 
         public string Name { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
 
         public string Roles { get; set; }
 

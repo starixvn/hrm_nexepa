@@ -38,14 +38,23 @@ namespace NexEPA.Controllers.API
             _reportService = reportService ?? new ReportService();
         }
 
+        /// <summary>
+        /// Gets the employee performance tendency report.
+        /// </summary>
+        /// <param name="employeeId">The employee identifier.</param>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <returns>EmployeePerformanceModel data.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
-        public EmployeePerformanceModel GetEmployeePerformanceTendencyReport(int employeeId)
+        public EmployeePerformanceModel GetEmployeePerformanceTendencyReport(int employeeId, DateTime fromDate, DateTime toDate)
         {
             var criteria = new GetEmployeePerformanceTendencyReportCriteria
             {
                 EmployeeId = employeeId,
-                ActorUserId = this.CurrentUser.UserId
+                ActorUserId = this.CurrentUser.UserId,
+                FromDate = fromDate,
+                ToDate = toDate
             };
 
             return _reportService.GetEmployeePerformanceTendancyReport(criteria);

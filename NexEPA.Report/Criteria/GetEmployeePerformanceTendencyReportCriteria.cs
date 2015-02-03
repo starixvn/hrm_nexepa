@@ -9,6 +9,7 @@
 
 namespace NexEPA.Report.Criteria
 {
+    using System;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -20,9 +21,13 @@ namespace NexEPA.Report.Criteria
 
         public int ActorUserId { get; set; }
 
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
         public override bool IsValid()
         {
-            return EmployeeId > 0;
+            return EmployeeId > 0 && ToDate >= FromDate;
         }
 
         public override string GetSettingKey()

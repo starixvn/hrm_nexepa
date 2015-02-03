@@ -3,8 +3,14 @@
 
 reportModule.factory('reportFactory', ['$http', function ($http) {
 	return {
-		getEmployeePerformanceTendencyReport: function (employeeId) {
-			return $http.get('/api/Report/GetEmployeePerformanceTendencyReport', { params: { employeeId: employeeId} });
+		getEmployeePerformanceTendencyReport: function (employeeId, fromDate, toDate) {
+			return $http.get('/api/Report/GetEmployeePerformanceTendencyReport', {
+				params: {
+					employeeId: employeeId,
+					fromDate: fromDate.toDateString(),
+					toDate: toDate.toDateString()
+				}
+			});
 		},
 		getEmployeePerformanceByTeamReport: function (filter, fromDate, toDate, employeeId) {
 			return $http.get('/api/Report/GetEmployeePerformanceByTeamReport',
@@ -14,7 +20,7 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					groupId: filter.groupId,
 					projectId: filter.projectId
 				}
-			});
+				});
 		}
 	};
 } ]);

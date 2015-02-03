@@ -1,105 +1,20 @@
 ﻿'use strict';
 /*global reportModule*/
 
-reportModule.controller('ViewEmployeePerformanceTendencyController',
-['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService',
-function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService) {
-
-	$scope.employeeId = parseInt($routeParams.employeeId);
-
-	$scope.report = {
-		generalInformation: '',
-		historyProjects: ''
-	};
-
-	$scope.search = {
-		searchKey: ''
-	};
-
-	$scope.getEmployee = function (searchKey) {
-		employeeRepository.getEmployeeByCurrentUserId(searchKey, null).success(function (employees) {
-			$scope.searchEmployees = employees;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
-		});
-	};
-
-	var getEmployeePerformanceTendencyReport = function (employeeId) {
-		reportFactory.getEmployeePerformanceTendencyReport(employeeId).success(function (report) {
-			$scope.search.searchKey = '';
-			if (report != null) {
-				$scope.report.generalInformation = report.employeeInformation;
-				$scope.report.historyProjects = report.historyProjects;
-			}
-		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorService.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
-		});
-	};
-
-	var getEmployeeReport = function (employee, employeeId) {
-		if (employee) {
-			employeeId = employee.employeeId;
-			getEmployeePerformanceTendencyReport(employeeId);
-		}
-		else if (employeeId) {
-			getEmployeePerformanceTendencyReport(employeeId);
-		}
-	};
-
-	getEmployeeReport(null, $scope.employeeId);
-
-	$scope.getReport = function (employee) {
-		getEmployeeReport(employee);
-	};
-
-	$scope.reload = function () {
-		$route.reload();
-	};
-} ]);
-
-reportModule.controller('EmployeeGeneralInformationController', function () {
-} );
-
-reportModule.controller('EmployeeHistoryProjectController', ['$scope', function ($scope) {
-	$scope.isCollapsed = false;
-	$scope.collapse = {};
-	$scope.originalComment = '';
-	$scope.employeeId;
-
-	$scope.collapseTable = function () {
-		$scope.isCollapsed = !$scope.isCollapsed;
-	};
-
-	$scope.EPADetail = function (targetId) {
-		if ($scope.employee) {
-			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' +
-					$scope.employee.employeeId;
-		}
-		else if ($scope.employeeId) {
-			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' +
-					$scope.employeeId;
-		}
-	};
-} ]);
-
-// View Employee Performance By Team Controller
 reportModule.controller('ViewEmployeePerformanceByTeamController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
 'employeeEPAFactory', 'ErrorService',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
 employeeEPAFactory, ErrorService) {
 
-	var fromDate = new Date();
-	fromDate.setMonth(fromDate.getMonth() - 3);
+	var date = new Date(),
+		year = date.getFullYear(),
+		month = date.getMonth(),
+		day = date.getDate();
 
 	$scope.filter = {
-		fromDate: fromDate,
-		toDate: new Date(),
+		fromDate: new Date(year, month - 3, day),
+		toDate: new Date(year, month, day),
 		groupId: null,
 		projectId: null
 	};
@@ -189,7 +104,9 @@ employeeEPAFactory, ErrorService) {
 	};
 
 	$scope.viewEmployeeTendency = function (employeeId) {
-		$scope.viewEmployeeTendencyUrl = '/Report/EmployeePerformanceTendency' + '?employeeId=' + employeeId;
+		$scope.viewEmployeeTendencyUrl = '/Report/EmployeePerformanceTendency' + '?employeeId=' + employeeId
+										+ '&fromDate=' + $scope.filter.fromDate.toDateString()
+										+ '&toDate=' + $scope.filter.toDate.toDateString();
 	};
 
 	$scope.$watch('search.searchKey', function (newValue) {

@@ -2,9 +2,23 @@
 @import "../mixins.less";
 
 .container.page {
+	.vertical-center{
+		vertical-align: middle!important;
+	}
+
 	.report-center {
 		text-align: center;
-		vertical-align: middle!important;
+		.vertical-center;
+	}
+
+	.report-right {
+		text-align: right;
+		.vertical-center;
+	}
+
+	.report-left {
+		text-align: left;
+		.vertical-center;
 	}
 
 	.report-index {
@@ -15,19 +29,7 @@
 	.report-project-count , .report-epa-count , .report-joined-date , .report-average-score {
 		.report-center;
 		width: 120px;
-	}
-
-    .filter.filter-tendency {
-        min-width: inherit;
-
-        .form-group {
-            margin-right: 0;
-        }
-
-        .txt-search {
-            width: 70%;
-        }
-    }
+	}   
 
     .common-form.info-form {
         padding: 0;
@@ -101,4 +103,39 @@
 		margin-top: 10px !important;
 		margin-left: 15px !important;
 	}
+
+	.person-report{
+		.row-filter{
+			padding-right: 24px;
+		}
+		.default-column {	
+			.report-left;		
+			width: 120px;			
+		}		
+		.score-column {
+			.report-right;
+			width: 100px;
+		}		
+	}
+
+	.filter-max-width{
+		max-width:1260px;
+	}
+
+	.date-box {
+		.form-control {
+			width: 80%;
+			display: inline-block;
+		}		
+	}
+
+	.col-sm-12, .col-sm-2{
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+	
+	.col-sm-1{
+		padding-right: 5px;		
+	}	
+
 }

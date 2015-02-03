@@ -157,6 +157,7 @@ namespace NexEPA.Report.Services.Implement
             List<HistoryProjectModel> rawHistoryProjects,
             List<HistoryProjectViewModel> historyProjects)
         {
+            int counter = 1;
             for (int i = 0; i < rawHistoryProjects.Count; i++)
             {
                 HistoryProjectModel rawHistoryProjectItem = rawHistoryProjects[i];
@@ -176,17 +177,21 @@ namespace NexEPA.Report.Services.Implement
 
                 foreach (HistoryProjectModel project in sameProjectRows)
                 {
-                    var target = new TargetModel
-                    {
-                        TargetId = project.TargetId,
-                        Name = project.Name
-                    };
-
-                    historyProjectItem.TargetList.Add(target);
                     string plainScoreText = !string.IsNullOrEmpty(project.Score) ? _encodeService.Decode(project.Score) : "0";
                     decimal projectScore = decimal.Parse(plainScoreText);
                     averageScore += projectScore;
 
+                    var target = new TargetModel
+                    {
+                        TargetId = project.TargetId,
+                        Name = project.Name,
+                        StartDate = project.StartDate,
+                        EndDate = project.EndDate,
+                        Score = plainScoreText,
+                        Index = counter++
+                    };
+
+                    historyProjectItem.TargetList.Add(target);
                     if (project != rawHistoryProjectItem)
                     {
                         rawHistoryProjects.Remove(project);
@@ -195,7 +200,6 @@ namespace NexEPA.Report.Services.Implement
 
                 averageScore = averageScore / numberRowsSameProject;
                 historyProjectItem.Score = averageScore;
-
                 historyProjects.Add(historyProjectItem);
             }
 
@@ -210,14 +214,14 @@ namespace NexEPA.Report.Services.Implement
         private IEnumerable<KPIModel> GetKPIsInformation(IEnumerable<KPIModel> listKPIs)
         {
             IEnumerable<KPIModel> groupKPIs = from kpi in listKPIs
-                                               group kpi by kpi.KPIId into groupKPI
-                                               select new KPIModel
-                                               {
-                                                   KPIId = groupKPI.Key,
-                                                   Name = groupKPI.First().Name,
-                                                   EvaluateTime = groupKPI.Count(),
-                                                   AverageScore = CalculateAverageScoreOfKPI(groupKPI)
-                                               };
+                                              group kpi by kpi.KPIId into groupKPI
+                                              select new KPIModel
+                                              {
+                                                  KPIId = groupKPI.Key,
+                                                  Name = groupKPI.First().Name,
+                                                  EvaluateTime = groupKPI.Count(),
+                                                  AverageScore = CalculateAverageScoreOfKPI(groupKPI)
+                                              };
 
             return groupKPIs;
         }
@@ -251,18 +255,18 @@ namespace NexEPA.Report.Services.Implement
             IEnumerable<EmployeePerformanceByProjectModel> members)
         {
             IEnumerable<EmployeePerformanceByProjectModel> groupMembers = from member in members
-                                                    group member by member.EmployeeId into groupMember
-                                                    select new EmployeePerformanceByProjectModel
-                                                    {
-                                                        EmployeeId = groupMember.Key,
-                                                        NickName = groupMember.First().NickName,
-                                                        FullName = groupMember.First().FullName,
-                                                        JoinedDate = groupMember.First().JoinedDate,
-                                                        Group = groupMember.First().Group,
-                                                        ProjectCount = groupMember.Count(),
-                                                        EPACount = groupMember.Count(),
-                                                        AverageScore = CalculateAverageScoreOfMember(groupMember)
-                                                    };
+                                                                          group member by member.EmployeeId into groupMember
+                                                                          select new EmployeePerformanceByProjectModel
+                                                                          {
+                                                                              EmployeeId = groupMember.Key,
+                                                                              NickName = groupMember.First().NickName,
+                                                                              FullName = groupMember.First().FullName,
+                                                                              JoinedDate = groupMember.First().JoinedDate,
+                                                                              Group = groupMember.First().Group,
+                                                                              ProjectCount = groupMember.Count(),
+                                                                              EPACount = groupMember.Count(),
+                                                                              AverageScore = CalculateAverageScoreOfMember(groupMember)
+                                                                          };
             return groupMembers;
         }
 

@@ -46,6 +46,10 @@ namespace NexEPA.Target.Models
 
         public int TotalEPA { get; set; }
 
+        public string Score { get; set; }
+
+        public int Index { get; set; }
+
         public TargetType TargetType { get; set; }
 
         public ProjectModel Project { get; set; }

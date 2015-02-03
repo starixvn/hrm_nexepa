@@ -312,7 +312,8 @@
     <Content Include="Scripts\Views\Login\login-controller.js" />
     <Content Include="Scripts\Views\Department\department-repository.js" />
     <Content Include="Scripts\Views\Department\department-controller.js" />
-    <Content Include="Scripts\Views\Report\report-controller.js" />
+    <Content Include="Scripts\Views\Report\employeePersonReport-controller.js" />
+    <Content Include="Scripts\Views\Report\employeeTeamReport-controller.js" />
     <Content Include="Scripts\Views\Report\report-repository.js" />
     <Content Include="Scripts\Views\Resource\resource-controller.js" />
     <Content Include="Scripts\Views\Resource\resource-repository.js" />
