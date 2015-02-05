@@ -13,6 +13,8 @@ namespace NexEPA.Report.Services.Interface
     using NexEPA.Report.Models.Dashboard;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Models.EmployeePerformanceTendency;
+    using NexEPA.Report.ViewModels;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The interface of Report Service.
@@ -21,8 +23,6 @@ namespace NexEPA.Report.Services.Interface
     {
         DashboardModel GetGeneralInformationOfCurrentEmployee(GetGeneralInformationOfCurrentEmployeeCriteria criteria);
 
-        EmployeePerformanceModel GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria);
-
-        TeamPerformanceModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria);
+        List<HistoryProjectViewModel> GetProjectHistory(List<HistoryProjectModel> rawHistoryProjects);
     }
 }

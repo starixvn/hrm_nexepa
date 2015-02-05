@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="2014.03.27">Created</change>
+//   <change who="Larry.Tran" date="2015.2.5">Modified</change>
 // </history>
 
 namespace NexEPA.Controllers.API
@@ -27,15 +28,19 @@ namespace NexEPA.Controllers.API
     public class ReportController : BaseController
     {
         private IReportService _reportService;
+        private IEmployeePerformanceByTeamService _teamService;
+        private IEmployeePerformanceTendencyService _tendencyService;
 
         public ReportController()
-            : this(null)
+            : this(null, null, null)
         {
         }
 
-        public ReportController(IReportService reportService)
+        public ReportController(IReportService reportService, IEmployeePerformanceByTeamService teamService, IEmployeePerformanceTendencyService tendencyService)
         {
             _reportService = reportService ?? new ReportService();
+            _teamService = teamService ?? new EmployeePerformanceByTeamService();
+            _tendencyService = tendencyService ?? new EmployeePerformanceTendencyService();
         }
 
         /// <summary>
@@ -57,7 +62,7 @@ namespace NexEPA.Controllers.API
                 ToDate = toDate
             };
 
-            return _reportService.GetEmployeePerformanceTendancyReport(criteria);
+            return _tendencyService.GetEmployeePerformanceTendancyReport(criteria);
         }
 
         /// <summary>
@@ -88,7 +93,7 @@ namespace NexEPA.Controllers.API
                 ProjectId = projectId
             };
 
-            return _reportService.GetEmployeePerformanceByTeamReport(criteria);
+            return _teamService.GetEmployeePerformanceByTeamReport(criteria);
         }
     }
 }

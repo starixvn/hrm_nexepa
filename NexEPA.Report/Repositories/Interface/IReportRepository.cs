@@ -20,9 +20,5 @@ namespace NexEPA.Report.Repositories.Interface
     public interface IReportRepository
     {
         DashboardModel GetGeneralInformationOfCurrentEmployee(ICriteria criteria);
-
-        EmployeePerformanceModel GetEmployeePerformanceTendancyReport(ICriteria criteria);
-
-        TeamPerformanceModel GetEmployeePerformanceByTeamReport(ICriteria criteria);
     }
 }
