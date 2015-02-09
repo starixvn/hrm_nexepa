@@ -9,12 +9,9 @@
 
 namespace NexEPA.Report.Repositories.Interface
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using Fanex.Data.Repository;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
+    using NexEPA.Report.ViewModels;
 
     /// <summary>
     /// IEmployeePerformanceTendencyRepository interface.
@@ -22,5 +19,7 @@ namespace NexEPA.Report.Repositories.Interface
     public interface IEmployeePerformanceTendencyRepository
     {
         EmployeePerformanceModel GetEmployeePerformanceTendancyReport(ICriteria criteria);
+
+        RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(ICriteria criteria);
     }
 }

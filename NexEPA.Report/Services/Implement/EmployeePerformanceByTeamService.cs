@@ -9,18 +9,16 @@
 
 namespace NexEPA.Report.Services.Implement
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.Criteria;
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
-    using NexEPA.Report.Services.Interface;
-    using NexEPA.Report.Repositories.Interface;
+    using NexEPA.Report.Criteria;
+    using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Repositories.Implement;
+    using NexEPA.Report.Repositories.Interface;
+    using NexEPA.Report.Services.Interface;
 
     /// <summary>
     /// EmployeePerformanceByTeamService class.
@@ -104,6 +102,5 @@ namespace NexEPA.Report.Services.Implement
             decimal averageScore = groupMember.Count() > 0 ? totalScore / groupMember.Count() : 0;
             return averageScore > 0 ? averageScore.ToString() : string.Empty;
         }
-
     }
 }

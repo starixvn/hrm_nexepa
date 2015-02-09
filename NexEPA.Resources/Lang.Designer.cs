@@ -1456,6 +1456,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal effort.
+        /// </summary>
+        public static string PersonalEffort {
+            get {
+                return ResourceManager.GetString("PersonalEffort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal Flow.
         /// </summary>
         public static string PersonalFlow {

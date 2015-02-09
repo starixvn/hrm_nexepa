@@ -14,12 +14,9 @@ namespace NexEPA.Report.Services.Implement
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
-    using NexEPA.Core.Utilities;
     using NexEPA.KPI.Model;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Repositories.Implement;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;

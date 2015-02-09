@@ -1,0 +1,15 @@
+﻿<div class="common-form container-content" data-ng-show="personalEfforts.data !== ''">
+	<div class="row boxtitle first" data-ng-click="collapseTable('effortChart')">
+		<div class="report-chart-icon pull-left" aria-hidden="true"></div>&nbsp;<span class="home-label"
+			data-translate="PersonalEffort"></span>
+	</div>
+	<div class="row" data-collapse="isEffortChartCollapsed">
+		<div class="col-sm-12" data-high-chart data-chart-type="column" data-x-axis="chart.xAxis"
+			data-series="chart.series" style="max-width: 1245px; padding-left: 4px;" data-ng-show="personalEfforts.data != ''">
+		</div>
+		<div data-ng-show="personalEfforts.data == ''">
+			<p class="empty-result col-sm-12" data-translate="EmptyResult">
+			</p>
+		</div>
+	</div>
+</div>

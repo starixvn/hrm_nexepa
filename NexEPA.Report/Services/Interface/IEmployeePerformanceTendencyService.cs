@@ -9,12 +9,9 @@
 
 namespace NexEPA.Report.Services.Interface
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Criteria;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
+    using NexEPA.Report.ViewModels;
 
     /// <summary>
     /// IEmployeePerformanceTendencyService interface.
@@ -22,5 +19,7 @@ namespace NexEPA.Report.Services.Interface
     public interface IEmployeePerformanceTendencyService
     {
         EmployeePerformanceModel GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria);
+
+        RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(GetRedmineProjectEffortReportCriteria criteria);
     }
 }

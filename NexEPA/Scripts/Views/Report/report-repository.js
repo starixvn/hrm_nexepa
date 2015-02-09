@@ -21,6 +21,15 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					projectId: filter.projectId
 				}
 				});
+		},
+		getRedmineProjectEffortReport: function (employeeId, fromDate, toDate) {
+			return $http.get('/api/Report/GetRedmineProjectEffortReport', {
+				params: {
+					employeeId: employeeId,
+					fromDate: fromDate.toDateString(),
+					toDate: toDate.toDateString()
+				}
+			});
 		}
 	};
 } ]);

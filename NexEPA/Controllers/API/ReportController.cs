@@ -19,6 +19,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Services.Implement;
     using NexEPA.Report.Services.Interface;
+    using NexEPA.Report.ViewModels;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
 
@@ -27,18 +28,16 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class ReportController : BaseController
     {
-        private IReportService _reportService;
         private IEmployeePerformanceByTeamService _teamService;
         private IEmployeePerformanceTendencyService _tendencyService;
 
         public ReportController()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
-        public ReportController(IReportService reportService, IEmployeePerformanceByTeamService teamService, IEmployeePerformanceTendencyService tendencyService)
+        public ReportController(IEmployeePerformanceByTeamService teamService, IEmployeePerformanceTendencyService tendencyService)
         {
-            _reportService = reportService ?? new ReportService();
             _teamService = teamService ?? new EmployeePerformanceByTeamService();
             _tendencyService = tendencyService ?? new EmployeePerformanceTendencyService();
         }
@@ -94,6 +93,27 @@ namespace NexEPA.Controllers.API
             };
 
             return _teamService.GetEmployeePerformanceByTeamReport(criteria);
+        }
+
+        /// <summary>
+        /// Gets the redmine project effort report.
+        /// </summary>
+        /// <param name="employeeId">The employee identifier.</param>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <returns>RedmineProjectEffortReportViewModel class.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
+        public RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(int employeeId, DateTime fromDate, DateTime toDate)
+        {
+            var criteria = new GetRedmineProjectEffortReportCriteria
+            {
+                EmployeeId = employeeId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            return _tendencyService.GetRedmineProjectEffortReport(criteria);
         }
     }
 }

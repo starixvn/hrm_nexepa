@@ -122,7 +122,8 @@
 		<Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="0" ></Setting>
-	</Function>
+    <Setting Key="ReportRedmine_ProjectEffort" SpName="ReportRedmine_ProjectEffort" DbName="NexEPA" Plain="0" ></Setting>    
+  </Function>
 	<Function Name="Authority">
 		<Setting Key="Function_GetAll" SpName="Function_GetAll" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexEPA" Plain="0" ></Setting>

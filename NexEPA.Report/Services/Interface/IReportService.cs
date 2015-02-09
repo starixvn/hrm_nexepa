@@ -9,12 +9,10 @@
 
 namespace NexEPA.Report.Services.Interface
 {
+    using System.Collections.Generic;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.ViewModels;
-    using System.Collections.Generic;
 
     /// <summary>
     /// The interface of Report Service.

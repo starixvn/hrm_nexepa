@@ -19,14 +19,14 @@
 			</label>			
 			<div class="col-sm-2 date-box">
 				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.fromDate"
-					data-is-open="fromOpened" data-ng-click="open($event,'from')" data-show-button-bar="false" />
+					data-is-open="fromOpened" data-ng-click="open($event,'from')" />
 				<calendar-image class="calendar-image" ng-click="open($event,'from')"></calendar-image>
 			</div>
 			<label data-translate="To" class="col-sm-1  text-right">
 			</label>
 			<div class="col-sm-2 date-box">
 				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.toDate"
-					data-is-open="toOpened" data-ng-click="open($event,'to')" data-show-button-bar="false" />
+					data-is-open="toOpened" data-ng-click="open($event,'to')" />
 				<calendar-image class="calendar-image" ng-click="open($event,'to')"></calendar-image>
 			</div>
 			<div class="col-sm-2 text-center">
@@ -45,4 +45,13 @@
 		<div ng-include data-src="'/Templates/Report/EmployeePerformanceTendency/HistoryProject.html'">
 		</div>
 	</div>
+	<div class="row">
+		<div ng-include data-src="'/Templates/Report/EmployeePerformanceTendency/PersonalEffort.html'">
+		</div>
+	</div>
+	<div class="row">
+		<div ng-include data-src="'/Templates/Report/EmployeePerformanceTendency/PersonalEffortChart.html'">
+		</div>
+	</div>
+	<br />
 </div>

@@ -9,14 +9,10 @@
 
 namespace NexEPA.Report.Repositories.Implement
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using Fanex.Data.Repository;
     using Fanex.Data;
+    using Fanex.Data.Repository;
     using NexEPA.Core.Models;
+    using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Repositories.Interface;
 
     /// <summary>

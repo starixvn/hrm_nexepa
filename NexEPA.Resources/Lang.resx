@@ -834,4 +834,7 @@
   <data name="ValidateMaximumOneYear" xml:space="preserve">
     <value>Report period must not exceed 365 days</value>
   </data>
+  <data name="PersonalEffort" xml:space="preserve">
+    <value>Personal effort</value>
+  </data>
 </root>

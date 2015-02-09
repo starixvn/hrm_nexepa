@@ -9,22 +9,19 @@
 
 namespace NexEPA.Report.Services.Implement
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using NexEPA.Core.Services;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
-    using NexEPA.Report.Criteria;
     using Fanex.Common.Helper;
-    using NexEPA.Core.Utilities;
-    using NexEPA.Report.ViewModels;
-    using NexEPA.Report.Models.Dashboard;
-    using NexEPA.Target.Models;
+    using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
+    using NexEPA.Core.Utilities;
+    using NexEPA.Report.Criteria;
+    using NexEPA.Report.Models.Dashboard;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
+    using NexEPA.Report.Repositories.Implement;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;
-    using NexEPA.Report.Repositories.Implement;
+    using NexEPA.Report.ViewModels;
 
     /// <summary>
     /// EmployeePerformanceTendencyService class.
@@ -32,22 +29,19 @@ namespace NexEPA.Report.Services.Implement
     public class EmployeePerformanceTendencyService : BaseService, IEmployeePerformanceTendencyService
     {
         private IEmployeePerformanceTendencyRepository _repository;
-        private IEncodeService _encodeService;
         private IReportService _reportService;
 
         public EmployeePerformanceTendencyService()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
         public EmployeePerformanceTendencyService(
             IEmployeePerformanceTendencyRepository repository,
-            IReportService reportService,
-            IEncodeService encodeService)
+            IReportService reportService)
         {
             _repository = repository ?? new EmployeePerformanceTendencyRepository();
             _reportService = reportService ?? new ReportService();
-            _encodeService = encodeService ?? new EncodeService();
         }
 
         /// <summary>
@@ -77,7 +71,7 @@ namespace NexEPA.Report.Services.Implement
 
                     employeePerformanceReport.EmployeeInformation.Gravatar = gravatarString;
 
-                    IEnumerable<HistoryProjectViewModel> projectHistoryList = _reportService.GetProjectHistory((List<HistoryProjectModel>)rawsEmployeePerformanceReport.RawHistoryProjects);
+                    var projectHistoryList = _reportService.GetProjectHistory((List<HistoryProjectModel>)rawsEmployeePerformanceReport.RawHistoryProjects);
                     employeePerformanceReport.HistoryProjects = projectHistoryList;
                 }
             }
@@ -85,5 +79,27 @@ namespace NexEPA.Report.Services.Implement
             return employeePerformanceReport;
         }
 
+        /// <summary>
+        /// Gets the redmine project effort report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>RedmineProjectEffortReportViewModel class.</returns>
+        public RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(GetRedmineProjectEffortReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var report = new RedmineProjectEffortReportViewModel();
+
+            if (criteria.IsValid())
+            {
+                report = _repository.GetRedmineProjectEffortReport(criteria);
+
+                if (report.Projects != null)
+                {
+                    report.GrandTotalSpentTime = report.Projects.Sum(p => p.TotalSpentTimeOfAllMonths);
+                }
+            }
+
+            return report;
+        }
     }
 }

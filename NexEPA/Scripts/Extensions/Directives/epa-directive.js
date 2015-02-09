@@ -500,7 +500,7 @@ registrationModule.directive('getDetailProcess', function () {
 						endDate = $(rowProcess).find('[name="calendar"][end=' + processId + ']').val(),
 						alarmDate = $(rowProcess).find('[name="calendar"][alarm=' + processId + ']').val(),
 						noticeAtBegin = $(rowProcess).find('[name="notice"]').is(':checked') ? 1 : 0,
-						process = createTemplate(processId, startDate, endDate, alarmDate, noticeAtBegin); 
+						process = createTemplate(processId, startDate, endDate, alarmDate, noticeAtBegin);
 
 					if (!startDate || !endDate || !alarmDate) {
 						requireViolation = true;
@@ -542,5 +542,43 @@ registrationModule.directive('bindHtmlUnsafe', function ($compile) {
 			compile(newHTML);   // Compile it
 		});
 
+	};
+});
+
+registrationModule.directive('highChart', function () {
+	return {
+		restrict: "A",
+		scope: {
+			chartType: "@",
+			chartTitle: "@",
+			yTitle: "@",
+			xAxis: "=",
+			series: "="
+		},
+		link: function ($scope, iElement) {
+			$scope.$watch('series', function (data) {
+				if (data) {
+					$(iElement).highcharts({
+						chart: {
+							type: $scope.chartType
+						},
+						title: {
+							text: $scope.chartTitle ? $scope.chartTitle : ''
+						},
+						xAxis: $scope.xAxis,
+						yAxis: {
+							min: 0,
+							title: {
+								text: $scope.yTitle ? $scope.yTitle : ''
+							}
+						},						
+						credits: {
+							enabled: false
+						},
+						series: data
+					});
+				}
+			});
+		}
 	};
 });

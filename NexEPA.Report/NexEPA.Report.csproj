@@ -38,6 +38,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
       <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
@@ -48,6 +49,11 @@
     <Compile Include="Criteria\GetEmployeePerformanceByTeamCriteria.cs" />
     <Compile Include="Criteria\GetEmployeePerformanceTendencyReportCriteria.cs" />
     <Compile Include="Criteria\GetGeneralInformationOfCurrentEmployeeCriteria.cs" />
+    <Compile Include="Criteria\GetRedmineProjectEffortReportCriteria.cs" />
+    <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectModel.cs" />
+    <Compile Include="Models\EmployeePerformanceTendency\RemineProjectEffortModel.cs" />
+    <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectMonthModel.cs" />
+    <Compile Include="ViewModels\RedmineProjectEffortReportViewModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\Dashboard\DashboardModel.cs" />
     <Compile Include="Models\Dashboard\GeneralInformationOfProjectModel.cs" />

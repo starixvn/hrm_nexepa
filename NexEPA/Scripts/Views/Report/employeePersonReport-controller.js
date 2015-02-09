@@ -23,6 +23,18 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		historyProjects: ''
 	};
 
+	$scope.personalEfforts = {
+		data: '',
+		projects: '',
+		projectMonths: '',
+		grandTotalSpentTime: 0
+	};
+
+	$scope.chart = {
+		xAxis: {},
+		series: null
+	};
+
 	$scope.filter = {
 		searchKey: '',
 		fromDate: null,
@@ -75,6 +87,8 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 			}
 
 			self.getReportByProjects(employeeId);
+
+			self.getPersonalEfforts(employeeId);
 		}
 	};
 
@@ -110,6 +124,16 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 	};
 
+	$scope.GetSpentTime = function (projectName, monthName) {
+		var data = jQuery.grep($scope.personalEfforts.data, function (item) {
+			return item.projectName === projectName && item.monthName === monthName;
+		});
+
+		if (data.length > 0) {
+			return data[0].spentTime;
+		}
+	};
+
 	self.getReportByProjects = function (employeeId) {
 		if (employeeId) {
 			reportFactory.getEmployeePerformanceTendencyReport(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
@@ -131,10 +155,73 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 	};
 
+	self.getPersonalEfforts = function (employeeId) {
+		if (employeeId) {
+			reportFactory.getRedmineProjectEffortReport(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
+				if (report != null) {
+					$scope.personalEfforts.data = report.personalEfforts;
+					$scope.personalEfforts.projects = report.projects;
+					$scope.personalEfforts.projectMonths = report.projectMonths;
+					$scope.personalEfforts.grandTotalSpentTime = report.grandTotalSpentTime;
+				} else {
+					$scope.personalEfforts.data = null;
+					$scope.personalEfforts.projects = null;
+					$scope.personalEfforts.projectMonths = null;
+					$scope.personalEfforts.grandTotalSpentTime = 0;
+				}
+
+				self.processChartData();
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
+		}
+	};
+
+	self.processChartData = function () {
+		if ($scope.personalEfforts.data) {
+			self.generateXAxis();
+			self.generateSeries();
+		}
+	};
+
+	self.generateSeries = function () {
+		var series = [];
+		angular.forEach($scope.personalEfforts.projects, function (project) {
+			var data = [];
+			angular.forEach($scope.personalEfforts.projectMonths, function (month) {
+				var spentTime = $scope.GetSpentTime(project.projectName, month.monthName);
+				data.push(spentTime ? spentTime : 0);
+			});
+
+			series.push({
+				name: project.projectName,
+				data: data
+			});
+		});
+
+		$scope.chart.series = series;
+	};
+
+	self.generateXAxis = function () {
+		var months = [];
+		angular.forEach($scope.personalEfforts.projectMonths, function (month) {
+			months.push(month.monthName);
+		});
+
+		$scope.chart.xAxis = {
+			categories: months
+		};
+	};
+
 	self.validateFilterOptions = function () {
 		var isValid = true;
-		var fromDate = $scope.filter.fromDate;
-		var toDate = $scope.filter.toDate;
+		var fromDate = new Date($scope.filter.fromDate.toDateString());
+		var toDate = new Date($scope.filter.toDate.toDateString());
 		var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
 
 		if (fromDate > toDate) {
@@ -152,7 +239,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	self.getEmployeeById = function () {
 		employeeRepository.getEmployeeById($scope.employeeId).success(function (employee) {
 			$scope.employee = employee;
-			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';
+			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';			
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});

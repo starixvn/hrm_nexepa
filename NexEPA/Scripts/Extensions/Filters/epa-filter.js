@@ -59,7 +59,7 @@ registrationModule.filter('epaStatus', function () {
 registrationModule.filter('customNumber', ['$filter', function ($filter) {
 	return function (input) {
 		if (input == null) { return ""; }
-		var _date = $filter('number')(input, 2);
-		return _date;
+		var _number = $filter('number')(input, 2);
+		return _number;
 	};
 } ]);

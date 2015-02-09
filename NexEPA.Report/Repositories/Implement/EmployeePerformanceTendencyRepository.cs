@@ -9,18 +9,17 @@
 
 namespace NexEPA.Report.Repositories.Implement
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using Fanex.Data;
-    using NexEPA.Employee.Models;
-    using NexEPA.Report.Models.Dashboard;
-    using NexEPA.Project.Models;
     using Fanex.Data.Repository;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
+    using NexEPA.Project.Models;
+    using NexEPA.Report.Models.Dashboard;
+    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Repositories.Interface;
+    using NexEPA.Report.ViewModels;
 
     /// <summary>
     /// EmployeePerformanceTendencyRepository class.
@@ -67,6 +66,32 @@ namespace NexEPA.Report.Repositories.Implement
             }
 
             return employeePerformanceTendencyReport;
+        }
+
+        /// <summary>
+        /// Gets the redmine project effort report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>RedmineProjectEffortReportViewModel class.</returns>
+        public RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var report = new RedmineProjectEffortReportViewModel();
+
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var personalEfforts = multi.Read<RedminePersonalEffortModel>();
+                    var projects = multi.Read<RedmineProjectModel>();
+                    var months = multi.Read<RedmineProjectMonthModel>();
+
+                    report.PersonalEfforts = personalEfforts;
+                    report.Projects = projects;
+                    report.ProjectMonths = months;
+                }
+
+                return report;
+            }
         }
     }
 }

@@ -1,0 +1,47 @@
+﻿<div class="common-form container-content" data-ng-show="personalEfforts.data !== ''">
+	<div class="row boxtitle first" data-ng-click="collapseTable('effort')">
+		<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;<span class="home-label"
+			data-translate="PersonalEffort"></span>
+	</div>
+	<div class="row" data-collapse="isEffortCollapsed">
+		<table class="table table-bordered history-table table-total">
+			<thead>
+				<th>
+					#
+				</th>
+				<th data-translate="Project">
+				</th>
+				<th data-ng-repeat="month in personalEfforts.projectMonths" data-ng-bind="month.monthName">
+				</th>
+				<th data-translate="Total">
+				</th>
+			</thead>
+			<tbody class="table-striped">
+				<tr data-ng-repeat="project in personalEfforts.projects">
+					<td class="home-index" data-ng-bind="$index+1">
+					</td>
+					<td data-ng-bind="project.projectName">
+					</td>
+					<td class="report-right" data-ng-repeat="month in personalEfforts.projectMonths"
+						data-ng-bind="GetSpentTime(project.projectName,month.monthName) | customNumber">
+					</td>
+					<td class="report-total" data-ng-bind="project.totalSpentTimeOfAllMonths | customNumber">
+					</td>
+				</tr>
+			</tbody>
+			<tr class="bg-info" data-ng-show="personalEfforts.data != ''">
+				<td colspan="2" data-translate="Total" class="report-total">
+				</td>
+				<td class="report-total" data-ng-repeat="month in personalEfforts.projectMonths"
+					data-ng-bind="month.totalSpentTimeOfMonth | customNumber">
+				</td>
+				<td class="report-total" data-ng-bind="personalEfforts.grandTotalSpentTime | customNumber">
+				</td>
+			</tr>
+			<tr data-ng-show="personalEfforts.data == ''">
+				<td class="empty-result" colspan="3" data-translate="EmptyResult">
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

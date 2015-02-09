@@ -11,8 +11,6 @@ namespace NexEPA.Report.Repositories.Interface
 {
     using Fanex.Data.Repository;
     using NexEPA.Report.Models.Dashboard;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
 
     /// <summary>
     /// The interface of Report Repository.

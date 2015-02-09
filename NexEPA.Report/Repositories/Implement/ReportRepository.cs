@@ -13,13 +13,10 @@ namespace NexEPA.Report.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using NexEPA.Core.Models;
     using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
     using NexEPA.Project.Models;
     using NexEPA.Report.Models.Dashboard;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.Models.EmployeePerformanceTendency;
     using NexEPA.Report.Repositories.Interface;
 
     /// <summary>
