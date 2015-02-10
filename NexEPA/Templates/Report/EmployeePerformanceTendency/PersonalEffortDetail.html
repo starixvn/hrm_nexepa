@@ -1,0 +1,99 @@
+﻿<div class="common-form container-content" data-ng-show="personalEffortDetails.data !== ''">
+	<div class="row boxtitle first" data-ng-click="collapseTable('effortDetail')">
+		<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;<span
+			class="home-label" data-translate="PersonalEffortDetail"></span>
+	</div>
+	<div class="row" data-collapse="isEffortDetailCollapsed">
+		<div class="div-effort-detail">
+			<table class="table table-bordered history-table table-total">
+				<thead>
+					<tr>
+						<th rowspan="2">
+							#
+						</th>
+						<th rowspan="2" data-translate="Project">
+						</th>
+						<th rowspan="2" data-translate="Tracker">
+						</th>
+						<th data-ng-repeat="month in personalEffortDetails.workloadByMonths" data-ng-bind="month.monthName"
+							colspan="2">
+						</th>
+						<th data-translate="TotalAverage" colspan="2">
+						</th>
+					</tr>
+					<tr>
+						<th data-ng-repeat-start="month in personalEffortDetails.workloadByMonths" data-translate="Count">
+						</th>
+						<th data-ng-repeat-end data-translate="Spent">
+						</th>
+						<th data-translate="Count">
+						</th>
+						<th data-translate="Spent">
+						</th>
+					</tr>
+				</thead>
+				<tbody class="table-striped" data-ng-repeat="project in personalEffortDetails.projectTrackers">
+					<tr data-ng-repeat="tracker in project.trackers">
+						<td class="home-index" data-ng-if="$first" data-ng-bind="project.index" rowspan="{{project.trackers.length +1}}">
+						</td>
+						<td data-ng-bind="project.projectName" data-ng-if="$first" rowspan="{{project.trackers.length +1}}">
+						</td>
+						<td data-ng-bind="tracker.trackerName">
+						</td>
+						<td class="report-right" data-ng-repeat-start="month in personalEffortDetails.workloadByMonths"
+							data-ng-bind="getDetailNumberIssue(project.projectId,tracker.trackerId,month.year,month.month)">
+						</td>
+						<td class="report-right" data-ng-repeat-end data-ng-bind="getDetailSpentTime(project.projectId,tracker.trackerId,month.year,month.month) | customNumber">
+						</td>
+						<td data-ng-bind="tracker.numberIssue" class="report-total">
+						</td>
+						<td data-ng-bind="tracker.spentTime | customNumber" class="report-total">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Workload
+						</td>
+						<td colspan="2" class="report-center" data-ng-repeat="month in personalEffortDetails.workloadByMonths"
+							data-ng-bind="getWorkload(project.projectId,month.year,month.month) | customPercent:2">
+						</td>
+						<td colspan="2" class="report-total-center" data-ng-bind="getSumWorkload(project.projectId) | customPercent:2">
+						</td>
+					</tr>
+				</tbody>
+				<tbody class="bg-info" data-ng-show="personalEffortDetails.data != ''">
+					<tr data-ng-repeat="tracker in personalEffortDetails.distinctTrackerMonths">
+						<td colspan="2" data-translate="TotalAverage" class="report-total-center" data-ng-if="$first"
+							rowspan="{{personalEffortDetails.distinctTrackerMonths.length+1}}">
+						</td>
+						<td class="report-total-left" data-ng-bind="tracker.trackerName">
+						</td>
+						<td class="report-total" data-ng-repeat-start="month in personalEffortDetails.workloadByMonths"
+							data-ng-bind="getTotalNumberIssue(tracker.trackerId,month.year,month.month)">
+						</td>
+						<td class="report-total" data-ng-repeat-end data-ng-bind="getTotalSpentTime(tracker.trackerId,month.year,month.month) | customNumber">
+						</td>
+						<td class="report-total" data-ng-bind="tracker.totalNumberIssue">
+						</td>
+						<td class="report-total" data-ng-bind="tracker.totalSpentTime | customNumber">
+						</td>
+					</tr>
+					<tr>
+						<td class="report-total-left">
+							Workload
+						</td>
+						<td colspan="2" class="report-total-center" data-ng-repeat="month in personalEffortDetails.workloadByMonths"
+							data-ng-bind="getWorkloadByMonth(month.year,month.month) | customPercent:2">
+						</td>
+						<td colspan="2" class="report-total-center" data-ng-bind="personalEffortDetails.grandTotalWorkload | customPercent:2">
+						</td>
+					</tr>
+				</tbody>
+				<tr data-ng-show="personalEffortDetails.data == ''">
+					<td class="empty-result" colspan="3" data-translate="EmptyResult">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

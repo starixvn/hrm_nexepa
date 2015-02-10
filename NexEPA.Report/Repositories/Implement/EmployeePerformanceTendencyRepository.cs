@@ -72,12 +72,12 @@ namespace NexEPA.Report.Repositories.Implement
         /// Gets the redmine project effort report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>RedmineProjectEffortReportViewModel class.</returns>
-        public RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(ICriteria criteria)
+        /// <returns>RedminePersonalEffortViewModel class.</returns>
+        public RedminePersonalEffortViewModel GetRedmineProjectEffort(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var report = new RedmineProjectEffortReportViewModel();
+                var report = new RedminePersonalEffortViewModel();
 
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
@@ -88,6 +88,50 @@ namespace NexEPA.Report.Repositories.Implement
                     report.PersonalEfforts = personalEfforts;
                     report.Projects = projects;
                     report.ProjectMonths = months;
+                }
+
+                return report;
+            }
+        }
+
+        /// <summary>
+        /// Gets the redmine personal effort detail.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>RedminePersonalEffortDetailViewModel class.</returns>
+        public RedminePersonalEffortDetailViewModel GetRedminePersonalEffortDetail(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var report = new RedminePersonalEffortDetailViewModel();
+
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var projectTrackers = multi.Read<RedmineProjectTrackerModel, RedmineTrackerModel, RedmineProjectTrackerModel>(
+                        (pt, t) =>
+                        {
+                            pt.Tracker = t;
+                            return pt;
+                        },
+                        "TrackerId");
+                    var projectEffortDetails = multi.Read<RedminePersonalEffortDetailModel>();
+                    var trackerMonths = multi.Read<RedmineTrackerMonthModel, RedmineTrackerYearMonthModel, RedmineTrackerMonthModel>(
+                        (t, ty) =>
+                        {
+                            t.YearMonth = ty;
+                            return t;
+                        },
+                        "Year");
+                    var workloadByProjectMonths = multi.Read<RedmineWorkloadByProjectMonthModel>();
+                    var workloadByProjects = multi.Read<RedmineWorkloadByProjectModel>();
+                    var workloadByMonths = multi.Read<RedmineWorkloadByMonthModel>();
+
+                    report.ProjectTrackers = projectTrackers;
+                    report.PersonalEffortDetails = projectEffortDetails;
+                    report.TrackerMonths = trackerMonths;
+                    report.WorkloadByProjectMonths = workloadByProjectMonths;
+                    report.WorkloadByProjects = workloadByProjects;
+                    report.WorkloadByMonths = workloadByMonths;
                 }
 
                 return report;

@@ -83,15 +83,15 @@ namespace NexEPA.Report.Services.Implement
         /// Gets the redmine project effort report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>RedmineProjectEffortReportViewModel class.</returns>
-        public RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(GetRedmineProjectEffortReportCriteria criteria)
+        /// <returns>RedminePersonalEffortViewModel class.</returns>
+        public RedminePersonalEffortViewModel GetRedmineProjectEffort(GetRedminePersonalEffortCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var report = new RedmineProjectEffortReportViewModel();
+            var report = new RedminePersonalEffortViewModel();
 
             if (criteria.IsValid())
             {
-                report = _repository.GetRedmineProjectEffortReport(criteria);
+                report = _repository.GetRedmineProjectEffort(criteria);
 
                 if (report.Projects != null)
                 {
@@ -100,6 +100,98 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return report;
+        }
+
+        /// <summary>
+        /// Gets the redmine project effort detail.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>RedminePersonalEffortDetailViewModel class.</returns>
+        public RedminePersonalEffortDetailViewModel GetRedmineProjectEffortDetail(GetRedminePersonalEffortDetailCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var report = new RedminePersonalEffortDetailViewModel();
+
+            if (criteria.IsValid())
+            {
+                report = _repository.GetRedminePersonalEffortDetail(criteria);
+                if (report.ProjectTrackers != null)
+                {
+                    report.ProjectTrackers = GetDistinctProjectTrackers(report.ProjectTrackers);
+                }
+
+                if (report.TrackerMonths != null)
+                {
+                    report.DistinctTrackerMonths = GetDistinctTrackerMonths(report.TrackerMonths);
+                }
+
+                if (report.WorkloadByProjects != null)
+                {
+                    report.GrandTotalWorkload = report.WorkloadByProjects.Sum(w => w.Workload);
+                }
+            }
+
+            return report;
+        }
+
+        /// <summary>
+        /// Gets the distinct tracker months.
+        /// </summary>
+        /// <param name="trackerMonths">The tracker months.</param>
+        /// <returns>RedmineTrackerMonthModel collection.</returns>
+        private IEnumerable<RedmineTrackerMonthModel> GetDistinctTrackerMonths(IEnumerable<RedmineTrackerMonthModel> trackerMonths)
+        {
+            var result = new List<RedmineTrackerMonthModel>();
+            foreach (RedmineTrackerMonthModel item in trackerMonths)
+            {
+                bool isExisting = result.Any(t => t.TrackerId == item.TrackerId);
+                if (!isExisting)
+                {
+                    var matchedTrackers = trackerMonths.Where(t => t.TrackerId == item.TrackerId);
+
+                    var tracker = new RedmineTrackerMonthModel
+                    {
+                        TrackerId = item.TrackerId,
+                        TrackerName = item.TrackerName,
+                        TotalNumberIssue = matchedTrackers.Sum(t => t.YearMonth.NumberIssue),
+                        TotalSpentTime = matchedTrackers.Sum(t => t.YearMonth.SpentTime)
+                    };
+
+                    result.Add(tracker);
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the distinct project trackers.
+        /// </summary>
+        /// <param name="projectTrackers">The project trackers.</param>
+        /// <returns>RedmineProjectTrackerModel collection.</returns>
+        private IEnumerable<RedmineProjectTrackerModel> GetDistinctProjectTrackers(IEnumerable<RedmineProjectTrackerModel> projectTrackers)
+        {
+            var result = new List<RedmineProjectTrackerModel>();
+            var count = 1;
+
+            foreach (RedmineProjectTrackerModel item in projectTrackers)
+            {
+                bool isExisting = result.Any(p => p.ProjectId == item.ProjectId);
+                if (!isExisting)
+                {
+                    var project = new RedmineProjectTrackerModel
+                    {
+                        Index = count++,
+                        ProjectId = item.ProjectId,
+                        ProjectName = item.ProjectName,
+                        Trackers = projectTrackers.Where(p => p.ProjectId == item.ProjectId).Select(p => p.Tracker).ToList()
+                    };
+
+                    result.Add(project);
+                }
+            }
+
+            return result;
         }
     }
 }

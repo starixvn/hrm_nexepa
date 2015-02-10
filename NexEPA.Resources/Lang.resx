@@ -837,4 +837,13 @@
   <data name="PersonalEffort" xml:space="preserve">
     <value>Personal effort</value>
   </data>
+  <data name="PersonalEffortDetail" xml:space="preserve">
+    <value>Personal effort detail</value>
+  </data>
+  <data name="TotalAverage" xml:space="preserve">
+    <value>Total\/Average</value>
+  </data>
+  <data name="Tracker" xml:space="preserve">
+    <value>Tracker</value>
+  </data>
 </root>

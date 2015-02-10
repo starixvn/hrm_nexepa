@@ -20,6 +20,8 @@ namespace NexEPA.Report.Services.Interface
     {
         EmployeePerformanceModel GetEmployeePerformanceTendancyReport(GetEmployeePerformanceTendencyReportCriteria criteria);
 
-        RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(GetRedmineProjectEffortReportCriteria criteria);
+        RedminePersonalEffortViewModel GetRedmineProjectEffort(GetRedminePersonalEffortCriteria criteria);
+
+        RedminePersonalEffortDetailViewModel GetRedmineProjectEffortDetail(GetRedminePersonalEffortDetailCriteria criteria);
     }
 }

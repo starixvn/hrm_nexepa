@@ -16,7 +16,7 @@
 					data-search-employees="searchEmployees" data-employee="employee" />
 			</div>
 			<label data-translate="From" class="col-sm-1  text-right">
-			</label>			
+			</label>
 			<div class="col-sm-2 date-box">
 				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.fromDate"
 					data-is-open="fromOpened" data-ng-click="open($event,'from')" />
@@ -51,6 +51,10 @@
 	</div>
 	<div class="row">
 		<div ng-include data-src="'/Templates/Report/EmployeePerformanceTendency/PersonalEffortChart.html'">
+		</div>
+	</div>
+	<div class="row">
+		<div ng-include data-src="'/Templates/Report/EmployeePerformanceTendency/PersonalEffortDetail.html'">
 		</div>
 	</div>
 	<br />

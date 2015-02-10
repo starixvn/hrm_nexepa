@@ -26,17 +26,17 @@
                     </td>
                     <td class="home-vertical-center" ng-bind="openProject.project.name">
                     </td>
-                    <td class="home-vertical-center">
+                    <td class="home-manager">
                         <span ng-bind="openProject.evaluator.nickName" tooltip="{{openProject.evaluator.fullName}}">
                         </span>
                     </td>
-                    <td class="home-center">
+                    <td class="home-open-column">
                         {{openProject.project.startDate | customDate}}
                     </td>
-                    <td class="home-center">
+                    <td class="home-open-column">
                         {{openProject.project.endDate | customDate}}
                     </td>
-                    <td class="home-role" ng-bind="openProject.roles">
+                    <td class="home-open-column" ng-bind="openProject.roles">
                     </td>
                 </tr>
                 <tr ng-show="dashboradInformation.openProjects == ''">

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RedmineProjectEffortReportViewModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RedminePersonalEffortViewModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -13,9 +13,9 @@ namespace NexEPA.Report.ViewModels
     using NexEPA.Report.Models.EmployeePerformanceTendency;
 
     /// <summary>
-    /// RedmineProjectEffortReportViewModel class.
+    /// RedminePersonalEffortViewModel class.
     /// </summary>
-    public class RedmineProjectEffortReportViewModel
+    public class RedminePersonalEffortViewModel
     {
         public decimal GrandTotalSpentTime { get; set; }
 

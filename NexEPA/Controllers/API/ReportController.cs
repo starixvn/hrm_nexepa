@@ -101,19 +101,40 @@ namespace NexEPA.Controllers.API
         /// <param name="employeeId">The employee identifier.</param>
         /// <param name="fromDate">The From date.</param>
         /// <param name="toDate">The To date.</param>
-        /// <returns>RedmineProjectEffortReportViewModel class.</returns>
+        /// <returns>RedminePersonalEffortViewModel class.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
-        public RedmineProjectEffortReportViewModel GetRedmineProjectEffortReport(int employeeId, DateTime fromDate, DateTime toDate)
+        public RedminePersonalEffortViewModel GetRedminePersonalEffort(int employeeId, DateTime fromDate, DateTime toDate)
         {
-            var criteria = new GetRedmineProjectEffortReportCriteria
+            var criteria = new GetRedminePersonalEffortCriteria
             {
                 EmployeeId = employeeId,
                 FromDate = fromDate,
                 ToDate = toDate
             };
 
-            return _tendencyService.GetRedmineProjectEffortReport(criteria);
+            return _tendencyService.GetRedmineProjectEffort(criteria);
+        }
+
+        /// <summary>
+        /// Gets the redmine project effort detail.
+        /// </summary>
+        /// <param name="employeeId">The employee identifier.</param>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <returns>RedminePersonalEffortDetailViewModel class.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
+        public RedminePersonalEffortDetailViewModel GetRedminePersonalEffortDetail(int employeeId, DateTime fromDate, DateTime toDate)
+        {
+            var criteria = new GetRedminePersonalEffortDetailCriteria
+            {
+                EmployeeId = employeeId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            return _tendencyService.GetRedmineProjectEffortDetail(criteria);
         }
     }
 }

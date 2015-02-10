@@ -63,3 +63,12 @@ registrationModule.filter('customNumber', ['$filter', function ($filter) {
 		return _number;
 	};
 } ]);
+
+registrationModule.filter('customPercent', ['$filter', function ($filter) {
+	return function (input, digits) {
+		if (input == null) { return ""; }
+
+		var percent = $filter('number')(input * 100, digits) + '%';
+		return percent;
+	};
+} ]);

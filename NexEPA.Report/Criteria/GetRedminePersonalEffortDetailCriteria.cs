@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetRedmineProjectEffortReportCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetRedminePersonalEffortDetailCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -13,9 +13,9 @@ namespace NexEPA.Report.Criteria
     using Fanex.Data.Repository;
 
     /// <summary>
-    /// GetRedmineProjectEffortReportCriteria class.
+    /// GetRedminePersonalEffortDetailCriteria class.
     /// </summary>
-    public class GetRedmineProjectEffortReportCriteria : CriteriaBase
+    public class GetRedminePersonalEffortDetailCriteria : CriteriaBase
     {
         public int EmployeeId { get; set; }
 
@@ -30,7 +30,7 @@ namespace NexEPA.Report.Criteria
 
         public override string GetSettingKey()
         {
-            return "ReportRedmine_ProjectEffort";
+            return "ReportRedmine_PersonalEffortDetail";
         }
     }
 }

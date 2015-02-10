@@ -22,8 +22,17 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				}
 				});
 		},
-		getRedmineProjectEffortReport: function (employeeId, fromDate, toDate) {
-			return $http.get('/api/Report/GetRedmineProjectEffortReport', {
+		getRedminePersonalEffort: function (employeeId, fromDate, toDate) {
+			return $http.get('/api/Report/GetRedminePersonalEffort', {
+				params: {
+					employeeId: employeeId,
+					fromDate: fromDate.toDateString(),
+					toDate: toDate.toDateString()
+				}
+			});
+		},
+		getRedminePersonalEffortDetail: function (employeeId, fromDate, toDate) {
+			return $http.get('/api/Report/GetRedminePersonalEffortDetail', {
 				params: {
 					employeeId: employeeId,
 					fromDate: fromDate.toDateString(),

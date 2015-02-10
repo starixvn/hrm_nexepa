@@ -30,6 +30,17 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		grandTotalSpentTime: 0
 	};
 
+	$scope.personalEffortDetails = {
+		data: '',
+		projectTrackers: '',
+		trackerMonths: '',
+		workloadByProjectMonths: '',
+		workloadByProjects: '',
+		workloadByMonths: '',
+		distinctTrackerMonths: '',
+		grandTotalWorkload: ''
+	};
+
 	$scope.chart = {
 		xAxis: {},
 		series: null
@@ -66,6 +77,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 			});
 		} else {
 			$scope.employee = null;
+			$scope.employeeId = null;
 		}
 	};
 
@@ -89,6 +101,8 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 			self.getReportByProjects(employeeId);
 
 			self.getPersonalEfforts(employeeId);
+
+			self.getPersonalEffortDetails(employeeId);
 		}
 	};
 
@@ -124,13 +138,88 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 	};
 
-	$scope.GetSpentTime = function (projectName, monthName) {
+	$scope.getSpentTime = function (projectName, monthName) {
 		var data = jQuery.grep($scope.personalEfforts.data, function (item) {
 			return item.projectName === projectName && item.monthName === monthName;
 		});
 
 		if (data.length > 0) {
 			return data[0].spentTime;
+		}
+	};
+
+	$scope.getDetailNumberIssue = function (projectId, trackerId, year, month) {
+		return self.getIssueSpent(projectId, trackerId, year, month, 1);
+	};
+
+	$scope.getDetailSpentTime = function (projectId, trackerId, year, month) {
+		return self.getIssueSpent(projectId, trackerId, year, month, 2);
+	};
+
+	self.getIssueSpent = function (projectId, trackerId, year, month, type) {
+		var data = jQuery.grep($scope.personalEffortDetails.data, function (item) {
+			return item.projectId === projectId && item.trackerId === trackerId
+					&& item.year === year && item.month === month;
+		});
+
+		if (data.length > 0) {
+			if (type === 1) {
+				return data[0].numberIssue;
+			} else if (type === 2) {
+				return data[0].spentTime;
+			}
+		}
+	};
+
+	$scope.getTotalNumberIssue = function (trackerId, year, month) {
+		return self.getTotalIssueSpent(trackerId, year, month, 1);
+	};
+
+	$scope.getTotalSpentTime = function (trackerId, year, month) {
+		return self.getTotalIssueSpent(trackerId, year, month, 2);
+	};
+
+	self.getTotalIssueSpent = function (trackerId, year, month, type) {
+		var data = jQuery.grep($scope.personalEffortDetails.trackerMonths, function (item) {
+			return item.trackerId === trackerId && item.yearMonth.year === year && item.yearMonth.month === month;
+		});
+
+		if (data.length > 0) {
+			if (type === 1) {
+				return data[0].yearMonth.numberIssue;
+			} else if (type === 2) {
+				return data[0].yearMonth.spentTime;
+			}
+		}
+	};
+
+	$scope.getWorkload = function (projectId, year, month) {
+		var data = jQuery.grep($scope.personalEffortDetails.workloadByProjectMonths, function (item) {
+			return item.projectId === projectId && item.year === year && item.month === month;
+		});
+
+		if (data.length > 0) {
+			return data[0].workload;
+		}
+	};
+
+	$scope.getSumWorkload = function (projectId) {
+		var data = jQuery.grep($scope.personalEffortDetails.workloadByProjects, function (item) {
+			return item.projectId === projectId;
+		});
+
+		if (data.length > 0) {
+			return data[0].workload;
+		}
+	};
+
+	$scope.getWorkloadByMonth = function (year, month) {
+		var data = jQuery.grep($scope.personalEffortDetails.workloadByMonths, function (item) {
+			return item.year === year && item.month === month;
+		});
+
+		if (data.length > 0) {
+			return data[0].workload;
 		}
 	};
 
@@ -157,7 +246,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 
 	self.getPersonalEfforts = function (employeeId) {
 		if (employeeId) {
-			reportFactory.getRedmineProjectEffortReport(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
+			reportFactory.getRedminePersonalEffort(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
 				if (report != null) {
 					$scope.personalEfforts.data = report.personalEfforts;
 					$scope.personalEfforts.projects = report.projects;
@@ -182,6 +271,39 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 	};
 
+	self.getPersonalEffortDetails = function (employeeId) {
+		if (employeeId) {
+			reportFactory.getRedminePersonalEffortDetail(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
+				if (report != null) {
+					$scope.personalEffortDetails.data = report.personalEffortDetails;
+					$scope.personalEffortDetails.projectTrackers = report.projectTrackers;
+					$scope.personalEffortDetails.trackerMonths = report.trackerMonths;
+					$scope.personalEffortDetails.distinctTrackerMonths = report.distinctTrackerMonths;
+					$scope.personalEffortDetails.workloadByProjectMonths = report.workloadByProjectMonths;
+					$scope.personalEffortDetails.workloadByProjects = report.workloadByProjects;
+					$scope.personalEffortDetails.workloadByMonths = report.workloadByMonths;
+					$scope.personalEffortDetails.grandTotalWorkload = report.grandTotalWorkload;
+				} else {
+					$scope.personalEffortDetails.data = null;
+					$scope.personalEffortDetails.projectTrackers = null;
+					$scope.personalEffortDetails.trackerMonths = null;
+					$scope.personalEffortDetails.distinctTrackerMonths = null;
+					$scope.personalEffortDetails.workloadByProjectMonths = null;
+					$scope.personalEffortDetails.workloadByProjects = null;
+					$scope.personalEffortDetails.workloadByMonths = null;
+					$scope.personalEffortDetails.grandTotalWorkload = null;
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
+		}
+	};
+
 	self.processChartData = function () {
 		if ($scope.personalEfforts.data) {
 			self.generateXAxis();
@@ -194,7 +316,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		angular.forEach($scope.personalEfforts.projects, function (project) {
 			var data = [];
 			angular.forEach($scope.personalEfforts.projectMonths, function (month) {
-				var spentTime = $scope.GetSpentTime(project.projectName, month.monthName);
+				var spentTime = $scope.getSpentTime(project.projectName, month.monthName);
 				data.push(spentTime ? spentTime : 0);
 			});
 
@@ -239,7 +361,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	self.getEmployeeById = function () {
 		employeeRepository.getEmployeeById($scope.employeeId).success(function (employee) {
 			$scope.employee = employee;
-			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';			
+			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});

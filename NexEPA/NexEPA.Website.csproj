@@ -371,6 +371,8 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
+    <Content Include="Templates\Report\EmployeePerformanceTendency\countSpentTemplate.html" />
+    <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffortDetail.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffortChart.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffort.html" />
     <Content Include="Templates\TargetEmployeeSetting\Index.html" />

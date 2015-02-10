@@ -1465,6 +1465,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal effort detail.
+        /// </summary>
+        public static string PersonalEffortDetail {
+            get {
+                return ResourceManager.GetString("PersonalEffortDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal Flow.
         /// </summary>
         public static string PersonalFlow {
@@ -2131,11 +2140,29 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total\/Average.
+        /// </summary>
+        public static string TotalAverage {
+            get {
+                return ResourceManager.GetString("TotalAverage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total finished projects.
         /// </summary>
         public static string TotalFinishedProject {
             get {
                 return ResourceManager.GetString("TotalFinishedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tracker.
+        /// </summary>
+        public static string Tracker {
+            get {
+                return ResourceManager.GetString("Tracker", resourceCulture);
             }
         }
         
