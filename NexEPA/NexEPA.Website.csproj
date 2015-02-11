@@ -299,7 +299,6 @@
     <Content Include="Scripts\Libs\chosen.jquery.min.js" />
     <Content Include="Scripts\Libs\highcharts-exporting.js" />
     <Content Include="Scripts\Libs\highcharts.js" />
-    <Content Include="Scripts\Libs\index.htm" />
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />
