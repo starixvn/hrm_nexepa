@@ -556,29 +556,27 @@ registrationModule.directive('highChart', function () {
 			series: "="
 		},
 		link: function ($scope, iElement) {
-			$scope.$watch('series', function (data) {
-				if (data) {
-					$(iElement).highcharts({
-						chart: {
-							type: $scope.chartType
-						},
+			$scope.$on('renderHighChart', function () {
+				$(iElement).highcharts({
+					chart: {
+						type: $scope.chartType
+					},
+					title: {
+						text: $scope.chartTitle ? $scope.chartTitle : ''
+					},
+					xAxis: $scope.xAxis,
+					yAxis: {
+						min: 0,
 						title: {
-							text: $scope.chartTitle ? $scope.chartTitle : ''
-						},
-						xAxis: $scope.xAxis,
-						yAxis: {
-							min: 0,
-							title: {
-								text: $scope.yTitle ? $scope.yTitle : ''
-							}
-						},						
-						credits: {
-							enabled: false
-						},
-						series: data
-					});
-				}
-			});
+							text: $scope.yTitle ? $scope.yTitle : ''
+						}
+					},
+					credits: {
+						enabled: false
+					},
+					series: $scope.series
+				});
+			});			
 		}
 	};
 });

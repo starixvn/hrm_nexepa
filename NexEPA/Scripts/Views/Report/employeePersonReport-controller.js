@@ -114,6 +114,9 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 				break;
 			case "effortChart":
 				$scope.isEffortChartCollapsed = !$scope.isEffortChartCollapsed;
+				if (!$scope.isEffortChartCollapsed) {
+					$scope.$broadcast('renderHighChart');
+				}
 				break;
 			case "effortDetail":
 				$scope.isEffortDetailCollapsed = !$scope.isEffortDetailCollapsed;
@@ -381,6 +384,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		if ($scope.personalEfforts.data) {
 			self.generateXAxis();
 			self.generateSeries();
+			$scope.$broadcast('renderHighChart');
 		}
 	};
 
