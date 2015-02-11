@@ -5,7 +5,7 @@
 	</div>
 	<div class="row" data-collapse="isEffortDetailCollapsed">
 		<div class="div-effort-detail">
-			<table class="table table-bordered history-table table-total">
+			<table class="table table-bordered history-table tbody-striped">
 				<thead>
 					<tr>
 						<th rowspan="2">
@@ -32,7 +32,7 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody class="table-striped" data-ng-repeat="project in personalEffortDetails.projectTrackers">
+				<tbody data-ng-repeat="project in personalEffortDetails.projectTrackers">
 					<tr data-ng-repeat="tracker in project.trackers">
 						<td class="home-index" data-ng-if="$first" data-ng-bind="project.index" rowspan="{{project.trackers.length +1}}">
 						</td>
@@ -61,7 +61,7 @@
 						</td>
 					</tr>
 				</tbody>
-				<tbody class="bg-info" data-ng-show="personalEffortDetails.data != ''">
+				<tbody class="bg-total" data-ng-show="personalEffortDetails.data != ''">
 					<tr data-ng-repeat="tracker in personalEffortDetails.distinctTrackerMonths">
 						<td colspan="2" data-translate="TotalAverage" class="report-total-center" data-ng-if="$first"
 							rowspan="{{personalEffortDetails.distinctTrackerMonths.length+1}}">
@@ -90,10 +90,10 @@
 					</tr>
 				</tbody>
 				<tr data-ng-show="personalEffortDetails.data == ''">
-					<td class="empty-result" colspan="3" data-translate="EmptyResult">
+					<td class="empty-result" colspan="7" data-translate="EmptyResult">
 					</td>
 				</tr>
 			</table>
 		</div>
-	</div>
 </div>
+</div> 

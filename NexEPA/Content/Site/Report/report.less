@@ -41,13 +41,31 @@
 		font-weight: bold;
 	}
 
+	.report-odd-row{
+		background-color: #ececec;
+	}
+
+	.report-even-row{
+		background-color: #f9f9f9;
+	}
+
 	.table-total{
 		.table-striped tr:nth-child(odd) td{
-			background-color: #ececec;
+			.report-odd-row;
 		}
 		.table-striped tr:nth-child(even) td{
-			background-color: #f9f9f9;
+			.report-even-row;
 		}
+	}
+	
+	.tbody-striped tbody:nth-child(odd) td{
+		.report-even-row;
+	}
+	.tbody-striped tbody:nth-child(even) td{
+		.report-odd-row;		
+	}
+	.tbody-striped tbody.bg-total td{
+		background-color: #d9edf7;	
 	}
 
 	.report-chart-icon{
@@ -141,28 +159,29 @@
 		}
 		.default-column {	
 			.report-left;		
-			width: 120px;			
+			width: 10%;			
 		}		
 		.score-column {
 			.report-right;
-			width: 100px;
+			width: 9%;
 		}
 		.manager-column {	
 			.report-left;		
-			width: 130px;			
+			width: 11%;			
 		}
 		.div-effort-detail{
-			min-width: 1222px;
+			min-width: 1215px;
 			overflow-x: auto;
-			margin-right: 14px;
+			margin: 10px;
 			.table{
-				margin-right: 0;
+				margin: 0;
+				width: 99.8%;
 			}
 		}						
 	}
 
 	.filter-max-width{
-		max-width:1270px;
+		max-width:1280px;
 	}
 
 	.date-box {
