@@ -26,6 +26,12 @@ authorityModule.factory('authorityRepository', ['$http', function ($http) {
 		},
 		getManageUserPermission: function () {
 			return $http.get('/api/Authority/GetManageUserPermission');
+		},
+		isOnlyMember: function () {
+			return $http.get('/api/Authority/IsOnlyMember');
+		},
+		checkRightToViewPersonReportOfEmployee: function (employeeId) {
+			return $http.get('/api/Authority/CheckRightToViewPersonReportOfEmployee', { params: { employeeId: employeeId} });
 		}
 	};
 } ]);

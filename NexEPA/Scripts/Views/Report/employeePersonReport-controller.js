@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('ViewEmployeePerformanceTendencyController',
-['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService',
-function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService) {
+['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService', 'authorityRepository',
+function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService, authorityRepository) {
 	var self = this;
 
 	$scope.employeeId = parseInt($routeParams.employeeId);
@@ -15,7 +15,8 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	$scope.isEffortChartCollapsed = true;
 	$scope.isEffortDetailCollapsed = true;
 
-	$scope.index = 0;
+	$scope.isOnlyMember = false;
+	$scope.currentEmployeeId = null;
 	$scope.originalComment = '';
 	$scope.viewEPADetailUrl = '';
 	$scope.report = {
@@ -84,26 +85,19 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	$scope.getReportData = function () {
 		self.handleFromToDate();
 
-		var isValid = self.validateFilterOptions();
+		self.checkRightToViewPersonReportOfEmployee(function () {
+			var isValid = self.validateFilterOptions();
 
-		if (isValid) {
-			var employeeId = null;
+			if (isValid) {
+				var employeeId = self.getEmployeeId();
 
-			if ($scope.employee) {
-				employeeId = $scope.employee.employeeId;
+				self.getReportByProjects(employeeId);
+
+				self.getPersonalEfforts(employeeId);
+
+				self.getPersonalEffortDetails(employeeId);
 			}
-			else if ($scope.employeeId) {
-				self.getEmployeeById();
-
-				employeeId = $scope.employeeId;
-			}
-
-			self.getReportByProjects(employeeId);
-
-			self.getPersonalEfforts(employeeId);
-
-			self.getPersonalEffortDetails(employeeId);
-		}
+		});
 	};
 
 	$scope.reload = function () {
@@ -128,13 +122,13 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	};
 
 	$scope.EPADetail = function (targetId) {
-		if ($scope.employee) {
-			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' +
-					$scope.employee.employeeId;
-		}
-		else if ($scope.employeeId) {
-			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' +
-					$scope.employeeId;
+		var employeeId = self.getEmployeeId();
+		var queryString = '?targetId=' + targetId + '&employeeId=' + employeeId;
+
+		if ($scope.isOnlyMember === true) {
+			$scope.viewEPADetailUrl = '/MyEPA/Index' + queryString;
+		} else {
+			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + queryString;
 		}
 	};
 
@@ -154,6 +148,29 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 
 	$scope.getDetailSpentTime = function (projectId, trackerId, year, month) {
 		return self.getIssueSpent(projectId, trackerId, year, month, 2);
+	};
+
+	self.getEmployeeId = function () {
+		var employeeId = null;
+
+		// Get employeeId of member 
+		if ($scope.isOnlyMember === true) {
+			employeeId = $scope.currentEmployeeId;
+			self.getEmployeeById(employeeId);
+		}
+		// Get employeeId from Employee filter
+		else if ($scope.employee) {
+			employeeId = $scope.employee.employeeId;
+		}
+		// Get employeeId from employeeId query string
+		else if ($scope.employeeId) {
+			employeeId = $scope.employeeId;
+			self.getEmployeeById(employeeId);
+
+			$scope.employeeId = null;
+		}
+
+		return employeeId;
 	};
 
 	self.getIssueSpent = function (projectId, trackerId, year, month, type) {
@@ -220,6 +237,62 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 
 		if (data.length > 0) {
 			return data[0].workload;
+		}
+	};
+
+	self.checkIfOnlyMember = function (callback) {
+		authorityRepository.isOnlyMember().success(function (result) {
+			if (result) {
+				$scope.isOnlyMember = result.isOnlyMember;
+				$scope.currentEmployeeId = result.employeeId;
+
+				if (angular.isFunction(callback)) {
+					callback();
+				}
+			}
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+		});
+	};
+
+	self.checkRightToViewPersonReportOfEmployee = function (hasRightCallBack) {
+		if ($scope.employeeId) {
+			// Check the right
+			if ($scope.isOnlyMember === true && $scope.employeeId !== $scope.currentEmployeeId) {
+				notificationFactory.error("PersonReportHasNoRight");
+				$scope.employeeId = null;
+			} else {
+				authorityRepository.checkRightToViewPersonReportOfEmployee($scope.employeeId).success(function (result) {
+					if (result) {
+						if (result.hasViewRight === false) {
+							notificationFactory.error("PersonReportHasNoRight");
+							$scope.employeeId = null;
+						} else {
+							// Has the right to view this employee
+							if (angular.isFunction(hasRightCallBack)) {
+								hasRightCallBack();
+							}
+						}
+					}
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+				});
+			}
+		} else {
+			// Not check the right
+			if (angular.isFunction(hasRightCallBack)) {
+				hasRightCallBack();
+			}
 		}
 	};
 
@@ -358,8 +431,8 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		return isValid;
 	};
 
-	self.getEmployeeById = function () {
-		employeeRepository.getEmployeeById($scope.employeeId).success(function (employee) {
+	self.getEmployeeById = function (employeeId) {
+		employeeRepository.getEmployeeById(employeeId).success(function (employee) {
 			$scope.employee = employee;
 			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';
 		}).error(function () {
@@ -383,17 +456,19 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	};
 
 	self.load = function () {
-		self.handleFromToDate();
+		self.checkIfOnlyMember(function () {
+			self.handleFromToDate();
 
-		if ($routeParams.fromDate) {
-			$scope.filter.fromDate = new Date($routeParams.fromDate);
-		}
+			if ($routeParams.fromDate) {
+				$scope.filter.fromDate = new Date($routeParams.fromDate);
+			}
 
-		if ($routeParams.toDate) {
-			$scope.filter.toDate = new Date($routeParams.toDate);
-		}
+			if ($routeParams.toDate) {
+				$scope.filter.toDate = new Date($routeParams.toDate);
+			}
 
-		$scope.getReportData();
+			$scope.getReportData();
+		});
 	};
 
 	self.load();

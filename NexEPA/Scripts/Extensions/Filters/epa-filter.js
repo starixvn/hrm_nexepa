@@ -58,7 +58,7 @@ registrationModule.filter('epaStatus', function () {
 
 registrationModule.filter('customNumber', ['$filter', function ($filter) {
 	return function (input) {
-		if (input == null) { return ""; }
+		if (input == null || input === 0) { return ""; }
 		var _number = $filter('number')(input, 2);
 		return _number;
 	};
@@ -66,7 +66,7 @@ registrationModule.filter('customNumber', ['$filter', function ($filter) {
 
 registrationModule.filter('customPercent', ['$filter', function ($filter) {
 	return function (input, digits) {
-		if (input == null) { return ""; }
+		if (input == null || input === 0) { return ""; }
 
 		var percent = $filter('number')(input * 100, digits) + '%';
 		return percent;

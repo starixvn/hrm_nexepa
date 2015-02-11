@@ -1483,6 +1483,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have no right to view this employee..
+        /// </summary>
+        public static string PersonReportHasNoRight {
+            get {
+                return ResourceManager.GetString("PersonReportHasNoRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PM.
         /// </summary>
         public static string PM {

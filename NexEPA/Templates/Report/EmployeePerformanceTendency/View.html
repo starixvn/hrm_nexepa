@@ -13,7 +13,7 @@
 			<div class="col-sm-2">
 				<input class="form-control" data-ng-model="filter.searchKey" placeholder="full name or nick name"
 					data-ng-change="getEmployee(filter.searchKey)" data-search-auto-complete data-search-key="filter.searchKey"
-					data-search-employees="searchEmployees" data-employee="employee" />
+					data-search-employees="searchEmployees" data-employee="employee" data-ng-readonly="isOnlyMember" />
 			</div>
 			<label data-translate="From" class="col-sm-1  text-right">
 			</label>

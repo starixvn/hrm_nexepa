@@ -13,6 +13,7 @@ namespace NexEPA.Authority.Services.Interface
     using Authority.Criteria;
     using Authority.Models;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Criteria;
 
     /// <summary>
     /// The interface of Authority service.
@@ -28,5 +29,9 @@ namespace NexEPA.Authority.Services.Interface
         IEnumerable<RoleSystemModel> GetRolesByEmployeeId(GetRoleByEmployeeIdCriteria criteria);
 
         CommandResult UpdateRole(UpdateRoleOfEmployeeCriteria criteria);
+
+        bool IsOnlyMember(EmployeeIsOnlyMemberCriteria criteria);
+
+        bool CheckRightToViewPersonReportOfEmployee(int employeeId, GetAllEmployeeByCurrentUserIdCriteria criteria);
     }
 }

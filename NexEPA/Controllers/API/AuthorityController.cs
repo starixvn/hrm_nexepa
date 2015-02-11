@@ -45,9 +45,9 @@ namespace NexEPA.Controllers.API
         }
 
         public AuthorityController(
-            IAuthorityService authorityService, 
+            IAuthorityService authorityService,
             ICommonService commonService,
-            IEmployeeService employeeService) 
+            IEmployeeService employeeService)
         {
             _authorityService = authorityService ?? new AuthorityService();
             _commonService = commonService ?? new CommonService();
@@ -162,6 +162,43 @@ namespace NexEPA.Controllers.API
         {
             int policy = _commonService.GetPermission(EPAFunctionKeys.ManageUser);
             return policy;
+        }
+
+        /// <summary>
+        /// Determines whether [is only member].
+        /// </summary>
+        /// <returns>The object data.</returns>
+        [HttpGet]
+        public object IsOnlyMember()
+        {
+            var criteria = new EmployeeIsOnlyMemberCriteria
+            {
+                EmployeeId = CurrentUser.UserId
+            };
+
+            bool isOnlyMember = _authorityService.IsOnlyMember(criteria);
+            var resultData = new { IsOnlyMember = isOnlyMember, EmployeeId = CurrentUser.UserId };
+
+            return resultData;
+        }
+
+        /// <summary>
+        /// Checks the right to view person report of employee.
+        /// </summary>
+        /// <param name="employeeId">The employee identifier.</param>
+        /// <returns>The object data.</returns>
+        [HttpGet]
+        public object CheckRightToViewPersonReportOfEmployee(int employeeId)
+        {
+            var criteria = new GetAllEmployeeByCurrentUserIdCriteria
+            {
+                ActorUserId = this.CurrentUser.UserId,
+                Keyword = string.Empty
+            };
+
+            bool hasViewRight = _authorityService.CheckRightToViewPersonReportOfEmployee(employeeId, criteria);
+
+            return new { HasViewRight = hasViewRight };
         }
     }
 }
