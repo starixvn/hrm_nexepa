@@ -15,8 +15,8 @@ namespace NexEPA.Authority.Services.Implement
     using Authority.Models;
     using Authority.Services.Interface;
     using Fanex.Common.Helper;
-    using NexEPA.Authority.Repositories.Implement;
     using NexEPA.Authority.Repositories;
+    using NexEPA.Authority.Repositories.Implement;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Employee.Criteria;
