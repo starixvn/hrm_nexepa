@@ -384,6 +384,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		if ($scope.personalEfforts.data) {
 			self.generateXAxis();
 			self.generateSeries();
+
 			$scope.$broadcast('renderHighChart');
 		}
 	};
@@ -412,9 +413,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 			months.push(month.monthName);
 		});
 
-		$scope.chart.xAxis = {
-			categories: months
-		};
+		$scope.chart.xAxis = { categories: months };
 	};
 
 	self.validateFilterOptions = function () {

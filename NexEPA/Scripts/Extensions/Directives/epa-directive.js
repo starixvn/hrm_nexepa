@@ -545,7 +545,7 @@ registrationModule.directive('bindHtmlUnsafe', function ($compile) {
 	};
 });
 
-registrationModule.directive('highChart', function () {
+registrationModule.directive('highChart', ['$timeout', function ($timeout) {
 	return {
 		restrict: "A",
 		scope: {
@@ -557,26 +557,28 @@ registrationModule.directive('highChart', function () {
 		},
 		link: function ($scope, iElement) {
 			$scope.$on('renderHighChart', function () {
-				$(iElement).highcharts({
-					chart: {
-						type: $scope.chartType
-					},
-					title: {
-						text: $scope.chartTitle ? $scope.chartTitle : ''
-					},
-					xAxis: $scope.xAxis,
-					yAxis: {
-						min: 0,
+				$timeout(function () {
+					$(iElement).highcharts({
+						chart: {
+							type: $scope.chartType
+						},
 						title: {
-							text: $scope.yTitle ? $scope.yTitle : ''
-						}
-					},
-					credits: {
-						enabled: false
-					},
-					series: $scope.series
-				});
-			});			
+							text: $scope.chartTitle ? $scope.chartTitle : ''
+						},
+						xAxis: $scope.xAxis,
+						yAxis: {
+							min: 0,
+							title: {
+								text: $scope.yTitle ? $scope.yTitle : ''
+							}
+						},
+						credits: {
+							enabled: false
+						},
+						series: $scope.series
+					});
+				}, 50);
+			});
 		}
 	};
-});
+} ]);
