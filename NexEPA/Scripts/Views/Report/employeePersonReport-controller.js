@@ -444,17 +444,13 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	};
 
 	self.handleFromToDate = function () {
-		var date = new Date(),
-			year = date.getFullYear(),
-			month = date.getMonth(),
-			day = date.getDate();
-
 		if (!$scope.filter.toDate) {
-			$scope.filter.toDate = new Date(year, month, day);
+			$scope.filter.toDate = new Date();
 		}
 
 		if (!$scope.filter.fromDate) {
-			$scope.filter.fromDate = new Date(year, month - 3, day);
+			$scope.filter.fromDate = new Date($scope.filter.toDate);
+			$scope.filter.fromDate.setMonth($scope.filter.fromDate.getMonth() - 3);
 		}
 	};
 

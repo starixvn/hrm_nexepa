@@ -577,7 +577,7 @@ registrationModule.directive('highChart', ['$timeout', function ($timeout) {
 						},
 						series: $scope.series
 					});
-				}, 50);
+				}, 0);
 			});
 		}
 	};

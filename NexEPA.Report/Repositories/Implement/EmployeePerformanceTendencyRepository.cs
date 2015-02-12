@@ -69,11 +69,11 @@ namespace NexEPA.Report.Repositories.Implement
         }
 
         /// <summary>
-        /// Gets the redmine project effort report.
+        /// Gets the redmine personal effort.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>RedminePersonalEffortViewModel class.</returns>
-        public RedminePersonalEffortViewModel GetRedmineProjectEffort(ICriteria criteria)
+        public RedminePersonalEffortViewModel GetRedminePersonalEffort(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

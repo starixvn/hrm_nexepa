@@ -80,18 +80,18 @@ namespace NexEPA.Report.Services.Implement
         }
 
         /// <summary>
-        /// Gets the redmine project effort report.
+        /// Gets the redmine personal effort.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>RedminePersonalEffortViewModel class.</returns>
-        public RedminePersonalEffortViewModel GetRedmineProjectEffort(GetRedminePersonalEffortCriteria criteria)
+        public RedminePersonalEffortViewModel GetRedminePersonalEffort(GetRedminePersonalEffortCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var report = new RedminePersonalEffortViewModel();
 
             if (criteria.IsValid())
             {
-                report = _repository.GetRedmineProjectEffort(criteria);
+                report = _repository.GetRedminePersonalEffort(criteria);
 
                 if (report.Projects != null)
                 {
@@ -103,11 +103,11 @@ namespace NexEPA.Report.Services.Implement
         }
 
         /// <summary>
-        /// Gets the redmine project effort detail.
+        /// Gets the redmine personal effort detail.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>RedminePersonalEffortDetailViewModel class.</returns>
-        public RedminePersonalEffortDetailViewModel GetRedmineProjectEffortDetail(GetRedminePersonalEffortDetailCriteria criteria)
+        public RedminePersonalEffortDetailViewModel GetRedminePersonalEffortDetail(GetRedminePersonalEffortDetailCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var report = new RedminePersonalEffortDetailViewModel();

@@ -113,7 +113,7 @@ namespace NexEPA.Controllers.API
                 ToDate = toDate
             };
 
-            return _tendencyService.GetRedmineProjectEffort(criteria);
+            return _tendencyService.GetRedminePersonalEffort(criteria);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace NexEPA.Controllers.API
                 ToDate = toDate
             };
 
-            return _tendencyService.GetRedmineProjectEffortDetail(criteria);
+            return _tendencyService.GetRedminePersonalEffortDetail(criteria);
         }
     }
 }
