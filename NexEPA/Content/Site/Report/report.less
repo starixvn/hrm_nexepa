@@ -49,12 +49,19 @@
 		background-color: #f9f9f9;
 	}
 
+	.report-bg-total{
+		background-color: #74ABBA;
+	}
+
 	.table-total{
 		.table-striped tr:nth-child(odd) td{
 			.report-odd-row;
 		}
 		.table-striped tr:nth-child(even) td{
 			.report-even-row;
+		}
+		tr.bg-total td{
+			.report-bg-total;
 		}
 	}
 	
@@ -65,7 +72,7 @@
 		.report-odd-row;		
 	}
 	.tbody-striped tbody.bg-total td{
-		background-color: #b7dee8;	
+		.report-bg-total;
 	}
 	.tbody-striped tbody tr.bg-workload td{
 		background-color: #F9F5DC;
@@ -75,6 +82,9 @@
 	}
 	.tbody-striped tbody tr.bg-sub-total td{
 		background-color: #daeef3;
+	}
+	.tbody-striped tbody tr.bg-grand-sub-total td{
+		background-color: #B4DDE7;
 	}
 
 	.report-chart-icon{
