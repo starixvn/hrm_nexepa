@@ -864,4 +864,7 @@
   <data name="WorkingDay" xml:space="preserve">
     <value>Working days</value>
   </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Sum</value>
+  </data>
 </root>

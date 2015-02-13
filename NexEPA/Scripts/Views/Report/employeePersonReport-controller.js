@@ -4,6 +4,9 @@
 reportModule.controller('ViewEmployeePerformanceTendencyController',
 ['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService', 'authorityRepository',
 function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService, authorityRepository) {
+	/*
+	|| variables
+	*/
 	var self = this;
 
 	self.generateOptions = function () {
@@ -64,6 +67,9 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		$scope.toOpened = false;
 	};
 
+	/*
+	|| general functions
+	*/
 	$scope.open = function ($event, dateType) {
 		$event.preventDefault();
 		$event.stopPropagation();
@@ -75,20 +81,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 			$scope.toOpened = true;
 			$scope.fromOpened = false;
 		}
-	};
-
-	$scope.getEmployee = function (searchKey) {
-		if (searchKey !== "") {
-			employeeRepository.getEmployeeByCurrentUserId(searchKey, null).success(function (employees) {
-				$scope.searchEmployees = employees;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
-			});
-		} else {
-			$scope.employee = null;
-			$scope.employeeId = null;
-		}
-	};
+	};	
 
 	$scope.getReportData = function () {
 		self.checkRightToViewPersonReportOfEmployee(function () {
@@ -130,35 +123,6 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 	};
 
-	$scope.EPADetail = function (targetId) {
-		var employeeId = self.getEmployeeId();
-		var queryString = '?targetId=' + targetId + '&employeeId=' + employeeId;
-
-		if ($scope.isOnlyMember === true) {
-			$scope.viewEPADetailUrl = '/MyEPA/Index' + queryString;
-		} else {
-			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + queryString;
-		}
-	};
-
-	$scope.getSpentTime = function (projectName, monthName) {
-		var data = jQuery.grep($scope.personalEfforts.data, function (item) {
-			return item.projectName === projectName && item.monthName === monthName;
-		});
-
-		if (data.length > 0) {
-			return data[0].spentTime;
-		}
-	};
-
-	$scope.getDetailNumberIssue = function (projectId, trackerId, year, month) {
-		return self.getIssueSpent(projectId, trackerId, year, month, 1);
-	};
-
-	$scope.getDetailSpentTime = function (projectId, trackerId, year, month) {
-		return self.getIssueSpent(projectId, trackerId, year, month, 2);
-	};
-
 	self.getEmployeeId = function () {
 		var employeeId = null;
 
@@ -180,6 +144,265 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 
 		return employeeId;
+	};
+
+	self.checkIfOnlyMember = function (callback) {
+		authorityRepository.isOnlyMember().success(function (result) {
+			if (result) {
+				$scope.isOnlyMember = result.isOnlyMember;
+				$scope.currentEmployeeId = result.employeeId;
+
+				if (angular.isFunction(callback)) {
+					callback();
+				}
+			}
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+		});
+	};
+
+	self.checkRightToViewPersonReportOfEmployee = function (hasRightCallBack) {
+		if ($scope.employeeId) {
+			// Check the right
+			if ($scope.isOnlyMember === true && $scope.employeeId !== $scope.currentEmployeeId) {
+				notificationFactory.error("PersonReportHasNoRight");
+				$scope.employeeId = null;
+			} else {
+				authorityRepository.checkRightToViewPersonReportOfEmployee($scope.employeeId).success(function (result) {
+					if (result) {
+						if (result.hasViewRight === false) {
+							notificationFactory.error("PersonReportHasNoRight");
+							$scope.employeeId = null;
+						} else {
+							// Has the right to view this employee
+							if (angular.isFunction(hasRightCallBack)) {
+								hasRightCallBack();
+							}
+						}
+					}
+				}).error(function (response, status) {
+					if (status === 405) {
+						ErrorService.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+				});
+			}
+		} else {
+			// Not check the right
+			if (angular.isFunction(hasRightCallBack)) {
+				hasRightCallBack();
+			}
+		}
+	};
+
+	self.validateFilterOptions = function () {
+		var isValid = true;
+
+		if (!$scope.filter.fromDate) {
+			isValid = false;
+			notificationFactory.error("FromRequire");
+		} else if (!$scope.filter.toDate) {
+			isValid = false;
+			notificationFactory.error("ToRequire");
+		} else {
+			var fromDate = new Date($scope.filter.fromDate.toDateString());
+			var toDate = new Date($scope.filter.toDate.toDateString());
+			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
+
+			if (fromDate > toDate) {
+				isValid = false;
+				notificationFactory.error("ValidateFromToDate");
+			}
+			else if (toDate > maxDate) {
+				isValid = false;
+				notificationFactory.error("ValidateMaximumOneYear");
+			}
+		}
+
+		return isValid;
+	};
+
+	self.getEmployeeById = function (employeeId) {
+		employeeRepository.getEmployeeById(employeeId).success(function (employee) {
+			$scope.employee = employee;
+			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	self.handleFromToDate = function () {
+		if (!$scope.filter.toDate) {
+			$scope.filter.toDate = new Date();
+		}
+
+		if (!$scope.filter.fromDate) {
+			$scope.filter.fromDate = new Date($scope.filter.toDate);
+			$scope.filter.fromDate.setMonth($scope.filter.fromDate.getMonth() - 3);
+		}
+	};
+
+	self.load = function () {
+		self.generateOptions();
+
+		self.checkIfOnlyMember(function () {
+			self.handleFromToDate();
+
+			if ($routeParams.fromDate) {
+				$scope.filter.fromDate = new Date($routeParams.fromDate);
+			}
+
+			if ($routeParams.toDate) {
+				$scope.filter.toDate = new Date($routeParams.toDate);
+			}
+
+			$scope.getReportData();
+		});
+	};
+
+	/*
+	|| Filter region
+	*/
+	$scope.getEmployee = function (searchKey) {
+		if (searchKey !== "") {
+			employeeRepository.getEmployeeByCurrentUserId(searchKey, null).success(function (employees) {
+				$scope.searchEmployees = employees;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		} else {
+			$scope.employee = null;
+			$scope.employeeId = null;
+		}
+	};
+
+	/*
+	|| By projects panel
+	*/
+	self.getReportByProjects = function (employeeId) {
+		if (employeeId) {
+			reportFactory.getEmployeePerformanceTendencyReport(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
+				if (report != null) {
+					$scope.report.generalInformation = report.employeeInformation;
+					$scope.report.historyProjects = report.historyProjects;
+				} else {
+					$scope.report.generalInformation = null;
+					$scope.report.historyProjects = null;
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
+		}
+	};
+
+	$scope.EPADetail = function (targetId) {
+		var employeeId = self.getEmployeeId();
+		var queryString = '?targetId=' + targetId + '&employeeId=' + employeeId;
+
+		if ($scope.isOnlyMember === true) {
+			$scope.viewEPADetailUrl = '/MyEPA/Index' + queryString;
+		} else {
+			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + queryString;
+		}
+	};	
+
+	/*
+	|| Personal effort panel
+	*/
+	self.getPersonalEfforts = function (employeeId) {
+		if (employeeId) {
+			reportFactory.getRedminePersonalEffort(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
+				if (report != null) {
+					$scope.personalEfforts.data = report.personalEfforts;
+					$scope.personalEfforts.projects = report.projects;
+					$scope.personalEfforts.projectMonths = report.projectMonths;
+					$scope.personalEfforts.grandTotalSpentTime = report.grandTotalSpentTime;
+				} else {
+					$scope.personalEfforts.data = null;
+					$scope.personalEfforts.projects = null;
+					$scope.personalEfforts.projectMonths = null;
+					$scope.personalEfforts.grandTotalSpentTime = 0;
+				}
+
+				self.processChartData();
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorService.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
+		}
+	};
+
+	self.processChartData = function () {
+		if ($scope.personalEfforts.data) {
+			self.generateXAxis();
+			self.generateSeries();
+
+			$scope.$broadcast('renderHighChart');
+		}
+	};
+
+	self.generateSeries = function () {
+		var series = [];
+		angular.forEach($scope.personalEfforts.projects, function (project) {
+			var data = [];
+			angular.forEach($scope.personalEfforts.projectMonths, function (month) {
+				var spentTime = $scope.getSpentTime(project.projectName, month.monthName);
+				data.push(spentTime ? spentTime : 0);
+			});
+
+			series.push({
+				name: project.projectName,
+				data: data
+			});
+		});
+
+		$scope.chart.series = series;
+	};
+
+	self.generateXAxis = function () {
+		var months = [];
+		angular.forEach($scope.personalEfforts.projectMonths, function (month) {
+			months.push(month.monthName);
+		});
+
+		$scope.chart.xAxis = { categories: months };
+	};
+
+	$scope.getSpentTime = function (projectName, monthName) {
+		var data = jQuery.grep($scope.personalEfforts.data, function (item) {
+			return item.projectName === projectName && item.monthName === monthName;
+		});
+
+		if (data.length > 0) {
+			return data[0].spentTime;
+		}
+	};
+
+	/*
+	|| Personal effort detail panel
+	*/
+	$scope.getDetailNumberIssue = function (projectId, trackerId, year, month) {
+		return self.getIssueSpent(projectId, trackerId, year, month, 1);
+	};
+
+	$scope.getDetailSpentTime = function (projectId, trackerId, year, month) {
+		return self.getIssueSpent(projectId, trackerId, year, month, 2);
 	};
 
 	self.getIssueSpent = function (projectId, trackerId, year, month, type) {
@@ -289,111 +512,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		if (data.length > 0) {
 			return data[0].workload;
 		}
-	};
-
-	self.checkIfOnlyMember = function (callback) {
-		authorityRepository.isOnlyMember().success(function (result) {
-			if (result) {
-				$scope.isOnlyMember = result.isOnlyMember;
-				$scope.currentEmployeeId = result.employeeId;
-
-				if (angular.isFunction(callback)) {
-					callback();
-				}
-			}
-		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorService.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
-		});
-	};
-
-	self.checkRightToViewPersonReportOfEmployee = function (hasRightCallBack) {
-		if ($scope.employeeId) {
-			// Check the right
-			if ($scope.isOnlyMember === true && $scope.employeeId !== $scope.currentEmployeeId) {
-				notificationFactory.error("PersonReportHasNoRight");
-				$scope.employeeId = null;
-			} else {
-				authorityRepository.checkRightToViewPersonReportOfEmployee($scope.employeeId).success(function (result) {
-					if (result) {
-						if (result.hasViewRight === false) {
-							notificationFactory.error("PersonReportHasNoRight");
-							$scope.employeeId = null;
-						} else {
-							// Has the right to view this employee
-							if (angular.isFunction(hasRightCallBack)) {
-								hasRightCallBack();
-							}
-						}
-					}
-				}).error(function (response, status) {
-					if (status === 405) {
-						ErrorService.errorHandle(status);
-					}
-					else {
-						notificationFactory.error("ErrorMessage");
-					}
-				});
-			}
-		} else {
-			// Not check the right
-			if (angular.isFunction(hasRightCallBack)) {
-				hasRightCallBack();
-			}
-		}
-	};
-
-	self.getReportByProjects = function (employeeId) {
-		if (employeeId) {
-			reportFactory.getEmployeePerformanceTendencyReport(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
-				if (report != null) {
-					$scope.report.generalInformation = report.employeeInformation;
-					$scope.report.historyProjects = report.historyProjects;
-				} else {
-					$scope.report.generalInformation = null;
-					$scope.report.historyProjects = null;
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorService.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			});
-		}
-	};
-
-	self.getPersonalEfforts = function (employeeId) {
-		if (employeeId) {
-			reportFactory.getRedminePersonalEffort(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
-				if (report != null) {
-					$scope.personalEfforts.data = report.personalEfforts;
-					$scope.personalEfforts.projects = report.projects;
-					$scope.personalEfforts.projectMonths = report.projectMonths;
-					$scope.personalEfforts.grandTotalSpentTime = report.grandTotalSpentTime;
-				} else {
-					$scope.personalEfforts.data = null;
-					$scope.personalEfforts.projects = null;
-					$scope.personalEfforts.projectMonths = null;
-					$scope.personalEfforts.grandTotalSpentTime = 0;
-				}
-
-				self.processChartData();
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorService.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			});
-		}
-	};
+	};	
 
 	self.getPersonalEffortDetails = function (employeeId) {
 		if (employeeId) {
@@ -444,107 +563,9 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		return { numberIssue: numberIssue, spentTime: spentTime };
 	};
 
-	self.processChartData = function () {
-		if ($scope.personalEfforts.data) {
-			self.generateXAxis();
-			self.generateSeries();
-
-			$scope.$broadcast('renderHighChart');
-		}
-	};
-
-	self.generateSeries = function () {
-		var series = [];
-		angular.forEach($scope.personalEfforts.projects, function (project) {
-			var data = [];
-			angular.forEach($scope.personalEfforts.projectMonths, function (month) {
-				var spentTime = $scope.getSpentTime(project.projectName, month.monthName);
-				data.push(spentTime ? spentTime : 0);
-			});
-
-			series.push({
-				name: project.projectName,
-				data: data
-			});
-		});
-
-		$scope.chart.series = series;
-	};
-
-	self.generateXAxis = function () {
-		var months = [];
-		angular.forEach($scope.personalEfforts.projectMonths, function (month) {
-			months.push(month.monthName);
-		});
-
-		$scope.chart.xAxis = { categories: months };
-	};
-
-	self.validateFilterOptions = function () {
-		var isValid = true;
-
-		if (!$scope.filter.fromDate) {
-			isValid = false;
-			notificationFactory.error("FromRequire");
-		} else if (!$scope.filter.toDate) {
-			isValid = false;
-			notificationFactory.error("ToRequire");
-		} else {
-			var fromDate = new Date($scope.filter.fromDate.toDateString());
-			var toDate = new Date($scope.filter.toDate.toDateString());
-			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
-
-			if (fromDate > toDate) {
-				isValid = false;
-				notificationFactory.error("ValidateFromToDate");
-			}
-			else if (toDate > maxDate) {
-				isValid = false;
-				notificationFactory.error("ValidateMaximumOneYear");
-			}
-		}
-
-		return isValid;
-	};
-
-	self.getEmployeeById = function (employeeId) {
-		employeeRepository.getEmployeeById(employeeId).success(function (employee) {
-			$scope.employee = employee;
-			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
-		});
-	};
-
-	self.handleFromToDate = function () {
-		if (!$scope.filter.toDate) {
-			$scope.filter.toDate = new Date();
-		}
-
-		if (!$scope.filter.fromDate) {
-			$scope.filter.fromDate = new Date($scope.filter.toDate);
-			$scope.filter.fromDate.setMonth($scope.filter.fromDate.getMonth() - 3);
-		}
-	};
-
-	self.load = function () {
-		self.generateOptions();
-
-		self.checkIfOnlyMember(function () {
-			self.handleFromToDate();
-
-			if ($routeParams.fromDate) {
-				$scope.filter.fromDate = new Date($routeParams.fromDate);
-			}
-
-			if ($routeParams.toDate) {
-				$scope.filter.toDate = new Date($routeParams.toDate);
-			}
-
-			$scope.getReportData();
-		});
-	};
-
+	/*
+	|| load(): run first time
+	*/
 	self.load();
 
 } ]);
