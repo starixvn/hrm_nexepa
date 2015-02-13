@@ -6,55 +6,59 @@ reportModule.controller('ViewEmployeePerformanceTendencyController',
 function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService, authorityRepository) {
 	var self = this;
 
-	$scope.employeeId = parseInt($routeParams.employeeId);
-	$scope.searchEmployees = [];
-	$scope.employee = null;
+	self.generateOptions = function () {
+		$scope.employeeId = parseInt($routeParams.employeeId);
+		$scope.searchEmployees = [];
+		$scope.employee = null;
 
-	$scope.isProjectCollapsed = true;
-	$scope.isEffortCollapsed = true;
-	$scope.isEffortChartCollapsed = true;
-	$scope.isEffortDetailCollapsed = true;
+		$scope.isProjectCollapsed = true;
+		$scope.isEffortCollapsed = true;
+		$scope.isEffortChartCollapsed = true;
+		$scope.isEffortDetailCollapsed = true;
 
-	$scope.isOnlyMember = false;
-	$scope.currentEmployeeId = null;
-	$scope.originalComment = '';
-	$scope.viewEPADetailUrl = '';
-	$scope.report = {
-		generalInformation: '',
-		historyProjects: ''
+		$scope.isOnlyMember = false;
+		$scope.currentEmployeeId = null;
+		$scope.originalComment = '';
+		$scope.viewEPADetailUrl = '';
+		$scope.report = {
+			generalInformation: '',
+			historyProjects: ''
+		};
+
+		$scope.personalEfforts = {
+			data: '',
+			projects: '',
+			projectMonths: '',
+			grandTotalSpentTime: 0
+		};
+
+		$scope.personalEffortDetails = {
+			data: '',
+			projectTrackers: '',
+			trackerMonths: '',
+			workloadByProjectMonths: '',
+			workloadByProjects: '',
+			workloadByMonths: '',
+			distinctTrackerMonths: '',
+			grandTotalWorkload: '',
+			grandTotalWorkingDay: '',
+			projectMonthSubTotals: ''
+		};
+
+		$scope.chart = {
+			xAxis: {},
+			series: null
+		};
+
+		$scope.filter = {
+			searchKey: '',
+			fromDate: null,
+			toDate: null
+		};
+
+		$scope.fromOpened = false;
+		$scope.toOpened = false;
 	};
-
-	$scope.personalEfforts = {
-		data: '',
-		projects: '',
-		projectMonths: '',
-		grandTotalSpentTime: 0
-	};
-
-	$scope.personalEffortDetails = {
-		data: '',
-		projectTrackers: '',
-		trackerMonths: '',
-		workloadByProjectMonths: '',
-		workloadByProjects: '',
-		workloadByMonths: '',
-		distinctTrackerMonths: '',
-		grandTotalWorkload: ''
-	};
-
-	$scope.chart = {
-		xAxis: {},
-		series: null
-	};
-
-	$scope.filter = {
-		searchKey: '',
-		fromDate: null,
-		toDate: null
-	};
-
-	$scope.fromOpened = false;
-	$scope.toOpened = false;
 
 	$scope.open = function ($event, dateType) {
 		$event.preventDefault();
@@ -83,8 +87,6 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	};
 
 	$scope.getReportData = function () {
-		self.handleFromToDate();
-
 		self.checkRightToViewPersonReportOfEmployee(function () {
 			var isValid = self.validateFilterOptions();
 
@@ -213,6 +215,28 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		}
 	};
 
+	$scope.getSubTotalIssue = function (projectId, year, month) {
+		return self.getSubTotalIssueSpent(projectId, year, month, 1);
+	};
+
+	$scope.getSubTotalSpentTime = function (projectId, year, month) {
+		return self.getSubTotalIssueSpent(projectId, year, month, 2);
+	};
+
+	self.getSubTotalIssueSpent = function (projectId, year, month, type) {
+		var data = jQuery.grep($scope.personalEffortDetails.projectMonthSubTotals, function (item) {
+			return item.projectId === projectId && item.year === year && item.month === month;
+		});
+
+		if (data.length > 0) {
+			if (type === 1) {
+				return data[0].numberIssue;
+			} else if (type === 2) {
+				return data[0].spentTime;
+			}
+		}
+	};
+
 	$scope.getWorkload = function (projectId, year, month) {
 		var data = jQuery.grep($scope.personalEffortDetails.workloadByProjectMonths, function (item) {
 			return item.projectId === projectId && item.year === year && item.month === month;
@@ -226,16 +250,6 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	$scope.getSumWorkload = function (projectId) {
 		var data = jQuery.grep($scope.personalEffortDetails.workloadByProjects, function (item) {
 			return item.projectId === projectId;
-		});
-
-		if (data.length > 0) {
-			return data[0].workload;
-		}
-	};
-
-	$scope.getWorkloadByMonth = function (year, month) {
-		var data = jQuery.grep($scope.personalEffortDetails.workloadByMonths, function (item) {
-			return item.year === year && item.month === month;
 		});
 
 		if (data.length > 0) {
@@ -353,12 +367,14 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 				if (report != null) {
 					$scope.personalEffortDetails.data = report.personalEffortDetails;
 					$scope.personalEffortDetails.projectTrackers = report.projectTrackers;
+					$scope.personalEffortDetails.projectMonthSubTotals = report.projectMonthSubTotals;
 					$scope.personalEffortDetails.trackerMonths = report.trackerMonths;
 					$scope.personalEffortDetails.distinctTrackerMonths = report.distinctTrackerMonths;
 					$scope.personalEffortDetails.workloadByProjectMonths = report.workloadByProjectMonths;
 					$scope.personalEffortDetails.workloadByProjects = report.workloadByProjects;
 					$scope.personalEffortDetails.workloadByMonths = report.workloadByMonths;
 					$scope.personalEffortDetails.grandTotalWorkload = report.grandTotalWorkload;
+					$scope.personalEffortDetails.grandTotalWorkingDay = report.grandTotalWorkingDay;
 				} else {
 					$scope.personalEffortDetails.data = null;
 					$scope.personalEffortDetails.projectTrackers = null;
@@ -368,6 +384,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 					$scope.personalEffortDetails.workloadByProjects = null;
 					$scope.personalEffortDetails.workloadByMonths = null;
 					$scope.personalEffortDetails.grandTotalWorkload = null;
+					$scope.personalEffortDetails.grandTotalWorkingDay = null;
 				}
 			}).error(function (response, status) {
 				if (status === 405) {
@@ -418,17 +435,26 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 
 	self.validateFilterOptions = function () {
 		var isValid = true;
-		var fromDate = new Date($scope.filter.fromDate.toDateString());
-		var toDate = new Date($scope.filter.toDate.toDateString());
-		var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
 
-		if (fromDate > toDate) {
+		if (!$scope.filter.fromDate) {
 			isValid = false;
-			notificationFactory.error("ValidateFromToDate");
-		}
-		else if (toDate > maxDate) {
+			notificationFactory.error("FromRequire");
+		} else if (!$scope.filter.toDate) {
 			isValid = false;
-			notificationFactory.error("ValidateMaximumOneYear");
+			notificationFactory.error("ToRequire");
+		} else {
+			var fromDate = new Date($scope.filter.fromDate.toDateString());
+			var toDate = new Date($scope.filter.toDate.toDateString());
+			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
+
+			if (fromDate > toDate) {
+				isValid = false;
+				notificationFactory.error("ValidateFromToDate");
+			}
+			else if (toDate > maxDate) {
+				isValid = false;
+				notificationFactory.error("ValidateMaximumOneYear");
+			}
 		}
 
 		return isValid;
@@ -455,6 +481,8 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	};
 
 	self.load = function () {
+		self.generateOptions();
+
 		self.checkIfOnlyMember(function () {
 			self.handleFromToDate();
 

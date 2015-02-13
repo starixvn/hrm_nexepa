@@ -943,6 +943,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The From date is required!.
+        /// </summary>
+        public static string FromRequire {
+            get {
+                return ResourceManager.GetString("FromRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full Name.
         /// </summary>
         public static string FullName {
@@ -984,6 +993,15 @@ namespace NexEPA.Resources {
         public static string GoodDescription {
             get {
                 return ResourceManager.GetString("GoodDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grand Total.
+        /// </summary>
+        public static string GrandTotal {
+            get {
+                return ResourceManager.GetString("GrandTotal", resourceCulture);
             }
         }
         
@@ -1933,6 +1951,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sub Total.
+        /// </summary>
+        public static string SubTotal {
+            get {
+                return ResourceManager.GetString("SubTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data deleted successfully !.
         /// </summary>
         public static string SuccessDeleteData {
@@ -2140,6 +2167,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The To date is required!.
+        /// </summary>
+        public static string ToRequire {
+            get {
+                return ResourceManager.GetString("ToRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
         public static string Total {
@@ -2244,6 +2280,15 @@ namespace NexEPA.Resources {
         public static string WeightWarningMessage {
             get {
                 return ResourceManager.GetString("WeightWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working days.
+        /// </summary>
+        public static string WorkingDay {
+            get {
+                return ResourceManager.GetString("WorkingDay", resourceCulture);
             }
         }
         

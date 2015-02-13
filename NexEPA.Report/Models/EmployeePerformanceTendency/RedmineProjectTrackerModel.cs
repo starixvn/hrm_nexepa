@@ -23,6 +23,10 @@ namespace NexEPA.Report.Models.EmployeePerformanceTendency
 
         public string ProjectName { get; set; }
 
+        public int TotalNumberIssue { get; set; }
+
+        public decimal TotalSpentTime { get; set; }
+
         public int Index { get; set; }
 
         public RedmineTrackerModel Tracker { get; set; }

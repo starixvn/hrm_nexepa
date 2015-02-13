@@ -25,6 +25,8 @@ namespace NexEPA.Report.Models.EmployeePerformanceTendency
 
         public string MonthName { get; set; }
 
+        public decimal TotalWorkingDay { get; set; }
+
         public decimal Workload { get; set; }
     }
 }

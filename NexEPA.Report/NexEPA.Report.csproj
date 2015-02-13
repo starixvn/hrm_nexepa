@@ -55,6 +55,7 @@
     <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedminePersonalEffortModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectMonthModel.cs" />
+    <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectMonthSubTotalModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectTrackerModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineTrackerModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineTrackerYearMonthModel.cs" />

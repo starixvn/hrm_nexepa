@@ -129,9 +129,43 @@ namespace NexEPA.Report.Services.Implement
                 {
                     report.GrandTotalWorkload = report.WorkloadByProjects.Sum(w => w.Workload);
                 }
+
+                if (report.WorkloadByMonths != null)
+                {
+                    report.GrandTotalWorkingDay = report.WorkloadByMonths.Sum(w => w.TotalWorkingDay);
+                }
+
+                if (report.PersonalEffortDetails != null)
+                {
+                    report.ProjectMonthSubTotals = GetSubTotalByProjectMonth(report.PersonalEffortDetails);
+                }
             }
 
             return report;
+        }
+
+        /// <summary>
+        /// Gets the sub total by project month.
+        /// </summary>
+        /// <param name="personalEffortDetails">The personal effort details.</param>
+        /// <returns>RedmineProjectMonthSubTotalModel collection.</returns>
+        private IEnumerable<RedmineProjectMonthSubTotalModel> GetSubTotalByProjectMonth(IEnumerable<RedminePersonalEffortDetailModel> personalEffortDetails)
+        {
+            var result = personalEffortDetails.GroupBy(p => new
+            {
+                p.ProjectId,
+                p.Year,
+                p.Month
+            }).Select(p => new RedmineProjectMonthSubTotalModel
+            {
+                ProjectId = p.Key.ProjectId,
+                Year = p.Key.Year,
+                Month = p.Key.Month,
+                NumberIssue = p.Sum(d => d.NumberIssue),
+                SpentTime = p.Sum(d => d.SpentTime)
+            });
+
+            return result;
         }
 
         /// <summary>
@@ -141,25 +175,17 @@ namespace NexEPA.Report.Services.Implement
         /// <returns>RedmineTrackerMonthModel collection.</returns>
         private IEnumerable<RedmineTrackerMonthModel> GetDistinctTrackerMonths(IEnumerable<RedmineTrackerMonthModel> trackerMonths)
         {
-            var result = new List<RedmineTrackerMonthModel>();
-            foreach (RedmineTrackerMonthModel item in trackerMonths)
+            var result = trackerMonths.GroupBy(t => new
             {
-                bool isExisting = result.Any(t => t.TrackerId == item.TrackerId);
-                if (!isExisting)
-                {
-                    var matchedTrackers = trackerMonths.Where(t => t.TrackerId == item.TrackerId);
-
-                    var tracker = new RedmineTrackerMonthModel
-                    {
-                        TrackerId = item.TrackerId,
-                        TrackerName = item.TrackerName,
-                        TotalNumberIssue = matchedTrackers.Sum(t => t.YearMonth.NumberIssue),
-                        TotalSpentTime = matchedTrackers.Sum(t => t.YearMonth.SpentTime)
-                    };
-
-                    result.Add(tracker);
-                }
-            }
+                t.TrackerId,
+                t.TrackerName
+            }).Select(t => new RedmineTrackerMonthModel
+            {
+                TrackerId = t.Key.TrackerId,
+                TrackerName = t.Key.TrackerName,
+                TotalNumberIssue = t.Sum(m => m.YearMonth.NumberIssue),
+                TotalSpentTime = t.Sum(m => m.YearMonth.SpentTime)
+            });
 
             return result;
         }
@@ -179,12 +205,16 @@ namespace NexEPA.Report.Services.Implement
                 bool isExisting = result.Any(p => p.ProjectId == item.ProjectId);
                 if (!isExisting)
                 {
+                    var matchedProjects = projectTrackers.Where(p => p.ProjectId == item.ProjectId);
+
                     var project = new RedmineProjectTrackerModel
                     {
                         Index = count++,
                         ProjectId = item.ProjectId,
                         ProjectName = item.ProjectName,
-                        Trackers = projectTrackers.Where(p => p.ProjectId == item.ProjectId).Select(p => p.Tracker).ToList()
+                        TotalNumberIssue = matchedProjects.Sum(p => p.Tracker.NumberIssue),
+                        TotalSpentTime = matchedProjects.Sum(p => p.Tracker.SpentTime),
+                        Trackers = matchedProjects.Select(p => p.Tracker).ToList()
                     };
 
                     result.Add(project);

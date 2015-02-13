@@ -849,4 +849,19 @@
   <data name="PersonReportHasNoRight" xml:space="preserve">
     <value>You have no right to view this employee.</value>
   </data>
+  <data name="FromRequire" xml:space="preserve">
+    <value>The From date is required!</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="ToRequire" xml:space="preserve">
+    <value>The To date is required!</value>
+  </data>
+  <data name="WorkingDay" xml:space="preserve">
+    <value>Working days</value>
+  </data>
 </root>

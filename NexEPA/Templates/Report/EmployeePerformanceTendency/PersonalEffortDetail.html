@@ -34,9 +34,9 @@
 				</thead>
 				<tbody data-ng-repeat="project in personalEffortDetails.projectTrackers">
 					<tr data-ng-repeat="tracker in project.trackers">
-						<td class="home-index" data-ng-if="$first" data-ng-bind="project.index" rowspan="{{project.trackers.length +1}}">
+						<td class="home-index" data-ng-if="$first" data-ng-bind="project.index" rowspan="{{project.trackers.length +2}}">
 						</td>
-						<td data-ng-bind="project.projectName" data-ng-if="$first" rowspan="{{project.trackers.length +1}}">
+						<td data-ng-bind="project.projectName" data-ng-if="$first" rowspan="{{project.trackers.length +2}}">
 						</td>
 						<td data-ng-bind="tracker.trackerName">
 						</td>
@@ -48,6 +48,19 @@
 						<td data-ng-bind="tracker.numberIssue" class="report-total">
 						</td>
 						<td data-ng-bind="tracker.spentTime | customNumber" class="report-total">
+						</td>
+					</tr>
+					<tr class="bg-sub-total">
+						<td data-translate="SubTotal">
+						</td>
+						<td class="report-right" data-ng-repeat-start="month in personalEffortDetails.workloadByMonths"
+							data-ng-bind="getSubTotalIssue(project.projectId,month.year,month.month)">
+						</td>
+						<td class="report-right" data-ng-repeat-end data-ng-bind="getSubTotalSpentTime(project.projectId,month.year,month.month) | customNumber">
+						</td>
+						<td data-ng-bind="project.totalNumberIssue" class="report-total">
+						</td>
+						<td data-ng-bind="project.totalSpentTime | customNumber" class="report-total">
 						</td>
 					</tr>
 					<tr class="bg-workload">
@@ -63,8 +76,8 @@
 				</tbody>
 				<tbody class="bg-total" data-ng-show="personalEffortDetails.data != ''">
 					<tr data-ng-repeat="tracker in personalEffortDetails.distinctTrackerMonths">
-						<td colspan="2" data-translate="Total" class="report-total-center" data-ng-if="$first"
-							rowspan="{{personalEffortDetails.distinctTrackerMonths.length+1}}">
+						<td colspan="2" data-translate="GrandTotal" class="report-total-center" data-ng-if="$first"
+							rowspan="{{personalEffortDetails.distinctTrackerMonths.length+2}}">
 						</td>
 						<td class="report-total-left" data-ng-bind="tracker.trackerName">
 						</td>
@@ -78,12 +91,21 @@
 						<td class="report-total" data-ng-bind="tracker.totalSpentTime | customNumber">
 						</td>
 					</tr>
+					<tr class="bg-working-day">
+						<td class="report-total-left" data-translate="WorkingDay">
+						</td>
+						<td colspan="2" class="report-total-center" data-ng-repeat="month in personalEffortDetails.workloadByMonths"
+							data-ng-bind="month.totalWorkingDay | customNumber">
+						</td>
+						<td colspan="2" class="report-total-center" data-ng-bind="personalEffortDetails.grandTotalWorkingDay | customNumber">
+						</td>
+					</tr>
 					<tr class="bg-workload">
 						<td class="report-total-left">
 							Workload
 						</td>
 						<td colspan="2" class="report-total-center" data-ng-repeat="month in personalEffortDetails.workloadByMonths"
-							data-ng-bind="getWorkloadByMonth(month.year,month.month) | customPercent:2">
+							data-ng-bind="month.workload | customPercent:2">
 						</td>
 						<td colspan="2" class="report-total-center" data-ng-bind="personalEffortDetails.grandTotalWorkload | customPercent:2">
 						</td>
@@ -95,5 +117,5 @@
 				</tr>
 			</table>
 		</div>
+	</div>
 </div>
-</div> 

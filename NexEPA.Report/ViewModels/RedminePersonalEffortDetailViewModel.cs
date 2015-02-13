@@ -22,9 +22,13 @@ namespace NexEPA.Report.ViewModels
     {
         public decimal GrandTotalWorkload { get; set; }
 
+        public decimal GrandTotalWorkingDay { get; set; }
+
         public IEnumerable<RedmineProjectTrackerModel> ProjectTrackers { get; set; }
 
         public IEnumerable<RedminePersonalEffortDetailModel> PersonalEffortDetails { get; set; }
+
+        public IEnumerable<RedmineProjectMonthSubTotalModel> ProjectMonthSubTotals { get; set; }
 
         public IEnumerable<RedmineTrackerMonthModel> DistinctTrackerMonths { get; set; }
 
