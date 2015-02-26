@@ -68,7 +68,7 @@ namespace NexEPA.Controllers.API
             var criteria = new GetAllEmployeeGroupCriteria();
             IEnumerable<Group> groups = _employeeService.GetAllEmployeeGroup(criteria);
             IList<SelectListModel> selectListGroups = groups.Select(t => new SelectListModel { Id = t.GroupId, Name = t.Name }).ToList();
-            
+
             return selectListGroups;
         }
 
@@ -147,6 +147,34 @@ namespace NexEPA.Controllers.API
             }
 
             return employeeDepartment;
+        }
+
+        /// <summary>
+        /// Gets the employee by team project.
+        /// </summary>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <param name="groupId">The group identifier.</param>
+        /// <param name="projectId">The project identifier.</param>
+        /// <returns>EmployeeModel collection.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
+        public IEnumerable<EmployeeModel> GetEmployeeByTeamProject(
+            DateTime fromDate,
+            DateTime toDate,
+            int? groupId,
+            int? projectId)
+        {
+            var criteria = new GetEmployeeByTeamProjectCriteria
+            {
+                ActorUserId = CurrentUser.UserId,
+                FromDate = fromDate,
+                ToDate = toDate,
+                GroupId = groupId,
+                ProjectId = projectId
+            };
+            IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByTeamProject(criteria);
+
+            return employees;
         }
     }
 }

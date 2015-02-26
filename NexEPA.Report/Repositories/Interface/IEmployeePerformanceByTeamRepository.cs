@@ -11,6 +11,7 @@ namespace NexEPA.Report.Repositories.Interface
 {
     using Fanex.Data.Repository;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.ViewModels;
 
     /// <summary>
     /// IEmployeePerformanceByTeamRepository interface.
@@ -18,5 +19,7 @@ namespace NexEPA.Report.Repositories.Interface
     public interface IEmployeePerformanceByTeamRepository
     {
         TeamPerformanceModel GetEmployeePerformanceByTeamReport(ICriteria criteria);
+
+        RedmineTeamEffortViewModel GetRedmineTeamEffort(ICriteria criteria);
     }
 }

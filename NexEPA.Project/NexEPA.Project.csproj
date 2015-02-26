@@ -62,6 +62,7 @@
     <Compile Include="Criteria\Milestone\UpdateMilestoneCriteria.cs" />
     <Compile Include="Criteria\Project\UpdateProjectCriteria.cs" />
     <Compile Include="Criteria\Project\UpdateProjectStatusCriteria.cs" />
+    <Compile Include="Models\RedmineProjectModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\MilestoneModel.cs" />

@@ -46,13 +46,19 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\GetRedmineTeamEffortCriteria.cs" />
     <Compile Include="Criteria\GetRedminePersonalEffortDetailCriteria.cs" />
     <Compile Include="Criteria\GetEmployeePerformanceByTeamCriteria.cs" />
     <Compile Include="Criteria\GetEmployeePerformanceTendencyReportCriteria.cs" />
     <Compile Include="Criteria\GetGeneralInformationOfCurrentEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetRedminePersonalEffortCriteria.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberProjectModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberSubTotalModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberWorkloadModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamEffortModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberWorkingDayModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamTotalEffortModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedminePersonalEffortDetailModel.cs" />
-    <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedminePersonalEffortModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectMonthModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectMonthSubTotalModel.cs" />
@@ -88,6 +94,7 @@
     <Compile Include="Services\Interface\IEmployeePerformanceTendencyService.cs" />
     <Compile Include="Services\Interface\IReportService.cs" />
     <Compile Include="ViewModels\HistoryProjectViewModel.cs" />
+    <Compile Include="ViewModels\RedmineTeamEffortViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">

@@ -20,6 +20,16 @@ employeeModule.factory('employeeRepository', ['$http', function ($http) {
 		},
 		getEmployeeInDepartment: function (departmentId) {
 			return $http.get('/api/Employee/GetEmployeeInDepartment', { params: { departmentId: departmentId} });
+		},
+		getEmployeeByTeamProject: function (fromDate, toDate, groupId, projectId) {
+			return $http.get('/api/Employee/GetEmployeeByTeamProject', {
+				params: {
+					fromDate: fromDate.toDateString(),
+					toDate: toDate.toDateString(),
+					groupId: groupId ? groupId : '',
+					projectId: projectId ? projectId : ''
+				}
+			});
 		}
 	};
 } ]);

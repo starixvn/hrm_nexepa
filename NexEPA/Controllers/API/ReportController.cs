@@ -96,6 +96,30 @@ namespace NexEPA.Controllers.API
         }
 
         /// <summary>
+        /// Gets the redmine team effort.
+        /// </summary>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <param name="nickNames">The nick names is a collection of nick name separated by comma.</param>
+        /// <returns>RedmineTeamEffortViewModel data.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamReport, Policy = Policy.Read)]
+        public RedmineTeamEffortViewModel GetRedmineTeamEffort(
+            DateTime fromDate,
+            DateTime toDate,
+            string nickNames)
+        {
+            var criteria = new GetRedmineTeamEffortCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                NickName = nickNames
+            };
+
+            return _teamService.GetRedmineTeamEffort(criteria);
+        }
+
+        /// <summary>
         /// Gets the redmine project effort report.
         /// </summary>
         /// <param name="employeeId">The employee identifier.</param>

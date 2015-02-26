@@ -11,6 +11,7 @@ namespace NexEPA.Report.Services.Interface
 {
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.ViewModels;
 
     /// <summary>
     /// IEmployeePerformanceByTeamService interface.
@@ -18,5 +19,7 @@ namespace NexEPA.Report.Services.Interface
     public interface IEmployeePerformanceByTeamService
     {
         TeamPerformanceModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria);
+
+        RedmineTeamEffortViewModel GetRedmineTeamEffort(GetRedmineTeamEffortCriteria criteria);
     }
 }

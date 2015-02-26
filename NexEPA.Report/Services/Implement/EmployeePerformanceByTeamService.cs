@@ -14,11 +14,14 @@ namespace NexEPA.Report.Services.Implement
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
+    using NexEPA.Employee.Models;
+    using NexEPA.Project.Models;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Repositories.Implement;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.Services.Interface;
+    using NexEPA.Report.ViewModels;
 
     /// <summary>
     /// EmployeePerformanceByTeamService class.
@@ -56,6 +59,58 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return teamReport;
+        }
+
+        /// <summary>
+        /// Gets the redmine team effort.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>RedmineTeamEffortViewModel data.</returns>
+        public RedmineTeamEffortViewModel GetRedmineTeamEffort(GetRedmineTeamEffortCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var reportData = new RedmineTeamEffortViewModel();
+
+            if (criteria.IsValid())
+            {
+                reportData = _repository.GetRedmineTeamEffort(criteria);
+                reportData.MemberProjects = GetDistinctMemberProjects(reportData.MemberProjects, reportData.TeamEfforts);
+                reportData.GrandTotalEffort = reportData.TeamEfforts.Sum(te => te.SpentTime);
+            }
+
+            return reportData;
+        }
+
+        /// <summary>
+        /// Gets the distinct member projects.
+        /// </summary>
+        /// <param name="memberProjects">The member projects.</param>
+        /// <param name="teamEfforts">The team efforts.</param>
+        /// <returns>RedmineMemberProjectModel collection.</returns>
+        private List<RedmineMemberProjectModel> GetDistinctMemberProjects(
+            IEnumerable<RedmineMemberProjectModel> memberProjects,
+            IEnumerable<RedmineTeamEffortModel> teamEfforts)
+        {
+            var result = memberProjects.GroupBy(m => new { m.Employee.NickName, m.Employee.FullName })
+                .Select(m => new RedmineMemberProjectModel
+                {
+                    Employee = new RedmineEmployeeModel
+                    {
+                        NickName = m.Key.NickName,
+                        FullName = m.Key.FullName
+                    },
+                    Projects = memberProjects.Where(p => p.Employee.NickName == m.Key.NickName)
+                                .Select(p => new RedmineProjectModel
+                                {
+                                    ProjectId = p.Project.ProjectId,
+                                    ProjectName = p.Project.ProjectName,
+                                    TotalSpentTimeOfAllMonths = teamEfforts.Where(
+                                                        te => te.Employee.NickName == m.Key.NickName
+                                                        && te.Project.ProjectId == p.Project.ProjectId).Sum(te => te.SpentTime)
+                                }).ToList()
+                });
+
+            return result.ToList();
         }
 
         /// <summary>

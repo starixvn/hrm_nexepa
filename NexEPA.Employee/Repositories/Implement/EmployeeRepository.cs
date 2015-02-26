@@ -82,5 +82,18 @@ namespace NexEPA.Employee.Repositories.Implement
                     criteria.GetSpParams());
             }
         }
+
+        /// <summary>
+        /// Gets the employee by team project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>EmployeeModel collection.</returns>
+        public IEnumerable<EmployeeModel> GetEmployeeByTeamProject(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<EmployeeModel>(criteria.GetSpParams());
+            }
+        }
     }
 }

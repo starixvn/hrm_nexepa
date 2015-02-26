@@ -10,6 +10,7 @@
 namespace NexEPA.Report.ViewModels
 {
     using System.Collections.Generic;
+    using NexEPA.Project.Models;
     using NexEPA.Report.Models.EmployeePerformanceTendency;
 
     /// <summary>

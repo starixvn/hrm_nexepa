@@ -183,5 +183,23 @@ namespace NexEPA.Employee.Services.Implement
 
             return employees;
         }
+
+        /// <summary>
+        /// Gets the employee by team project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>EmployeeModel collection.</returns>
+        public IEnumerable<EmployeeModel> GetEmployeeByTeamProject(GetEmployeeByTeamProjectCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeModel> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = _employeeRepository.GetEmployeeByTeamProject(criteria);
+            }
+
+            return employees;
+        }
     }
 }

@@ -13,7 +13,6 @@ namespace NexEPA.Report.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
-    using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;

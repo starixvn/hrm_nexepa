@@ -53,7 +53,9 @@
     <Compile Include="Criteria\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByProjectIdCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeByRoleCriteria.cs" />
+    <Compile Include="Criteria\GetEmployeeByTeamProjectCriteria.cs" />
     <Compile Include="Models\EmployeeDepartmentModel.cs" />
+    <Compile Include="Models\RedmineEmployeeModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\CoreEPAModel.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>

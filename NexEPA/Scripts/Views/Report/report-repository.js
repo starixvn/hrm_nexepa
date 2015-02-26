@@ -39,6 +39,15 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					toDate: toDate.toDateString()
 				}
 			});
+		},
+		getRedmineTeamEffort: function (fromDate, toDate, nickNames) {
+			return $http.get('/api/Report/GetRedmineTeamEffort', {
+				params: {
+					fromDate: fromDate.toDateString(),
+					toDate: toDate.toDateString(),
+					nickNames: nickNames
+				}
+			});
 		}
 	};
 } ]);
