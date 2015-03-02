@@ -22,5 +22,11 @@ namespace NexEPA.Employee.Models
         public string NickName { get; set; }
 
         public string FullName { get; set; }
+
+        public decimal SubTotalSpentTime { get; set; }
+
+        public decimal SubTotalWorkingDay { get; set; }
+
+        public decimal SubTotalWorkload { get; set; }
     }
 }

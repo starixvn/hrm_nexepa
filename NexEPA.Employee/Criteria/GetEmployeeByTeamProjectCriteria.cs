@@ -17,11 +17,7 @@ namespace NexEPA.Employee.Criteria
     /// </summary>
     public class GetEmployeeByTeamProjectCriteria : CriteriaBase
     {
-        public int ActorUserId { get; set; }
-
-        public DateTime FromDate { get; set; }
-
-        public DateTime ToDate { get; set; }
+        public int ActorUserId { get; set; }      
 
         public int? GroupId { get; set; }
 
@@ -29,7 +25,7 @@ namespace NexEPA.Employee.Criteria
 
         public override bool IsValid()
         {
-            return ActorUserId > 0 && ToDate >= FromDate;
+            return ActorUserId > 0;
         }
 
         public override string GetSettingKey()

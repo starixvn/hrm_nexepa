@@ -218,6 +218,7 @@
     <Content Include="App_Data\SpNames.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\Common\angular-multi-select.css" />
     <Content Include="Content\Common\chosen.min.css" />
     <Content Include="Content\Common\Images\animated-overlay.gif" />
     <Content Include="Content\Common\chosen-sprite.png" />
@@ -290,6 +291,7 @@
     <Content Include="Scripts\Extensions\Common\notification-factory.js" />
     <Content Include="Scripts\Extensions\Filters\epa-filter.js" />
     <Content Include="Scripts\Extensions\Services\projectsetting-service.js" />
+    <Content Include="Scripts\Libs\angular-multi-select.js" />
     <Content Include="Scripts\Libs\angular.js" />
     <Content Include="Scripts\Libs\angular-resource.js" />
     <Content Include="Scripts\Libs\angular-route.js" />
@@ -370,6 +372,8 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
+    <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamByProjects.html" />
+    <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamEfforts.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffortDetail.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffortChart.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffort.html" />
@@ -525,7 +529,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51976</DevelopmentServerPort>
+          <DevelopmentServerPort>55570</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

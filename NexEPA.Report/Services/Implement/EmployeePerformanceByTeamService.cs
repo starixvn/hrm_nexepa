@@ -74,7 +74,10 @@ namespace NexEPA.Report.Services.Implement
             if (criteria.IsValid())
             {
                 reportData = _repository.GetRedmineTeamEffort(criteria);
-                reportData.MemberProjects = GetDistinctMemberProjects(reportData.MemberProjects, reportData.TeamEfforts);
+                reportData.MemberProjects = GetDistinctMemberProjects(reportData.MemberProjects);
+                reportData.SubTotalSpentTimeByMembers = GetSubTotalSpentTimeByMembers(reportData.MemberSubTotals);
+                reportData.SubTotalWorkingDayByMembers = GetSubTotalWorkingDayByMembers(reportData.MemberWorkingDays);
+                reportData.SubTotalWorkloadByMembers = CalculateSubTotalWorkloadByMembers(reportData.SubTotalSpentTimeByMembers, reportData.SubTotalWorkingDayByMembers);
                 reportData.GrandTotalEffort = reportData.TeamEfforts.Sum(te => te.SpentTime);
             }
 
@@ -82,31 +85,94 @@ namespace NexEPA.Report.Services.Implement
         }
 
         /// <summary>
+        /// Calculate sub total workload by members.
+        /// </summary>
+        /// <param name="subTotalSpentTimeByMembers">Collection sub total spent time by members.</param>
+        /// <param name="subTotalWorkingDayByMembers">Collection sub total working day by members.</param>
+        /// <returns>Collection sub total workload by members.</returns>
+        private IEnumerable<RedmineEmployeeModel> CalculateSubTotalWorkloadByMembers(
+            IEnumerable<RedmineEmployeeModel> subTotalSpentTimeByMembers,
+            IEnumerable<RedmineEmployeeModel> subTotalWorkingDayByMembers)
+        {
+            var result = new List<RedmineEmployeeModel>();
+
+            foreach (RedmineEmployeeModel workingDay in subTotalWorkingDayByMembers)
+            {
+                decimal? spentTime = subTotalSpentTimeByMembers.Where(st => st.NickName.ToUpperInvariant() == workingDay.NickName.ToUpperInvariant())
+                                    .Select(st => st.SubTotalSpentTime).FirstOrDefault();
+
+                var employee = new RedmineEmployeeModel
+                {
+                    NickName = workingDay.NickName,
+                    FullName = workingDay.FullName,
+                    SubTotalWorkload = workingDay.SubTotalWorkingDay == 0 ? 0 : ((spentTime ?? 0) / (8 * workingDay.SubTotalWorkingDay))
+                };
+
+                result.Add(employee);
+            }
+
+            return result.ToList();
+        }
+
+        /// <summary>
+        /// Gets the sub total working day by members.
+        /// </summary>
+        /// <param name="memberWorkingDays">The member working days.</param>
+        /// <returns>The sub total working day.</returns>
+        private IEnumerable<RedmineEmployeeModel> GetSubTotalWorkingDayByMembers(IEnumerable<RedmineMemberWorkingDayModel> memberWorkingDays)
+        {
+            var result = memberWorkingDays.GroupBy(s => new { s.Employee.NickName, s.Employee.FullName })
+                 .Select(s => new RedmineEmployeeModel
+                 {
+                     FullName = s.Key.FullName,
+                     NickName = s.Key.NickName,
+                     SubTotalWorkingDay = memberWorkingDays.Where(m => m.Employee.NickName == s.Key.NickName).Sum(m => m.WorkingDay)
+                 });
+
+            return result.ToList();
+        }
+
+        /// <summary>
+        /// Gets the sub total spent time by members.
+        /// </summary>
+        /// <param name="memberSubTotals">The member sub totals.</param>
+        /// <returns>The sub total spent time.</returns>
+        private List<RedmineEmployeeModel> GetSubTotalSpentTimeByMembers(IEnumerable<RedmineMemberSubTotalModel> memberSubTotals)
+        {
+            var result = memberSubTotals.GroupBy(s => new { s.Employee.NickName, s.Employee.FullName })
+                .Select(s => new RedmineEmployeeModel
+                {
+                    FullName = s.Key.FullName,
+                    NickName = s.Key.NickName,
+                    SubTotalSpentTime = memberSubTotals.Where(m => m.Employee.NickName == s.Key.NickName).Sum(m => m.SpentTime)
+                });
+
+            return result.ToList();
+        }
+
+        /// <summary>
         /// Gets the distinct member projects.
         /// </summary>
-        /// <param name="memberProjects">The member projects.</param>
-        /// <param name="teamEfforts">The team efforts.</param>
+        /// <param name="memberProjects">The member projects.</param>       
         /// <returns>RedmineMemberProjectModel collection.</returns>
-        private List<RedmineMemberProjectModel> GetDistinctMemberProjects(
-            IEnumerable<RedmineMemberProjectModel> memberProjects,
-            IEnumerable<RedmineTeamEffortModel> teamEfforts)
+        private List<RedmineMemberProjectModel> GetDistinctMemberProjects(IEnumerable<RedmineMemberProjectModel> memberProjects)
         {
+            var index = 1;
             var result = memberProjects.GroupBy(m => new { m.Employee.NickName, m.Employee.FullName })
                 .Select(m => new RedmineMemberProjectModel
                 {
+                    Index = index++,
                     Employee = new RedmineEmployeeModel
                     {
                         NickName = m.Key.NickName,
                         FullName = m.Key.FullName
                     },
-                    Projects = memberProjects.Where(p => p.Employee.NickName == m.Key.NickName)
+                    Projects = memberProjects.Where(p => p.Employee.NickName == m.Key.NickName && p.Project != null)
                                 .Select(p => new RedmineProjectModel
                                 {
                                     ProjectId = p.Project.ProjectId,
                                     ProjectName = p.Project.ProjectName,
-                                    TotalSpentTimeOfAllMonths = teamEfforts.Where(
-                                                        te => te.Employee.NickName == m.Key.NickName
-                                                        && te.Project.ProjectId == p.Project.ProjectId).Sum(te => te.SpentTime)
+                                    TotalSpentTimeOfAllMonths = p.SubTotal
                                 }).ToList()
                 });
 

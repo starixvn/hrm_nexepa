@@ -158,7 +158,7 @@ namespace NexEPA.Report.Repositories.Implement
 
                     return s;
                 },
-                "Year,SubTotal");
+                "Year,SpentTime");
             return memberSubTotals;
         }
 
@@ -173,12 +173,17 @@ namespace NexEPA.Report.Repositories.Implement
                 multi.Read<RedmineEmployeeModel, RedmineProjectModel, RedmineMemberProjectModel, RedmineMemberProjectModel>(
                 (e, p, m) =>
                 {
+                    if (m == null)
+                    {
+                        m = new RedmineMemberProjectModel();
+                    }
+
                     m.Employee = e;
                     m.Project = p;
 
                     return m;
                 },
-                "ProjectId");
+                "ProjectId,SubTotal");
             return memberProjects;
         }
 

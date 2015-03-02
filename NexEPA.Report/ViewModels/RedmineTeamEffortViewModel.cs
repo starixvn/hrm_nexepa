@@ -11,6 +11,7 @@ namespace NexEPA.Report.ViewModels
 {
     using System.Collections.Generic;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
     using NexEPA.Report.Models.EmployeePerformanceByTeam;
 
     /// <summary>
@@ -26,9 +27,15 @@ namespace NexEPA.Report.ViewModels
 
         public IEnumerable<RedmineMemberSubTotalModel> MemberSubTotals { get; set; }
 
+        public IEnumerable<RedmineEmployeeModel> SubTotalSpentTimeByMembers { get; set; }
+
         public IEnumerable<RedmineMemberWorkingDayModel> MemberWorkingDays { get; set; }
 
+        public IEnumerable<RedmineEmployeeModel> SubTotalWorkingDayByMembers { get; set; }
+
         public IEnumerable<RedmineMemberWorkloadModel> MemberWorkloads { get; set; }
+
+        public IEnumerable<RedmineEmployeeModel> SubTotalWorkloadByMembers { get; set; }
 
         public IEnumerable<RedmineTeamTotalEffortModel> TotalEfforts { get; set; }
 

@@ -65,20 +65,20 @@ namespace NexEPA.Controllers.API
         }
 
         /// <summary>
-        /// Get employee performance by team report.
+        /// Gets the employee performance by team report.
         /// </summary>
-        /// <param name="fromDate">The From Date.</param>
-        /// <param name="toDate">The To Date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="projectId">The project ID.</param>
-        /// <returns>The Report Employee Performance By Team Model.</returns>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <param name="nickNames">The nick names.</param>
+        /// <param name="groupId">The group identifier.</param>
+        /// <param name="projectId">The project identifier.</param>
+        /// <returns>The employee performance by team report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamReport, Policy = Policy.Read)]
         public TeamPerformanceModel GetEmployeePerformanceByTeamReport(
             DateTime fromDate,
             DateTime toDate,
-            int? employeeId = null,
+            string nickNames = null,
             int? groupId = null,
             int? projectId = null)
         {
@@ -87,7 +87,7 @@ namespace NexEPA.Controllers.API
                 ActorUserId = this.CurrentUser.UserId,
                 FromDate = fromDate,
                 ToDate = toDate,
-                EmployeeId = employeeId,
+                NickNames = nickNames,
                 GroupId = groupId,
                 ProjectId = projectId
             };

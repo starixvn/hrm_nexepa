@@ -133,9 +133,9 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 				return false;
 			});
 			// take care of the sorting order
-//			if ($scope.sort.sortingOrder !== '') {
-//				$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
-//			}
+			//			if ($scope.sort.sortingOrder !== '') {
+			//				$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+			//			}
 			$scope.currentPage = 0;
 			// now group by pages
 			$scope.groupToPages();
@@ -234,6 +234,29 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		});
 
 		return options;
+	};
+
+	common.getNickNames = function (data) {
+		var selectedNickNames = [],
+			allNickNames = [];
+
+		angular.forEach(data, function (item) {
+			if (item.ticked) {
+				selectedNickNames.push(item.nickName);
+			}
+
+			allNickNames.push(item.nickName);
+		});
+
+		var result = null;
+
+		if (selectedNickNames.length > 0) {
+			result = selectedNickNames.join(',');
+		} else if (allNickNames.length > 0) {
+			result = allNickNames.join(',');
+		}
+
+		return result;
 	};
 
 	return common;

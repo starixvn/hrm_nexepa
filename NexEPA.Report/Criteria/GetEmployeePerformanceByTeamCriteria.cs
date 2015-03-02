@@ -23,7 +23,7 @@ namespace NexEPA.Report.Criteria
 
         public DateTime ToDate { get; set; }
 
-        public int? EmployeeId { get; set; }
+        public string NickNames { get; set; }
 
         public int? GroupId { get; set; }
 
@@ -31,7 +31,7 @@ namespace NexEPA.Report.Criteria
 
         public override bool IsValid()
         {
-            return FromDate <= ToDate;
+            return FromDate <= ToDate && !string.IsNullOrEmpty(NickNames);
         }
 
         public override string GetSettingKey()

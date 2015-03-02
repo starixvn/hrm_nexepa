@@ -167,15 +167,17 @@
         }
     }
 
-	.team-report-submit {
-		margin-top: 10px !important;
-		margin-left: 15px !important;
+	.team-report{
+		.first-filter{
+			margin-left:15px;
+		}
+		.team-report-submit {
+			margin-top: 10px !important;
+			margin-left: 15px !important;
+		}
 	}
 
-	.person-report{
-		.row-filter{
-			padding-right: 24px;
-		}
+	.person-report{		
 		.default-column {	
 			.report-left;		
 			width: 10%;			
@@ -203,6 +205,10 @@
 		max-width:1280px;
 	}
 
+	.row-filter{
+		padding-right: 26px;
+	}
+
 	.date-box {
 		.form-control {
 			width: 80%;
@@ -217,6 +223,44 @@
 	
 	.col-sm-1{
 		padding-right: 5px;		
+	}
+	
+	/* Multi select control */
+	.multiSelect { 
+		.multiSelectButton {
+		  text-align: left;
+		  position: relative;
+		  width: 100%;
+		}
+		.multiSelectButton .caret {
+		  position: absolute;
+		  top: 10px;
+		  right: 5px;
+		}
+		.checkboxLayer {
+		  min-width: 180px;
+		  .acol {
+			label{
+				height:22px;
+			}
+		  }
+		}
+		.multiSelectItem {
+		  min-width: 180px;
+		}	
+		.checkboxLayer.show {
+			max-height: 300px;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+	}
+	.common-form input[type="checkbox"]{
+		position: absolute;
+		top: 0;
+	}
+	
+	.filter .form-group input[type="checkbox"]{
+		position: absolute;
+		top: 0;
 	}	
-
 }

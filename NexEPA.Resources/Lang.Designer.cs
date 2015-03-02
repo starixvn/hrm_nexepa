@@ -1276,6 +1276,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member.
+        /// </summary>
+        public static string Member {
+            get {
+                return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member EPA.
         /// </summary>
         public static string MemberEPA {
@@ -1380,6 +1389,15 @@ namespace NexEPA.Resources {
         public static string NickName {
             get {
                 return ResourceManager.GetString("NickName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- None --.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
@@ -2131,6 +2149,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Team effort.
+        /// </summary>
+        public static string TeamEffort {
+            get {
+                return ResourceManager.GetString("TeamEffort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Team Member.
         /// </summary>
         public static string TeamMember {
@@ -2298,6 +2325,15 @@ namespace NexEPA.Resources {
         public static string WorkingDay {
             get {
                 return ResourceManager.GetString("WorkingDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workload.
+        /// </summary>
+        public static string Workload {
+            get {
+                return ResourceManager.GetString("Workload", resourceCulture);
             }
         }
         

@@ -582,3 +582,16 @@ registrationModule.directive('highChart', ['$timeout', function ($timeout) {
 		}
 	};
 } ]);
+
+// remove class button, add class form-control to multi-select
+registrationModule.directive('addClassToRoleFilter', ['$compile', function ($compile) {
+	return {
+		restrict: 'E',
+		link: function (scope, iElement) {
+			var button = iElement.find("button.multiSelectButton");
+
+			button.removeClass('button').addClass('form-control');
+			$compile(button)(scope);
+		}
+	};
+} ]);

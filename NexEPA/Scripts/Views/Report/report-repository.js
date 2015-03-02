@@ -12,15 +12,16 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				}
 			});
 		},
-		getEmployeePerformanceByTeamReport: function (filter, fromDate, toDate, employeeId) {
-			return $http.get('/api/Report/GetEmployeePerformanceByTeamReport',
-				{ params: { fromDate: fromDate,
-					toDate: toDate,
-					employeeId: employeeId,
-					groupId: filter.groupId,
-					projectId: filter.projectId
+		getEmployeePerformanceByTeamReport: function (filter) {
+			return $http.get('/api/Report/GetEmployeePerformanceByTeamReport', {
+				params: {
+					fromDate: filter.fromDate.toDateString(),
+					toDate: filter.toDate.toDateString(),
+					nickNames: filter.nickNames,
+					groupId: filter.groupId ? filter.groupId : '',
+					projectId: filter.projectId ? filter.projectId : ''
 				}
-				});
+			});
 		},
 		getRedminePersonalEffort: function (employeeId, fromDate, toDate) {
 			return $http.get('/api/Report/GetRedminePersonalEffort', {
@@ -40,12 +41,12 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				}
 			});
 		},
-		getRedmineTeamEffort: function (fromDate, toDate, nickNames) {
+		getRedmineTeamEffort: function (filter) {
 			return $http.get('/api/Report/GetRedmineTeamEffort', {
 				params: {
-					fromDate: fromDate.toDateString(),
-					toDate: toDate.toDateString(),
-					nickNames: nickNames
+					fromDate: filter.fromDate.toDateString(),
+					toDate: filter.toDate.toDateString(),
+					nickNames: filter.nickNames
 				}
 			});
 		}

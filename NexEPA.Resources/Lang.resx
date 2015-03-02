@@ -867,4 +867,16 @@
   <data name="Sum" xml:space="preserve">
     <value>Sum</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>-- None --</value>
+  </data>
+  <data name="TeamEffort" xml:space="preserve">
+    <value>Team effort</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Workload" xml:space="preserve">
+    <value>Workload</value>
+  </data>
 </root>

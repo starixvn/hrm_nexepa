@@ -1,0 +1,48 @@
+﻿<div class="row common-form container-content" data-ng-show="reportByProjects !== ''">
+	<div class="row boxtitle first" ng-click="collapseTable('project')">
+		<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;<span
+			class="home-label" data-translate="ByProject"></span>
+	</div>
+	<div class="row " collapse="isProjectCollapsed">
+		<table class="table table-bordered table-striped home-table">
+			<thead>
+				<th data-translate="SymbolCount">
+				</th>
+				<th data-translate="TeamMember">
+				</th>
+				<th data-translate="Team">
+				</th>
+				<th data-translate="ProjectCount">
+				</th>
+				<th data-translate="EPACount">
+				</th>
+				<th data-translate="JoinedDate">
+				</th>
+				<th data-translate="AverageScore">
+				</th>
+			</thead>
+			<tr ng-repeat="employee in reportByProjects">
+				<td class="home-index" ng-bind="$index + 1">
+				</td>
+				<td>
+					<a ng-bind="employee.nickName + ' - ' + employee.fullName" href="" ng-click="viewEmployeeTendency(employee.employeeId)"
+						ng-href="{{viewEmployeeTendencyUrl}}" />
+				</td>
+				<td ng-bind="employee.group.name">
+				</td>
+				<td class="report-project-count" ng-bind="employee.projectCount">
+				</td>
+				<td class="report-epa-count" ng-bind="employee.epaCount">
+				</td>
+				<td class="report-joined-date" ng-bind="employee.joinedDate | customDate">
+				</td>
+				<td class="report-average-score" ng-bind="employee.averageScore | customNumber">
+				</td>
+			</tr>
+			<tr ng-show="reportByProjects.length === 0">
+				<td class="empty-result" colspan="7" data-translate="EmptyResult">
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

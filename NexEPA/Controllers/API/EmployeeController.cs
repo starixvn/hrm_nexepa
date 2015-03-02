@@ -152,23 +152,17 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Gets the employee by team project.
         /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <param name="toDate">The To date.</param>
         /// <param name="groupId">The group identifier.</param>
         /// <param name="projectId">The project identifier.</param>
-        /// <returns>EmployeeModel collection.</returns>
+        /// <returns>The employee by team project.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
-        public IEnumerable<EmployeeModel> GetEmployeeByTeamProject(
-            DateTime fromDate,
-            DateTime toDate,
+        public IEnumerable<EmployeeModel> GetEmployeeByTeamProject(           
             int? groupId,
             int? projectId)
         {
             var criteria = new GetEmployeeByTeamProjectCriteria
             {
-                ActorUserId = CurrentUser.UserId,
-                FromDate = fromDate,
-                ToDate = toDate,
+                ActorUserId = CurrentUser.UserId,               
                 GroupId = groupId,
                 ProjectId = projectId
             };

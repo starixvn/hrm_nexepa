@@ -21,6 +21,6 @@ namespace NexEPA.Report.Models.EmployeePerformanceByTeam
 
         public RedmineYearMonthModel YearMonth { get; set; }
 
-        public decimal SubTotal { get; set; }
+        public decimal SpentTime { get; set; }        
     }
 }

@@ -18,6 +18,10 @@ namespace NexEPA.Report.Models.EmployeePerformanceByTeam
     /// </summary>
     public class RedmineMemberProjectModel
     {
+        public decimal SubTotal { get; set; }
+
+        public int Index { get; set; }
+
         public RedmineEmployeeModel Employee { get; set; }
 
         public RedmineProjectModel Project { get; set; }

@@ -29,6 +29,7 @@ namespace NexEPA
                 "~/Content/Common/toastr.css",
                 "~/Content/Common/bootstrap.css",
                 "~/Content/Common/bootstrap-theme.css",
+                "~/Content/Common/angular-multi-select.css",
                 "~/Content/Common/jquery-ui-1.10.4.custom.min.css",
                 "~/Content/Common/chosen.min.css"));
 
@@ -55,6 +56,7 @@ namespace NexEPA
                 "~/Scripts/Libs/bootstrap.js",
                 "~/Scripts/Libs/angular.js",
                 "~/Scripts/Libs/ui-bootstrap-tpls-0.10.0.js",
+                "~/Scripts/Libs/angular-multi-select.js",
                 "~/Scripts/Libs/angular-resource.js",
                 "~/Scripts/Libs/angular-route.js",
                 "~/Scripts/Libs/toastr.js",
