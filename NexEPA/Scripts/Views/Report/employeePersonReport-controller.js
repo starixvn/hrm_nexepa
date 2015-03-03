@@ -54,7 +54,8 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 
 		$scope.chart = {
 			xAxis: {},
-			series: null
+			series: null,
+			reRender: false
 		};
 
 		$scope.filter = {
@@ -81,7 +82,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 			$scope.toOpened = true;
 			$scope.fromOpened = false;
 		}
-	};	
+	};
 
 	$scope.getReportData = function () {
 		self.checkRightToViewPersonReportOfEmployee(function () {
@@ -114,7 +115,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 			case "effortChart":
 				$scope.isEffortChartCollapsed = !$scope.isEffortChartCollapsed;
 				if (!$scope.isEffortChartCollapsed) {
-					$scope.$broadcast('renderHighChart');
+					$scope.chart.reRender = true;
 				}
 				break;
 			case "effortDetail":
@@ -316,7 +317,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		} else {
 			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + queryString;
 		}
-	};	
+	};
 
 	/*
 	|| Personal effort panel
@@ -352,8 +353,6 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		if ($scope.personalEfforts.data) {
 			self.generateXAxis();
 			self.generateSeries();
-
-			$scope.$broadcast('renderHighChart');
 		}
 	};
 
@@ -512,7 +511,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		if (data.length > 0) {
 			return data[0].workload;
 		}
-	};	
+	};
 
 	self.getPersonalEffortDetails = function (employeeId) {
 		if (employeeId) {
