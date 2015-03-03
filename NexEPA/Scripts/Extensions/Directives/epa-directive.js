@@ -545,7 +545,39 @@ registrationModule.directive('bindHtmlUnsafe', function ($compile) {
 	};
 });
 
-registrationModule.directive('highChart', ['$timeout', function ($timeout) {
+registrationModule.directive('highChart', function () {
+	/*jshint ignore:start */
+	// Highcharts is the javascript chart library.
+	var renderChart = function (scope, element) {		
+		var chartOptions = {
+			chart: {
+				type: scope.chartType,
+				renderTo: element,
+				events: {
+					load: scope.onLoad
+				}
+			},
+			title: {
+				text: scope.chartTitle ? scope.chartTitle : ''
+			},
+			xAxis: scope.xAxis,
+			yAxis: {
+				min: 0,
+				title: {
+					text: scope.yTitle ? scope.yTitle : ''
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			series: scope.series
+		};
+		
+		var chart = new Highcharts.Chart(chartOptions);	
+
+		return chart;
+	};	
+
 	return {
 		restrict: "A",
 		scope: {
@@ -553,35 +585,27 @@ registrationModule.directive('highChart', ['$timeout', function ($timeout) {
 			chartTitle: "@",
 			yTitle: "@",
 			xAxis: "=",
-			series: "="
+			series: "=",
+			reRender: "=",
+			onLoad: "&"
 		},
 		link: function ($scope, iElement) {
-			$scope.$on('renderHighChart', function () {
-				$timeout(function () {
-					$(iElement).highcharts({
-						chart: {
-							type: $scope.chartType
-						},
-						title: {
-							text: $scope.chartTitle ? $scope.chartTitle : ''
-						},
-						xAxis: $scope.xAxis,
-						yAxis: {
-							min: 0,
-							title: {
-								text: $scope.yTitle ? $scope.yTitle : ''
-							}
-						},
-						credits: {
-							enabled: false
-						},
-						series: $scope.series
-					});
-				}, 0);
+			$scope.$watch('series', function (newSeries) {
+				if (newSeries) {
+					renderChart($scope, iElement[0]);
+				}
+			});
+
+			$scope.$watch('reRender', function (value) {
+				if (value) {
+					renderChart($scope, iElement[0]);
+					$scope.reRender = false;
+				}
 			});
 		}
 	};
-} ]);
+	/*jshint ignore:end */
+});
 
 // remove class button, add class form-control to multi-select
 registrationModule.directive('addClassToRoleFilter', ['$compile', function ($compile) {

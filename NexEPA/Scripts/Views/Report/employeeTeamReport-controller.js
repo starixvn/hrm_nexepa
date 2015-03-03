@@ -3,9 +3,9 @@
 
 reportModule.controller('ViewEmployeePerformanceByTeamController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
-'employeeEPAFactory', 'ErrorService',
+'employeeEPAFactory', 'ErrorService', '$timeout',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
-employeeEPAFactory, ErrorService) {
+employeeEPAFactory, ErrorService, $timeout) {
 	/*
 	|| Variables	
 	*/
@@ -30,18 +30,30 @@ employeeEPAFactory, ErrorService) {
 	$scope.projects = [];
 	$scope.groups = [];
 
-	$scope.reportByProjects = '';
-
 	$scope.calendar = {
 		startDateOpened: false,
 		endDateOpened: false
 	};
+
+	$scope.teamChart = {
+		xAxis: {},
+		series: null,
+		reRender: false
+	};
+	$scope.personalChart = {
+		xAxis: {},
+		series: null,
+		reRender: false
+	};
+	$scope.personalSeries = [];
+	$scope.personalChartTitle = "Personal effort";
 
 	$scope.isProjectCollapsed = true;
 	$scope.isTeamCollapsed = true;
 	$scope.isTeamChartCollapsed = true;
 	$scope.isPersonalChartCollapsed = true;
 
+	$scope.reportByProjects = '';
 	$scope.teamEfforts = {
 		data: '',
 		memberProjects: '',
@@ -78,13 +90,13 @@ employeeEPAFactory, ErrorService) {
 			case "teamChart":
 				$scope.isTeamChartCollapsed = !$scope.isTeamChartCollapsed;
 				if (!$scope.isTeamChartCollapsed) {
-					$scope.$broadcast('renderHighChart');
+					$scope.teamChart.reRender = true;
 				}
 				break;
 			case "personalChart":
 				$scope.isPersonalChartCollapsed = !$scope.isPersonalChartCollapsed;
 				if (!$scope.isPersonalChartCollapsed) {
-					$scope.$broadcast('renderHighChart');
+					$scope.personalChart.reRender = true;
 				}
 				break;
 		}
@@ -106,6 +118,38 @@ employeeEPAFactory, ErrorService) {
 		self.getAllGroup();
 
 		self.getAllProject();
+	};
+
+	self.validateFilterOptions = function () {
+		var isValid = true;
+
+		if (!$scope.filter.fromDate) {
+			isValid = false;
+			notificationFactory.error("FromRequire");
+		} else if (!$scope.filter.toDate) {
+			isValid = false;
+			notificationFactory.error("ToRequire");
+		} else {
+			var fromDate = new Date($scope.filter.fromDate.toDateString());
+			var toDate = new Date($scope.filter.toDate.toDateString());
+			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
+
+			if (fromDate > toDate) {
+				isValid = false;
+				notificationFactory.error("ValidateFromToDate");
+			}
+			else if (toDate > maxDate) {
+				isValid = false;
+				notificationFactory.error("ValidateMaximumOneYear");
+			}
+		}
+
+		if (isValid && !$scope.filter.groupId && !$scope.filter.projectId) {
+			isValid = false;
+			notificationFactory.error("TeamOrProjectRequire");
+		}
+
+		return isValid;
 	};
 
 	/*
@@ -141,26 +185,31 @@ employeeEPAFactory, ErrorService) {
 	};
 
 	$scope.getReportData = function () {
-		$scope.filter.nickNames = commonFactory.getNickNames($scope.employees);
+		var isValid = self.validateFilterOptions();
 
-		if ($scope.filter.nickNames) {
-			self.getEmployeePerformanceByTeamReport();
+		if (isValid) {
+			$scope.filter.nickNames = commonFactory.getNickNames($scope.employees);
 
-			self.getRedmineTeamEffort();
-		} else {
-			$scope.reportByProjects = [];
+			if ($scope.filter.nickNames) {
+				self.getEmployeePerformanceByTeamReport();
 
-			$scope.teamEfforts.data = [];
-			$scope.teamEfforts.memberProjects = [];
-			$scope.teamEfforts.yearMonths = [];
-			$scope.teamEfforts.memberSubTotals = [];
-			$scope.teamEfforts.memberWorkingDays = [];
-			$scope.teamEfforts.memberWorkloads = [];
-			$scope.teamEfforts.totalEfforts = [];
-			$scope.teamEfforts.grandTotalEffort = null;
-			$scope.teamEfforts.subTotalSpentTimeByMembers = [];
-			$scope.teamEfforts.subTotalWorkingDayByMembers = [];
-			$scope.teamEfforts.subTotalWorkloadByMembers = [];
+				self.getRedmineTeamEffort();
+			} else {
+				$scope.personalChartTitle = "Member's effort";
+				$scope.reportByProjects = [];
+
+				$scope.teamEfforts.data = [];
+				$scope.teamEfforts.memberProjects = [];
+				$scope.teamEfforts.yearMonths = [];
+				$scope.teamEfforts.memberSubTotals = [];
+				$scope.teamEfforts.memberWorkingDays = [];
+				$scope.teamEfforts.memberWorkloads = [];
+				$scope.teamEfforts.totalEfforts = [];
+				$scope.teamEfforts.grandTotalEffort = null;
+				$scope.teamEfforts.subTotalSpentTimeByMembers = [];
+				$scope.teamEfforts.subTotalWorkingDayByMembers = [];
+				$scope.teamEfforts.subTotalWorkloadByMembers = [];
+			}
 		}
 	};
 
@@ -201,6 +250,8 @@ employeeEPAFactory, ErrorService) {
 				$scope.teamEfforts.subTotalWorkloadByMembers = report.subTotalWorkloadByMembers;
 				$scope.teamEfforts.totalEfforts = report.totalEfforts;
 				$scope.teamEfforts.grandTotalEffort = report.grandTotalEffort;
+
+				self.processChartData();
 			}
 		}).error(function (response, status) {
 			if (status === 405) {
@@ -294,6 +345,95 @@ employeeEPAFactory, ErrorService) {
 		if (data.length > 0) {
 			return data[0].total;
 		}
+	};
+
+	/*
+	|| Team Effort Chart region
+	*/
+	self.processChartData = function () {
+		if ($scope.teamEfforts.data) {
+			self.generateXAxis();
+			self.generateTeamSeries();
+			self.generatePersonalSeries();
+		}
+	};
+
+	self.generateTeamSeries = function () {
+		var series = [];
+		angular.forEach($scope.teamEfforts.memberProjects, function (member) {
+			var data = [];
+			angular.forEach($scope.teamEfforts.yearMonths, function (month) {
+				var spentTime = $scope.getSubTotalByMonth(member.employee.nickName, month.year, month.month);
+				data.push(spentTime ? spentTime : 0);
+			});
+
+			series.push({
+				name: member.employee.fullName,
+				data: data
+			});
+		});
+
+		$scope.teamChart.series = series;
+	};
+
+	/*
+	|| Personal Effort Chart region
+	*/
+	self.generatePersonalSeries = function () {
+		if ($scope.teamEfforts.memberProjects.length > 0) {
+			angular.forEach($scope.teamEfforts.memberProjects, function (member) {
+				var series = [],
+				nickName = angular.lowercase(member.employee.nickName);
+
+				angular.forEach(member.projects, function (project) {
+					var data = [];
+					angular.forEach($scope.teamEfforts.yearMonths, function (month) {
+						var spentTime = $scope.getSpentTimeByMonth(nickName, project.projectId, month.year, month.month);
+						data.push(spentTime ? spentTime : 0);
+					});
+
+					series.push({
+						name: project.projectName,
+						data: data
+					});
+				});
+
+				$scope.personalSeries[nickName] = series;
+			});
+
+			var member = $scope.teamEfforts.memberProjects[0];
+			self.getPersonalChartData(member.employee.nickName, member.employee.fullName);
+		}
+	};
+
+	$scope.renderPersonalChart = function (nickName, fullName) {		
+		self.getPersonalChartData(nickName, fullName);
+		if ($scope.isPersonalChartCollapsed) {
+			$scope.collapseTable("personalChart");
+		}
+
+		$timeout(function () {
+			commonFactory.scrollToBottom();
+		}, 400);
+	};
+
+	self.getPersonalChartData = function (nickName, fullName) {
+		nickName = angular.lowercase(nickName);
+
+		$scope.personalChartTitle = fullName + "'s effort";
+		$scope.personalChart.series = $scope.personalSeries[nickName];
+	};
+
+	self.generateXAxis = function () {
+		var months = [];
+		angular.forEach($scope.teamEfforts.yearMonths, function (month) {
+			months.push(month.monthName);
+		});
+
+		var xAxis = { categories: months };
+
+		$scope.teamChart.xAxis = xAxis;
+		$scope.personalChart.xAxis = xAxis;
 	};
 
 	// Run first

@@ -259,6 +259,12 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		return result;
 	};
 
+	common.scrollToBottom = function () {
+		$('html, body').animate({
+			scrollTop: $(document).height() - $(window).height()
+		}, 1000, "easeOutQuint");
+	};
+
 	return common;
 } ]);
 

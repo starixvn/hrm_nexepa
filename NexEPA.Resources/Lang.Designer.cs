@@ -2149,7 +2149,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team effort.
+        ///   Looks up a localized string similar to Team&apos;s effort.
         /// </summary>
         public static string TeamEffort {
             get {
@@ -2163,6 +2163,15 @@ namespace NexEPA.Resources {
         public static string TeamMember {
             get {
                 return ResourceManager.GetString("TeamMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter Team or Project field!.
+        /// </summary>
+        public static string TeamOrProjectRequire {
+            get {
+                return ResourceManager.GetString("TeamOrProjectRequire", resourceCulture);
             }
         }
         

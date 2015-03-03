@@ -1,0 +1,16 @@
+﻿<div class="common-form container-content" data-ng-show="teamEfforts.data !== ''">
+	<div class="row boxtitle first" data-ng-click="collapseTable('personalChart')">
+		<div class="report-chart-icon pull-left" aria-hidden="true">
+		</div>
+		&nbsp;<span class="home-label" data-ng-bind="personalChartTitle"></span>
+	</div>
+	<div class="row" data-collapse="isPersonalChartCollapsed">
+		<div class="col-sm-12" data-high-chart data-chart-type="column" data-x-axis="personalChart.xAxis" data-re-render="personalChart.reRender"
+			data-series="personalChart.series" style="width: 97.6%; padding-left: 4px;" data-ng-show="teamEfforts.data != ''">
+		</div>
+		<div data-ng-show="teamEfforts.data.length == 0">
+			<p class="empty-result col-sm-12" data-translate="EmptyResult">
+			</p>
+		</div>
+	</div>
+</div>

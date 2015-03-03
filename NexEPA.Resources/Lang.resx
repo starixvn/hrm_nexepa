@@ -871,12 +871,15 @@
     <value>-- None --</value>
   </data>
   <data name="TeamEffort" xml:space="preserve">
-    <value>Team effort</value>
+    <value>Team's effort</value>
   </data>
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
   <data name="Workload" xml:space="preserve">
     <value>Workload</value>
+  </data>
+  <data name="TeamOrProjectRequire" xml:space="preserve">
+    <value>You must enter Team or Project field!</value>
   </data>
 </root>
