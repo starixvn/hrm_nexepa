@@ -46,7 +46,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		reRender: false
 	};
 	$scope.personalSeries = [];
-	$scope.personalChartTitle = "Personal effort";
+	$scope.personalChartTitle = "";
 	$scope.isSystemAdmin = false;
 
 	$scope.isProjectCollapsed = true;
@@ -481,7 +481,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		self.getPersonalChartData(nickName, fullName);
 
 		$timeout(function () {
-			commonFactory.scrollToBottom();
+			commonFactory.scrollToBottom(500);
 		}, 100);
 	};
 

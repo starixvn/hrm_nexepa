@@ -275,9 +275,9 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		return data;
 	};
 
-	common.scrollToBottom = function () {
+	common.scrollToBottom = function (additionalHeight) {
 		$('html, body').animate({
-			scrollTop: $(document).height() - $(window).height() + 500
+			scrollTop: $(document).height() - $(window).height() + (additionalHeight ? additionalHeight : 0)
 		}, 1400, "easeOutQuint");
 	};
 
