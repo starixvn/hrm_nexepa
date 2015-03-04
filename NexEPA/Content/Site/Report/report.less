@@ -65,28 +65,29 @@
 		}
 	}
 	
-	.tbody-striped tbody:nth-child(odd) td{
-		.report-even-row;
+	.tbody-striped{ 
+		tbody:nth-child(odd) td{
+			.report-even-row;
+		}
+		tbody:nth-child(even) td{
+			.report-odd-row;		
+		}
+		tbody.bg-total td{
+			.report-bg-total;
+		}
+		tbody tr.bg-workload td{
+			background-color: #F9F5DC;
+		}
+		tbody tr.bg-working-day td{
+			background-color: #C9EFD5;
+		}
+		tbody tr.bg-sub-total td{
+			background-color: #daeef3;
+		}
+		tbody tr.bg-grand-sub-total td{
+			background-color: #B4DDE7;
+		}
 	}
-	.tbody-striped tbody:nth-child(even) td{
-		.report-odd-row;		
-	}
-	.tbody-striped tbody.bg-total td{
-		.report-bg-total;
-	}
-	.tbody-striped tbody tr.bg-workload td{
-		background-color: #F9F5DC;
-	}
-	.tbody-striped tbody tr.bg-working-day td{
-		background-color: #C9EFD5;
-	}
-	.tbody-striped tbody tr.bg-sub-total td{
-		background-color: #daeef3;
-	}
-	.tbody-striped tbody tr.bg-grand-sub-total td{
-		background-color: #B4DDE7;
-	}
-
 	.report-chart-icon{
 		background: url(../images/chart.png) no-repeat;
 		width: 14px;
@@ -175,6 +176,15 @@
 			margin-top: 10px !important;
 			margin-left: 15px !important;
 		}
+		.common-form input[type="checkbox"]{
+			position: absolute;
+			top: 0;
+		}
+	
+		.filter .form-group input[type="checkbox"]{
+			position: absolute;
+			top: 0;
+		}
 	}
 
 	.person-report{		
@@ -189,15 +199,6 @@
 		.manager-column {	
 			.report-left;		
 			width: 11%;			
-		}
-		.div-effort-detail{
-			min-width: 95%;
-			overflow-x: auto;
-			margin: 10px;
-			.table{
-				margin: 0;
-				width: 99.8%;
-			}
 		}						
 	}
 
@@ -254,13 +255,15 @@
 			overflow-y: auto;
 		}
 	}
-	.common-form input[type="checkbox"]{
-		position: absolute;
-		top: 0;
-	}
 	
-	.filter .form-group input[type="checkbox"]{
-		position: absolute;
-		top: 0;
-	}	
+	.div-scroll{
+		min-width: 95%;
+		overflow-x: auto;
+		overflow-y: hidden;
+		margin: 10px;
+		.table{
+			margin: 0;
+			width: 99.8%;
+		}
+	}			
 }

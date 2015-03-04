@@ -259,10 +259,26 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		return result;
 	};
 
+	common.getSelectedItems = function (data) {
+		var selectedItems = [];
+
+		angular.forEach(data, function (item) {
+			if (item.ticked) {
+				selectedItems.push(item);
+			}
+		});
+
+		if (selectedItems.length > 0) {
+			return selectedItems;
+		}
+
+		return data;
+	};
+
 	common.scrollToBottom = function () {
 		$('html, body').animate({
-			scrollTop: $(document).height() - $(window).height()
-		}, 1000, "easeOutQuint");
+			scrollTop: $(document).height() - $(window).height() + 500
+		}, 1400, "easeOutQuint");
 	};
 
 	return common;

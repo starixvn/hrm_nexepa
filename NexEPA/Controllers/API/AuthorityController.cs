@@ -200,5 +200,15 @@ namespace NexEPA.Controllers.API
 
             return new { HasViewRight = hasViewRight };
         }
+
+        /// <summary>
+        /// Determines whether [is system admin].
+        /// </summary>
+        /// <returns>Return true if it's System Admin.</returns>
+        [HttpGet]
+        public bool IsSystemAdmin()
+        {
+            return CurrentUser.HasRole(1);
+        }
     }
 }

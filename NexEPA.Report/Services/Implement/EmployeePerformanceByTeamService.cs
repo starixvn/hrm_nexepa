@@ -196,7 +196,7 @@ namespace NexEPA.Report.Services.Implement
                                                                               FullName = groupMember.First().FullName,
                                                                               JoinedDate = groupMember.First().JoinedDate,
                                                                               Group = groupMember.First().Group,
-                                                                              ProjectCount = groupMember.Count(),
+                                                                              ProjectCount = groupMember.GroupBy(g => new { g.ProjectCount }).Count(),
                                                                               EPACount = groupMember.Count(),
                                                                               AverageScore = CalculateAverageScoreOfMember(groupMember)
                                                                           };

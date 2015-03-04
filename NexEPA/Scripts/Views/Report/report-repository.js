@@ -49,6 +49,9 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					nickNames: filter.nickNames
 				}
 			});
+		},
+		checkTheRightToViewTeamReport: function () {
+			return $http.get('/api/Report/CheckTheRightToViewTeamReport');
 		}
 	};
 } ]);

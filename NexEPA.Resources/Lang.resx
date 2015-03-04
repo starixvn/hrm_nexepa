@@ -879,6 +879,9 @@
   <data name="Workload" xml:space="preserve">
     <value>Workload</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>-- All --</value>
+  </data>
   <data name="TeamOrProjectRequire" xml:space="preserve">
     <value>You must enter Team or Project field!</value>
   </data>

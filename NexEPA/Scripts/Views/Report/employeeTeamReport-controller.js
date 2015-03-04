@@ -3,9 +3,9 @@
 
 reportModule.controller('ViewEmployeePerformanceByTeamController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
-'employeeEPAFactory', 'ErrorService', '$timeout',
+'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
-employeeEPAFactory, ErrorService, $timeout) {
+employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 	/*
 	|| Variables	
 	*/
@@ -47,6 +47,7 @@ employeeEPAFactory, ErrorService, $timeout) {
 	};
 	$scope.personalSeries = [];
 	$scope.personalChartTitle = "Personal effort";
+	$scope.isSystemAdmin = false;
 
 	$scope.isProjectCollapsed = true;
 	$scope.isTeamCollapsed = true;
@@ -115,9 +116,44 @@ employeeEPAFactory, ErrorService, $timeout) {
 	self.load = function () {
 		commonFactory.getDateFormat($scope);
 
-		self.getAllGroup();
+		self.checkTheRightToViewTeamReport(function () {
+			self.getAllGroup();
+			self.getAllProject();
 
-		self.getAllProject();
+			self.isSystemAdmin(function () {
+				$scope.getEmployee(function () {
+					if (!$scope.isSystemAdmin) {
+						self.getReportData();
+					}
+				});
+			});
+		});
+	};
+
+	self.checkTheRightToViewTeamReport = function (hasRightCallBack) {
+		reportFactory.checkTheRightToViewTeamReport().success(function () {
+			if (hasRightCallBack) {
+				hasRightCallBack();
+			}
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+		});
+	};
+
+	self.isSystemAdmin = function (callBack) {
+		authorityRepository.isSystemAdmin().success(function (result) {
+			$scope.isSystemAdmin = angular.fromJson(result);
+			if (callBack) {
+				callBack();
+			}
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
 	};
 
 	self.validateFilterOptions = function () {
@@ -144,30 +180,24 @@ employeeEPAFactory, ErrorService, $timeout) {
 			}
 		}
 
-		if (isValid && !$scope.filter.groupId && !$scope.filter.projectId) {
-			isValid = false;
-			notificationFactory.error("TeamOrProjectRequire");
-		}
-
 		return isValid;
 	};
 
 	/*
 	|| Filter region
 	*/
-	$scope.getEmployee = function () {
+	$scope.getEmployee = function (callBack) {
 		var groupId = $scope.filter.groupId;
 		var projectId = $scope.filter.projectId;
 
-		if (groupId || projectId) {
-			employeeRepository.getEmployeeByTeamProject(groupId, projectId).success(function (employees) {
-				$scope.employees = employees;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
-			});
-		} else {
-			$scope.employees = [];
-		}
+		employeeRepository.getEmployeeByTeamProject(groupId, projectId).success(function (employees) {
+			$scope.employees = employees;
+			if (callBack) {
+				callBack();
+			}
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
 	};
 
 	self.getAllProject = function () {
@@ -184,32 +214,70 @@ employeeEPAFactory, ErrorService, $timeout) {
 		});
 	};
 
-	$scope.getReportData = function () {
+	$scope.handleReportData = function () {
 		var isValid = self.validateFilterOptions();
 
 		if (isValid) {
-			$scope.filter.nickNames = commonFactory.getNickNames($scope.employees);
+			if ($scope.isSystemAdmin) {
+				var selectedEmployees = commonFactory.getSelectedItems($scope.employees);
 
-			if ($scope.filter.nickNames) {
-				self.getEmployeePerformanceByTeamReport();
-
-				self.getRedmineTeamEffort();
+				if (!$scope.filter.groupId && !$scope.filter.projectId && selectedEmployees.length === $scope.employees.length) {
+					// warning if show all employees
+					self.warningShowAllEmployees();
+				} else {
+					self.getReportData();
+				}
 			} else {
-				$scope.personalChartTitle = "Member's effort";
-				$scope.reportByProjects = [];
-
-				$scope.teamEfforts.data = [];
-				$scope.teamEfforts.memberProjects = [];
-				$scope.teamEfforts.yearMonths = [];
-				$scope.teamEfforts.memberSubTotals = [];
-				$scope.teamEfforts.memberWorkingDays = [];
-				$scope.teamEfforts.memberWorkloads = [];
-				$scope.teamEfforts.totalEfforts = [];
-				$scope.teamEfforts.grandTotalEffort = null;
-				$scope.teamEfforts.subTotalSpentTimeByMembers = [];
-				$scope.teamEfforts.subTotalWorkingDayByMembers = [];
-				$scope.teamEfforts.subTotalWorkloadByMembers = [];
+				self.getReportData();
 			}
+		}
+	};
+
+	self.warningShowAllEmployees = function () {
+		var warningModal = $modal.open({
+			templateUrl: '/templates/Common/modalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return 'all employees';
+				},
+				action: function () {
+					return 'view';
+				},
+				extraInfo: function () {
+					return 'This affects the performance.';
+				}
+			},
+			windowClass: "modal-confirm-center"
+		});
+
+		warningModal.result.then(function () {
+			self.getReportData();
+		});
+	};
+
+	self.getReportData = function () {
+		$scope.filter.nickNames = commonFactory.getNickNames($scope.employees);
+
+		if ($scope.filter.nickNames) {
+			self.getEmployeePerformanceByTeamReport();
+
+			self.getRedmineTeamEffort();
+		} else {
+			$scope.personalChartTitle = "Member's effort";
+			$scope.reportByProjects = [];
+
+			$scope.teamEfforts.data = [];
+			$scope.teamEfforts.memberProjects = [];
+			$scope.teamEfforts.yearMonths = [];
+			$scope.teamEfforts.memberSubTotals = [];
+			$scope.teamEfforts.memberWorkingDays = [];
+			$scope.teamEfforts.memberWorkloads = [];
+			$scope.teamEfforts.totalEfforts = [];
+			$scope.teamEfforts.grandTotalEffort = null;
+			$scope.teamEfforts.subTotalSpentTimeByMembers = [];
+			$scope.teamEfforts.subTotalWorkingDayByMembers = [];
+			$scope.teamEfforts.subTotalWorkloadByMembers = [];
 		}
 	};
 
@@ -406,15 +474,15 @@ employeeEPAFactory, ErrorService, $timeout) {
 		}
 	};
 
-	$scope.renderPersonalChart = function (nickName, fullName) {		
-		self.getPersonalChartData(nickName, fullName);
+	$scope.renderPersonalChart = function (nickName, fullName) {
 		if ($scope.isPersonalChartCollapsed) {
-			$scope.collapseTable("personalChart");
+			$scope.isPersonalChartCollapsed = false;
 		}
+		self.getPersonalChartData(nickName, fullName);
 
 		$timeout(function () {
 			commonFactory.scrollToBottom();
-		}, 400);
+		}, 100);
 	};
 
 	self.getPersonalChartData = function (nickName, fullName) {

@@ -32,6 +32,9 @@ authorityModule.factory('authorityRepository', ['$http', function ($http) {
 		},
 		checkRightToViewPersonReportOfEmployee: function (employeeId) {
 			return $http.get('/api/Authority/CheckRightToViewPersonReportOfEmployee', { params: { employeeId: employeeId} });
+		},
+		isSystemAdmin: function () {
+			return $http.get('/api/Authority/IsSystemAdmin');
 		}
 	};
 } ]);

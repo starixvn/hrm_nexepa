@@ -96,6 +96,17 @@ namespace NexEPA.Controllers.API
         }
 
         /// <summary>
+        /// Checks the right to view team report.
+        /// ApiAuthorize Attribute handles this.
+        /// </summary>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamReport, Policy = Policy.Read)]
+        public void CheckTheRightToViewTeamReport()
+        {
+            return;
+        }
+
+        /// <summary>
         /// Gets the redmine team effort.
         /// </summary>
         /// <param name="fromDate">The From date.</param>

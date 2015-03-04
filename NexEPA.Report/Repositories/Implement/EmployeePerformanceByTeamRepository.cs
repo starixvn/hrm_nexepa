@@ -64,7 +64,7 @@ namespace NexEPA.Report.Repositories.Implement
                 var report = new RedmineTeamEffortViewModel();
 
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
-                {
+                {                   
                     report.TeamEfforts = GetTeamEfforts(multi);
 
                     report.MemberProjects = GetMemberProjects(multi);

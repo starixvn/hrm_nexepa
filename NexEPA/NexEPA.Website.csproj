@@ -372,7 +372,7 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
-    <Content Include="Templates\Report\EmployeePerformanceByTeam\PersonalEffortChart.html" />
+    <Content Include="Templates\Report\EmployeePerformanceByTeam\MemberEffortChart.html" />
     <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamEffortChart.html" />
     <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamByProjects.html" />
     <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamEfforts.html" />
