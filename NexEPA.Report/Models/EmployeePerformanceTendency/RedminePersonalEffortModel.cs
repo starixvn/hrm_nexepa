@@ -14,6 +14,8 @@ namespace NexEPA.Report.Models.EmployeePerformanceTendency
     /// </summary>
     public class RedminePersonalEffortModel
     {
+        public int ProjectId { get; set; }
+
         public string ProjectName { get; set; }
 
         public string MonthName { get; set; }

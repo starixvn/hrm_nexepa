@@ -361,7 +361,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		angular.forEach($scope.personalEfforts.projects, function (project) {
 			var data = [];
 			angular.forEach($scope.personalEfforts.projectMonths, function (month) {
-				var spentTime = $scope.getSpentTime(project.projectName, month.monthName);
+				var spentTime = $scope.getSpentTime(project.projectId, month.monthName);
 				data.push(spentTime ? spentTime : 0);
 			});
 
@@ -383,9 +383,9 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		$scope.chart.xAxis = { categories: months };
 	};
 
-	$scope.getSpentTime = function (projectName, monthName) {
+	$scope.getSpentTime = function (projectId, monthName) {
 		var data = jQuery.grep($scope.personalEfforts.data, function (item) {
-			return item.projectName === projectName && item.monthName === monthName;
+			return item.projectId === projectId && item.monthName === monthName;
 		});
 
 		if (data.length > 0) {

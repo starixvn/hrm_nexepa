@@ -23,7 +23,7 @@
 					<td data-ng-bind="project.projectName">
 					</td>
 					<td class="report-right" data-ng-repeat="month in personalEfforts.projectMonths"
-						data-ng-bind="getSpentTime(project.projectName,month.monthName) | customNumber">
+						data-ng-bind="getSpentTime(project.projectId,month.monthName) | customNumber">
 					</td>
 					<td class="report-total" data-ng-bind="project.totalSpentTimeOfAllMonths | customNumber">
 					</td>
