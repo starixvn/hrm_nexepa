@@ -132,7 +132,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employee in employees)
                 {
                     employee.StatusName = EnumStatus.GetDescripton((Status)employee.Status);
-                    employee.Score = !string.IsNullOrEmpty(employee.Score) ? Decode(employee.Score) : string.Empty;
+                    employee.Score = !string.IsNullOrEmpty(employee.Score) ? Decode(employee.Score) : "0";
                 }
             }
 
@@ -142,10 +142,19 @@ namespace NexEPA.MemberEPA.Services.Implement
             {
                 employee.EPACount = employee.EPAs.Count;
 
+                int count = 0;
+                decimal totalScore = 0;
+
                 foreach (var item in employee.EPAs)
                 {
-                    employee.AverageScore += !string.IsNullOrEmpty(item.Score) ? decimal.Parse(item.Score) : 0;
+                    if (decimal.Parse(item.Score) > 0)
+                    {
+                        totalScore += decimal.Parse(item.Score);
+                        count++;
+                    }
                 }
+
+                employee.AverageScore = count > 0 ? (totalScore / count) : 0;
             }
 
             return groupEmployees;

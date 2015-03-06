@@ -50,7 +50,7 @@
     </form>
 </div>
 <div class="row">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped table-group-epa">
         <thead>
             <th data-translate="SymbolCount">
             </th>
@@ -91,9 +91,9 @@
 			</td>
 			<td class="epa-score">
 				<a href="" ng-bind="epa.score | customNumber" ng-click="EPADetail(epa)" ng-href="{{viewEPADetailUrl}}"
-					ng-show="epa.score" />
+					ng-show="epa.score > 0" />
 				<a href="" ng-bind="'N/A'" ng-click="EPADetail(epa)"
-						ng-href="{{viewEPADetailUrl}}" ng-show="!epa.score" />
+						ng-href="{{viewEPADetailUrl}}" ng-show="epa.score == 0" />
 			</td>
 			<td>
 				<span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epa.permission == 2"><a
