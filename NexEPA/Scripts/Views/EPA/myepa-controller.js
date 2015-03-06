@@ -478,7 +478,20 @@ $modal, employeeRepository, linkToEPAService) {
 		});
 	};
 
+	$scope.collapse = function (item) {
+		if (item.isCollapse) {
+			item.isCollapse = false;
+		}
+		else {
+			item.isCollapse = true;
+		}
+	};
+
 	var successGetEPA = function (listEPA) {
+		angular.forEach(listEPA, function (epa) {
+			epa.isCollapse = false;
+		});
+
 		$scope.listEPA = listEPA;
 		$scope.submitted = false;
 	};

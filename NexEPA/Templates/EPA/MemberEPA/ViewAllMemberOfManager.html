@@ -54,8 +54,6 @@
         <thead>
             <th data-translate="SymbolCount">
             </th>
-            <th data-translate="Member">
-            </th>
             <th data-translate="Project">
             </th>
             <th data-translate="Milestone">
@@ -73,52 +71,59 @@
 			<th data-translate="ProjectManagerComment">
 			</th>
         </thead>
-        <tr ng-repeat="epaItem in listEPA">
-            <td class="epa-index" ng-bind="$index + 1">
-            </td>
-            <td>
-                <span ng-bind="epaItem.nickName" tooltip="{{epaItem.fullName}}"></span>
-            </td>
-            <td ng-bind="epaItem.project.projectName">
-            </td>
-            <td ng-bind="epaItem.milestone.milestoneName">
-            </td>
-            <td ng-bind="epaItem.target.targetName">
-            </td>
-            <td class="epa-score">
-                <a href="" ng-bind="epaItem.score | customNumber" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}"
-                    ng-show="epaItem.score" />
-                <a href="" ng-bind="'N/A'" ng-click="EPADetail(epaItem)"
-                        ng-href="{{viewEPADetailUrl}}" ng-show="!epaItem.score" />
-            </td>
-            <td>
-                <span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epaItem.permission == 2"><a
-                    href="javascript:;" class="dropdown-toggle changeStatus">{{epaItem.statusName}}</a>
-                    <ul class="dropdown-menu dropdown-menu-width">
-                        <li ng-repeat="item in epaStatus | filter:{name:'!'+epaItem.statusName}"><a ng-click="updateEPAStatus(epaItem, item)"
-                            href="javascript:;">{{item.name}}</a> </li>
-                    </ul>
-                </span>
-                <div class="status-text" ng-if="permission.policy == 1 || epaItem.permission == 1">
-                    <span ng-bind="epaItem.statusName"></span>
-                </div>
-            </td>
-            <td>
-                <span ng-bind="epaItem.evaluator.evaluatorNickName" tooltip="{{epaItem.evaluator.evaluatorFullName}}">
-                </span>
-            </td>
-            <td class="epa-evaluate-date">
-                {{epaItem.evaluateDate | customDate }}
-            </td>
-            <td class="home-comment" ng-show="!isShowFullEPAComment" >
-                <span ng-bind="truncateComment" original-comment="epaItem.comment" truncate
-                    tooltip="{{epaItem.comment}}"></span>
-            </td>
-			<td class="home-comment" ng-show="isShowFullEPAComment" ng-bind="epaItem.comment">
+        <tr ng-repeat-start="epaItem in listEPA" ng-click="collapse(epaItem)">
+			<th colspan="4"><span ng-bind="$index + 1"></span>. <span ng-bind="epaItem.nickName" tooltip="{{epaItem.fullName}}"></span></th>
+			<th colspan="3"><span data-translate="EPACount"></span>: <span ng-bind="epaItem.epaCount"></span></th>
+			<th colspan="2" class="text-right">
+				<span data-translate="AverageScore"></span>: 
+				<span ng-bind="epaItem.averageScore | customNumber" ng-show="epaItem.averageScore"></span>
+				<span ng-bind="'N/A'" ng-show="!epaItem.averageScore" />
+			</th>
+		</tr>
+		<tr ng-if="epaItem.isCollapse" ng-repeat="epa in epaItem.epAs">
+			<td class="epa-index" ng-bind="$index + 1">
 			</td>
-        </tr>
+			<td ng-bind="epa.project.projectName">
+			</td>
+			<td ng-bind="epa.milestone.milestoneName">
+			</td>
+			<td ng-bind="epa.target.targetName">
+			</td>
+			<td class="epa-score">
+				<a href="" ng-bind="epa.score | customNumber" ng-click="EPADetail(epa)" ng-href="{{viewEPADetailUrl}}"
+					ng-show="epa.score" />
+				<a href="" ng-bind="'N/A'" ng-click="EPADetail(epa)"
+						ng-href="{{viewEPADetailUrl}}" ng-show="!epa.score" />
+			</td>
+			<td>
+				<span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epa.permission == 2"><a
+					href="javascript:;" class="dropdown-toggle changeStatus">{{epa.statusName}}</a>
+					<ul class="dropdown-menu dropdown-menu-width">
+						<li ng-repeat="item in epa | filter:{name:'!'+epa.statusName}"><a ng-click="updateEPAStatus(epa, item)"
+							href="javascript:;">{{item.name}}</a> </li>
+					</ul>
+				</span>
+				<div class="status-text" ng-if="permission.policy == 1 || epa.permission == 1">
+					<span ng-bind="epa.statusName"></span>
+				</div>
+			</td>
+			<td>
+				<span ng-bind="epa.evaluator.evaluatorNickName" tooltip="{{epa.evaluator.evaluatorFullName}}">
+				</span>
+			</td>
+			<td class="epa-evaluate-date">
+				{{epa.evaluateDate | customDate }}
+			</td>
+			<td class="home-comment" ng-show="!isShowFullEPAComment" >
+				<span ng-bind="truncateComment" original-comment="epa.comment" truncate
+					tooltip="{{epa.comment}}"></span>
+			</td>
+			<td class="home-comment" ng-show="isShowFullEPAComment" ng-bind="epa.comment">
+			</td>
+		</tr>
+		<tr ng-repeat-end></tr>
         <tr ng-show="listEPA == ''">
-            <td class="empty-result" colspan="10" data-translate="EmptyResult">
+            <td class="empty-result" colspan="9" data-translate="EmptyResult">
             </td>
         </tr>
     </table>
