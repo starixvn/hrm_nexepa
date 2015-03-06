@@ -20,6 +20,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Models;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
+    using NexEPA.MemberEPA.Models.MemberEPA;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Services.Implement;
     using NexEPA.MemberEPA.Services.Interface;
@@ -130,7 +131,7 @@ namespace NexEPA.Controllers.API
                     {
                         epaInfo.Permission = permission;
                     }
-                    
+
                     return Request.CreateResponse(HttpStatusCode.OK, epaInfo);
             }
         }
@@ -160,7 +161,7 @@ namespace NexEPA.Controllers.API
         /// <returns>The list Member EPA Model.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMemberEPA, Policy = Policy.Read)]
         [HttpGet]
-        public List<MemberEPAModel> GetEPAOfEmployeeByManager(
+        public List<GroupEPAOfMemberModel> GetEPAOfEmployeeByManager(
             int? targetId = null,
             int? projectId = null,
             int? status = null,
@@ -337,7 +338,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public int GetUserPermissonOnTarget(int targetId)
         {
-            var criteria = new GetUserPermissionOnTargetCriteria 
+            var criteria = new GetUserPermissionOnTargetCriteria
             {
                 TargetId = targetId,
                 ActorUserId = this.CurrentUser.UserId

@@ -24,6 +24,7 @@ namespace NexEPA.MemberEPA.Services.Implement
     using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
+    using NexEPA.MemberEPA.Models.MemberEPA;
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Repositories.Implement;
     using NexEPA.MemberEPA.Repositories.Interface;
@@ -60,7 +61,7 @@ namespace NexEPA.MemberEPA.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
 
             if (criteria.IsValid())
-            { 
+            {
                 result = _memberEPARepository.GetEPAInfo(criteria);
 
                 if (result != null)
@@ -119,7 +120,7 @@ namespace NexEPA.MemberEPA.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list MemberEPAModel.</returns>
-        public List<MemberEPAModel> GetEPAOfEmployeeByManager(GetEPAOfAllEmployeeByManagerCriteria criteria)
+        public List<GroupEPAOfMemberModel> GetEPAOfEmployeeByManager(GetEPAOfAllEmployeeByManagerCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var employees = new List<MemberEPAModel>();
@@ -135,7 +136,19 @@ namespace NexEPA.MemberEPA.Services.Implement
                 }
             }
 
-            return employees;
+            var groupEmployees = ProcessEPAOfEmployeeByManager(employees);
+
+            foreach (var employee in groupEmployees)
+            {
+                employee.EPACount = employee.EPAs.Count;
+
+                foreach (var item in employee.EPAs)
+                {
+                    employee.AverageScore += !string.IsNullOrEmpty(item.Score) ? decimal.Parse(item.Score) : 0;
+                }
+            }
+
+            return groupEmployees;
         }
 
         /// <summary>
@@ -442,6 +455,44 @@ namespace NexEPA.MemberEPA.Services.Implement
             }
 
             return allGroupKPIs;
+        }
+
+        /// <summary>
+        /// Process EPA of employee.
+        /// </summary>
+        /// <param name="memberEPAs">The list EAP.</param>
+        /// <returns>All EPA group by employee.</returns>
+        private List<GroupEPAOfMemberModel> ProcessEPAOfEmployeeByManager(List<MemberEPAModel> memberEPAs)
+        {
+            var groupMemberEPAs = new List<GroupEPAOfMemberModel>();
+            var groupEmployIDs = new List<int>();
+
+            if (memberEPAs != null)
+            {
+                foreach (var member in memberEPAs)
+                {
+                    var groupMemberEPA = new GroupEPAOfMemberModel();
+
+                    if (!groupEmployIDs.Contains(member.EmployeeId))
+                    {
+                        groupMemberEPA.EmployeeId = member.EmployeeId;
+                        groupMemberEPA.NickName = member.NickName;
+                        groupMemberEPA.FullName = member.FullName;
+
+                        groupMemberEPA.EPAs.Add(member);
+
+                        groupMemberEPAs.Add(groupMemberEPA);
+                        groupEmployIDs.Add(member.EmployeeId);
+                    }
+                    else
+                    {
+                        var emp = groupMemberEPAs.Where(p => p.EmployeeId == member.EmployeeId).SingleOrDefault();
+                        emp.EPAs.Add(member);
+                    }
+                }
+            }
+
+            return groupMemberEPAs;
         }
     }
 }
