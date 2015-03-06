@@ -99,7 +99,7 @@
 				<span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epa.permission == 2"><a
 					href="javascript:;" class="dropdown-toggle changeStatus">{{epa.statusName}}</a>
 					<ul class="dropdown-menu dropdown-menu-width">
-						<li ng-repeat="item in epa | filter:{name:'!'+epa.statusName}"><a ng-click="updateEPAStatus(epa, item)"
+						<li ng-repeat="item in epaStatus | filter:{name:'!'+epa.statusName}"><a ng-click="updateEPAStatus(epa, item)"
 							href="javascript:;">{{item.name}}</a> </li>
 					</ul>
 				</span>
