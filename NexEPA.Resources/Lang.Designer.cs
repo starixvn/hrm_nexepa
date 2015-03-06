@@ -1897,6 +1897,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spent Time.
+        /// </summary>
+        public static string SpentTime {
+            get {
+                return ResourceManager.GetString("SpentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spread KPIs Weight.
         /// </summary>
         public static string SpreadWeight {

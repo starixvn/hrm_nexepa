@@ -55,6 +55,7 @@
     <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberProjectModel.cs" />
     <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberSubTotalModel.cs" />
     <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberWorkloadModel.cs" />
+    <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamAverageWorkloadModel.cs" />
     <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamEffortModel.cs" />
     <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberWorkingDayModel.cs" />
     <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamTotalEffortModel.cs" />

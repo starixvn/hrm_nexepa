@@ -64,11 +64,21 @@
 				</tbody>
 				<tbody class="bg-total" data-ng-show="teamEfforts.data != ''">
 					<tr>
-						<td data-translate="Total" class="report-total-center" colspan="3">
+						<td data-translate="TotalAverage" class="report-total-center" colspan="2" rowspan="2">
+						</td>
+						<td class="report-total-left" data-translate="SpentTime" >
 						</td>
 						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getTotalSpentTimeByMonth(month.year,month.month) | customNumber">
 						</td>
 						<td class="report-total" data-ng-bind="teamEfforts.grandTotalEffort | customNumber">
+						</td>
+					</tr>
+					<tr class="bg-workload">						
+						<td class="report-total-left" data-translate="Workload" >
+						</td>
+						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getAverageWorkloadByMonth(month.year,month.month) | customPercent:2">
+						</td>
+						<td class="report-total" data-ng-bind="teamEfforts.grandAverageWorkload | customPercent:2">
 						</td>
 					</tr>
 				</tbody>

@@ -39,6 +39,10 @@ namespace NexEPA.Report.ViewModels
 
         public IEnumerable<RedmineTeamTotalEffortModel> TotalEfforts { get; set; }
 
+        public IEnumerable<RedmineTeamAverageWorkloadModel> AverageWorkloads { get; set; }
+
         public decimal GrandTotalEffort { get; set; }
+
+        public decimal GrandAverageWorkload { get; set; }
     }
 }

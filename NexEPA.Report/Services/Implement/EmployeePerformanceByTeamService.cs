@@ -78,10 +78,56 @@ namespace NexEPA.Report.Services.Implement
                 reportData.SubTotalSpentTimeByMembers = GetSubTotalSpentTimeByMembers(reportData.MemberSubTotals);
                 reportData.SubTotalWorkingDayByMembers = GetSubTotalWorkingDayByMembers(reportData.MemberWorkingDays);
                 reportData.SubTotalWorkloadByMembers = CalculateSubTotalWorkloadByMembers(reportData.SubTotalSpentTimeByMembers, reportData.SubTotalWorkingDayByMembers);
+                reportData.AverageWorkloads = CalculateAverageWorkloads(reportData.TotalEfforts, reportData.MemberWorkingDays);
                 reportData.GrandTotalEffort = reportData.TeamEfforts.Sum(te => te.SpentTime);
+                reportData.GrandAverageWorkload = CalculateGrandAverageWorkload(reportData.GrandTotalEffort, reportData.MemberWorkingDays);
             }
 
             return reportData;
+        }
+
+        /// <summary>
+        /// Calculates the grand average workload.
+        /// </summary>
+        /// <param name="grandTotalEffort">The grand total effort.</param>
+        /// <param name="memberWorkingDays">The member working days.</param>
+        /// <returns>The grand average workload.</returns>
+        private decimal CalculateGrandAverageWorkload(decimal grandTotalEffort, IEnumerable<RedmineMemberWorkingDayModel> memberWorkingDays)
+        {
+            decimal grandWorkingDay = memberWorkingDays.Sum(w => w.WorkingDay);
+            decimal result = grandWorkingDay == 0 ? 0 : grandTotalEffort / (8 * grandWorkingDay);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the average workloads.
+        /// </summary>
+        /// <param name="totalEfforts">The total efforts.</param>
+        /// <param name="memberWorkingDays">The member working days.</param>
+        /// <returns>The average workloads.</returns>
+        private IEnumerable<RedmineTeamAverageWorkloadModel> CalculateAverageWorkloads(
+            IEnumerable<RedmineTeamTotalEffortModel> totalEfforts,
+            IEnumerable<RedmineMemberWorkingDayModel> memberWorkingDays)
+        {
+            var result = new List<RedmineTeamAverageWorkloadModel>();
+
+            foreach (RedmineTeamTotalEffortModel totalEffort in totalEfforts)
+            {
+                decimal workingDay = memberWorkingDays
+                                    .Where(w => w.YearMonth.Year == totalEffort.YearMonth.Year && w.YearMonth.Month == totalEffort.YearMonth.Month)
+                                    .Sum(w => w != null ? w.WorkingDay : 0);
+
+                var averageWorkload = new RedmineTeamAverageWorkloadModel
+                {
+                    YearMonth = totalEffort.YearMonth,
+                    Workload = workingDay == 0 ? 0 : totalEffort.Total / (8 * workingDay)
+                };
+
+                result.Add(averageWorkload);
+            }
+
+            return result;
         }
 
         /// <summary>

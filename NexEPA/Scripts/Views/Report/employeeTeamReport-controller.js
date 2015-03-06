@@ -18,55 +18,59 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 	/*
 	|| $scope properties
 	*/
-	$scope.filter = {
-		fromDate: new Date(year, month - 3, day),
-		toDate: new Date(year, month, day),
-		groupId: null,
-		projectId: null,
-		nickNames: ''
-	};
+	self.generateOptions = function () {
+		$scope.filter = {
+			fromDate: new Date(year, month - 3, day),
+			toDate: new Date(year, month, day),
+			groupId: null,
+			projectId: null,
+			nickNames: ''
+		};
 
-	$scope.employees = [];
-	$scope.projects = [];
-	$scope.groups = [];
+		$scope.employees = [];
+		$scope.projects = [];
+		$scope.groups = [];
 
-	$scope.calendar = {
-		startDateOpened: false,
-		endDateOpened: false
-	};
+		$scope.calendar = {
+			startDateOpened: false,
+			endDateOpened: false
+		};
 
-	$scope.teamChart = {
-		xAxis: {},
-		series: null,
-		reRender: false
-	};
-	$scope.personalChart = {
-		xAxis: {},
-		series: null,
-		reRender: false
-	};
-	$scope.personalSeries = [];
-	$scope.personalChartTitle = "";
-	$scope.isSystemAdmin = false;
+		$scope.teamChart = {
+			xAxis: {},
+			series: null,
+			reRender: false
+		};
+		$scope.personalChart = {
+			xAxis: {},
+			series: null,
+			reRender: false
+		};
+		$scope.personalSeries = [];
+		$scope.personalChartTitle = "";
+		$scope.isSystemAdmin = false;
 
-	$scope.isProjectCollapsed = true;
-	$scope.isTeamCollapsed = true;
-	$scope.isTeamChartCollapsed = true;
-	$scope.isPersonalChartCollapsed = true;
+		$scope.isProjectCollapsed = true;
+		$scope.isTeamCollapsed = true;
+		$scope.isTeamChartCollapsed = true;
+		$scope.isPersonalChartCollapsed = true;
 
-	$scope.reportByProjects = '';
-	$scope.teamEfforts = {
-		data: '',
-		memberProjects: '',
-		yearMonths: '',
-		memberSubTotals: '',
-		memberWorkingDays: '',
-		memberWorkloads: '',
-		totalEfforts: '',
-		grandTotalEffort: '',
-		subTotalSpentTimeByMembers: '',
-		subTotalWorkingDayByMembers: '',
-		subTotalWorkloadByMembers: ''
+		$scope.reportByProjects = '';
+		$scope.teamEfforts = {
+			data: '',
+			memberProjects: '',
+			yearMonths: '',
+			memberSubTotals: '',
+			memberWorkingDays: '',
+			memberWorkloads: '',
+			totalEfforts: '',
+			averageWorkloads: '',
+			grandTotalEffort: '',
+			grandAverageWorkload: '',
+			subTotalSpentTimeByMembers: '',
+			subTotalWorkingDayByMembers: '',
+			subTotalWorkloadByMembers: ''
+		};
 	};
 
 	/*
@@ -114,6 +118,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 	};
 
 	self.load = function () {
+		self.generateOptions();
+
 		commonFactory.getDateFormat($scope);
 
 		self.checkTheRightToViewTeamReport(function () {
@@ -264,7 +270,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 
 			self.getRedmineTeamEffort();
 		} else {
-			$scope.personalChartTitle = "Member's effort";
 			$scope.reportByProjects = [];
 
 			$scope.teamEfforts.data = [];
@@ -274,10 +279,14 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 			$scope.teamEfforts.memberWorkingDays = [];
 			$scope.teamEfforts.memberWorkloads = [];
 			$scope.teamEfforts.totalEfforts = [];
+			$scope.teamEfforts.averageWorkloads = [];
 			$scope.teamEfforts.grandTotalEffort = null;
+			$scope.teamEfforts.grandAverageWorkload = null;
 			$scope.teamEfforts.subTotalSpentTimeByMembers = [];
 			$scope.teamEfforts.subTotalWorkingDayByMembers = [];
 			$scope.teamEfforts.subTotalWorkloadByMembers = [];
+
+			self.setDefaultPersonalChartTitle();
 		}
 	};
 
@@ -317,8 +326,11 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 				$scope.teamEfforts.memberWorkloads = report.memberWorkloads;
 				$scope.teamEfforts.subTotalWorkloadByMembers = report.subTotalWorkloadByMembers;
 				$scope.teamEfforts.totalEfforts = report.totalEfforts;
+				$scope.teamEfforts.averageWorkloads = report.averageWorkloads;
 				$scope.teamEfforts.grandTotalEffort = report.grandTotalEffort;
+				$scope.teamEfforts.grandAverageWorkload = report.grandAverageWorkload;
 
+				self.setDefaultPersonalChartTitle();
 				self.processChartData();
 			}
 		}).error(function (response, status) {
@@ -415,6 +427,16 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		}
 	};
 
+	$scope.getAverageWorkloadByMonth = function (year, month) {
+		var data = jQuery.grep($scope.teamEfforts.averageWorkloads, function (item) {
+			return item.yearMonth.year === year && item.yearMonth.month === month;
+		});
+
+		if (data.length > 0) {
+			return data[0].workload;
+		}
+	};
+
 	/*
 	|| Team Effort Chart region
 	*/
@@ -447,6 +469,12 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 	/*
 	|| Personal Effort Chart region
 	*/
+	self.setDefaultPersonalChartTitle = function () {
+		if ($scope.teamEfforts.data.length === 0) {
+			$scope.personalChartTitle = "Member's effort";
+		}
+	};
+
 	self.generatePersonalSeries = function () {
 		if ($scope.teamEfforts.memberProjects.length > 0) {
 			angular.forEach($scope.teamEfforts.memberProjects, function (member) {
