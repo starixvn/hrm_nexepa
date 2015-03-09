@@ -81,6 +81,9 @@ notificationFactory, ErrorService, KPIRepository) {
 				},
 				action: function () {
 					return "delete";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -143,6 +146,9 @@ notificationFactory, ErrorService, KPIRepository) {
 				},
 				action: function () {
 					return action;
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"

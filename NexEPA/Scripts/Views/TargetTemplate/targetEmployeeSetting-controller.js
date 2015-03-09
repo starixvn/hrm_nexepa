@@ -88,6 +88,9 @@ departmentDataFactory, commonFactory) {
 					},
 					action: function () {
 						return "choose";
+					},
+					extraInfo: function () {
+						return '';
 					}
 				},
 				windowClass: "modal-confirm-center"

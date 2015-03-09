@@ -312,6 +312,9 @@ departmentDataFactory, flowDataFactory, $window) {
 					},
 					action: function () {
 						return "delete";
+					},
+					extraInfo: function () {
+						return '';
 					}
 				}
 			});
@@ -490,6 +493,9 @@ departmentDataFactory, flowDataFactory, $window) {
 					},
 					action: function () {
 						return "delete";
+					},
+					extraInfo: function () {
+						return '';
 					}
 				}
 			});

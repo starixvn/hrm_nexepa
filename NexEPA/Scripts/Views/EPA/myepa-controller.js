@@ -247,6 +247,9 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 				},
 				action: function () {
 					return "change status";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -552,6 +555,9 @@ $modal, employeeRepository, linkToEPAService) {
 				},
 				action: function () {
 					return "change status";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"

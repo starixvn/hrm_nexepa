@@ -98,6 +98,9 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 				},
 				action: function () {
 					return "delete";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -126,6 +129,9 @@ function ($scope, $modal, targetTemplateFactory, notificationFactory, tabService
 				},
 				action: function () {
 					return action;
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -416,6 +422,9 @@ notificationFactory, $timeout, ErrorService, targetTemplateUtility) {
 				},
 				action: function () {
 					return "delete";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"

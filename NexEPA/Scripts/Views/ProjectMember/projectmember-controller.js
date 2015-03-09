@@ -167,6 +167,9 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 				},
 				action: function () {
 					return "delete";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"

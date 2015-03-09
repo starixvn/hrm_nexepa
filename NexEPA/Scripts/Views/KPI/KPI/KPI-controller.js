@@ -101,6 +101,9 @@ KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 				},
 				action: function () {
 					return "delete";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -156,6 +159,9 @@ KPICommonRepository, commonFactory, notificationFactory, ErrorService) {
 				},
 				action: function () {
 					return action;
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"

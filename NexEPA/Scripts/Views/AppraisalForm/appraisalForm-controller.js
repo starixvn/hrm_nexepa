@@ -70,7 +70,7 @@ ErrorService, $route, $modal, targetUtility) {
 
 	appraisalFormFactory.getAppraisalFormPermission().success(function (policy) {
 		$scope.permission = {
-			policy : policy
+			policy: policy
 		};
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");
@@ -104,6 +104,9 @@ ErrorService, $route, $modal, targetUtility) {
 				},
 				action: function () {
 					return "delete";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -141,6 +144,9 @@ ErrorService, $route, $modal, targetUtility) {
 					},
 					action: function () {
 						return status.name;
+					},
+					extraInfo: function () {
+						return '';
 					}
 				},
 				windowClass: "modal-confirm-center"
@@ -399,7 +405,7 @@ appraisalFormFactory, ErrorService, $routeParams, commonAppraisalFormFactory, $t
 			angular.forEach(evaluatorList, function (evaluator) {
 				var evaluatorPattern = '<Process ProcessId="' + process.processId +
 						'" EvaluatorId="' + evaluator.employeeId + '" ></Process>';
-					evaluatorDetails += evaluatorPattern;
+				evaluatorDetails += evaluatorPattern;
 			});
 		});
 

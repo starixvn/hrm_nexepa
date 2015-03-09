@@ -118,6 +118,9 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 				},
 				action: function () {
 					return "delete";
+				},
+				extraInfo: function () {
+					return '';
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -182,6 +185,9 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 					},
 					action: function () {
 						return status.name;
+					},
+					extraInfo: function () {
+						return '';
 					}
 				},
 				windowClass: "modal-confirm-center"
@@ -677,6 +683,9 @@ notificationFactory) {
 					},
 					action: function () {
 						return "delete";
+					},
+					extraInfo: function () {
+						return '';
 					}
 				},
 				windowClass: "modal-confirm-center"

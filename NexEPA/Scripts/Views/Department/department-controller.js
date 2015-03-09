@@ -134,6 +134,9 @@ function ($scope, $window, $modal, departmentDataFactory, notificationFactory, p
 							},
 							action: function () {
 								return "delete node";
+							},
+							extraInfo: function () {
+								return '';
 							}
 						}
 					});
