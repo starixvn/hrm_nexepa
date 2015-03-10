@@ -183,8 +183,8 @@ namespace NexEPA
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
-              name: "Employee Performance By Team Report",
-              url: "Report/EmployeePerformanceByTeam",
+              name: "Team EPA Report",
+              url: "Report/TeamEPAReport",
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(

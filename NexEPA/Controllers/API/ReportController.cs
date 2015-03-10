@@ -74,7 +74,7 @@ namespace NexEPA.Controllers.API
         /// <param name="projectId">The project identifier.</param>
         /// <returns>The employee performance by team report.</returns>
         [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamReport, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
         public TeamPerformanceModel GetEmployeePerformanceByTeamReport(
             DateTime fromDate,
             DateTime toDate,
@@ -100,7 +100,7 @@ namespace NexEPA.Controllers.API
         /// ApiAuthorize Attribute handles this.
         /// </summary>
         [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamReport, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
         public void CheckTheRightToViewTeamReport()
         {
             return;
@@ -114,7 +114,7 @@ namespace NexEPA.Controllers.API
         /// <param name="nickNames">The nick names is a collection of nick name separated by comma.</param>
         /// <returns>RedmineTeamEffortViewModel data.</returns>
         [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamReport, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
         public RedmineTeamEffortViewModel GetRedmineTeamEffort(
             DateTime fromDate,
             DateTime toDate,
