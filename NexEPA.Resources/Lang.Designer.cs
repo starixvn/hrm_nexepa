@@ -2176,6 +2176,24 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Team Effort Report.
+        /// </summary>
+        public static string TeamEffortReport {
+            get {
+                return ResourceManager.GetString("TeamEffortReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team EPA Report.
+        /// </summary>
+        public static string TeamEPAReport {
+            get {
+                return ResourceManager.GetString("TeamEPAReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Team Member.
         /// </summary>
         public static string TeamMember {

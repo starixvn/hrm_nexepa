@@ -12,7 +12,7 @@ namespace NexEPA.Report.ViewModels
     using System.Collections.Generic;
     using NexEPA.Core.Models;
     using NexEPA.Employee.Models;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.Models.TeamEffortReport;
 
     /// <summary>
     /// RedmineTeamEffortViewModel class.

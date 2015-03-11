@@ -75,6 +75,14 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
 				deferred.reject(data);
 			});
 			return deferred.promise;
+		},
+		getAllRedmineProjects: function () {
+			var deferred = $q.defer();
+			$http.get('/api/Project/RetrieveAllRedmineProjects').success(deferred.resolve).error(function (data, status) {
+				deferred.reject(status);
+			});
+
+			return deferred.promise;
 		}
 	};
 } ]);
@@ -155,4 +163,4 @@ projectsSettingModule.factory('projectUtility', ['notificationFactory', function
 	};
 
 	return utility;
-}]);
+} ]);

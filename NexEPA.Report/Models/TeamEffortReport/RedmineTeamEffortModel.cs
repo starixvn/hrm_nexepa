@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RedmineMemberProjectModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RedmineTeamEffortModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,25 +7,23 @@
 //   <change who="Larry.Tran" date="2015.2.26">Created</change>
 // </history>
 
-namespace NexEPA.Report.Models.EmployeePerformanceByTeam
+namespace NexEPA.Report.Models.TeamEffortReport
 {
-    using System.Collections.Generic;
+    using NexEPA.Core.Models;
     using NexEPA.Employee.Models;
     using NexEPA.Project.Models;
 
     /// <summary>
-    /// RedmineMemberProjectModel class.
+    /// RedmineTeamEffortModel class.
     /// </summary>
-    public class RedmineMemberProjectModel
+    public class RedmineTeamEffortModel
     {
-        public decimal SubTotal { get; set; }
-
-        public int Index { get; set; }
-
         public RedmineEmployeeModel Employee { get; set; }
 
         public RedmineProjectModel Project { get; set; }
 
-        public List<RedmineProjectModel> Projects { get; set; }
+        public RedmineYearMonthModel YearMonth { get; set; }
+
+        public decimal SpentTime { get; set; }
     }
 }

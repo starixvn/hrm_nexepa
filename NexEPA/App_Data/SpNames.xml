@@ -16,7 +16,8 @@
 		<Setting Key="Employee_GetByDepartment" SpName="Employee_GetByDepartment" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Employee_GetByGroup" SpName="Employee_GetByGroup" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="Employee_GetByTeamProject" SpName="Employee_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
-	</Function>
+    <Setting Key="EmployeeGroup_GetByActorUser" SpName="EmployeeGroup_GetByActorUser" DbName="NexEPA" Plain="0" ></Setting>    
+  </Function>
 
 	<Function Name="Project">
 		<Setting Key="Project_Get" SpName="Project_Get" DbName="NexEPA" Plain="0" ></Setting>
@@ -31,6 +32,7 @@
 		<Setting Key="Project_GetAll" SpName="Project_GetAll" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Project_UpdateStatus" SpName="Project_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Project_Delete" SpName="Project_Delete" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ProjectRedmine_GetAllProjects" SpName="ProjectRedmine_GetAllProjects" DbName="NexEPA" Plain="0" ></Setting>
 	</Function>
 
 	<Function Name="ProjectMembers">

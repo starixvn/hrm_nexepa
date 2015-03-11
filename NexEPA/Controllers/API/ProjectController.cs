@@ -304,6 +304,21 @@ namespace NexEPA.Controllers.API
             return statusList;
         }
 
+        /// <summary>
+        /// Gets the redmine projects of users.
+        /// </summary>        
+        /// <returns>The redmine projects of users.</returns>
+        [HttpGet]
+        public IEnumerable<SelectListModel> RetrieveAllRedmineProjects()
+        {
+            var criteria = new GetAllRedmineProjectsCriteria();
+
+            var projects = _projectService.GetAllRedmineProjects(criteria);
+            var result = projects.Select(p => new SelectListModel { Id = p.ProjectId, Name = p.ProjectName });
+
+            return result;
+        }
+
         private IEnumerable<string> RetrieveErrorMessages()
         {
             IEnumerable<string> errors = ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));

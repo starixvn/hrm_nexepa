@@ -1,11 +1,11 @@
 ﻿'use strict';
 /*global reportModule*/
 
-reportModule.controller('ViewEmployeePerformanceByTeamController',
+reportModule.controller('TeamEffortReportController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
-'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal',
+'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal', 'projectDataFactory',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
-employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
+employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory) {
 	/*
 	|| Variables	
 	*/
@@ -50,12 +50,10 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		$scope.personalChartTitle = "";
 		$scope.isSystemAdmin = false;
 
-		$scope.isProjectCollapsed = true;
 		$scope.isTeamCollapsed = true;
 		$scope.isTeamChartCollapsed = true;
 		$scope.isPersonalChartCollapsed = true;
 
-		$scope.reportByProjects = '';
 		$scope.teamEfforts = {
 			data: '',
 			memberProjects: '',
@@ -86,9 +84,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 
 	$scope.collapseTable = function (panelName) {
 		switch (panelName) {
-			case "project":
-				$scope.isProjectCollapsed = !$scope.isProjectCollapsed;
-				break;
 			case "team":
 				$scope.isTeamCollapsed = !$scope.isTeamCollapsed;
 				break;
@@ -107,12 +102,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		}
 	};
 
-	$scope.viewEmployeeTendency = function (employeeId) {
-		$scope.viewEmployeeTendencyUrl = '/Report/EmployeePerformanceTendency' + '?employeeId=' + employeeId
-										+ '&fromDate=' + $scope.filter.fromDate.toDateString()
-										+ '&toDate=' + $scope.filter.toDate.toDateString();
-	};
-
 	$scope.reload = function () {
 		$route.reload();
 	};
@@ -122,9 +111,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 
 		commonFactory.getDateFormat($scope);
 
-		self.checkTheRightToViewTeamReport(function () {
-			self.getAllGroup();
-			self.getAllProject();
+		self.checkTheRightToViewTeamEffortReport(function () {
+			self.getAllGroupByActorUser();
+			self.getAllRedmineProjects();
 
 			self.isSystemAdmin(function () {
 				$scope.getEmployee(function () {
@@ -136,8 +125,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		});
 	};
 
-	self.checkTheRightToViewTeamReport = function (hasRightCallBack) {
-		reportFactory.checkTheRightToViewTeamReport().success(function () {
+	self.checkTheRightToViewTeamEffortReport = function (hasRightCallBack) {
+		reportFactory.checkTheRightToViewTeamEffortReport().success(function () {
 			if (hasRightCallBack) {
 				hasRightCallBack();
 			}
@@ -163,28 +152,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 	};
 
 	self.validateFilterOptions = function () {
-		var isValid = true;
-
-		if (!$scope.filter.fromDate) {
-			isValid = false;
-			notificationFactory.error("FromRequire");
-		} else if (!$scope.filter.toDate) {
-			isValid = false;
-			notificationFactory.error("ToRequire");
-		} else {
-			var fromDate = new Date($scope.filter.fromDate.toDateString());
-			var toDate = new Date($scope.filter.toDate.toDateString());
-			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
-
-			if (fromDate > toDate) {
-				isValid = false;
-				notificationFactory.error("ValidateFromToDate");
-			}
-			else if (toDate > maxDate) {
-				isValid = false;
-				notificationFactory.error("ValidateMaximumOneYear");
-			}
-		}
+		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
 		return isValid;
 	};
@@ -194,10 +162,10 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 	*/
 	$scope.getEmployee = function (callBack) {
 		var groupId = $scope.filter.groupId;
-		var projectId = $scope.filter.projectId;
 
-		employeeRepository.getEmployeeByTeamProject(groupId, projectId).success(function (employees) {
+		employeeRepository.getEmployeeByTeamProject(groupId, null).success(function (employees) {
 			$scope.employees = employees;
+
 			if (callBack) {
 				callBack();
 			}
@@ -206,14 +174,14 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		});
 	};
 
-	self.getAllProject = function () {
-		employeeEPAFactory.getAllProject().then(function (projectList) {
+	self.getAllRedmineProjects = function () {
+		projectDataFactory.getAllRedmineProjects().then(function (projectList) {
 			$scope.projects = projectList;
 		});
 	};
 
-	self.getAllGroup = function () {
-		employeeRepository.getAllGroup().success(function (groupList) {
+	self.getAllGroupByActorUser = function () {
+		employeeRepository.getAllGroupByActorUser().success(function (groupList) {
 			$scope.groups = groupList;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -266,12 +234,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 		$scope.filter.nickNames = commonFactory.getNickNames($scope.employees);
 
 		if ($scope.filter.nickNames) {
-			self.getEmployeePerformanceByTeamReport();
-
 			self.getRedmineTeamEffort();
 		} else {
-			$scope.reportByProjects = [];
-
 			$scope.teamEfforts.data = [];
 			$scope.teamEfforts.memberProjects = [];
 			$scope.teamEfforts.yearMonths = [];
@@ -288,25 +252,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal) {
 
 			self.setDefaultPersonalChartTitle();
 		}
-	};
-
-	/*
-	|| By Projects region
-	*/
-	self.getEmployeePerformanceByTeamReport = function () {
-		reportFactory.getEmployeePerformanceByTeamReport($scope.filter)
-		.success(function (report) {
-			if (report != null) {
-				$scope.reportByProjects = report.reportByProject;
-			}
-		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorService.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
-		});
 	};
 
 	/*

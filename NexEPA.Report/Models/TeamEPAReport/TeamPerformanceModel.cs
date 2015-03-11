@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.05.09">Created</change>
 // </history>
 
-namespace NexEPA.Report.Models.EmployeePerformanceByTeam
+namespace NexEPA.Report.Models.TeamEPAReport
 {
     using System.Collections.Generic;
 

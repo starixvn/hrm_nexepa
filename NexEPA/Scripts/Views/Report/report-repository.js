@@ -17,7 +17,7 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				params: {
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
-					nickNames: filter.nickNames,
+					employeeIds: filter.employeeIds,
 					groupId: filter.groupId ? filter.groupId : '',
 					projectId: filter.projectId ? filter.projectId : ''
 				}
@@ -46,12 +46,16 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				params: {
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
-					nickNames: filter.nickNames
+					nickNames: filter.nickNames,
+					projectId: filter.projectId ? filter.projectId : ''
 				}
 			});
 		},
-		checkTheRightToViewTeamReport: function () {
-			return $http.get('/api/Report/CheckTheRightToViewTeamReport');
+		checkTheRightToViewTeamEPAReport: function () {
+			return $http.get('/api/Report/CheckTheRightToViewTeamEPAReport');
+		},
+		checkTheRightToViewTeamEffortReport: function () {
+			return $http.get('/api/Report/CheckTheRightToViewTeamEffortReport');
 		}
 	};
 } ]);

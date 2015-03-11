@@ -10,6 +10,7 @@
 namespace NexEPA.Project.Services.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
@@ -61,6 +62,23 @@ namespace NexEPA.Project.Services.Implement
             if (criteria.IsValid())
             {
                 projects = _projectRepository.GetAllProject(criteria);
+            }
+
+            return projects;
+        }
+
+        /// <summary>
+        /// Gets the redmine projects of users.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The redmine projects of users.</returns>
+        public List<RedmineProjectModel> GetAllRedmineProjects(GetAllRedmineProjectsCriteria criteria)
+        {
+            List<RedmineProjectModel> projects = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                projects = this.GetData<RedmineProjectModel>(criteria).ToList();
             }
 
             return projects;

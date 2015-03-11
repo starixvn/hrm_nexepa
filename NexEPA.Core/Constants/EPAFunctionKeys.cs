@@ -58,6 +58,8 @@ namespace NexEPA.Core.Constants
 
         public const string TeamEPAReport = "TeamEPAReport";
 
+        public const string TeamEffortReport = "TeamEffortReport";
+
         public const string FlowManagement = "FlowManagement";
     }
 }

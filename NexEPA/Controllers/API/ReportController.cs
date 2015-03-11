@@ -15,8 +15,8 @@ namespace NexEPA.Controllers.API
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Report.Criteria;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
     using NexEPA.Report.Models.EmployeePerformanceTendency;
+    using NexEPA.Report.Models.TeamEPAReport;
     using NexEPA.Report.Services.Implement;
     using NexEPA.Report.Services.Interface;
     using NexEPA.Report.ViewModels;
@@ -28,20 +28,23 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class ReportController : BaseController
     {
-        private IEmployeePerformanceByTeamService _teamService;
+        private ITeamEPAReportService _teamEPAService;
         private IEmployeePerformanceTendencyService _tendencyService;
+        private ITeamEffortReportService _teamEffortService;
 
         public ReportController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public ReportController(IEmployeePerformanceByTeamService teamService, IEmployeePerformanceTendencyService tendencyService)
+        public ReportController(ITeamEPAReportService teamService, ITeamEffortReportService teamEffortService, IEmployeePerformanceTendencyService tendencyService)
         {
-            _teamService = teamService ?? new EmployeePerformanceByTeamService();
+            _teamEPAService = teamService ?? new TeamEPAReportService();
+            _teamEffortService = teamEffortService ?? new TeamEffortReportService();
             _tendencyService = tendencyService ?? new EmployeePerformanceTendencyService();
         }
 
+        #region PersonReport
         /// <summary>
         /// Gets the employee performance tendency report.
         /// </summary>
@@ -62,72 +65,6 @@ namespace NexEPA.Controllers.API
             };
 
             return _tendencyService.GetEmployeePerformanceTendancyReport(criteria);
-        }
-
-        /// <summary>
-        /// Gets the employee performance by team report.
-        /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <param name="toDate">The To date.</param>
-        /// <param name="nickNames">The nick names.</param>
-        /// <param name="groupId">The group identifier.</param>
-        /// <param name="projectId">The project identifier.</param>
-        /// <returns>The employee performance by team report.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
-        public TeamPerformanceModel GetEmployeePerformanceByTeamReport(
-            DateTime fromDate,
-            DateTime toDate,
-            string nickNames = null,
-            int? groupId = null,
-            int? projectId = null)
-        {
-            var criteria = new GetEmployeePerformanceByTeamCriteria
-            {
-                ActorUserId = this.CurrentUser.UserId,
-                FromDate = fromDate,
-                ToDate = toDate,
-                NickNames = nickNames,
-                GroupId = groupId,
-                ProjectId = projectId
-            };
-
-            return _teamService.GetEmployeePerformanceByTeamReport(criteria);
-        }
-
-        /// <summary>
-        /// Checks the right to view team report.
-        /// ApiAuthorize Attribute handles this.
-        /// </summary>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
-        public void CheckTheRightToViewTeamReport()
-        {
-            return;
-        }
-
-        /// <summary>
-        /// Gets the redmine team effort.
-        /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <param name="toDate">The To date.</param>
-        /// <param name="nickNames">The nick names is a collection of nick name separated by comma.</param>
-        /// <returns>RedmineTeamEffortViewModel data.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
-        public RedmineTeamEffortViewModel GetRedmineTeamEffort(
-            DateTime fromDate,
-            DateTime toDate,
-            string nickNames)
-        {
-            var criteria = new GetRedmineTeamEffortCriteria
-            {
-                FromDate = fromDate,
-                ToDate = toDate,
-                NickName = nickNames
-            };
-
-            return _teamService.GetRedmineTeamEffort(criteria);
         }
 
         /// <summary>
@@ -171,5 +108,90 @@ namespace NexEPA.Controllers.API
 
             return _tendencyService.GetRedminePersonalEffortDetail(criteria);
         }
+        #endregion
+
+        #region TeamEPAReport
+        /// <summary>
+        /// Gets the employee performance by team report.
+        /// </summary>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <param name="employeeIds">The nick names.</param>
+        /// <param name="groupId">The group identifier.</param>
+        /// <param name="projectId">The project identifier.</param>
+        /// <returns>The employee performance by team report.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
+        public TeamPerformanceModel GetEmployeePerformanceByTeamReport(
+            DateTime fromDate,
+            DateTime toDate,
+            string employeeIds = null,
+            int? groupId = null,
+            int? projectId = null)
+        {
+            var criteria = new GetEmployeePerformanceByTeamCriteria
+            {
+                ActorUserId = this.CurrentUser.UserId,
+                FromDate = fromDate,
+                ToDate = toDate,
+                EmployeeId = employeeIds,
+                GroupId = groupId,
+                ProjectId = projectId
+            };
+
+            return _teamEPAService.GetEmployeePerformanceByTeamReport(criteria);
+        }
+
+        /// <summary>
+        /// Checks the right to view team epa report.
+        /// ApiAuthorize Attribute handles this.
+        /// </summary>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEPAReport, Policy = Policy.Read)]
+        public void CheckTheRightToViewTeamEPAReport()
+        {
+            return;
+        }
+        #endregion
+
+        #region TeamEffortReport        
+        /// <summary>
+        /// Gets the redmine team effort.
+        /// </summary>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <param name="nickNames">The nick names.</param>
+        /// <param name="projectId">The project identifier.</param>
+        /// <returns>The redmine team efforts.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEffortReport, Policy = Policy.Read)]
+        public RedmineTeamEffortViewModel GetRedmineTeamEffort(
+            DateTime fromDate,
+            DateTime toDate,
+            string nickNames,
+            int? projectId)
+        {
+            var criteria = new GetRedmineTeamEffortCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                NickName = nickNames,
+                ProjectId = projectId
+            };
+
+            return _teamEffortService.GetRedmineTeamEffort(criteria);
+        }
+
+        /// <summary>
+        /// Checks the right to view team effort report.
+        /// ApiAuthorize Attribute handles this.
+        /// </summary>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEffortReport, Policy = Policy.Read)]
+        public void CheckTheRightToViewTeamEffortReport()
+        {
+            return;
+        }
+        #endregion
     }
 }

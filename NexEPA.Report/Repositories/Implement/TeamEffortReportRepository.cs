@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeePerformanceByTeamRepository.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="TeamEffortReportRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Larry.Tran" date="2015.2.5">Created</change>
+//   <change who="Larry.Tran" date="2015.3.10">Created</change>
 // </history>
 
 namespace NexEPA.Report.Repositories.Implement
@@ -15,43 +15,15 @@ namespace NexEPA.Report.Repositories.Implement
     using NexEPA.Core.Models;
     using NexEPA.Employee.Models;
     using NexEPA.Project.Models;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
+    using NexEPA.Report.Models.TeamEffortReport;
     using NexEPA.Report.Repositories.Interface;
     using NexEPA.Report.ViewModels;
 
     /// <summary>
-    /// EmployeePerformanceByTeamRepository class.
+    /// TeamEffortReportRepository class.
     /// </summary>
-    public class EmployeePerformanceByTeamRepository : IEmployeePerformanceByTeamRepository
+    public class TeamEffortReportRepository : ITeamEffortReportRepository
     {
-        /// <summary>
-        /// Get employee performance by team report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Report Employee Performance By Team Model.</returns>
-        public TeamPerformanceModel GetEmployeePerformanceByTeamReport(ICriteria criteria)
-        {
-            var employeePerformanceByTeamReport = new TeamPerformanceModel();
-
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
-                {
-                    var reportByProject =
-                        multi.Read<EmployeePerformanceByProjectModel, Group, EmployeePerformanceByProjectModel>(
-                        (re, gr) =>
-                        {
-                            re.Group = gr;
-                            return re;
-                        },
-                        "GroupId");
-                    employeePerformanceByTeamReport.ReportByProject = reportByProject;
-                }
-            }
-
-            return employeePerformanceByTeamReport;
-        }
-
         /// <summary>
         /// Gets the redmine personal effort detail.
         /// </summary>
@@ -64,7 +36,7 @@ namespace NexEPA.Report.Repositories.Implement
                 var report = new RedmineTeamEffortViewModel();
 
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
-                {                   
+                {
                     report.TeamEfforts = GetTeamEfforts(multi);
 
                     report.MemberProjects = GetMemberProjects(multi);

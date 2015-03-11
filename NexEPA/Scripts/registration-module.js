@@ -97,7 +97,9 @@ var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
 	$routeProvider.when('/Report/EmployeePerformanceTendency', 
 		{ templateUrl: '/templates/Report/EmployeePerformanceTendency/View.html', controller: 'ViewEmployeePerformanceTendencyController' });
 	$routeProvider.when('/Report/TeamEPAReport',
-		{ templateUrl: '/templates/Report/EmployeePerformanceByTeam/View.html', controller: 'ViewEmployeePerformanceByTeamController' });
+		{ templateUrl: '/templates/Report/TeamEPAReport/TeamEPAView.html', controller: 'TeamEPAReportController' });
+	$routeProvider.when('/Report/TeamEffortReport',
+		{ templateUrl: '/templates/Report/TeamEffortReport/TeamEffortView.html', controller: 'TeamEffortReportController' });
 } ]);
 
 var departmentModule = angular.module("departmentModule", ['ngRoute', 'ngResource'])

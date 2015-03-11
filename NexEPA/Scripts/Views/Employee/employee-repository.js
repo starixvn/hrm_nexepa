@@ -28,6 +28,9 @@ employeeModule.factory('employeeRepository', ['$http', function ($http) {
 					projectId: projectId ? projectId : ''
 				}
 			});
+		},
+		getAllGroupByActorUser: function () {
+			return $http.get('/api/Employee/RetrieveAllGroupByActorUser');
 		}
 	};
 } ]);

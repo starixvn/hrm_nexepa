@@ -2,7 +2,7 @@
 	<div class="row sub-header">
 		<ul class="breadcrumb list-inline pull-left">
 			<li><a href="#" data-translate="Report" ng-click="reload()"></a></li>
-			<li class="current" data-translate="EmployeePerformanceByTeam"></li>
+			<li class="current" data-translate="TeamEPAReport"></li>
 		</ul>
 	</div>
 	<div class="row row-filter filter-max-width">
@@ -70,20 +70,8 @@
 		</form>
 	</div>
 	<div class="row filter-max-width">
-		<div ng-include data-src="'/Templates/Report/EmployeePerformanceByTeam/TeamByProjects.html'">
+		<div ng-include data-src="'/Templates/Report/TeamEPAReport/TeamByProjects.html'">
 		</div>
-	</div>
-	<div class="row">
-		<div ng-include data-src="'/Templates/Report/EmployeePerformanceByTeam/TeamEfforts.html'">
-		</div>
-	</div>
-	<div class="row">
-		<div ng-include data-src="'/Templates/Report/EmployeePerformanceByTeam/TeamEffortChart.html'">
-		</div>
-	</div>
-	<div class="row">
-		<div ng-include data-src="'/Templates/Report/EmployeePerformanceByTeam/MemberEffortChart.html'">
-		</div>
-	</div>
+	</div>	
 	<br />
 </div>

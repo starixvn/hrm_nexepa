@@ -1,25 +1,24 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RedmineTeamAverageWorkloadModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RedmineMemberWorkloadModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Larry.Tran" date="2015.3.6">Created</change>
+//   <change who="Larry.Tran" date="2015.2.26">Created</change>
 // </history>
 
-namespace NexEPA.Report.Models.EmployeePerformanceByTeam
+namespace NexEPA.Report.Models.TeamEffortReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
 
     /// <summary>
-    /// RedmineTeamAverageWorkloadModel class.
+    /// RedmineMemberWorkloadModel class.
     /// </summary>
-    public class RedmineTeamAverageWorkloadModel
+    public class RedmineMemberWorkloadModel
     {
+        public RedmineEmployeeModel Employee { get; set; }
+
         public RedmineYearMonthModel YearMonth { get; set; }
 
         public decimal Workload { get; set; }

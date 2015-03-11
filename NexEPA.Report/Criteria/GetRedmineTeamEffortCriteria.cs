@@ -23,6 +23,8 @@ namespace NexEPA.Report.Criteria
 
         public DateTime ToDate { get; set; }
 
+        public int? ProjectId { get; set; }
+
         public override bool IsValid()
         {
             return !string.IsNullOrEmpty(NickName) && ToDate >= FromDate;

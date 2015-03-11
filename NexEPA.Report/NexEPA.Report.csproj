@@ -52,13 +52,13 @@
     <Compile Include="Criteria\GetEmployeePerformanceTendencyReportCriteria.cs" />
     <Compile Include="Criteria\GetGeneralInformationOfCurrentEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetRedminePersonalEffortCriteria.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberProjectModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberSubTotalModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberWorkloadModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamAverageWorkloadModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamEffortModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\RedmineMemberWorkingDayModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\RedmineTeamTotalEffortModel.cs" />
+    <Compile Include="Models\TeamEffortReport\RedmineMemberProjectModel.cs" />
+    <Compile Include="Models\TeamEffortReport\RedmineMemberSubTotalModel.cs" />
+    <Compile Include="Models\TeamEffortReport\RedmineMemberWorkloadModel.cs" />
+    <Compile Include="Models\TeamEffortReport\RedmineTeamAverageWorkloadModel.cs" />
+    <Compile Include="Models\TeamEffortReport\RedmineTeamEffortModel.cs" />
+    <Compile Include="Models\TeamEffortReport\RedmineMemberWorkingDayModel.cs" />
+    <Compile Include="Models\TeamEffortReport\RedmineTeamTotalEffortModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedminePersonalEffortDetailModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedminePersonalEffortModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineProjectMonthModel.cs" />
@@ -70,6 +70,10 @@
     <Compile Include="Models\EmployeePerformanceTendency\RedmineWorkloadByProjectModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineTrackerMonthModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\RedmineWorkloadByProjectMonthModel.cs" />
+    <Compile Include="Repositories\Implement\TeamEffortReportRepository.cs" />
+    <Compile Include="Repositories\Interface\ITeamEffortReportRepository.cs" />
+    <Compile Include="Services\Implement\TeamEffortReportService.cs" />
+    <Compile Include="Services\Interface\ITeamEffortReportService.cs" />
     <Compile Include="ViewModels\RedminePersonalEffortDetailViewModel.cs" />
     <Compile Include="ViewModels\RedminePersonalEffortViewModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
@@ -78,20 +82,20 @@
     <Compile Include="Models\Dashboard\ReportMilestoneModel.cs" />
     <Compile Include="Models\Dashboard\HistoryProjectModel.cs" />
     <Compile Include="Models\Dashboard\OpenProjectModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\TeamPerformanceModel.cs" />
-    <Compile Include="Models\EmployeePerformanceByTeam\EmployeePerformanceByProjectModel.cs" />
+    <Compile Include="Models\TeamEPAReport\TeamPerformanceModel.cs" />
+    <Compile Include="Models\TeamEPAReport\EmployeePerformanceByProjectModel.cs" />
     <Compile Include="Models\EmployeePerformanceTendency\EmployeePerformanceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Implement\EmployeePerformanceByTeamRepository.cs" />
+    <Compile Include="Repositories\Implement\TeamEPAReportRepository.cs" />
     <Compile Include="Repositories\Implement\EmployeePerformanceTendencyRepository.cs" />
     <Compile Include="Repositories\Implement\ReportRepository.cs" />
-    <Compile Include="Repositories\Interface\IEmployeePerformanceByTeamRepository.cs" />
+    <Compile Include="Repositories\Interface\ITeamEPAReportRepository.cs" />
     <Compile Include="Repositories\Interface\IEmployeePerformanceTendencyRepository.cs" />
     <Compile Include="Repositories\Interface\IReportRepository.cs" />
-    <Compile Include="Services\Implement\EmployeePerformanceByTeamService.cs" />
+    <Compile Include="Services\Implement\TeamEPAReportService.cs" />
     <Compile Include="Services\Implement\EmployeePerformanceTendencyService.cs" />
     <Compile Include="Services\Implement\ReportService.cs" />
-    <Compile Include="Services\Interface\IEmployeePerformanceByTeamService.cs" />
+    <Compile Include="Services\Interface\ITeamEPAReportService.cs" />
     <Compile Include="Services\Interface\IEmployeePerformanceTendencyService.cs" />
     <Compile Include="Services\Interface\IReportService.cs" />
     <Compile Include="ViewModels\HistoryProjectViewModel.cs" />
@@ -122,6 +126,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

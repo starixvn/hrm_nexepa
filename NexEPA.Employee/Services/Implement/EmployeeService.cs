@@ -69,6 +69,24 @@ namespace NexEPA.Employee.Services.Implement
         }
 
         /// <summary>
+        /// Gets all employee group by actor user.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All employee group by actor user.</returns>
+        public IEnumerable<Group> GetAllEmployeeGroupByActorUser(GetAllEmployeeGroupByActorUserCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<Group> groups = null;
+
+            if (criteria.IsValid())
+            {
+                groups = GetData<Group>(criteria);
+            }
+
+            return groups;
+        }
+
+        /// <summary>
         /// Get employee by project ID.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

@@ -317,8 +317,9 @@
     <Content Include="Scripts\Views\Login\login-controller.js" />
     <Content Include="Scripts\Views\Department\department-repository.js" />
     <Content Include="Scripts\Views\Department\department-controller.js" />
+    <Content Include="Scripts\Views\Report\teamEffortReport-controller.js" />
     <Content Include="Scripts\Views\Report\employeePersonReport-controller.js" />
-    <Content Include="Scripts\Views\Report\employeeTeamReport-controller.js" />
+    <Content Include="Scripts\Views\Report\teamEPAReport-controller.js" />
     <Content Include="Scripts\Views\Report\report-repository.js" />
     <Content Include="Scripts\Views\Resource\resource-controller.js" />
     <Content Include="Scripts\Views\Resource\resource-repository.js" />
@@ -372,10 +373,11 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
-    <Content Include="Templates\Report\EmployeePerformanceByTeam\MemberEffortChart.html" />
-    <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamEffortChart.html" />
-    <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamByProjects.html" />
-    <Content Include="Templates\Report\EmployeePerformanceByTeam\TeamEfforts.html" />
+    <Content Include="Templates\Report\TeamEffortReport\MemberEffortChart.html" />
+    <Content Include="Templates\Report\TeamEffortReport\TeamEffortChart.html" />
+    <Content Include="Templates\Report\TeamEffortReport\TeamEffortView.html" />
+    <Content Include="Templates\Report\TeamEPAReport\TeamByProjects.html" />
+    <Content Include="Templates\Report\TeamEffortReport\TeamEfforts.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffortDetail.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffortChart.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\PersonalEffort.html" />
@@ -402,7 +404,7 @@
     <Content Include="Templates\Projects\ProjectFilterPanel.html" />
     <Content Include="Templates\ProjectMembers\ProjectMembersFilterPanel.html" />
     <Content Include="Templates\Projects\ProjectMilestone.html" />
-    <Content Include="Templates\Report\EmployeePerformanceByTeam\View.html" />
+    <Content Include="Templates\Report\TeamEPAReport\TeamEPAView.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\GeneralInformation.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\HistoryProject.html" />
     <Content Include="Templates\Report\EmployeePerformanceTendency\View.html" />

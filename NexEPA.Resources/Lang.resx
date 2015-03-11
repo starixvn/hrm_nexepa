@@ -888,4 +888,10 @@
   <data name="SpentTime" xml:space="preserve">
     <value>Spent Time</value>
   </data>
+  <data name="TeamEPAReport" xml:space="preserve">
+    <value>Team EPA Report</value>
+  </data>
+  <data name="TeamEffortReport" xml:space="preserve">
+    <value>Team Effort Report</value>
+  </data>
 </root>

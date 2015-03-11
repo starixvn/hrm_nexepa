@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global registrationModule*/
 
-registrationModule.factory('commonFactory', ['$filter', function ($filter) {
+registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', function ($filter, notificationFactory) {
 	var common = {};
 	var limitNumber = 100;
 
@@ -259,6 +259,29 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		return result;
 	};
 
+	common.getEmployeeIds = function (data) {
+		var selectedEmployeeIds = [],
+			allEmployeeIds = [];
+
+		angular.forEach(data, function (item) {
+			if (item.ticked) {
+				selectedEmployeeIds.push(item.employeeId);
+			}
+
+			allEmployeeIds.push(item.employeeId);
+		});
+
+		var result = null;
+
+		if (selectedEmployeeIds.length > 0) {
+			result = selectedEmployeeIds.join(',');
+		} else if (allEmployeeIds.length > 0) {
+			result = allEmployeeIds.join(',');
+		}
+
+		return result;
+	};
+
 	common.getSelectedItems = function (data) {
 		var selectedItems = [];
 
@@ -279,6 +302,33 @@ registrationModule.factory('commonFactory', ['$filter', function ($filter) {
 		$('html, body').animate({
 			scrollTop: $(document).height() - $(window).height() + (additionalHeight ? additionalHeight : 0)
 		}, 1400, "easeOutQuint");
+	};
+
+	common.validateFromToDate = function (fromDate, toDate) {
+		var isValid = true;
+
+		if (!fromDate) {
+			isValid = false;
+			notificationFactory.error("FromRequire");
+		} else if (!toDate) {
+			isValid = false;
+			notificationFactory.error("ToRequire");
+		} else {
+			fromDate = new Date(fromDate.toDateString());
+			toDate = new Date(toDate.toDateString());
+			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
+
+			if (fromDate > toDate) {
+				isValid = false;
+				notificationFactory.error("ValidateFromToDate");
+			}
+			else if (toDate > maxDate) {
+				isValid = false;
+				notificationFactory.error("ValidateMaximumOneYear");
+			}
+		}
+
+		return isValid;
 	};
 
 	return common;

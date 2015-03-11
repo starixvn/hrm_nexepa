@@ -72,6 +72,17 @@ namespace NexEPA.Controllers.API
             return selectListGroups;
         }
 
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
+        public IList<SelectListModel> RetrieveAllGroupByActorUser()
+        {
+            var criteria = new GetAllEmployeeGroupByActorUserCriteria { ActorUserId = CurrentUser.UserId };
+            IEnumerable<Group> groups = _employeeService.GetAllEmployeeGroupByActorUser(criteria);
+            IList<SelectListModel> selectListGroups = groups.Select(t => new SelectListModel { Id = t.GroupId, Name = t.Name }).ToList();
+
+            return selectListGroups;
+        }
+
         /// <summary>
         /// Function to get employees by project.
         /// </summary>
@@ -156,13 +167,13 @@ namespace NexEPA.Controllers.API
         /// <param name="projectId">The project identifier.</param>
         /// <returns>The employee by team project.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
-        public IEnumerable<EmployeeModel> GetEmployeeByTeamProject(           
+        public IEnumerable<EmployeeModel> GetEmployeeByTeamProject(
             int? groupId,
             int? projectId)
         {
             var criteria = new GetEmployeeByTeamProjectCriteria
             {
-                ActorUserId = CurrentUser.UserId,               
+                ActorUserId = CurrentUser.UserId,
                 GroupId = groupId,
                 ProjectId = projectId
             };

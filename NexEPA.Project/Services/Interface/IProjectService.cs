@@ -39,5 +39,7 @@ namespace NexEPA.Project.Services.Interface
         CommandResult UpdateMilestone(UpdateMilestoneCriteria criteria);
 
         CommandResult DeleteMilestone(DeleteMilestoneCriteria criteria);
+
+        List<RedmineProjectModel> GetAllRedmineProjects(GetAllRedmineProjectsCriteria criteria);
     }
 }

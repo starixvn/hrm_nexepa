@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="IEmployeePerformanceByTeamRepository.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ITeamEPAReportRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,16 +10,13 @@
 namespace NexEPA.Report.Repositories.Interface
 {
     using Fanex.Data.Repository;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.ViewModels;
+    using NexEPA.Report.Models.TeamEPAReport;
 
     /// <summary>
-    /// IEmployeePerformanceByTeamRepository interface.
+    /// ITeamEPAReportRepository interface.
     /// </summary>
-    public interface IEmployeePerformanceByTeamRepository
+    public interface ITeamEPAReportRepository
     {
         TeamPerformanceModel GetEmployeePerformanceByTeamReport(ICriteria criteria);
-
-        RedmineTeamEffortViewModel GetRedmineTeamEffort(ICriteria criteria);
     }
 }

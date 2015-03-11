@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="IEmployeePerformanceByTeamService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ITeamEPAReportService.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,16 +10,13 @@
 namespace NexEPA.Report.Services.Interface
 {
     using NexEPA.Report.Criteria;
-    using NexEPA.Report.Models.EmployeePerformanceByTeam;
-    using NexEPA.Report.ViewModels;
+    using NexEPA.Report.Models.TeamEPAReport;
 
     /// <summary>
-    /// IEmployeePerformanceByTeamService interface.
+    /// ITeamEPAReportService interface.
     /// </summary>
-    public interface IEmployeePerformanceByTeamService
+    public interface ITeamEPAReportService
     {
         TeamPerformanceModel GetEmployeePerformanceByTeamReport(GetEmployeePerformanceByTeamCriteria criteria);
-
-        RedmineTeamEffortViewModel GetRedmineTeamEffort(GetRedmineTeamEffortCriteria criteria);
     }
 }
