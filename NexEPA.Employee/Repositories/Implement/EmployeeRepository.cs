@@ -95,5 +95,18 @@ namespace NexEPA.Employee.Repositories.Implement
                 return db.Query<EmployeeModel>(criteria.GetSpParams());
             }
         }
+
+        /// <summary>
+        /// Gets the redmine employees by team project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The redmine employees by team project.</returns>
+        public IEnumerable<EmployeeModel> GetRedmineEmployeesByTeamProject(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<EmployeeModel>(criteria.GetSpParams());
+            }
+        }
     }
 }

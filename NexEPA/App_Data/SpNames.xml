@@ -16,7 +16,8 @@
 		<Setting Key="Employee_GetByDepartment" SpName="Employee_GetByDepartment" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Employee_GetByGroup" SpName="Employee_GetByGroup" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="Employee_GetByTeamProject" SpName="Employee_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EmployeeGroup_GetByActorUser" SpName="EmployeeGroup_GetByActorUser" DbName="NexEPA" Plain="0" ></Setting>    
+    <Setting Key="EmployeeGroup_GetByActorUser" SpName="EmployeeGroup_GetByActorUser" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="EmployeeRedmine_GetByTeamProject" SpName="EmployeeRedmine_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>    
   </Function>
 
 	<Function Name="Project">

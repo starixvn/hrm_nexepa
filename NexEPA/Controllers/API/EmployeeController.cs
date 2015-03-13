@@ -181,5 +181,26 @@ namespace NexEPA.Controllers.API
 
             return employees;
         }
+
+        /// <summary>
+        /// Gets the redmine employees by team project.
+        /// </summary>
+        /// <param name="groupId">The group identifier.</param>
+        /// <param name="projectId">The project identifier.</param>
+        /// <returns>The redmine employees by team project.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
+        public IEnumerable<EmployeeModel> GetRedmineEmployeesByTeamProject(
+            int? groupId,
+            int? projectId)
+        {
+            var criteria = new GetRedmineEmployeesByTeamProjectCriteria
+            {
+                GroupId = groupId,
+                ProjectId = projectId
+            };
+            IEnumerable<EmployeeModel> employees = _employeeService.GetRedmineEmployeesByTeamProject(criteria);
+
+            return employees;
+        }
     }
 }

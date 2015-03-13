@@ -219,5 +219,23 @@ namespace NexEPA.Employee.Services.Implement
 
             return employees;
         }
+
+        /// <summary>
+        /// Gets the redmine employees by team project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The redmine employees by team project.</returns>
+        public IEnumerable<EmployeeModel> GetRedmineEmployeesByTeamProject(GetRedmineEmployeesByTeamProjectCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeModel> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = _employeeRepository.GetRedmineEmployeesByTeamProject(criteria);
+            }
+
+            return employees;
+        }
     }
 }

@@ -48,7 +48,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		};
 		$scope.personalSeries = [];
 		$scope.personalChartTitle = "";
-		$scope.isSystemAdmin = false;
 
 		$scope.isTeamCollapsed = true;
 		$scope.isTeamChartCollapsed = true;
@@ -112,16 +111,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		commonFactory.getDateFormat($scope);
 
 		self.checkTheRightToViewTeamEffortReport(function () {
-			self.getAllGroupByActorUser();
+			self.getAllGroup();
 			self.getAllRedmineProjects();
-
-			self.isSystemAdmin(function () {
-				$scope.getEmployee(function () {
-					if (!$scope.isSystemAdmin) {
-						self.getReportData();
-					}
-				});
-			});
+			$scope.getEmployee();
 		});
 	};
 
@@ -140,17 +132,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		});
 	};
 
-	self.isSystemAdmin = function (callBack) {
-		authorityRepository.isSystemAdmin().success(function (result) {
-			$scope.isSystemAdmin = angular.fromJson(result);
-			if (callBack) {
-				callBack();
-			}
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
-		});
-	};
-
 	self.validateFilterOptions = function () {
 		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
@@ -160,15 +141,12 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	/*
 	|| Filter region
 	*/
-	$scope.getEmployee = function (callBack) {
-		var groupId = $scope.filter.groupId;
+	$scope.getEmployee = function () {
+		var groupId = $scope.filter.groupId,
+			projectId = $scope.filter.projectId;
 
-		employeeRepository.getEmployeeByTeamProject(groupId, null).success(function (employees) {
+		employeeRepository.getRedmineEmployeesByTeamProject(groupId, projectId).success(function (employees) {
 			$scope.employees = employees;
-
-			if (callBack) {
-				callBack();
-			}
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});
@@ -180,8 +158,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		});
 	};
 
-	self.getAllGroupByActorUser = function () {
-		employeeRepository.getAllGroupByActorUser().success(function (groupList) {
+	self.getAllGroup = function () {
+		employeeRepository.getAllGroup().success(function (groupList) {
 			$scope.groups = groupList;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -192,15 +170,12 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		var isValid = self.validateFilterOptions();
 
 		if (isValid) {
-			if ($scope.isSystemAdmin) {
-				var selectedEmployees = commonFactory.getSelectedItems($scope.employees);
 
-				if (!$scope.filter.groupId && !$scope.filter.projectId && selectedEmployees.length === $scope.employees.length) {
-					// warning if show all employees
-					self.warningShowAllEmployees();
-				} else {
-					self.getReportData();
-				}
+			var selectedEmployees = commonFactory.getSelectedItems($scope.employees);
+
+			if (!$scope.filter.groupId && !$scope.filter.projectId && selectedEmployees.length === $scope.employees.length) {
+				// warning if show all employees
+				self.warningShowAllEmployees();
 			} else {
 				self.getReportData();
 			}
