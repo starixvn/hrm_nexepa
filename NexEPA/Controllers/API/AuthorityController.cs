@@ -171,12 +171,8 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public object IsOnlyMember()
         {
-            var criteria = new EmployeeIsOnlyMemberCriteria
-            {
-                EmployeeId = CurrentUser.UserId
-            };
-
-            bool isOnlyMember = _authorityService.IsOnlyMember(criteria);
+            // Role id = 5 : Member
+            bool isOnlyMember = CurrentUser.Roles.Count == 1 && CurrentUser.HasRole(5);
             var resultData = new { IsOnlyMember = isOnlyMember, EmployeeId = CurrentUser.UserId };
 
             return resultData;
