@@ -1,18 +1,11 @@
-/****** Object:  StoredProcedure [dbo].[Report_EmployeeEPA]    Script Date: 2/13/2015 9:09:23 AM ******/
-IF OBJECT_ID('[dbo].[Report_EmployeeEPA]') IS NOT NULL
-BEGIN
-	DROP PROCEDURE [dbo].[Report_EmployeeEPA]
-END
+USE [NexEPA]
 GO
-
-/****** Object:  StoredProcedure [dbo].[Report_EmployeeEPA]    Script Date: 2/13/2015 9:18:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[Report_EmployeeEPA]    Script Date: 3/16/2015 1:18:04 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE PROCEDURE [dbo].[Report_EmployeeEPA] 
+ALTER PROCEDURE [dbo].[Report_EmployeeEPA] 
 	@ActorUserId INT
 	,@EmployeeId INT
 	,@FromDate DATETIME
@@ -101,14 +94,12 @@ BEGIN
 		LEFT JOIN dbo.ProjectMember AS mb WITH (NOLOCK) 
 			ON mb.EmployeeId = @EmployeeId
 			AND pr.ProjectId = mb.ProjectId		
-	WHERE  ee.IsDeleted = 0 AND ee.Enabled = 1
-		AND epa.EmployeeId = @EmployeeId 
+	WHERE  epa.EmployeeId = @EmployeeId AND ee.IsDeleted = 0 AND ee.Enabled = 1
 		AND (@IsSuppervisor = 1 OR @EmployeeId = @ActorUserId 
-			OR pr.ProjectManager = @ActorUserId OR eg.LeaderId = @ActorUserId 
+			OR pc.EvaluatorId = @ActorUserId
+			OR pr.ProjectManager = @ActorUserId
+			OR (epa.EmployeeId IN (SELECT DISTINCT EmployeeId 
+									FROM dbo.fnc_GetAllMembersOfLeader(@ActorUserId)))
 		)
 		AND (tg.StartDate <= @ToDate AND tg.EndDate >= @FromDate)	
 END
-
-GO
-
-

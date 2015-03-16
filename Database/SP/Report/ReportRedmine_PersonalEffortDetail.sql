@@ -1,19 +1,13 @@
-/****** Object:  StoredProcedure [dbo].[ReportRedmine_PersonalEffortDetail]    Script Date: 2/13/2015 9:09:23 AM ******/
-IF OBJECT_ID('[dbo].[ReportRedmine_PersonalEffortDetail]') IS NOT NULL
-BEGIN
-	DROP PROCEDURE [dbo].[ReportRedmine_PersonalEffortDetail]
-END
+USE [NexEPA]
 GO
-/****** Object:  StoredProcedure [dbo].[ReportRedmine_PersonalEffortDetail]    Script Date: 2/13/2015 9:30:44 AM ******/
+/****** Object:  StoredProcedure [dbo].[ReportRedmine_PersonalEffortDetail]    Script Date: 3/16/2015 1:25:11 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
 -- select * from employee where NickName = 'Clara.Phan'
--- [dbo].[ReportRedmine_PersonalEffortDetail] '260', '2014-04-30', '2014-07-31'
-CREATE PROCEDURE [dbo].[ReportRedmine_PersonalEffortDetail] 
+-- [dbo].[ReportRedmine_PersonalEffortDetail] '125', '2014-01-01', '2014-12-31'
+ALTER PROCEDURE [dbo].[ReportRedmine_PersonalEffortDetail] 
 	@EmployeeId INT
 	,@FromDate DATETIME
 	,@ToDate DATETIME
@@ -34,8 +28,11 @@ BEGIN
 
 	DECLARE @Sql NVARCHAR(MAX)
 	DECLARE @NickName NVARCHAR(150)
+	DECLARE	@AsgardRedmineName VARCHAR(50)	
+	
+	SET @AsgardRedmineName ='[REDMINE-ONELAB]'
 
-	SELECT @NickName = NickName 
+	SELECT @NickName = REPLACE(DomainUsername,'spvn\','') 
 	FROM dbo.Employee WITH (NOLOCK) 
 	WHERE EmployeeId = @EmployeeId
 
@@ -73,11 +70,11 @@ BEGIN
 					tc.name AS TrackerName, iss.id AS IssueId, 
 					YEAR(te.spent_on), MONTH(te.spent_on), te.hours
 				FROM
-					redmine.projects AS pr
-					INNER JOIN redmine.time_entries te ON te.project_id = pr.id       
-					INNER JOIN redmine.users u ON te.user_id = u.id
-					INNER JOIN redmine.issues AS iss ON te.issue_id = iss.id
-					INNER JOIN redmine.trackers AS tc ON iss.tracker_id = tc.id
+					projects AS pr
+					INNER JOIN time_entries te ON te.project_id = pr.id       
+					INNER JOIN users u ON te.user_id = u.id
+					INNER JOIN issues AS iss ON te.issue_id = iss.id
+					INNER JOIN trackers AS tc ON iss.tracker_id = tc.id
 				WHERE pr.id <> 16
 				AND u.login = ''''' + @NickName + ''''' 
 				AND te.spent_on BETWEEN ''''' + CONVERT(VARCHAR(10), @FromDate, 102) + ''''' AND ''''' + CONVERT(VARCHAR(10), @ToDate, 102) + '''''
@@ -90,6 +87,19 @@ BEGIN
 	END
 
 	EXEC (@Sql)
+
+	--Get data from Asgard Redmine
+	SET @Sql = REPLACE(@Sql,'(REDMINE,','('+@AsgardRedmineName+',')
+
+	--Make sure projectId is unique, we change projectId to negative number
+	SET @Sql = REPLACE(@Sql,'pr.id AS ProjectId,','pr.id*-1 AS ProjectId,')
+
+	IF @Debug = 1
+	BEGIN
+		SELECT @Sql
+	END
+
+	EXEC(@Sql)
 
 	DECLARE @Month TABLE
 	(	[Year] INT, [Month] INT
@@ -118,7 +128,7 @@ BEGIN
 				END) * 8
 	FROM NexHRM.dbo.EmployeeCalendar AS cl WITH (NOLOCK)
 		INNER JOIN NexHRM.dbo.Employee AS e WITH (NOLOCK) ON cl.EmpId = e.Id
-	WHERE e.NickName = @NickName
+	WHERE e.Id = @EmployeeId
 		AND cl.WorkDate BETWEEN @FromDate
 			AND @ToDate
 		AND cl.IsHoliday = 0
@@ -258,9 +268,11 @@ BEGIN
 	-- workload by month
 	SELECT m.[Year]
 		,m.[Month]
+		
 		,SUBSTRING(DATENAME(MM, CAST((CAST(m.[Year] AS VARCHAR(4)) + '/' 
 		+ CAST(m.[Month] AS VARCHAR(2)) + '/01') AS DATETIME)), 1, 3) 
 		+ '-' + SUBSTRING(CAST(m.[Year] AS VARCHAR(4)), 3, 2) AS [MonthName]
+		,(ISNULL(wkh.WorkHour, 0) / 8.0) AS TotalWorkingDay
 		,(CASE 
 			WHEN ISNULL(wkh.WorkHour, 0) = 0 THEN 0
 			ELSE (ISNULL(spt.SpentTime, 0) / wkh.WorkHour) END
@@ -282,9 +294,5 @@ BEGIN
 	DROP TABLE #TblSpentTimeDetail
 	DROP TABLE #TblWorkHours
 END
-
-
-
-GO
 
 
