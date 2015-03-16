@@ -2,7 +2,7 @@
 	<div class="row boxtitle first" data-ng-click="collapseTable('effortChart')">
 		<div class="report-chart-icon pull-left" aria-hidden="true">
 		</div>
-		&nbsp;<span class="home-label" data-translate="PersonalEffort"></span>
+		&nbsp;<span class="home-label" data-ng-bind="effortInChartTitle"></span>
 	</div>
 	<div class="row" data-collapse="isEffortChartCollapsed">
 		<div class="col-sm-12" data-high-chart data-chart-type="column" data-x-axis="chart.xAxis" data-re-render="chart.reRender"

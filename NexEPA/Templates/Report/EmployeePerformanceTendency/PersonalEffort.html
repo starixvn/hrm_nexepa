@@ -1,7 +1,7 @@
 ﻿<div class="common-form container-content" data-ng-show="personalEfforts.data !== ''">
 	<div class="row boxtitle first" data-ng-click="collapseTable('effort')">
 		<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;<span class="home-label"
-			data-translate="PersonalEffort"></span>
+			data-ng-bind="effortInFiguresTitle"></span>
 	</div>
 	<div class="row" data-collapse="isEffortCollapsed">
 		<table class="table table-bordered history-table table-total">

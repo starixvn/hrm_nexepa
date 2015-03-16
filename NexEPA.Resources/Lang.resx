@@ -870,8 +870,8 @@
   <data name="None" xml:space="preserve">
     <value>-- None --</value>
   </data>
-  <data name="TeamEffort" xml:space="preserve">
-    <value>Team's effort</value>
+  <data name="TeamEffortInFigures" xml:space="preserve">
+    <value>Team's effort in figures</value>
   </data>
   <data name="Member" xml:space="preserve">
     <value>Member</value>
@@ -893,5 +893,8 @@
   </data>
   <data name="TeamEffortReport" xml:space="preserve">
     <value>Team Effort Report</value>
+  </data>
+  <data name="TeamEffortInChart" xml:space="preserve">
+    <value>Team's effort in chart</value>
   </data>
 </root>

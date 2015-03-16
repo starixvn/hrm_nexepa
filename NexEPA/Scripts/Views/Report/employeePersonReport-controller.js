@@ -3,7 +3,9 @@
 
 reportModule.controller('ViewEmployeePerformanceTendencyController',
 ['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService', 'authorityRepository',
-function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService, authorityRepository) {
+'commonFactory',
+function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService, authorityRepository,
+commonFactory) {
 	/*
 	|| variables
 	*/
@@ -66,6 +68,9 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 
 		$scope.fromOpened = false;
 		$scope.toOpened = false;
+		$scope.effortInFiguresTitle = "My effort in figures";
+		$scope.effortInChartTitle = "My effort in chart";
+		$scope.effortDetailInFiguresTitle = "My effort detail in figures";
 	};
 
 	/*
@@ -90,6 +95,8 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 
 			if (isValid) {
 				var employeeId = self.getEmployeeId();
+
+				self.setPanelTitle();
 
 				self.getReportByProjects(employeeId);
 
@@ -204,28 +211,7 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 	};
 
 	self.validateFilterOptions = function () {
-		var isValid = true;
-
-		if (!$scope.filter.fromDate) {
-			isValid = false;
-			notificationFactory.error("FromRequire");
-		} else if (!$scope.filter.toDate) {
-			isValid = false;
-			notificationFactory.error("ToRequire");
-		} else {
-			var fromDate = new Date($scope.filter.fromDate.toDateString());
-			var toDate = new Date($scope.filter.toDate.toDateString());
-			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
-
-			if (fromDate > toDate) {
-				isValid = false;
-				notificationFactory.error("ValidateFromToDate");
-			}
-			else if (toDate > maxDate) {
-				isValid = false;
-				notificationFactory.error("ValidateMaximumOneYear");
-			}
-		}
+		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
 		return isValid;
 	};
@@ -234,9 +220,24 @@ function ($scope, $route, $routeParams, reportFactory, employeeRepository, notif
 		employeeRepository.getEmployeeById(employeeId).success(function (employee) {
 			$scope.employee = employee;
 			$scope.filter.searchKey = employee.nickName + ' (' + employee.fullName + ')';
+			self.setPanelTitle();
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});
+	};
+
+	self.setPanelTitle = function () {
+		if ($scope.employee) {
+			if ($scope.employee.employeeId !== $scope.currentEmployeeId) {
+				$scope.effortInFiguresTitle = $scope.employee.nickName + "'s effort in figures";
+				$scope.effortInChartTitle = $scope.employee.nickName + "'s effort in chart";
+				$scope.effortDetailInFiguresTitle = $scope.employee.nickName + "'s effort detail in figures";
+			} else {
+				$scope.effortInFiguresTitle = "My effort in figures";
+				$scope.effortInChartTitle = "My effort in chart";
+				$scope.effortDetailInFiguresTitle = "My effort detail in figures";
+			}
+		}
 	};
 
 	self.handleFromToDate = function () {

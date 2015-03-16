@@ -2167,11 +2167,20 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team&apos;s effort.
+        ///   Looks up a localized string similar to Team&apos;s effort in chart.
         /// </summary>
-        public static string TeamEffort {
+        public static string TeamEffortInChart {
             get {
-                return ResourceManager.GetString("TeamEffort", resourceCulture);
+                return ResourceManager.GetString("TeamEffortInChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team&apos;s effort in figures.
+        /// </summary>
+        public static string TeamEffortInFigures {
+            get {
+                return ResourceManager.GetString("TeamEffortInFigures", resourceCulture);
             }
         }
         

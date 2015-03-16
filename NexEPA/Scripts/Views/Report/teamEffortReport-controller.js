@@ -391,7 +391,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	*/
 	self.setDefaultPersonalChartTitle = function () {
 		if ($scope.teamEfforts.data.length === 0) {
-			$scope.personalChartTitle = "Member's effort";
+			$scope.personalChartTitle = "Member's effort in chart";
 		}
 	};
 
@@ -436,7 +436,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	self.getPersonalChartData = function (nickName, fullName) {
 		nickName = angular.lowercase(nickName);
 
-		$scope.personalChartTitle = fullName + "'s effort";
+		$scope.personalChartTitle = fullName + "'s effort in chart";
 		$scope.personalChart.series = $scope.personalSeries[nickName];
 	};
 
