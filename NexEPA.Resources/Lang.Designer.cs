@@ -691,7 +691,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Person Report.
+        ///   Looks up a localized string similar to Employee Performance Report.
         /// </summary>
         public static string EmployeePerformanceTendency {
             get {
