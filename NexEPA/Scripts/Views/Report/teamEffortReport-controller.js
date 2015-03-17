@@ -430,6 +430,17 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		}
 	};
 
+	$scope.drillDownChart = function (e) {
+		var data = jQuery.grep($scope.teamEfforts.memberProjects, function (item) {
+			return item.employee.fullName === e.point.series.name;
+		});
+
+		if (data.length > 0) {
+			var member = data[0];
+			$scope.renderPersonalChart(member.employee.nickName, member.employee.fullName);
+		}
+	};
+
 	$scope.renderPersonalChart = function (nickName, fullName) {
 		if ($scope.isPersonalChartCollapsed) {
 			$scope.isPersonalChartCollapsed = false;

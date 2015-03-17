@@ -573,6 +573,18 @@ registrationModule.directive('highChart', function () {
 			series: scope.series
 		};
 
+		if (scope.onColumnClicked) {
+			chartOptions.plotOptions = {
+				column: {
+					cursor: 'pointer',
+					events: {
+						click: scope.onColumnClicked
+						//e.point.series.name
+					}
+				}
+			};
+		}
+
 		var chart = new Highcharts.Chart(chartOptions);
 
 		return chart;
@@ -587,7 +599,8 @@ registrationModule.directive('highChart', function () {
 			xAxis: "=",
 			series: "=",
 			reRender: "=",
-			onLoad: "&"
+			onLoad: "&",
+			onColumnClicked: '='
 		},
 		link: function ($scope, iElement) {
 			$scope.$watch('series', function (newSeries) {

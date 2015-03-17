@@ -5,8 +5,9 @@
 		&nbsp;<span class="home-label" data-translate="TeamEffortInChart"></span>
 	</div>
 	<div class="row" data-collapse="isTeamChartCollapsed">
-		<div class="col-sm-12" data-high-chart data-chart-type="column" data-x-axis="teamChart.xAxis" data-re-render="teamChart.reRender"
-			data-series="teamChart.series" style="width: 97.6%; padding-left: 4px;" data-ng-show="teamEfforts.data != ''">
+		<div class="col-sm-12" data-high-chart data-chart-type="column" data-x-axis="teamChart.xAxis"
+			data-re-render="teamChart.reRender" data-series="teamChart.series" data-on-column-clicked="drillDownChart"
+			style="width: 97.6%; padding-left: 4px;" data-ng-show="teamEfforts.data != ''">
 		</div>
 		<div data-ng-show="teamEfforts.data.length == 0">
 			<p class="empty-result col-sm-12" data-translate="EmptyResult">
