@@ -578,8 +578,10 @@ registrationModule.directive('highChart', function () {
 				column: {
 					cursor: 'pointer',
 					events: {
-						click: scope.onColumnClicked
-						//e.point.series.name
+						click: function (e) {
+							scope.onColumnClicked(e);
+							//e.point.series.name
+						}
 					}
 				}
 			};
