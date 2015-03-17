@@ -548,7 +548,7 @@ registrationModule.directive('bindHtmlUnsafe', function ($compile) {
 registrationModule.directive('highChart', function () {
 	/*jshint ignore:start */
 	// Highcharts is the javascript chart library.
-	var renderChart = function (scope, element) {		
+	var renderChart = function (scope, element) {
 		var chartOptions = {
 			chart: {
 				type: scope.chartType,
@@ -572,11 +572,11 @@ registrationModule.directive('highChart', function () {
 			},
 			series: scope.series
 		};
-		
-		var chart = new Highcharts.Chart(chartOptions);	
+
+		var chart = new Highcharts.Chart(chartOptions);
 
 		return chart;
-	};	
+	};
 
 	return {
 		restrict: "A",
@@ -619,3 +619,28 @@ registrationModule.directive('addClassToRoleFilter', ['$compile', function ($com
 		}
 	};
 } ]);
+
+/*jshint ignore:start */
+// Ladda is the loading button using Bootstrap.
+registrationModule.directive('loadingButton', ['$timeout', function ($timeout) {
+	return {
+		restrict: "A",
+		scope: {
+			isStarted: "="
+		},
+		link: function ($scope, iElement) {
+			var l = Ladda.create(iElement[0]);
+
+			$scope.$watch('isStarted', function (value) {
+				if (value) {
+					l.start();
+				} else {
+					$timeout(function () {
+						l.stop();
+					}, 300);
+				}
+			});
+		}
+	};
+} ]);
+/*jshint ignore:end */

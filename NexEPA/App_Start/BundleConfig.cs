@@ -30,6 +30,7 @@ namespace NexEPA
                 "~/Content/Common/bootstrap.css",
                 "~/Content/Common/bootstrap-theme.css",
                 "~/Content/Common/angular-multi-select.css",
+                "~/Content/Common/ladda-themeless.min.css",
                 "~/Content/Common/jquery-ui-1.10.4.custom.min.css",
                 "~/Content/Common/chosen.min.css"));
 
@@ -61,6 +62,8 @@ namespace NexEPA
                 "~/Scripts/Libs/angular-route.js",
                 "~/Scripts/Libs/toastr.js",
                 "~/Scripts/Libs/angular-translate.js",
+                "~/Scripts/Libs/spin.min.js",
+                "~/Scripts/Libs/ladda.min.js",
                 "~/Scripts/Libs/chosen.jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(

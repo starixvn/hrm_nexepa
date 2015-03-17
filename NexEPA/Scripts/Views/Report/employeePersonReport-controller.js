@@ -21,6 +21,7 @@ commonFactory) {
 		$scope.isEffortChartCollapsed = true;
 		$scope.isEffortDetailCollapsed = true;
 
+		$scope.isLoadingButton = false;
 		$scope.isOnlyMember = false;
 		$scope.currentEmployeeId = null;
 		$scope.originalComment = '';
@@ -516,6 +517,8 @@ commonFactory) {
 
 	self.getPersonalEffortDetails = function (employeeId) {
 		if (employeeId) {
+			$scope.isLoadingButton = true;
+
 			reportFactory.getRedminePersonalEffortDetail(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
 				if (report != null) {
 					$scope.personalEffortDetails.data = report.personalEffortDetails;
@@ -541,6 +544,8 @@ commonFactory) {
 					$scope.personalEffortDetails.grandTotalWorkingDay = null;
 					$scope.personalEffortDetails.grandTotalIssueSpent = null;
 				}
+
+				$scope.isLoadingButton = false;
 			}).error(function (response, status) {
 				if (status === 405) {
 					ErrorService.errorHandle(status);
@@ -548,6 +553,8 @@ commonFactory) {
 				else {
 					notificationFactory.error("ErrorMessage");
 				}
+
+				$scope.isLoadingButton = false;
 			});
 		}
 	};

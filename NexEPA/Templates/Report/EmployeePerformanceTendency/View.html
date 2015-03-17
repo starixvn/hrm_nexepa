@@ -30,7 +30,9 @@
 				<calendar-image class="calendar-image" ng-click="open($event,'to')"></calendar-image>
 			</div>
 			<div class="col-sm-2 text-center">
-				<button class="button" data-ng-click="getReportData()" data-translate="Submit">
+				<button class="button ladda-button" data-ng-click="getReportData()" data-style="slide-up"
+					data-loading-button data-is-started="isLoadingButton">
+					<span class="ladda-label" data-translate="Submit"></span>
 				</button>
 			</div>
 		</div>

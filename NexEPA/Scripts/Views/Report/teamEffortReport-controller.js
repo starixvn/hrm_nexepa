@@ -48,7 +48,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		};
 		$scope.personalSeries = [];
 		$scope.personalChartTitle = "";
-
+		$scope.isLoadingButton = false;
 		$scope.isTeamCollapsed = true;
 		$scope.isTeamChartCollapsed = true;
 		$scope.isPersonalChartCollapsed = true;
@@ -206,6 +206,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	};
 
 	self.getReportData = function () {
+		$scope.isLoadingButton = true;
+
 		$scope.filter.nickNames = commonFactory.getNickNames($scope.employees);
 
 		if ($scope.filter.nickNames) {
@@ -226,6 +228,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			$scope.teamEfforts.subTotalWorkloadByMembers = [];
 
 			self.setDefaultPersonalChartTitle();
+
+			$scope.isLoadingButton = false;
 		}
 	};
 
@@ -253,6 +257,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 				self.setDefaultPersonalChartTitle();
 				self.processChartData();
 			}
+
+			$scope.isLoadingButton = false;
 		}).error(function (response, status) {
 			if (status === 405) {
 				ErrorService.errorHandle(status);
@@ -260,6 +266,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			else {
 				notificationFactory.error("ErrorMessage");
 			}
+
+			$scope.isLoadingButton = false;
 		});
 	};
 

@@ -35,6 +35,7 @@ employeeEPAFactory, ErrorService) {
 	$scope.projects = [];
 	$scope.groups = [];
 
+	$scope.isLoadingButton = false;
 	$scope.isSystemAdmin = false;
 	$scope.isProjectCollapsed = false;
 	$scope.reportByProjects = '';
@@ -64,7 +65,7 @@ employeeEPAFactory, ErrorService) {
 		$route.reload();
 	};
 
-	self.load = function () {		
+	self.load = function () {
 		commonFactory.getDateFormat($scope);
 
 		self.checkTheRightToViewTeamEPAReport(function () {
@@ -138,12 +139,15 @@ employeeEPAFactory, ErrorService) {
 	};
 
 	self.getReportData = function () {
+		$scope.isLoadingButton = true;
+
 		$scope.filter.employeeIds = commonFactory.getEmployeeIds($scope.employees);
 
 		if ($scope.filter.employeeIds) {
 			self.getEmployeePerformanceByTeamReport();
 		} else {
 			$scope.reportByProjects = [];
+			$scope.isLoadingButton = false;
 		}
 	};
 
@@ -156,6 +160,8 @@ employeeEPAFactory, ErrorService) {
 			if (report != null) {
 				$scope.reportByProjects = report.reportByProject;
 			}
+
+			$scope.isLoadingButton = false;
 		}).error(function (response, status) {
 			if (status === 405) {
 				ErrorService.errorHandle(status);
@@ -163,6 +169,7 @@ employeeEPAFactory, ErrorService) {
 			else {
 				notificationFactory.error("ErrorMessage");
 			}
+			$scope.isLoadingButton = false;
 		});
 	};
 

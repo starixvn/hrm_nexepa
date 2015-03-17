@@ -223,6 +223,7 @@
     <Content Include="Content\Common\Images\animated-overlay.gif" />
     <Content Include="Content\Common\chosen-sprite.png" />
     <Content Include="Content\Common\Images\auth-bg.png" />
+    <Content Include="Content\Common\ladda-themeless.min.css" />
     <Content Include="Content\Site\images\chart.png" />
     <Content Include="Content\Common\Images\delete.png" />
     <Content Include="Content\Common\Images\edit.png" />
@@ -302,6 +303,8 @@
     <Content Include="Scripts\Libs\highcharts-exporting.js" />
     <Content Include="Scripts\Libs\highcharts.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Scripts\Libs\ladda.min.js" />
+    <Content Include="Scripts\Libs\spin.min.js" />
     <Content Include="Scripts\Libs\toastr.js" />
     <Content Include="Scripts\Libs\ui-bootstrap-tpls-0.10.0.js" />
     <Content Include="Scripts\Views\AppraisalForm\appraisalForm-controller.js" />
