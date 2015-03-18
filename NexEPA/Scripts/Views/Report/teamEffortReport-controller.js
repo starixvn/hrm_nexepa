@@ -39,7 +39,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		$scope.teamChart = {
 			xAxis: {},
 			series: null,
-			reRender: false
+			reRender: false,
+			chartTooltip: self.teamChartTooltip
 		};
 		$scope.personalChart = {
 			xAxis: {},
@@ -136,6 +137,51 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
 		return isValid;
+	};
+
+	self.getNickName = function (fullName) {
+		var data = jQuery.grep($scope.teamEfforts.memberProjects, function (item) {
+			return item.employee.fullName === fullName;
+		});
+
+		if (data.length > 0) {
+			return data[0].employee.nickName;
+		}
+	};
+
+	self.getYearMonth = function (monthName) {
+		var result = { year: '', month: '' };
+		var data = jQuery.grep($scope.teamEfforts.yearMonths, function (item) {
+			return item.monthName === monthName;
+		});
+
+		if (data.length > 0) {
+			result = data[0];
+		}
+		return result;
+	};
+
+	self.teamChartTooltip = function (paramSeries, paramPoint) {
+		var fullName = paramSeries.name;
+		var monthName = paramPoint.category;
+		var spentTime = Math.abs(paramPoint.y);
+
+		var nickName = self.getNickName(fullName);
+		var yearMonth = self.getYearMonth(monthName);
+		var workingDay = $scope.getWorkingDayByMonth(nickName, yearMonth.year, yearMonth.month);
+		var workload = $scope.getWorkloadByMonth(nickName, yearMonth.year, yearMonth.month);
+		if (workload && workload > 0) {
+			workload = parseFloat(workload * 100).toFixed(2);
+		}
+
+		var tooltip = '<b>' + fullName + ', ' + monthName + '</b><br/>' +
+							'<ul style="padding-left:25px">' +
+								'<li>Spent time: <b>' + spentTime + '</b></li>' +
+								'<li>Working day: <b>' + (workingDay ? workingDay : 0) + '</b></li>' +
+								'<li>Workload: <b>' + (workload ? workload : 0) + '%</b></li>' +
+							'</ul>';
+
+		return tooltip;
 	};
 
 	/*

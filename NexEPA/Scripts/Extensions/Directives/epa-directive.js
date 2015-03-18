@@ -587,6 +587,15 @@ registrationModule.directive('highChart', function () {
 			};
 		}
 
+		if (scope.chartTooltip) {
+			chartOptions.tooltip = {
+				useHTML: true,
+				formatter: function () {
+					return scope.chartTooltip(this.series, this.point);
+				}
+			};
+		}
+
 		var chart = new Highcharts.Chart(chartOptions);
 
 		return chart;
@@ -602,7 +611,8 @@ registrationModule.directive('highChart', function () {
 			series: "=",
 			reRender: "=",
 			onLoad: "&",
-			onColumnClicked: '='
+			onColumnClicked: '=',
+			chartTooltip: '='
 		},
 		link: function ($scope, iElement) {
 			$scope.$watch('series', function (newSeries) {
