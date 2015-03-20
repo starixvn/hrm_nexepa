@@ -247,8 +247,7 @@ commonFactory) {
 		}
 
 		if (!$scope.filter.fromDate) {
-			$scope.filter.fromDate = new Date($scope.filter.toDate);
-			$scope.filter.fromDate.setMonth($scope.filter.fromDate.getMonth() - 3);
+			$scope.filter.fromDate = commonFactory.calculateFromDate(3);			
 		}
 	};
 

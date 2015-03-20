@@ -331,6 +331,16 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 		return isValid;
 	};
 
+	common.calculateFromDate = function (period) {
+		var date = new Date(),
+			year = date.getFullYear(),
+			month = date.getMonth();
+
+		var fromDate = new Date(year, month - period, 1);
+
+		return fromDate;
+	};
+
 	return common;
 } ]);
 

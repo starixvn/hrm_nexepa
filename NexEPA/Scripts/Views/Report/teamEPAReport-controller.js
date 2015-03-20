@@ -9,18 +9,14 @@ employeeEPAFactory, ErrorService) {
 	/*
 	|| Variables	
 	*/
-	var self = this,
-		date = new Date(),
-		year = date.getFullYear(),
-		month = date.getMonth(),
-		day = date.getDate();
+	var self = this;
 
 	/*
 	|| $scope properties
 	*/
 	$scope.filter = {
-		fromDate: new Date(year, month - 3, day),
-		toDate: new Date(year, month, day),
+		fromDate: commonFactory.calculateFromDate(3),
+		toDate: new Date(),
 		groupId: null,
 		projectId: null,
 		employeeIds: ''
