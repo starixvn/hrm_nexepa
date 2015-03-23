@@ -122,7 +122,9 @@ namespace NexEPA.Report.Services.Implement
 
             foreach (RedmineEmployeeModel workingDay in subTotalWorkingDayByMembers)
             {
-                decimal? spentTime = subTotalSpentTimeByMembers.Where(st => st.NickName.ToUpperInvariant() == workingDay.NickName.ToUpperInvariant())
+                decimal? spentTime = subTotalSpentTimeByMembers.Where(st => !string.IsNullOrEmpty(st.NickName) &&
+                                                                      !string.IsNullOrEmpty(workingDay.NickName) && 
+                                                                      st.NickName.ToUpperInvariant() == workingDay.NickName.ToUpperInvariant())
                                     .Select(st => st.SubTotalSpentTime).FirstOrDefault();
 
                 var employee = new RedmineEmployeeModel
