@@ -153,6 +153,9 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Get EPA of employees by manager.
         /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="teamId">The team id.</param>
         /// <param name="targetId">The target id.</param>
         /// <param name="projectId">The project id.</param>
         /// <param name="status">The status.</param>
@@ -162,15 +165,21 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageMemberEPA, Policy = Policy.Read)]
         [HttpGet]
         public List<GroupEPAOfMemberModel> GetEPAOfEmployeeByManager(
+            DateTime fromDate,
+            DateTime? toDate,
+            int? teamId = null,
             int? targetId = null,
             int? projectId = null,
             int? status = null,
-            int? employeeId = null,
+            string employeeId = null,
             bool? isShowAll = null)
         {
             var criteria = new GetEPAOfAllEmployeeByManagerCriteria
             {
                 ActorUserId = this.CurrentUser.UserId,
+                FromDate = fromDate,
+                ToDate = toDate,
+                TeamId = teamId,
                 EmployeeId = employeeId,
                 TargetId = targetId,
                 ProjectId = projectId,

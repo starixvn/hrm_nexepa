@@ -9,6 +9,7 @@
 
 namespace NexEPA.MemberEPA.Criteria
 {
+    using System;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -18,7 +19,13 @@ namespace NexEPA.MemberEPA.Criteria
     {
         public int ActorUserId { get; set; }
 
-        public int? EmployeeId { get; set; }
+        public DateTime FromDate { get; set; }
+
+        public DateTime? ToDate { get; set; }
+
+        public string EmployeeId { get; set; }
+
+        public int? TeamId { get; set; }
 
         public int? TargetId { get; set; }
 
@@ -35,6 +42,11 @@ namespace NexEPA.MemberEPA.Criteria
 
         public override bool IsValid()
         {
+            if (ToDate != null)
+            {
+                return FromDate <= ToDate;
+            }
+
             return true;
         }
     }
