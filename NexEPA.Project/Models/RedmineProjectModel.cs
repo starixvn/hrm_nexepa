@@ -19,5 +19,7 @@ namespace NexEPA.Project.Models
         public string ProjectName { get; set; }
 
         public decimal TotalSpentTimeOfAllMonths { get; set; }
+
+        public int IssueCount { get; set; }
     }
 }

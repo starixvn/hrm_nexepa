@@ -1780,6 +1780,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resource Planning Report.
+        /// </summary>
+        public static string ResourcePlanningReport {
+            get {
+                return ResourceManager.GetString("ResourcePlanningReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reviewer.
         /// </summary>
         public static string Reviewer {

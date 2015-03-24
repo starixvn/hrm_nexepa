@@ -93,6 +93,7 @@ namespace NexEPA
                 "~/Scripts/Views/Report/teamEPAReport-controller.js",
                 "~/Scripts/Views/Report/teamEffortReport-controller.js",
                 "~/Scripts/Views/Report/employeePersonReport-controller.js",
+                "~/Scripts/Views/Report/resourcePlanningReport-controller.js",
                 "~/Scripts/Views/Setting/generalsetting-controller.js",
                 "~/Scripts/Views/Setting/generalsetting-repository.js",
                 "~/Scripts/Views/Test/test-controller.js",

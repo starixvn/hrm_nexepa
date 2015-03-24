@@ -56,6 +56,16 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 		},
 		checkTheRightToViewTeamEffortReport: function () {
 			return $http.get('/api/Report/CheckTheRightToViewTeamEffortReport');
+		},
+		getRedmineResourcePlanning: function (filter) {
+			return $http.get('/api/Report/GetRedmineResourcePlanning', {
+				params: {
+					fromDate: filter.fromDate.toDateString(),
+					toDate: filter.toDate.toDateString(),
+					nickNames: filter.nickNames,
+					projectId: filter.projectId ? filter.projectId : ''
+				}
+			});
 		}
 	};
 } ]);

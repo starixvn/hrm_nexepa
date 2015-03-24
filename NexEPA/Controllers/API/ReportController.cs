@@ -31,17 +31,23 @@ namespace NexEPA.Controllers.API
         private ITeamEPAReportService _teamEPAService;
         private IEmployeePerformanceTendencyService _tendencyService;
         private ITeamEffortReportService _teamEffortService;
+        private IResourcePlanningReportService _resourcePlanningService;
 
         public ReportController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
-        public ReportController(ITeamEPAReportService teamService, ITeamEffortReportService teamEffortService, IEmployeePerformanceTendencyService tendencyService)
+        public ReportController(
+            ITeamEPAReportService teamService,
+            ITeamEffortReportService teamEffortService,
+            IEmployeePerformanceTendencyService tendencyService,
+            IResourcePlanningReportService resourcePlanningService)
         {
             _teamEPAService = teamService ?? new TeamEPAReportService();
             _teamEffortService = teamEffortService ?? new TeamEffortReportService();
             _tendencyService = tendencyService ?? new EmployeePerformanceTendencyService();
+            _resourcePlanningService = resourcePlanningService ?? new ResourcePlanningReportService();
         }
 
         #region PersonReport
@@ -154,7 +160,7 @@ namespace NexEPA.Controllers.API
         }
         #endregion
 
-        #region TeamEffortReport        
+        #region TeamEffortReport
         /// <summary>
         /// Gets the redmine team effort.
         /// </summary>
@@ -193,5 +199,32 @@ namespace NexEPA.Controllers.API
             return;
         }
         #endregion
+
+        /// <summary>
+        /// Gets the redmine resource planning.
+        /// </summary>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
+        /// <param name="nickNames">The nick names.</param>
+        /// <param name="projectId">The project identifier.</param>
+        /// <returns>The redmine resource planning.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ResourcePlanningReport, Policy = Policy.Read)]
+        public RedmineResourcePlanningViewModel GetRedmineResourcePlanning(
+            DateTime fromDate,
+            DateTime toDate,
+            string nickNames,
+            int? projectId)
+        {
+            var criteria = new GetRedmineResourcePlanningCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                NickName = nickNames,
+                ProjectId = projectId
+            };
+
+            return _resourcePlanningService.GetRedmineResourcePlanning(criteria);
+        }
     }
 }

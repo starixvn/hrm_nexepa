@@ -320,6 +320,7 @@
     <Content Include="Scripts\Views\Login\login-controller.js" />
     <Content Include="Scripts\Views\Department\department-repository.js" />
     <Content Include="Scripts\Views\Department\department-controller.js" />
+    <Content Include="Scripts\Views\Report\resourcePlanningReport-controller.js" />
     <Content Include="Scripts\Views\Report\teamEffortReport-controller.js" />
     <Content Include="Scripts\Views\Report\employeePersonReport-controller.js" />
     <Content Include="Scripts\Views\Report\teamEPAReport-controller.js" />
@@ -376,6 +377,7 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
+    <Content Include="Templates\Report\ResourcePlanningReport\ResourcePlanningView.html" />
     <Content Include="Templates\Report\TeamEffortReport\MemberEffortChart.html" />
     <Content Include="Templates\Report\TeamEffortReport\TeamEffortChart.html" />
     <Content Include="Templates\Report\TeamEffortReport\TeamEffortView.html" />

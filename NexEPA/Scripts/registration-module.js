@@ -100,6 +100,8 @@ var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
 		{ templateUrl: '/templates/Report/TeamEPAReport/TeamEPAView.html', controller: 'TeamEPAReportController' });
 	$routeProvider.when('/Report/TeamEffortReport',
 		{ templateUrl: '/templates/Report/TeamEffortReport/TeamEffortView.html', controller: 'TeamEffortReportController' });
+	$routeProvider.when('/Report/ResourcePlanningReport',
+		{ templateUrl: '/templates/Report/ResourcePlanningReport/ResourcePlanningView.html', controller: 'ResourcePlanningReportController' });
 } ]);
 
 var departmentModule = angular.module("departmentModule", ['ngRoute', 'ngResource'])

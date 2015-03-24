@@ -193,6 +193,11 @@ namespace NexEPA
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
+              name: "Resource Planning Report",
+              url: "Report/ResourcePlanningReport",
+              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });           
+
+            routes.MapRoute(
                 name: "Manage Department",
                 url: "Department/Index",
                 defaults: new { controller = "Home", action = "Index" });

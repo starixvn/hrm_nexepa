@@ -128,7 +128,8 @@
 		<Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ReportRedmine_PersonalEffort" SpName="ReportRedmine_PersonalEffort" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ReportRedmine_PersonalEffortDetail" SpName="ReportRedmine_PersonalEffortDetail" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort" DbName="NexEPA" Plain="0" ></Setting>   
+    <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ReportRedmine_ResourcePlanning" SpName="ReportRedmine_ResourcePlanning" DbName="NexEPA" Plain="0" ></Setting>    
   </Function>
 	<Function Name="Authority">
 		<Setting Key="Function_GetAll" SpName="Function_GetAll" DbName="NexEPA" Plain="0" ></Setting>

@@ -897,4 +897,7 @@
   <data name="TeamEffortInChart" xml:space="preserve">
     <value>Team's effort in chart</value>
   </data>
+  <data name="ResourcePlanningReport" xml:space="preserve">
+    <value>Resource Planning Report</value>
+  </data>
 </root>
