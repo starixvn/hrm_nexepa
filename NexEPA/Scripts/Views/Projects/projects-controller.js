@@ -213,8 +213,8 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 		}
 	});
 
-	$scope.linkToEPA = function (projectId, status) {
-		var objectQuery = { projectId: projectId, status: status, isShowAll: $scope.showAllMemberEPA };
+	$scope.linkToEPA = function (startDate, endDate, projectId, status) {
+		var objectQuery = { startDate: startDate, endDate : endDate, projectId: projectId, status: status, isShowAll: $scope.showAllMemberEPA };
 		linkToEPAService.setProperty(objectQuery);
 	};
 

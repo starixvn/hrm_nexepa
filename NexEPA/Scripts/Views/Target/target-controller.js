@@ -214,7 +214,7 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 		}
 	};
 
-	$scope.viewOpenEPA = function (targetId, projectManagerId) {
+	$scope.viewOpenEPA = function (startDate, endDate, targetId, projectManagerId) {
 		if ($scope.currentUser) {
 			var isShowAll = false;
 
@@ -222,11 +222,12 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 				isShowAll = true;
 			}
 
-			$scope.viewOpenEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&status=0&isShowAll=' + isShowAll;
+			$scope.viewOpenEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&status=0&isShowAll=' + isShowAll
+				+ '&startDate=' + startDate + '&endDate=' + endDate;
 		}
 	};
 
-	$scope.viewAllEPA = function (targetId, projectManagerId) {
+	$scope.viewAllEPA = function (startDate, endDate, targetId, projectManagerId) {
 		if ($scope.currentUser) {
 			var isShowAll = false;
 
@@ -234,7 +235,8 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 				isShowAll = true;
 			}
 
-			$scope.viewAllEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&isShowAll=' + isShowAll;
+			$scope.viewAllEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&isShowAll=' + isShowAll
+				+ '&startDate=' + startDate + '&endDate=' + endDate;
 		}
 	};
 } ]);

@@ -98,9 +98,9 @@
                         {{project.members}}</a>
                 </td>
                 <td class="text-center">
-                    <a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId, 0)">
+                    <a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.startDate, project.endDate, project.projectId, 0)">
                         {{project.totalOpenEPA}}</a> <span ng-if="project.permission != 2">{{project.totalOpenEPA}}</span>
-                    / <a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.projectId)">
+                    / <a ng-if="project.permission == 2" href="/MemberEPA/ViewMember" ng-click="linkToEPA(project.startDate, project.endDate, project.projectId)">
                         {{project.totalEPA}}</a> <span ng-if="project.permission != 2">{{project.totalEPA}}</span>
                 </td>
                 <td>

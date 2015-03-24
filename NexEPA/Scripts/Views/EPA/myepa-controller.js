@@ -396,34 +396,85 @@ epaModule.controller('ViewMemberByManagerEPAController',
 '$modal', 'employeeRepository', 'linkToEPAService',
 function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory, notificationFactory,
 $modal, employeeRepository, linkToEPAService) {
-
-	var targetId = $routeParams.targetId,
-		status = $routeParams.status,
+	var startDate = $routeParams.startDate ? new Date($routeParams.startDate) : new Date(),
+		endDate = $routeParams.endDate ? new Date($routeParams.endDate) : null,
+		targetId = $routeParams.targetId ? parseInt($routeParams.targetId) : null,
+		status = $routeParams.status ? parseInt($routeParams.status) : null,
 		isShowAll = $routeParams.isShowAll === "true" ? true : false;
 
+	var objectQuery = linkToEPAService.getProperty();
+
 	$scope.filter = {
+		fromDate: commonFactory.calculateFromDate(3),
+		toDate: new Date(),
+		teamId: null,
 		targetId: null,
 		status: null,
 		isShowAll: null,
-		projectId: null
+		projectId: null,
+		employeeId: ''
 	};
 
-	targetId = targetId ? parseInt(targetId) : null;
-	status = status ? parseInt(status) : null;
+	if (targetId) {
+		$scope.filter.fromDate = startDate;
+		$scope.filter.toDate = endDate;
+		$scope.filter.targetId = targetId;
+		$scope.filter.status = status;
+		$scope.filter.isShowAll = isShowAll;
+	}
 
+	if (objectQuery != null) {
+		$scope.filter.fromDate = objectQuery.startDate ? new Date(objectQuery.startDate) : new Date();
+		$scope.filter.toDate = objectQuery.endDate ? new Date(objectQuery.endDate) : null;
+		$scope.filter.projectId = objectQuery.projectId;
+		$scope.filter.status = objectQuery.status;
+		$scope.filter.isShowAll = objectQuery.isShowAll;
+	}
+
+	$scope.dateFormat = "dd MMM, yyyy";
+
+	$scope.calendar = {
+		startDateOpened: false,
+		endDateOpened: false
+	};
+
+	$scope.collapse = function (item) {
+		if (item.isCollapse) {
+			item.isCollapse = false;
+		}
+		else {
+			item.isCollapse = true;
+		}
+	};
+
+	/*
+	** Open calendar.
+	*/
+	$scope.openPopupStartDate = function ($event) {
+		commonFactory.openPopupStartDate($event, $scope);
+	};
+
+	$scope.openPopupEndDate = function ($event) {
+		commonFactory.openPopupEndDate($event, $scope);
+	};
+
+	/*
+	** Get current user.
+	*/
 	employeeEPAFactory.getCurrentUser().then(function (currentUser) {
 		$scope.currentUser = currentUser;
 	}, function () {
 		notificationFactory.error("ErrorMessage");
 	});
 
+	/*
+	** Get isShowFullEPAComment.
+	*/
 	employeeEPAFactory.getIsShowFullEPAComment().then(function (isShowFullEPAComment) {
 		$scope.isShowFullEPAComment = isShowFullEPAComment === "true" ? true : false;
 	}, function () {
 		notificationFactory.error("ErrorMessage");
 	});
-
-	var objectQuery = linkToEPAService.getProperty();
 
 	$scope.$watch("currentUser", function (newValue) {
 		if (newValue) {
@@ -442,50 +493,44 @@ $modal, employeeRepository, linkToEPAService) {
 		}
 	});
 
+	/*
+	** Get permission.
+	*/
 	employeeEPAFactory.getPermission().then(function (policy) {
 		$scope.permission = {
 			policy: policy
 		};
 	});
 
-	if (targetId) {
-		$scope.filter.targetId = targetId;
-		$scope.filter.status = status;
-		$scope.filter.isShowAll = isShowAll;
-	}
-
+	/*
+	** Get all target.
+	*/
 	employeeEPAFactory.getTargetToFilter().then(function (targetList) {
 		$scope.targetOptions = targetList;
 	});
 
+	/*
+	** Get all project.
+	*/
 	employeeEPAFactory.getAllProject().then(function (projectList) {
 		$scope.projectOptions = projectList;
 	});
 
+	/*
+	** Get all status.
+	*/
 	employeeEPAFactory.getAllStatus().then(function (statusList) {
 		$scope.statusOptions = statusList;
 	});
 
-	$scope.search = {
-		searchKey: ''
-	};
-
-	$scope.getEmployee = function (searchKey) {
-		employeeRepository.getEmployeeByCurrentUserId(searchKey, null).success(function (employees) {
-			$scope.searchEmployees = employees;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
-		});
-	};
-
-	$scope.collapse = function (item) {
-		if (item.isCollapse) {
-			item.isCollapse = false;
-		}
-		else {
-			item.isCollapse = true;
-		}
-	};
+	/*
+	** Get all group by current user.
+	*/
+	employeeRepository.getAllGroupByActorUser().success(function (groupList) {
+		$scope.teamOptions = groupList;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
 	var successGetEPA = function (listEPA) {
 		angular.forEach(listEPA, function (epa) {
@@ -507,37 +552,73 @@ $modal, employeeRepository, linkToEPAService) {
 		$scope.submitted = false;
 	};
 
-	var getEPAOfEmployeeByManager = function (targetId, projectId, status, employeeId, isShowAll) {
-		employeeEPAFactory.getEPAOfEmployeeByManager(targetId, projectId, status, employeeId, isShowAll)
-					.then(successGetEPA, errorHandle);
+	/*
+	** Get EPA of Employee by Manager.
+	*/
+	var getEPAOfEmployeeByManager = function (fromDate, toDate, teamId, targetId, projectId, status, employeeId, isShowAll) {
+		employeeEPAFactory.getEPAOfEmployeeByManager(fromDate, toDate, teamId, targetId, projectId, status, employeeId, isShowAll)
+			.then(successGetEPA, errorHandle);
 	};
 
-	if (objectQuery != null) {
-		getEPAOfEmployeeByManager(null, objectQuery.projectId, objectQuery.status, null, objectQuery.isShowAll);
+	/*
+	** Get employee when group and project change.
+	*/
+	$scope.getEmployee = function (teamId, projectId) {
+		employeeRepository.getEmployeeByTeamProject(teamId, projectId).success(function (employees) {
+			$scope.employeeOptions = employees;
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
 
-		if ($scope.filter) {
-			$scope.filter.projectId = objectQuery.projectId;
-			$scope.filter.status = objectQuery.status;
-			$scope.filter.isShowAll = objectQuery.isShowAll;
+
+	var validateFromToDate = function (fromDate, toDate) {
+		var isValid = true;
+
+		if (!fromDate) {
+			isValid = false;
+			notificationFactory.error("FromRequire");
+		} else if (toDate) {
+			fromDate = new Date(fromDate.toDateString());
+			toDate = new Date(toDate.toDateString());
+			var maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
+
+			if (fromDate > toDate) {
+				isValid = false;
+				notificationFactory.error("ValidateFromToDate");
+			}
+			else if (toDate > maxDate) {
+				isValid = false;
+				notificationFactory.error("ValidateMaximumOneYear");
+			}
 		}
-	}
-	else {
-		getEPAOfEmployeeByManager(targetId, null, status, null, isShowAll);
-	}
 
-	$scope.query = function (filter, employeeId) {
-		if (filter) {
+		return isValid;
+	};
+
+	/*
+	** Query.
+	*/
+	$scope.query = function (filter) {
+		var isValid = validateFromToDate(filter.fromDate, filter.toDate);
+		if (isValid && filter) {
 			$scope.submitted = true;
-			getEPAOfEmployeeByManager(filter.targetId, filter.projectId, filter.status, employeeId, filter.isShowAll);
+
+			getEPAOfEmployeeByManager(filter.fromDate, filter.toDate, filter.teamId,
+			filter.targetId, filter.projectId, filter.status, filter.employeeId, filter.isShowAll);
 		}
 	};
 
-	$scope.$watch('search.searchKey', function (newValue) {
-		if (newValue === "") {
-			$scope.employee = null;
-		}
-	});
+	var loadData = function () {
+		$scope.getEmployee($scope.filter.teamId, $scope.filter.projectId);
+		$scope.query($scope.filter);
+	};
 
+	loadData();
+
+	/*
+	** Link to EPA Detail.
+	*/
 	$scope.EPADetail = function (epaItem) {
 		if (epaItem.target) {
 			var targetId = epaItem.target.targetId,

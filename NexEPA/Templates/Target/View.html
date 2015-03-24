@@ -100,10 +100,10 @@
                     </span><span ng-if="permission.policy == 1" ng-bind="target.statusName"></span>
                 </td>
                 <td class="text-center" ng-if="permissionMemberEPA.policy >= 1">
-                    <a href="" ng-href="{{viewOpenEPAUrl}}" ng-click="viewOpenEPA(target.targetId, target.projectManager.employeeId)" 
+                    <a href="" ng-href="{{viewOpenEPAUrl}}" ng-click="viewOpenEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)" 
 						title="View Open EPA" ng-bind="target.totalOpenEPA" />
 					<span> / </span>
-					<a href="" ng-href="{{viewAllEPAUrl}}" ng-click="viewAllEPA(target.targetId, target.projectManager.employeeId)"
+					<a href="" ng-href="{{viewAllEPAUrl}}" ng-click="viewAllEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)"
                         title="View all EPA" ng-bind="target.totalEPA" />
                 </td>
                 <td class="text-center" ng-bind="target.startDate | customDate">
