@@ -247,7 +247,7 @@ commonFactory) {
 		}
 
 		if (!$scope.filter.fromDate) {
-			$scope.filter.fromDate = commonFactory.calculateFromDate(3);			
+			$scope.filter.fromDate = commonFactory.calculateFromDate(3, 1);
 		}
 	};
 

@@ -15,7 +15,7 @@ employeeEPAFactory, ErrorService) {
 	|| $scope properties
 	*/
 	$scope.filter = {
-		fromDate: commonFactory.calculateFromDate(3),
+		fromDate: commonFactory.calculateFromDate(3, 1),
 		toDate: new Date(),
 		groupId: null,
 		projectId: null,
@@ -137,7 +137,7 @@ employeeEPAFactory, ErrorService) {
 	self.getReportData = function () {
 		$scope.isLoadingButton = true;
 
-		$scope.filter.employeeIds = commonFactory.getEmployeeIds($scope.employees);
+		$scope.filter.employeeIds = commonFactory.getSelectedData($scope.employees, "employeeId");
 
 		if ($scope.filter.employeeIds) {
 			self.getEmployeePerformanceByTeamReport();

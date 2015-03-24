@@ -16,7 +16,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	*/
 	self.generateOptions = function () {
 		$scope.filter = {
-			fromDate: commonFactory.calculateFromDate(3),
+			fromDate: commonFactory.calculateFromDate(3, 1),
 			toDate: new Date(),
 			groupId: null,
 			projectId: null,
@@ -213,7 +213,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 		if (isValid) {
 
-			var selectedEmployees = commonFactory.getSelectedItems($scope.employees);
+			var selectedEmployees = commonFactory.getSelectedData($scope.employees);
 
 			if (!$scope.filter.groupId && !$scope.filter.projectId && selectedEmployees.length === $scope.employees.length) {
 				// warning if show all employees
@@ -250,7 +250,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	self.getReportData = function () {
 		$scope.isLoadingButton = true;
 
-		$scope.filter.nickNames = commonFactory.getNickNames($scope.employees);
+		$scope.filter.nickNames = commonFactory.getSelectedData($scope.employees, "nickName");
 
 		if ($scope.filter.nickNames) {
 			self.getRedmineTeamEffort();
