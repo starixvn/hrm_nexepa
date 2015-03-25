@@ -48,7 +48,7 @@ namespace NexEPA.Report.Repositories.Implement
                     report.DetailResourcePlannings = resourcePlannings;
                     report.ProjectResources = projectResources;
                     report.ResourceDateStatuses = resourceDateStatuses;
-                    report.MonthDateInfo = monthDateInfo;
+                    report.DateInfo = monthDateInfo;
                 }
 
                 return report;

@@ -10,6 +10,7 @@
 namespace NexEPA.Report.ViewModels
 {
     using System.Collections.Generic;
+    using NexEPA.Core.Models;
     using NexEPA.Report.Models.ResourcePlanningReport;
 
     /// <summary>
@@ -23,6 +24,8 @@ namespace NexEPA.Report.ViewModels
 
         public IEnumerable<RedmineResourceDateStatusModel> ResourceDateStatuses { get; set; }
 
-        public IEnumerable<RedmineMonthDateInfoModel> MonthDateInfo { get; set; }
+        public IEnumerable<RedmineMonthDateInfoModel> DateInfo { get; set; }
+
+        public IEnumerable<RedmineYearMonthModel> MonthInfo { get; set; }
     }
 }

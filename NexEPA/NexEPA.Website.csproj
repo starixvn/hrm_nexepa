@@ -377,6 +377,7 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
+    <Content Include="Templates\Report\ResourcePlanningReport\ResourcePlanningDetail.html" />
     <Content Include="Templates\Report\ResourcePlanningReport\ResourcePlanningView.html" />
     <Content Include="Templates\Report\TeamEffortReport\MemberEffortChart.html" />
     <Content Include="Templates\Report\TeamEffortReport\TeamEffortChart.html" />

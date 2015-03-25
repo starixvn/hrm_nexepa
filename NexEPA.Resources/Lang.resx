@@ -900,4 +900,10 @@
   <data name="ResourcePlanningReport" xml:space="preserve">
     <value>Resource Planning Report</value>
   </data>
+  <data name="ResourcePlanning" xml:space="preserve">
+    <value>Resource Planning</value>
+  </data>
+  <data name="ValidateMaximumTwoMonth" xml:space="preserve">
+    <value>Report period must not exceed 60 days</value>
+  </data>
 </root>

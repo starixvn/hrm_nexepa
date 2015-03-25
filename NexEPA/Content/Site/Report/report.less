@@ -26,6 +26,11 @@
 		width: 50px;
 	}
 
+	.report-day {
+		.report-center;
+		width: 60px;
+	}
+
 	.report-total {
 		.report-right;
 		font-weight: bold;
@@ -168,25 +173,6 @@
         }
     }
 
-	.team-report,.resource-planning-report{
-		.first-filter{
-			margin-left:15px;
-		}
-		.team-report-submit {
-			margin-top: 10px !important;
-			margin-left: 15px !important;
-		}
-		.common-form input[type="checkbox"]{
-			position: absolute;
-			top: 0;
-		}
-	
-		.filter .form-group input[type="checkbox"]{
-			position: absolute;
-			top: 0;
-		}
-	}
-
 	.person-report{		
 		.default-column {	
 			.report-left;		
@@ -211,6 +197,23 @@
 
 		.calendar-form-control{
 			width:80%;	
+		}
+
+		.first-filter{
+			margin-left:15px;
+		}
+		.report-submit {
+			margin-top: 10px !important;
+			margin-left: 15px !important;
+		}
+		.common-form input[type="checkbox"]{
+			position: absolute;
+			top: 0;
+		}
+	
+		.filter .form-group input[type="checkbox"]{
+			position: absolute;
+			top: 0;
 		}
 	}
 
@@ -268,6 +271,34 @@
 		.table{
 			margin: 0;
 			width: 99.8%;
+		}
+	}
+	
+	.resource-planning-report{			
+		.table thead tr th, .table tbody tr td{
+			white-space: nowrap;
+		}
+		.project-column{
+			padding-left: 20px;
+		}
+		.top-level-working{		
+			padding: 5px 0px 5px 0px;
+
+			div{
+				background-color: #256f8e;
+				width:100%;				
+			}
+		}
+		.sub-level-working{		
+			padding: 5px 0px 5px 0px;
+
+			div{
+				background-color: #4ca4c9;
+				width:100%;				
+			}
+		}
+		.bg-nick-name{
+			background-color: #F9F5DC;
 		}
 	}			
 }

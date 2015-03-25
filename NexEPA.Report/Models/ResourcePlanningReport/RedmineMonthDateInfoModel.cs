@@ -20,7 +20,5 @@ namespace NexEPA.Report.Models.ResourcePlanningReport
         public RedmineYearMonthModel Month { get; set; }
 
         public RedmineDateStatusModel DateStatus { get; set; }
-
-        public IEnumerable<RedmineDateStatusModel> DateStatuses { get; set; }
     }
 }

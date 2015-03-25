@@ -1780,6 +1780,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resource Planning.
+        /// </summary>
+        public static string ResourcePlanning {
+            get {
+                return ResourceManager.GetString("ResourcePlanning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resource Planning Report.
         /// </summary>
         public static string ResourcePlanningReport {
@@ -2343,6 +2352,15 @@ namespace NexEPA.Resources {
         public static string ValidateMaximumOneYear {
             get {
                 return ResourceManager.GetString("ValidateMaximumOneYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report period must not exceed 60 days.
+        /// </summary>
+        public static string ValidateMaximumTwoMonth {
+            get {
+                return ResourceManager.GetString("ValidateMaximumTwoMonth", resourceCulture);
             }
         }
         

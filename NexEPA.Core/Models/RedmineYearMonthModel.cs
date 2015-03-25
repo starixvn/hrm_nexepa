@@ -24,5 +24,7 @@ namespace NexEPA.Core.Models
         public int Month { get; set; }
 
         public string MonthName { get; set; }
+
+        public int DayCount { get; set; }
     }
 }

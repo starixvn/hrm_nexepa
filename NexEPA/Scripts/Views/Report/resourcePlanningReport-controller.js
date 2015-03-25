@@ -27,7 +27,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	};
 
 	$scope.isLoadingButton = false;
-	$scope.isTeamCollapsed = true;
+	$scope.isCollapsed = false;
+
+	$scope.reportData = {};
 	//#endregion
 
 	//#region General functions
@@ -40,7 +42,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	};
 
 	$scope.collapseTable = function () {
-		$scope.isTeamCollapsed = !$scope.isTeamCollapsed;
+		$scope.isCollapsed = !$scope.isCollapsed;
 	};
 
 	$scope.reload = function () {
@@ -55,20 +57,33 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	};
 
 	self.validateFilterOptions = function () {
-		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
+		var isValid = true,
+			fromDate = $scope.filter.fromDate,
+			toDate = $scope.filter.toDate;
+
+		if (!fromDate) {
+			isValid = false;
+			notificationFactory.error("FromRequire");
+		} else if (!toDate) {
+			isValid = false;
+			notificationFactory.error("ToRequire");
+		} else {
+			fromDate = new Date(fromDate.toDateString());
+			toDate = new Date(toDate.toDateString());
+			var maxDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 2, fromDate.getDate());
+
+			if (fromDate > toDate) {
+				isValid = false;
+				notificationFactory.error("ValidateFromToDate");
+			}
+			else if (toDate > maxDate) {
+				isValid = false;
+				notificationFactory.error("ValidateMaximumTwoMonth");
+			}
+		}
 
 		return isValid;
-	};
-
-	self.getNickName = function (fullName) {
-		var data = jQuery.grep($scope.teamEfforts.memberProjects, function (item) {
-			return item.employee.fullName === fullName;
-		});
-
-		if (data.length > 0) {
-			return data[0].employee.nickName;
-		}
-	};
+	};	
 	//#endregion
 
 	//#region Filter
@@ -101,15 +116,14 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		var isValid = self.validateFilterOptions();
 
 		if (isValid) {
+			var selectedEmployees = commonFactory.getSelectedData($scope.employees);
 
-			//			var selectedEmployees = commonFactory.getSelectedData($scope.employees);
-
-			//			if (!$scope.filter.groupId && !$scope.filter.projectId && selectedEmployees.length === $scope.employees.length) {
-			//				// warning if show all employees
-			//				self.warningShowAllEmployees();
-			//			} else {
-			self.getReportData();
-			//			}
+			if (!$scope.filter.groupId && !$scope.filter.projectId && selectedEmployees.length === $scope.employees.length) {
+				// warning if show all employees
+				self.warningShowAllEmployees();
+			} else {
+				self.getReportData();
+			}
 		}
 	};
 
@@ -144,7 +158,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		if ($scope.filter.nickNames) {
 			self.getRedmineResourcePlanning();
 		} else {
-			//generate empty data
+			$scope.reportData = {
+				detailResourcePlannings: []
+			};
 
 			$scope.isLoadingButton = false;
 		}
@@ -156,8 +172,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		reportFactory.getRedmineResourcePlanning($scope.filter)
 		.success(function (report) {
 			if (report != null) {
-				// set report data
-				report = null;
+				$scope.reportData = report;
 			}
 
 			$scope.isLoadingButton = false;
@@ -173,14 +188,52 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		});
 	};
 
-	$scope.getSpentTimeByMonth = function (nickName, projectId, year, month) {
-		var data = jQuery.grep($scope.teamEfforts.data, function (item) {
-			return item.project.projectId === projectId && angular.lowercase(item.employee.nickName) === angular.lowercase(nickName)
-					&& item.yearMonth.year === year && item.yearMonth.month === month;
+	$scope.getDateStatus = function (nickName, workDate) {
+		var result = '';
+
+		var data = jQuery.grep($scope.reportData.resourceDateStatuses, function (item) {
+			return item.employee.nickName === nickName && workDate === item.dateStatus.workDate;
 		});
 
 		if (data.length > 0) {
-			return data[0].spentTime;
+			var dateStatus = data[0];
+
+			if (dateStatus.dateStatus.isHoliday) {
+				result = 'Holiday';
+			} else if (dateStatus.dateStatus.isOffDay) {
+				result = 'Off';
+			} else if (dateStatus.dateStatus.isLeaveDay) {
+				result = 'Leave';
+			}
+		}
+
+		return result;
+	};
+
+	$scope.getTopLevelWorkingClass = function (nickName, workDate) {
+		var dateStatus = $scope.getDateStatus(nickName, workDate);
+		if (dateStatus === '') {
+			var data = jQuery.grep($scope.reportData.detailResourcePlannings, function (item) {
+				return item.employee.nickName === nickName && item.issue.startDate <= workDate && workDate <= item.issue.dueDate;
+			});
+
+			if (data.length > 0) {
+				return "top-level-working";
+			}
+		}
+	};
+
+	$scope.getSubLevelWorkingClass = function (nickName, projectId, workDate) {
+		var dateStatus = $scope.getDateStatus(nickName, workDate);
+		if (dateStatus === '') {
+			var data = jQuery.grep($scope.reportData.detailResourcePlannings, function (item) {
+				return item.employee.nickName === nickName && item.project.projectId === projectId &&
+					item.issue.startDate <= workDate && workDate <= item.issue.dueDate;
+			});
+
+			if (data.length > 0) {
+				return "sub-level-working";
+			}
 		}
 	};
 	//#endregion

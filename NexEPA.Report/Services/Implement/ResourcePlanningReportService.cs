@@ -53,27 +53,24 @@ namespace NexEPA.Report.Services.Implement
             {
                 reportData = _repository.GetRedmineResourcePlanning(criteria);
                 reportData.ProjectResources = GetDistinctProjectResources(reportData.ProjectResources);
-                reportData.MonthDateInfo = GetDistinctMonthDateInfo(reportData.MonthDateInfo);
+                reportData.MonthInfo = GetMonthInfo(reportData.DateInfo);
             }
 
             return reportData;
         }
 
         /// <summary>
-        /// Gets the distinct month date info.
+        /// Gets the month info.
         /// </summary>
-        /// <param name="monthDateInfo">The month date info.</param>
-        /// <returns>The distinct month date info.</returns>
-        private IEnumerable<RedmineMonthDateInfoModel> GetDistinctMonthDateInfo(IEnumerable<RedmineMonthDateInfoModel> monthDateInfo)
+        /// <param name="dateInfo">The date info.</param>
+        /// <returns>The month info.</returns>
+        private IEnumerable<RedmineYearMonthModel> GetMonthInfo(IEnumerable<RedmineMonthDateInfoModel> dateInfo)
         {
-            var result = monthDateInfo.GroupBy(m => new { m.Month.MonthName })
-                        .Select(g => new RedmineMonthDateInfoModel
+            var result = dateInfo.GroupBy(m => new { m.Month.MonthName })
+                        .Select(g => new RedmineYearMonthModel
                         {
-                            Month = new RedmineYearMonthModel
-                            {
-                                MonthName = g.Key.MonthName
-                            },
-                            DateStatuses = monthDateInfo.Where(m => m.Month.MonthName == g.Key.MonthName).Select(m => m.DateStatus).ToList()
+                            MonthName = g.Key.MonthName,
+                            DayCount = g.GroupBy(m => new { m.DateStatus.DayName }).Count()
                         });
 
             return result;
