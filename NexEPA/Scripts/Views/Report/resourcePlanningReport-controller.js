@@ -30,6 +30,10 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	$scope.isCollapsed = false;
 
 	$scope.reportData = {};
+	$scope.collapses = {};
+	$scope.topLevelWorkingClasses = {};
+	$scope.dateStatuses = {};
+	$scope.subLevelWorkingClasses = {};
 	//#endregion
 
 	//#region General functions
@@ -83,7 +87,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		}
 
 		return isValid;
-	};	
+	};
 	//#endregion
 
 	//#region Filter

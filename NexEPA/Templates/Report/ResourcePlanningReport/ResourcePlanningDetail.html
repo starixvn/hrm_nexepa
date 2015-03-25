@@ -8,7 +8,7 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th rowspan="2">
+						<th rowspan="2" >
 							#
 						</th>
 						<th rowspan="2" data-translate="Members">
@@ -24,30 +24,36 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody data-ng-repeat="resource in reportData.projectResources">
-					<tr>
+				<tbody data-ng-repeat-start="resource in reportData.projectResources">
+					<tr data-ng-click="collapses[resource.employee.fullName]=!collapses[resource.employee.fullName]">
 						<td class="bg-nick-name home-index" data-ng-bind="$index+1">
 						</td>
 						<td class="bg-nick-name" data-ng-bind="resource.employee.fullName">
 						</td>
 						<td class="bg-nick-name report-right" data-ng-bind="resource.totalIssueCount">
 						</td>
-						<td class="report-center" data-ng-class="getTopLevelWorkingClass(resource.employee.nickName,date.dateStatus.workDate)"
+						<td class="report-center" data-ng-init="topLevelWorkingClasses[resource.employee.nickName+date.dateStatus.workDate.valueOf()]=getTopLevelWorkingClass(resource.employee.nickName,date.dateStatus.workDate)"
+							data-ng-class="topLevelWorkingClasses[resource.employee.nickName+date.dateStatus.workDate.valueOf()]"
 							data-ng-repeat="date in reportData.dateInfo">
 							<div>
-								&nbsp;<span data-ng-bind="getDateStatus(resource.employee.nickName,date.dateStatus.workDate)">
+								&nbsp;<span data-ng-init="dateStatuses[resource.employee.nickName+date.dateStatus.workDate.valueOf()]=getDateStatus(resource.employee.nickName,date.dateStatus.workDate)"
+									data-ng-bind="dateStatuses[resource.employee.nickName+date.dateStatus.workDate.valueOf()]">
 								</span>
 							</div>
 						</td>
 					</tr>
+				</tbody>
+				<tbody data-ng-repeat-end data-ng-init="collapses[resource.employee.fullName]=true"
+					data-collapse="collapses[resource.employee.fullName]">
 					<tr data-ng-repeat="project in resource.projects">
-						<td>
+						<td class="">
 						</td>
 						<td class="project-column" data-ng-bind="project.projectName">
 						</td>
 						<td class="report-right" data-ng-bind="project.issueCount">
 						</td>
-						<td class="report-center" data-ng-class="getSubLevelWorkingClass(resource.employee.nickName,project.projectId,date.dateStatus.workDate)"
+						<td class="report-center" data-ng-init="subLevelWorkingClasses[resource.employee.nickName+project.projectId.toString()+date.dateStatus.workDate.valueOf()]=getSubLevelWorkingClass(resource.employee.nickName,project.projectId,date.dateStatus.workDate)"
+							data-ng-class="subLevelWorkingClasses[resource.employee.nickName+project.projectId.toString()+date.dateStatus.workDate.valueOf()]"
 							data-ng-repeat="date in reportData.dateInfo">
 							<div>
 								&nbsp;
