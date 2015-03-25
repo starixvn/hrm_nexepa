@@ -1,102 +1,106 @@
-﻿<div class="col-sm-12">
+﻿<div class="col-sm-12 manage-member-epa">
 	<div class="row sub-header">
 		<ul class="breadcrumb list-inline pull-left">
 			<li><a href="#" data-translate="EPA" ng-click="reload()"></a></li>
 			<li class="current" data-translate="ManageMemberEPA"></li>
 		</ul>
 	</div>
-	<div class="row manage-member-epa-filter filter-max-width">
+	<div class="row row-filter filter-max-width">
 		<form novalidate class="form-horizontal common-form filter col-sm-12">
-			<div class="col-sm-3">
-				<div class="form-group">
-					<label class="col-sm-3 control-label" data-translate="From">
-					</label>
-					<div class="col-sm-8">
-						<input readonly class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup="{{dateFormat}}"
-							is-open="calendar.startDateOpened" />
-						<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" data-translate="From">
+						</label>
+						<div class="col-sm-8">
+							<input readonly class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup="{{dateFormat}}"
+								is-open="calendar.startDateOpened" />
+							<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" data-translate="Project">
+						</label>
+						<div class="col-sm-8">
+							<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+								class="form-control epa-project-filter" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
+								<option value="">-- All --</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" data-translate="Employee">
+						</label>
+						<div class="col-sm-8">
+							<add-class-to-role-filter multi-select input-model="employeeOptions" button-label="employeeId"
+								helper-elements="all reset filter" item-label="fullName" tick-property="ticked" max-labels="0"
+								class="multi-select">
+							</add-class-to-role-filter>
+						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" data-translate="Employee">
-					</label>
-					<div class="col-sm-8">
-						<add-class-to-role-filter multi-select input-model="employeeOptions" button-label="employeeId"
-							helper-elements="all reset filter" item-label="fullName" tick-property="ticked" max-labels="0"
-							class="multi-select">
-						</add-class-to-role-filter>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" data-translate="To">
+						</label>
+						<div class="col-sm-8">
+							<input readonly class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup="{{dateFormat}}"
+								is-open="calendar.endDateOpened" />
+							<calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" data-translate="Status">
+						</label>
+						<div class="col-sm-8">
+							<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
+								class="form-control">
+								<option value="">-- All --</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="showAllMemberEPA">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="filter.isShowAll" /> Show all member EPA
+							</label>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="form-group">
-					<label class="col-sm-3 control-label" data-translate="To">
-					</label>
-					<div class="col-sm-8">
-						<input readonly class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup="{{dateFormat}}"
-							is-open="calendar.endDateOpened" />
-						<calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" data-translate="Team">
+						</label>
+						<div class="col-sm-8">
+							<select ng-model="filter.teamId" ng-options="opt.id as opt.name for opt in teamOptions"
+								class="form-control" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
+								<option value="" data-translate="All"></option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" data-translate="Status">
-					</label>
-					<div class="col-sm-8">
-						<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
-							class="form-control">
-							<option value="">-- All --</option>
-						</select>
+					<div class="form-group" ng-if="showTargetFilter">
+						<label class="col-sm-3 control-label" data-translate="Target">
+						</label>
+						<div class="col-sm-8">
+							<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+								class="form-control epa-project-filter">
+								<option value="">-- All --</option>
+							</select>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="form-group">
-					<label class="col-sm-3 control-label" data-translate="Team">
-					</label>
-					<div class="col-sm-8">
-						<select ng-model="filter.teamId" ng-options="opt.id as opt.name for opt in teamOptions"
-							class="form-control" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
-							<option value="" data-translate="All"></option>
-						</select>
+					<div class="form-group">
+						<div class="col-sm-10">
+							<button class="button" ng-click="query(filter)"
+								ng-disabled="submitted" data-translate="Submit">
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="form-group" ng-if="showTargetFilter">
-					<label class="col-sm-3 control-label" data-translate="Target">
-					</label>
-					<div class="col-sm-8">
-						<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
-							class="form-control epa-project-filter">
-							<option value="">-- All --</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="form-group">
-					<label class="col-sm-3 control-label" data-translate="Project">
-					</label>
-					<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
-						class="form-control epa-project-filter" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
-						<option value="">-- All --</option>
-					</select>
-				</div>
-				<div class="form-group" ng-if="showAllMemberEPA">
-					<input type="checkbox" ng-model="filter.isShowAll" />
-					<label data-translate="Show all member EPA">
-					</label>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="form-group" >
-					<button class="button" ng-click="query(filter)"
-						ng-disabled="submitted" data-translate="Submit">
-					</button>
 				</div>
 			</div>
 		</form>
 	</div>
-	<div class="row">
-		<table class="table table-bordered table-striped table-group-epa filter-max-width">
+	<div class="row filter-max-width">
+		<table class="table table-bordered table-striped table-manage-member-epa">
 			<thead>
 				<th class="epa-index" data-translate="SymbolCount">
 				</th>

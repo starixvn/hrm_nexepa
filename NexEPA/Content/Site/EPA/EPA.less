@@ -47,20 +47,35 @@
 		vertical-align: middle!important;
 	}
 
-	.filter-max-width{
-		max-width:1280px;
-	}
-	
-	.manage-member-epa-filter{
-		padding-right: 26px;
-
-		.common-form.col-sm-12, .col-sm-2{
-			padding-right: 0px;
-			padding-left: 0px;
+	/* Multi select control */
+	.multiSelect { 
+		.multiSelectButton {
+			text-align: left;
+			position: relative;
+			width: 100%;
 		}
-
-		.calendar-form-control{
-			width:70%;
+		.multiSelectButton .caret {
+			position: absolute;
+			top: 10px;
+			right: 5px;
+		}
+		.checkboxLayer {
+			min-width: 180px;
+			.show {
+				max-height: 350px !important;
+				overflow-x: hidden;
+				overflow-y: auto;
+			}
+			.acol {
+				label {
+					height:22px;
+					margin-top: -25px !important;
+				}
+			}
+		}
+		.multiSelectItem {
+			min-width: 180px;
+			height: 35px !important;
 		}
 	}
 }
@@ -175,17 +190,32 @@
 	font-size: 17px;
 }
 
-.table-group-epa {
-	.epa-index {
-		width: 40px;
+.manage-member-epa {
+	.row-filter {
+		padding-right: 26px;
+
+		.calendar-form-control {
+			width:70%;
+		}
+	}
+
+	.filter-max-width {
+		max-width:1280px;
+	}
+
+	.table-manage-member-epa {
+		.epa-index {
+			width: 40px;
+		}
+
+		tbody > tr {
+			th {
+				background: #ececec !important;
+			}
+			td {
+				background: #fff !important;
+			}
+		}
 	}
 }
 
-.table-group-epa > tbody > tr {
-	th {
-		background: #ececec !important;
-	}
-	td {
-		background: #fff !important;		
-	}
-}

@@ -421,9 +421,7 @@ $modal, employeeRepository, linkToEPAService) {
 		$scope.filter.targetId = targetId;
 		$scope.filter.status = status;
 		$scope.filter.isShowAll = isShowAll;
-	}
-
-	if (objectQuery != null) {
+	} else if (objectQuery != null) {
 		$scope.filter.fromDate = objectQuery.startDate ? new Date(objectQuery.startDate) : new Date();
 		$scope.filter.toDate = objectQuery.endDate ? new Date(objectQuery.endDate) : null;
 		$scope.filter.projectId = objectQuery.projectId;
@@ -484,6 +482,13 @@ $modal, employeeRepository, linkToEPAService) {
 				if (value.name === 'SA' || value.name === 'PM') {
 					// only SA or PM can see Target filter
 					$scope.showTargetFilter = true;
+
+					/*
+					** Get all target.
+					*/
+					employeeEPAFactory.getTargetToFilter().then(function (targetList) {
+						$scope.targetOptions = targetList;
+					});
 				}
 				if (value.name === 'SA') {
 					// only SA can see checkbox Show all member EPA
@@ -500,13 +505,6 @@ $modal, employeeRepository, linkToEPAService) {
 		$scope.permission = {
 			policy: policy
 		};
-	});
-
-	/*
-	** Get all target.
-	*/
-	employeeEPAFactory.getTargetToFilter().then(function (targetList) {
-		$scope.targetOptions = targetList;
 	});
 
 	/*
@@ -603,6 +601,7 @@ $modal, employeeRepository, linkToEPAService) {
 		var isValid = validateFromToDate(filter.fromDate, filter.toDate);
 		if (isValid && filter) {
 			$scope.submitted = true;
+			filter.employeeId = commonFactory.getEmployeeIds($scope.employeeOptions);
 
 			getEPAOfEmployeeByManager(filter.fromDate, filter.toDate, filter.teamId,
 			filter.targetId, filter.projectId, filter.status, filter.employeeId, filter.isShowAll);
