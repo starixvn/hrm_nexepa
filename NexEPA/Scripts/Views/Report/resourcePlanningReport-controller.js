@@ -29,7 +29,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	$scope.isLoadingButton = false;
 	$scope.isCollapsed = false;
 
-	$scope.reportData = {};
+	$scope.reportData = null;
 	$scope.collapses = {};
 	$scope.topLevelWorkingClasses = {};
 	$scope.dateStatuses = {};
@@ -162,9 +162,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		if ($scope.filter.nickNames) {
 			self.getRedmineResourcePlanning();
 		} else {
-			$scope.reportData = {
-				detailResourcePlannings: []
-			};
+			$scope.reportData = {};
 
 			$scope.isLoadingButton = false;
 		}
@@ -190,56 +188,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 			$scope.isLoadingButton = false;
 		});
-	};
-
-	$scope.getDateStatus = function (nickName, workDate) {
-		var result = '';
-
-		var data = jQuery.grep($scope.reportData.resourceDateStatuses, function (item) {
-			return item.employee.nickName === nickName && workDate === item.dateStatus.workDate;
-		});
-
-		if (data.length > 0) {
-			var dateStatus = data[0];
-
-			if (dateStatus.dateStatus.isHoliday) {
-				result = 'Holiday';
-			} else if (dateStatus.dateStatus.isOffDay) {
-				result = 'Off';
-			} else if (dateStatus.dateStatus.isLeaveDay) {
-				result = 'Leave';
-			}
-		}
-
-		return result;
-	};
-
-	$scope.getTopLevelWorkingClass = function (nickName, workDate) {
-		var dateStatus = $scope.getDateStatus(nickName, workDate);
-		if (dateStatus === '') {
-			var data = jQuery.grep($scope.reportData.detailResourcePlannings, function (item) {
-				return item.employee.nickName === nickName && item.issue.startDate <= workDate && workDate <= item.issue.dueDate;
-			});
-
-			if (data.length > 0) {
-				return "top-level-working";
-			}
-		}
-	};
-
-	$scope.getSubLevelWorkingClass = function (nickName, projectId, workDate) {
-		var dateStatus = $scope.getDateStatus(nickName, workDate);
-		if (dateStatus === '') {
-			var data = jQuery.grep($scope.reportData.detailResourcePlannings, function (item) {
-				return item.employee.nickName === nickName && item.project.projectId === projectId &&
-					item.issue.startDate <= workDate && workDate <= item.issue.dueDate;
-			});
-
-			if (data.length > 0) {
-				return "sub-level-working";
-			}
-		}
-	};
+	};	
 	//#endregion
 
 	// Run first

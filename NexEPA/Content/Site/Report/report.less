@@ -2,10 +2,24 @@
 @import "../mixins.less";
 
 .container.page {
+	.freegrid {
+		border-top: 1px solid #373737;
+	}
+	.freegrid .freegrid thead th, .freegrid .grid-fixed-table thead th {
+		border-color: #373737;
+	}	
+	.freegrid .col_footer_content.grid-fixed-table thead th,  .freegrid .row_footer_content.grid-fixed-table thead th, .freegrid .grid-fixed-table thead th.free-cell-bottom-left {
+		border-color: #c5c5c5;
+	}
+	.freegrid .free-top-left table thead th, .freegrid .col_header table thead th {
+		background: #606060;
+	}
+	.freegrid tr.parent-row-background td {
+		background: #a0bbd2;
+	}
 	.vertical-center{
 		vertical-align: middle!important;
 	}
-
 	.report-center {
 		text-align: center;
 		.vertical-center;
@@ -282,24 +296,18 @@
 			padding-left: 20px;
 		}
 		.top-level-working{		
-			padding: 5px 0px 5px 0px;
-
-			div{
-				background-color: #256f8e;
-				width:100%;				
-			}
+			padding: 5px 0px 5px 0px;			
+			background-color: #256f8e;
+			width:100%;				
 		}
 		.sub-level-working{		
-			padding: 5px 0px 5px 0px;
-
-			div{
-				background-color: #4ca4c9;
-				width:100%;				
-			}
+			padding: 5px 0px 5px 0px;			
+			background-color: #4ca4c9;
+			width:100%;
 		}
 		.bg-nick-name{
 			background-color: #F9F5DC;
-		}
+		}		
 	}
 
 	table .collapse.in {

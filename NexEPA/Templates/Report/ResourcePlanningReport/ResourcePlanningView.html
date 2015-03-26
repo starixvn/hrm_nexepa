@@ -72,7 +72,20 @@
 		</form>
 	</div>
 	<div class="row">
-		<div ng-include data-src="'/Templates/Report/ResourcePlanningReport/ResourcePlanningDetail.html'">
+		<div class="common-form container-content" data-ng-show="reportData !=null">
+			<div class="row boxtitle first" data-ng-click="collapseTable()">
+				<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;<span
+					class="home-label" data-translate="ResourcePlanning"></span>
+			</div>
+			<div class="row" data-collapse="isCollapsed">
+				<div data-ng-show="reportData.projectResources.length>0" class="freegrid" data-resource-planning-report
+					data-report-data="reportData">
+				</div>
+				<div data-ng-show="!reportData.projectResources || reportData.projectResources.length==0">
+					<p class="empty-result col-sm-12" data-translate="EmptyResult">
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
 	<br />

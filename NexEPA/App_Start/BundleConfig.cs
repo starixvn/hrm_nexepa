@@ -32,6 +32,8 @@ namespace NexEPA
                 "~/Content/Common/angular-multi-select.css",
                 "~/Content/Common/ladda-themeless.min.css",
                 "~/Content/Common/jquery-ui-1.10.4.custom.min.css",
+                "~/Content/Common/Fanex.Grid.css",
+                "~/Content/Common/Fanex.Pagination.css",
                 "~/Content/Common/chosen.min.css"));
 
             bundles.AddAndInclude(
@@ -64,6 +66,10 @@ namespace NexEPA
                 "~/Scripts/Libs/angular-translate.js",
                 "~/Scripts/Libs/spin.min.js",
                 "~/Scripts/Libs/ladda.min.js",
+                "~/Scripts/Libs/Fanex.Grid.js",
+                "~/Scripts/Libs/moment.min.js",
+                "~/Scripts/Libs/numeral.min.js",
+                "~/Scripts/Libs/Fanex.Pagination.js",
                 "~/Scripts/Libs/chosen.jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
@@ -94,6 +100,7 @@ namespace NexEPA
                 "~/Scripts/Views/Report/teamEffortReport-controller.js",
                 "~/Scripts/Views/Report/employeePersonReport-controller.js",
                 "~/Scripts/Views/Report/resourcePlanningReport-controller.js",
+                "~/Scripts/Views/Report/resourcePlanningReport-directive.js",                
                 "~/Scripts/Views/Setting/generalsetting-controller.js",
                 "~/Scripts/Views/Setting/generalsetting-repository.js",
                 "~/Scripts/Views/Test/test-controller.js",
