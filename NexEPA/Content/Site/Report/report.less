@@ -17,6 +17,12 @@
 	.freegrid tr.parent-row-background td {
 		background: #a0bbd2;
 	}
+	.grid-title{
+		background: #ececec;
+		border: 1px solid #c8c8c8;
+		margin-bottom: 0px;
+		height: 30px;
+	}
 	.vertical-center{
 		vertical-align: middle!important;
 	}
@@ -290,13 +296,7 @@
 		}
 	}
 	
-	.resource-planning-report{			
-		.table thead tr th, .table tbody tr td{
-			white-space: nowrap;
-		}
-		.project-column{
-			padding-left: 20px;
-		}
+	.resource-planning-report{
 		.top-level-working{		
 			padding: 5px 0px 5px 0px;			
 			background-color: #256f8e;
@@ -307,8 +307,11 @@
 			background-color: #4ca4c9;
 			width:100%;
 		}
-		.bg-nick-name{
-			background-color: #F9F5DC;
+		.bg-current-day{
+			background-color: #F5F2B7;
+		}
+		.grid-title{
+			display:none;
 		}		
 	}
 
@@ -328,5 +331,8 @@
 	.collapse-icon {
 		.expand-icon;
 		background: url('../../Common/Images/ui-icons_228ef1_256x240.png') no-repeat -4px -22px;		
-	}	
+	}
+	.fanex-grid{
+		margin: 10px;
+	}		
 }

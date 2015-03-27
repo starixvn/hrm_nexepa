@@ -315,6 +315,17 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 		return lastDate;
 	};
 
+	common.getCurrentDateWithoutTime = function () {
+		var date = new Date(),
+			year = date.getFullYear(),
+			month = date.getMonth(),
+			day = date.getDate();
+
+		var currentDate = new Date(year, month, day);
+
+		return currentDate;
+	};
+
 	return common;
 } ]);
 

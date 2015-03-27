@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global reportModule*/
 
-reportModule.directive('resourcePlanningReport', function () {
+reportModule.directive('resourcePlanningReport', ['commonFactory', function (commonFactory) {
 	var getDateStatus = function (reportData, nickName, workDate) {
 		var result = '';
 
@@ -43,6 +43,18 @@ reportModule.directive('resourcePlanningReport', function () {
 		if (data.length > 0) {
 			return "sub-level-working";
 		}
+	};
+
+	var getCurrentDateClass = function (workDate) {
+		var currentDateClass = '',
+			currentDate = commonFactory.getCurrentDateWithoutTime(),
+			date = new Date(workDate);
+
+		if (currentDate.toDateString() === date.toDateString()) {
+			currentDateClass = 'bg-current-day';
+		}
+
+		return currentDateClass;
 	};
 
 	var generateGroupHeaders = function (reportData) {
@@ -111,7 +123,9 @@ reportModule.directive('resourcePlanningReport', function () {
 				var colIndex = 1;
 				angular.forEach(reportData.dateInfo, function (date) {
 					var dateStatus = getDateStatus(reportData, resource.employee.nickName, date.dateStatus.workDate),
-						workingClass = '';
+						workingClass = '',
+						currentDateClass = getCurrentDateClass(date.dateStatus.workDate);
+
 					if (dateStatus === '') {
 						workingClass = getTopLevelWorkingClass(reportData, resource.employee.nickName, date.dateStatus.workDate);
 					}
@@ -119,7 +133,8 @@ reportModule.directive('resourcePlanningReport', function () {
 					var colValue = {
 						Name: "Day" + colIndex.toString(),
 						Value: dateStatus,
-						CssClass: workingClass
+						CssClass: workingClass,
+						TdClass: currentDateClass
 					};
 
 					currentRow.Columns.push(colValue);
@@ -142,7 +157,9 @@ reportModule.directive('resourcePlanningReport', function () {
 					var colIndex = 1;
 					angular.forEach(reportData.dateInfo, function (date) {
 						var dateStatus = getDateStatus(reportData, resource.employee.nickName, date.dateStatus.workDate),
-							workingClass = '';
+							workingClass = '',
+							currentDateClass = getCurrentDateClass(date.dateStatus.workDate);
+
 						if (dateStatus === '') {
 							workingClass = getSubLevelWorkingClass(reportData, resource.employee.nickName, project.projectId, date.dateStatus.workDate);
 						}
@@ -150,7 +167,8 @@ reportModule.directive('resourcePlanningReport', function () {
 						var value = {
 							Name: "Day" + colIndex.toString(),
 							Value: '',
-							CssClass: workingClass
+							CssClass: workingClass,
+							TdClass: currentDateClass
 						};
 						currentSubRow.Columns.push(value);
 
@@ -185,13 +203,19 @@ reportModule.directive('resourcePlanningReport', function () {
 						columns: columnHeaders,
 						bodyRows: bodyRows,
 						showTree: true,
-						gridExpandHeight: 300,
+						showTitle: true,
+						titleInfo: {
+							text: "Resource Planning",
+							showCollapseExpandButton: true
+						},
+						gridExpandHeight: 320,
 						numberOfFrozenColumn: 3
 					};
 
 					$(iElement).fanexGrid(gridOptions);
+					$('#btnCollapseExpand' + iElement.attr("id")).trigger('click');
 				}
 			});
 		}
 	};
-});
+} ]);

@@ -44,8 +44,8 @@
 					</label>
 					<div class="col-sm-8">
 						<add-class-to-role-filter multi-select input-model="employees" button-label="employeeId"
-							helper-elements="all reset" item-label="fullName" tick-property="ticked" max-labels="0"
-							class="multi-select">
+							helper-elements="all reset filter" item-label="fullName" tick-property="ticked"
+							max-labels="0" class="multi-select">
 						</add-class-to-role-filter>
 					</div>
 				</div>
@@ -77,9 +77,9 @@
 				<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;<span
 					class="home-label" data-translate="ResourcePlanning"></span>
 			</div>
-			<div class="row" data-collapse="isCollapsed">
+			<div class="row fanex-grid" data-collapse="isCollapsed">
 				<div data-ng-show="reportData.projectResources.length>0" class="freegrid" data-resource-planning-report
-					data-report-data="reportData">
+					data-report-data="reportData" id="grdResource">
 				</div>
 				<div data-ng-show="!reportData.projectResources || reportData.projectResources.length==0">
 					<p class="empty-result col-sm-12" data-translate="EmptyResult">
