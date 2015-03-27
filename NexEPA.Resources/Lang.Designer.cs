@@ -2230,7 +2230,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must enter Team or Project field!.
+        ///   Looks up a localized string similar to You must choose at least one Team or Project to filter!.
         /// </summary>
         public static string TeamOrProjectRequire {
             get {

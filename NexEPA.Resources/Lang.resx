@@ -883,7 +883,7 @@
     <value>-- All --</value>
   </data>
   <data name="TeamOrProjectRequire" xml:space="preserve">
-    <value>You must enter Team or Project field!</value>
+    <value>You must choose at least one Team or Project to filter!</value>
   </data>
   <data name="SpentTime" xml:space="preserve">
     <value>Spent Time</value>

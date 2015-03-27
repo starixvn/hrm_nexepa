@@ -34,6 +34,8 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	$scope.topLevelWorkingClasses = {};
 	$scope.dateStatuses = {};
 	$scope.subLevelWorkingClasses = {};
+
+	$scope.isSystemAdmin = false;
 	//#endregion
 
 	//#region General functions
@@ -54,6 +56,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	};
 
 	self.load = function () {
+		self.checkIfSystemAdmin();
 		commonFactory.getDateFormat($scope);
 		self.getAllGroup();
 		self.getAllRedmineProjects();
@@ -86,7 +89,22 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			}
 		}
 
+		var selectedEmployees = commonFactory.getSelectedData($scope.employees);
+		if (!$scope.isSystemAdmin && !$scope.filter.groupId && !$scope.filter.projectId
+			&& selectedEmployees.length === $scope.employees.length) {
+			isValid = false;
+			notificationFactory.error("TeamOrProjectRequire");
+		}
+
 		return isValid;
+	};
+
+	self.checkIfSystemAdmin = function () {
+		authorityRepository.isSystemAdmin().success(function (result) {
+			$scope.isSystemAdmin = angular.fromJson(result);
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
 	};
 	//#endregion
 
@@ -188,7 +206,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 			$scope.isLoadingButton = false;
 		});
-	};	
+	};
 	//#endregion
 
 	// Run first
