@@ -87,8 +87,8 @@ reportModule.directive('resourcePlanningReport', ['commonFactory', function (com
 
 	var generateColumnHeaders = function (reportData) {
 		var columnHeaders = [
-			{ HeaderText: "#", Width: 60, Name: "No", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
-			{ HeaderText: "Members", Width: 120, Name: "fullName", HeaderAlign: "center", CellAlign: "left" },
+			{ HeaderText: "#", Width: 50, Name: "No", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Members", Width: 120, Name: "fullName", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
 			{ HeaderText: "Issue Count", Width: 80, Name: "issueCount", HeaderAlign: "center", CellAlign: "right" }
 		];
 
