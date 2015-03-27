@@ -236,66 +236,29 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 		return options;
 	};
 
-	common.getNickNames = function (data) {
-		var selectedNickNames = [],
-			allNickNames = [];
+	common.getSelectedData = function (data, propName) {
+		var selectedProperties = [],
+			allProperties = [];
 
 		angular.forEach(data, function (item) {
+			var selectedValue = propName ? item[propName] : item;
+
 			if (item.ticked) {
-				selectedNickNames.push(item.nickName);
+				selectedProperties.push(selectedValue);
 			}
 
-			allNickNames.push(item.nickName);
+			allProperties.push(selectedValue);
 		});
 
 		var result = null;
 
-		if (selectedNickNames.length > 0) {
-			result = selectedNickNames.join(',');
-		} else if (allNickNames.length > 0) {
-			result = allNickNames.join(',');
+		if (selectedProperties.length > 0) {
+			result = propName ? selectedProperties.join(',') : selectedProperties;
+		} else if (allProperties.length > 0) {
+			result = propName ? allProperties.join(',') : allProperties;
 		}
 
 		return result;
-	};
-
-	common.getEmployeeIds = function (data) {
-		var selectedEmployeeIds = [],
-			allEmployeeIds = [];
-
-		angular.forEach(data, function (item) {
-			if (item.ticked) {
-				selectedEmployeeIds.push(item.employeeId);
-			}
-
-			allEmployeeIds.push(item.employeeId);
-		});
-
-		var result = null;
-
-		if (selectedEmployeeIds.length > 0) {
-			result = selectedEmployeeIds.join(',');
-		} else if (allEmployeeIds.length > 0) {
-			result = allEmployeeIds.join(',');
-		}
-
-		return result;
-	};
-
-	common.getSelectedItems = function (data) {
-		var selectedItems = [];
-
-		angular.forEach(data, function (item) {
-			if (item.ticked) {
-				selectedItems.push(item);
-			}
-		});
-
-		if (selectedItems.length > 0) {
-			return selectedItems;
-		}
-
-		return data;
 	};
 
 	common.scrollToBottom = function (additionalHeight) {
@@ -331,14 +294,25 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 		return isValid;
 	};
 
-	common.calculateFromDate = function (period) {
+	common.calculateFromDate = function (period, day) {
+		var date = new Date(),
+			year = date.getFullYear(),
+			month = date.getMonth(),
+			expectedDay = day ? day : date.getDate();
+
+		var fromDate = new Date(year, month - period, expectedDay);
+
+		return fromDate;
+	};
+
+	common.calculateLastDateOfCurrentMonth = function () {
 		var date = new Date(),
 			year = date.getFullYear(),
 			month = date.getMonth();
 
-		var fromDate = new Date(year, month - period, 1);
+		var lastDate = new Date(year, month + 1, 0);
 
-		return fromDate;
+		return lastDate;
 	};
 
 	return common;

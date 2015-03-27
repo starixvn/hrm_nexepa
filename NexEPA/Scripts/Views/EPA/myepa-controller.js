@@ -283,7 +283,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
 	* Ajax event. 
 	*/
 	var successGetEmployeeEPA = function (data) {
-		if (data !=="null") {
+		if (data !== "null") {
 			if (data.kpiInfo.length > 0) {
 				$.each(data.kpiInfo, function (i) {
 					var currentKPIInfo = data.kpiInfo[i];
@@ -405,7 +405,7 @@ $modal, employeeRepository, linkToEPAService) {
 	var objectQuery = linkToEPAService.getProperty();
 
 	$scope.filter = {
-		fromDate: commonFactory.calculateFromDate(3),
+		fromDate: commonFactory.calculateFromDate(3, 1),
 		toDate: new Date(),
 		teamId: null,
 		targetId: null,
@@ -479,8 +479,8 @@ $modal, employeeRepository, linkToEPAService) {
 			var roles = newValue.roles;
 
 			$.each(roles, function (index, value) {
-				if (value.name === 'SA' || value.name === 'PM') {
-					// only SA or PM can see Target filter
+				if (value.name === 'PM') {
+					// only PM can see Target filter
 					$scope.showTargetFilter = true;
 
 					/*
@@ -601,7 +601,7 @@ $modal, employeeRepository, linkToEPAService) {
 		var isValid = validateFromToDate(filter.fromDate, filter.toDate);
 		if (isValid && filter) {
 			$scope.submitted = true;
-			filter.employeeId = commonFactory.getEmployeeIds($scope.employeeOptions);
+			filter.employeeId = commonFactory.getSelectedData($scope.employeeOptions, "employeeId");
 
 			getEPAOfEmployeeByManager(filter.fromDate, filter.toDate, filter.teamId,
 			filter.targetId, filter.projectId, filter.status, filter.employeeId, filter.isShowAll);
