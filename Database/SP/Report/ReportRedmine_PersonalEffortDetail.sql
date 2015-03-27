@@ -1,12 +1,12 @@
 USE [NexEPA]
 GO
-/****** Object:  StoredProcedure [dbo].[ReportRedmine_PersonalEffortDetail]    Script Date: 3/16/2015 1:25:11 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReportRedmine_PersonalEffortDetail]    Script Date: 3/23/2015 1:26:11 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- select * from employee where NickName = 'Clara.Phan'
--- [dbo].[ReportRedmine_PersonalEffortDetail] '125', '2014-01-01', '2014-12-31'
+-- [dbo].[ReportRedmine_PersonalEffortDetail] '125', '2014-01-01', '2014-12-31',1
 ALTER PROCEDURE [dbo].[ReportRedmine_PersonalEffortDetail] 
 	@EmployeeId INT
 	,@FromDate DATETIME
@@ -65,19 +65,56 @@ BEGIN
 
 	SET @Sql = N'INSERT INTO #TblSpentTimeDetail
 				SELECT * FROM OPENQUERY(REDMINE,
-				N''SELECT 
-					pr.id AS ProjectId, pr.name AS ProjectName, tc.id AS TrackerId, 
-					tc.name AS TrackerName, iss.id AS IssueId, 
-					YEAR(te.spent_on), MONTH(te.spent_on), te.hours
+				N''SELECT
+					ProjectId,
+					ProjectName,
+					TrackerId,
+					TrackerName,
+					IssueId,
+					Year,
+					Month,
+					SpentTime
 				FROM
-					projects AS pr
-					INNER JOIN time_entries te ON te.project_id = pr.id       
-					INNER JOIN users u ON te.user_id = u.id
-					INNER JOIN issues AS iss ON te.issue_id = iss.id
-					INNER JOIN trackers AS tc ON iss.tracker_id = tc.id
-				WHERE pr.id <> 16
-				AND u.login = ''''' + @NickName + ''''' 
-				AND te.spent_on BETWEEN ''''' + CONVERT(VARCHAR(10), @FromDate, 102) + ''''' AND ''''' + CONVERT(VARCHAR(10), @ToDate, 102) + '''''
+				(
+					SELECT 
+						pr.id AS ProjectId, 
+						pr.name AS ProjectName, 
+						tc.id AS TrackerId, 
+						tc.name AS TrackerName, 
+						iss.id AS IssueId, 
+						YEAR(te.spent_on) AS Year, 
+						MONTH(te.spent_on) As Month, 
+						te.hours AS SpentTime,
+						te.spent_on AS StartDate,
+						u.login AS NickName
+					FROM
+						projects AS pr
+						INNER JOIN time_entries te ON te.project_id = pr.id       
+						INNER JOIN users u ON te.user_id = u.id
+						INNER JOIN issues AS iss ON te.issue_id = iss.id
+						INNER JOIN trackers AS tc ON iss.tracker_id = tc.id
+					WHERE pr.id <> 16
+					UNION ALL
+					SELECT 
+						pr.id AS ProjectId, 
+						pr.name AS ProjectName, 
+						(-1) AS TrackerId, 
+						''''Meeting'''' AS TrackerName, 
+						m.id AS IssueId, 
+						YEAR(m.date) AS Year,
+						MONTH(m.date) As Month, 
+						(TIME_TO_SEC(SUBTIME(m.end_hour , m.start_hour))/3600) AS SpentTime,
+						m.date AS StartDate,
+						u.login AS NickName
+					FROM projects AS pr
+						INNER JOIN meetings AS m ON m.project_id = pr.id
+						INNER JOIN meetings_users AS mu ON m.id = mu.meeting_id
+						INNER JOIN users AS u ON mu.user_id = u.id
+					WHERE pr.id <> 16
+				) AS Sub
+				WHERE 
+					NickName = ''''' + @NickName + ''''' 
+					AND StartDate BETWEEN ''''' + CONVERT(VARCHAR(10), @FromDate, 102) + ''''' AND ''''' + CONVERT(VARCHAR(10), @ToDate, 102) + '''''
 				;
 				'')'
 
@@ -93,6 +130,9 @@ BEGIN
 
 	--Make sure projectId is unique, we change projectId to negative number
 	SET @Sql = REPLACE(@Sql,'pr.id AS ProjectId,','pr.id*-1 AS ProjectId,')
+
+	--Asgard: ProjectId = 1 (Demo project) => exclude this project
+	SET @Sql = REPLACE(@Sql,'pr.id <> 16','pr.id <> 1')
 
 	IF @Debug = 1
 	BEGIN

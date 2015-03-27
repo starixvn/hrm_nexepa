@@ -1,11 +1,11 @@
 USE [NexEPA]
 GO
-/****** Object:  StoredProcedure [dbo].[ReportRedmine_TeamEffort]    Script Date: 3/16/2015 1:21:50 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReportRedmine_TeamEffort]    Script Date: 3/23/2015 1:27:00 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
---Exec ReportRedmine_TeamEffort '2014/01/01','2014/12/31','Quinn.Vo,Larry.Tran,Josh.Phan,Ricky.Nguyen',1
+--Exec ReportRedmine_TeamEffort '2014/01/01','2014/12/31','Quinn.Vo,Larry.Tran,Josh.Phan,Ricky.Nguyen',NULL,1
 ALTER PROCEDURE [dbo].[ReportRedmine_TeamEffort]	
 	@FromDate DATETIME
 	,@ToDate DATETIME	
@@ -74,23 +74,56 @@ BEGIN
 	SET @Sql = N'INSERT INTO #TblTeamEffort
 				SELECT * FROM OPENQUERY(REDMINE,
 				N''SELECT
-						u.login,						
-						u.firstname,
+					NickName,
+					FullName,
+					ProjectId,
+					ProjectName,   
+					Year,
+					Month,
+					SUM(SpentTime) AS SpentTime
+				FROM
+				(
+					SELECT
+						u.login AS NickName,						
+						u.firstname AS FullName,
 						pr.id AS ProjectId,
 						pr.name AS ProjectName,
 						YEAR(te.spent_on) AS Year,
 						MONTH(te.spent_on) AS Month,
-						SUM(te.hours) AS SpentTime
+						te.hours AS SpentTime,
+						te.spent_on AS StartDate
 					FROM
 						projects AS pr
 						INNER JOIN time_entries AS te ON te.project_id = pr.id
 						INNER JOIN users AS u ON te.user_id = u.id
-					WHERE
-						pr.id <> 16
-						AND u.login IN ('+@NickName+')
-						AND te.spent_on BETWEEN ''''' + CONVERT(VARCHAR(10), @FromDate, 102) + ''''' AND ''''' + CONVERT(VARCHAR(10), @ToDate, 102) + '''''
-					GROUP BY u.login,u.firstname, ProjectId , ProjectName , Year , Month
-					ORDER BY Year , Month;
+					WHERE pr.id <> 16
+					UNION ALL
+					SELECT
+						u.login AS NickName,						
+						u.firstname AS FullName,
+						pr.id AS ProjectId,
+						pr.name AS ProjectName,	
+						YEAR(m.date) AS Year,
+						MONTH(m.date) As Month, 
+						(TIME_TO_SEC(SUBTIME(m.end_hour , m.start_hour))/3600) AS SpentTime,
+						m.date AS StartDate
+					FROM projects AS pr
+						INNER JOIN meetings AS m ON m.project_id = pr.id
+						INNER JOIN meetings_users AS mu ON m.id = mu.meeting_id
+						INNER JOIN users AS u ON mu.user_id = u.id
+					WHERE pr.id <> 16
+				) AS Sub
+				WHERE
+					NickName IN ('+@NickName+')
+					AND StartDate BETWEEN ''''' + CONVERT(VARCHAR(10), @FromDate, 102) + ''''' AND ''''' + CONVERT(VARCHAR(10), @ToDate, 102) + '''''
+				GROUP BY
+					NickName,
+					FullName,
+					ProjectId,
+					ProjectName,   
+					Year,
+					Month
+				ORDER BY Year, Month;
 				'')'
 
 	IF @Debug = 1
@@ -105,6 +138,9 @@ BEGIN
 
 	--Make sure projectId is unique, we change projectId to negative number
 	SET @Sql = REPLACE(@Sql,'pr.id AS ProjectId,','pr.id*-1 AS ProjectId,')
+
+	--Asgard: ProjectId = 1 (Demo project) => exclude this project
+	SET @Sql = REPLACE(@Sql,'pr.id <> 16','pr.id <> 1')
 
 	IF @Debug = 1
 	BEGIN
@@ -132,6 +168,7 @@ BEGIN
 	FROM NexHRM.dbo.EmployeeCalendar AS cl WITH (NOLOCK)
 		INNER JOIN NexHRM.dbo.Employee AS e WITH (NOLOCK) ON cl.EmpId = e.Id
 	WHERE e.NickName IN (SELECT DISTINCT FullName FROM #TblTeamEffort)
+		AND e.DomainUsername IS NOT NULL
 		AND cl.WorkDate BETWEEN @FromDate AND @ToDate
 		AND cl.IsHoliday = 0
 		AND cl.IsOffDay = 0

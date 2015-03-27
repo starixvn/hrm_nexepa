@@ -1,17 +1,17 @@
 USE [NexEPA]
 GO
-/****** Object:  StoredProcedure [dbo].[ProjectRedmine_GetAllProjects]    Script Date: 3/16/2015 1:20:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[ProjectRedmine_GetAllProjects]    Script Date: 3/23/2015 1:27:38 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
---EXEC ProjectRedmine_GetProjectsOfUser 'josh.phan,quinn.vo,ricky.nguyen',1
+--EXEC ProjectRedmine_GetAllProjects 1
 ALTER PROCEDURE [dbo].[ProjectRedmine_GetAllProjects]	
 	@Debug BIT = 0
 AS
 /*
 Created: 20150311@Larry.Tran
-Task: Get projects of some users.
+Task: Get all redmine projects.
 DB: NexEPA
 Original: 
 
@@ -63,6 +63,9 @@ BEGIN
 
 	--Make sure projectId is unique, we change projectId to negative number
 	SET @Sql = REPLACE(@Sql,'pr.id AS ProjectId,','pr.id*-1 AS ProjectId,')
+
+	--Asgard: ProjectId = 1 (Demo project) => exclude this project
+	SET @Sql = REPLACE(@Sql,'pr.id <> 16','pr.id <> 1')
 
 	IF @Debug = 1
 	BEGIN

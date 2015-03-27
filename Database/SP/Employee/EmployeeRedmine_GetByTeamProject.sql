@@ -1,6 +1,6 @@
 USE [NexEPA]
 GO
-/****** Object:  StoredProcedure [dbo].[EmployeeRedmine_GetByTeamProject]    Script Date: 3/16/2015 1:21:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[EmployeeRedmine_GetByTeamProject]    Script Date: 3/23/2015 1:28:25 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -62,6 +62,13 @@ BEGIN
 							AND pr.id = '+CONVERT(VARCHAR(15),@ProjectId)+'					
 						ORDER BY pr.name;
 					'')'
+		
+		--Asgard project
+		IF @LinkedServerName = @AsgardRedmineName
+		BEGIN
+			--Asgard: ProjectId = 1 (Demo project) => exclude this project
+			SET @Sql = REPLACE(@Sql,'pr.id <> 16','pr.id <> 1')
+		END
 
 		IF @Debug = 1
 		BEGIN
