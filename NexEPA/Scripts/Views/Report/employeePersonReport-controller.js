@@ -72,6 +72,18 @@ commonFactory) {
 		$scope.effortInFiguresTitle = "My effort in figures";
 		$scope.effortInChartTitle = "My effort in chart";
 		$scope.effortDetailInFiguresTitle = "My effort detail in figures";
+
+		$scope.spentTimes = {};
+		$scope.detailNumberIssues = {};
+		$scope.detailSpentTimes = {};
+		$scope.subTotalIssues = {};
+		$scope.subTotalSpentTimes = {};
+		$scope.workloads = {};
+		$scope.sumWorkloads = {};
+		$scope.totalNumberIssues = {};
+		$scope.totalSpentTimes = {};
+		$scope.grandSubTotalIssues = {};
+		$scope.grandSubTotalSpentTimes = {};
 	};
 
 	/*

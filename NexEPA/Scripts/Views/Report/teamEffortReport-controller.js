@@ -65,6 +65,16 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			subTotalWorkingDayByMembers: '',
 			subTotalWorkloadByMembers: ''
 		};
+
+		$scope.spentTimeByMonths = {};
+		$scope.subTotalByMonths = {};
+		$scope.subTotalSpentTimeByMembers = {};
+		$scope.workingDayByMonths = {};
+		$scope.subTotalWorkingDayByMembers = {};
+		$scope.workloadByMonths = {};
+		$scope.subTotalWorkloadByMembers = {};
+		$scope.totalSpentTimeByMonths = {};
+		$scope.averageWorkloadByMonths = {};
 	};
 
 	/*

@@ -31,7 +31,8 @@
 						</td>
 						<td data-ng-bind="project.projectName">
 						</td>
-						<td class="report-right" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getSpentTimeByMonth(member.employee.nickName,project.projectId,month.year,month.month) | customNumber">
+						<td class="report-right" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-init="spentTimeByMonths[member.employee.nickName+project.projectId.toString()+month.year.toString()+month.month.toString()]=getSpentTimeByMonth(member.employee.nickName,project.projectId,month.year,month.month)"
+							data-ng-bind="spentTimeByMonths[member.employee.nickName+project.projectId.toString()+month.year.toString()+month.month.toString()] | customNumber">
 						</td>
 						<td data-ng-bind="project.totalSpentTimeOfAllMonths | customNumber" class="report-total">
 						</td>
@@ -39,26 +40,35 @@
 					<tr class="bg-sub-total">
 						<td class="report-total-left" data-translate="SubTotal">
 						</td>
-						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getSubTotalByMonth(member.employee.nickName,month.year,month.month) | customNumber">
+						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-init="subTotalByMonths[member.employee.nickName+month.year.toString()+month.month.toString()]=getSubTotalByMonth(member.employee.nickName,month.year,month.month)"
+							data-ng-bind="subTotalByMonths[member.employee.nickName+month.year.toString()+month.month.toString()] | customNumber">
 						</td>
-						<td data-ng-bind="getSubTotalSpentTimeByMember(member.employee.nickName) | customNumber"
+						<td data-ng-init="subTotalSpentTimeByMembers[member.employee.nickName]=getSubTotalSpentTimeByMember(member.employee.nickName)"
+						data-ng-bind="subTotalSpentTimeByMembers[member.employee.nickName] | customNumber"
 							class="report-total">
 						</td>
 					</tr>
 					<tr class="bg-working-day">
 						<td class="report-total-left" data-translate="WorkingDay">
 						</td>
-						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getWorkingDayByMonth(member.employee.nickName,month.year,month.month) | customNumber">
+						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" 
+						data-ng-init="workingDayByMonths[member.employee.nickName+month.year.toString()+month.month.toString()]=getWorkingDayByMonth(member.employee.nickName,month.year,month.month)"
+						data-ng-bind="workingDayByMonths[member.employee.nickName+month.year.toString()+month.month.toString()] | customNumber">
 						</td>
-						<td class="report-total" data-ng-bind="getSubTotalWorkingDayByMember(member.employee.nickName) | customNumber">
+						<td class="report-total" data-ng-init="subTotalWorkingDayByMembers[member.employee.nickName]=getSubTotalWorkingDayByMember(member.employee.nickName)"
+						data-ng-bind="subTotalWorkingDayByMembers[member.employee.nickName] | customNumber">
 						</td>
 					</tr>
 					<tr class="bg-workload">
 						<td class="report-total-left" data-translate="Workload">
 						</td>
-						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getWorkloadByMonth(member.employee.nickName,month.year,month.month) | customPercent:2">
+						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" 
+						data-ng-init="workloadByMonths[member.employee.nickName+month.year.toString()+month.month.toString()]=getWorkloadByMonth(member.employee.nickName,month.year,month.month)"
+						data-ng-bind="workloadByMonths[member.employee.nickName+month.year.toString()+month.month.toString()] | customPercent:2">
 						</td>
-						<td class="report-total" data-ng-bind="getSubTotalWorkloadByMember(member.employee.nickName) | customPercent:2">
+						<td class="report-total" 
+						data-ng-init="subTotalWorkloadByMembers[member.employee.nickName]=getSubTotalWorkloadByMember(member.employee.nickName)"
+						data-ng-bind="subTotalWorkloadByMembers[member.employee.nickName] | customPercent:2">
 						</td>
 					</tr>
 				</tbody>
@@ -66,17 +76,21 @@
 					<tr>
 						<td data-translate="TotalAverage" class="report-total-center" colspan="2" rowspan="2">
 						</td>
-						<td class="report-total-left" data-translate="SpentTime" >
+						<td class="report-total-left" data-translate="SpentTime">
 						</td>
-						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getTotalSpentTimeByMonth(month.year,month.month) | customNumber">
+						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" 
+						data-ng-init="totalSpentTimeByMonths[month.year.toString()+month.month.toString()]=getTotalSpentTimeByMonth(month.year,month.month)"
+						data-ng-bind="totalSpentTimeByMonths[month.year.toString()+month.month.toString()] | customNumber">
 						</td>
 						<td class="report-total" data-ng-bind="teamEfforts.grandTotalEffort | customNumber">
 						</td>
 					</tr>
-					<tr class="bg-workload">						
-						<td class="report-total-left" data-translate="Workload" >
+					<tr class="bg-workload">
+						<td class="report-total-left" data-translate="Workload">
 						</td>
-						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" data-ng-bind="getAverageWorkloadByMonth(month.year,month.month) | customPercent:2">
+						<td class="report-total" data-ng-repeat="month in teamEfforts.yearMonths" 
+						data-ng-init="averageWorkloadByMonths[month.year.toString()+month.month.toString()]=getAverageWorkloadByMonth(month.year,month.month)"
+						data-ng-bind="averageWorkloadByMonths[month.year.toString()+month.month.toString()] | customPercent:2">
 						</td>
 						<td class="report-total" data-ng-bind="teamEfforts.grandAverageWorkload | customPercent:2">
 						</td>

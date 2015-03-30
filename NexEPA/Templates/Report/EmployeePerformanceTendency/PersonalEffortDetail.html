@@ -41,9 +41,11 @@
 						<td data-ng-bind="tracker.trackerName">
 						</td>
 						<td class="report-right" data-ng-repeat-start="month in personalEffortDetails.workloadByMonths"
-							data-ng-bind="getDetailNumberIssue(project.projectId,tracker.trackerId,month.year,month.month)">
+							data-ng-init="detailNumberIssues[project.projectId.toString()+tracker.trackerId.toString()+month.year.toString()+month.month.toString()]=getDetailNumberIssue(project.projectId,tracker.trackerId,month.year,month.month)"
+							data-ng-bind="detailNumberIssues[project.projectId.toString()+tracker.trackerId.toString()+month.year.toString()+month.month.toString()]">
 						</td>
-						<td class="report-right" data-ng-repeat-end data-ng-bind="getDetailSpentTime(project.projectId,tracker.trackerId,month.year,month.month) | customNumber">
+						<td class="report-right" data-ng-init="detailSpentTimes[project.projectId.toString()+tracker.trackerId.toString()+month.year.toString()+month.month.toString()]=getDetailSpentTime(project.projectId,tracker.trackerId,month.year,month.month)"
+							data-ng-repeat-end data-ng-bind="detailSpentTimes[project.projectId.toString()+tracker.trackerId.toString()+month.year.toString()+month.month.toString()] | customNumber">
 						</td>
 						<td data-ng-bind="tracker.numberIssue" class="report-total">
 						</td>
@@ -54,9 +56,11 @@
 						<td data-translate="SubTotal">
 						</td>
 						<td class="report-right" data-ng-repeat-start="month in personalEffortDetails.workloadByMonths"
-							data-ng-bind="getSubTotalIssue(project.projectId,month.year,month.month)">
+							data-ng-init="subTotalIssues[project.projectId.toString()+month.year.toString()+month.month.toString()]=getSubTotalIssue(project.projectId,month.year,month.month)"
+							data-ng-bind="subTotalIssues[project.projectId.toString()+month.year.toString()+month.month.toString()]">
 						</td>
-						<td class="report-right" data-ng-repeat-end data-ng-bind="getSubTotalSpentTime(project.projectId,month.year,month.month) | customNumber">
+						<td class="report-right" data-ng-repeat-end data-ng-init="subTotalSpentTimes[project.projectId.toString()+month.year.toString()+month.month.toString()]=getSubTotalSpentTime(project.projectId,month.year,month.month)"
+							data-ng-bind="subTotalSpentTimes[project.projectId.toString()+month.year.toString()+month.month.toString()] | customNumber">
 						</td>
 						<td data-ng-bind="project.totalNumberIssue" class="report-total">
 						</td>
@@ -68,9 +72,11 @@
 							Workload
 						</td>
 						<td colspan="2" class="report-center" data-ng-repeat="month in personalEffortDetails.workloadByMonths"
-							data-ng-bind="getWorkload(project.projectId,month.year,month.month) | customPercent:2">
+							data-ng-init="workloads[project.projectId.toString()+month.year.toString()+month.month.toString()]=getWorkload(project.projectId,month.year,month.month)"
+							data-ng-bind="workloads[project.projectId.toString()+month.year.toString()+month.month.toString()] | customPercent:2">
 						</td>
-						<td colspan="2" class="report-total-center" data-ng-bind="getSumWorkload(project.projectId) | customPercent:2">
+						<td colspan="2" class="report-total-center" data-ng-init="sumWorkloads[project.projectId.toString()]=getSumWorkload(project.projectId)"
+							data-ng-bind="sumWorkloads[project.projectId.toString()] | customPercent:2">
 						</td>
 					</tr>
 				</tbody>
@@ -82,9 +88,11 @@
 						<td class="report-total-left" data-ng-bind="tracker.trackerName">
 						</td>
 						<td class="report-total" data-ng-repeat-start="month in personalEffortDetails.workloadByMonths"
-							data-ng-bind="getTotalNumberIssue(tracker.trackerId,month.year,month.month)">
+							data-ng-init="totalNumberIssues[tracker.trackerId.toString()+month.year.toString()+month.month.toString()]=getTotalNumberIssue(tracker.trackerId,month.year,month.month)"
+							data-ng-bind="totalNumberIssues[tracker.trackerId.toString()+month.year.toString()+month.month.toString()]">
 						</td>
-						<td class="report-total" data-ng-repeat-end data-ng-bind="getTotalSpentTime(tracker.trackerId,month.year,month.month) | customNumber">
+						<td class="report-total" data-ng-repeat-end data-ng-init="totalSpentTimes[tracker.trackerId.toString()+month.year.toString()+month.month.toString()]=getTotalSpentTime(tracker.trackerId,month.year,month.month)"
+							data-ng-bind="totalSpentTimes[tracker.trackerId.toString()+month.year.toString()+month.month.toString()] | customNumber">
 						</td>
 						<td class="report-total" data-ng-bind="tracker.totalNumberIssue">
 						</td>
@@ -95,9 +103,11 @@
 						<td class="report-total-left" data-translate="Sum">
 						</td>
 						<td class="report-total" data-ng-repeat-start="month in personalEffortDetails.workloadByMonths"
-							data-ng-bind="getGrandSubTotalIssue(month.year,month.month)">
+							data-ng-init="grandSubTotalIssues[month.year.toString()+month.month.toString()]=getGrandSubTotalIssue(month.year,month.month)"
+							data-ng-bind="grandSubTotalIssues[month.year.toString()+month.month.toString()]">
 						</td>
-						<td class="report-total" data-ng-repeat-end data-ng-bind="getGrandSubTotalSpentTime(month.year,month.month) | customNumber">
+						<td class="report-total" data-ng-repeat-end data-ng-init="grandSubTotalSpentTimes[month.year.toString()+month.month.toString()]=getGrandSubTotalSpentTime(month.year,month.month)"
+							data-ng-bind="grandSubTotalSpentTimes[month.year.toString()+month.month.toString()] | customNumber">
 						</td>
 						<td data-ng-bind="personalEffortDetails.grandTotalIssueSpent.numberIssue" class="report-total">
 						</td>
