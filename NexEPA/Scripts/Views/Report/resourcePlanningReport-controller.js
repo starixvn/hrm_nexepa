@@ -89,9 +89,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			}
 		}
 
-		var selectedEmployees = commonFactory.getSelectedData($scope.employees);
-		if (!$scope.isSystemAdmin && !$scope.filter.groupId && !$scope.filter.projectId
-			&& selectedEmployees.length === $scope.employees.length) {
+		if (!$scope.isSystemAdmin && !$scope.filter.groupId && !$scope.filter.projectId) {
 			isValid = false;
 			notificationFactory.error("TeamOrProjectRequire");
 		}
