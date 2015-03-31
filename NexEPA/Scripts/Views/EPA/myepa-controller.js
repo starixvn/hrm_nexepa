@@ -436,15 +436,6 @@ $modal, employeeRepository, linkToEPAService) {
 		endDateOpened: false
 	};
 
-	$scope.collapse = function (item) {
-		if (item.isCollapse) {
-			item.isCollapse = false;
-		}
-		else {
-			item.isCollapse = true;
-		}
-	};
-
 	/*
 	** Open calendar.
 	*/
@@ -625,6 +616,16 @@ $modal, employeeRepository, linkToEPAService) {
 			$scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + employeeId;
 		}
 	};
+
+	/*
+	** Link to Person Report.
+	*/
+	$scope.PersonReport = function (epaItem) {
+		if (epaItem.employeeId) {
+			$scope.viewPersonReportUrl = '/Report/EmployeePerformanceTendency?employeeId=' + epaItem.employeeId;
+		}
+	};
+
 	// EPA Status Context Menu
 	$scope.epaStatus = [{ name: 'Open', id: 0 }, { name: 'Closed', id: 1}];
 	$scope.toggleDropdown = function ($event) {

@@ -104,11 +104,11 @@
 			<thead>
 				<th class="epa-index" data-translate="SymbolCount">
 				</th>
-				<th data-translate="Project">
+				<th class="col-sm-2" data-translate="Project">
 				</th>
-				<th data-translate="Milestone">
+				<th class="col-sm-1" data-translate="Milestone">
 				</th>
-				<th data-translate="Target">
+				<th class="col-sm-2" data-translate="Target">
 				</th>
 				<th class="col-sm-1" data-translate="Score">
 				</th>
@@ -118,11 +118,16 @@
 				</th>
 				<th class="col-sm-1" data-translate="EvaluateDate">
 				</th>
-				<th data-translate="ProjectManagerComment">
+				<th class="col-sm-3" data-translate="ProjectManagerComment">
 				</th>
 			</thead>
-			<tr ng-repeat-start="epaItem in listEPA" ng-click="collapse(epaItem)">
-				<th colspan="4"><span ng-bind="$index + 1"></span>. <span ng-bind="epaItem.nickName" tooltip="{{epaItem.fullName}}"></span></th>
+			<tr ng-repeat-start="epaItem in listEPA" class="epa-nickname" ng-click="epaItem.isCollapse = !epaItem.isCollapse">
+				<th colspan="4">
+					<span class="grid-collapse-expand grid-expand" ng-if="epaItem.isCollapse"></span> 
+					<span class="grid-collapse-expand grid-collapse" ng-if="!epaItem.isCollapse"></span> 
+					<span ng-bind="$index + 1"></span>. 
+					<a ng-bind="epaItem.nickName" ng-click="PersonReport(epaItem)" ng-href="{{viewPersonReportUrl}}"></a>
+				</th>
 				<th colspan="3"><span data-translate="EPACount"></span>: <span ng-bind="epaItem.epaCount"></span></th>
 				<th colspan="2" class="text-right">
 					<span data-translate="AverageScore"></span>: 
