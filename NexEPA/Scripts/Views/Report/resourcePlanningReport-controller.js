@@ -6,12 +6,14 @@ reportModule.controller('ResourcePlanningReportController',
 'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal', 'projectDataFactory',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
 employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory) {
-	var self = this;
+	var self = this,
+		fromDate = moment().subtract(1, 'months'),
+		toDate = moment().add(1, 'months');
 
 	//#region $scope properties
 	$scope.filter = {
-		fromDate: commonFactory.calculateFromDate(1),
-		toDate: commonFactory.calculateLastDateOfCurrentMonth(),
+		fromDate: new Date(fromDate),
+		toDate: new Date(toDate),
 		groupId: null,
 		projectId: null,
 		nickNames: ''
@@ -77,7 +79,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		} else {
 			fromDate = new Date(fromDate.toDateString());
 			toDate = new Date(toDate.toDateString());
-			var maxDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 2, fromDate.getDate());
+			var maxDate = moment(fromDate).add(61, "days");
 
 			if (fromDate > toDate) {
 				isValid = false;
