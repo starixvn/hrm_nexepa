@@ -18,7 +18,7 @@
 							<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-if="isShowAll">
 						<label class="col-sm-3 control-label" data-translate="Project">
 						</label>
 						<div class="col-sm-8">
@@ -59,7 +59,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group" ng-if="showAllMemberEPA">
+					<div class="form-group" ng-if="showAllMemberEPA && isShowAll">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" ng-model="filter.isShowAll" /> Show all member EPA
@@ -78,7 +78,14 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group" ng-if="showTargetFilter">
+					<div class="form-group" ng-if="showAllMemberEPA && !isShowAll">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="filter.isShowAll" /> Show all member EPA
+							</label>
+						</div>
+					</div>
+					<div class="form-group" ng-if="showTargetFilter && !isShowAll">
 						<label class="col-sm-3 control-label" data-translate="Target">
 						</label>
 						<div class="col-sm-8">
@@ -88,7 +95,43 @@
 							</select>
 						</div>
 					</div>
+					<div class="form-group" ng-if="showTargetFilter && isShowAll">
+						<label class="col-sm-3 control-label" data-translate="Target">
+						</label>
+						<div class="col-sm-8">
+							<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+								class="form-control epa-project-filter">
+								<option value="">-- All --</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="isShowAll">
+						<div class="col-sm-10">
+							<button class="button" ng-click="query(filter)"
+								ng-disabled="submitted" data-translate="Submit">
+							</button>
+						</div>
+					</div>
+					<div class="form-group" ng-if="!showAllMemberEPA && !showTargetFilter">
+						<div class="col-sm-10">
+							<button class="button" ng-click="query(filter)"
+								ng-disabled="submitted" data-translate="Submit">
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3" ng-if="!isShowAll">
 					<div class="form-group">
+						<label class="col-sm-3 control-label" data-translate="Project">
+						</label>
+						<div class="col-sm-8">
+							<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+								class="form-control epa-project-filter" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
+								<option value="">-- All --</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="showAllMemberEPA || showTargetFilter">
 						<div class="col-sm-10">
 							<button class="button" ng-click="query(filter)"
 								ng-disabled="submitted" data-translate="Submit">

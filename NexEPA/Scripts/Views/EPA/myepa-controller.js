@@ -429,6 +429,8 @@ $modal, employeeRepository, linkToEPAService) {
 		$scope.filter.isShowAll = objectQuery.isShowAll;
 	}
 
+	$scope.isShowAll = false;
+
 	$scope.dateFormat = "dd MMM, yyyy";
 
 	$scope.calendar = {
@@ -469,6 +471,8 @@ $modal, employeeRepository, linkToEPAService) {
 		if (newValue) {
 			var roles = newValue.roles;
 
+			var roleNames = roles.map(function (e) { return e.name; });
+
 			$.each(roles, function (index, value) {
 				if (value.name === 'PM') {
 					// only PM can see Target filter
@@ -486,6 +490,13 @@ $modal, employeeRepository, linkToEPAService) {
 					$scope.showAllMemberEPA = true;
 				}
 			});
+
+			if (roleNames.indexOf('PM') !== -1 && roleNames.indexOf('SA') !== -1) {
+				$scope.isShowAll = true;
+			}
+			else {
+				$scope.isShowAll = false;
+			}
 		}
 	});
 
