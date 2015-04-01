@@ -904,6 +904,6 @@
     <value>Resource Planning</value>
   </data>
   <data name="ValidateMaximumTwoMonth" xml:space="preserve">
-    <value>Report period must not exceed 60 days</value>
+    <value>Report period must not exceed 2 months</value>
   </data>
 </root>

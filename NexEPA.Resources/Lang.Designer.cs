@@ -2356,7 +2356,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report period must not exceed 60 days.
+        ///   Looks up a localized string similar to Report period must not exceed 2 months.
         /// </summary>
         public static string ValidateMaximumTwoMonth {
             get {
