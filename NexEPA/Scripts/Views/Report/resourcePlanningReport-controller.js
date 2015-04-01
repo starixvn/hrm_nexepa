@@ -6,9 +6,11 @@ reportModule.controller('ResourcePlanningReportController',
 'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal', 'projectDataFactory',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
 employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory) {
-	var self = this,
-		fromDate = moment().subtract(1, 'months'),
-		toDate = moment().add(1, 'months');
+	var self = this;
+	/*jshint ignore:start */
+	// moment is the third party library.
+	var fromDate = moment().subtract(1, 'months');
+	var toDate = moment().add(1, 'months');
 
 	//#region $scope properties
 	$scope.filter = {
@@ -18,6 +20,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		projectId: null,
 		nickNames: ''
 	};
+	/*jshint ignore:end */
 
 	$scope.employees = [];
 	$scope.projects = [];
@@ -79,16 +82,23 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		} else {
 			fromDate = new Date(fromDate.toDateString());
 			toDate = new Date(toDate.toDateString());
+
+			/*jshint ignore:start */
+			// moment is the third party library.
 			var maxDate = moment(fromDate).add(61, "days");
+			/*jshint ignore:end */
 
 			if (fromDate > toDate) {
 				isValid = false;
 				notificationFactory.error("ValidateFromToDate");
 			}
+			/*jshint ignore:start */
+			// moment is the third party library.
 			else if (toDate > maxDate) {
 				isValid = false;
 				notificationFactory.error("ValidateMaximumTwoMonth");
 			}
+			/*jshint ignore:end */
 		}
 
 		if (!$scope.isSystemAdmin && !$scope.filter.groupId && !$scope.filter.projectId) {

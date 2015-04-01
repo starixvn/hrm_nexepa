@@ -57,6 +57,22 @@ reportModule.directive('resourcePlanningReport', ['commonFactory', function (com
 		return currentDateClass;
 	};
 
+	var getDayColumnWith = function (reportData, monthName) {
+		var width = 60;
+
+		var data = jQuery.grep(reportData.monthInfo, function (month) {
+			return month.monthName === monthName;
+		});
+
+		if (data.length > 0) {
+			if (data[0].dayCount === 1) {
+				width = 100;
+			}
+		}
+
+		return width;
+	};
+
 	var generateGroupHeaders = function (reportData) {
 		var groupHeaders = [
 			{
@@ -75,7 +91,8 @@ reportModule.directive('resourcePlanningReport', ['commonFactory', function (com
 				Name: "Day" + count.toString(),
 				HeaderAlign: "center",
 				CellAlign: "center",
-				MergeColNumber: month.dayCount
+				MergeColNumber: month.dayCount,
+				CssClass: 'month-column'
 			};
 			groupHeaders[0].Columns.push(header);
 
@@ -94,7 +111,13 @@ reportModule.directive('resourcePlanningReport', ['commonFactory', function (com
 
 		var count = 1;
 		angular.forEach(reportData.dateInfo, function (date) {
-			var columnHeader = { HeaderText: date.dateStatus.dayName, Width: 60, Name: "Day" + count.toString(), HeaderAlign: "center", CellAlign: "center" };
+			var columnHeader = {
+				HeaderText: date.dateStatus.dayName,
+				Width: getDayColumnWith(reportData, date.month.monthName),
+				Name: "Day" + count.toString(),
+				HeaderAlign: "center",
+				CellAlign: "center"
+			};
 			columnHeaders.push(columnHeader);
 
 			count += 1;
