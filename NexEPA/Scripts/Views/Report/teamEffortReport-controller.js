@@ -36,7 +36,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			xAxis: {},
 			series: null,
 			reRender: false,
-			chartTooltip: self.teamChartTooltip
+			chartTooltip: self.teamChartTooltip,
+			chartDataLabelFormatter: self.teamChartDataLabelFormatter,			
+			onLoad: self.teamChartOnLoad
 		};
 		$scope.personalChart = {
 			xAxis: {},
@@ -63,7 +65,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			grandAverageWorkload: '',
 			subTotalSpentTimeByMembers: '',
 			subTotalWorkingDayByMembers: '',
-			subTotalWorkloadByMembers: ''
+			subTotalWorkloadByMembers: ''			
 		};
 
 		$scope.spentTimeByMonths = {};
@@ -190,6 +192,47 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		return tooltip;
 	};
 
+	self.teamChartDataLabelFormatter = function (paramSeries, paramPoint) {
+		var fullName = paramSeries.name;
+		var monthName = paramPoint.category;
+
+		var nickName = self.getNickName(fullName);
+		var yearMonth = self.getYearMonth(monthName);
+
+		var workload = $scope.getWorkloadByMonth(nickName, yearMonth.year, yearMonth.month);
+		if (paramPoint.y > 0) {
+			if (workload && workload > 0) {
+				workload = parseFloat(workload * 100).toFixed(2);
+			}
+			var label = fullName + ' - ' + (workload ? workload : 0) + '%';
+			return label;
+		}
+	};
+
+	self.teamChartOnLoad = function (chart) {
+		angular.forEach(chart.series, function (item) {
+			angular.forEach(item.data, function (point) {
+				if (point.dataLabel) {
+					point.dataLabel.attr({ y: point.shapeArgs.y - 5 });
+
+					var fontSize = '10px',
+						width = point.shapeArgs.width;
+
+					if (width < 8) {
+						fontSize = '4px';
+					}
+					else if (8 <= width && width <= 13) {
+						fontSize = '8px';
+					} else if (20 > width && width > 13) {
+						fontSize = '9px';
+					}
+
+					point.dataLabel.css({ fontSize: fontSize });
+				}
+			});
+		});
+	};
+
 	/*
 	|| Filter region
 	*/
@@ -277,7 +320,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			$scope.teamEfforts.grandAverageWorkload = null;
 			$scope.teamEfforts.subTotalSpentTimeByMembers = [];
 			$scope.teamEfforts.subTotalWorkingDayByMembers = [];
-			$scope.teamEfforts.subTotalWorkloadByMembers = [];
+			$scope.teamEfforts.subTotalWorkloadByMembers = [];			
 
 			self.setDefaultPersonalChartTitle();
 
@@ -304,7 +347,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 				$scope.teamEfforts.totalEfforts = report.totalEfforts;
 				$scope.teamEfforts.averageWorkloads = report.averageWorkloads;
 				$scope.teamEfforts.grandTotalEffort = report.grandTotalEffort;
-				$scope.teamEfforts.grandAverageWorkload = report.grandAverageWorkload;
+				$scope.teamEfforts.grandAverageWorkload = report.grandAverageWorkload;				
 
 				self.setDefaultPersonalChartTitle();
 				self.processChartData();

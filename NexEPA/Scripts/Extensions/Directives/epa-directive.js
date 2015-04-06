@@ -545,16 +545,31 @@ registrationModule.directive('bindHtmlUnsafe', function ($compile) {
 	};
 });
 
-registrationModule.directive('highChart', function () {
-	/*jshint ignore:start */
-	// Highcharts is the javascript chart library.
+/*jshint ignore:start */
+// Highcharts is the javascript chart library.
+registrationModule.directive('highChart', ['commonFactory', function (commonFactory) {
+	var calculateYMax = function (series) {
+		var yMax = 0;
+
+		angular.forEach(series, function (item) {
+			var max = commonFactory.max(item.data);
+			yMax = Math.max(yMax, max);
+		});
+
+		return yMax;
+	};
+
 	var renderChart = function (scope, element) {
 		var chartOptions = {
 			chart: {
 				type: scope.chartType,
 				renderTo: element,
 				events: {
-					load: scope.onLoad
+					load: function () {
+						if (scope.onLoad) {
+							scope.onLoad(this);
+						}
+					}
 				}
 			},
 			title: {
@@ -563,6 +578,7 @@ registrationModule.directive('highChart', function () {
 			xAxis: scope.xAxis,
 			yAxis: {
 				min: 0,
+				max: calculateYMax(scope.series) + 50,
 				title: {
 					text: scope.yTitle ? scope.yTitle : ''
 				}
@@ -570,29 +586,53 @@ registrationModule.directive('highChart', function () {
 			credits: {
 				enabled: false
 			},
-			series: scope.series
+			series: scope.series,
+			plotOptions: {
+				column: {
+					dataLabels: {
+						align: 'left',
+						useHTML: true,
+						enabled: true,
+						rotation: -90,
+						y: -3,
+						x: 2,
+						color: 'green',
+						style: {
+							fontSize: '10px',
+							fontFamily: 'Verdana, sans-serif',
+							fontWeight: 'bold'
+						},
+						formatter: function () {
+							var value = this.y > 0 ? this.y : "";
+							return value;
+						}
+					}
+				}
+			}
 		};
 
 		if (scope.onColumnClicked) {
-			chartOptions.plotOptions = {
-				column: {
-					cursor: 'pointer',
-					events: {
-						click: function (e) {
-							scope.onColumnClicked(e);
-							//e.point.series.name
-						}
-					}
+			chartOptions.plotOptions.column.cursor = 'pointer';
+			chartOptions.plotOptions.column.events = {
+				click: function (e) {
+					scope.onColumnClicked(e);
+					//e.point.series.name
 				}
 			};
 		}
 
-		if (scope.chartTooltip) {
+		if (scope.chartTooltipFormatter) {
 			chartOptions.tooltip = {
 				useHTML: true,
 				formatter: function () {
-					return scope.chartTooltip(this.series, this.point);
+					return scope.chartTooltipFormatter(this.series, this.point);
 				}
+			};
+		}
+
+		if (scope.chartDataLabelFormatter) {
+			chartOptions.plotOptions.column.dataLabels.formatter = function () {
+				return scope.chartDataLabelFormatter(this.series, this.point);
 			};
 		}
 
@@ -610,9 +650,10 @@ registrationModule.directive('highChart', function () {
 			xAxis: "=",
 			series: "=",
 			reRender: "=",
-			onLoad: "&",
+			onLoad: "=",
 			onColumnClicked: '=',
-			chartTooltip: '='
+			chartTooltipFormatter: '=',
+			chartDataLabelFormatter: '='
 		},
 		link: function ($scope, iElement) {
 			$scope.$watch('series', function (newSeries) {
@@ -629,8 +670,8 @@ registrationModule.directive('highChart', function () {
 			});
 		}
 	};
-	/*jshint ignore:end */
-});
+} ]);
+/*jshint ignore:end */
 
 // remove class button, add class form-control to multi-select
 registrationModule.directive('addClassToRoleFilter', ['$compile', function ($compile) {

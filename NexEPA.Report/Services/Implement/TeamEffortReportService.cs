@@ -58,7 +58,7 @@ namespace NexEPA.Report.Services.Implement
                 reportData.SubTotalWorkloadByMembers = CalculateSubTotalWorkloadByMembers(reportData.SubTotalSpentTimeByMembers, reportData.SubTotalWorkingDayByMembers);
                 reportData.AverageWorkloads = CalculateAverageWorkloads(reportData.TotalEfforts, reportData.MemberWorkingDays);
                 reportData.GrandTotalEffort = reportData.TeamEfforts.Sum(te => te.SpentTime);
-                reportData.GrandAverageWorkload = CalculateGrandAverageWorkload(reportData.GrandTotalEffort, reportData.MemberWorkingDays);
+                reportData.GrandAverageWorkload = CalculateGrandAverageWorkload(reportData.GrandTotalEffort, reportData.MemberWorkingDays);                
             }
 
             return reportData;
@@ -123,7 +123,7 @@ namespace NexEPA.Report.Services.Implement
             foreach (RedmineEmployeeModel workingDay in subTotalWorkingDayByMembers)
             {
                 decimal? spentTime = subTotalSpentTimeByMembers.Where(st => !string.IsNullOrEmpty(st.NickName) &&
-                                                                      !string.IsNullOrEmpty(workingDay.NickName) && 
+                                                                      !string.IsNullOrEmpty(workingDay.NickName) &&
                                                                       st.NickName.ToUpperInvariant() == workingDay.NickName.ToUpperInvariant())
                                     .Select(st => st.SubTotalSpentTime).FirstOrDefault();
 

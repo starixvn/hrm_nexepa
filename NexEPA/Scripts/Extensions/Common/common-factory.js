@@ -326,6 +326,16 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 		return currentDate;
 	};
 
+	// Function to get the Max value in Array
+	common.max = function (array) {
+		return Math.max.apply(Math, array);
+	};
+
+	// Function to get the Min value in Array
+	common.min = function (array) {
+		return Math.min.apply(Math, array);
+	};
+
 	return common;
 } ]);
 
