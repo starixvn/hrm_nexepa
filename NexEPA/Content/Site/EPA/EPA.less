@@ -203,34 +203,87 @@
 		max-width:1280px;
 	}
 
-	.table-manage-member-epa {
-		.epa-index {
-			width: 40px;
+	.scrollableContainer {
+		margin: 12px;
+
+		.headerSpacer {
+			background: url(../images/table_header_repeat.jpg) repeat-x;
+			border-right: 1px solid #373737;
+			color: white;
+			height: 36px;
+			text-align: center;
+			text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+			font-size: 12px;
 		}
 
-		.epa-nickname {
-			font-weight: bold;
-			cursor: pointer;
-		}
+		.scrollArea {
+			border: none;
 
-		.grid-collapse {
-			background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
-			cursor: pointer;
-			padding: 1px 7px;
-		}
+			.table-manage-member-epa {
+				margin: 0px;
 
-		.grid-expand {
-			background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
-			cursor: pointer;
-			padding: 1px 7px;
-		}
+				.epa-index {
+					width: 40px;
+				}
 
-		tbody > tr {
-			th {
-				background: #ececec !important;
-			}
-			td {
-				background: #fff !important;
+				.epa-nickname-odd {
+					font-weight: bold;
+					cursor: pointer;
+					th {
+						background: #aeb7bb !important;
+					}
+				}
+
+				.epa-nickname-even {
+					font-weight: bold;
+					cursor: pointer;
+					th {
+						background: #d0dde2 !important;
+					}
+				}
+
+				.grid-collapse {
+					background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
+					cursor: pointer;
+					padding: 1px 7px;
+				}
+
+				.grid-expand {
+					background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
+					cursor: pointer;
+					padding: 1px 7px;
+				}
+
+				thead > tr > th {
+					height: 0px;
+				}
+
+				tbody > tr {
+					th {
+						background: #ececec !important;
+						height: 30px;
+						vertical-align: middle;
+					}
+					td {
+						background: #fff !important;
+						height: 30px;
+					}
+				}
+
+				.empty-result {
+					background-color: #ececec !important;
+					&:hover {
+						background-color: #ececec !important;
+					}
+				}
+
+				.manage-member-epa-even td {
+					background: #fff !important;
+				}
+
+				.manage-member-epa-odd td {
+					background: #ececec !important;
+				}
 			}
 		}
 	}

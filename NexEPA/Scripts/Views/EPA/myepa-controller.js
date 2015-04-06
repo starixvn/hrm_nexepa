@@ -430,6 +430,7 @@ $modal, employeeRepository, linkToEPAService) {
 	}
 
 	$scope.isShowAll = false;
+	$scope.isLoadingButton = false;
 
 	$scope.dateFormat = "dd MMM, yyyy";
 
@@ -538,7 +539,8 @@ $modal, employeeRepository, linkToEPAService) {
 		});
 
 		$scope.listEPA = listEPA;
-		$scope.submitted = false;
+		$scope.submitted = false; 
+		$scope.isLoadingButton = false;
 	};
 
 	var errorHandle = function (status) {
@@ -550,6 +552,7 @@ $modal, employeeRepository, linkToEPAService) {
 		}
 
 		$scope.submitted = false;
+		$scope.isLoadingButton = false;
 	};
 
 	/*
@@ -602,7 +605,8 @@ $modal, employeeRepository, linkToEPAService) {
 	$scope.query = function (filter) {
 		var isValid = validateFromToDate(filter.fromDate, filter.toDate);
 		if (isValid && filter) {
-			$scope.submitted = true;
+			$scope.submitted = true; 
+			$scope.isLoadingButton = true;
 			filter.employeeId = commonFactory.getSelectedData($scope.employeeOptions, "employeeId");
 
 			getEPAOfEmployeeByManager(filter.fromDate, filter.toDate, filter.teamId,

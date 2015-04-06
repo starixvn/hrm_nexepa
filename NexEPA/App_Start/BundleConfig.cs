@@ -34,7 +34,8 @@ namespace NexEPA
                 "~/Content/Common/jquery-ui-1.10.4.custom.min.css",
                 "~/Content/Common/Fanex.Grid.css",
                 "~/Content/Common/Fanex.Pagination.css",
-                "~/Content/Common/chosen.min.css"));
+                "~/Content/Common/chosen.min.css",
+                "~/Content/Common/scrollable-table.css"));
 
             bundles.AddAndInclude(
                 "~/EPA/Less",
@@ -70,7 +71,9 @@ namespace NexEPA
                 "~/Scripts/Libs/moment.min.js",
                 "~/Scripts/Libs/numeral.min.js",
                 "~/Scripts/Libs/Fanex.Pagination.js",
-                "~/Scripts/Libs/chosen.jquery.min.js"));
+                "~/Scripts/Libs/chosen.jquery.min.js",
+                "~/Scripts/Libs/angular-scrollable-table.js",
+                "~/Scripts/Libs/angular-scrollable-table.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/registration-module.js",

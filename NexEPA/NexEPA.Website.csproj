@@ -256,6 +256,7 @@
     <Content Include="Content\Common\Images\sorting_desc.gif" />
     <Content Include="Content\Common\Images\white-top-bottom.gif" />
     <Content Include="Content\Common\ladda-themeless.min.css" />
+    <Content Include="Content\Common\scrollable-table.css" />
     <Content Include="Content\Site\images\chart.png" />
     <Content Include="Content\Common\Images\delete.png" />
     <Content Include="Content\Common\Images\edit.png" />
@@ -325,6 +326,8 @@
     <Content Include="Scripts\Extensions\Filters\epa-filter.js" />
     <Content Include="Scripts\Extensions\Services\projectsetting-service.js" />
     <Content Include="Scripts\Libs\angular-multi-select.js" />
+    <Content Include="Scripts\Libs\angular-scrollable-table.js" />
+    <Content Include="Scripts\Libs\angular-scrollable-table.min.js" />
     <Content Include="Scripts\Libs\angular.js" />
     <Content Include="Scripts\Libs\angular-resource.js" />
     <Content Include="Scripts\Libs\angular-route.js" />

@@ -131,7 +131,7 @@ var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
 var registrationModule = angular.module("registrationModule",
 ['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'generalSettingModule', 'epaModule',
 'homeModule', 'reportModule', 'testModule', 'departmentModule', 'authorityModule', 'flowManagementModule',
-'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate', 'multi-select'])
+'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate', 'multi-select', 'scrollable-table'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig) {
 	$translateProvider.useLoader('resourceRepository', {});
