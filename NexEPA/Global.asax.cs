@@ -68,7 +68,7 @@ namespace NexEPA
         {
             if (IsWebApiRequest())
             {
-                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.ReadOnly);
             }
         }
 
