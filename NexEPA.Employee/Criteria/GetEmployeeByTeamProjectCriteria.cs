@@ -17,11 +17,13 @@ namespace NexEPA.Employee.Criteria
     /// </summary>
     public class GetEmployeeByTeamProjectCriteria : CriteriaBase
     {
-        public int ActorUserId { get; set; }      
+        public int ActorUserId { get; set; }
 
         public int? GroupId { get; set; }
 
         public int? ProjectId { get; set; }
+
+        public string ExcludedGroupId { get; set; }
 
         public override bool IsValid()
         {

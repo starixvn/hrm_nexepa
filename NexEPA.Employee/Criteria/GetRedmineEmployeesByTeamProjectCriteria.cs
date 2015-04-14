@@ -21,6 +21,8 @@ namespace NexEPA.Employee.Criteria
 
         public int? ProjectId { get; set; }
 
+        public string ExcludedGroupId { get; set; }
+
         public override bool IsValid()
         {
             return true;

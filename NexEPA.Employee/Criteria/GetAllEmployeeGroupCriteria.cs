@@ -18,6 +18,8 @@ namespace NexEPA.Employee.Criteria
     {
         public int? IsDisabled { get; set; }
 
+        public string ExcludedGroupId { get; set; }
+
         public override string GetSettingKey()
         {
             return "EmployeeGroup_GetAll";

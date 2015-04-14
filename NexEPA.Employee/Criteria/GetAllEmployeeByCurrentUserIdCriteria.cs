@@ -20,6 +20,8 @@ namespace NexEPA.Employee.Criteria
 
         public string Keyword { get; set; }
 
+        public string ExcludedGroupId { get; set; }
+
         public override string GetSettingKey()
         {
             return "Employee_GetMembers";

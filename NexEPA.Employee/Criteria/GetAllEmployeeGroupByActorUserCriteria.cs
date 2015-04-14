@@ -18,6 +18,8 @@ namespace NexEPA.Employee.Criteria
     {
         public int ActorUserId { get; set; }
 
+        public string ExcludedGroupId { get; set; }
+
         public override string GetSettingKey()
         {
             return "EmployeeGroup_GetByActorUser";

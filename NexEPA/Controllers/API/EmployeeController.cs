@@ -11,6 +11,7 @@ namespace NexEPA.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Web.Http;
     using NexEPA.Core.Constants;
@@ -28,7 +29,8 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class EmployeeController : BaseController
     {
-        private IEmployeeService _employeeService;
+        private const string ExcludedEmployeeGroupIdSetting = "ExcludedEmployeeGroupId";
+        private IEmployeeService _employeeService;        
 
         public EmployeeController()
             : this(null)
@@ -65,18 +67,29 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IList<SelectListModel> GetAllGroup()
         {
-            var criteria = new GetAllEmployeeGroupCriteria();
+            var criteria = new GetAllEmployeeGroupCriteria
+            {
+                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+            };
             IEnumerable<Group> groups = _employeeService.GetAllEmployeeGroup(criteria);
             IList<SelectListModel> selectListGroups = groups.Select(t => new SelectListModel { Id = t.GroupId, Name = t.Name }).ToList();
 
             return selectListGroups;
         }
 
+        /// <summary>
+        /// Retrieves all group by actor user.
+        /// </summary>
+        /// <returns>All group by actor user.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IList<SelectListModel> RetrieveAllGroupByActorUser()
         {
-            var criteria = new GetAllEmployeeGroupByActorUserCriteria { ActorUserId = CurrentUser.UserId };
+            var criteria = new GetAllEmployeeGroupByActorUserCriteria
+            {
+                ActorUserId = CurrentUser.UserId,
+                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+            };
             IEnumerable<Group> groups = _employeeService.GetAllEmployeeGroupByActorUser(criteria);
             IList<SelectListModel> selectListGroups = groups.Select(t => new SelectListModel { Id = t.GroupId, Name = t.Name }).ToList();
 
@@ -104,13 +117,19 @@ namespace NexEPA.Controllers.API
             return employees;
         }
 
+        /// <summary>
+        /// Gets the employee by current user identifier.
+        /// </summary>
+        /// <param name="keyword">The keyword.</param>
+        /// <returns>The employee by current user identifier.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetEmployeeByCurrentUserId(string keyword = "")
         {
             var criteria = new GetAllEmployeeByCurrentUserIdCriteria
             {
                 ActorUserId = this.CurrentUser.UserId,
-                Keyword = keyword
+                Keyword = keyword,
+                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
             };
 
             IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByCurrentUserId(criteria);
@@ -175,7 +194,8 @@ namespace NexEPA.Controllers.API
             {
                 ActorUserId = CurrentUser.UserId,
                 GroupId = groupId,
-                ProjectId = projectId
+                ProjectId = projectId,
+                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByTeamProject(criteria);
 
@@ -196,7 +216,8 @@ namespace NexEPA.Controllers.API
             var criteria = new GetRedmineEmployeesByTeamProjectCriteria
             {
                 GroupId = groupId,
-                ProjectId = projectId
+                ProjectId = projectId,
+                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<EmployeeModel> employees = _employeeService.GetRedmineEmployeesByTeamProject(criteria);
 
