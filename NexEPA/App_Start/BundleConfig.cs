@@ -50,7 +50,8 @@ namespace NexEPA
                 "~/Content/Site/Admin/department.less",
                 "~/Content/Site/Admin/flowmanagement.less",
                 "~/Content/Site/Authority/authority.less",
-                "~/Content/Site/AppraisalForm/appraisalForm.less");
+                "~/Content/Site/AppraisalForm/appraisalForm.less",
+                "~/Content/Site/GroupProject/groupProject.less");
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/Libs/jquery-2.1.0.js",
@@ -118,7 +119,9 @@ namespace NexEPA
                 "~/Scripts/Views/FlowManagement/flowmanagement-controller.js",
                 "~/Scripts/Views/FlowManagement/flowmanagement-repository.js",
                 "~/Scripts/Views/AppraisalForm/appraisalForm-controller.js",
-                "~/Scripts/Views/AppraisalForm/appraisalForm-repository.js"));
+                "~/Scripts/Views/AppraisalForm/appraisalForm-repository.js",
+                "~/Scripts/Views/GroupProject/groupProject-repository.js",
+                "~/Scripts/Views/GroupProject/groupProject-controller.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/epa-extension").Include(
                 "~/Scripts/Extensions/Filters/epa-filter.js",

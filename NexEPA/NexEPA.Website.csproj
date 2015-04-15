@@ -182,6 +182,7 @@
     <Compile Include="Controllers\API\AuthorityController.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\FlowManagementController.cs" />
+    <Compile Include="Controllers\API\GroupProjectController.cs" />
     <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\LoginController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
@@ -354,6 +355,8 @@
     <Content Include="Scripts\Views\EPA\myepa-repository.js" />
     <Content Include="Scripts\Views\FlowManagement\flowmanagement-repository.js" />
     <Content Include="Scripts\Views\FlowManagement\flowmanagement-controller.js" />
+    <Content Include="Scripts\Views\GroupProject\groupProject-controller.js" />
+    <Content Include="Scripts\Views\GroupProject\groupProject-repository.js" />
     <Content Include="Scripts\Views\Home\home-controller.js" />
     <Content Include="Scripts\Views\Home\home-repository.js" />
     <Content Include="Scripts\Views\Login\login-controller.js" />
@@ -409,6 +412,7 @@
     <Content Include="Templates\FlowManagement\AddEmployee.html" />
     <Content Include="Templates\FlowManagement\Index.html" />
     <Content Include="Templates\FlowManagement\PersonalFlow.html" />
+    <Content Include="Templates\GroupProject\Index.html" />
     <Content Include="Templates\KPI\KPIGroup\Create.html" />
     <Content Include="Templates\KPI\KPIGroup\Edit.html" />
     <Content Include="Templates\KPI\KPIGroup\ViewAll.html" />
@@ -512,6 +516,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Deployment.ignore" />
+    <Content Include="Content\Site\GroupProject\groupProject.less" />
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -578,7 +583,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55570</DevelopmentServerPort>
+          <DevelopmentServerPort>49889</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

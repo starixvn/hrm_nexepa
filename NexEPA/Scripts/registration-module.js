@@ -1,5 +1,6 @@
 ﻿/* exported registrationModule, projectsSettingModule, resourceModule, projectService, kpiSettingModule, targetTemplateModule, targetModule, epaModule*/
 /* exported employeeModule, homeModule, reportModule, generalSettingModule, testModule, departmentModule, authorityModule, flowManagementModule*/
+/* exported groupProjectModule*/
 /*global angular*/
 'use strict';
 
@@ -122,6 +123,11 @@ var authorityModule = angular.module("authorityModule", ['ngRoute', 'ngResource'
 		{ templateUrl: '/templates/Authority/UserPermission/Index.html', controller: 'ManageUserPermissionController' });
 } ]);
 
+var groupProjectModule = angular.module("groupProjectModule", ['ngRoute', 'ngResource'])
+.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider.when('/GroupProject/Index', { templateUrl: '/templates/GroupProject/Index.html', controller: 'GroupProjectController' });
+} ]);
+
 var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/Test/LoginAsAnotherUser',
@@ -130,7 +136,7 @@ var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
 
 var registrationModule = angular.module("registrationModule",
 ['projectsSettingModule', 'kpiSettingModule', 'targetTemplateModule', 'targetModule', 'employeeModule', 'generalSettingModule', 'epaModule',
-'homeModule', 'reportModule', 'testModule', 'departmentModule', 'authorityModule', 'flowManagementModule',
+'homeModule', 'reportModule', 'testModule', 'departmentModule', 'authorityModule', 'flowManagementModule', 'groupProjectModule',
 'ui.bootstrap', 'ngRoute', 'ngResource', 'pascalprecht.translate', 'multi-select', 'scrollable-table'])
 .config(['$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($routeProvider, $locationProvider, $compileProvider, $translateProvider, datepickerConfig) {

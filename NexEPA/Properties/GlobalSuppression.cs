@@ -59,3 +59,7 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexEPA.Controllers.API.TargetController.#GetTargetToFilter()", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
     Target = "NexEPA.Controllers.API.EmployeeEPAController.#GetIsShowFullEPAComment()", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexEPA.Controllers.API.GroupProjectController.#GetAllGroupProject()", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexEPA.Controllers.API.GroupProjectController.#GetPermission()", Justification = "Reviewed. Suppression is OK here.")]

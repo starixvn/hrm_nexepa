@@ -46,6 +46,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\GroupProject\GetAllGroupProjectCriteria.cs" />
     <Compile Include="Criteria\Milestone\AddMilestoneCriteria.cs" />
     <Compile Include="Criteria\ProjectMembers\AddMemberCriteria.cs" />
     <Compile Include="Criteria\ProjectMembers\DeleteMemberCriteria.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="Criteria\Project\GetAllRedmineProjectsCriteria.cs" />
     <Compile Include="Criteria\Project\UpdateProjectCriteria.cs" />
     <Compile Include="Criteria\Project\UpdateProjectStatusCriteria.cs" />
+    <Compile Include="Models\GroupProject\GroupProjectDetailModel.cs" />
+    <Compile Include="Models\GroupProject\GroupProjectModel.cs" />
     <Compile Include="Models\RedmineProjectModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\MemberModel.cs" />
@@ -73,12 +76,16 @@
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\ProjectRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implement\GroupProjectRepository.cs" />
     <Compile Include="Repositories\Implement\ProjectRepository.cs" />
+    <Compile Include="Repositories\Interface\IGroupProjectRepository.cs" />
     <Compile Include="Repositories\Interface\IProjectRepository.cs" />
+    <Compile Include="Services\Implement\GroupProjectService.cs" />
     <Compile Include="Services\Implement\ProjectMemberService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Services\Implement\ProjectService.cs" />
+    <Compile Include="Services\Interface\IGroupProjectService.cs" />
     <Compile Include="Services\Interface\IProjectMemberService.cs" />
     <Compile Include="Services\Interface\IProjectService.cs" />
   </ItemGroup>

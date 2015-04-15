@@ -175,4 +175,10 @@
 		<Setting Key="TargetEmployeeSetting_Get" SpName="TargetEmployeeSetting_Get" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="TargetEmployeeSetting_Update" SpName="TargetEmployeeSetting_Update" DbName="NexEPA" Plain="0" ></Setting>
 	</Function>
+  
+  <Function Name="GroupProject">
+    <Setting Key="GroupProject_Get" SpName="GroupProject_Get" DbName="NexEPA" Plain="0" >
+      <Mapping DataField="ProjectName" ObjectProperty="Name"/>
+    </Setting>
+  </Function>
 </Functions>

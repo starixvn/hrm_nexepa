@@ -906,4 +906,13 @@
   <data name="ValidateMaximumTwoMonth" xml:space="preserve">
     <value>Report period must not exceed 2 months</value>
   </data>
+  <data name="CreateGroupProject" xml:space="preserve">
+    <value>Create Group Project</value>
+  </data>
+  <data name="GroupProjectName" xml:space="preserve">
+    <value>Group Project Name</value>
+  </data>
+  <data name="ManageGroupProject" xml:space="preserve">
+    <value>Manage Group Project</value>
+  </data>
 </root>

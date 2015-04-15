@@ -63,5 +63,7 @@ namespace NexEPA.Core.Constants
         public const string FlowManagement = "FlowManagement";
 
         public const string ResourcePlanningReport = "ResourcePlanningReport";
+
+        public const string ManageGroupProject = "ManageGroupProject";
     }
 }
