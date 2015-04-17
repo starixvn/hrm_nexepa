@@ -64,7 +64,41 @@ namespace NexEPA.Project.Services.Implement
             var result = new CommandResult();
             if (criteria.IsValid())
             {
-                result = Repository.Insert(criteria);
+                result = Repository.Insert(criteria, true);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Update group project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Command result.</returns>
+        public CommandResult UpdateGroupProject(UpdateGroupProjectCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Delete group project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Command result.</returns>
+        public CommandResult DeleteGroupProject(DeleteGroupProjectCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Delete(criteria);
             }
 
             return result;

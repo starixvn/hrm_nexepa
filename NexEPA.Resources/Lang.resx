@@ -915,4 +915,7 @@
   <data name="ManageGroupProject" xml:space="preserve">
     <value>Manage Group Project</value>
   </data>
+  <data name="EditGroupProject" xml:space="preserve">
+    <value>Edit Group Project</value>
+  </data>
 </root>

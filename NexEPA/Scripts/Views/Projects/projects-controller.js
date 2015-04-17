@@ -101,7 +101,6 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 
 	employeeEPAFactory.getCurrentUser().then(function (currentUser) {
 		$scope.currentUser = currentUser;
-		debugger;
 		//check project manager
 		var checkPM = false;
 		var roles = currentUser.roles;

@@ -414,6 +414,7 @@
     <Content Include="Templates\FlowManagement\Index.html" />
     <Content Include="Templates\FlowManagement\PersonalFlow.html" />
     <Content Include="Templates\GroupProject\Create.html" />
+    <Content Include="Templates\GroupProject\Edit.html" />
     <Content Include="Templates\GroupProject\Index.html" />
     <Content Include="Templates\KPI\KPIGroup\Create.html" />
     <Content Include="Templates\KPI\KPIGroup\Edit.html" />

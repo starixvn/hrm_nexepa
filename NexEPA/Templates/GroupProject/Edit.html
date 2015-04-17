@@ -1,0 +1,30 @@
+﻿ <div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"EditGroupProject" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+
+	<div class="modal-body group-project-body-modal">
+		<form class="col-sm-12 form-horizontal" novalidate>
+			<div class="form-group required">
+				<label class="col-sm-3 control-label bold" data-translate="Name">
+				</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="groupProject.Name" placeholder="Group Project Name" required maxlength="200"/>
+				</div>
+			</div>
+			<div class="form-group select-project">
+				<multi-select-item ng-model="groupProject.Projects" available="availableProjects" 
+					available-label="Available projects" selected-label="Selected projects" display-attr="name"></multi-select-item>
+			</div>
+		</form>
+	</div>
+
+	<div class="modal-footer">
+		<button class="button" ng-click="save(groupProject)" data-translate="Save">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>

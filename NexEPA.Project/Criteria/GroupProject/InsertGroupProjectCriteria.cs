@@ -22,6 +22,9 @@ namespace NexEPA.Project.Criteria.GroupProject
     {
         private const string _ProjectTemplate = "<Project ProjectId='{0}' DatabaseId='{1}'></Project>";
 
+        [Output]
+        public int GroupProjectId { get; set; }
+
         public string Name { get; set; }
 
         public int CreatedBy { get; set; }

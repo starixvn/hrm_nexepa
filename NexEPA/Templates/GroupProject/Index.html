@@ -4,8 +4,8 @@
 		<li class="current" data-translate="ManageGroupProject"></li>
 	</ul>
 </div>
-<div class="row">
-	<table class="col-sm-12 table table-bordered table-striped table-group-project">
+<div class="row col-sm-8">
+	<table class="table table-bordered table-striped table-group-project">
 		<thead>
 			<tr class="header-table">
 				<th colspan="4">
@@ -41,9 +41,9 @@
 					</div>
 				<td class="text-center">
 					<a class="glyphicon glyphicon-edit icon-edit" href="" ng-attr-title='{{"Edit" | translate}}' 
-						ng-if="permission.policy == 2" ng-click="updateGroupProject(item)"></a>
+						ng-if="permission.policy == 2" ng-click="updateGroupProject(group)"></a>
 					<a class="glyphicon glyphicon-remove icon-remove" href="" ng-attr-title='{{"Delete" | translate}}'
-						ng-if="permission.policy == 2" ng-click="deleteGroupProject(item)"></a>
+						ng-if="permission.policy == 2" ng-click="deleteGroupProject(group)"></a>
 				</td>
 			</tr>
 			<tr ng-show="groupProjects.length == 0">

@@ -46,9 +46,11 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\GroupProject\DeleteGroupProjectCriteria.cs" />
     <Compile Include="Criteria\GroupProject\GetAllGroupProjectCriteria.cs" />
     <Compile Include="Criteria\GroupProject\GetAllProjectCriteria.cs" />
     <Compile Include="Criteria\GroupProject\InsertGroupProjectCriteria.cs" />
+    <Compile Include="Criteria\GroupProject\UpdateGroupProjectCriteria.cs" />
     <Compile Include="Criteria\Milestone\AddMilestoneCriteria.cs" />
     <Compile Include="Criteria\ProjectMembers\AddMemberCriteria.cs" />
     <Compile Include="Criteria\ProjectMembers\DeleteMemberCriteria.cs" />

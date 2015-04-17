@@ -628,6 +628,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Group Project.
+        /// </summary>
+        public static string EditGroupProject {
+            get {
+                return ResourceManager.GetString("EditGroupProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit KPI.
         /// </summary>
         public static string EditKPI {

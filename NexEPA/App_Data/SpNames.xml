@@ -185,5 +185,9 @@
     </Setting>
     <Setting Key="GroupProject_Insert" SpName="GroupProject_Insert" DbName="NexEPA" Plain="0" >
     </Setting>
+    <Setting Key="GroupProject_Update" SpName="GroupProject_Update" DbName="NexEPA" Plain="0" >
+    </Setting>
+    <Setting Key="GroupProject_Delete" SpName="GroupProject_Delete" DbName="NexEPA" Plain="0" >
+    </Setting>
   </Function>
 </Functions>

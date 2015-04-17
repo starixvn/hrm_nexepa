@@ -63,7 +63,7 @@ namespace NexEPA.Controllers.API
         /// <returns>Command result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Host)]
-        public CommandResult InsertGroupProject(GroupProjectModel model)
+        public object InsertGroupProject(GroupProjectModel model)
         {
             var criteria = new InsertGroupProjectCriteria()
             {
@@ -73,6 +73,48 @@ namespace NexEPA.Controllers.API
             };
 
             CommandResult result = _groupProjectService.InsertGroupProject(criteria);
+
+            return new { result = result, groupProjectId = criteria.GroupProjectId };
+        }
+
+        /// <summary>
+        /// Update group project.
+        /// </summary>
+        /// <param name="model">Group project model.</param>
+        /// <returns>Command result.</returns>
+        [HttpPut]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Host)]
+        public CommandResult UpdateGroupProject(GroupProjectModel model)
+        {
+            var criteria = new UpdateGroupProjectCriteria()
+            {
+                GroupProjectId = model.GroupProjectId,
+                Name = model.Name,
+                Projects = model.Projects,
+                ModifiedBy = this.CurrentUser.UserId
+            };
+
+            CommandResult result = _groupProjectService.UpdateGroupProject(criteria);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Delete group project.
+        /// </summary>
+        /// <param name="groupProjectId">Group project id.</param>
+        /// <returns>Command result.</returns>
+        [HttpDelete]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Host)]
+        public CommandResult DeleteGroupProject(int groupProjectId)
+        {
+            var criteria = new DeleteGroupProjectCriteria()
+            {
+                GroupProjectId = groupProjectId,
+                ModifiedBy = this.CurrentUser.UserId
+            };
+
+            CommandResult result = _groupProjectService.DeleteGroupProject(criteria);
 
             return result;
         }

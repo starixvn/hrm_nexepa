@@ -12,6 +12,12 @@ groupProjectModule.factory('groupProjectFactory', ['$http', function ($http) {
 		insertGroupProject: function (groupProject) {
 			return $http.post('/api/GroupProject/InsertGroupProject', groupProject);
 		},
+		updateGroupProject: function (groupProject) {
+			return $http.put('/api/GroupProject/UpdateGroupProject', groupProject);
+		},
+		deleteGroupProject: function (groupProjectId) {
+			return $http['delete']('/api/GroupProject/DeleteGroupProject', { params: { groupProjectId: groupProjectId} });
+		},
 		getPermission: function () {
 			return $http.get('/api/GroupProject/GetPermission');
 		}

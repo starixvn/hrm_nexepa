@@ -23,6 +23,10 @@ namespace NexEPA.Project.Services.Interface
 
         CommandResult InsertGroupProject(InsertGroupProjectCriteria criteria);
 
+        CommandResult UpdateGroupProject(UpdateGroupProjectCriteria criteria);
+
+        CommandResult DeleteGroupProject(DeleteGroupProjectCriteria criteria);
+
         List<GroupProjectDetailModel> GetAllProject(GetAllProjectCriteria criteria);
     }
 }
