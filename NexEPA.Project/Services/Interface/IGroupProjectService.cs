@@ -10,6 +10,7 @@
 namespace NexEPA.Project.Services.Interface
 {
     using System.Collections.Generic;
+    using NexEPA.Core.Models;
     using NexEPA.Project.Criteria.GroupProject;
     using NexEPA.Project.Models.GroupProject;
 
@@ -19,5 +20,9 @@ namespace NexEPA.Project.Services.Interface
     public interface IGroupProjectService
     {
         List<GroupProjectModel> GetAllGroupProject(GetAllGroupProjectCriteria criteria);
+
+        CommandResult InsertGroupProject(InsertGroupProjectCriteria criteria);
+
+        List<GroupProjectDetailModel> GetAllProject(GetAllProjectCriteria criteria);
     }
 }

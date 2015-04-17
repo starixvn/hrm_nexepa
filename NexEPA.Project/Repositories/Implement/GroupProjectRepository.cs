@@ -46,6 +46,21 @@ namespace NexEPA.Project.Repositories.Implement
         }
 
         /// <summary>
+        /// Get all project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List project.</returns>
+        public List<GroupProjectDetailModel> GetAllProject(GetAllProjectCriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var projects = db.Query<GroupProjectDetailModel>().ToList();
+
+                return projects;
+            }
+        }
+
+        /// <summary>
         /// Group project by group project.
         /// </summary>
         /// <param name="groupProjects">The list of group project.</param>

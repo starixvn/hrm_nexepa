@@ -121,7 +121,8 @@ namespace NexEPA
                 "~/Scripts/Views/AppraisalForm/appraisalForm-controller.js",
                 "~/Scripts/Views/AppraisalForm/appraisalForm-repository.js",
                 "~/Scripts/Views/GroupProject/groupProject-repository.js",
-                "~/Scripts/Views/GroupProject/groupProject-controller.js"));
+                "~/Scripts/Views/GroupProject/groupProject-controller.js",
+                "~/Scripts/Views/GroupProject/groupProject-directive.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/epa-extension").Include(
                 "~/Scripts/Extensions/Filters/epa-filter.js",

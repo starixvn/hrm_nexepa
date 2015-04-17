@@ -41,9 +41,9 @@
 					</div>
 				<td class="text-center">
 					<a class="glyphicon glyphicon-edit icon-edit" href="" ng-attr-title='{{"Edit" | translate}}' 
-						ng-click="updateGroupProject(item)"></a>
+						ng-if="permission.policy == 2" ng-click="updateGroupProject(item)"></a>
 					<a class="glyphicon glyphicon-remove icon-remove" href="" ng-attr-title='{{"Delete" | translate}}'
-						ng-click="deleteGroupProject(item)"></a>
+						ng-if="permission.policy == 2" ng-click="deleteGroupProject(item)"></a>
 				</td>
 			</tr>
 			<tr ng-show="groupProjects.length == 0">

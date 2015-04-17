@@ -11,6 +11,8 @@ namespace NexEPA.Project.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
+    using NexEPA.Core.Models;
+    using NexEPA.Core.Services;
     using NexEPA.Project.Criteria.GroupProject;
     using NexEPA.Project.Models.GroupProject;
     using NexEPA.Project.Repositories.Implement;
@@ -20,7 +22,7 @@ namespace NexEPA.Project.Services.Implement
     /// <summary>
     /// Implement of interface group project service.
     /// </summary>
-    public class GroupProjectService : IGroupProjectService
+    public class GroupProjectService : BaseService, IGroupProjectService
     {
         private readonly IGroupProjectRepository _groupProjectRepository;
 
@@ -49,6 +51,40 @@ namespace NexEPA.Project.Services.Implement
             }
 
             return groupProjects;
+        }
+
+        /// <summary>
+        /// Insert group project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Command result.</returns>
+        public CommandResult InsertGroupProject(InsertGroupProjectCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Insert(criteria);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get all project.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List project.</returns>
+        public List<GroupProjectDetailModel> GetAllProject(GetAllProjectCriteria criteria)
+        {
+            var projects = new List<GroupProjectDetailModel>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                projects = _groupProjectRepository.GetAllProject(criteria);
+            }
+
+            return projects;
         }
     }
 }

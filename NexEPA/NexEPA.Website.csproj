@@ -356,6 +356,7 @@
     <Content Include="Scripts\Views\FlowManagement\flowmanagement-repository.js" />
     <Content Include="Scripts\Views\FlowManagement\flowmanagement-controller.js" />
     <Content Include="Scripts\Views\GroupProject\groupProject-controller.js" />
+    <Content Include="Scripts\Views\GroupProject\groupProject-directive.js" />
     <Content Include="Scripts\Views\GroupProject\groupProject-repository.js" />
     <Content Include="Scripts\Views\Home\home-controller.js" />
     <Content Include="Scripts\Views\Home\home-repository.js" />
@@ -412,6 +413,7 @@
     <Content Include="Templates\FlowManagement\AddEmployee.html" />
     <Content Include="Templates\FlowManagement\Index.html" />
     <Content Include="Templates\FlowManagement\PersonalFlow.html" />
+    <Content Include="Templates\GroupProject\Create.html" />
     <Content Include="Templates\GroupProject\Index.html" />
     <Content Include="Templates\KPI\KPIGroup\Create.html" />
     <Content Include="Templates\KPI\KPIGroup\Edit.html" />

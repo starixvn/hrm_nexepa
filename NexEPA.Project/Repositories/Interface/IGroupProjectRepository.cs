@@ -19,5 +19,7 @@ namespace NexEPA.Project.Repositories.Interface
     public interface IGroupProjectRepository
     {
         List<GroupProjectModel> GetAllGroupProject(GetAllGroupProjectCriteria criteria);
+
+        List<GroupProjectDetailModel> GetAllProject(GetAllProjectCriteria criteria);
     }
 }

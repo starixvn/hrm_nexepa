@@ -177,8 +177,13 @@
 	</Function>
   
   <Function Name="GroupProject">
+    <Setting Key="GroupProject_GetAllProject" SpName="GroupProject_GetAllProject" DbName="NexEPA" Plain="0" >
+      <Mapping DataField="ProjectName" ObjectProperty="Name"/>
+    </Setting>
     <Setting Key="GroupProject_Get" SpName="GroupProject_Get" DbName="NexEPA" Plain="0" >
       <Mapping DataField="ProjectName" ObjectProperty="Name"/>
+    </Setting>
+    <Setting Key="GroupProject_Insert" SpName="GroupProject_Insert" DbName="NexEPA" Plain="0" >
     </Setting>
   </Function>
 </Functions>

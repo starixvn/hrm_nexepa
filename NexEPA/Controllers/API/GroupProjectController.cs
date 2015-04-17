@@ -13,6 +13,7 @@ namespace NexEPA.Controllers.API
     using System.Web.Http;
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
+    using NexEPA.Core.Models;
     using NexEPA.Project.Criteria.GroupProject;
     using NexEPA.Project.Models.GroupProject;
     using NexEPA.Project.Services.Implement;
@@ -53,6 +54,41 @@ namespace NexEPA.Controllers.API
             List<GroupProjectModel> groupProjects = _groupProjectService.GetAllGroupProject(criteria);
 
             return groupProjects;
+        }
+
+        /// <summary>
+        /// Insert group project.
+        /// </summary>
+        /// <param name="model">Group project model.</param>
+        /// <returns>Command result.</returns>
+        [HttpPost]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Host)]
+        public CommandResult InsertGroupProject(GroupProjectModel model)
+        {
+            var criteria = new InsertGroupProjectCriteria()
+            {
+                Name = model.Name,
+                Projects = model.Projects,
+                CreatedBy = this.CurrentUser.UserId
+            };
+
+            CommandResult result = _groupProjectService.InsertGroupProject(criteria);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get all project.
+        /// </summary>
+        /// <returns>List project.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Read)]
+        public List<GroupProjectDetailModel> GetAllProject()
+        {
+            var criteria = new GetAllProjectCriteria();
+
+            List<GroupProjectDetailModel> projects = _groupProjectService.GetAllProject(criteria);
+
+            return projects;
         }
 
         /// <summary>

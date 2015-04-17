@@ -6,6 +6,12 @@ groupProjectModule.factory('groupProjectFactory', ['$http', function ($http) {
 		getGroupProject: function () {
 			return $http.get('/api/GroupProject/GetAllGroupProject');
 		},
+		getAllProject: function () {
+			return $http.get('/api/GroupProject/GetAllProject');
+		},
+		insertGroupProject: function (groupProject) {
+			return $http.post('/api/GroupProject/InsertGroupProject', groupProject);
+		},
 		getPermission: function () {
 			return $http.get('/api/GroupProject/GetPermission');
 		}
