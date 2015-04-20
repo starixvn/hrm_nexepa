@@ -3,9 +3,9 @@
 
 reportModule.controller('ViewEmployeePerformanceTendencyController',
 ['$scope', '$route', '$routeParams', 'reportFactory', 'employeeRepository', 'notificationFactory', 'ErrorService', 'authorityRepository',
-'commonFactory',
+'commonFactory', 'groupProjectFactory', 'projectDataFactory',
 function ($scope, $route, $routeParams, reportFactory, employeeRepository, notificationFactory, ErrorService, authorityRepository,
-commonFactory) {
+commonFactory, groupProjectFactory, projectDataFactory) {
 	/*
 	|| variables
 	*/
@@ -64,7 +64,10 @@ commonFactory) {
 		$scope.filter = {
 			searchKey: '',
 			fromDate: null,
-			toDate: null
+			toDate: null,
+			isSelectedProject: 'true',
+			projectIds: '',
+			groupProjectId: ''
 		};
 
 		$scope.fromOpened = false;
@@ -72,6 +75,8 @@ commonFactory) {
 		$scope.effortInFiguresTitle = "My effort in figures";
 		$scope.effortInChartTitle = "My effort in chart";
 		$scope.effortDetailInFiguresTitle = "My effort detail in figures";
+		$scope.isProject = 'true';
+		$scope.isGroupProject = 'false';
 
 		$scope.spentTimes = {};
 		$scope.detailNumberIssues = {};
@@ -263,8 +268,29 @@ commonFactory) {
 		}
 	};
 
+	self.getAllGroupProjects = function () {
+		groupProjectFactory.getGroupProject().success(function (listGroupProject) {
+			$scope.groupProjects = listGroupProject;
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+		});
+	};
+
+	self.getAllRedmineProjects = function () {
+		projectDataFactory.getAllRedmineProjects().then(function (projectList) {
+			$scope.projects = projectList;
+		});
+	};
+
 	self.load = function () {
 		self.generateOptions();
+		self.getAllGroupProjects();
+		self.getAllRedmineProjects();
 
 		self.checkIfOnlyMember(function () {
 			self.handleFromToDate();
@@ -337,7 +363,11 @@ commonFactory) {
 	*/
 	self.getPersonalEfforts = function (employeeId) {
 		if (employeeId) {
-			reportFactory.getRedminePersonalEffort(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
+			$scope.filter.projectIds = commonFactory.getSelectedData($scope.projects, "id");
+
+			reportFactory.getRedminePersonalEffort(employeeId, $scope.filter.fromDate, $scope.filter.toDate,
+				$scope.filter.isSelectedProject, $scope.filter.projectIds, $scope.filter.groupProjectId)
+			.success(function (report) {
 				if (report != null) {
 					$scope.personalEfforts.data = report.personalEfforts;
 					$scope.personalEfforts.projects = report.projects;
@@ -529,8 +559,11 @@ commonFactory) {
 	self.getPersonalEffortDetails = function (employeeId) {
 		if (employeeId) {
 			$scope.isLoadingButton = true;
+			$scope.filter.projectIds = commonFactory.getSelectedData($scope.projects, "id");
 
-			reportFactory.getRedminePersonalEffortDetail(employeeId, $scope.filter.fromDate, $scope.filter.toDate).success(function (report) {
+			reportFactory.getRedminePersonalEffortDetail(employeeId, $scope.filter.fromDate, $scope.filter.toDate,
+				$scope.filter.isSelectedProject, $scope.filter.projectIds, $scope.filter.groupProjectId)
+			.success(function (report) {
 				if (report != null) {
 					$scope.personalEffortDetails.data = report.personalEffortDetails;
 					$scope.personalEffortDetails.projectTrackers = report.projectTrackers;

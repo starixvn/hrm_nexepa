@@ -79,16 +79,28 @@ namespace NexEPA.Controllers.API
         /// <param name="employeeId">The employee identifier.</param>
         /// <param name="fromDate">The From date.</param>
         /// <param name="toDate">The To date.</param>
+        /// <param name="isSelectedProject">Selected project or group project.</param>
+        /// <param name="projectIds">The list project id.</param>
+        /// <param name="groupProjectId">The group project id.</param>
         /// <returns>RedminePersonalEffortViewModel class.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
-        public RedminePersonalEffortViewModel GetRedminePersonalEffort(int employeeId, DateTime fromDate, DateTime toDate)
+        public RedminePersonalEffortViewModel GetRedminePersonalEffort(
+            int employeeId, 
+            DateTime fromDate, 
+            DateTime toDate,
+            bool isSelectedProject = true,
+            string projectIds = null,
+            int? groupProjectId = null)
         {
             var criteria = new GetRedminePersonalEffortCriteria
             {
                 EmployeeId = employeeId,
                 FromDate = fromDate,
-                ToDate = toDate
+                ToDate = toDate,
+                IsSelectedProject = isSelectedProject,
+                ProjectIds = projectIds,
+                GroupProjectId = groupProjectId
             };
 
             return _tendencyService.GetRedminePersonalEffort(criteria);
@@ -100,16 +112,28 @@ namespace NexEPA.Controllers.API
         /// <param name="employeeId">The employee identifier.</param>
         /// <param name="fromDate">The From date.</param>
         /// <param name="toDate">The To date.</param>
+        /// <param name="isSelectedProject">Selected project or group project.</param>
+        /// <param name="projectIds">The list project id.</param>
+        /// <param name="groupProjectId">The group project id.</param>
         /// <returns>RedminePersonalEffortDetailViewModel class.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
-        public RedminePersonalEffortDetailViewModel GetRedminePersonalEffortDetail(int employeeId, DateTime fromDate, DateTime toDate)
+        public RedminePersonalEffortDetailViewModel GetRedminePersonalEffortDetail(
+            int employeeId, 
+            DateTime fromDate, 
+            DateTime toDate,
+            bool isSelectedProject = true,
+            string projectIds = null,
+            int? groupProjectId = null)
         {
             var criteria = new GetRedminePersonalEffortDetailCriteria
             {
                 EmployeeId = employeeId,
                 FromDate = fromDate,
-                ToDate = toDate
+                ToDate = toDate,
+                IsSelectedProject = isSelectedProject,
+                ProjectIds = projectIds,
+                GroupProjectId = groupProjectId
             };
 
             return _tendencyService.GetRedminePersonalEffortDetail(criteria);

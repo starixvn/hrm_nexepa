@@ -6,36 +6,71 @@
 		</ul>
 	</div>
 	<div class="row row-filter filter-max-width">
-		<form novalidate class="form-horizontal form-multiLine filter col-sm-12">
-		<div class="form-group">
-			<label data-translate="Employee" class="col-sm-1 text-right">
-			</label>
-			<div class="col-sm-2">
-				<input class="form-control" data-ng-model="filter.searchKey" placeholder="full name or nick name"
-					data-ng-change="getEmployee(filter.searchKey)" data-search-auto-complete data-search-key="filter.searchKey"
-					data-search-employees="searchEmployees" data-employee="employee" data-ng-readonly="isOnlyMember" />
+		<form data-novalidate class="form-horizontal common-form col-sm-12 filter">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-5 control-label text-right" data-translate="Employee"></label>
+						<div class="col-sm-6">
+							<input class="form-control" data-ng-model="filter.searchKey" placeholder="full name or nick name"
+								data-ng-change="getEmployee(filter.searchKey)" data-search-auto-complete data-search-key="filter.searchKey"
+								data-search-employees="searchEmployees" data-employee="employee" data-ng-readonly="isOnlyMember" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 text-right">
+							<input type="radio" ng-model="filter.isSelectedProject" value="true" 
+								ng-click="filter.isSelectedProject = 'true'" /> Redmine Project:
+						</label>
+						<div class="col-sm-6">
+							<add-class-to-role-filter multi-select input-model="projects" button-label="projectId"
+								helper-elements="all reset filter" item-label="name" tick-property="ticked"
+								max-labels="0" class="multi-select">
+							</add-class-to-role-filter>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="form-group">
+						<label class="col-sm-5 control-label text-right" data-translate="From"></label>
+						<div class="col-sm-5 date-box">
+							<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.fromDate"
+								data-is-open="fromOpened" data-ng-click="open($event,'from')" />
+							<calendar-image class="calendar-image" ng-click="open($event,'to')"></calendar-image>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 text-right">
+							<input type="radio" ng-model="filter.isSelectedProject" value="false" 
+								ng-click="filter.isSelectedProject = 'false'" /> Group Redmine Project:
+						</label>
+						<div class="col-sm-5">
+							<select class="form-control" ng-model="filter.groupProjectId" 
+									ng-options="opt.groupProjectId as opt.name for opt in groupProjects">
+								<option value="">{{"All" | translate}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-right" data-translate="To"></label>
+						<div class="col-sm-8 date-box">
+							<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.toDate"
+								data-is-open="toOpened" data-ng-click="open($event,'to')" />
+							<calendar-image class="calendar-image" ng-click="open($event,'to')"></calendar-image>
+						</div>
+					</div>
+					<div class="from-group">
+						<div class="col-sm-offset-3 col-sm-8">
+							<button class="button ladda-button" data-ng-click="getReportData()" data-style="slide-up"
+								data-loading-button data-is-started="isLoadingButton">
+								<span class="ladda-label" data-translate="Submit"></span>
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
-			<label data-translate="From" class="col-sm-1  text-right">
-			</label>
-			<div class="col-sm-2 date-box">
-				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.fromDate"
-					data-is-open="fromOpened" data-ng-click="open($event,'from')" />
-				<calendar-image class="calendar-image" ng-click="open($event,'from')"></calendar-image>
-			</div>
-			<label data-translate="To" class="col-sm-1  text-right">
-			</label>
-			<div class="col-sm-2 date-box">
-				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="filter.toDate"
-					data-is-open="toOpened" data-ng-click="open($event,'to')" />
-				<calendar-image class="calendar-image" ng-click="open($event,'to')"></calendar-image>
-			</div>
-			<div class="col-sm-2 text-center">
-				<button class="button ladda-button" data-ng-click="getReportData()" data-style="slide-up"
-					data-loading-button data-is-started="isLoadingButton">
-					<span class="ladda-label" data-translate="Submit"></span>
-				</button>
-			</div>
-		</div>
 		</form>
 	</div>
 	<div class="row filter-max-width">

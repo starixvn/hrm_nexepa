@@ -23,21 +23,27 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				}
 			});
 		},
-		getRedminePersonalEffort: function (employeeId, fromDate, toDate) {
+		getRedminePersonalEffort: function (employeeId, fromDate, toDate, isSelectedProject, projectIds, groupProjectId) {
 			return $http.get('/api/Report/GetRedminePersonalEffort', {
 				params: {
 					employeeId: employeeId,
 					fromDate: fromDate.toDateString(),
-					toDate: toDate.toDateString()
+					toDate: toDate.toDateString(),
+					isSelectedProject: isSelectedProject,
+					projectIds: projectIds,
+					groupProjectId: groupProjectId
 				}
 			});
 		},
-		getRedminePersonalEffortDetail: function (employeeId, fromDate, toDate) {
+		getRedminePersonalEffortDetail: function (employeeId, fromDate, toDate, isSelectedProject, projectIds, groupProjectId) {
 			return $http.get('/api/Report/GetRedminePersonalEffortDetail', {
 				params: {
 					employeeId: employeeId,
 					fromDate: fromDate.toDateString(),
-					toDate: toDate.toDateString()
+					toDate: toDate.toDateString(),
+					isSelectedProject: isSelectedProject,
+					projectIds: projectIds,
+					groupProjectId: groupProjectId
 				}
 			});
 		},
