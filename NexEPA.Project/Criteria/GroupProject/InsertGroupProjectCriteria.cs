@@ -20,8 +20,6 @@ namespace NexEPA.Project.Criteria.GroupProject
     /// </summary>
     public class InsertGroupProjectCriteria : CriteriaBase
     {
-        private const string _ProjectTemplate = "<Project ProjectId='{0}' DatabaseId='{1}'></Project>";
-
         [Output]
         public int GroupProjectId { get; set; }
 
@@ -29,26 +27,7 @@ namespace NexEPA.Project.Criteria.GroupProject
 
         public int CreatedBy { get; set; }
 
-        [SpParam(Ignored = true)]
-        public IList<GroupProjectDetailModel> Projects { get; set; }
-
-        public string ListProject
-        {
-            get
-            {
-                var value = new StringBuilder("<ROOT>");
-
-                if (Projects != null)
-                {
-                    foreach (GroupProjectDetailModel project in Projects)
-                    {
-                        value.AppendFormat(_ProjectTemplate, project.ProjectId, project.DatabaseId);
-                    }
-                }
-
-                return value.Append("</ROOT>").ToString();
-            }
-        }
+        public string ProjectIds { get; set; }
 
         public override string GetSettingKey()
         {

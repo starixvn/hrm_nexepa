@@ -59,18 +59,16 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Insert group project.
         /// </summary>
-        /// <param name="model">Group project model.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>Command result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Host)]
-        public object InsertGroupProject(GroupProjectModel model)
+        public object InsertGroupProject(InsertGroupProjectCriteria criteria)
         {
-            var criteria = new InsertGroupProjectCriteria()
+            if (criteria != null)
             {
-                Name = model.Name,
-                Projects = model.Projects,
-                CreatedBy = this.CurrentUser.UserId
-            };
+                criteria.CreatedBy = this.CurrentUser.UserId;
+            }
 
             CommandResult result = _groupProjectService.InsertGroupProject(criteria);
 
@@ -80,19 +78,16 @@ namespace NexEPA.Controllers.API
         /// <summary>
         /// Update group project.
         /// </summary>
-        /// <param name="model">Group project model.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>Command result.</returns>
         [HttpPut]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Host)]
-        public CommandResult UpdateGroupProject(GroupProjectModel model)
+        public CommandResult UpdateGroupProject(UpdateGroupProjectCriteria criteria)
         {
-            var criteria = new UpdateGroupProjectCriteria()
+            if (criteria != null)
             {
-                GroupProjectId = model.GroupProjectId,
-                Name = model.Name,
-                Projects = model.Projects,
-                ModifiedBy = this.CurrentUser.UserId
-            };
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+            }
 
             CommandResult result = _groupProjectService.UpdateGroupProject(criteria);
 
@@ -117,20 +112,6 @@ namespace NexEPA.Controllers.API
             CommandResult result = _groupProjectService.DeleteGroupProject(criteria);
 
             return result;
-        }
-
-        /// <summary>
-        /// Get all project.
-        /// </summary>
-        /// <returns>List project.</returns>
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Read)]
-        public List<GroupProjectDetailModel> GetAllProject()
-        {
-            var criteria = new GetAllProjectCriteria();
-
-            List<GroupProjectDetailModel> projects = _groupProjectService.GetAllProject(criteria);
-
-            return projects;
         }
 
         /// <summary>

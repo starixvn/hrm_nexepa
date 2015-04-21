@@ -26,7 +26,5 @@ namespace NexEPA.Project.Services.Interface
         CommandResult UpdateGroupProject(UpdateGroupProjectCriteria criteria);
 
         CommandResult DeleteGroupProject(DeleteGroupProjectCriteria criteria);
-
-        List<GroupProjectDetailModel> GetAllProject(GetAllProjectCriteria criteria);
     }
 }

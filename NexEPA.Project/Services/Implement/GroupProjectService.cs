@@ -103,22 +103,5 @@ namespace NexEPA.Project.Services.Implement
 
             return result;
         }
-
-        /// <summary>
-        /// Get all project.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List project.</returns>
-        public List<GroupProjectDetailModel> GetAllProject(GetAllProjectCriteria criteria)
-        {
-            var projects = new List<GroupProjectDetailModel>();
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                projects = _groupProjectRepository.GetAllProject(criteria);
-            }
-
-            return projects;
-        }
     }
 }

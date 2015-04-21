@@ -19,34 +19,13 @@ namespace NexEPA.Project.Criteria.GroupProject
     /// </summary>
     public class UpdateGroupProjectCriteria : CriteriaBase
     {
-        private const string _ProjectTemplate = "<Project ProjectId='{0}' DatabaseId='{1}'></Project>";
-
         public int GroupProjectId { get; set; }
 
         public string Name { get; set; }
 
         public int ModifiedBy { get; set; }
 
-        [SpParam(Ignored = true)]
-        public IList<GroupProjectDetailModel> Projects { get; set; }
-
-        public string ListProject
-        {
-            get
-            {
-                var value = new StringBuilder("<ROOT>");
-
-                if (Projects != null)
-                {
-                    foreach (GroupProjectDetailModel project in Projects)
-                    {
-                        value.AppendFormat(_ProjectTemplate, project.ProjectId, project.DatabaseId);
-                    }
-                }
-
-                return value.Append("</ROOT>").ToString();
-            }
-        }
+        public string ProjectIds { get; set; }
 
         public override string GetSettingKey()
         {

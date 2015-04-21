@@ -17,7 +17,7 @@
 		<Setting Key="Employee_GetByGroup" SpName="Employee_GetByGroup" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="Employee_GetByTeamProject" SpName="Employee_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="EmployeeGroup_GetByActorUser" SpName="EmployeeGroup_GetByActorUser" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EmployeeRedmine_GetByTeamProject" SpName="EmployeeRedmine_GetByTeamProject_xtest" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="EmployeeRedmine_GetByTeamProject" SpName="EmployeeRedmine_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="EmployeeRedmine_GetByTeamGroupProject" SpName="EmployeeRedmine_GetByTeamGroupProject" DbName="NexEPA" Plain="0" ></Setting>
   </Function>
 
@@ -127,9 +127,9 @@
 		<Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="0" ></Setting>
 		<Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_PersonalEffort" SpName="ReportRedmine_PersonalEffort_xtest" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_PersonalEffortDetail" SpName="ReportRedmine_PersonalEffortDetail_xtest" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort_xtest" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ReportRedmine_PersonalEffort" SpName="ReportRedmine_PersonalEffort" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ReportRedmine_PersonalEffortDetail" SpName="ReportRedmine_PersonalEffortDetail" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ReportRedmine_ResourcePlanning" SpName="ReportRedmine_ResourcePlanning" DbName="NexEPA" Plain="0" ></Setting>    
   </Function>
 	<Function Name="Authority">
@@ -178,10 +178,8 @@
 	</Function>
   
   <Function Name="GroupProject">
-    <Setting Key="GroupProject_GetAllProject" SpName="GroupProject_GetAllProject" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="ProjectName" ObjectProperty="Name"/>
-    </Setting>
     <Setting Key="GroupProject_Get" SpName="GroupProject_Get" DbName="NexEPA" Plain="0" >
+      <Mapping DataField="ProjectId" ObjectProperty="Id"/>
       <Mapping DataField="ProjectName" ObjectProperty="Name"/>
     </Setting>
     <Setting Key="GroupProject_Insert" SpName="GroupProject_Insert" DbName="NexEPA" Plain="0" >

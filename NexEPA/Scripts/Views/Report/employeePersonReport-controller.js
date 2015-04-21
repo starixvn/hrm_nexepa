@@ -242,6 +242,14 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 	self.validateFilterOptions = function () {
 		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
+		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+			isValid = false;
+			notificationFactory.error("GroupProjectFilterWaringMessage");
+		}
+		else {
+			isValid = true;
+		}
+
 		return isValid;
 	};
 

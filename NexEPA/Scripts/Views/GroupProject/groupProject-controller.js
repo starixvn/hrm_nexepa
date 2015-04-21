@@ -2,9 +2,9 @@
 /*global groupProjectModule*/
 
 groupProjectModule.controller('GroupProjectController',
-['$scope', '$location', '$translate', '$modal', '$route', 'groupProjectFactory', 'employeeEPAFactory',
+['$scope', '$location', '$translate', '$modal', '$route', 'groupProjectFactory', 'employeeEPAFactory', 'projectDataFactory',
 'commonFactory', 'ErrorService', 'notificationFactory',
-function ($scope, $location, $translate, $modal, $route, groupProjectFactory, employeeEPAFactory,
+function ($scope, $location, $translate, $modal, $route, groupProjectFactory, employeeEPAFactory, projectDataFactory,
 commonFactory, ErrorService, notificationFactory) {
 	/*
 	* Get Information
@@ -26,10 +26,8 @@ commonFactory, ErrorService, notificationFactory) {
 	/*
 	* Get all projects.
 	*/
-	groupProjectFactory.getAllProject().success(function (projects) {
-		$scope.availableProjects = projects;
-	}, function () {
-		notificationFactory.error("ErrorMessage");
+	projectDataFactory.getAllRedmineProjects().then(function (projectList) {
+		$scope.availableProjects = projectList;
 	});
 
 	/*
@@ -163,6 +161,7 @@ function ($scope, $modalInstance, projects, groupProjectFactory, ErrorService, n
 
 	$scope.groupProject = {
 		Name: '',
+		ProjectIds: '',
 		Projects: []
 	};
 
@@ -170,9 +169,13 @@ function ($scope, $modalInstance, projects, groupProjectFactory, ErrorService, n
 		if (!$scope.groupProject.Name) {
 			notificationFactory.error("NameRequire");
 		} else {
+			var ids = '';
+
 			angular.forEach($scope.groupProject.Projects, function (item) {
-				delete item.$$hashKey;
+				ids = ids ? ids + ',' + item.id : item.id;
 			});
+
+			$scope.groupProject.ProjectIds = ids;
 
 			groupProjectFactory.insertGroupProject($scope.groupProject)
 			.success(function (response) {
@@ -205,6 +208,7 @@ function ($scope, $modalInstance, groupProject, projects, groupProjectFactory, E
 	$scope.groupProject = {
 		GroupProjectId: groupProject.groupProjectId,
 		Name: groupProject.name,
+		ProjectIds: '',
 		Projects: groupProject.projects
 	};
 
@@ -212,9 +216,13 @@ function ($scope, $modalInstance, groupProject, projects, groupProjectFactory, E
 		if (!$scope.groupProject.Name) {
 			notificationFactory.error("NameRequire");
 		} else {
+			var ids = '';
+
 			angular.forEach($scope.groupProject.Projects, function (item) {
-				delete item.$$hashKey;
+				ids = ids ? ids + ',' + item.id : item.id;
 			});
+
+			$scope.groupProject.ProjectIds = ids;
 
 			groupProjectFactory.updateGroupProject($scope.groupProject)
 			.success(function (response) {

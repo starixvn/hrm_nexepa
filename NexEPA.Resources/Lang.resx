@@ -918,4 +918,7 @@
   <data name="EditGroupProject" xml:space="preserve">
     <value>Edit Group Project</value>
   </data>
+  <data name="GroupProjectFilterWaringMessage" xml:space="preserve">
+    <value>Please select a group project!</value>
+  </data>
 </root>

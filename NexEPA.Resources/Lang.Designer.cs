@@ -1051,6 +1051,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a group project!.
+        /// </summary>
+        public static string GroupProjectFilterWaringMessage {
+            get {
+                return ResourceManager.GetString("GroupProjectFilterWaringMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Project Name.
         /// </summary>
         public static string GroupProjectName {
