@@ -3,9 +3,9 @@
 
 reportModule.controller('TeamEffortReportController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
-'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal', 'projectDataFactory',
+'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal', 'projectDataFactory', 'groupProjectFactory',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
-employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory) {
+employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory, groupProjectFactory) {
 	/*
 	|| Variables	
 	*/
@@ -19,7 +19,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			fromDate: commonFactory.calculateFromDate(3, 1),
 			toDate: new Date(),
 			groupId: null,
-			projectId: null,
+			isFilterGroup: 'false',
+			projectIds: '',
+			groupProjectId: '',
 			nickNames: ''
 		};
 
@@ -37,7 +39,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			series: null,
 			reRender: false,
 			chartTooltip: self.teamChartTooltip,
-			chartDataLabelFormatter: self.teamChartDataLabelFormatter,			
+			chartDataLabelFormatter: self.teamChartDataLabelFormatter,
 			onLoad: self.teamChartOnLoad
 		};
 		$scope.personalChart = {
@@ -65,7 +67,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			grandAverageWorkload: '',
 			subTotalSpentTimeByMembers: '',
 			subTotalWorkingDayByMembers: '',
-			subTotalWorkloadByMembers: ''			
+			subTotalWorkloadByMembers: ''
 		};
 
 		$scope.spentTimeByMonths = {};
@@ -121,6 +123,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 		self.checkTheRightToViewTeamEffortReport(function () {
 			self.getAllGroup();
+			self.getAllGroupProjects();
 			self.getAllRedmineProjects();
 			$scope.getEmployee();
 		});
@@ -236,14 +239,16 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	/*
 	|| Filter region
 	*/
-	$scope.getEmployee = function () {
-		var groupId = $scope.filter.groupId,
-			projectId = $scope.filter.projectId;
-
-		employeeRepository.getRedmineEmployeesByTeamProject(groupId, projectId).success(function (employees) {
-			$scope.employees = employees;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+	self.getAllGroupProjects = function () {
+		groupProjectFactory.getGroupProject().success(function (listGroupProject) {
+			$scope.groupProjects = listGroupProject;
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
 		});
 	};
 
@@ -260,6 +265,54 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			notificationFactory.error("ErrorMessage");
 		});
 	};
+
+	$scope.getEmployee = function () {
+		var groupId = $scope.filter.groupId;
+
+		if ($scope.filter.isFilterGroup === 'true') {
+			var groupProjectId = $scope.filter.groupProjectId;
+
+			employeeRepository.getRedmineEmployeesByTeamGroupProject(groupId, groupProjectId).success(function (employees) {
+				$scope.employees = employees;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		}
+		else {
+			var projectIds = commonFactory.getSelectedData($scope.projects, 'id');
+
+			employeeRepository.getRedmineEmployeesByTeamProject(groupId, projectIds).success(function (employees) {
+				$scope.employees = employees;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		}
+	};
+
+	$scope.fClick = function () {
+		$scope.getEmployee();
+	};
+
+	$scope.fSelectAll = function () {
+		$scope.getEmployee();
+	};
+
+	$scope.fReset = function () {
+		$scope.getEmployee();
+	};
+
+	$scope.$watch('filter.isFilterGroup', function (value) {
+		if (value === 'true') {
+			angular.forEach($scope.projects, function (project) {
+				project.ticked = false;
+			});
+		}
+		else {
+			$scope.filter.groupProjectId = '';
+		}
+
+		$scope.getEmployee();
+	});
 
 	$scope.handleReportData = function () {
 		var isValid = self.validateFilterOptions();
@@ -304,6 +357,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		$scope.isLoadingButton = true;
 
 		$scope.filter.nickNames = commonFactory.getSelectedData($scope.employees, "nickName");
+		$scope.filter.projectIds = commonFactory.getSelectedData($scope.projects, "id");
 
 		if ($scope.filter.nickNames) {
 			self.getRedmineTeamEffort();
@@ -320,7 +374,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			$scope.teamEfforts.grandAverageWorkload = null;
 			$scope.teamEfforts.subTotalSpentTimeByMembers = [];
 			$scope.teamEfforts.subTotalWorkingDayByMembers = [];
-			$scope.teamEfforts.subTotalWorkloadByMembers = [];			
+			$scope.teamEfforts.subTotalWorkloadByMembers = [];
 
 			self.setDefaultPersonalChartTitle();
 
@@ -347,7 +401,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 				$scope.teamEfforts.totalEfforts = report.totalEfforts;
 				$scope.teamEfforts.averageWorkloads = report.averageWorkloads;
 				$scope.teamEfforts.grandTotalEffort = report.grandTotalEffort;
-				$scope.teamEfforts.grandAverageWorkload = report.grandAverageWorkload;				
+				$scope.teamEfforts.grandAverageWorkload = report.grandAverageWorkload;
 
 				self.setDefaultPersonalChartTitle();
 				self.processChartData();

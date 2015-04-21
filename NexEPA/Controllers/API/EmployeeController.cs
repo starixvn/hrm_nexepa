@@ -206,20 +206,42 @@ namespace NexEPA.Controllers.API
         /// Gets the redmine employees by team project.
         /// </summary>
         /// <param name="groupId">The group identifier.</param>
-        /// <param name="projectId">The project identifier.</param>
+        /// <param name="projectIds">The project ids.</param>
         /// <returns>The redmine employees by team project.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetRedmineEmployeesByTeamProject(
             int? groupId,
-            int? projectId)
+            string projectIds)
         {
             var criteria = new GetRedmineEmployeesByTeamProjectCriteria
             {
                 GroupId = groupId,
-                ProjectId = projectId,
+                ProjectIds = projectIds,
                 ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<EmployeeModel> employees = _employeeService.GetRedmineEmployeesByTeamProject(criteria);
+
+            return employees;
+        }
+
+        /// <summary>
+        /// Gets the redmine employees by team and group project.
+        /// </summary>
+        /// <param name="groupId">The group identifier.</param>
+        /// <param name="groupProjectId">The group project identifier.</param>
+        /// <returns>The redmine employees by team and group project.</returns>
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.Employee, Policy = Policy.Read)]
+        public IEnumerable<EmployeeModel> GetRedmineEmployeesByTeamGroupProject(
+            int? groupId,
+            int? groupProjectId)
+        {
+            var criteria = new GetRedmineEmployeesByTeamGroupProjectCriteria
+            {
+                GroupId = groupId,
+                GroupProjectId = groupProjectId,
+                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+            };
+            IEnumerable<EmployeeModel> employees = _employeeService.GetRedmineEmployeesByTeamGroupProject(criteria);
 
             return employees;
         }

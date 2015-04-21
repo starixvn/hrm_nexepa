@@ -19,7 +19,7 @@ namespace NexEPA.Employee.Criteria
     {       
         public int? GroupId { get; set; }
 
-        public int? ProjectId { get; set; }
+        public string ProjectIds { get; set; }
 
         public string ExcludedGroupId { get; set; }
 

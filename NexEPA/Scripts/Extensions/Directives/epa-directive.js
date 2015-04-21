@@ -710,3 +710,20 @@ registrationModule.directive('loadingButton', ['$timeout', function ($timeout) {
 	};
 } ]);
 /*jshint ignore:end */
+
+//// disabled, enabled multi-select
+registrationModule.directive('disabledEnabledMultiSelect', ['$compile', function ($compile) {
+	return function (scope, iElement, attrs) {
+		var button = iElement.find("button.multiSelectButton");
+
+		scope.$watch(attrs.ngDisabled, function (value) {
+			if (value === 'true') {
+				button.prop('disabled', true);
+			} else {
+				button.prop('disabled', false);
+			}
+		});
+
+		$compile(button)(scope);
+	};
+} ]);

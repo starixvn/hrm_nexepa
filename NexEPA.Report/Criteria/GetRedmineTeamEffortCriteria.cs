@@ -23,7 +23,11 @@ namespace NexEPA.Report.Criteria
 
         public DateTime ToDate { get; set; }
 
-        public int? ProjectId { get; set; }
+        public bool IsFilterGroup { get; set; }
+
+        public string ProjectIds { get; set; }
+
+        public int? GroupProjectId { get; set; }
 
         public override bool IsValid()
         {

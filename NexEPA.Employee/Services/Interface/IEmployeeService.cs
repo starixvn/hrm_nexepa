@@ -40,5 +40,7 @@ namespace NexEPA.Employee.Services.Interface
         IEnumerable<Group> GetAllEmployeeGroupByActorUser(GetAllEmployeeGroupByActorUserCriteria criteria);
 
         IEnumerable<EmployeeModel> GetRedmineEmployeesByTeamProject(GetRedmineEmployeesByTeamProjectCriteria criteria);
+
+        IEnumerable<EmployeeModel> GetRedmineEmployeesByTeamGroupProject(GetRedmineEmployeesByTeamGroupProjectCriteria criteria);
     }
 }

@@ -23,7 +23,7 @@ namespace NexEPA.Report.Criteria
 
         public DateTime ToDate { get; set; }
 
-        public bool IsSelectedProject { get; set; }
+        public bool IsFilterGroup { get; set; }
 
         public string ProjectIds { get; set; }
 

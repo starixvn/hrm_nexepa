@@ -32,11 +32,19 @@ employeeModule.factory('employeeRepository', ['$http', function ($http) {
 		getAllGroupByActorUser: function () {
 			return $http.get('/api/Employee/RetrieveAllGroupByActorUser');
 		},
-		getRedmineEmployeesByTeamProject: function (groupId, projectId) {
+		getRedmineEmployeesByTeamProject: function (groupId, projectIds) {
 			return $http.get('/api/Employee/GetRedmineEmployeesByTeamProject', {
 				params: {
 					groupId: groupId ? groupId : '',
-					projectId: projectId ? projectId : ''
+					projectIds: projectIds ? projectIds : ''
+				}
+			});
+		},
+		getRedmineEmployeesByTeamGroupProject: function (groupId, groupProjectId) {
+			return $http.get('/api/Employee/GetRedmineEmployeesByTeamGroupProject', {
+				params: {
+					groupId: groupId ? groupId : '',
+					groupProjectId: groupProjectId ? groupProjectId : ''
 				}
 			});
 		}

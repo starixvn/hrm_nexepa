@@ -65,7 +65,7 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 			searchKey: '',
 			fromDate: null,
 			toDate: null,
-			isSelectedProject: 'true',
+			isFilterGroup: 'false',
 			projectIds: '',
 			groupProjectId: ''
 		};
@@ -148,6 +148,17 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 				break;
 		}
 	};
+
+	$scope.$watch('filter.isFilterGroup', function (value) {
+		if (value === 'true') {
+			angular.forEach($scope.projects, function (project) {
+				project.ticked = false;
+			});
+		}
+		else {
+			$scope.filter.groupProjectId = '';
+		}
+	});
 
 	self.getEmployeeId = function () {
 		var employeeId = null;
@@ -366,7 +377,7 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 			$scope.filter.projectIds = commonFactory.getSelectedData($scope.projects, "id");
 
 			reportFactory.getRedminePersonalEffort(employeeId, $scope.filter.fromDate, $scope.filter.toDate,
-				$scope.filter.isSelectedProject, $scope.filter.projectIds, $scope.filter.groupProjectId)
+				$scope.filter.isFilterGroup, $scope.filter.projectIds, $scope.filter.groupProjectId)
 			.success(function (report) {
 				if (report != null) {
 					$scope.personalEfforts.data = report.personalEfforts;
@@ -562,7 +573,7 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 			$scope.filter.projectIds = commonFactory.getSelectedData($scope.projects, "id");
 
 			reportFactory.getRedminePersonalEffortDetail(employeeId, $scope.filter.fromDate, $scope.filter.toDate,
-				$scope.filter.isSelectedProject, $scope.filter.projectIds, $scope.filter.groupProjectId)
+				$scope.filter.isFilterGroup, $scope.filter.projectIds, $scope.filter.groupProjectId)
 			.success(function (report) {
 				if (report != null) {
 					$scope.personalEffortDetails.data = report.personalEffortDetails;

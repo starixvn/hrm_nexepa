@@ -17,7 +17,8 @@
 		<Setting Key="Employee_GetByGroup" SpName="Employee_GetByGroup" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="Employee_GetByTeamProject" SpName="Employee_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="EmployeeGroup_GetByActorUser" SpName="EmployeeGroup_GetByActorUser" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EmployeeRedmine_GetByTeamProject" SpName="EmployeeRedmine_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>    
+    <Setting Key="EmployeeRedmine_GetByTeamProject" SpName="EmployeeRedmine_GetByTeamProject_xtest" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="EmployeeRedmine_GetByTeamGroupProject" SpName="EmployeeRedmine_GetByTeamGroupProject" DbName="NexEPA" Plain="0" ></Setting>
   </Function>
 
 	<Function Name="Project">
@@ -128,7 +129,7 @@
 		<Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ReportRedmine_PersonalEffort" SpName="ReportRedmine_PersonalEffort_xtest" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ReportRedmine_PersonalEffortDetail" SpName="ReportRedmine_PersonalEffortDetail_xtest" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort_xtest" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ReportRedmine_ResourcePlanning" SpName="ReportRedmine_ResourcePlanning" DbName="NexEPA" Plain="0" ></Setting>    
   </Function>
 	<Function Name="Authority">

@@ -79,7 +79,7 @@ namespace NexEPA.Controllers.API
         /// <param name="employeeId">The employee identifier.</param>
         /// <param name="fromDate">The From date.</param>
         /// <param name="toDate">The To date.</param>
-        /// <param name="isSelectedProject">Selected project or group project.</param>
+        /// <param name="isFilterGroup">Selected project or group project.</param>
         /// <param name="projectIds">The list project id.</param>
         /// <param name="groupProjectId">The group project id.</param>
         /// <returns>RedminePersonalEffortViewModel class.</returns>
@@ -89,7 +89,7 @@ namespace NexEPA.Controllers.API
             int employeeId, 
             DateTime fromDate, 
             DateTime toDate,
-            bool isSelectedProject = true,
+            bool isFilterGroup = true,
             string projectIds = null,
             int? groupProjectId = null)
         {
@@ -98,7 +98,7 @@ namespace NexEPA.Controllers.API
                 EmployeeId = employeeId,
                 FromDate = fromDate,
                 ToDate = toDate,
-                IsSelectedProject = isSelectedProject,
+                IsFilterGroup = isFilterGroup,
                 ProjectIds = projectIds,
                 GroupProjectId = groupProjectId
             };
@@ -112,7 +112,7 @@ namespace NexEPA.Controllers.API
         /// <param name="employeeId">The employee identifier.</param>
         /// <param name="fromDate">The From date.</param>
         /// <param name="toDate">The To date.</param>
-        /// <param name="isSelectedProject">Selected project or group project.</param>
+        /// <param name="isFilterGroup">Selected project or group project.</param>
         /// <param name="projectIds">The list project id.</param>
         /// <param name="groupProjectId">The group project id.</param>
         /// <returns>RedminePersonalEffortDetailViewModel class.</returns>
@@ -122,7 +122,7 @@ namespace NexEPA.Controllers.API
             int employeeId, 
             DateTime fromDate, 
             DateTime toDate,
-            bool isSelectedProject = true,
+            bool isFilterGroup = true,
             string projectIds = null,
             int? groupProjectId = null)
         {
@@ -131,7 +131,7 @@ namespace NexEPA.Controllers.API
                 EmployeeId = employeeId,
                 FromDate = fromDate,
                 ToDate = toDate,
-                IsSelectedProject = isSelectedProject,
+                IsFilterGroup = isFilterGroup,
                 ProjectIds = projectIds,
                 GroupProjectId = groupProjectId
             };
@@ -191,7 +191,9 @@ namespace NexEPA.Controllers.API
         /// <param name="fromDate">The From date.</param>
         /// <param name="toDate">The To date.</param>
         /// <param name="nickNames">The nick names.</param>
-        /// <param name="projectId">The project identifier.</param>
+        /// <param name="isFilterGroup">Selected project or group project.</param>
+        /// <param name="projectIds">The project ids.</param>
+        /// <param name="groupProjectId">The identifier.</param>
         /// <returns>The redmine team efforts.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEffortReport, Policy = Policy.Read)]
@@ -199,14 +201,18 @@ namespace NexEPA.Controllers.API
             DateTime fromDate,
             DateTime toDate,
             string nickNames,
-            int? projectId)
+            bool isFilterGroup,
+            string projectIds,
+            int? groupProjectId)
         {
             var criteria = new GetRedmineTeamEffortCriteria
             {
                 FromDate = fromDate,
                 ToDate = toDate,
                 NickName = nickNames,
-                ProjectId = projectId
+                IsFilterGroup = isFilterGroup,
+                ProjectIds = projectIds,
+                GroupProjectId = groupProjectId
             };
 
             return _teamEffortService.GetRedmineTeamEffort(criteria);

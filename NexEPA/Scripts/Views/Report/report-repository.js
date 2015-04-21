@@ -23,25 +23,25 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				}
 			});
 		},
-		getRedminePersonalEffort: function (employeeId, fromDate, toDate, isSelectedProject, projectIds, groupProjectId) {
+		getRedminePersonalEffort: function (employeeId, fromDate, toDate, isFilterGroup, projectIds, groupProjectId) {
 			return $http.get('/api/Report/GetRedminePersonalEffort', {
 				params: {
 					employeeId: employeeId,
 					fromDate: fromDate.toDateString(),
 					toDate: toDate.toDateString(),
-					isSelectedProject: isSelectedProject,
+					isFilterGroup: isFilterGroup,
 					projectIds: projectIds,
 					groupProjectId: groupProjectId
 				}
 			});
 		},
-		getRedminePersonalEffortDetail: function (employeeId, fromDate, toDate, isSelectedProject, projectIds, groupProjectId) {
+		getRedminePersonalEffortDetail: function (employeeId, fromDate, toDate, isFilterGroup, projectIds, groupProjectId) {
 			return $http.get('/api/Report/GetRedminePersonalEffortDetail', {
 				params: {
 					employeeId: employeeId,
 					fromDate: fromDate.toDateString(),
 					toDate: toDate.toDateString(),
-					isSelectedProject: isSelectedProject,
+					isFilterGroup: isFilterGroup,
 					projectIds: projectIds,
 					groupProjectId: groupProjectId
 				}
@@ -53,7 +53,9 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
 					nickNames: filter.nickNames,
-					projectId: filter.projectId ? filter.projectId : ''
+					isFilterGroup: filter.isFilterGroup,
+					projectIds: filter.projectIds ? filter.projectIds : '',
+					groupProjectId: filter.groupProjectId ? filter.groupProjectId : ''
 				}
 			});
 		},
