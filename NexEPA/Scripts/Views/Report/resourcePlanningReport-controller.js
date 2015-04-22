@@ -3,9 +3,9 @@
 
 reportModule.controller('ResourcePlanningReportController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
-'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal', 'projectDataFactory',
+'employeeEPAFactory', 'ErrorService', '$timeout', 'authorityRepository', '$modal', 'projectDataFactory', 'groupProjectFactory',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
-employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory) {
+employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory, groupProjectFactory) {
 	var self = this;
 	/*jshint ignore:start */
 	// moment is the third party library.
@@ -17,7 +17,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		fromDate: new Date(fromDate),
 		toDate: new Date(toDate),
 		groupId: null,
-		projectId: null,
+		isFilterGroup: 'false',
+		projectIds: '',
+		groupProjectId: '',
 		nickNames: ''
 	};
 	/*jshint ignore:end */
@@ -63,6 +65,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	self.load = function () {
 		self.checkIfSystemAdmin();
 		commonFactory.getDateFormat($scope);
+		self.getAllGroupProjects();
 		self.getAllGroup();
 		self.getAllRedmineProjects();
 		$scope.getEmployee();
@@ -106,6 +109,11 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			notificationFactory.error("TeamOrProjectRequire");
 		}
 
+		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+			isValid = false;
+			notificationFactory.error("GroupProjectFilterWaringMessage");
+		}
+
 		return isValid;
 	};
 
@@ -120,15 +128,51 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 	//#region Filter
 	$scope.getEmployee = function () {
-		var groupId = $scope.filter.groupId,
-			projectId = $scope.filter.projectId;
+		var groupId = $scope.filter.groupId;
 
-		employeeRepository.getRedmineEmployeesByTeamProject(groupId, projectId).success(function (employees) {
-			$scope.employees = employees;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
-		});
+		if ($scope.filter.isFilterGroup === 'true') {
+			var groupProjectId = $scope.filter.groupProjectId;
+
+			employeeRepository.getRedmineEmployeesByTeamGroupProject(groupId, groupProjectId).success(function (employees) {
+				$scope.employees = employees;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		} else {
+			var projectIds = commonFactory.getSelectedData($scope.projects, 'id');
+
+			employeeRepository.getRedmineEmployeesByTeamProject(groupId, projectIds).success(function (employees) {
+				$scope.employees = employees;
+			}).error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+		}
 	};
+
+	$scope.fClick = function () {
+		$scope.getEmployee();
+	};
+
+	$scope.fSelectAll = function () {
+		$scope.getEmployee();
+	};
+
+	$scope.fReset = function () {
+		$scope.getEmployee();
+	};
+
+	$scope.$watch('filter.isFilterGroup', function (value) {
+		if (value === 'true') {
+			angular.forEach($scope.projects, function (project) {
+				project.ticked = false;
+			});
+		}
+		else {
+			$scope.filter.groupProjectId = '';
+		}
+
+		$scope.getEmployee();
+	});
 
 	self.getAllRedmineProjects = function () {
 		projectDataFactory.getAllRedmineProjects().then(function (projectList) {
@@ -141,6 +185,19 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			$scope.groups = groupList;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	self.getAllGroupProjects = function () {
+		groupProjectFactory.getGroupProject().success(function (listGroupProject) {
+			$scope.groupProjects = listGroupProject;
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorService.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
 		});
 	};
 
@@ -186,6 +243,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		$scope.isLoadingButton = true;
 
 		$scope.filter.nickNames = commonFactory.getSelectedData($scope.employees, "nickName");
+		$scope.filter.projectIds = commonFactory.getSelectedData($scope.projects, "id");
 
 		if ($scope.filter.nickNames) {
 			self.getRedmineResourcePlanning();

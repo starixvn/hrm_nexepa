@@ -193,7 +193,7 @@ namespace NexEPA.Controllers.API
         /// <param name="nickNames">The nick names.</param>
         /// <param name="isFilterGroup">Selected project or group project.</param>
         /// <param name="projectIds">The project ids.</param>
-        /// <param name="groupProjectId">The identifier.</param>
+        /// <param name="groupProjectId">The group project identifier.</param>
         /// <returns>The redmine team efforts.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEffortReport, Policy = Policy.Read)]
@@ -236,7 +236,9 @@ namespace NexEPA.Controllers.API
         /// <param name="fromDate">The From date.</param>
         /// <param name="toDate">The To date.</param>
         /// <param name="nickNames">The nick names.</param>
-        /// <param name="projectId">The project identifier.</param>
+        /// <param name="isFilterGroup">Selected project or group project.</param>
+        /// <param name="projectIds">The project ids.</param>
+        /// <param name="groupProjectId">The group project identifier.</param>
         /// <returns>The redmine resource planning.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ResourcePlanningReport, Policy = Policy.Read)]
@@ -244,14 +246,18 @@ namespace NexEPA.Controllers.API
             DateTime fromDate,
             DateTime toDate,
             string nickNames,
-            int? projectId)
+            bool isFilterGroup,
+            string projectIds,
+            int? groupProjectId)
         {
             var criteria = new GetRedmineResourcePlanningCriteria
             {
                 FromDate = fromDate,
                 ToDate = toDate,
                 NickName = nickNames,
-                ProjectId = projectId
+                IsFilterGroup = isFilterGroup,
+                ProjectIds = projectIds,
+                GroupProjectId = groupProjectId
             };
 
             return _resourcePlanningService.GetRedmineResourcePlanning(criteria);

@@ -71,7 +71,9 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
 					nickNames: filter.nickNames,
-					projectId: filter.projectId ? filter.projectId : ''
+					isFilterGroup: filter.isFilterGroup,
+					projectIds: filter.projectIds ? filter.projectIds : '',
+					groupProjectId: filter.groupProjectId ? filter.groupProjectId : ''
 				}
 			});
 		}
