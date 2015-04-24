@@ -918,7 +918,13 @@
   <data name="EditGroupProject" xml:space="preserve">
     <value>Edit Group Project</value>
   </data>
-  <data name="GroupProjectFilterWaringMessage" xml:space="preserve">
-    <value>Please select a group project!</value>
+  <data name="GroupProjectFilterRequire" xml:space="preserve">
+    <value>The Group project is required. Please select a group project!</value>
+  </data>
+  <data name="SelectedProjectsRequire" xml:space="preserve">
+    <value>The Selected projects field is required!</value>
+  </data>
+  <data name="EmployeeFilterRequire" xml:space="preserve">
+    <value>The Employee is required!</value>
   </data>
 </root>

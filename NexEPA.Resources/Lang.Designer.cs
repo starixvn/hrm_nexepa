@@ -700,6 +700,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Employee is required!.
+        /// </summary>
+        public static string EmployeeFilterRequire {
+            get {
+                return ResourceManager.GetString("EmployeeFilterRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Team Report.
         /// </summary>
         public static string EmployeePerformanceByTeam {
@@ -1051,11 +1060,11 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select a group project!.
+        ///   Looks up a localized string similar to The Group project is required. Please select a group project!.
         /// </summary>
-        public static string GroupProjectFilterWaringMessage {
+        public static string GroupProjectFilterRequire {
             get {
-                return ResourceManager.GetString("GroupProjectFilterWaringMessage", resourceCulture);
+                return ResourceManager.GetString("GroupProjectFilterRequire", resourceCulture);
             }
         }
         
@@ -1920,6 +1929,15 @@ namespace NexEPA.Resources {
         public static string Score {
             get {
                 return ResourceManager.GetString("Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Selected projects field is required!.
+        /// </summary>
+        public static string SelectedProjectsRequire {
+            get {
+                return ResourceManager.GetString("SelectedProjectsRequire", resourceCulture);
             }
         }
         

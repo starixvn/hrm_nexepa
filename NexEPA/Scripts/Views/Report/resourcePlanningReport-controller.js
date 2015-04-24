@@ -111,7 +111,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
 			isValid = false;
-			notificationFactory.error("GroupProjectFilterWaringMessage");
+			notificationFactory.error("GroupProjectFilterRequire");
 		}
 
 		return isValid;

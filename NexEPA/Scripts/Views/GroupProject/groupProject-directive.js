@@ -27,7 +27,7 @@ groupProjectModule.directive('multiSelectItem', function ($q) {
 						'ng-disabled="selected.current.length == 0">' +
 					'</button>' +
 				'</div>' +
-				'<div class="select col-sm-5">' +
+				'<div class="select col-sm-5 required">' +
 					'<label class="control-label bold" for="multiSelectSelected">{{ selectedLabel }} ' +
 						'({{ model.length }})</label>' +
 					'<select ng-model="selected.current" multiple size="20" ' +

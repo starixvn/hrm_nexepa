@@ -168,6 +168,8 @@ function ($scope, $modalInstance, projects, groupProjectFactory, ErrorService, n
 	$scope.save = function () {
 		if (!$scope.groupProject.Name) {
 			notificationFactory.error("NameRequire");
+		} else if ($scope.groupProject.Projects.length === 0) {
+			notificationFactory.error("SelectedProjectsRequire");
 		} else {
 			var ids = '';
 
@@ -186,7 +188,7 @@ function ($scope, $modalInstance, projects, groupProjectFactory, ErrorService, n
 					$modalInstance.close($scope.groupProject);
 				}
 				else {
-					notificationFactory.error("", response.message);
+					notificationFactory.error("", response.result.message);
 				}
 			})
 			.error(function (response, status) {
@@ -215,6 +217,8 @@ function ($scope, $modalInstance, groupProject, projects, groupProjectFactory, E
 	$scope.save = function () {
 		if (!$scope.groupProject.Name) {
 			notificationFactory.error("NameRequire");
+		} else if ($scope.groupProject.Projects.length === 0) {
+			notificationFactory.error("SelectedProjectsRequire");
 		} else {
 			var ids = '';
 

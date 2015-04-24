@@ -240,14 +240,18 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 	};
 
 	self.validateFilterOptions = function () {
-		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
+		var isValid = true;
+
+		isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
 		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
 			isValid = false;
-			notificationFactory.error("GroupProjectFilterWaringMessage");
+			notificationFactory.error("GroupProjectFilterRequire");
 		}
-		else {
-			isValid = true;
+
+		if (!$scope.employeeId && $scope.filter.searchKey.length === 0) {
+			isValid = false;
+			notificationFactory.error("EmployeeFilterRequire");
 		}
 
 		return isValid;
@@ -322,7 +326,9 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 				$scope.filter.toDate = new Date($routeParams.toDate);
 			}
 
-			$scope.getReportData();
+			if ($scope.employeeId) {
+				$scope.getReportData();
+			}
 		});
 	};
 
