@@ -32,7 +32,9 @@
 				<td ng-bind="group.name"></td>
 				<td>
 					<div ng-show="group.projects.length == 1">
-						<span ng-bind="group.projects[0].name"></span>
+						<ul class="group-toggle-item">
+							<li ng-bind="group.projects[0].name"></li>
+						</ul>
 					</div>
 					<div ng-show="group.projects.length > 1">
 						<ul class="group-toggle-item">
