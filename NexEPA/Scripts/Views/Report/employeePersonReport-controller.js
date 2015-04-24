@@ -244,14 +244,12 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 
 		isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
-		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
-			isValid = false;
-			notificationFactory.error("GroupProjectFilterRequire");
-		}
-
-		if (!$scope.employeeId && $scope.filter.searchKey.length === 0) {
+		if (!$scope.employeeId && !$scope.isOnlyMember && $scope.filter.searchKey.length === 0) {
 			isValid = false;
 			notificationFactory.error("EmployeeFilterRequire");
+		} else if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+			isValid = false;
+			notificationFactory.error("GroupProjectFilterRequire");
 		}
 
 		return isValid;
@@ -326,7 +324,7 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 				$scope.filter.toDate = new Date($routeParams.toDate);
 			}
 
-			if ($scope.employeeId) {
+			if ($scope.employeeId || $scope.isOnlyMember === true) {
 				$scope.getReportData();
 			}
 		});

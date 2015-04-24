@@ -107,9 +107,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		if (!$scope.isSystemAdmin && !$scope.filter.groupId && !$scope.filter.projectId) {
 			isValid = false;
 			notificationFactory.error("TeamOrProjectRequire");
-		}
-
-		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+		} else if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
 			isValid = false;
 			notificationFactory.error("GroupProjectFilterRequire");
 		}

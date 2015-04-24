@@ -46,7 +46,6 @@ namespace NexEPA.Controllers.API
         /// Get all group project.
         /// </summary>
         /// <returns>List group project.</returns>
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageGroupProject, Policy = Policy.Read)]
         public List<GroupProjectModel> GetAllGroupProject()
         {
             var criteria = new GetAllGroupProjectCriteria();
