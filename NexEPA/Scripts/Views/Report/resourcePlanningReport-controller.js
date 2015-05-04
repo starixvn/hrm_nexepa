@@ -65,11 +65,10 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	self.load = function () {
 		self.checkIfSystemAdmin();
 		commonFactory.getDateFormat($scope);
+		self.getCurrentUser();
 		self.getAllGroupProjects();
 		self.getAllGroup();
 		self.getAllRedmineProjects();
-		$scope.getEmployee();
-		self.getCurrentUser();
 	};
 
 	self.validateFilterOptions = function () {
@@ -170,6 +169,13 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		$scope.getEmployee();
 	});
 
+
+	$scope.$watch('filter.groupId', function (newValue, oldValue) {
+		if (newValue !== oldValue) {
+			$scope.getEmployee();
+		}
+	});
+
 	self.getAllRedmineProjects = function () {
 		projectDataFactory.getAllRedmineProjects().then(function (projectList) {
 			$scope.projects = projectList;
@@ -200,7 +206,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	self.getCurrentUser = function () {
 		employeeEPAFactory.getCurrentUser().then(function (currentUser) {
 			$scope.filter.groupId = currentUser.groupId;
-			$scope.getEmployee();
 		}, function () {
 			notificationFactory.error("ErrorMessage");
 		});
