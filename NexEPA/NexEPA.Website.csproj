@@ -184,7 +184,6 @@
     <Compile Include="Controllers\API\FlowManagementController.cs" />
     <Compile Include="Controllers\API\GroupProjectController.cs" />
     <Compile Include="Controllers\API\HomeController.cs" />
-    <Compile Include="Controllers\API\LoginController.cs" />
     <Compile Include="Controllers\API\MilestoneController.cs" />
     <Compile Include="Controllers\API\EmployeeEPAController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
@@ -360,7 +359,6 @@
     <Content Include="Scripts\Views\GroupProject\groupProject-repository.js" />
     <Content Include="Scripts\Views\Home\home-controller.js" />
     <Content Include="Scripts\Views\Home\home-repository.js" />
-    <Content Include="Scripts\Views\Login\login-controller.js" />
     <Content Include="Scripts\Views\Department\department-repository.js" />
     <Content Include="Scripts\Views\Department\department-controller.js" />
     <Content Include="Scripts\Views\Report\resourcePlanningReport-controller.js" />
@@ -483,7 +481,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

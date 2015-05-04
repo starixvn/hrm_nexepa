@@ -78,40 +78,14 @@ namespace NexEPA.Web.Attributes
         /// <param name="actionContext">HttpAction Context.</param>
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            UserSession currentUser = SessionManager.CurrentUser;
+            if (currentUser == null)
             {
                 HandleUnauthorizedRequest(actionContext);
             }
-
-            UserSession currentUser = null;
-
-            if (HttpContext.Current.Request.Headers.AllKeys.Contains("Authorization"))
-            {
-                if (HttpContext.Current.Session.IsNewSession)
-                {
-                    HandleUnauthorizedRequest(actionContext);
-                }
-            }
-            else 
-            {
-                if (HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
-                {
-                    currentUser = SessionManager.CurrentUser;
-                    CheckUserPermission(actionContext);
-
-                    var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
-                    actionContext.Response = responseMessage;
-                }
-                else
-                {
-                    currentUser = (UserSession)HttpContext.Current.Session[Constants.CurrentSessionKey];
-                }
-            }
-
-            if (currentUser != null)
+            else
             {
                 CheckUserPermission(actionContext);
-                return;
             }
         }
 

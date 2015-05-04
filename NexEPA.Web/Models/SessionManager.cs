@@ -10,7 +10,6 @@
 namespace NexEPA.Web.Models
 {
     using System.Web;
-    using System.Web.Security;
     using NexEPA.Core.Constants;
     using NexEPA.Web.Criteria;
     using NexEPA.Web.Services.Impl;
@@ -26,41 +25,29 @@ namespace NexEPA.Web.Models
         {
             get
             {
-                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    FormsAuthentication.RedirectToLoginPage();
-                }
-
-                var session = HttpContext.Current.Session;
-                if (session != null && session[Constants.CurrentSessionKey] != null)
-                {
-                    _currentUser = (UserSession)session[Constants.CurrentSessionKey];
-                }
-                else
-                {
-                    var criteria = new GetEmployeeByDomainUsernameCriteria()
+                    var session = HttpContext.Current.Session;
+                    if (session != null && session[Constants.CurrentSessionKey] != null)
                     {
-                        DomainUsername = HttpContext.Current.User.Identity.Name
-                    };
-                    _currentUser = new CommonService().GetUserByDomainUsername(criteria);
-
-                    if (_currentUser != null && !_currentUser.IsDisabled)
+                        _currentUser = (UserSession)session[Constants.CurrentSessionKey];
+                    }
+                    else
                     {
-                        HttpContext.Current.Session[Constants.CurrentSessionKey] = _currentUser;
+                        var criteria = new GetEmployeeByDomainUsernameCriteria()
+                        {
+                            DomainUsername = HttpContext.Current.User.Identity.Name
+                        };
+                        _currentUser = new CommonService().GetUserByDomainUsername(criteria);
+
+                        if (_currentUser != null && !_currentUser.IsDisabled)
+                        {
+                            HttpContext.Current.Session[Constants.CurrentSessionKey] = _currentUser;
+                        }
                     }
                 }
-
+                
                 return _currentUser;
-            }
-        }
-
-        public static void ClearAll()
-        {
-            if (HttpContext.Current != null && HttpContext.Current.Session != null)
-            {
-                HttpContext.Current.Session.Clear();
-                HttpContext.Current.Session.Abandon();
-                HttpContext.Current.Response.Cookies.Clear();
             }
         }
     }
