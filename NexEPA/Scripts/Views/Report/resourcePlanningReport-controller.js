@@ -69,6 +69,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		self.getAllGroup();
 		self.getAllRedmineProjects();
 		$scope.getEmployee();
+		self.getCurrentUser();
 	};
 
 	self.validateFilterOptions = function () {
@@ -104,10 +105,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			/*jshint ignore:end */
 		}
 
-		if (!$scope.isSystemAdmin && !$scope.filter.groupId && !$scope.filter.projectId) {
-			isValid = false;
-			notificationFactory.error("TeamOrProjectRequire");
-		} else if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
 			isValid = false;
 			notificationFactory.error("GroupProjectFilterRequire");
 		}
@@ -196,6 +194,15 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			else {
 				notificationFactory.error("ErrorMessage");
 			}
+		});
+	};
+
+	self.getCurrentUser = function () {
+		employeeEPAFactory.getCurrentUser().then(function (currentUser) {
+			$scope.filter.groupId = currentUser.groupId;
+			$scope.getEmployee();
+		}, function () {
+			notificationFactory.error("ErrorMessage");
 		});
 	};
 

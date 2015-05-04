@@ -7,9 +7,9 @@
 <div class="row col-sm-8">
 	<table class="table table-bordered table-striped table-group-project">
 		<thead>
-			<tr class="header-table">
+			<tr class="header-table" ng-if="permission.policy == 2">
 				<th colspan="4">
-					<a class="button-icon" ng-if="permission.policy == 2" ng-click="createGroupProject()">
+					<a class="button-icon" ng-click="createGroupProject()">
 						<span class="icon plus"></span>
 						<span class="button-text" data-translate="CreateGroupProject"></span>
 					</a>
@@ -22,7 +22,7 @@
 				</th>
 				<th class="middle-align" data-translate="Project">
 				</th>
-				<th class="middle-align" data-translate="Action">
+				<th class="middle-align" ng-if="permission.policy == 2" data-translate="Action">
 				</th>
 			</tr>
 		</thead>
@@ -41,11 +41,11 @@
 							<li ng-repeat="project in group.projects" ng-bind="project.name"></li>
 						</ul>
 					</div>
-				<td class="text-center">
-					<a class="glyphicon glyphicon-edit icon-edit" href="" ng-attr-title='{{"Edit" | translate}}' 
-						ng-if="permission.policy == 2" ng-click="updateGroupProject(group)"></a>
+				<td class="text-center" ng-if="permission.policy == 2">
+					<a class="glyphicon glyphicon-edit icon-edit" href="" ng-attr-title='{{"Edit" | translate}}'
+						ng-click="updateGroupProject(group)"></a>
 					<a class="glyphicon glyphicon-remove icon-remove" href="" ng-attr-title='{{"Delete" | translate}}'
-						ng-if="permission.policy == 2" ng-click="deleteGroupProject(group)"></a>
+						ng-click="deleteGroupProject(group)"></a>
 				</td>
 			</tr>
 			<tr ng-show="groupProjects.length == 0">
