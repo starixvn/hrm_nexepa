@@ -58,6 +58,12 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		$scope.isCollapsed = !$scope.isCollapsed;
 	};
 
+	$scope.$on('$viewContentLoaded', function () {
+		$timeout(function () {
+			$scope.getEmployee();
+		}, 500);
+	});
+
 	$scope.reload = function () {
 		$route.reload();
 	};
@@ -167,13 +173,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		}
 
 		$scope.getEmployee();
-	});
-
-
-	$scope.$watch('filter.groupId', function (newValue, oldValue) {
-		if (newValue !== oldValue) {
-			$scope.getEmployee();
-		}
 	});
 
 	self.getAllRedmineProjects = function () {
