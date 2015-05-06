@@ -110,7 +110,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			/*jshint ignore:end */
 		}
 
-		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+		if ($scope.filter.isFilterGroup === 'true' && !$scope.filter.groupProjectId) {
 			isValid = false;
 			notificationFactory.error("GroupProjectFilterRequire");
 		}
@@ -214,9 +214,11 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		var isValid = self.validateFilterOptions();
 
 		if (isValid) {
-			var selectedEmployees = commonFactory.getSelectedData($scope.employees);
+			var selectedProjects = commonFactory.getSelectedData($scope.projects, 'id').split(',');
 
-			if (!$scope.filter.groupId && !$scope.filter.projectId && selectedEmployees.length === $scope.employees.length) {
+			if (!$scope.filter.groupId &&
+				(($scope.filter.isFilterGroup === 'false' && selectedProjects.length === $scope.projects.length) ||
+				($scope.filter.isFilterGroup === 'true' && !$scope.filter.groupProjectId))) {
 				// warning if show all employees
 				self.warningShowAllEmployees();
 			} else {
