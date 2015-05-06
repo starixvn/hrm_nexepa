@@ -15,7 +15,7 @@ namespace NexEPA.Report.Models.ResourcePlanningReport
     /// RedmineDateStatusModel class.
     /// </summary>
     public class RedmineDateStatusModel
-    {        
+    {
         public string DayName { get; set; }
 
         public DateTime WorkDate { get; set; }
@@ -25,5 +25,7 @@ namespace NexEPA.Report.Models.ResourcePlanningReport
         public bool IsOffDay { get; set; }
 
         public bool IsLeaveDay { get; set; }
+
+        public int LeaveTypeId { get; set; }
     }
 }

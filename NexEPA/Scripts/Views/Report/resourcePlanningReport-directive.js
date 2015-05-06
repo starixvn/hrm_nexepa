@@ -18,6 +18,10 @@ reportModule.directive('resourcePlanningReport', ['commonFactory', function (com
 				result = 'Off';
 			} else if (dateStatus.dateStatus.isLeaveDay) {
 				result = 'Leave';
+
+				if (dateStatus.dateStatus.leaveTypeId === 9) {
+					result = 'Business Trip';
+				}
 			}
 		}
 
@@ -58,7 +62,7 @@ reportModule.directive('resourcePlanningReport', ['commonFactory', function (com
 	};
 
 	var getDayColumnWith = function (reportData, monthName) {
-		var width = 60;
+		var width = 80;
 
 		var data = jQuery.grep(reportData.monthInfo, function (month) {
 			return month.monthName === monthName;
