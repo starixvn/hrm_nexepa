@@ -247,7 +247,7 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 		if (!$scope.employeeId && !$scope.isOnlyMember && $scope.filter.searchKey.length === 0) {
 			isValid = false;
 			notificationFactory.error("EmployeeFilterRequire");
-		} else if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+		} else if ($scope.filter.isFilterGroup === 'true' && !$scope.filter.groupProjectId) {
 			isValid = false;
 			notificationFactory.error("GroupProjectFilterRequire");
 		}

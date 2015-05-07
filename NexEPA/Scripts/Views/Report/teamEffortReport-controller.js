@@ -147,7 +147,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	self.validateFilterOptions = function () {
 		var isValid = commonFactory.validateFromToDate($scope.filter.fromDate, $scope.filter.toDate);
 
-		if ($scope.filter.isFilterGroup === 'true' && $scope.filter.groupProjectId === '') {
+		if ($scope.filter.isFilterGroup === 'true' && !$scope.filter.groupProjectId) {
 			isValid = false;
 			notificationFactory.error("GroupProjectFilterRequire");
 		}
