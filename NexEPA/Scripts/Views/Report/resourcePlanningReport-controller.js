@@ -214,9 +214,10 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		var isValid = self.validateFilterOptions();
 
 		if (isValid) {
-			var selectedProjects = commonFactory.getSelectedData($scope.projects, 'id').split(',');
+			var selectedProjects = commonFactory.getSelectedData($scope.projects);
+			var selectedEmployees = commonFactory.getSelectedData($scope.employees);
 
-			if (!$scope.filter.groupId &&
+			if (!$scope.filter.groupId && selectedEmployees.length === $scope.employees.length &&
 				(($scope.filter.isFilterGroup === 'false' && selectedProjects.length === $scope.projects.length) ||
 				($scope.filter.isFilterGroup === 'true' && !$scope.filter.groupProjectId))) {
 				// warning if show all employees
