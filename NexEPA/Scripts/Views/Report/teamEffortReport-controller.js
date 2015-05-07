@@ -329,7 +329,7 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			var selectedProjects = commonFactory.getSelectedData($scope.projects);
 			var selectedEmployees = commonFactory.getSelectedData($scope.employees);
 
-			if (!$scope.filter.groupId && selectedEmployees.length === $scope.employees.length &&
+			if (!$scope.filter.groupId && (selectedEmployees && selectedEmployees.length === $scope.employees.length) &&
 				(($scope.filter.isFilterGroup === 'false' && selectedProjects.length === $scope.projects.length) ||
 				($scope.filter.isFilterGroup === 'true' && !$scope.filter.groupProjectId))) {
 				// warning if show all employees
