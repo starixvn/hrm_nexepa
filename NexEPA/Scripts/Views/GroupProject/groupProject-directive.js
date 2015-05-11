@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global groupProjectModule*/
 
-groupProjectModule.directive('multiSelectItem', function ($q) {
+groupProjectModule.directive('multiSelectItem', ['$q', function ($q) {
 	return {
 		restrict: 'E',
 		require: 'ngModel',
@@ -94,4 +94,4 @@ groupProjectModule.directive('multiSelectItem', function ($q) {
 			});
 		}
 	};
-});
+}]);
