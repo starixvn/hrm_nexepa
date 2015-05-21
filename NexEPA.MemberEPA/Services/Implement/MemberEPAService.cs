@@ -132,7 +132,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employee in employees)
                 {
                     employee.StatusName = EnumStatus.GetDescripton((Status)employee.Status);
-                    employee.Score = !string.IsNullOrEmpty(employee.Score) ? Decode(employee.Score) : "0";
+                    employee.Score = (string.IsNullOrEmpty(employee.Score) || employee.Score.Equals("0")) ? "0" : Decode(employee.Score);
                 }
             }
 
