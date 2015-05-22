@@ -431,6 +431,7 @@ $modal, employeeRepository, linkToEPAService) {
 
 	$scope.isShowAll = false;
 	$scope.isLoadingButton = false;
+	$scope.sumRow = 0;
 
 	$scope.dateFormat = "dd MMM, yyyy";
 
@@ -448,6 +449,17 @@ $modal, employeeRepository, linkToEPAService) {
 
 	$scope.openPopupEndDate = function ($event) {
 		commonFactory.openPopupEndDate($event, $scope);
+	};
+
+	$scope.collapse = function (epa) {
+		if (epa.isCollapse) {
+			epa.isCollapse = false;
+			$scope.sumRow -= epa.epAs.length;
+		}
+		else {
+			epa.isCollapse = true;
+			$scope.sumRow += epa.epAs.length;
+		}
 	};
 
 	/*
@@ -539,7 +551,8 @@ $modal, employeeRepository, linkToEPAService) {
 		});
 
 		$scope.listEPA = listEPA;
-		$scope.submitted = false; 
+		$scope.sumRow = listEPA.length;
+		$scope.submitted = false;
 		$scope.isLoadingButton = false;
 	};
 
@@ -605,7 +618,7 @@ $modal, employeeRepository, linkToEPAService) {
 	$scope.query = function (filter) {
 		var isValid = validateFromToDate(filter.fromDate, filter.toDate);
 		if (isValid && filter) {
-			$scope.submitted = true; 
+			$scope.submitted = true;
 			$scope.isLoadingButton = true;
 			filter.employeeId = commonFactory.getSelectedData($scope.employeeOptions, "employeeId");
 

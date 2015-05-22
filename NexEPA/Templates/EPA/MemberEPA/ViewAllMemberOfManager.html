@@ -146,63 +146,84 @@
 		</form>
 	</div>
 	<div class="row filter-max-width">
-		<scrollable-table>
-		<table class="table table-bordered table-striped table-manage-member-epa">
-			<thead>
+		<table class="table table-bordered table-manage-member-epa">
+			<thead ng-if="sumRow <= 20">
 				<tr>
 					<th class="epa-index" data-translate="SymbolCount">
 					</th>
-					<th class="col-sm-2" data-translate="Project">
+					<th class="epa-project-name" data-translate="Project">
 					</th>
-					<th class="col-sm-1" data-translate="Milestone">
+					<th class="epa-milestone" data-translate="Milestone">
 					</th>
-					<th class="col-sm-2" data-translate="Target">
+					<th class="epa-target" data-translate="Target">
 					</th>
-					<th class="col-sm-1" data-translate="Score">
+					<th class="epa-score" data-translate="Score">
 					</th>
-					<th class="col-sm-1" data-translate="Status">
+					<th class="epa-status" data-translate="Status">
 					</th>
-					<th class="col-sm-1" data-translate="EvaluatorTitle">
+					<th class="epa-evaluator-title" data-translate="EvaluatorTitle">
 					</th>
-					<th class="col-sm-1" data-translate="EvaluateDate">
+					<th class="epa-evaluate-date" data-translate="EvaluateDate">
 					</th>
-					<th class="col-sm-3" data-translate="ProjectManagerComment">
+					<th class="epa-comment" data-translate="ProjectManagerComment">
+					</th>
+				</tr>
+			</thead>
+			<thead class="header-fixed" ng-if="sumRow > 20">
+				<tr>
+					<th class="epa-index" data-translate="SymbolCount">
+					</th>
+					<th class="epa-project-name" data-translate="Project">
+					</th>
+					<th class="epa-milestone" data-translate="Milestone">
+					</th>
+					<th class="epa-target" data-translate="Target">
+					</th>
+					<th class="epa-score" data-translate="Score">
+					</th>
+					<th class="epa-status" data-translate="Status">
+					</th>
+					<th class="epa-evaluator-title" data-translate="EvaluatorTitle">
+					</th>
+					<th class="epa-evaluate-date" data-translate="EvaluateDate">
+					</th>
+					<th class="epa-comment" data-translate="ProjectManagerComment">
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat-start="epaItem in listEPA" ng-class-odd="'epa-nickname-odd'" ng-class-even="'epa-nickname-even'"
-						 ng-click="epaItem.isCollapse = !epaItem.isCollapse">
-					<th colspan="4">
+						 ng-click="collapse(epaItem)">
+					<td class="epa-nickname">
 						<span class="grid-collapse-expand grid-expand" ng-if="epaItem.isCollapse"></span> 
 						<span class="grid-collapse-expand grid-collapse" ng-if="!epaItem.isCollapse"></span> 
 						<span ng-bind="$index + 1"></span>. 
 						<a ng-bind="epaItem.nickName" ng-click="PersonReport(epaItem)" ng-href="{{viewPersonReportUrl}}"></a>
-					</th>
-					<th colspan="3"><span data-translate="EPACount"></span>: <span ng-bind="epaItem.epaCount"></span></th>
-					<th colspan="2" class="text-right">
+					</td>
+					<td class="epa-count"><span data-translate="EPACount"></span>: <span ng-bind="epaItem.epaCount"></span></th>
+					<td class="epa-average-score text-right">
 						<span data-translate="AverageScore"></span>: 
 						<span ng-bind="epaItem.averageScore | customNumber" ng-show="epaItem.averageScore"></span>
 						<span ng-bind="'N/A'" ng-show="!epaItem.averageScore" />
-					</th>
+					</td>
 				</tr>
 				<tr ng-if="epaItem.isCollapse" ng-repeat="epa in epaItem.epAs" 
 					ng-class-odd="'manage-member-epa-odd'" ng-class-even="'manage-member-epa-even'">
 					<td class="epa-index" ng-bind="$index + 1">
 					</td>
-					<td class="col-sm-2" ng-bind="epa.project.projectName">
+					<td class="epa-project-name" ng-bind="epa.project.projectName">
 					</td>
-					<td class="col-sm-1" ng-bind="epa.milestone.milestoneName">
+					<td class="epa-milestone" ng-bind="epa.milestone.milestoneName">
 					</td>
-					<td class="col-sm-2" ng-bind="epa.target.targetName">
+					<td class="epa-target" ng-bind="epa.target.targetName">
 					</td>
-					<td class="col-sm-1" class="epa-score">
+					<td class="epa-score">
 						<a href="" ng-bind="epa.score | customNumber" ng-click="EPADetail(epa)" ng-href="{{viewEPADetailUrl}}"
 							ng-show="epa.score > 0" />
 						<a href="" ng-bind="'N/A'" ng-click="EPADetail(epa)"
 								ng-href="{{viewEPADetailUrl}}" ng-show="epa.score == 0" />
 					</td>
-					<td class="col-sm-1">
+					<td class="epa-status">
 						<span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epa.permission == 2"><a
 							href="javascript:;" class="dropdown-toggle changeStatus">{{epa.statusName}}</a>
 							<ul class="dropdown-menu dropdown-menu-width">
@@ -214,28 +235,27 @@
 							<span ng-bind="epa.statusName"></span>
 						</div>
 					</td>
-					<td class="col-sm-1">
+					<td class="epa-evaluator-title">
 						<span ng-bind="epa.evaluator.evaluatorNickName" tooltip="{{epa.evaluator.evaluatorFullName}}">
 						</span>
 					</td>
-					<td class="epa-evaluate-date col-sm-1">
+					<td class="epa-evaluate-date">
 						{{epa.evaluateDate | customDate }}
 					</td>
-					<td class="home-comment col-sm-3" ng-show="!isShowFullEPAComment" >
+					<td class="epa-comment" ng-show="!isShowFullEPAComment" >
 						<span ng-bind="truncateComment" original-comment="epa.comment" truncate
 							tooltip="{{epa.comment}}"></span>
 					</td>
-					<td class="home-comment" ng-show="isShowFullEPAComment" ng-bind="epa.comment">
+					<td class="epa-comment" ng-show="isShowFullEPAComment" ng-bind="epa.comment">
 					</td>
 				</tr>
 				<tr ng-repeat-end></tr>
 				<tr ng-show="listEPA == ''">
-					<td class="empty-result" colspan="9" data-translate="EmptyResult">
+					<td class="empty-result" data-translate="EmptyResult">
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		</scrollable-table>
 	</div>
 	<div class="msgbox error" ng-show="showErrorMessage">
 		<div ng-bind="errorMessage">

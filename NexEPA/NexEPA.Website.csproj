@@ -326,8 +326,6 @@
     <Content Include="Scripts\Extensions\Filters\epa-filter.js" />
     <Content Include="Scripts\Extensions\Services\projectsetting-service.js" />
     <Content Include="Scripts\Libs\angular-multi-select.js" />
-    <Content Include="Scripts\Libs\angular-scrollable-table.js" />
-    <Content Include="Scripts\Libs\angular-scrollable-table.min.js" />
     <Content Include="Scripts\Libs\angular.js" />
     <Content Include="Scripts\Libs\angular-resource.js" />
     <Content Include="Scripts\Libs\angular-route.js" />
@@ -583,7 +581,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>49889</DevelopmentServerPort>
+          <DevelopmentServerPort>50820</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
