@@ -95,6 +95,7 @@ namespace NexEPA
                 "~/Scripts/Views/Target/target-repository.js",
                 "~/Scripts/Views/EPA/myepa-controller.js",
                 "~/Scripts/Views/EPA/myepa-repository.js",
+                "~/Scripts/Views/EPA/myepa-directive.js",
                 "~/Scripts/Views/Home/home-controller.js",
                 "~/Scripts/Views/Home/home-repository.js",
                 "~/Scripts/Views/Report/report-repository.js",

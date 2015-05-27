@@ -216,12 +216,12 @@
 		}
 
 		tbody {
-			height: 600px;
+			height: 576px;
 			overflow-y: auto;
 			width: 100%;
 		}
 
-		tbody > tr > td, thead > tr> th {
+		thead > tr> th {
 			float: left;
 		}
 
@@ -283,9 +283,12 @@
 		}
 
 		tbody > tr {
+			width: 100%;
+			display: table;
+
 			td {
+				display: table-cell;
 				background: #fff !important;
-				height: 30px;
 				overflow: visible;
 			}
 		}

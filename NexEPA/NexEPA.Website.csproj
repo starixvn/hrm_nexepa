@@ -349,6 +349,7 @@
     <Content Include="Scripts\Views\Authority\authority-controller.js" />
     <Content Include="Scripts\Views\Authority\authority-repository.js" />
     <Content Include="Scripts\Views\EPA\myepa-controller.js" />
+    <Content Include="Scripts\Views\EPA\myepa-directive.js" />
     <Content Include="Scripts\Views\EPA\myepa-repository.js" />
     <Content Include="Scripts\Views\FlowManagement\flowmanagement-repository.js" />
     <Content Include="Scripts\Views\FlowManagement\flowmanagement-controller.js" />

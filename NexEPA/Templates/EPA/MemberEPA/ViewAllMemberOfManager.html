@@ -146,30 +146,8 @@
 		</form>
 	</div>
 	<div class="row filter-max-width">
-		<table class="table table-bordered table-manage-member-epa">
-			<thead ng-if="sumRow <= 20">
-				<tr>
-					<th class="epa-index" data-translate="SymbolCount">
-					</th>
-					<th class="epa-project-name" data-translate="Project">
-					</th>
-					<th class="epa-milestone" data-translate="Milestone">
-					</th>
-					<th class="epa-target" data-translate="Target">
-					</th>
-					<th class="epa-score" data-translate="Score">
-					</th>
-					<th class="epa-status" data-translate="Status">
-					</th>
-					<th class="epa-evaluator-title" data-translate="EvaluatorTitle">
-					</th>
-					<th class="epa-evaluate-date" data-translate="EvaluateDate">
-					</th>
-					<th class="epa-comment" data-translate="ProjectManagerComment">
-					</th>
-				</tr>
-			</thead>
-			<thead class="header-fixed" ng-if="sumRow > 20">
+		<table class="table table-bordered table-manage-member-epa" scroll-if>
+			<thead>
 				<tr>
 					<th class="epa-index" data-translate="SymbolCount">
 					</th>
@@ -249,7 +227,7 @@
 					<td class="epa-comment" ng-show="isShowFullEPAComment" ng-bind="epa.comment">
 					</td>
 				</tr>
-				<tr ng-repeat-end></tr>
+				<tr ng-repeat-end style="display: none"></tr>
 				<tr ng-show="listEPA == ''">
 					<td class="empty-result" data-translate="EmptyResult">
 					</td>
