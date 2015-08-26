@@ -38,17 +38,21 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public int LoginAsAnotherUser(string domainUsername)
         {
-            var criteria = new GetEmployeeByDomainUsernameCriteria
+            var isSimulatedLoginUser = GetIsSimulatedLoginUser();
+            if (isSimulatedLoginUser)
             {
-                DomainUsername = domainUsername
-            };
+                var criteria = new GetEmployeeByDomainUsernameCriteria
+                {
+                    DomainUsername = domainUsername
+                };
 
-            UserSession _currentUser = new CommonService().GetUserByDomainUsername(criteria);
+                UserSession _currentUser = new CommonService().GetUserByDomainUsername(criteria);
 
-            if (_currentUser != null && !_currentUser.IsDisabled)
-            {
-                HttpContext.Current.Session[Constants.CurrentSessionKey] = _currentUser;
-                return 0;
+                if (_currentUser != null && !_currentUser.IsDisabled)
+                {
+                    HttpContext.Current.Session[Constants.CurrentSessionKey] = _currentUser;
+                    return 0;
+                }
             }
 
             return -1;
