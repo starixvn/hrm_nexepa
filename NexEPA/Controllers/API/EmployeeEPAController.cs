@@ -34,7 +34,7 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class EmployeeEPAController : BaseController
     {
-        private const string ShowFullEPACommentKey = "showFullEPAComment";
+        private const string _ShowFullEPACommentKey = "showFullEPAComment";
         private readonly IMemberEPAService _memberEPAService;
 
         private ICommonService _commonService;
@@ -359,7 +359,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public bool GetIsShowFullEPAComment()
         {
-            string isShowFullEPAComment = System.Configuration.ConfigurationManager.AppSettings[ShowFullEPACommentKey];
+            string isShowFullEPAComment = System.Configuration.ConfigurationManager.AppSettings[_ShowFullEPACommentKey];
 
             if (!string.IsNullOrEmpty(isShowFullEPAComment))
             {

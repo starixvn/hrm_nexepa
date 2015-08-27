@@ -29,7 +29,7 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class EmployeeController : BaseController
     {
-        private const string ExcludedEmployeeGroupIdSetting = "ExcludedEmployeeGroupId";
+        private const string _ExcludedEmployeeGroupIdSetting = "ExcludedEmployeeGroupId";
         private IEmployeeService _employeeService;        
 
         public EmployeeController()
@@ -69,7 +69,7 @@ namespace NexEPA.Controllers.API
         {
             var criteria = new GetAllEmployeeGroupCriteria
             {
-                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+                ExcludedGroupId = ConfigurationManager.AppSettings[_ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<Group> groups = _employeeService.GetAllEmployeeGroup(criteria);
             IList<SelectListModel> selectListGroups = groups.Select(t => new SelectListModel { Id = t.GroupId, Name = t.Name }).ToList();
@@ -88,7 +88,7 @@ namespace NexEPA.Controllers.API
             var criteria = new GetAllEmployeeGroupByActorUserCriteria
             {
                 ActorUserId = CurrentUser.UserId,
-                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+                ExcludedGroupId = ConfigurationManager.AppSettings[_ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<Group> groups = _employeeService.GetAllEmployeeGroupByActorUser(criteria);
             IList<SelectListModel> selectListGroups = groups.Select(t => new SelectListModel { Id = t.GroupId, Name = t.Name }).ToList();
@@ -129,7 +129,7 @@ namespace NexEPA.Controllers.API
             {
                 ActorUserId = this.CurrentUser.UserId,
                 Keyword = keyword,
-                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+                ExcludedGroupId = ConfigurationManager.AppSettings[_ExcludedEmployeeGroupIdSetting]
             };
 
             IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByCurrentUserId(criteria);
@@ -195,7 +195,7 @@ namespace NexEPA.Controllers.API
                 ActorUserId = CurrentUser.UserId,
                 GroupId = groupId,
                 ProjectId = projectId,
-                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+                ExcludedGroupId = ConfigurationManager.AppSettings[_ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByTeamProject(criteria);
 
@@ -217,7 +217,7 @@ namespace NexEPA.Controllers.API
             {
                 GroupId = groupId,
                 ProjectIds = projectIds,
-                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+                ExcludedGroupId = ConfigurationManager.AppSettings[_ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<EmployeeModel> employees = _employeeService.GetRedmineEmployeesByTeamProject(criteria);
 
@@ -239,7 +239,7 @@ namespace NexEPA.Controllers.API
             {
                 GroupId = groupId,
                 GroupProjectId = groupProjectId,
-                ExcludedGroupId = ConfigurationManager.AppSettings[ExcludedEmployeeGroupIdSetting]
+                ExcludedGroupId = ConfigurationManager.AppSettings[_ExcludedEmployeeGroupIdSetting]
             };
             IEnumerable<EmployeeModel> employees = _employeeService.GetRedmineEmployeesByTeamGroupProject(criteria);
 

@@ -222,8 +222,8 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 				isShowAll = true;
 			}
 
-			$scope.viewOpenEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&status=0&isShowAll=' + isShowAll
-				+ '&startDate=' + startDate + '&endDate=' + endDate;
+            $scope.viewOpenEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&status=0&isShowAll=' + isShowAll + 
+            '&startDate=' + startDate + '&endDate=' + endDate;
 		}
 	};
 
@@ -235,8 +235,8 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 				isShowAll = true;
 			}
 
-			$scope.viewAllEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&isShowAll=' + isShowAll
-				+ '&startDate=' + startDate + '&endDate=' + endDate;
+            $scope.viewAllEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&isShowAll=' + isShowAll + 
+            '&startDate=' + startDate + '&endDate=' + endDate;
 		}
 	};
 } ]);

@@ -432,8 +432,10 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 	$scope.getSpentTimeByMonth = function (nickName, projectId, year, month) {
 		var data = jQuery.grep($scope.teamEfforts.data, function (item) {
-			return item.project.projectId === projectId && angular.lowercase(item.employee.nickName) === angular.lowercase(nickName)
-					&& item.yearMonth.year === year && item.yearMonth.month === month;
+            return item.project.projectId === projectId &&
+                angular.lowercase(item.employee.nickName) === angular.lowercase(nickName) &&
+                item.yearMonth.year === year && 
+                item.yearMonth.month === month;
 		});
 
 		if (data.length > 0) {
@@ -443,8 +445,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 	$scope.getSubTotalByMonth = function (nickName, year, month) {
 		var data = jQuery.grep($scope.teamEfforts.memberSubTotals, function (item) {
-			return angular.lowercase(item.employee.nickName) === angular.lowercase(nickName)
-					&& item.yearMonth.year === year && item.yearMonth.month === month;
+            return angular.lowercase(item.employee.nickName) === angular.lowercase(nickName) &&
+                item.yearMonth.year === year && 
+                item.yearMonth.month === month;
 		});
 
 		if (data.length > 0) {
@@ -464,8 +467,9 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 
 	$scope.getWorkingDayByMonth = function (nickName, year, month) {
 		var data = jQuery.grep($scope.teamEfforts.memberWorkingDays, function (item) {
-			return angular.lowercase(item.employee.nickName) === angular.lowercase(nickName)
-					&& item.yearMonth.year === year && item.yearMonth.month === month;
+            return angular.lowercase(item.employee.nickName) === angular.lowercase(nickName) &&
+                item.yearMonth.year === year && 
+                item.yearMonth.month === month;
 		});
 
 		if (data.length > 0) {
@@ -484,9 +488,10 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 	};
 
 	$scope.getWorkloadByMonth = function (nickName, year, month) {
-		var data = jQuery.grep($scope.teamEfforts.memberWorkloads, function (item) {
-			return angular.lowercase(item.employee.nickName) === angular.lowercase(nickName)
-					&& item.yearMonth.year === year && item.yearMonth.month === month;
+        var data = jQuery.grep($scope.teamEfforts.memberWorkloads, function (item) {
+            return angular.lowercase(item.employee.nickName) === angular.lowercase(nickName) &&
+                item.yearMonth.year === year && 
+                item.yearMonth.month === month;
 		});
 
 		if (data.length > 0) {

@@ -472,8 +472,10 @@ commonFactory, groupProjectFactory, projectDataFactory) {
 
 	self.getIssueSpent = function (projectId, trackerId, year, month, type) {
 		var data = jQuery.grep($scope.personalEffortDetails.data, function (item) {
-			return item.projectId === projectId && item.trackerId === trackerId
-					&& item.year === year && item.month === month;
+            return item.projectId === projectId &&
+                item.trackerId === trackerId &&
+                item.year === year && 
+                item.month === month;
 		});
 
 		if (data.length > 0) {

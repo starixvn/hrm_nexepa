@@ -52,9 +52,9 @@ employeeEPAFactory, ErrorService) {
 	};
 
 	$scope.viewEmployeeTendency = function (employeeId) {
-		$scope.viewEmployeeTendencyUrl = '/Report/EmployeePerformanceTendency' + '?employeeId=' + employeeId
-										+ '&fromDate=' + $scope.filter.fromDate.toDateString()
-										+ '&toDate=' + $scope.filter.toDate.toDateString();
+        $scope.viewEmployeeTendencyUrl = '/Report/EmployeePerformanceTendency' + '?employeeId=' + employeeId +
+            '&fromDate=' + $scope.filter.fromDate.toDateString() + 
+            '&toDate=' + $scope.filter.toDate.toDateString();
 	};
 
 	$scope.reload = function () {
