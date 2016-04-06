@@ -1,242 +1,238 @@
 ﻿<div class="col-sm-12 manage-member-epa">
-	<div class="row sub-header">
-		<ul class="breadcrumb list-inline pull-left">
-			<li><a href="#" data-translate="EPA" ng-click="reload()"></a></li>
-			<li class="current" data-translate="ManageMemberEPA"></li>
-		</ul>
-	</div>
-	<div class="row row-filter filter-max-width">
-		<form novalidate class="form-horizontal common-form filter col-sm-12">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group">
-						<label class="col-sm-3 control-label" data-translate="From">
-						</label>
-						<div class="col-sm-8">
-							<input readonly class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup="{{dateFormat}}"
-								is-open="calendar.startDateOpened" />
-							<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
-						</div>
-					</div>
-					<div class="form-group" ng-if="isShowAll">
-						<label class="col-sm-3 control-label" data-translate="Project">
-						</label>
-						<div class="col-sm-8">
-							<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
-								class="form-control epa-project-filter" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
-								<option value="">-- All --</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" data-translate="Employee">
-						</label>
-						<div class="col-sm-8">
-							<add-class-to-role-filter multi-select input-model="employeeOptions" button-label="employeeId"
-								helper-elements="all reset filter" item-label="fullName" tick-property="ticked" max-labels="0"
-								class="multi-select">
-							</add-class-to-role-filter>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<label class="col-sm-3 control-label" data-translate="To">
-						</label>
-						<div class="col-sm-8">
-							<input readonly class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup="{{dateFormat}}"
-								is-open="calendar.endDateOpened" />
-							<calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" data-translate="Status">
-						</label>
-						<div class="col-sm-8">
-							<select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
-								class="form-control">
-								<option value="">-- All --</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group" ng-if="showAllMemberEPA && isShowAll">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" ng-model="filter.isShowAll" /> Show all member EPA
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<label class="col-sm-3 control-label" data-translate="Team">
-						</label>
-						<div class="col-sm-8">
-							<select ng-model="filter.teamId" ng-options="opt.id as opt.name for opt in teamOptions"
-								class="form-control" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
-								<option value="" data-translate="All"></option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group" ng-if="showAllMemberEPA && !isShowAll">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" ng-model="filter.isShowAll" /> Show all member EPA
-							</label>
-						</div>
-					</div>
-					<div class="form-group" ng-if="showTargetFilter && !isShowAll">
-						<label class="col-sm-3 control-label" data-translate="Target">
-						</label>
-						<div class="col-sm-8">
-							<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
-								class="form-control epa-project-filter">
-								<option value="">-- All --</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group" ng-if="showTargetFilter && isShowAll">
-						<label class="col-sm-3 control-label" data-translate="Target">
-						</label>
-						<div class="col-sm-8">
-							<select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
-								class="form-control epa-project-filter">
-								<option value="">-- All --</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group" ng-if="isShowAll">
-						<div class="col-sm-10">
-							<button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="isLoadingButton"
-								data-ng-click="query(filter)">
-								<span class="ladda-label" data-translate="Submit"></span>
-							</button>
-						</div>
-					</div>
-					<div class="form-group" ng-if="!showAllMemberEPA && !showTargetFilter">
-						<div class="col-sm-10">
-							<button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="isLoadingButton"
-								data-ng-click="query(filter)">
-								<span class="ladda-label" data-translate="Submit"></span>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3" ng-if="!isShowAll">
-					<div class="form-group">
-						<label class="col-sm-3 control-label" data-translate="Project">
-						</label>
-						<div class="col-sm-8">
-							<select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
-								class="form-control epa-project-filter" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
-								<option value="">-- All --</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group" ng-if="showAllMemberEPA || showTargetFilter">
-						<div class="col-sm-10">
-							<button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="isLoadingButton"
-								data-ng-click="query(filter)">
-								<span class="ladda-label" data-translate="Submit"></span>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div class="row filter-max-width">
-		<table class="table table-bordered table-manage-member-epa" scroll-if>
-			<thead>
-				<tr>
-					<th class="epa-index" data-translate="SymbolCount">
-					</th>
-					<th class="epa-project-name" data-translate="Project">
-					</th>
-					<th class="epa-milestone" data-translate="Milestone">
-					</th>
-					<th class="epa-target" data-translate="Target">
-					</th>
-					<th class="epa-score" data-translate="Score">
-					</th>
-					<th class="epa-status" data-translate="Status">
-					</th>
-					<th class="epa-evaluator-title" data-translate="EvaluatorTitle">
-					</th>
-					<th class="epa-evaluate-date" data-translate="EvaluateDate">
-					</th>
-					<th class="epa-comment" data-translate="ProjectManagerComment">
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat-start="epaItem in listEPA" ng-class-odd="'epa-nickname-odd'" ng-class-even="'epa-nickname-even'"
-						 ng-click="collapse(epaItem)">
-					<td class="epa-nickname">
-						<span class="grid-collapse-expand grid-expand" ng-if="epaItem.isCollapse"></span> 
-						<span class="grid-collapse-expand grid-collapse" ng-if="!epaItem.isCollapse"></span> 
-						<span ng-bind="$index + 1"></span>. 
-						<a ng-bind="epaItem.nickName" ng-click="PersonReport(epaItem)" ng-href="{{viewPersonReportUrl}}"></a>
-					</td>
-					<td class="epa-count"><span data-translate="EPACount"></span>: <span ng-bind="epaItem.epaCount"></span></th>
-					<td class="epa-average-score text-right">
-						<span data-translate="AverageScore"></span>: 
-						<span ng-bind="epaItem.averageScore | customNumber" ng-show="epaItem.averageScore"></span>
-						<span ng-bind="'N/A'" ng-show="!epaItem.averageScore" />
-					</td>
-				</tr>
-				<tr ng-if="epaItem.isCollapse" ng-repeat="epa in epaItem.epAs" 
-					ng-class-odd="'manage-member-epa-odd'" ng-class-even="'manage-member-epa-even'">
-					<td class="epa-index" ng-bind="$index + 1">
-					</td>
-					<td class="epa-project-name" ng-bind="epa.project.projectName">
-					</td>
-					<td class="epa-milestone" ng-bind="epa.milestone.milestoneName">
-					</td>
-					<td class="epa-target" ng-bind="epa.target.targetName">
-					</td>
-					<td class="epa-score">
-						<a href="" ng-bind="epa.score | customNumber" ng-click="EPADetail(epa)" ng-href="{{viewEPADetailUrl}}"
-							ng-show="epa.score > 0" />
-						<a href="" ng-bind="'N/A'" ng-click="EPADetail(epa)"
-								ng-href="{{viewEPADetailUrl}}" ng-show="epa.score == 0" />
-					</td>
-					<td class="epa-status">
-						<span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epa.permission == 2"><a
-							href="javascript:;" class="dropdown-toggle changeStatus">{{epa.statusName}}</a>
-							<ul class="dropdown-menu dropdown-menu-width">
-								<li ng-repeat="item in epaStatus | filter:{name:'!'+epa.statusName}"><a ng-click="updateEPAStatus(epa, item)"
-									href="javascript:;">{{item.name}}</a> </li>
-							</ul>
-						</span>
-						<div class="status-text" ng-if="permission.policy == 1 || epa.permission == 1">
-							<span ng-bind="epa.statusName"></span>
-						</div>
-					</td>
-					<td class="epa-evaluator-title">
-						<span ng-bind="epa.evaluator.evaluatorNickName" tooltip="{{epa.evaluator.evaluatorFullName}}">
-						</span>
-					</td>
-					<td class="epa-evaluate-date">
-						{{epa.evaluateDate | customDate }}
-					</td>
-					<td class="epa-comment" ng-show="!isShowFullEPAComment" >
-						<span ng-bind="truncateComment" original-comment="epa.comment" truncate
-							tooltip="{{epa.comment}}"></span>
-					</td>
-					<td class="epa-comment" ng-show="isShowFullEPAComment" ng-bind="epa.comment">
-					</td>
-				</tr>
-				<tr ng-repeat-end style="display: none"></tr>
-				<tr ng-show="listEPA == ''">
-					<td class="empty-result" data-translate="EmptyResult">
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="msgbox error" ng-show="showErrorMessage">
-		<div ng-bind="errorMessage">
-		</div>
-	</div>
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="EPA" ng-click="reload()"></a></li>
+            <li class="current" data-translate="ManageMemberEPA"></li>
+        </ul>
+    </div>
+    <div class="row row-filter filter-max-width">
+        <form novalidate class="form-horizontal common-form filter col-sm-12">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" data-translate="From">
+                        </label>
+                        <div class="col-sm-8">
+                            <input readonly class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup="{{dateFormat}}"
+                                   is-open="calendar.startDateOpened" />
+                            <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="isShowAll">
+                        <label class="col-sm-3 control-label" data-translate="Project">
+                        </label>
+                        <div class="col-sm-8">
+                            <select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+                                    class="form-control epa-project-filter" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
+                                <option value="">-- All --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" data-translate="Employee">
+                        </label>
+                        <div class="col-sm-8">
+                            <add-class-to-role-filter multi-select input-model="employeeOptions" button-label="employeeId"
+                                                      helper-elements="all reset filter" item-label="fullName" tick-property="ticked" max-labels="0"
+                                                      class="multi-select">
+                            </add-class-to-role-filter>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" data-translate="To">
+                        </label>
+                        <div class="col-sm-8">
+                            <input readonly class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup="{{dateFormat}}"
+                                   is-open="calendar.endDateOpened" />
+                            <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" data-translate="Status">
+                        </label>
+                        <div class="col-sm-8">
+                            <select ng-model="filter.status" ng-options="opt.id as opt.name for opt in statusOptions"
+                                    class="form-control">
+                                <option value="">-- All --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="showAllMemberEPA && isShowAll">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="filter.isShowAll" /> Show all member EPA
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" data-translate="Team">
+                        </label>
+                        <div class="col-sm-8">
+                            <select ng-model="filter.teamId" ng-options="opt.id as opt.name for opt in teamOptions"
+                                    class="form-control" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
+                                <option value="" data-translate="All"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="showAllMemberEPA && !isShowAll">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="filter.isShowAll" /> Show all member EPA
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="showTargetFilter && !isShowAll">
+                        <label class="col-sm-3 control-label" data-translate="Target">
+                        </label>
+                        <div class="col-sm-8">
+                            <select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+                                    class="form-control epa-project-filter">
+                                <option value="">-- All --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="showTargetFilter && isShowAll">
+                        <label class="col-sm-3 control-label" data-translate="Target">
+                        </label>
+                        <div class="col-sm-8">
+                            <select ng-model="filter.targetId" ng-options="opt.targetId as opt.name for opt in targetOptions"
+                                    class="form-control epa-project-filter">
+                                <option value="">-- All --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="isShowAll">
+                        <div class="col-sm-10">
+                            <button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="isLoadingButton"
+                                    data-ng-click="query(filter)">
+                                <span class="ladda-label" data-translate="Submit"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="!showAllMemberEPA && !showTargetFilter">
+                        <div class="col-sm-10">
+                            <button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="isLoadingButton"
+                                    data-ng-click="query(filter)">
+                                <span class="ladda-label" data-translate="Submit"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3" ng-if="!isShowAll">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" data-translate="Project">
+                        </label>
+                        <div class="col-sm-8">
+                            <select ng-model="filter.projectId" ng-options="opt.id as opt.name for opt in projectOptions"
+                                    class="form-control epa-project-filter" data-ng-change="getEmployee(filter.teamId, filter.projectId)">
+                                <option value="">-- All --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="showAllMemberEPA || showTargetFilter">
+                        <div class="col-sm-10">
+                            <button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="isLoadingButton"
+                                    data-ng-click="query(filter)">
+                                <span class="ladda-label" data-translate="Submit"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row filter-max-width">
+        <table class="table table-bordered table-manage-member-epa" scroll-if>
+            <thead>
+                <tr>
+                    <th class="epa-index" data-translate="SymbolCount">
+                    </th>
+                    <th class="epa-project-name" data-translate="Project">
+                    </th>
+                    <th class="epa-milestone" data-translate="Milestone">
+                    </th>
+                    <th class="epa-target" data-translate="Target">
+                    </th>
+                    <th class="epa-score" data-translate="Score">
+                    </th>
+                    <th class="epa-status" data-translate="Status">
+                    </th>
+                    <th class="epa-evaluator-title" data-translate="EvaluatorTitle">
+                    </th>
+                    <th class="epa-evaluate-date" data-translate="EvaluateDate">
+                    </th>
+                    <th class="epa-comment" data-translate="ProjectManagerComment">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="epaItem in listEPA" ng-class-odd="'epa-nickname-odd'" ng-class-even="'epa-nickname-even'"
+                    ng-click="collapse(epaItem)">
+                    <td class="epa-nickname">
+                        <span class="grid-collapse-expand grid-expand" ng-if="epaItem.isCollapse"></span>
+                        <span class="grid-collapse-expand grid-collapse" ng-if="!epaItem.isCollapse"></span>
+                        <span ng-bind="$index + 1"></span>.
+                        <a ng-bind="epaItem.nickName" ng-click="PersonReport(epaItem)" ng-href="{{viewPersonReportUrl}}"></a>
+                    </td>
+                    <td class="epa-count"><span data-translate="EPACount"></span>: <span ng-bind="epaItem.epaCount"></span></th>
+                    <td class="epa-average-score text-right">
+                        <span data-translate="AverageScore"></span>:
+                        <span ng-bind="epaItem.averageScore | customNumber" ng-show="epaItem.averageScore"></span>
+                        <span ng-bind="'N/A'" ng-show="!epaItem.averageScore" />
+                    </td>
+                </tr>
+                <tr ng-if="epaItem.isCollapse" ng-repeat="epa in epaItem.epAs"
+                    ng-class-odd="'manage-member-epa-odd'" ng-class-even="'manage-member-epa-even'">
+                    <td class="epa-index" ng-bind="$index + 1"></td>
+                    <td class="epa-project-name" ng-bind="epa.project.projectName"></td>
+                    <td class="epa-milestone" ng-bind="epa.milestone.milestoneName"></td>
+                    <td class="epa-target" ng-bind="epa.target.targetName"></td>
+                    <td class="epa-score">
+                        <a href="" ng-bind="epa.score | customNumber" ng-click="EPADetail(epa)" ng-href="{{viewEPADetailUrl}}"
+                           ng-show="epa.score > 0" />
+                        <a href="" ng-bind="'N/A'" ng-click="EPADetail(epa)"
+                           ng-href="{{viewEPADetailUrl}}" ng-show="epa.score == 0" />
+                    </td>
+                    <td class="epa-status">
+                        <span class="dropdown" on-toggle="toggled(open)" ng-if="permission.policy == 2 && epa.permission == 2">
+                            <a href="javascript:;" class="dropdown-toggle changeStatus">{{epa.statusName}}</a>
+                            <ul class="dropdown-menu dropdown-menu-width">
+                                <li ng-repeat="item in epaStatus | filter:{name:'!'+epa.statusName}">
+                                    <a ng-click="updateEPAStatus(epa, item)"
+                                       href="javascript:;">{{item.name}}</a>
+                                </li>
+                            </ul>
+                        </span>
+                        <div class="status-text" ng-if="permission.policy == 1 || epa.permission == 1">
+                            <span ng-bind="epa.statusName"></span>
+                        </div>
+                    </td>
+                    <td class="epa-evaluator-title">
+                        <span ng-bind="epa.evaluator.evaluatorNickName" tooltip="{{epa.evaluator.evaluatorFullName}}">
+                        </span>
+                    </td>
+                    <td class="epa-evaluate-date">
+                        {{epa.evaluateDate | customDate }}
+                    </td>
+                    <td class="epa-comment" ng-show="!isShowFullEPAComment">
+                        <span ng-bind="truncateComment" original-comment="epa.comment" truncate
+                              tooltip="{{epa.comment}}"></span>
+                    </td>
+                    <td class="epa-comment" ng-show="isShowFullEPAComment" ng-bind="epa.comment"></td>
+                </tr>
+                <tr ng-repeat-end style="display: none"></tr>
+                <tr ng-show="listEPA == ''">
+                    <td class="empty-result" data-translate="EmptyResult"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="msgbox error" ng-show="showErrorMessage">
+        <div ng-bind="errorMessage">
+        </div>
+    </div>
 </div>

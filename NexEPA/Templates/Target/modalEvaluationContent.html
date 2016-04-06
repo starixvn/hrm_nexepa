@@ -1,108 +1,107 @@
 ﻿<div>
-	<div class="modal-header">
-		<div class="popup-header">
-			<span data-translate="Evaluation"></span>
-			<span class="close-popup" ng-click="cancel()"></span>
-		</div>
-	</div>
-	<div class="modal-body">
-		<div class="container-content common-form">
-			<div>
-				<div class="boxtitle" ng-click="collapseInformation()">
-					<span class="home-label" data-translate="GeneralInfo">
-					</span>
-				</div>
-				<div collapse="isInformationCollapsed" class="target-rating">
-					<div>
-						<span class="kpi-group-target-rating">{{kpiGroup.name}} ({{kpiGroup.weight}}%)</span>
-					</div>
-					<div>
-						<span ng-bind="kpiItem.name">
-						</span>
-					</div>
-					<div class="criteria-description" ng-bind="kpiItem.description">
-					</div>
-				</div>
-			</div>
+    <div class="modal-header">
+        <div class="popup-header">
+            <span data-translate="Evaluation"></span>
+            <span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="container-content common-form">
+            <div>
+                <div class="boxtitle" ng-click="collapseInformation()">
+                    <span class="home-label" data-translate="GeneralInfo">
+                    </span>
+                </div>
+                <div collapse="isInformationCollapsed" class="target-rating">
+                    <div>
+                        <span class="kpi-group-target-rating">{{kpiGroup.name}} ({{kpiGroup.weight}}%)</span>
+                    </div>
+                    <div>
+                        <span ng-bind="kpiItem.name">
+                        </span>
+                    </div>
+                    <div class="criteria-description" ng-bind="kpiItem.description">
+                    </div>
+                </div>
+            </div>
 
-			<div>
-				<div class="boxtitle first" id="ratingScale" ng-click="collapseInstructions()">
-					<span data-translate="RatingInstruction"></span>
-				</div>
-				<div class="epa-boxcontent" collapse="isInstructionsCollapsed">
-					<div class="row-item line rating target-rating">
-						<span class="red">* {{"RatingCriteria" | translate}}:</span>
-						<span data-translate="MessageRatingInstructions"></span>
-						<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
-						</div>
-					</div>
-				</div>
-			</div>
+            <div>
+                <div class="boxtitle first" id="ratingScale" ng-click="collapseInstructions()">
+                    <span data-translate="RatingInstruction"></span>
+                </div>
+                <div class="epa-boxcontent" collapse="isInstructionsCollapsed">
+                    <div class="row-item line rating target-rating">
+                        <span class="red">* {{"RatingCriteria" | translate}}:</span>
+                        <span data-translate="MessageRatingInstructions"></span>
+                        <div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div>
-				<div class="boxtitle first" ng-click="collapseEvaluation()">
-					<span data-translate="Evaluation" style="text-transform: uppercase;"></span>
-				</div>
-				<div collapse="isEvaluationCollapsed" class="top-buffer">
-					<table class="table table-bordered table-striped table-hover">
-						<thead class="required">
-							<th data-translate="SymbolCount">
-							</th>
-							<th data-translate="NickName">
-							</th>
-							<th data-translate="Team">
-							</th>
-							<th data-translate="JobTitle">
-							</th>
-							<th data-translate="Score">
-							</th>
-							<th class="control-label" data-translate="Comment" ng-if="kpiItem.hasComment && kpiItem.isRequireComment">
-							</th>
-							<th data-translate="Comment" ng-if="kpiItem.hasComment && !kpiItem.isRequireComment">
-							</th>
-							<th data-translate="FinalScore">
-							</th>
-						</thead>
-						<tr ng-repeat="employee in employees">
-							<td ng-bind="$index + 1">
-							</td>
-							<td>
-								<span ng-bind="employee.nickName" tooltip={{employee.fullName}}>
-								</span>
-							</td>
-							<td ng-bind="employee.group.name">
-							</td>
-							<td ng-bind="employee.jobTitle.name">
-							</td>
-							<td>
-								<div class="list-star score-target-rating">
-									<a ng-show="policy.isHost{{kpiItem.kpiId + '_' + employee.employeeId}} && employee.kpiItem.score > 0" 
-										class="glyphicon glyphicon-remove-circle remove-star"
-										title="Cancel" href="javascript:;" ng-click="cancelRating(employee.kpiItem, employee)"></a>
-									<rating value="employee.kpiItem.score" max="max" on-hover="hoveringOver(value, employee)"
-										on-leave="hoveringLeave(employee.kpiItem, employee)" readonly="checkReadOnly(kpiItem, employee)">
-									</rating>
-									<span class="badge percent" ng-show="employee.kpiItem.percent > 0">{{employee.kpiItem.percent}}%</span>
-									<span class="badge percent" ng-show="!employee.kpiItem.percent">N/A</span>
-								</div>
-							</td>
-							<td class="target-center" ng-if="kpiItem.hasComment">
-								<textarea ng-model="employee.kpiItem.comment" 
-									ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}">
-								</textarea>
-							</td>
-							<td ng-bind="employee.finalScore | customNumber" class="target-center">
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="button" ng-click="save(employees)" data-translate="Save" >
-		</button>
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
+            <div>
+                <div class="boxtitle first" ng-click="collapseEvaluation()">
+                    <span data-translate="Evaluation" style="text-transform: uppercase;"></span>
+                </div>
+                <div collapse="isEvaluationCollapsed" class="top-buffer">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="required">
+                            <tr>
+                                <th data-translate="SymbolCount"></th>
+                                <th data-translate="NickName"></th>
+                                <th data-translate="Team"></th>
+                                <th data-translate="JobTitle"></th>
+                                <th data-translate="Score"></th>
+                                <th class="control-label" data-translate="Comment" ng-if="kpiItem.hasComment && kpiItem.isRequireComment"></th>
+                                <th data-translate="Comment" ng-if="kpiItem.hasComment && !kpiItem.isRequireComment"></th>
+                                <th data-translate="FinalScore"></th>
+                                <th data-translate="OverallComment"></th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="employee in employees">
+                            <td ng-bind="$index + 1"></td>
+                            <td>
+                                <span tooltip={{employee.fullName}}>
+                                    {{employee.nickName}}
+                                </span>
+                            </td>
+                            <td>
+                                <span tooltip="{{employee.group.name}}">
+                                    {{employee.group.code}}
+                                </span>
+                            </td>
+                            <td ng-bind="employee.jobTitle.name"></td>
+                            <td>
+                                <div class="list-star score-target-rating">
+                                    <a ng-show="policy.isHost{{kpiItem.kpiId + '_' + employee.employeeId}} && employee.kpiItem.score > 0"
+                                        class="glyphicon glyphicon-remove-circle remove-star"
+                                        title="Cancel" href="javascript:;" ng-click="cancelRating(employee.kpiItem, employee)">
+                                    </a>
+                                    <rating value="employee.kpiItem.score" max="max" on-hover="hoveringOver(value, employee)"
+                                            on-leave="hoveringLeave(employee.kpiItem, employee)" readonly="checkReadOnly(kpiItem, employee)">
+                                    </rating>
+                                    <span class="badge percent" ng-show="employee.kpiItem.percent > 0">{{employee.kpiItem.percent}}%</span>
+                                    <span class="badge percent" ng-show="!employee.kpiItem.percent">N/A</span>
+                                </div>
+                            </td>
+                            <td class="target-center" ng-if="kpiItem.hasComment">
+                                <textarea ng-model="employee.kpiItem.comment"
+                                          ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
+                            </td>
+                            <td class="target-center">
+                                {{employee.finalScore | customNumber}}
+                            </td>
+                            <td ng-model="employee.kpiItem.overallcomment">
+                                <textarea></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="button" ng-click="save(employees)" data-translate="Save"></button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+    </div>
 </div>

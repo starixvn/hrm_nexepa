@@ -39,13 +39,13 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class TargetController : BaseController
     {
-        private ITargetService _targetService;
+        private ITargetService targetService;
 
-        private IProjectService _projectService;
+        private IProjectService projectService;
 
-        private ICommonService _commonService;
+        private ICommonService commonService;
 
-        private IMemberEPAService _memberEPAService;
+        private IMemberEPAService memberEPAService;
 
         public TargetController()
             : this(null, null, null, null)
@@ -58,10 +58,10 @@ namespace NexEPA.Controllers.API
             ICommonService commonService,
             IMemberEPAService memberEPAService)
         {
-            _targetService = targetService ?? new TargetService();
-            _projectService = projectService ?? new ProjectService();
-            _commonService = commonService ?? new CommonService();
-            _memberEPAService = memberEPAService ?? new MemberEPAService();
+            this.targetService = targetService ?? new TargetService();
+            this.projectService = projectService ?? new ProjectService();
+            this.commonService = commonService ?? new CommonService();
+            this.memberEPAService = memberEPAService ?? new MemberEPAService();
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace NexEPA.Controllers.API
                 EndDate = endDate
             };
 
-            return _targetService.GetAllTarget(criteria);
+            return targetService.GetAllTarget(criteria);
         }
 
         [HttpGet]
@@ -99,7 +99,7 @@ namespace NexEPA.Controllers.API
                 ActorUserId = this.CurrentUser.UserId
             };
 
-            return _targetService.GetTargetById(criteria);
+            return targetService.GetTargetById(criteria);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace NexEPA.Controllers.API
                 criteria.TargetTypeId = 2;
             }
 
-            return _targetService.Insert(criteria);
+            return targetService.Insert(criteria);
         }
 
         [HttpPut]
@@ -134,7 +134,7 @@ namespace NexEPA.Controllers.API
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _targetService.Update(criteria);
+            return targetService.Update(criteria);
         }
 
         [HttpPut]
@@ -147,7 +147,7 @@ namespace NexEPA.Controllers.API
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _targetService.UpdateStatus(criteria);
+            return targetService.UpdateStatus(criteria);
         }
 
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
@@ -160,7 +160,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            return _targetService.Delete(criteria);
+            return targetService.Delete(criteria);
         }
 
         [HttpGet]
@@ -170,7 +170,7 @@ namespace NexEPA.Controllers.API
             {
                 ProjectId = projectId
             };
-            var milestoneList = _projectService.GetMilestoneByProjectId(getMilestoneCriteria);
+            var milestoneList = projectService.GetMilestoneByProjectId(getMilestoneCriteria);
 
             IEnumerable<dynamic> milestoneResult = milestoneList.Select(mi => new { mi.Name, mi.MilestoneId });
             return milestoneResult;
@@ -185,7 +185,7 @@ namespace NexEPA.Controllers.API
                  TargetId = targetId
             };
 
-            return _targetService.GetTargetEmployeeByTargetId(criteria);
+            return targetService.GetTargetEmployeeByTargetId(criteria);
         }
 
         [HttpPost]
@@ -198,7 +198,7 @@ namespace NexEPA.Controllers.API
                 criteria.AddedDate = DateTime.Now;
             }
 
-            return _targetService.InsertTargetEmployee(criteria);
+            return targetService.InsertTargetEmployee(criteria);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            return _targetService.DeleteTargetEmployee(criteria);
+            return targetService.DeleteTargetEmployee(criteria);
         }
 
         [HttpGet]
@@ -231,7 +231,7 @@ namespace NexEPA.Controllers.API
                 KPIGroupId = groupId
             };
 
-            return _targetService.GetKPIByTargetId(criteria);
+            return targetService.GetKPIByTargetId(criteria);
         }
 
         [HttpGet]
@@ -243,7 +243,7 @@ namespace NexEPA.Controllers.API
                 MilestoneId = milestoneId
             };
 
-            return _targetService.GetProjectOrMilestoneDate(criteria);
+            return targetService.GetProjectOrMilestoneDate(criteria);
         }
 
         [HttpGet]
@@ -255,7 +255,7 @@ namespace NexEPA.Controllers.API
                 TargetId = targetId
             };
 
-            return _targetService.GetKPIGroupByTargetId(criteria);
+            return targetService.GetKPIGroupByTargetId(criteria);
         }
 
         [HttpGet]
@@ -267,7 +267,7 @@ namespace NexEPA.Controllers.API
                 ActorUserId = this.CurrentUser.UserId,
             };
 
-            return _targetService.GetTargetToFilter(criteria);
+            return targetService.GetTargetToFilter(criteria);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public int GetPermission()
         {
-            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageTarget);
+            int policy = commonService.GetPermission(EPAFunctionKeys.ManageTarget);
             return policy;
         }
 
@@ -300,7 +300,7 @@ namespace NexEPA.Controllers.API
                 KPIId = kpiId
             };
 
-            return _targetService.GetEmployeeByKPI(criteria);
+            return targetService.GetEmployeeByKPI(criteria);
         }
 
         /// <summary>
@@ -318,10 +318,10 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now,
                 KPIId = epaInfo.KPIId,
                 KPIGroupId = epaInfo.KPIGroupId,
-                EmployeeScore = _targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
+                EmployeeScore = targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
             };
             
-            return _memberEPAService.UpdateKPIScore(criteria);
+            return memberEPAService.UpdateKPIScore(criteria);
         }
     }
 }

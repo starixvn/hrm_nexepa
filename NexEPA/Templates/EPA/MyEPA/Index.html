@@ -1,223 +1,238 @@
 ﻿<div class="row sub-header ng-scope">
-	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-show="isPMPage">
-		<li>
-			<a href="/MemberEPA/ViewMember" data-translate="ManageMemberEPA"></a></li>
-		<li class="current" data-translate="MemberEPA"></li>
-	</ul>
-	<ul class="col-xs-12 breadcrumb list-inline pull-left" ng-hide="isPMPage">
-		<li>
-			<a href="/MemberEPA/ViewCurrentMember" data-translate="ManageMyEPA"></a></li>
-		<li class="current" data-translate="MyEPA"></li>
-	</ul>
+    <ul class="col-xs-12 breadcrumb list-inline pull-left" ng-show="isPMPage">
+        <li>
+            <a href="/MemberEPA/ViewMember" data-translate="ManageMemberEPA"></a>
+        </li>
+        <li class="current" data-translate="MemberEPA"></li>
+    </ul>
+    <ul class="col-xs-12 breadcrumb list-inline pull-left" ng-hide="isPMPage">
+        <li>
+            <a href="/MemberEPA/ViewCurrentMember" data-translate="ManageMyEPA"></a>
+        </li>
+        <li class="current" data-translate="MyEPA"></li>
+    </ul>
 </div>
 <form class="epa-form" name="addProjectForm" ng-show="employeeEPA != null" novalidate>
-<div class="epa-box-header epa-boxtitle" data-translate="ppa">
-</div>
-<div class="col-sm-12 list-group-item bottom-buffer">
-	<div class="boxtitle first" data-translate="GeneralInfo">
-	</div>
-	<div class="epa-boxcontent">
-		<div class="row infoUser">
-			<div class="col-sm-2 text-center top-buffer">
-				<div class="row">
-					<div class="img-user">
-						<img class="img-default" src="http://www.gravatar.com/avatar/{{employeeEPA.gravatar}}"
-							alt="User" title="User">
-					</div>
-				</div>
-				<div class="row text-center">
-					<span class="fullName">{{employeeEPA.fullName}}</span>
-				</div>
-				<div class="row text-center">
-					<span class="domainUserName">{{employeeEPA.nickName}}</span>
-				</div>
-			</div>
-			<div class="col-sm-10 right-form">
-				<div class="row row-item line">
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Code">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.code}}</strong></div>
-					</div>
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Team">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.groupName}}</strong></div>
-					</div>
-				</div>
-				<div class="row row-item line">
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Evaluator">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.pmNickName}} ({{employeeEPA.pmFullName}})</strong></div>
-					</div>
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Project">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.projectName}}</strong></div>
-					</div>
-				</div>
-				<div class="row row-item line">
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Roles">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeRole}}</strong></div>
-					</div>
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Milestone">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.milestoneName}}</strong></div>
-					</div>
-				</div>
-				<div class="row row-item line">
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="StartDate">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.startDate|customDate}}</strong></div>
-					</div>
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="EndDate">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.endDate|customDate}}</strong></div>
-					</div>
-				</div>
-				<div class="row row-item line" ng-show="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="LastModifyBy">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.modifierNickName}} ({{employeeEPA.modifierFullName}})</strong></div>
-					</div>
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="LastModifyDate">
-						</div>
-						<div class="col-sm-8 txt-value">
-							<strong>{{employeeEPA.modifiedDate|customDate}}</strong></div>
-					</div>
-				</div>
-				<div class="row row-item line">
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Status">
-						</div>
-						<div class="col-sm-8 txt-value" ng-show="employeeEPA != null">
-							<span class="dropdown" on-toggle="toggled(open)">
-								<a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">
-									{{employeeEPA.status|epaStatus}}</a>
-								<ul class="dropdown-menu dropdown-menu-width">
-									<li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
-										<a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
-									</li>
-								</ul>
-							</span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="col-sm-3" data-translate="Evaluated">
-						</div>
-						<div class="col-sm-8" ng-show="employeeEPA != null">
-							<div class="col-sm-12 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
-								<span class="glyphicon glyphicon-saved epa-saved"></span>
-							</div>
-							<div class="col-sm-12 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
-								<span class="glyphicon glyphicon-list-alt epa-unsaved"></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-sm-12 list-group-item bottom-buffer">
-	<div class="boxtitle first" id="ratingScale">
-		<span data-translate="RatingInstruction"></span>
-	</div>
-	<div class="epa-boxcontent">
-		<div class="row row-item line rating">
-			<span class="note">* {{"RatingCriteria" | translate}}:</span>
-			<span data-translate="MessageRatingInstructions"></span>
-			<div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-sm-12 list-group-item">
-	<ol class="epa-criteria-ol" type="A">
-		<div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo" ng-repeat-loaded>
-			<li class="boxtitle">{{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)
-				<div class="pull-right">
-					<span data-translate="GroupTotal"></span><span ng-show="kpi.groupFinalScore > 0">{{kpi.groupFinalScore | customNumber}}</span>
-					<span ng-hide="kpi.groupFinalScore > 0">{{0 | customNumber}}</span>
-				</div>
-			</li>
-			<div class="col-sm-12">
-				<ol type="1" class="list-item">
-					<div class="col-sm-12 bottom-buffer" ng-repeat="item in kpi.kpiGroupItems">
-						<div class="row criteria-title">
-							<div class="col-sm-9">
-								<span>{{$index + 1}}. {{item.name}} </span><span ng-show="!kpi.isSpreadKPI">({{item.weight}}%)</span>
-							</div>
-							<div class="col-sm-3 list-star">
-								<a ng-show="!isReadonly && item.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
-									title="Cancel" href="javascript:;" ng-click="cancelRating(item)"></a>
-								<rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
-									ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(item)"></rating>
-								<span class="badge percent" ng-show="item.percent > 0">{{item.percent}}%</span>
-								<span class="badge percent" ng-show="item.percent <= 0" data-translate="NotAvailable"></span>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-9 criteria-description" ng-show="item.description!=''">
-								{{item.description}}</div>
-						</div>
-						<div class="row ">
-							<div class="epa-error-message" ng-show="item.checkNullComment" data-translate="FieldRequire">
-							</div>
-							<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment criteria-comment"
-								ng-model="item.comment" ng-show="item.hasComment">{{item.comment}}</textarea>
-								<label ng-if="item.score > 0 && item.hasComment && item.isRequireComment" class="error-message" data-translate="*"></label>
-						</div>
-					</div>
-				</ol>
-			</div>
-		</div>
-	</ol>
-</div>
-<div class="col-sm-12 list-group-item">
-	<div class="boxtitle first" data-translate="Comments" style="text-transform:uppercase;">
-	</div>
-	<div class="row comment">
-		<div class="epa-error-message" ng-show="!generalCommentValid" data-translate="FieldRequire">
-		</div>
-		<textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment comment" ng-model="employeeEPA.comment"></textarea>
-		<label ng-if="employeeEPA.comment==null || employeeEPA.comment==''" class="error-message" data-translate="*"></label>
-		<div class="col-sm-3 pull-right">
-			<div class="total">
-				<p data-translate="Total">
-				</p>
-				<p class="finalscore">
-					{{finalScore | customNumber}}
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="txtRequired error-message">
-		{{"Note" | translate }}: (*) {{"RequiredField" | translate}} !
-	</div>
-</div>
-<div class="col-sm-12 action-button epa">
-	<button class="button" ng-if="!isReadonly && employeeEPA" ng-click="save(employeeEPA)"
-		data-translate="Save">
-	</button>
-	<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-	</button>
-</div>
+    <div class="epa-box-header epa-boxtitle" data-translate="ppa">
+    </div>
+    <div class="col-sm-12 list-group-item bottom-buffer">
+        <div class="boxtitle first" data-translate="GeneralInfo">
+        </div>
+        <div class="epa-boxcontent">
+            <div class="row infoUser">
+                <div class="col-sm-2 text-center top-buffer">
+                    <div class="row">
+                        <div class="img-user">
+                            <img class="img-default" src="http://www.gravatar.com/avatar/{{employeeEPA.gravatar}}"
+                                 alt="User" title="User">
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <span class="fullName">{{employeeEPA.fullName}}</span>
+                    </div>
+                    <div class="row text-center">
+                        <span class="domainUserName">{{employeeEPA.nickName}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-10 right-form">
+                    <div class="row row-item line">
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Code">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.code}}</strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Team">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.groupName}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-item line">
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Evaluator">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.pmNickName}} ({{employeeEPA.pmFullName}})</strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Project">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.projectName}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-item line">
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Roles">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeRole}}</strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Milestone">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.milestoneName}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-item line">
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="StartDate">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.startDate|customDate}}</strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="EndDate">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.endDate|customDate}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-item line" ng-show="employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null">
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="LastModifyBy">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.modifierNickName}} ({{employeeEPA.modifierFullName}})</strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="LastModifyDate">
+                            </div>
+                            <div class="col-sm-8 txt-value">
+                                <strong>{{employeeEPA.modifiedDate|customDate}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-item line">
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Status">
+                            </div>
+                            <div class="col-sm-8 txt-value" ng-show="employeeEPA != null">
+                                <span class="dropdown" on-toggle="toggled(open)">
+                                    <a ng-show="showMenuContext" href="javascript:;" class="dropdown-toggle changeStatus">
+                                        {{employeeEPA.status|epaStatus}}
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-width">
+                                        <li ng-repeat="item in epaStatus" ng-hide="item.id == employeeEPA.status">
+                                            <a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
+                                        </li>
+                                    </ul>
+                                </span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-3" data-translate="Evaluated">
+                            </div>
+                            <div class="col-sm-8" ng-show="employeeEPA != null">
+                                <div class="col-sm-12 txt-value" ng-show="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved">
+                                    <span class="glyphicon glyphicon-saved epa-saved"></span>
+                                </div>
+                                <div class="col-sm-12 txt-value" ng-hide="(employeeEPA.modifier > 0 && employeeEPA.modifiedDate != null) || dataSaved ">
+                                    <span class="glyphicon glyphicon-list-alt epa-unsaved"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 list-group-item bottom-buffer">
+        <div class="boxtitle first" id="ratingScale">
+            <span data-translate="RatingInstruction"></span>
+        </div>
+        <div class="epa-boxcontent">
+            <div class="row row-item line rating">
+                <span class="note">* {{"RatingCriteria" | translate}}:</span>
+                <span data-translate="MessageRatingInstructions"></span>
+                <div class="top-buffer" ng-include src="'/Templates/EPA/MyEPA/RatingScale.html'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 list-group-item">
+        <ol class="epa-criteria-ol" type="A">
+            <div class="col-sm-12" ng-repeat="kpi in employeeEPA.kpiInfo" ng-repeat-loaded>
+                <li class="boxtitle">
+                    {{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)
+                    <div class="pull-right">
+                        <span data-translate="GroupTotal"></span><span ng-show="kpi.groupFinalScore > 0">{{kpi.groupFinalScore | customNumber}}</span>
+                        <span ng-hide="kpi.groupFinalScore > 0">{{0 | customNumber}}</span>
+                    </div>
+                </li>
+                <div class="col-sm-12">
+                    <ol type="1" class="list-item">
+                        <div class="col-sm-12 bottom-buffer" ng-repeat="item in kpi.kpiGroupItems">
+                            <div class="row criteria-title">
+                                <div class="col-sm-9">
+                                    <span>{{$index + 1}}. {{item.name}} </span><span ng-show="!kpi.isSpreadKPI">({{item.weight}}%)</span>
+                                </div>
+                                <div class="col-sm-3 list-star">
+                                    <a ng-show="!isReadonly && item.score > 0" class="glyphicon glyphicon-remove-circle remove-star"
+                                       title="Cancel" href="javascript:;" ng-click="cancelRating(item)"></a>
+                                    <rating value="item.score" max="max" readonly="isReadonly" on-hover="hoveringOver(value, item)"
+                                            ng-class="{'star-buffer': isReadonly}" on-leave="hoveringLeave(item)"></rating>
+                                    <span class="badge percent" ng-show="item.percent > 0">{{item.percent}}%</span>
+                                    <span class="badge percent" ng-show="item.percent <= 0" data-translate="NotAvailable"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9 criteria-description" ng-show="item.description!=''">
+                                    {{item.description}}
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="epa-error-message" ng-show="item.checkNullComment" data-translate="FieldRequire">
+                                </div>
+                                <textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment criteria-comment"
+                                          ng-model="item.comment" ng-show="item.hasComment">
+                                    {{item.comment}}
+                                </textarea>
+                                <label ng-if="item.score > 0 && item.hasComment && item.isRequireComment" class="error-message" data-translate="*"></label>
+                            </div>
+                        </div>
+                    </ol>
+                </div>
+            </div>
+        </ol>
+    </div>
+    <div class="col-sm-12 list-group-item">
+        <div class="boxtitle first" data-translate="Comments" style="text-transform:uppercase;">
+        </div>
+        <div class="row comment">
+            <div class="epa-error-message" ng-show="!generalCommentValid" data-translate="FieldRequire">
+            </div>
+            <textarea ng-readonly="isReadonly" class="col-sm-9 epa-textarea-comment comment" ng-model="employeeEPA.comment"></textarea>
+            <label ng-if="employeeEPA.comment==null || employeeEPA.comment==''" class="error-message" data-translate="*"></label>
+            <div class="col-sm-3 pull-right">
+                <div class="total">
+                    <p data-translate="Total">
+                    </p>
+                    <p class="finalscore">
+                        {{finalScore | customNumber}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="txtRequired error-message">
+            {{"Note" | translate }}: (*) {{"RequiredField" | translate}} !
+        </div>
+    </div>
+    <div class="col-sm-12 action-button epa">
+        <button class="button" ng-if="!isReadonly && employeeEPA" ng-click="save(employeeEPA)"
+                data-translate="Save"></button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+    </div>
 </form>
