@@ -1,17 +1,10 @@
 ﻿// --------------------------------------------------------------------------
 // <copyright file="IMemberEPAService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.4.21">Created</change>
-//   <change who="Josh.Phan" date="2014.4.22">Added - GetEPAByEmployee</change>
-// </history>
-
 namespace NexEPA.MemberEPA.Services.Interface
 {
     using System.Collections.Generic;
     using NexEPA.Core.Models;
+    using NexEPA.Employee.Models;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MemberEPA;
@@ -57,5 +50,9 @@ namespace NexEPA.MemberEPA.Services.Interface
         string Decode(string cipherText);
 
         string ConvertKPIInfoToXML(List<GroupingKPIModel> kpiInfo);
+
+        CommandResult UpdateCommentEPA(UpdateEPACommentsCriteria criteria);
+
+        string ConvertEPACommentsToXML(IEnumerable<EmployeeModel> employees);
     }
 }

@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CoreEPAModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.07.07">Created</change>
-// </history>
-
-namespace NexEPA.Employee.Models
+﻿namespace NexEPA.Employee.Models
 {
     using System.Collections.Generic;
     using NexEPA.KPI.Model;
@@ -21,6 +12,10 @@ namespace NexEPA.Employee.Models
         {
             KPIItems = new List<KPIModel>();
         }
+
+        public int EPAId { get; set; }
+
+        public string  Comment { get; set; }
 
         public int KPIGroupId { get; set; }
 

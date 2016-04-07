@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="KPIModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.18">Created</change>
-// </history>
-
-namespace NexEPA.KPI.Model
+﻿namespace NexEPA.KPI.Model
 {
     using NexEPA.Core.Models;
 

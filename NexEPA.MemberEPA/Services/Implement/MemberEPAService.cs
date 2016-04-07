@@ -21,6 +21,7 @@ namespace NexEPA.MemberEPA.Services.Implement
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
     using NexEPA.Core.Utilities;
+    using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
@@ -35,9 +36,9 @@ namespace NexEPA.MemberEPA.Services.Implement
     /// </summary>
     public class MemberEPAService : BaseService, IMemberEPAService
     {
-        private readonly IMemberEPARepository _memberEPARepository;
+        private readonly IMemberEPARepository memberEPARepository;
 
-        private readonly IEncodeService _encodeService;
+        private readonly IEncodeService encodeService;
 
         public MemberEPAService()
             : this(null, null)
@@ -46,8 +47,8 @@ namespace NexEPA.MemberEPA.Services.Implement
 
         public MemberEPAService(IMemberEPARepository memberEPARepository, IEncodeService encodeService)
         {
-            _memberEPARepository = memberEPARepository ?? new MemberEPARepository();
-            _encodeService = encodeService ?? new EncodeService();
+            this.memberEPARepository = memberEPARepository ?? new MemberEPARepository();
+            this.encodeService = encodeService ?? new EncodeService();
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                result = _memberEPARepository.GetEPAInfo(criteria);
+                result = memberEPARepository.GetEPAInfo(criteria);
 
                 if (result != null)
                 {
@@ -86,7 +87,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                employeeEPAs = (List<MemberEPAModel>)_memberEPARepository.GetEPAByEmployee(criteria);
+                employeeEPAs = (List<MemberEPAModel>)memberEPARepository.GetEPAByEmployee(criteria);
 
                 foreach (var employeeEPA in employeeEPAs)
                 {
@@ -127,7 +128,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                employees = (List<MemberEPAModel>)_memberEPARepository.GetEPAOfEmployeeByManager(criteria);
+                employees = (List<MemberEPAModel>)memberEPARepository.GetEPAOfEmployeeByManager(criteria);
 
                 foreach (var employee in employees)
                 {
@@ -206,7 +207,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                appraisalList = _memberEPARepository.GetAppraisalForm(criteria);
+                appraisalList = memberEPARepository.GetAppraisalForm(criteria);
 
                 foreach (AppraisalFormModel rawAppraisalFormItem in appraisalList)
                 {
@@ -265,7 +266,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                appraisal = _memberEPARepository.GetAppraisalFormById(criteria);
+                appraisal = memberEPARepository.GetAppraisalFormById(criteria);
 
                 if (appraisal != null)
                 {
@@ -369,12 +370,12 @@ namespace NexEPA.MemberEPA.Services.Implement
 
         public string Encode(string plainText)
         {
-            return _encodeService.Encode(plainText);
+            return encodeService.Encode(plainText);
         }
 
         public string Decode(string cipherText)
         {
-            return _encodeService.Decode(cipherText);
+            return encodeService.Decode(cipherText);
         }
 
         /// <summary>
@@ -458,7 +459,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (KPIModel kpiItem in kpiOfGroup)
                 {
                     string plainScore = !string.IsNullOrEmpty(kpiItem.Score) ? Decode(kpiItem.Score).Replace("_" + kpiItem.KPIId, string.Empty) : string.Empty;
-                    kpiItem.Percent = !string.IsNullOrEmpty(plainScore) ? int.Parse(plainScore) * 20 : 0;
+                    kpiItem.Percent = !string.IsNullOrEmpty(plainScore) ? int.Parse(plainScore) * 10 : 0;
                     kpiItem.Score = plainScore;
                 }
             }
@@ -502,6 +503,32 @@ namespace NexEPA.MemberEPA.Services.Implement
             }
 
             return groupMemberEPAs;
+        }
+
+        public CommandResult UpdateCommentEPA(UpdateEPACommentsCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        public string ConvertEPACommentsToXML(IEnumerable<EmployeeModel> employees)
+        {
+            StringBuilder epaPattern = new StringBuilder(Constants.BeginRootTag);
+
+            foreach (EmployeeModel employee in employees)
+            {
+                epaPattern.AppendFormat(Constants.EPAComments, employee.EPA.EPAId, employee.EPA.Comment);
+            }
+
+            epaPattern.Append(Constants.EndRootTag);
+            return epaPattern.ToString();
         }
     }
 }

@@ -376,8 +376,8 @@ namespace NexEPA.Target.Services.Implement
         {
             foreach (EmployeeModel employee in employees)
             {
-                IEnumerable<TemporaryEPAModel> kpiItemsOfEmployee = kpiItems.Where(item =>
-                                                                item.EmployeeId == employee.EmployeeId);
+                IEnumerable<TemporaryEPAModel> kpiItemsOfEmployee = kpiItems.Where(item => 
+                    item.EmployeeId == employee.EmployeeId);
                 employee.EPAInfo = GetEPAInformationOfEmployeeDetails(kpiItemsOfEmployee);
             }
 
@@ -419,7 +419,7 @@ namespace NexEPA.Target.Services.Implement
                             Score = kpiScore,
                             Weight = rawKPIItem.Weight,
                             Comment = rawKPIItem.Comment,
-                            Percent = !string.IsNullOrEmpty(kpiScore) ? int.Parse(kpiScore) * 20 : 0
+                            Percent = !string.IsNullOrEmpty(kpiScore) ? int.Parse(kpiScore) * 10 : 0
                         };
 
                         epaInfo.KPIItems.Add(kpiItem);

@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="Criteria\InsertAppraisalFormCriteria.cs" />
     <Compile Include="Criteria\UpdateAppraisalFormCriteria.cs" />
+    <Compile Include="Criteria\UpdateEPACommentsCriteria.cs" />
     <Compile Include="Criteria\UpdateEPAStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKPIScoreCriteria.cs" />
     <Compile Include="Criteria\UpdateStatusAppraisalFormCriteria.cs">

@@ -63,7 +63,7 @@ var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
     $routeProvider.when('/EmployeeEPA/Index', { templateUrl: '../templates/EPA/MyEPA/Index.html', controller: 'EmployeeEPAController' });
 
     $routeProvider.when('/MemberEPA/ViewCurrentMember',
-		{ templateUrl: '/templates/EPA/MemberEPA/ViewCurrentMember.html', controller: 'ViewCurrentMemberEPAController' });
+        { templateUrl: '/templates/EPA/MemberEPA/ViewCurrentMember.html', controller: 'ViewCurrentMemberEPAController' });
 
     $routeProvider.when('/MemberEPA/ViewMember',
 		{ templateUrl: '/templates/EPA/MemberEPA/ViewAllMemberOfManager.html', controller: 'ViewMemberByManagerEPAController' });

@@ -61,14 +61,11 @@
                         <tr ng-repeat="employee in employees">
                             <td ng-bind="$index + 1"></td>
                             <td>
-                                <span tooltip={{employee.fullName}}>
-                                    {{employee.nickName}}
+                                <span ng-bind="employee.nickName" tooltip={{employee.fullName}}>
                                 </span>
                             </td>
                             <td>
-                                <span tooltip="{{employee.group.name}}">
-                                    {{employee.group.code}}
-                                </span>
+                                <span ng-bind="employee.group.code" tooltip="{{employee.group.name}}"></span>
                             </td>
                             <td ng-bind="employee.jobTitle.name"></td>
                             <td>
@@ -88,11 +85,10 @@
                                 <textarea ng-model="employee.kpiItem.comment"
                                           ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
                             </td>
-                            <td class="target-center">
-                                {{employee.finalScore | customNumber}}
+                            <td ng-bind="employee.finalScore | customNumber" class="target-center">
                             </td>
-                            <td ng-model="employee.kpiItem.overallcomment">
-                                <textarea></textarea>
+                            <td>
+                                <textarea ng-model="employee.epa.comment"></textarea>
                             </td>
                         </tr>
                     </table>

@@ -125,14 +125,15 @@ namespace NexEPA.Target.Repositories.Implement
                 {
                     var temporaryEPA = new TemporaryEPAAndEmployeeModel();
 
-                    temporaryEPA.Employees = multi.Read<EmployeeModel, JobTitle, Group, EmployeeModel>(
-                        (emp, job, gr) =>
+                    temporaryEPA.Employees = multi.Read<EmployeeModel, JobTitle, Group, CoreEPAModel, EmployeeModel>(
+                        (emp, job, gr, epa) =>
                         {
                             emp.JobTitle = job;
                             emp.Group = gr;
+                            emp.EPA = epa;
                             return emp;
                         },
-                        "JobTitleId,GroupId");
+                        "JobTitleId, GroupId, EPAId");
 
                     temporaryEPA.RawEPAs = multi.Read<TemporaryEPAModel>();
 

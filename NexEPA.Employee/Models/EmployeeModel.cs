@@ -53,6 +53,8 @@ namespace NexEPA.Employee.Models
 
         public List<CoreEPAModel> EPAInfo { get; set; }
 
+        public CoreEPAModel EPA { get; set; }
+
         public string FinalScore { get; set; }
     }
 }

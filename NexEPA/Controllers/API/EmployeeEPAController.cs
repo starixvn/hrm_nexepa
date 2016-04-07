@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeEPAController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.4.21">Created</change>
-//   <change who="Josh.Phan" date="2014.4.22">Added - GetEPAByEmployee</change>
-// </history>
-
-namespace NexEPA.Controllers.API
+﻿namespace NexEPA.Controllers.API
 {
     using System;
     using System.Collections.Generic;
@@ -24,6 +14,7 @@ namespace NexEPA.Controllers.API
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Services.Implement;
     using NexEPA.MemberEPA.Services.Interface;
+    using NexEPA.Target.Models;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
     using NexEPA.Web.Services.Impl;
@@ -35,9 +26,9 @@ namespace NexEPA.Controllers.API
     public class EmployeeEPAController : BaseController
     {
         private const string _ShowFullEPACommentKey = "showFullEPAComment";
-        private readonly IMemberEPAService _memberEPAService;
+        private readonly IMemberEPAService memberEPAService;
 
-        private ICommonService _commonService;
+        private ICommonService commonService;
 
         public EmployeeEPAController()
             : this(null, null)
@@ -46,8 +37,8 @@ namespace NexEPA.Controllers.API
 
         public EmployeeEPAController(IMemberEPAService memberEPAService, ICommonService commonService)
         {
-            this._memberEPAService = memberEPAService ?? new MemberEPAService();
-            this._commonService = commonService ?? new CommonService();
+            this.memberEPAService = memberEPAService ?? new MemberEPAService();
+            this.commonService = commonService ?? new CommonService();
         }
 
         /// <summary>
@@ -65,13 +56,13 @@ namespace NexEPA.Controllers.API
                 EmployeeId = model.EmployeeId,
                 EvaluatorId = model.ProjectManagerId,
                 Comment = model.Comment,
-                Score = _memberEPAService.Encode(model.FinalScore),
-                KPIs = _memberEPAService.ConvertKPIInfoToXML(model.KPIInfo),
+                Score = memberEPAService.Encode(model.FinalScore),
+                KPIs = memberEPAService.ConvertKPIInfoToXML(model.KPIInfo),
                 MarkedBy = this.CurrentUser.UserId,
                 MarkedDate = DateTime.Now
             };
 
-            CommandResult result = _memberEPAService.AddOrUpdateEmployeeEPA(criteria);
+            CommandResult result = memberEPAService.AddOrUpdateEmployeeEPA(criteria);
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
@@ -119,7 +110,7 @@ namespace NexEPA.Controllers.API
                 EmployeeId = employeeId,
                 TargetId = targetId
             };
-            int permission = _memberEPAService.CheckEmployeePermission(checkPermissionCriteria);
+            int permission = memberEPAService.CheckEmployeePermission(checkPermissionCriteria);
 
             switch (permission)
             {
@@ -147,7 +138,7 @@ namespace NexEPA.Controllers.API
                 Status = status
             };
 
-            return _memberEPAService.GetEPAByEmployee(criteria);
+            return memberEPAService.GetEPAByEmployee(criteria);
         }
 
         /// <summary>
@@ -187,7 +178,7 @@ namespace NexEPA.Controllers.API
                 IsShowAll = isShowAll
             };
 
-            return _memberEPAService.GetEPAOfEmployeeByManager(criteria);
+            return memberEPAService.GetEPAOfEmployeeByManager(criteria);
         }
 
         /// <summary>
@@ -207,7 +198,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = _memberEPAService.UpdateEPAStatus(updateEPAStatusCriteria);
+            CommandResult result = memberEPAService.UpdateEPAStatus(updateEPAStatusCriteria);
             if (result.Code != 0)
             {
                 var warningMessage = new List<string>() { result.Message };
@@ -224,7 +215,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public int GetPermission()
         {
-            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageMemberEPA);
+            int policy = commonService.GetPermission(EPAFunctionKeys.ManageMemberEPA);
             return policy;
         }
 
@@ -252,7 +243,7 @@ namespace NexEPA.Controllers.API
                 Keyword = keyword
             };
 
-            return _memberEPAService.GetAppraisalForm(criteria);
+            return memberEPAService.GetAppraisalForm(criteria);
         }
 
         /// <summary>
@@ -270,7 +261,7 @@ namespace NexEPA.Controllers.API
                 criteria.CreatedDate = DateTime.Now;
             }
 
-            return _memberEPAService.InsertAppraisalForm(criteria);
+            return memberEPAService.InsertAppraisalForm(criteria);
         }
 
         [HttpGet]
@@ -278,7 +269,7 @@ namespace NexEPA.Controllers.API
         {
             var criteria = new GetAllProcessPeriodCriteria();
 
-            return _memberEPAService.GetAllProcessPeriod(criteria);
+            return memberEPAService.GetAllProcessPeriod(criteria);
         }
 
         /// <summary>
@@ -295,7 +286,7 @@ namespace NexEPA.Controllers.API
                 EPAId = epaId
             };
 
-            return _memberEPAService.GetAppraisalFormById(criteria);
+            return memberEPAService.GetAppraisalFormById(criteria);
         }
 
         [HttpPut]
@@ -308,7 +299,7 @@ namespace NexEPA.Controllers.API
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _memberEPAService.UpdateAppraisalForm(criteria);
+            return memberEPAService.UpdateAppraisalForm(criteria);
         }
 
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Host)]
@@ -321,7 +312,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            return _memberEPAService.DeleteAppraisalForm(criteria);
+            return memberEPAService.DeleteAppraisalForm(criteria);
         }
 
         [HttpPut]
@@ -334,13 +325,13 @@ namespace NexEPA.Controllers.API
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _memberEPAService.UpdateStatusAppraisalForm(criteria);
+            return memberEPAService.UpdateStatusAppraisalForm(criteria);
         }
 
         [HttpGet]
         public int GetAppraisalFormPermission()
         {
-            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageAppraisalForm);
+            int policy = commonService.GetPermission(EPAFunctionKeys.ManageAppraisalForm);
             return policy;
         }
 
@@ -353,7 +344,7 @@ namespace NexEPA.Controllers.API
                 ActorUserId = this.CurrentUser.UserId
             };
 
-            return _memberEPAService.GetUserPermissionOnTarget(criteria);
+            return memberEPAService.GetUserPermissionOnTarget(criteria);
         }
 
         [HttpGet]
@@ -384,9 +375,26 @@ namespace NexEPA.Controllers.API
                 TargetId = targetId
             };
 
-            data = _memberEPAService.GetEPAInfo(getEPAInfoCriteria);
+            data = memberEPAService.GetEPAInfo(getEPAInfoCriteria);
 
             return data;
+        }
+
+        [HttpPut]
+        public HttpResponseMessage UpdateCommentEPA(EPAInfoKPIModel model)
+        {
+            var criteria = new UpdateEPACommentsCriteria()
+            {
+                Comments = memberEPAService.ConvertEPACommentsToXML(model.Employees)
+            };
+            CommandResult result = memberEPAService.UpdateCommentEPA(criteria);
+
+            if (result.Code != 0)
+            {
+                var errorMessage = new List<string>() { result.Message };
+                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

@@ -27,6 +27,8 @@ namespace NexEPA.Core.Constants
 
         public const string TargetEPAScore = "<Employee EmployeeId='{0}' Score='{1}' Comment='{2}' AverageScore='{3}'></Employee>";
 
+        public const string EPAComments = "<EPA EPAId='{0}' Comment='{1}'></EPA>";
+
         public const string BeginRootTag = "<ROOT>";
 
         public const string EndRootTag = "</ROOT>";

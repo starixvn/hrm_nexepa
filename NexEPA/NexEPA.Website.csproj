@@ -485,7 +485,52 @@
     </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\NexEPA.Authority\NexEPA.Authority.csproj">
+      <Project>{612da4c6-d37e-4a4c-a1ce-2789456afb16}</Project>
+      <Name>NexEPA.Authority</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
+      <Project>{c645778b-c5c6-41c2-a123-6bcc5c840dd1}</Project>
+      <Name>NexEPA.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Employee\NexEPA.Employee.csproj">
+      <Project>{80c95eaa-b6bc-4e4f-93b9-df0312d0c425}</Project>
+      <Name>NexEPA.Employee</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.KPI\NexEPA.KPI.csproj">
+      <Project>{ec6531e6-095e-4e78-ba9d-c1ebaa0b3547}</Project>
+      <Name>NexEPA.KPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.MemberEPA\NexEPA.MemberEPA.csproj">
+      <Project>{1f538ed7-deab-4b01-ab0b-efb91b0b7e0f}</Project>
+      <Name>NexEPA.MemberEPA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Organization\NexEPA.Organization.csproj">
+      <Project>{d1ebeb7c-8cd8-4c0d-8049-f29eb5e8d965}</Project>
+      <Name>NexEPA.Organization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Project\NexEPA.Project.csproj">
+      <Project>{0ae3231a-653b-4c11-a01c-e34a0cb1a30b}</Project>
+      <Name>NexEPA.Project</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Report\NexEPA.Report.csproj">
+      <Project>{9fdd57e5-031e-4813-b836-a444f8c3a111}</Project>
+      <Name>NexEPA.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Resources\NexEPA.Resources.csproj">
+      <Project>{ed674458-9368-45cf-ab91-63280f79cba5}</Project>
+      <Name>NexEPA.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Target\NexEPA.Target.csproj">
+      <Project>{f8b34f7a-9461-4861-a5ba-b69b4c9302da}</Project>
+      <Name>NexEPA.Target</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexEPA.Web\NexEPA.Web.csproj">
+      <Project>{61f58e59-eae1-497f-9b08-595c4330c9bd}</Project>
+      <Name>NexEPA.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -541,52 +586,6 @@
     <None Include="Scripts\Libs\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NexEPA.Authority\NexEPA.Authority.csproj">
-      <Project>{612DA4C6-D37E-4A4C-A1CE-2789456AFB16}</Project>
-      <Name>NexEPA.Authority</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Core\NexEPA.Core.csproj">
-      <Project>{C645778B-C5C6-41C2-A123-6BCC5C840DD1}</Project>
-      <Name>NexEPA.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Employee\NexEPA.Employee.csproj">
-      <Project>{80C95EAA-B6BC-4E4F-93B9-DF0312D0C425}</Project>
-      <Name>NexEPA.Employee</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.MemberEPA\NexEPA.MemberEPA.csproj">
-      <Project>{1F538ED7-DEAB-4B01-AB0B-EFB91B0B7E0F}</Project>
-      <Name>NexEPA.MemberEPA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Organization\NexEPA.Organization.csproj">
-      <Project>{D1EBEB7C-8CD8-4C0D-8049-F29EB5E8D965}</Project>
-      <Name>NexEPA.Organization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Project\NexEPA.Project.csproj">
-      <Project>{0AE3231A-653B-4C11-A01C-E34A0CB1A30B}</Project>
-      <Name>NexEPA.Project</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Report\NexEPA.Report.csproj">
-      <Project>{9FDD57E5-031E-4813-B836-A444F8C3A111}</Project>
-      <Name>NexEPA.Report</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Resources\NexEPA.Resources.csproj">
-      <Project>{ED674458-9368-45CF-AB91-63280F79CBA5}</Project>
-      <Name>NexEPA.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.KPI\NexEPA.KPI.csproj">
-      <Project>{EC6531E6-095E-4E78-BA9D-C1EBAA0B3547}</Project>
-      <Name>NexEPA.KPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Target\NexEPA.Target.csproj">
-      <Project>{F8B34F7A-9461-4861-A5BA-B69B4C9302DA}</Project>
-      <Name>NexEPA.Target</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexEPA.Web\NexEPA.Web.csproj">
-      <Project>{61F58E59-EAE1-497F-9B08-595C4330C9BD}</Project>
-      <Name>NexEPA.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

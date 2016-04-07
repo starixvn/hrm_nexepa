@@ -129,7 +129,7 @@
                                             <a ng-click="updateEPAStatus(employeeEPA, item.id)" href="javascript:;">{{item.name}}</a>
                                         </li>
                                     </ul>
-                                </span><strong ng-show="!showMenuContext">{{employeeEPA.status|epaStatus}}</strong>
+                                </span><strong ng-show="!showMenuContext">{{employeeEPA.status | epaStatus}}</strong>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -168,7 +168,8 @@
                 <li class="boxtitle">
                     {{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)
                     <div class="pull-right">
-                        <span data-translate="GroupTotal"></span><span ng-show="kpi.groupFinalScore > 0">{{kpi.groupFinalScore | customNumber}}</span>
+                        <span data-translate="GroupTotal"></span>
+                        <span ng-show="kpi.groupFinalScore > 0">{{kpi.groupFinalScore | customNumber}}</span>
                         <span ng-hide="kpi.groupFinalScore > 0">{{0 | customNumber}}</span>
                     </div>
                 </li>
