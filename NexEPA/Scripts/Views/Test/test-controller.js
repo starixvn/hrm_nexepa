@@ -3,29 +3,33 @@
 
 
 testModule.controller("LoginAsAnotherUserController",
-	['$scope', '$window', 'employeeRepository', 'notificationFactory', 'testFactory',
-	function ($scope, $window, employeeRepository, notificationFactory, testFactory) {
+    ['$scope', '$window', 'employeeRepository', 'notificationFactory', 'testFactory',
+        function ($scope, $window, employeeRepository, notificationFactory, testFactory) {
 
-		$scope.search = {
-			searchKey: ''
-		};
+            $scope.search = {
+                searchKey: ''
+            };
 
-		// get all employee
-		$scope.getEmployee = function (searchKey) {
-			employeeRepository.getAllEmployee(searchKey, null).success(function (employees) {
-				$scope.searchEmployees = employees;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
-			});
-		};
+            // get all employee
+            $scope.getEmployee = function (searchKey) {
+                employeeRepository.getAllEmployee(searchKey, null)
+                    .success(function (employees) {
+                        $scope.searchEmployees = employees;
+                    })
+                    .error(function () {
+                        notificationFactory.error("ErrorMessage");
+                    });
+            };
 
-		$scope.loginAsAnotherUser = function (employee) {
-			testFactory.loginAsAnotherUser(employee.domainUsername).success(function (code) {
-				if (parseInt(code) === 0) {
-					$window.location.reload();
-				}
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
-			});
-		};
-} ]); 
+            $scope.loginAsAnotherUser = function (employee) {
+                testFactory.loginAsAnotherUser(employee.domainUsername)
+                    .success(function (code) {
+                        if (parseInt(code) === 0) {
+                            $window.location.reload();
+                        }
+                    })
+                    .error(function () {
+                        notificationFactory.error("ErrorMessage");
+                    });
+            };
+        }]);

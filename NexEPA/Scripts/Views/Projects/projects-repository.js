@@ -96,6 +96,9 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
             });
 
             return deferred.promise;
+        },
+        getAllProject: function (keyword) {
+            return $http.get('/api/Project/RetrieveAllRedmineProjects/', { params: { keyWord: keyword } });
         }
     };
 }]);

@@ -78,7 +78,7 @@ namespace NexEPA.Project.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                projects = this.GetData<RedmineProjectModel>(criteria).ToList();
+                projects = GetData<RedmineProjectModel>(criteria).ToList();
             }
 
             return projects;

@@ -1,72 +1,78 @@
 ﻿<div class="row sub-header">
-	<ul class="col-xs-12 breadcrumb list-inline pull-left">
-		<li>
-			<a href="/Projects/Index" data-translate="Project"></a>
-		</li>
-		<li class="current" data-translate="AddProject"></li>
-	</ul>
+    <ul class="col-xs-12 breadcrumb list-inline pull-left">
+        <li>
+            <a href="/Projects/Index" data-translate="Project"></a>
+        </li>
+        <li class="current" data-translate="AddProject"></li>
+    </ul>
 </div>
 <div class="row">
-	<form class="col-sm-6 form-horizontal common-form" name="projectForm" novalidate>
-		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="ProjectName" />
-			<div class="col-sm-8">
-				<input class="form-control" type="text" name="projectName" ng-model="project.name"
-					maxlength="200" placeholder="Project Name" required />
-			</div>
-		</div>
-		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="StartDate">
-			</label>
-			<div class="col-sm-8">
-				<input type="text" class="custom-textbox custom-date" ng-model="project.startDate"
-					is-open="calendar.startDateOpened" placeholder="Start Date" datepicker-popup="{{dateFormat}}"
-					id="startDate" readonly required name="startDate"/>
-				<calendar-image ng-click="openPopupStartDate($event)"></calendar-image>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-3 control-label" data-translate="EndDate">
-			</label>
-			<div class="col-sm-8">
-				<input type="text" class="custom-textbox custom-date" ng-model="project.endDate"
-					is-open="calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{dateFormat}}"
-					id="endDate" readonly required />
-				<calendar-image ng-click="openPopupEndDate($event)"></calendar-image>
-			</div>
-		</div>
-		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="PM">
-			</label>
-			<div class="col-sm-8">
-				<select class="form-control" ng-model="project.projectManager" required name="projectManager">
-					<option style="display: none" value="">-- Select a Project Manager --</option>
-					<option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
-				</select>
-			</div>
-		</div>
-		<div class="form-group required">
-			<label class="col-sm-3 control-label" data-translate="Status">
-			</label>
-			<div class="col-sm-8">
-				<select class="form-control" name="status" ng-options="s.id as s.name for s in status" ng-model="project.status"
-					required>
-					<option style="display: none" value="">-- Select a status --</option>
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-3 control-label" data-translate="Description">
-			</label>
-			<div class="col-sm-8">
-				<textarea class="form-control" ng-model="project.description" maxlength="500"></textarea>
-			</div>
-		</div>
-		<div class="col-sm-offset-5">
-			<button class="button" ng-click="save(project)" ng-disabled="disabledSubmit" data-translate="Submit">
-			</button>
-			<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-			</button>
-		</div>
-	</form>
+    <form class="col-sm-6 form-horizontal common-form" name="projectForm" novalidate>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label" data-translate="ProjectRedmineName" />
+            <div class="col-sm-8">
+                <input class="form-control" type="text" ng-change="getProjects(project.name)"
+                       ng-model="project.name" maxlength="200" placeholder="Project Redmine Name" required
+                       search-project-auto-complete search-key="search.searchKey" search-projects="searchProjects" project="project" />
+            </div>
+        </div>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label" data-translate="ProjectName" />
+            <div class="col-sm-8">
+                <input class="form-control" type="text" name="projectName" ng-model="project.name"
+                       maxlength="200" placeholder="Project Name" required />
+            </div>
+        </div>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label" data-translate="StartDate">
+            </label>
+            <div class="col-sm-8">
+                <input type="text" class="custom-textbox custom-date" ng-model="project.startDate"
+                       is-open="calendar.startDateOpened" placeholder="Start Date" datepicker-popup="{{dateFormat}}"
+                       id="startDate" readonly required name="startDate" />
+                <calendar-image ng-click="openPopupStartDate($event)"></calendar-image>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-translate="EndDate">
+            </label>
+            <div class="col-sm-8">
+                <input type="text" class="custom-textbox custom-date" ng-model="project.endDate"
+                       is-open="calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{dateFormat}}"
+                       id="endDate" readonly required />
+                <calendar-image ng-click="openPopupEndDate($event)"></calendar-image>
+            </div>
+        </div>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label" data-translate="PM">
+            </label>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="project.projectManager" required name="projectManager">
+                    <option style="display: none" value="">-- Select a Project Manager --</option>
+                    <option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group required">
+            <label class="col-sm-3 control-label" data-translate="Status">
+            </label>
+            <div class="col-sm-8">
+                <select class="form-control" name="status" ng-options="s.id as s.name for s in status" ng-model="project.status"
+                        required>
+                    <option style="display: none" value="">-- Select a status --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-translate="Description">
+            </label>
+            <div class="col-sm-8">
+                <textarea class="form-control" ng-model="project.description" maxlength="500"></textarea>
+            </div>
+        </div>
+        <div class="col-sm-offset-5">
+            <button class="button" ng-click="save(project)" ng-disabled="disabledSubmit" data-translate="Submit"></button>
+            <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+        </div>
+    </form>
 </div>

@@ -17,6 +17,8 @@ namespace NexEPA.Project.Criteria.Project
     /// </summary>
     public class GetAllRedmineProjectsCriteria : CriteriaBase
     {
+        public string ProjectName { get; set; }
+
         public override bool IsValid()
         {
             return true;

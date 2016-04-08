@@ -323,9 +323,12 @@ namespace NexEPA.Controllers.API
         /// </summary>        
         /// <returns>The redmine projects of users.</returns>
         [HttpGet]
-        public IEnumerable<SelectListModel> RetrieveAllRedmineProjects()
+        public IEnumerable<SelectListModel> RetrieveAllRedmineProjects(string keyWord = null)
         {
-            var criteria = new GetAllRedmineProjectsCriteria();
+            var criteria = new GetAllRedmineProjectsCriteria() 
+            {
+                ProjectName = keyWord
+            };
 
             var projects = _projectService.GetAllRedmineProjects(criteria);
             var result = projects.Select(p => new SelectListModel { Id = p.ProjectId, Name = p.ProjectName });

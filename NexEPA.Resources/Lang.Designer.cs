@@ -1780,6 +1780,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project Redmine Name.
+        /// </summary>
+        public static string ProjectRedmineName {
+            get {
+                return ResourceManager.GetString("ProjectRedmineName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Project field is required!.
         /// </summary>
         public static string ProjectRequire {

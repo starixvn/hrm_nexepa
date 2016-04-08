@@ -942,4 +942,7 @@
   <data name="SyncProjectFromRedmine" xml:space="preserve">
     <value>Sync Project From Redmine</value>
   </data>
+  <data name="ProjectRedmineName" xml:space="preserve">
+    <value>Project Redmine Name</value>
+  </data>
 </root>
