@@ -219,5 +219,18 @@ namespace NexEPA.Project.Services.Implement
 
             return result;
         }
+
+        public IList<RedmineProjectModel> GetRedmineProject(GetRedmineProjectCriteria criteria)
+        {
+            IList<RedmineProjectModel> projects = new List<RedmineProjectModel>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
+            {
+                projects = _projectRepository.GetRedmineProject(criteria);
+            }
+
+            return projects;
+        }
     }
 }

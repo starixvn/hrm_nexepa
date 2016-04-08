@@ -19,5 +19,7 @@ namespace NexEPA.Project.Repositories.Interface
     public interface IProjectRepository
     {
         List<ProjectInformationModel> GetAllProject(ICriteria criteria);
+
+        IList<RedmineProjectModel> GetRedmineProject(ICriteria criteria);
     }
 }

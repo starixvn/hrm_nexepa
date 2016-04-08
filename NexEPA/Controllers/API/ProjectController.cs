@@ -222,6 +222,20 @@ namespace NexEPA.Controllers.API
             return project;
         }
 
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineProject, Policy = Policy.Read)]
+        public IList<RedmineProjectModel> GetRedmineProject(int monthPeriod)
+        {
+            var criteria = new GetRedmineProjectCriteria
+            {
+                MonthPeriod = monthPeriod
+            };
+
+            IList<RedmineProjectModel> projects = _projectService.GetRedmineProject(criteria);
+
+            return projects;
+        }
+
         /// <summary>
         /// Get permission of user on current function.
         /// </summary>

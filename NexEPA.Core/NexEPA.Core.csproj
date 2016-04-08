@@ -59,6 +59,7 @@
     <Compile Include="Enums\RolesSystem.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Extensions\StringValueAttribute.cs" />
+    <Compile Include="Models\CommonEmployeeModel.cs" />
     <Compile Include="Models\RedmineIssueModel.cs" />
     <Compile Include="Models\RedmineYearMonthModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />

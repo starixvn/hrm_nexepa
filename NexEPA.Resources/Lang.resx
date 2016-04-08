@@ -930,4 +930,16 @@
   <data name="OverallComment" xml:space="preserve">
     <value>Overall Comment</value>
   </data>
+  <data name="ActivityPeriod" xml:space="preserve">
+    <value>Activity Period</value>
+  </data>
+  <data name="AllProjectGroup" xml:space="preserve">
+    <value>-- All project groups --</value>
+  </data>
+  <data name="ProjectGroup" xml:space="preserve">
+    <value>Project Group</value>
+  </data>
+  <data name="SyncProjectFromRedmine" xml:space="preserve">
+    <value>Sync Project From Redmine</value>
+  </data>
 </root>

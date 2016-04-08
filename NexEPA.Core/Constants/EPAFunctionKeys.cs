@@ -65,5 +65,7 @@ namespace NexEPA.Core.Constants
         public const string ResourcePlanningReport = "ResourcePlanningReport";
 
         public const string ManageGroupProject = "ManageGroupProject";
+
+        public const string SyncRedmineProject = "SyncRedmineProject";
     }
 }

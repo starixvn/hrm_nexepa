@@ -15,6 +15,7 @@ var projectsSettingModule = angular.module("projectsSettingModule", ['ngRoute', 
     { templateUrl: '/templates/ProjectMembers/Create.html', controller: 'AddProjectMembersController' });
     $routeProvider.when('/ProjectMembers/Edit/ProjectId=:projectId/EmployeeId=:employeeId',
      { templateUrl: '/templates/ProjectMembers/Edit.html', controller: 'EditProjectMembersController' });
+    $routeProvider.when('/Project/SyncRedmineProject', { templateUrl: '../templates/Projects/SyncRedmineProject.html'});
 }])
 .factory("ProjectSettingCache", ['$cacheFactory', function ($cacheFactory) {
     return $cacheFactory();
@@ -47,13 +48,13 @@ var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'n
     $routeProvider.when('/TargetTemplate/Create', { templateUrl: '../templates/TargetTemplate/Create.html', controller: 'CreateTargetTemplateController' });
 
     $routeProvider.when('/TargetTemplate/Edit/:targetTemplateId',
-	{ templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
+    { templateUrl: '/templates/TargetTemplate/Edit.html', controller: 'EditTargetTemplateController' });
 
     $routeProvider.when('/TargetTemplate/Details/:targetTemplateId',
-	{ templateUrl: '/templates/TargetTemplate/Details.html', controller: 'DetailTargetTemplateController' });
+    { templateUrl: '/templates/TargetTemplate/Details.html', controller: 'DetailTargetTemplateController' });
 
     $routeProvider.when('/TargetEmployeeSetting/Index',
-	{ templateUrl: '/templates/TargetEmployeeSetting/Index.html', controller: 'ViewTargetEmployeeSettingController' });
+    { templateUrl: '/templates/TargetEmployeeSetting/Index.html', controller: 'ViewTargetEmployeeSettingController' });
 }]);
 
 var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
@@ -66,16 +67,16 @@ var epaModule = angular.module("epaModule", ['ngRoute', 'ngResource'])
         { templateUrl: '/templates/EPA/MemberEPA/ViewCurrentMember.html', controller: 'ViewCurrentMemberEPAController' });
 
     $routeProvider.when('/MemberEPA/ViewMember',
-		{ templateUrl: '/templates/EPA/MemberEPA/ViewAllMemberOfManager.html', controller: 'ViewMemberByManagerEPAController' });
+        { templateUrl: '/templates/EPA/MemberEPA/ViewAllMemberOfManager.html', controller: 'ViewMemberByManagerEPAController' });
 
     $routeProvider.when('/AppraisalForm/Index',
-		{ templateUrl: '/templates/AppraisalForm/Index.html', controller: 'ViewAppraisalFormController' });
+        { templateUrl: '/templates/AppraisalForm/Index.html', controller: 'ViewAppraisalFormController' });
 
     $routeProvider.when('/AppraisalForm/Create',
-		{ templateUrl: '/templates/AppraisalForm/Create.html', controller: 'CreateAppraisalFormController' });
+        { templateUrl: '/templates/AppraisalForm/Create.html', controller: 'CreateAppraisalFormController' });
 
     $routeProvider.when('/AppraisalForm/Edit/:id',
-		{ templateUrl: '/templates/AppraisalForm/Edit.html', controller: 'EditAppraisalFormController' });
+        { templateUrl: '/templates/AppraisalForm/Edit.html', controller: 'EditAppraisalFormController' });
 }]);
 
 var generalSettingModule = angular.module("generalSettingModule", ['ngRoute', 'ngResource'])
@@ -96,13 +97,13 @@ var homeModule = angular.module("homeModule", ['ngRoute', 'ngResource'])
 var reportModule = angular.module("reportModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Report/EmployeePerformanceTendency',
-		{ templateUrl: '/templates/Report/EmployeePerformanceTendency/View.html', controller: 'ViewEmployeePerformanceTendencyController' });
+        { templateUrl: '/templates/Report/EmployeePerformanceTendency/View.html', controller: 'ViewEmployeePerformanceTendencyController' });
     $routeProvider.when('/Report/TeamEPAReport',
-		{ templateUrl: '/templates/Report/TeamEPAReport/TeamEPAView.html', controller: 'TeamEPAReportController' });
+        { templateUrl: '/templates/Report/TeamEPAReport/TeamEPAView.html', controller: 'TeamEPAReportController' });
     $routeProvider.when('/Report/TeamEffortReport',
-		{ templateUrl: '/templates/Report/TeamEffortReport/TeamEffortView.html', controller: 'TeamEffortReportController' });
+        { templateUrl: '/templates/Report/TeamEffortReport/TeamEffortView.html', controller: 'TeamEffortReportController' });
     $routeProvider.when('/Report/ResourcePlanningReport',
-		{ templateUrl: '/templates/Report/ResourcePlanningReport/ResourcePlanningView.html', controller: 'ResourcePlanningReportController' });
+        { templateUrl: '/templates/Report/ResourcePlanningReport/ResourcePlanningView.html', controller: 'ResourcePlanningReportController' });
 }]);
 
 var departmentModule = angular.module("departmentModule", ['ngRoute', 'ngResource'])
@@ -118,9 +119,9 @@ var flowManagementModule = angular.module("flowManagementModule", ['ngRoute', 'n
 var authorityModule = angular.module("authorityModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Authority/ManageRole',
-		{ templateUrl: '/templates/Authority/RolePermission/Index.html', controller: 'AssignPermissionController' });
+        { templateUrl: '/templates/Authority/RolePermission/Index.html', controller: 'AssignPermissionController' });
     $routeProvider.when('/Authority/ManageUser',
-		{ templateUrl: '/templates/Authority/UserPermission/Index.html', controller: 'ManageUserPermissionController' });
+        { templateUrl: '/templates/Authority/UserPermission/Index.html', controller: 'ManageUserPermissionController' });
 }]);
 
 var groupProjectModule = angular.module("groupProjectModule", ['ngRoute', 'ngResource'])
@@ -131,7 +132,7 @@ var groupProjectModule = angular.module("groupProjectModule", ['ngRoute', 'ngRes
 var testModule = angular.module("testModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Test/LoginAsAnotherUser',
-		{ templateUrl: '/templates/Test/LoginAsAnotherUser.html', controller: 'LoginAsAnotherUserController' });
+        { templateUrl: '/templates/Test/LoginAsAnotherUser.html', controller: 'LoginAsAnotherUserController' });
 }]);
 
 var registrationModule = angular.module("registrationModule",

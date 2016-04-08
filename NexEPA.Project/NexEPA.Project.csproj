@@ -66,6 +66,7 @@
     <Compile Include="Criteria\Project\GetProjectByIdCriteria.cs" />
     <Compile Include="Criteria\Milestone\UpdateMilestoneCriteria.cs" />
     <Compile Include="Criteria\Project\GetAllRedmineProjectsCriteria.cs" />
+    <Compile Include="Criteria\Project\GetRedmineProjectCriteria.cs" />
     <Compile Include="Criteria\Project\UpdateProjectCriteria.cs" />
     <Compile Include="Criteria\Project\UpdateProjectStatusCriteria.cs" />
     <Compile Include="Models\GroupProject\GroupProjectDetailModel.cs" />

@@ -13,6 +13,7 @@ namespace NexEPA.Project.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using NexEPA.Core.Models;
     using NexEPA.Project.Models;
     using NexEPA.Project.Repositories.Interface;
 
@@ -73,6 +74,85 @@ namespace NexEPA.Project.Repositories.Implement
                 }).ToList();
 
                 return groupProject;
+            }
+        }
+
+        public IList<RedmineProjectModel> GetRedmineProject(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IList<RedmineProjectModel> projects = multi.Read<RedmineProjectModel>().ToList();
+                    IList<RedmineProjectModel> parentProjects = multi.Read<RedmineProjectModel>().ToList();
+                    List<CommonEmployeeModel> projectManagers = multi.Read<CommonEmployeeModel>().ToList();
+
+                    projects = GroupRedmineProjects(parentProjects, projects, projectManagers);
+
+                    return projects;
+                }
+            }
+        }
+
+        private IList<RedmineProjectModel> GroupRedmineProjects(
+            IList<RedmineProjectModel> parentProjects,
+            IList<RedmineProjectModel> projects,
+            IList<CommonEmployeeModel> projectManagers)
+        {
+            var groupedProjects = parentProjects.Where(x => !x.ParentId.HasValue)
+                .Select(x =>
+                {
+                    var subProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, x.ProjectId);
+
+                    x.SubProjects = subProjects;
+                    x.ProjectManagers = GetProjectManagers(projectManagers, x.ProjectId);
+
+                    return x;
+                })
+                .OrderBy(x => x.ProjectName)
+                .ToList();
+
+            return groupedProjects;
+        }
+
+        private List<RedmineProjectModel> GetRecursiveParentProjects(
+            IList<RedmineProjectModel> parentProjects,
+            IList<RedmineProjectModel> projects,
+            IList<CommonEmployeeModel> projectManagers,
+            int parentId)
+        {
+            var subProjects = parentProjects.Where(sub => sub.ParentId == parentId)
+                .Union(projects.Where(sub => sub.ParentId == parentId), new RedmineProjectComparer())
+                .Select(p =>
+                {
+                    var childProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, p.ProjectId);
+
+                    p.SubProjects = childProjects.ToList();
+                    p.ProjectManagers = GetProjectManagers(projectManagers, p.ProjectId);
+
+                    return p;
+                }).ToList();
+
+            return subProjects;
+        }
+
+        private List<CommonEmployeeModel> GetProjectManagers(IList<CommonEmployeeModel> projectManagers, int projectId)
+        {
+            List<CommonEmployeeModel> matchedProjectManagers = projectManagers.Where(pm => pm.ProjectId == projectId).ToList();
+
+            return matchedProjectManagers;
+        }
+
+        private class RedmineProjectComparer : IEqualityComparer<RedmineProjectModel>
+        {
+            public bool Equals(RedmineProjectModel x, RedmineProjectModel y)
+            {
+                return x.ProjectId == y.ProjectId;
+            }
+
+            public int GetHashCode(RedmineProjectModel obj)
+            {
+                return obj.ProjectId.GetHashCode();
             }
         }
     }

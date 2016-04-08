@@ -81,6 +81,8 @@ namespace NexEPA
                 "~/Scripts/Views/Employee/employee-controller.js",
                 "~/Scripts/Views/Employee/employee-repository.js",
                 "~/Scripts/Views/Projects/projects-controller.js",
+                "~/Scripts/Views/Projects/syncRedmineProject-controller.js",
+                "~/Scripts/Views/Projects/syncRedmineProject-directive.js",
                 "~/Scripts/Views/Projects/projects-repository.js",
                 "~/Scripts/Views/ProjectMember/projectmember-controller.js",
                 "~/Scripts/Views/ProjectMember/projectmember-repository.js",

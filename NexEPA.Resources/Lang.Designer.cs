@@ -97,6 +97,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Period.
+        /// </summary>
+        public static string ActivityPeriod {
+            get {
+                return ResourceManager.GetString("ActivityPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
@@ -183,6 +192,15 @@ namespace NexEPA.Resources {
         public static string AllFieldRequire {
             get {
                 return ResourceManager.GetString("AllFieldRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- All project groups --.
+        /// </summary>
+        public static string AllProjectGroup {
+            get {
+                return ResourceManager.GetString("AllProjectGroup", resourceCulture);
             }
         }
         
@@ -1672,6 +1690,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project Group.
+        /// </summary>
+        public static string ProjectGroup {
+            get {
+                return ResourceManager.GetString("ProjectGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project History.
         /// </summary>
         public static string ProjectHistory {
@@ -2118,6 +2145,15 @@ namespace NexEPA.Resources {
         public static string SymbolCount {
             get {
                 return ResourceManager.GetString("SymbolCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync Project From Redmine.
+        /// </summary>
+        public static string SyncProjectFromRedmine {
+            get {
+                return ResourceManager.GetString("SyncProjectFromRedmine", resourceCulture);
             }
         }
         

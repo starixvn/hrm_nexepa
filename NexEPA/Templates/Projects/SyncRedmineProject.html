@@ -1,0 +1,37 @@
+﻿<div class="col-sm-12 sync-redmine-project" ng-controller="SyncRedmineProjectController as syncRedmineProjectCtrl">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="Project" data-ng-click="syncRedmineProjectCtrl.reload()"></a></li>
+            <li class="current" data-translate="SyncProjectFromRedmine"></li>
+        </ul>
+    </div>
+    <div class="row row-filter filter-max-width">
+        <form data-novalidate class="form-horizontal common-form col-sm-12 filter">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right" data-translate="ActivityPeriod"></label>
+                <div class="col-sm-2">
+                    <select ng-model="syncRedmineProjectCtrl.filter.monthPeriod" class="form-control">
+                        <option value="3" data-translate="3 Months"></option>
+                        <option value="6" data-translate="6 Months"></option>
+                        <option value="9" data-translate="9 Months"></option>
+                        <option value="12" data-translate="12 Months"></option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label text-right" data-translate="ProjectGroup"></label>
+                <div class="col-sm-2">
+                    <select ng-model="syncRedmineProjectCtrl.filter.projectGroupId" class="form-control">
+                        <option value="" data-translate="AllProjectGroup"></option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button class="button" data-ng-click="syncRedmineProjectCtrl.getRedmineProjects()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row fanex-grid" ng-show="syncRedmineProjectCtrl.projects">
+        <div class="freegrid" data-sync-redmine-project-grid data-project-data="syncRedmineProjectCtrl.projects" id="redmine-project-grid">
+        </div>
+    </div>
+    <br />
+</div>
