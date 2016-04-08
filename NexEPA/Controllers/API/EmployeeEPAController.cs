@@ -26,9 +26,9 @@
     public class EmployeeEPAController : BaseController
     {
         private const string _ShowFullEPACommentKey = "showFullEPAComment";
-        private readonly IMemberEPAService memberEPAService;
+        private readonly IMemberEPAService _memberEPAService;
 
-        private ICommonService commonService;
+        private ICommonService _commonService;
 
         public EmployeeEPAController()
             : this(null, null)
@@ -37,8 +37,8 @@
 
         public EmployeeEPAController(IMemberEPAService memberEPAService, ICommonService commonService)
         {
-            this.memberEPAService = memberEPAService ?? new MemberEPAService();
-            this.commonService = commonService ?? new CommonService();
+            this._memberEPAService = memberEPAService ?? new MemberEPAService();
+            this._commonService = commonService ?? new CommonService();
         }
 
         /// <summary>
@@ -56,13 +56,13 @@
                 EmployeeId = model.EmployeeId,
                 EvaluatorId = model.ProjectManagerId,
                 Comment = model.Comment,
-                Score = memberEPAService.Encode(model.FinalScore),
-                KPIs = memberEPAService.ConvertKPIInfoToXML(model.KPIInfo),
+                Score = _memberEPAService.Encode(model.FinalScore),
+                KPIs = _memberEPAService.ConvertKPIInfoToXML(model.KPIInfo),
                 MarkedBy = this.CurrentUser.UserId,
                 MarkedDate = DateTime.Now
             };
 
-            CommandResult result = memberEPAService.AddOrUpdateEmployeeEPA(criteria);
+            CommandResult result = _memberEPAService.AddOrUpdateEmployeeEPA(criteria);
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
@@ -110,7 +110,7 @@
                 EmployeeId = employeeId,
                 TargetId = targetId
             };
-            int permission = memberEPAService.CheckEmployeePermission(checkPermissionCriteria);
+            int permission = _memberEPAService.CheckEmployeePermission(checkPermissionCriteria);
 
             switch (permission)
             {
@@ -138,7 +138,7 @@
                 Status = status
             };
 
-            return memberEPAService.GetEPAByEmployee(criteria);
+            return _memberEPAService.GetEPAByEmployee(criteria);
         }
 
         /// <summary>
@@ -178,7 +178,7 @@
                 IsShowAll = isShowAll
             };
 
-            return memberEPAService.GetEPAOfEmployeeByManager(criteria);
+            return _memberEPAService.GetEPAOfEmployeeByManager(criteria);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = memberEPAService.UpdateEPAStatus(updateEPAStatusCriteria);
+            CommandResult result = _memberEPAService.UpdateEPAStatus(updateEPAStatusCriteria);
             if (result.Code != 0)
             {
                 var warningMessage = new List<string>() { result.Message };
@@ -215,7 +215,7 @@
         [HttpGet]
         public int GetPermission()
         {
-            int policy = commonService.GetPermission(EPAFunctionKeys.ManageMemberEPA);
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageMemberEPA);
             return policy;
         }
 
@@ -243,7 +243,7 @@
                 Keyword = keyword
             };
 
-            return memberEPAService.GetAppraisalForm(criteria);
+            return _memberEPAService.GetAppraisalForm(criteria);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@
                 criteria.CreatedDate = DateTime.Now;
             }
 
-            return memberEPAService.InsertAppraisalForm(criteria);
+            return _memberEPAService.InsertAppraisalForm(criteria);
         }
 
         [HttpGet]
@@ -269,7 +269,7 @@
         {
             var criteria = new GetAllProcessPeriodCriteria();
 
-            return memberEPAService.GetAllProcessPeriod(criteria);
+            return _memberEPAService.GetAllProcessPeriod(criteria);
         }
 
         /// <summary>
@@ -286,7 +286,7 @@
                 EPAId = epaId
             };
 
-            return memberEPAService.GetAppraisalFormById(criteria);
+            return _memberEPAService.GetAppraisalFormById(criteria);
         }
 
         [HttpPut]
@@ -299,7 +299,7 @@
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return memberEPAService.UpdateAppraisalForm(criteria);
+            return _memberEPAService.UpdateAppraisalForm(criteria);
         }
 
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageAppraisalForm, Policy = Policy.Host)]
@@ -312,7 +312,7 @@
                 ModifiedDate = DateTime.Now
             };
 
-            return memberEPAService.DeleteAppraisalForm(criteria);
+            return _memberEPAService.DeleteAppraisalForm(criteria);
         }
 
         [HttpPut]
@@ -325,13 +325,13 @@
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return memberEPAService.UpdateStatusAppraisalForm(criteria);
+            return _memberEPAService.UpdateStatusAppraisalForm(criteria);
         }
 
         [HttpGet]
         public int GetAppraisalFormPermission()
         {
-            int policy = commonService.GetPermission(EPAFunctionKeys.ManageAppraisalForm);
+            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageAppraisalForm);
             return policy;
         }
 
@@ -344,7 +344,7 @@
                 ActorUserId = this.CurrentUser.UserId
             };
 
-            return memberEPAService.GetUserPermissionOnTarget(criteria);
+            return _memberEPAService.GetUserPermissionOnTarget(criteria);
         }
 
         [HttpGet]
@@ -375,7 +375,7 @@
                 TargetId = targetId
             };
 
-            data = memberEPAService.GetEPAInfo(getEPAInfoCriteria);
+            data = _memberEPAService.GetEPAInfo(getEPAInfoCriteria);
 
             return data;
         }
@@ -385,9 +385,9 @@
         {
             var criteria = new UpdateEPACommentsCriteria()
             {
-                Comments = memberEPAService.ConvertEPACommentsToXML(model.Employees)
+                Comments = _memberEPAService.ConvertEPACommentsToXML(model.Employees)
             };
-            CommandResult result = memberEPAService.UpdateCommentEPA(criteria);
+            CommandResult result = _memberEPAService.UpdateCommentEPA(criteria);
 
             if (result.Code != 0)
             {

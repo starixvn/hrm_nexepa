@@ -122,7 +122,7 @@
         <Setting Key="EPAForm_UpdateStatus" SpName="EPAForm_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="EPADetail_UpdateKPIScore" SpName="EPADetail_UpdateKPIScore" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="EPADetail_CheckPermission" SpName="EPADetail_CheckPermission" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPAProcess_UpdateComment" SpName="EPAProcess_UpdateComment" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPAProcess_UpdateComment" SpName="EPAProcess_UpdateComment" DbName="NexEPA" Plain="0" ></Setting>
     </Function>
 
     <Function Name="Report">

@@ -36,9 +36,9 @@ namespace NexEPA.MemberEPA.Services.Implement
     /// </summary>
     public class MemberEPAService : BaseService, IMemberEPAService
     {
-        private readonly IMemberEPARepository memberEPARepository;
+        private readonly IMemberEPARepository _memberEPARepository;
 
-        private readonly IEncodeService encodeService;
+        private readonly IEncodeService _encodeService;
 
         public MemberEPAService()
             : this(null, null)
@@ -47,8 +47,8 @@ namespace NexEPA.MemberEPA.Services.Implement
 
         public MemberEPAService(IMemberEPARepository memberEPARepository, IEncodeService encodeService)
         {
-            this.memberEPARepository = memberEPARepository ?? new MemberEPARepository();
-            this.encodeService = encodeService ?? new EncodeService();
+            this._memberEPARepository = memberEPARepository ?? new MemberEPARepository();
+            this._encodeService = encodeService ?? new EncodeService();
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                result = memberEPARepository.GetEPAInfo(criteria);
+                result = _memberEPARepository.GetEPAInfo(criteria);
 
                 if (result != null)
                 {
@@ -87,7 +87,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                employeeEPAs = (List<MemberEPAModel>)memberEPARepository.GetEPAByEmployee(criteria);
+                employeeEPAs = (List<MemberEPAModel>)_memberEPARepository.GetEPAByEmployee(criteria);
 
                 foreach (var employeeEPA in employeeEPAs)
                 {
@@ -128,7 +128,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                employees = (List<MemberEPAModel>)memberEPARepository.GetEPAOfEmployeeByManager(criteria);
+                employees = (List<MemberEPAModel>)_memberEPARepository.GetEPAOfEmployeeByManager(criteria);
 
                 foreach (var employee in employees)
                 {
@@ -207,7 +207,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                appraisalList = memberEPARepository.GetAppraisalForm(criteria);
+                appraisalList = _memberEPARepository.GetAppraisalForm(criteria);
 
                 foreach (AppraisalFormModel rawAppraisalFormItem in appraisalList)
                 {
@@ -266,7 +266,7 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             if (criteria.IsValid())
             {
-                appraisal = memberEPARepository.GetAppraisalFormById(criteria);
+                appraisal = _memberEPARepository.GetAppraisalFormById(criteria);
 
                 if (appraisal != null)
                 {
@@ -370,12 +370,12 @@ namespace NexEPA.MemberEPA.Services.Implement
 
         public string Encode(string plainText)
         {
-            return encodeService.Encode(plainText);
+            return _encodeService.Encode(plainText);
         }
 
         public string Decode(string cipherText)
         {
-            return encodeService.Decode(cipherText);
+            return _encodeService.Decode(cipherText);
         }
 
         /// <summary>
