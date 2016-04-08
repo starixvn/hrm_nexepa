@@ -28,7 +28,7 @@
                         <label class="col-sm-2 col-md-2" data-translate="ProjectRedmineName" />
                         <div class="col-sm-6 col-md-4">
                             <input class="custom-textbox" type="text" ng-change="getProjects(projectUpdate.name)"
-                                   ng-model="projectUpdate.name" maxlength="200" placeholder="Project Redmine Name" required
+                                   ng-model="projectUpdate.name" maxlength="200" placeholder="Project Redmine Name" required pm-list="getPMByProject(projectId)"
                                    search-project-auto-complete search-key="search.searchKey" search-projects="searchProjects" project="project" />
                         </div>
                     </div>

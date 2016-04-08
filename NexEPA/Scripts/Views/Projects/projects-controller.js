@@ -267,11 +267,21 @@ notificationFactory, projectUtility) {
         $scope.disabledSubmit = false;
     };
 
-    //Get projects
+    //Get projects - search in auto
     $scope.getProjects = function (searchKey) {
         projectDataFactory.getAllProject(searchKey)
             .success(function (projects) {
                 $scope.searchProjects = projects;
+            })
+            .error(function () {
+                notificationFactory.error("ErrorMessage");
+            });
+    };
+
+    $scope.getPMByProject = function (projectId) {
+        projectDataFactory.getPMByProject(projectId)
+            .success(function (pms) {
+                $scope.pms = pms;
             })
             .error(function () {
                 notificationFactory.error("ErrorMessage");
@@ -408,6 +418,16 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
         projectDataFactory.getAllProject(searchKey)
             .success(function (projects) {
                 $scope.searchProjects = projects;
+            })
+            .error(function () {
+                notificationFactory.error("ErrorMessage");
+            });
+    };
+
+    $scope.getPMByProject = function (projectId) {
+        projectDataFactory.getPMByProject(projectId)
+            .success(function (pms) {
+                $scope.pms = pms;
             })
             .error(function () {
                 notificationFactory.error("ErrorMessage");

@@ -207,7 +207,11 @@ registrationModule.directive('searchAutoComplete', ['$timeout', function ($timeo
 // search project auto-complete directive
 registrationModule.directive('searchProjectAutoComplete', ['$timeout', function ($timeout) {
     return {
-        scope: { project: "=project", searchProjects: "&searchProjects" },
+        scope: {
+            project: "=project",
+            searchProjects: "&searchProjects",
+            pmList: "&pmList"
+        },
         link: function (scope, iElement) {
             iElement.autocomplete({
                 source: function (request, response) {
@@ -227,6 +231,7 @@ registrationModule.directive('searchProjectAutoComplete', ['$timeout', function 
                 },
                 select: function (event, ui) {
                     scope.project = ui.item.project;
+                    scope.pmList({ projectId: scope.project.id });
 
                     $timeout(function () {
                         iElement.trigger('input');

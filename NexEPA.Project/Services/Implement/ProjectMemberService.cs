@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ProjectMemberService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.26">Created</change>
-// </history>
-
-namespace NexEPA.Project.Services.Implement
+﻿namespace NexEPA.Project.Services.Implement
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -59,11 +50,6 @@ namespace NexEPA.Project.Services.Implement
             return result;
         }
 
-        /// <summary>
-        /// Get all project members.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The model of project member.</returns>
         public List<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria)
         {
             var projectMembers = new List<ProjectMembersModel>();
@@ -100,6 +86,18 @@ namespace NexEPA.Project.Services.Implement
             }
 
             return projectRoles;
+        }
+
+        public IEnumerable<CommonEmployeeModel> GetPMByProject(GetPMByProjectCriteria criteria)
+        {
+            IEnumerable<CommonEmployeeModel> pms = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                pms = this.GetData<CommonEmployeeModel>(criteria);
+            }
+
+            return pms;
         }
 
         /// <summary>

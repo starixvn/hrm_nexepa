@@ -30,5 +30,7 @@ namespace NexEPA.Project.Services.Interface
         IEnumerable<ProjectMembersModel> GetMemberRoleInProject(GetMemberRoleInProjectCriteria criteria);
 
         IEnumerable<ProjectRoleModel> GetAllProjectRole(GetAllProjectRoleCriteria criteria);
+
+        IEnumerable<CommonEmployeeModel> GetPMByProject(GetPMByProjectCriteria criteria);
     }
 }
