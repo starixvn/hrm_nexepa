@@ -945,4 +945,13 @@
   <data name="ProjectRedmineName" xml:space="preserve">
     <value>Project Redmine Name</value>
   </data>
+  <data name="RequireSelectProject" xml:space="preserve">
+    <value>There is no any chosen project. Please choose at least one project to sync.</value>
+  </data>  
+  <data name="SyncProjectFailed" xml:space="preserve">
+    <value>Sync projects unsuccessfully!</value>
+  </data>
+  <data name="SyncProjectSuccess" xml:space="preserve">
+    <value>Sync projects successfully!</value>
+  </data>
 </root>

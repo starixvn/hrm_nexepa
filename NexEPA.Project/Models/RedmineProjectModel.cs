@@ -30,6 +30,8 @@ namespace NexEPA.Project.Models
 
         public DateTime? SyncedDate { get; set; }
 
+        public int ProjectManagerId { get; set; }
+
         public List<CommonEmployeeModel> ProjectManagers { get; set; }
 
         public List<RedmineProjectModel> SubProjects { get; set; }

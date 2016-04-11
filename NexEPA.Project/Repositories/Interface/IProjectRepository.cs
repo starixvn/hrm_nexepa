@@ -11,6 +11,7 @@ namespace NexEPA.Project.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.Data.Repository;
+    using NexEPA.Core.Models;
     using NexEPA.Project.Models;
 
     /// <summary>
@@ -21,5 +22,7 @@ namespace NexEPA.Project.Repositories.Interface
         List<ProjectInformationModel> GetAllProject(ICriteria criteria);
 
         IList<RedmineProjectModel> GetRedmineProject(ICriteria criteria);
+
+        CommandResult SyncProjectsFromRedmine(ICriteria criteria);
     }
 }

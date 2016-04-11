@@ -232,5 +232,31 @@ namespace NexEPA.Project.Services.Implement
 
             return projects;
         }
+
+        public CommandResult SyncProjectsFromRedmine(SyncProjectsFromRedmineCriteria criteria)
+        {
+            var result = new CommandResult();
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
+            {
+                result = _projectRepository.SyncProjectsFromRedmine(criteria);
+            }
+
+            return result;
+        }
+
+        public IList<RedmineProjectModel> GetTopParentRedmineProjects(GetTopParentRedmineProjectsCriteria criteria)
+        {
+            IList<RedmineProjectModel> result = new List<RedmineProjectModel>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
+            {
+                result = GetData<RedmineProjectModel>(criteria).ToList();
+            }
+
+            return result;
+        }
     }
 }

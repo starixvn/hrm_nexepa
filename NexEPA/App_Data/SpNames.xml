@@ -36,6 +36,8 @@
     <Setting Key="Project_Delete" SpName="Project_Delete" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ProjectRedmine_GetAllProjects" SpName="ProjectRedmine_GetAllProjects" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="ProjectRedmine_Get" SpName="ProjectRedmine_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Project_SyncFromRedmine" SpName="Project_SyncFromRedmine" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectRedmine_GetTopParent" SpName="ProjectRedmine_GetTopParent" DbName="NexEPA" Plain="0" ></Setting>        
   </Function>
 
   <Function Name="ProjectMembers">

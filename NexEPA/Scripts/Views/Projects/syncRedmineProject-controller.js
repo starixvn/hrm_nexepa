@@ -2,8 +2,8 @@
 'use strict';
 
 projectsSettingModule.controller('SyncRedmineProjectController',
-['projectDataFactory', 'notificationFactory',
-function (projectDataFactory, notificationFactory) {
+['projectDataFactory', 'notificationFactory', 'ErrorService',
+function (projectDataFactory, notificationFactory, ErrorService) {
     var vm = this;
 
     vm.projects = null;
@@ -12,6 +12,7 @@ function (projectDataFactory, notificationFactory) {
         monthPeriod: 3
     };
     vm.isLoadingButton = false;
+    vm.parentProjects = [];
 
     vm.reload = function () {
         window.location.reload();
@@ -25,8 +26,43 @@ function (projectDataFactory, notificationFactory) {
         });
     };
 
+    vm.syncProjects = function (selectedProjects) {
+        if (selectedProjects.length > 0) {
+            projectDataFactory.syncProjectsFromRedmine(selectedProjects).success(function (response) {
+                if (response.isSuccessful === true) {
+                    notificationFactory.success("SyncProjectSuccess");
+
+                    vm.getRedmineProjects();
+                }
+                else {
+                    notificationFactory.error("SyncProjectFailed", response.message);
+                }
+            }).error(function (response, status) {
+                if (status === 405) {
+                    ErrorService.errorHandle(status);
+                }
+                else {
+                    notificationFactory.error("SyncProjectFailed");
+                }
+            });
+        }
+    };
+
+    vm.getTopParentRedmineProjects = function () {
+        projectDataFactory.getTopParentRedmineProjects().success(function (parentProjects) {
+            vm.parentProjects = parentProjects;
+        }).error(function (response, status) {
+            if (status === 405) {
+                ErrorService.errorHandle(status);
+            }
+            else {
+                notificationFactory.error("ErrorMessage");
+            }
+        });
+    };
+
     vm.initialize = function () {
-        
+        vm.getTopParentRedmineProjects();
     };
 
     vm.initialize();

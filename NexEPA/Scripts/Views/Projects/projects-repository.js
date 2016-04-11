@@ -100,8 +100,14 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
         getAllProject: function (keyword) {
             return $http.get('/api/Project/RetrieveAllRedmineProjects/', { params: { keyWord: keyword } });
         },
+        syncProjectsFromRedmine: function (projects) {
+            return $http.post('/api/Project/SyncProjectsFromRedmine', projects);
+        },
         getPMByProject: function (projectId) {
             return $http.get('/api/ProjectMember/GetPMByProject/', { params: { projectId: projectId } });
+        },
+        getTopParentRedmineProjects: function () {
+            return $http.get('/api/Project/GetTopParentRedmineProjects');
         }
     };
 }]);

@@ -1879,6 +1879,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no any chosen project. Please choose at least one project to sync..
+        /// </summary>
+        public static string RequireSelectProject {
+            get {
+                return ResourceManager.GetString("RequireSelectProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resource Planning.
         /// </summary>
         public static string ResourcePlanning {
@@ -2158,11 +2167,29 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sync projects unsuccessfully!.
+        /// </summary>
+        public static string SyncProjectFailed {
+            get {
+                return ResourceManager.GetString("SyncProjectFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sync Project From Redmine.
         /// </summary>
         public static string SyncProjectFromRedmine {
             get {
                 return ResourceManager.GetString("SyncProjectFromRedmine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync projects successfully!.
+        /// </summary>
+        public static string SyncProjectSuccess {
+            get {
+                return ResourceManager.GetString("SyncProjectSuccess", resourceCulture);
             }
         }
         

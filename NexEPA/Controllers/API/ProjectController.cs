@@ -236,6 +236,32 @@ namespace NexEPA.Controllers.API
             return projects;
         }
 
+        [HttpPost]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineProject, Policy = Policy.Host)]
+        public CommandResult SyncProjectsFromRedmine(IList<CommonEmployeeModel> projectPMs)
+        {
+            var criteria = new SyncProjectsFromRedmineCriteria
+            {
+                ProjectPMs = projectPMs,
+                AddedBy = CurrentUser.UserId
+            };
+
+            CommandResult result = _projectService.SyncProjectsFromRedmine(criteria);
+
+            return result;
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineProject, Policy = Policy.Read)]
+        public IList<RedmineProjectModel> GetTopParentRedmineProjects()
+        {
+            var criteria = new GetTopParentRedmineProjectsCriteria();
+
+            IList<RedmineProjectModel> projects = _projectService.GetTopParentRedmineProjects(criteria);
+
+            return projects;
+        }
+
         /// <summary>
         /// Get permission of user on current function.
         /// </summary>

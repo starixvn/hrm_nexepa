@@ -19,7 +19,8 @@
                 </div>
                 <label class="col-sm-2 control-label text-right" data-translate="ProjectGroup"></label>
                 <div class="col-sm-2">
-                    <select ng-model="syncRedmineProjectCtrl.filter.projectGroupId" class="form-control">
+                    <select ng-model="syncRedmineProjectCtrl.filter.projectGroupId" class="form-control"
+                            ng-options="opt.projectId as opt.projectName for opt in syncRedmineProjectCtrl.parentProjects">
                         <option value="" data-translate="AllProjectGroup"></option>
                     </select>
                 </div>
@@ -30,7 +31,8 @@
         </form>
     </div>
     <div class="row fanex-grid" ng-show="syncRedmineProjectCtrl.projects">
-        <div class="freegrid" data-sync-redmine-project-grid data-project-data="syncRedmineProjectCtrl.projects" id="redmine-project-grid">
+        <div class="freegrid" data-sync-redmine-project-grid data-project-data="syncRedmineProjectCtrl.projects" id="redmine-project-grid"
+             data-sync-click="syncRedmineProjectCtrl.syncProjects">
         </div>
     </div>
     <br />
