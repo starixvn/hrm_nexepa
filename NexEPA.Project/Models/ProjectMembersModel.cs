@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ProjectMembersModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.26">Created</change>
-// </history>
-
-namespace NexEPA.Project.Models
+﻿namespace NexEPA.Project.Models
 {
     using System;
 
@@ -24,9 +15,9 @@ namespace NexEPA.Project.Models
 
         public int ProjectRoleId { get; set; }
 
-        public string Code { get; set; }
+        public string RoleCode { get; set; }
 
-        public string Name { get; set; }
+        public string RoleName { get; set; }
 
         public DateTime? JoinDate { get; set; }
     }

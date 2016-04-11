@@ -88,6 +88,18 @@
             return projectRoles;
         }
 
+        public IEnumerable<ProjectMembersModel> GetMembersByProject(GetMembersByProjectCriteria criteria)
+        {
+            IEnumerable<ProjectMembersModel> members = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                members = GetData<ProjectMembersModel>(criteria);
+            }
+
+            return members;
+        }
+
         public IEnumerable<CommonEmployeeModel> GetPMByProject(GetPMByProjectCriteria criteria)
         {
             IEnumerable<CommonEmployeeModel> pms = null;
@@ -115,7 +127,7 @@
                 ProjectMembersModel projectMember = rawProjectMembers[i];
 
                 List<ProjectMembersModel> membersSameIdDifferentRole = rawProjectMembers.Where(
-                    mem => mem.EmployeeId == projectMember.EmployeeId && mem.Name != projectMember.Name).ToList();
+                    mem => mem.EmployeeId == projectMember.EmployeeId && mem.RoleName != projectMember.RoleName).ToList();
 
                 int numberMemberSameIdDifferentRole = membersSameIdDifferentRole.Count;
 
@@ -123,7 +135,7 @@
                 {
                     membersSameIdDifferentRole.ForEach(item =>
                     {
-                        projectMember.Name += ", " + item.Name;
+                        projectMember.RoleName += ", " + item.RoleName;
                         rawProjectMembers.Remove(item);
                     });
                 }

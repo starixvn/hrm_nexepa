@@ -42,13 +42,20 @@
     </Function>
 
     <Function Name="ProjectMembers">
-        <Setting Key="ProjectMember_Get" SpName="ProjectMember_Get" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ProjectMember_Get" SpName="ProjectMember_Get" DbName="NexEPA" Plain="0" >
+      <Mapping DataField="Code" ObjectProperty="RoleCode"/>
+      <Mapping DataField="Name" ObjectProperty="RoleName"/>
+    </Setting>
         <Setting Key="ProjectMember_GetMemberRole" SpName="ProjectMember_GetMemberRole" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="ProjectMember_DeleteMember" SpName="ProjectMember_DeleteMember" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="ProjectMember_AddMemberRole" SpName="ProjectMember_AddMemberRole" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="ProjectMember_EditMemberRole" SpName="ProjectMember_EditMemberRole" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="ProjectRole_GetAll" SpName="ProjectRole_GetAll" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="ProjectRedmine_GetPMByProject" SpName="ProjectRedmine_GetPMByProject" DbName="NexEPA" Plain="0" ></Setting>
+    <Setting Key="ProjectMemberRedmine_GetByProject" SpName="ProjectMemberRedmine_GetByProject" DbName="NexEPA" Plain="0" >
+      <Mapping DataField="Code" ObjectProperty="RoleCode"/>
+      <Mapping DataField="Name" ObjectProperty="RoleName"/>
+    </Setting>
     </Function>
 
     <Function Name="KPI">

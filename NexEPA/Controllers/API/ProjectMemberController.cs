@@ -52,16 +52,29 @@ namespace NexEPA.Controllers.API
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
         public IEnumerable<ProjectMembersModel> Get(int projectId, bool? isShowDeletedMember = null, int? milestoneId = null)
         {
-            IEnumerable<ProjectMembersModel> projects = null;
+            IEnumerable<ProjectMembersModel> members = null;
             var getAllProjectMembersCriteria = new GetAllProjectMembersCriteria()
             {
                 ProjectId = projectId,
                 IsShowDeletedMember = isShowDeletedMember,
                 MilestoneId = milestoneId
             };
-            projects = _projectMemberService.GetAllProjectMember(getAllProjectMembersCriteria);
+            members = projectMemberService.GetAllProjectMember(getAllProjectMembersCriteria);
 
-            return projects;
+            return members;
+        }
+
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
+        public IEnumerable<ProjectMembersModel> GetMembersByProject(int projectId)
+        {
+            IEnumerable<ProjectMembersModel> members = null;
+            var getMembersByProjectsCriteria = new GetMembersByProjectCriteria()
+            {
+                ProjectId = projectId
+            };
+            members = projectMemberService.GetMembersByProject(getMembersByProjectsCriteria);
+
+            return members;
         }
 
         /// <summary>

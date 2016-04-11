@@ -223,10 +223,10 @@ notificationFactory, $modal, linkToEPAService, commonFactory, employeeEPAFactory
 }]);
 
 projectsSettingModule.controller('CreateProjectController',
-['$scope', '$location', '$window', 'projectDataFactory', 'ProjectSettingCache', 'commonFactory', '$timeout',
-'notificationFactory', 'projectUtility',
-function ($scope, $location, $window, projectDataFactory, ProjectSettingCache, commonFactory, $timeout,
-notificationFactory, projectUtility) {
+['$scope', '$location', '$window', 'projectDataFactory', 'projectMembersFactory', 'ProjectSettingCache', 'commonFactory', '$timeout',
+'notificationFactory', 'projectUtility', 'sharedProperties',
+function ($scope, $location, $window, projectDataFactory, projectMembersFactory, ProjectSettingCache, commonFactory, $timeout,
+notificationFactory, projectUtility, sharedProperties) {
     /**
 	* Variables. 
 	*/
@@ -288,9 +288,15 @@ notificationFactory, projectUtility) {
             });
     };
 
+    $scope.getMembersByProject = function (projectId) {
+        projectMembersFactory.getMembersByProject(projectId).then(function (data) {
+            sharedProperties.setMembersProject(data);
+        });
+    }
+
     /**
-	* Initialize data to view Create Project. 
-	*/
+    * Initialize data to view Create Project. 
+    */
     // Check for list ProjectManager has cache data.
     if (cacheListPM) {
         $scope.pms = cacheListPM;
@@ -311,8 +317,8 @@ notificationFactory, projectUtility) {
     commonFactory.getDateFormat($scope);
 
     /**
-	* Events 
-	*/
+    * Events 
+    */
     projectUtility.showMessageAfterValidate($scope);
 
     // Save
@@ -365,8 +371,8 @@ projectsSettingModule.controller('ViewDetailAndEditProjectController',
 function ($scope, $routeParams, $location, $window, $modal, projectDataFactory,
 ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService, projectPermissionService) {
     /**
-	* Scope variables. 
-	*/
+    * Scope variables. 
+    */
     var projectId = parseInt($routeParams.projectId);
     $scope.isEditMode = $routeParams.isEditMode ? true : false;
     $scope.errors = [];
@@ -377,8 +383,8 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
     var viewDetailMode = false;
 
     /**
-	* Ajax event. 
-	*/
+    * Ajax event. 
+    */
     // Get data to ProjectManager - Select List
     var successGetEmployeeSelectList = function (data) { $scope.pms = data; };
 
@@ -435,8 +441,8 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
     };
 
     /**
-	* Initialize data to view Edit Project. 
-	*/
+    * Initialize data to view Edit Project. 
+    */
     // Check for list ProjectManager has cache data.
     if (cacheListPM) {
         $scope.pms = cacheListPM;
@@ -475,8 +481,8 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
     projectDataFactory.getPermission().then(successGetPermission, errorHandle);
 
     /**
-	* Events 
-	*/
+    * Events 
+    */
     // Tab Select
     $scope.tabInfoSelect = function () {
         tabService.setProperty(false);
@@ -524,8 +530,8 @@ projectsSettingModule.controller('MilestoneController',
 function ($scope, $routeParams, $modal, projectMilestoneService, projectDataFactory, milestoneFactory, notificationFactory,
 commonFactory, ProjectSettingCache) {
     /**
-	* Scope variables. 
-	*/
+    * Scope variables. 
+    */
     var projectId = $routeParams.projectId;
     $scope.isEditMode = $routeParams.isEditMode ? true : false;
     $scope.milestones = [];
@@ -534,8 +540,8 @@ commonFactory, ProjectSettingCache) {
     var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
 
     /**
-	* Ajax event. 
-	*/
+    * Ajax event. 
+    */
     // Notify error popup when action is failure.
     var errorNotification = function () {
         notificationFactory.error('ErrorMessage');
@@ -578,8 +584,8 @@ commonFactory, ProjectSettingCache) {
     };
 
     /**
-	* Switch mode Add/Update/Normal
-	*/
+    * Switch mode Add/Update/Normal
+    */
     $scope.toggleAddMode = function () {
         $scope.addMode = !$scope.addMode;
         if ($scope.addMode === false) {
@@ -595,8 +601,8 @@ commonFactory, ProjectSettingCache) {
     };
 
     /**
-	* Initialize data to view Project Milestone 
-	*/
+    * Initialize data to view Project Milestone 
+    */
     milestoneFactory.getMilestone(projectId).then(successGetMilestones, errorNotification);
 
     // Check for list Status has cache data.
@@ -610,8 +616,8 @@ commonFactory, ProjectSettingCache) {
     // get Date Format
     commonFactory.getDateFormat($scope);
     /**
-	* Events 
-	*/
+    * Events 
+    */
 
     // show start date calendar when click button start date in Add Mode
     $scope.openPopupAddModeStartDate = function ($event) {
@@ -679,4 +685,10 @@ commonFactory, ProjectSettingCache) {
             milestoneFactory.deleteMilestone(milestone.milestoneId).then(successDeleteMilestone, errorNotification);
         });
     };
+}]);
+
+projectsSettingModule.controller('ProjectManagementController', [function () {
+    var vm = this;
+    
+    vm.membersProject = [];
 }]);

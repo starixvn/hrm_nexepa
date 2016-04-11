@@ -210,7 +210,8 @@ registrationModule.directive('searchProjectAutoComplete', ['$timeout', function 
         scope: {
             project: "=project",
             searchProjects: "&searchProjects",
-            pmList: "&pmList"
+            pmList: "&pmList",
+            projectMembers: "&projectMembers",
         },
         link: function (scope, iElement) {
             iElement.autocomplete({
@@ -232,6 +233,7 @@ registrationModule.directive('searchProjectAutoComplete', ['$timeout', function 
                 select: function (event, ui) {
                     scope.project = ui.item.project;
                     scope.pmList({ projectId: scope.project.id });
+                    scope.projectMembers({ projectId: scope.project.id });
 
                     $timeout(function () {
                         iElement.trigger('input');
