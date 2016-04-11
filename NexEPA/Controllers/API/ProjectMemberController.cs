@@ -30,7 +30,7 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class ProjectMemberController : BaseController
     {
-        private readonly IProjectMemberService _projectMemberService;
+        private readonly IProjectMemberService projectMemberService;
 
         public ProjectMemberController()
             : this(null)
@@ -39,7 +39,7 @@ namespace NexEPA.Controllers.API
 
         public ProjectMemberController(IProjectMemberService projectMemberService)
         {
-            this._projectMemberService = projectMemberService ?? new ProjectMemberService();
+            this.projectMemberService = projectMemberService ?? new ProjectMemberService();
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace NexEPA.Controllers.API
                 ProjectId = projectId,
                 EmployeeId = employeeId
             };
-            memberRoles = _projectMemberService.GetMemberRoleInProject(getMemberRoleInProjectCriteria);
+            memberRoles = projectMemberService.GetMemberRoleInProject(getMemberRoleInProjectCriteria);
 
             return memberRoles;
         }
@@ -116,7 +116,7 @@ namespace NexEPA.Controllers.API
                     JoinDate = member.JoinDate.Value,
                 };
 
-                CommandResult result = _projectMemberService.AddMember(adddMemberCriteria);
+                CommandResult result = projectMemberService.AddMember(adddMemberCriteria);
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
@@ -151,7 +151,7 @@ namespace NexEPA.Controllers.API
                     JoinDate = member.JoinDate.Value,
                 };
 
-                CommandResult result = _projectMemberService.EditMember(editMemberCriteria);
+                CommandResult result = projectMemberService.EditMember(editMemberCriteria);
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
@@ -183,7 +183,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now.Date
             };
 
-            CommandResult result = _projectMemberService.DeleteMember(deleteMemberCriteria);
+            CommandResult result = projectMemberService.DeleteMember(deleteMemberCriteria);
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
@@ -203,7 +203,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<ProjectRoleModel> ProjectRole(int? projectId = null, int? employeeId = null)
         {
             var getAllProjectRoleCriteria = new GetAllProjectRoleCriteria();
-            IEnumerable<ProjectRoleModel> data = _projectMemberService.GetAllProjectRole(getAllProjectRoleCriteria);
+            IEnumerable<ProjectRoleModel> data = projectMemberService.GetAllProjectRole(getAllProjectRoleCriteria);
 
             if (projectId != null && employeeId != null)
             {
@@ -233,7 +233,7 @@ namespace NexEPA.Controllers.API
             {
                 ProjectId = projectId
             };
-            return _projectMemberService.GetPMByProject(criteria);
+            return projectMemberService.GetPMByProject(criteria);
         }
     }
 }
