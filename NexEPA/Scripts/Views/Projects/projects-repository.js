@@ -89,7 +89,9 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
             var deferred = $q.defer();
             $http.get('/api/Project/GetRedmineProject', {
                 params: {
-                    monthPeriod: filter.monthPeriod
+                    monthPeriod: filter.monthPeriod,
+                    projectGroupId: filter.projectGroupId || '',
+                    projectIds: filter.projectIds || ''
                 }
             }).success(deferred.resolve).error(function (data, status) {
                 deferred.reject(status);
@@ -108,6 +110,9 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
         },
         getTopParentRedmineProjects: function () {
             return $http.get('/api/Project/GetTopParentRedmineProjects');
+        },
+        getSubRedmineProjects: function (parentId) {
+            return $http.get('/api/Project/GetSubRedmineProjects', { params: { parentId: parentId || '' } });
         }
     };
 }]);

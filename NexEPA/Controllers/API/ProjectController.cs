@@ -224,11 +224,13 @@ namespace NexEPA.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineProject, Policy = Policy.Read)]
-        public IList<RedmineProjectModel> GetRedmineProject(int monthPeriod)
+        public IList<RedmineProjectModel> GetRedmineProject(int monthPeriod, int? projectGroupId, string projectIds)
         {
             var criteria = new GetRedmineProjectCriteria
             {
-                MonthPeriod = monthPeriod
+                MonthPeriod = monthPeriod,
+                ProjectGroupId = projectGroupId,
+                ProjectIds = projectIds
             };
 
             IList<RedmineProjectModel> projects = _projectService.GetRedmineProject(criteria);
@@ -260,6 +262,17 @@ namespace NexEPA.Controllers.API
             IList<RedmineProjectModel> projects = _projectService.GetTopParentRedmineProjects(criteria);
 
             return projects;
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineProject, Policy = Policy.Read)]
+        public IList<RedmineProjectModel> GetSubRedmineProjects(int? parentId)
+        {
+            var criteria = new GetSubRedmineProjectsCriteria() { ParentId = parentId };
+
+            IList<RedmineProjectModel> subProjects = _projectService.GetSubRedmineProjects(criteria);
+
+            return subProjects;
         }
 
         /// <summary>
@@ -351,7 +364,7 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public IEnumerable<SelectListModel> RetrieveAllRedmineProjects(string keyWord = null)
         {
-            var criteria = new GetAllRedmineProjectsCriteria() 
+            var criteria = new GetAllRedmineProjectsCriteria()
             {
                 ProjectName = keyWord
             };

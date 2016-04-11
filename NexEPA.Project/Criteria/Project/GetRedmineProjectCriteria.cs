@@ -6,6 +6,10 @@
     {
         public int MonthPeriod { get; set; }
 
+        public int? ProjectGroupId { get; set; }
+
+        public string ProjectIds { get; set; }
+
         public override bool IsValid()
         {
             return MonthPeriod > 0 && MonthPeriod <= 12;

@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global projectsSettingModule*/
 
-projectsSettingModule.directive('syncRedmineProjectGrid', ['notificationFactory', function (notificationFactory) {
+projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notificationFactory', function ($timeout, notificationFactory) {
     var generateColumnHeaders = function () {
         var columnHeaders = [
             { HeaderText: "", Width: 50, Name: "Checkbox", HeaderAlign: "center", CellAlign: "center" },
@@ -111,6 +111,8 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['notificationFactory'
             if (selectedCheckboxes.length === 0) {
                 notificationFactory.error("RequireSelectProject");
             } else if (scope.syncClick) {
+                scope.isSyncing = true;
+
                 var projectIds = selectedCheckboxes.map(function () { return $(this).data("id"); }).get();
                 var projectPMs = [];
 
@@ -170,9 +172,12 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['notificationFactory'
         restrict: "A",
         scope: {
             projectData: "=",
-            syncClick: "="
+            syncClick: "=",
+            isSyncing: "="
         },
         link: function ($scope, iElement) {
+            var loadingButton = null;
+
             $scope.$watch('projectData', function (value) {
                 if (value) {
                     var columnHeaders = generateColumnHeaders(value),
@@ -185,7 +190,10 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['notificationFactory'
                         showTitle: true,
                         titleInfo: {
                             text: '',
-                            customButtons: '<input id="btn-sync-project" type="button" class="btn btn-primary btn-xs btn-custom" value="Sync" />'
+                            customButtons:
+                                '<button id="btn-sync-project" type="button" data-style="slide-up" class="btn btn-primary btn-xs btn-custom ladda-button">' +
+                                    '<span class="ladda-label" >Sync</span>' +
+                                '</button>'
                         },
                         gridExpandHeight: 300
                     };
@@ -193,6 +201,21 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['notificationFactory'
                     $(iElement).fanexGrid(gridOptions);
 
                     registerControlEvents($scope);
+
+                    //loading button
+                    loadingButton = Ladda.create($('#btn-sync-project')[0]);
+                }
+            });
+
+            $scope.$watch("isSyncing", function (value) {
+                if (loadingButton) {
+                    $timeout(function () {
+                        if (value) {
+                            loadingButton.start();
+                        } else {
+                            loadingButton.stop();
+                        }
+                    });
                 }
             });
         }

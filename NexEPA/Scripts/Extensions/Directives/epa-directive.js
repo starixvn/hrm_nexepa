@@ -743,7 +743,7 @@ registrationModule.directive('loadingButton', ['$timeout', function ($timeout) {
                 } else {
                     $timeout(function () {
                         l.stop();
-                    }, 300);
+                    });
                 }
             });
         }

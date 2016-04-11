@@ -2,42 +2,63 @@
 'use strict';
 
 projectsSettingModule.controller('SyncRedmineProjectController',
-['projectDataFactory', 'notificationFactory', 'ErrorService',
-function (projectDataFactory, notificationFactory, ErrorService) {
+['projectDataFactory', 'notificationFactory', 'ErrorService', 'commonFactory',
+function (projectDataFactory, notificationFactory, ErrorService, commonFactory) {
     var vm = this;
 
     vm.projects = null;
-
-    vm.filter = {
-        monthPeriod: 3
-    };
-    vm.isLoadingButton = false;
     vm.parentProjects = [];
+    vm.subProjects = [];
+    vm.filter = {
+        monthPeriod: 6,
+        projectGroupId: '',
+        projectIds: ''
+    };
+    vm.isLoadingGetProjectButton = false;
+    vm.isLoadingSyncButton = false;
 
     vm.reload = function () {
         window.location.reload();
     };
 
-    vm.getRedmineProjects = function () {
+    vm.getRedmineProjects = function (showLoading) {
+        if (showLoading) {
+            vm.isLoadingGetProjectButton = true;
+        }
+
+        vm.filter.projectIds = commonFactory.getOnlySelectedData(vm.subProjects, 'projectId');
+
         projectDataFactory.getRedmineProject(vm.filter).then(function (projects) {
+            if (showLoading) {
+                vm.isLoadingGetProjectButton = false;
+            }
+
             vm.projects = projects;
         }, function () {
+            if (showLoading) {
+                vm.isLoadingGetProjectButton = false;
+            }
+
             notificationFactory.error("ErrorMessage");
         });
     };
 
     vm.syncProjects = function (selectedProjects) {
-        if (selectedProjects.length > 0) {
+        if (selectedProjects.length > 0) {            
             projectDataFactory.syncProjectsFromRedmine(selectedProjects).success(function (response) {
+                vm.isLoadingSyncButton = false;
+
                 if (response.isSuccessful === true) {
                     notificationFactory.success("SyncProjectSuccess");
 
-                    vm.getRedmineProjects();
+                    vm.getRedmineProjects(false);
                 }
                 else {
                     notificationFactory.error("SyncProjectFailed", response.message);
                 }
             }).error(function (response, status) {
+                vm.isLoadingSyncButton = false;
+
                 if (status === 405) {
                     ErrorService.errorHandle(status);
                 }
@@ -61,8 +82,23 @@ function (projectDataFactory, notificationFactory, ErrorService) {
         });
     };
 
+    vm.getSubRedmineProjects = function () {
+        projectDataFactory.getSubRedmineProjects(vm.filter.projectGroupId).success(function (subProjects) {
+            vm.subProjects = subProjects;
+        }).error(function (response, status) {
+            if (status === 405) {
+                ErrorService.errorHandle(status);
+            }
+            else {
+                notificationFactory.error("ErrorMessage");
+            }
+        });
+    };
+
     vm.initialize = function () {
         vm.getTopParentRedmineProjects();
+
+        vm.getSubRedmineProjects();
     };
 
     vm.initialize();

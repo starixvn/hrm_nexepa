@@ -68,6 +68,7 @@
     <Compile Include="Criteria\Milestone\UpdateMilestoneCriteria.cs" />
     <Compile Include="Criteria\Project\GetAllRedmineProjectsCriteria.cs" />
     <Compile Include="Criteria\Project\GetRedmineProjectCriteria.cs" />
+    <Compile Include="Criteria\Project\GetSubRedmineProjectsCriteria.cs" />
     <Compile Include="Criteria\Project\GetTopParentRedmineProjectsCriteria.cs" />
     <Compile Include="Criteria\Project\SyncProjectsFromRedmineCriteria.cs" />
     <Compile Include="Criteria\Project\UpdateProjectCriteria.cs" />

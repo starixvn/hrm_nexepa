@@ -47,5 +47,7 @@ namespace NexEPA.Project.Services.Interface
         CommandResult SyncProjectsFromRedmine(SyncProjectsFromRedmineCriteria criteria);
 
         IList<RedmineProjectModel> GetTopParentRedmineProjects(GetTopParentRedmineProjectsCriteria criteria);
+
+        IList<RedmineProjectModel> GetSubRedmineProjects(GetSubRedmineProjectsCriteria criteria);
     }
 }

@@ -20,19 +20,33 @@
                 <label class="col-sm-2 control-label text-right" data-translate="ProjectGroup"></label>
                 <div class="col-sm-2">
                     <select ng-model="syncRedmineProjectCtrl.filter.projectGroupId" class="form-control"
-                            ng-options="opt.projectId as opt.projectName for opt in syncRedmineProjectCtrl.parentProjects">
+                            ng-options="opt.projectId as opt.projectName for opt in syncRedmineProjectCtrl.parentProjects"
+                            ng-change="syncRedmineProjectCtrl.getSubRedmineProjects()">
                         <option value="" data-translate="AllProjectGroup"></option>
                     </select>
                 </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right" data-translate="Project">
+                </label>
                 <div class="col-sm-2">
-                    <button class="button" data-ng-click="syncRedmineProjectCtrl.getRedmineProjects()">Submit</button>
+                    <add-class-to-role-filter multi-select input-model="syncRedmineProjectCtrl.subProjects" button-label="projectId"
+                                              helper-elements="all reset filter" item-label="projectName" tick-property="ticked"
+                                              max-labels="0" class="multi-select">
+                    </add-class-to-role-filter>
+                </div>
+                <div class="col-sm-2">
+                    <button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="syncRedmineProjectCtrl.isLoadingGetProjectButton"
+                            data-ng-click="syncRedmineProjectCtrl.getRedmineProjects(true)">
+                        <span class="ladda-label" data-translate="Submit"></span>
+                    </button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="row fanex-grid" ng-show="syncRedmineProjectCtrl.projects">
+    <div class="row fanex-grid" ng-show="syncRedmineProjectCtrl.projects !=null">
         <div class="freegrid" data-sync-redmine-project-grid data-project-data="syncRedmineProjectCtrl.projects" id="redmine-project-grid"
-             data-sync-click="syncRedmineProjectCtrl.syncProjects">
+             data-sync-click="syncRedmineProjectCtrl.syncProjects" data-is-syncing="syncRedmineProjectCtrl.isLoadingSyncButton">
         </div>
     </div>
     <br />

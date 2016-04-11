@@ -86,8 +86,8 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 
     common.tablePagination = function ($scope, dataPagination, itemPerPage) {
         /**
-		* Scope Variable. 
-		*/
+        * Scope Variable. 
+        */
         $scope.gap = 7;
         $scope.filteredItems = [];
         $scope.groupedItems = [];
@@ -102,16 +102,16 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
         $scope.currentPage = 0;
 
         /**
-		* Init. 
-		*/
+        * Init. 
+        */
         $scope.sort = {
             sortingOrder: 'id',
             reverse: false
         };
 
         /**
-		* Search local data when data in table loaded. 
-		*/
+        * Search local data when data in table loaded. 
+        */
         var searchMatch = function (haystack, needle) {
             if (!needle) {
                 return true;
@@ -156,8 +156,8 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
         };
 
         /**
-		* Event. 
-		*/
+        * Event. 
+        */
         $scope.range = function (size, start, end) {
             var ret = [];
             if (size < end) {
@@ -261,6 +261,25 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
         return result;
     };
 
+    common.getOnlySelectedData = function (data, propName) {
+        var selectedProperties = [],
+            result = '';
+
+        angular.forEach(data, function (item) {
+            var selectedValue = propName ? item[propName] : item;
+
+            if (item.ticked) {
+                selectedProperties.push(selectedValue);
+            }
+        });
+
+        if (selectedProperties.length > 0) {
+            result = propName ? selectedProperties.join(',') : selectedProperties;
+        }
+
+        return result;
+    };
+
     common.scrollToBottom = function (additionalHeight) {
         $('html, body').animate({
             scrollTop: $(document).height() - $(window).height() + (additionalHeight ? additionalHeight : 0)
@@ -307,8 +326,8 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 
     common.calculateLastDateOfCurrentMonth = function () {
         var date = new Date(),
-			year = date.getFullYear(),
-			month = date.getMonth();
+            year = date.getFullYear(),
+            month = date.getMonth();
 
         var lastDate = new Date(year, month + 1, 0);
 
@@ -317,9 +336,9 @@ registrationModule.factory('commonFactory', ['$filter', 'notificationFactory', f
 
     common.getCurrentDateWithoutTime = function () {
         var date = new Date(),
-			year = date.getFullYear(),
-			month = date.getMonth(),
-			day = date.getDate();
+            year = date.getFullYear(),
+            month = date.getMonth(),
+            day = date.getDate();
 
         var currentDate = new Date(year, month, day);
 

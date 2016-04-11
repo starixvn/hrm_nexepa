@@ -1,197 +1,198 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
-  <Function Name="Employee">
-    <Setting Key="Employee_GetByDomainUsername" SpName="Employee_GetByDomainUsername" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="Url" ObjectProperty="MenuLink"/>
-    </Setting>
-    <Setting Key="Employee_GetByRole" SpName="Employee_GetByRole" DbName="NexEPA" Plain="0" >
-    </Setting>
-    <Setting Key="Employee_Get" SpName="Employee_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EmployeeGroup_GetAll" SpName="EmployeeGroup_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_GetByProject" SpName="Employee_GetByProject" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_GetMembers" SpName="Employee_GetMembers" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_GetRole" SpName="Employee_GetRole" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_UpdateRole" SpName="Employee_UpdateRole" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_GetByDepartment" SpName="Employee_GetByDepartment" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_GetByGroup" SpName="Employee_GetByGroup" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Employee_GetByTeamProject" SpName="Employee_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EmployeeGroup_GetByActorUser" SpName="EmployeeGroup_GetByActorUser" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EmployeeRedmine_GetByTeamProject" SpName="EmployeeRedmine_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EmployeeRedmine_GetByTeamGroupProject" SpName="EmployeeRedmine_GetByTeamGroupProject" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="Employee">
+        <Setting Key="Employee_GetByDomainUsername" SpName="Employee_GetByDomainUsername" DbName="NexEPA" Plain="0" >
+            <Mapping DataField="Url" ObjectProperty="MenuLink"/>
+        </Setting>
+        <Setting Key="Employee_GetByRole" SpName="Employee_GetByRole" DbName="NexEPA" Plain="0" >
+        </Setting>
+        <Setting Key="Employee_Get" SpName="Employee_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EmployeeGroup_GetAll" SpName="EmployeeGroup_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_GetByProject" SpName="Employee_GetByProject" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_GetMembers" SpName="Employee_GetMembers" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_GetRole" SpName="Employee_GetRole" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_UpdateRole" SpName="Employee_UpdateRole" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_GetByDepartment" SpName="Employee_GetByDepartment" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_GetByGroup" SpName="Employee_GetByGroup" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Employee_GetByTeamProject" SpName="Employee_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EmployeeGroup_GetByActorUser" SpName="EmployeeGroup_GetByActorUser" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EmployeeRedmine_GetByTeamProject" SpName="EmployeeRedmine_GetByTeamProject" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EmployeeRedmine_GetByTeamGroupProject" SpName="EmployeeRedmine_GetByTeamGroupProject" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="Project">
-    <Setting Key="Project_Get" SpName="Project_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Project_GetById" SpName="Project_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Project_Insert" SpName="Project_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Project_Update" SpName="Project_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Milestone_GetById" SpName="Milestone_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Milestone_GetByProject" SpName="Milestone_GetByProject" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Milestone_Insert" SpName="Milestone_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Milestone_Update" SpName="Milestone_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Milestone_Delete" SpName="Milestone_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Project_GetAll" SpName="Project_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Project_UpdateStatus" SpName="Project_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Project_Delete" SpName="Project_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectRedmine_GetAllProjects" SpName="ProjectRedmine_GetAllProjects" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectRedmine_Get" SpName="ProjectRedmine_Get" DbName="NexEPA" Plain="0" ></Setting>
+    <Function Name="Project">
+        <Setting Key="Project_Get" SpName="Project_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Project_GetById" SpName="Project_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Project_Insert" SpName="Project_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Project_Update" SpName="Project_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Milestone_GetById" SpName="Milestone_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Milestone_GetByProject" SpName="Milestone_GetByProject" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Milestone_Insert" SpName="Milestone_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Milestone_Update" SpName="Milestone_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Milestone_Delete" SpName="Milestone_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Project_GetAll" SpName="Project_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Project_UpdateStatus" SpName="Project_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Project_Delete" SpName="Project_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectRedmine_GetAllProjects" SpName="ProjectRedmine_GetAllProjects" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectRedmine_Get" SpName="ProjectRedmine_Get" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="Project_SyncFromRedmine" SpName="Project_SyncFromRedmine" DbName="NexEPA" Plain="0" ></Setting>
-        <Setting Key="ProjectRedmine_GetTopParent" SpName="ProjectRedmine_GetTopParent" DbName="NexEPA" Plain="0" ></Setting>        
-  </Function>
+        <Setting Key="ProjectRedmine_GetTopParent" SpName="ProjectRedmine_GetTopParent" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectRedmine_GetSubProjects" SpName="ProjectRedmine_GetSubProjects" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="ProjectMembers">
-    <Setting Key="ProjectMember_Get" SpName="ProjectMember_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectMember_GetMemberRole" SpName="ProjectMember_GetMemberRole" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectMember_DeleteMember" SpName="ProjectMember_DeleteMember" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectMember_AddMemberRole" SpName="ProjectMember_AddMemberRole" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectMember_EditMemberRole" SpName="ProjectMember_EditMemberRole" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectRole_GetAll" SpName="ProjectRole_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectRedmine_GetPMByProject" SpName="ProjectRedmine_GetPMByProject" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="ProjectMembers">
+        <Setting Key="ProjectMember_Get" SpName="ProjectMember_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectMember_GetMemberRole" SpName="ProjectMember_GetMemberRole" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectMember_DeleteMember" SpName="ProjectMember_DeleteMember" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectMember_AddMemberRole" SpName="ProjectMember_AddMemberRole" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectMember_EditMemberRole" SpName="ProjectMember_EditMemberRole" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectRole_GetAll" SpName="ProjectRole_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProjectRedmine_GetPMByProject" SpName="ProjectRedmine_GetPMByProject" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="KPI">
-    <Setting Key="KPIGroup_GetAll" SpName="KPIGroup_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPIGroup_GetById" SpName="KPIGroup_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPIGroup_Insert" SpName="KPIGroup_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPIGroup_Update" SpName="KPIGroup_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPIGroup_Delete" SpName="KPIGroup_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPIGroup_UpdateStatus" SpName="KPIGroup_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPI_Get" SpName="KPI_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPI_GetById" SpName="KPI_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPI_Insert" SpName="KPI_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPI_Update" SpName="KPI_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPI_Delete" SpName="KPI_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPI_UpdateStatus" SpName="KPI_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="KPI">
+        <Setting Key="KPIGroup_GetAll" SpName="KPIGroup_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPIGroup_GetById" SpName="KPIGroup_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPIGroup_Insert" SpName="KPIGroup_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPIGroup_Update" SpName="KPIGroup_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPIGroup_Delete" SpName="KPIGroup_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPIGroup_UpdateStatus" SpName="KPIGroup_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPI_Get" SpName="KPI_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPI_GetById" SpName="KPI_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPI_Insert" SpName="KPI_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPI_Update" SpName="KPI_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPI_Delete" SpName="KPI_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPI_UpdateStatus" SpName="KPI_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="TargetTemplate">
-    <Setting Key="TargetTemplate_GetAll" SpName="TargetTemplate_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_GetById" SpName="TargetTemplate_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_Insert" SpName="TargetTemplate_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_Update" SpName="TargetTemplate_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_Delete" SpName="TargetTemplate_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_AddKPI" SpName="TargetTemplate_AddKPI" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="KPI_GetByTargetTemplate" SpName="KPI_GetByTargetTemplate" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_SetKPIGroup" SpName="TargetTemplate_SetKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_UpdateStatus" SpName="TargetTemplate_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetSetting_Get" SpName="TargetSetting_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetSetting_Set" SpName="TargetSetting_Set" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetTemplate_RemoveKPIGroup" SpName="TargetTemplate_RemoveKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="TargetTemplate">
+        <Setting Key="TargetTemplate_GetAll" SpName="TargetTemplate_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_GetById" SpName="TargetTemplate_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_Insert" SpName="TargetTemplate_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_Update" SpName="TargetTemplate_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_Delete" SpName="TargetTemplate_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_AddKPI" SpName="TargetTemplate_AddKPI" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="KPI_GetByTargetTemplate" SpName="KPI_GetByTargetTemplate" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_SetKPIGroup" SpName="TargetTemplate_SetKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_GetAllKPIByKPIGroups" SpName="TargetTemplate_GetAllKPIByKPIGroups" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_GetKPIGroup" SpName="TargetTemplate_GetKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_UpdateStatus" SpName="TargetTemplate_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetSetting_Get" SpName="TargetSetting_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetSetting_Set" SpName="TargetSetting_Set" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetTemplate_RemoveKPIGroup" SpName="TargetTemplate_RemoveKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="Target">
-    <Setting Key="TargetType_GetAll" SpName="TargetType_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_Get" SpName="Target_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_Insert" SpName="Target_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_Update" SpName="Target_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_Delete" SpName="Target_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_UpdateStatus" SpName="Target_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_GetDefaultDateForAddNew" SpName="Target_GetDefaultDateForAddNew" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_GetKPIGroup" SpName="Target_GetKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Target_GetAll" SpName="Target_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="Target">
+        <Setting Key="TargetType_GetAll" SpName="TargetType_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_Get" SpName="Target_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_Insert" SpName="Target_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_Update" SpName="Target_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_Delete" SpName="Target_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_GetById" SpName="Target_GetById" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_UpdateStatus" SpName="Target_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_GetDefaultDateForAddNew" SpName="Target_GetDefaultDateForAddNew" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_GetKPIGroup" SpName="Target_GetKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_GetAll" SpName="Target_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="TargetEmployee">
-    <Setting Key="TargetEmployee_GetAll" SpName="TargetEmployee_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetEmployee_Add" SpName="TargetEmployee_Add" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetEmployee_Delete" SpName="TargetEmployee_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetEmployee_GetByKPI" SpName="TargetEmployee_GetByKPI" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="TargetEmployee">
+        <Setting Key="TargetEmployee_GetAll" SpName="TargetEmployee_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetEmployee_Add" SpName="TargetEmployee_Add" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetEmployee_Delete" SpName="TargetEmployee_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetEmployee_GetByKPI" SpName="TargetEmployee_GetByKPI" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="TargetKPI">
-    <Setting Key="KPI_GetByTarget" SpName="KPI_GetByTarget" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="TargetKPI">
+        <Setting Key="KPI_GetByTarget" SpName="KPI_GetByTarget" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="MyEPA">
-    <Setting Key="EPA_GetInfo" SpName="EPA_GetInfo" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPA_GetByEmployee" SpName="EPA_GetByEmployee" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPA_InsertOrUpdateScore" SpName="EPA_InsertOrUpdateScore" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPA_GetMemberEPA" SpName="EPA_GetMemberEPA" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPA_UpdateStatus" SpName="EPA_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPA_CheckPermission" SpName="EPA_CheckPermission" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPAForm_Get" SpName="EPAForm_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPAForm_Insert" SpName="EPAForm_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPAForm_GetById" SpName="EPAForm_GetById" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
-    </Setting>
-    <Setting Key="EPAForm_Update" SpName="EPAForm_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProcessPeriod_GetAll" SpName="ProcessPeriod_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPAForm_Delete" SpName="EPAForm_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPAForm_UpdateStatus" SpName="EPAForm_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPADetail_UpdateKPIScore" SpName="EPADetail_UpdateKPIScore" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPADetail_CheckPermission" SpName="EPADetail_CheckPermission" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="EPAProcess_UpdateComment" SpName="EPAProcess_UpdateComment" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="MyEPA">
+        <Setting Key="EPA_GetInfo" SpName="EPA_GetInfo" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPA_GetByEmployee" SpName="EPA_GetByEmployee" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPA_InsertOrUpdateScore" SpName="EPA_InsertOrUpdateScore" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPA_GetMemberEPA" SpName="EPA_GetMemberEPA" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPA_UpdateStatus" SpName="EPA_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPA_CheckPermission" SpName="EPA_CheckPermission" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPAForm_Get" SpName="EPAForm_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPAForm_Insert" SpName="EPAForm_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPAForm_GetById" SpName="EPAForm_GetById" DbName="NexEPA" Plain="0" >
+            <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
+        </Setting>
+        <Setting Key="EPAForm_Update" SpName="EPAForm_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ProcessPeriod_GetAll" SpName="ProcessPeriod_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPAForm_Delete" SpName="EPAForm_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPAForm_UpdateStatus" SpName="EPAForm_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPADetail_UpdateKPIScore" SpName="EPADetail_UpdateKPIScore" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPADetail_CheckPermission" SpName="EPADetail_CheckPermission" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="EPAProcess_UpdateComment" SpName="EPAProcess_UpdateComment" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="Report">
-    <Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_PersonalEffort" SpName="ReportRedmine_PersonalEffort" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_PersonalEffortDetail" SpName="ReportRedmine_PersonalEffortDetail" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ReportRedmine_ResourcePlanning" SpName="ReportRedmine_ResourcePlanning" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
-  <Function Name="Authority">
-    <Setting Key="Function_GetAll" SpName="Function_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Permission_IsOnlyMember" SpName="Permission_IsOnlyMember" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="Report">
+        <Setting Key="Report_MySpace" SpName="Report_MySpace" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Report_EmployeeEPA" SpName="Report_EmployeeEPA" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Report_EmployeeAverageEPA" SpName="Report_EmployeeAverageEPA" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ReportRedmine_PersonalEffort" SpName="ReportRedmine_PersonalEffort" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ReportRedmine_PersonalEffortDetail" SpName="ReportRedmine_PersonalEffortDetail" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ReportRedmine_TeamEffort" SpName="ReportRedmine_TeamEffort" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="ReportRedmine_ResourcePlanning" SpName="ReportRedmine_ResourcePlanning" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
+    <Function Name="Authority">
+        <Setting Key="Function_GetAll" SpName="Function_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Permission_IsOnlyMember" SpName="Permission_IsOnlyMember" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="Department">
-    <Setting Key="Department_Get" SpName="Department_Get" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="CreatedBy" ObjectProperty="EmployeeId"/>
-      <Mapping DataField="ManagerId" ObjectProperty="EmployeeId"/>
-      <Mapping DataField="ModifiedBy" ObjectProperty="EmployeeId"/>
-    </Setting>
-    <Setting Key="Department_Insert" SpName="Department_Insert" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Department_Update" SpName="Department_Update" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="Department_Delete" SpName="Department_Delete" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="Department">
+        <Setting Key="Department_Get" SpName="Department_Get" DbName="NexEPA" Plain="0" >
+            <Mapping DataField="CreatedBy" ObjectProperty="EmployeeId"/>
+            <Mapping DataField="ManagerId" ObjectProperty="EmployeeId"/>
+            <Mapping DataField="ModifiedBy" ObjectProperty="EmployeeId"/>
+        </Setting>
+        <Setting Key="Department_Insert" SpName="Department_Insert" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Department_Update" SpName="Department_Update" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Department_Delete" SpName="Department_Delete" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="Flow">
-    <Setting Key="SettingFlowDepartment_Set" SpName="SettingFlowDepartment_Set" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="SettingFlowEmployee_Set" SpName="SettingFlowEmployee_Set" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="SettingFlowGroup_Set" SpName="SettingFlowGroup_Set" DbName="NexEPA" Plain="0" ></Setting>
+    <Function Name="Flow">
+        <Setting Key="SettingFlowDepartment_Set" SpName="SettingFlowDepartment_Set" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="SettingFlowEmployee_Set" SpName="SettingFlowEmployee_Set" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="SettingFlowGroup_Set" SpName="SettingFlowGroup_Set" DbName="NexEPA" Plain="0" ></Setting>
 
-    <Setting Key="SettingFlowDepartment_Get" SpName="SettingFlowDepartment_Get" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
-    </Setting>
-    <Setting Key="SettingFlowEmployee_Get" SpName="SettingFlowEmployee_Get" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
-    </Setting>
-    <Setting Key="SettingFlowGroup_Get" SpName="SettingFlowGroup_Get" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
-    </Setting>
+        <Setting Key="SettingFlowDepartment_Get" SpName="SettingFlowDepartment_Get" DbName="NexEPA" Plain="0" >
+            <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
+        </Setting>
+        <Setting Key="SettingFlowEmployee_Get" SpName="SettingFlowEmployee_Get" DbName="NexEPA" Plain="0" >
+            <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
+        </Setting>
+        <Setting Key="SettingFlowGroup_Get" SpName="SettingFlowGroup_Get" DbName="NexEPA" Plain="0" >
+            <Mapping DataField="EvaluatorId" ObjectProperty="EmployeeId"/>
+        </Setting>
 
-    <Setting Key="SettingFlowDepartment_Delete" SpName="SettingFlowDepartment_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="SettingFlowEmployee_Delete" SpName="SettingFlowEmployee_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="SettingFlowGroup_Delete" SpName="SettingFlowGroup_Delete" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+        <Setting Key="SettingFlowDepartment_Delete" SpName="SettingFlowDepartment_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="SettingFlowEmployee_Delete" SpName="SettingFlowEmployee_Delete" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="SettingFlowGroup_Delete" SpName="SettingFlowGroup_Delete" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="TargetEmployeeSetting">
-    <Setting Key="EPAType_Get" SpName="EPAType_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetEmployeeSetting_Get" SpName="TargetEmployeeSetting_Get" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="TargetEmployeeSetting_Update" SpName="TargetEmployeeSetting_Update" DbName="NexEPA" Plain="0" ></Setting>
-  </Function>
+    <Function Name="TargetEmployeeSetting">
+        <Setting Key="EPAType_Get" SpName="EPAType_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetEmployeeSetting_Get" SpName="TargetEmployeeSetting_Get" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetEmployeeSetting_Update" SpName="TargetEmployeeSetting_Update" DbName="NexEPA" Plain="0" ></Setting>
+    </Function>
 
-  <Function Name="GroupProject">
-    <Setting Key="GroupProject_Get" SpName="GroupProject_Get" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="ProjectId" ObjectProperty="Id"/>
-      <Mapping DataField="ProjectName" ObjectProperty="Name"/>
-    </Setting>
-    <Setting Key="GroupProject_Insert" SpName="GroupProject_Insert" DbName="NexEPA" Plain="0" >
-    </Setting>
-    <Setting Key="GroupProject_Update" SpName="GroupProject_Update" DbName="NexEPA" Plain="0" >
-    </Setting>
-    <Setting Key="GroupProject_Delete" SpName="GroupProject_Delete" DbName="NexEPA" Plain="0" >
-    </Setting>
-  </Function>
+    <Function Name="GroupProject">
+        <Setting Key="GroupProject_Get" SpName="GroupProject_Get" DbName="NexEPA" Plain="0" >
+            <Mapping DataField="ProjectId" ObjectProperty="Id"/>
+            <Mapping DataField="ProjectName" ObjectProperty="Name"/>
+        </Setting>
+        <Setting Key="GroupProject_Insert" SpName="GroupProject_Insert" DbName="NexEPA" Plain="0" >
+        </Setting>
+        <Setting Key="GroupProject_Update" SpName="GroupProject_Update" DbName="NexEPA" Plain="0" >
+        </Setting>
+        <Setting Key="GroupProject_Delete" SpName="GroupProject_Delete" DbName="NexEPA" Plain="0" >
+        </Setting>
+    </Function>
 </Functions>
