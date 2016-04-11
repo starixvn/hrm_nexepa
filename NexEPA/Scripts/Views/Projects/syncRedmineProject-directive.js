@@ -57,7 +57,7 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
                         }
                     },
                     { Name: "No", Value: counter++ },
-                    { Name: "ProjectName", Value: '<a href data-project-id="' + subProject.projectId + '" >' + subProject.projectName + '</a>' },
+                    { Name: "ProjectName", Value: '<a class="project-name" href data-project-id="' + subProject.projectId + '" >' + subProject.projectName + '</a>' },
                     {
                         Name: "ProjectManager",
                         Value: '',
@@ -130,6 +130,18 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
                 scope.syncClick(projectPMs);
             }
         });
+
+        //view project member
+        var projectNameSelector = ".grid-container tr.highlight-row a.project-name";
+        $(projectNameSelector).off("click");
+        $(projectNameSelector).on("click", function () {
+            var self = $(this);
+            var projectId = self.data("project-id");
+
+            if (scope.viewProjectMember) {
+                scope.viewProjectMember(projectId);
+            }
+        });
     };
 
     var generateBodyRows = function (projectData) {
@@ -173,7 +185,8 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
         scope: {
             projectData: "=",
             syncClick: "=",
-            isSyncing: "="
+            isSyncing: "=",
+            viewProjectMember: "="
         },
         link: function ($scope, iElement) {
             var loadingButton = null;

@@ -2509,6 +2509,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project Members.
+        /// </summary>
+        public static string ViewProjectMember {
+            get {
+                return ResourceManager.GetString("ViewProjectMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weight (%).
         /// </summary>
         public static string Weight {

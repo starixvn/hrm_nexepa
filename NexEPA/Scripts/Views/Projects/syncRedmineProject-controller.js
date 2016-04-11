@@ -2,8 +2,8 @@
 'use strict';
 
 projectsSettingModule.controller('SyncRedmineProjectController',
-['projectDataFactory', 'notificationFactory', 'ErrorService', 'commonFactory',
-function (projectDataFactory, notificationFactory, ErrorService, commonFactory) {
+['$modal', 'projectDataFactory', 'notificationFactory', 'ErrorService', 'commonFactory',
+function ($modal, projectDataFactory, notificationFactory, ErrorService, commonFactory) {
     var vm = this;
 
     vm.projects = null;
@@ -44,7 +44,7 @@ function (projectDataFactory, notificationFactory, ErrorService, commonFactory) 
     };
 
     vm.syncProjects = function (selectedProjects) {
-        if (selectedProjects.length > 0) {            
+        if (selectedProjects.length > 0) {
             projectDataFactory.syncProjectsFromRedmine(selectedProjects).success(function (response) {
                 vm.isLoadingSyncButton = false;
 
@@ -92,6 +92,20 @@ function (projectDataFactory, notificationFactory, ErrorService, commonFactory) 
             else {
                 notificationFactory.error("ErrorMessage");
             }
+        });
+    };
+
+    vm.viewProjectMembers = function (projectId) {
+        var modalInstance = $modal.open({
+            templateUrl: '/templates/Projects/ViewProjectMember.html',
+            controller: "ViewProjectMemberController as viewProjectMemberCtrl",
+            backdrop: 'static',
+            resolve: {
+                projectId: function () {
+                    return projectId;
+                }
+            },
+            windowClass: "view-project-member"
         });
     };
 

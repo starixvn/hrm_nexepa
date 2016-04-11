@@ -366,6 +366,7 @@
     <Content Include="Scripts\Views\Department\department-controller.js" />
     <Content Include="Scripts\Views\Projects\syncRedmineProject-directive.js" />
     <Content Include="Scripts\Views\Projects\syncRedmineProject-controller.js" />
+    <Content Include="Scripts\Views\Projects\viewProjectMember-controller.js" />
     <Content Include="Scripts\Views\Report\resourcePlanningReport-controller.js" />
     <Content Include="Scripts\Views\Report\resourcePlanningReport-directive.js" />
     <Content Include="Scripts\Views\Report\teamEffortReport-controller.js" />
@@ -427,6 +428,7 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
+    <Content Include="Templates\Projects\ViewProjectMember.html" />
     <Content Include="Templates\Projects\SyncRedmineProject.html" />
     <Content Include="Templates\Report\ResourcePlanningReport\ResourcePlanningView.html" />
     <Content Include="Templates\Report\TeamEffortReport\MemberEffortChart.html" />
