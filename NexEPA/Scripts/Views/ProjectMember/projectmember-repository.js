@@ -9,7 +9,7 @@ projectsSettingModule.factory("projectMembersFactory", ['$http', '$q', function 
             $http.get(url + 'Get', {
                 params: {
                     projectId: projectId,
-                    isShowDeletedMember: isShowDeletedMember != null ? isShowDeletedMember : null,
+                    isShowDeletedMember: isShowDeletedMember !== null ? isShowDeletedMember : null,
                     milestoneId: milestoneId != null ? milestoneId : ""
                 }
             }).success(deferred.resolve).error(deferred.reject);

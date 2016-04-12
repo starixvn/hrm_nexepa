@@ -87,7 +87,7 @@ namespace NexEPA.Project.Repositories.Implement
                 {
                     IList<RedmineProjectModel> projects = multi.Read<RedmineProjectModel>().ToList();
                     IList<RedmineProjectModel> parentProjects = multi.Read<RedmineProjectModel>().ToList();
-                    List<CommonEmployeeModel> projectManagers = multi.Read<CommonEmployeeModel>().ToList();
+                    IList<CommonEmployeeModel> projectManagers = multi.Read<CommonEmployeeModel>().ToList();
 
                     projects = GroupRedmineProjects(parentProjects, projects, projectManagers);
 
@@ -124,7 +124,7 @@ namespace NexEPA.Project.Repositories.Implement
             var groupedProjects = parentProjects.Where(x => !x.ParentId.HasValue)
                 .Select(x =>
                 {
-                    var subProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, x.ProjectId);
+                    List<RedmineProjectModel> subProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, x.ProjectId);
 
                     x.SubProjects = subProjects;
                     x.ProjectManagers = GetProjectManagers(projectManagers, x.ProjectId);
@@ -143,13 +143,13 @@ namespace NexEPA.Project.Repositories.Implement
             IList<CommonEmployeeModel> projectManagers,
             int parentId)
         {
-            var subProjects = parentProjects.Where(sub => sub.ParentId == parentId)
+            List<RedmineProjectModel> subProjects = parentProjects.Where(sub => sub.ParentId == parentId)
                 .Union(projects.Where(sub => sub.ParentId == parentId), new RedmineProjectComparer())
                 .Select(p =>
                 {
-                    var childProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, p.ProjectId);
+                    List<RedmineProjectModel> childProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, p.ProjectId);
 
-                    p.SubProjects = childProjects.ToList();
+                    p.SubProjects = childProjects;
                     p.ProjectManagers = GetProjectManagers(projectManagers, p.ProjectId);
 
                     return p;

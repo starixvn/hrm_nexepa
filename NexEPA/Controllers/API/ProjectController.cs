@@ -286,6 +286,14 @@ namespace NexEPA.Controllers.API
             return policy;
         }
 
+        [HttpGet]
+        public int GetSynRedmineProjectPermission()
+        {
+            int policy = _commonService.GetPermission(EPAFunctionKeys.SyncRedmineProject);
+
+            return policy;
+        }
+
         /// <summary>
         /// Render Employee Select list.
         /// </summary>

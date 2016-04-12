@@ -292,7 +292,7 @@ notificationFactory, projectUtility, sharedProperties) {
         projectMembersFactory.getMembersByProject(projectId).then(function (data) {
             sharedProperties.setMembersProject(data);
         });
-    }
+    };
 
     /**
     * Initialize data to view Create Project. 

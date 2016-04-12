@@ -16,6 +16,8 @@ function ($modal, projectDataFactory, notificationFactory, ErrorService, commonF
     };
     vm.isLoadingGetProjectButton = false;
     vm.isLoadingSyncButton = false;
+    vm.canSync = false;
+    vm.writePermission = "2";
 
     vm.reload = function () {
         window.location.reload();
@@ -96,7 +98,7 @@ function ($modal, projectDataFactory, notificationFactory, ErrorService, commonF
     };
 
     vm.viewProjectMembers = function (projectId, projectName) {
-        var modalInstance = $modal.open({
+        $modal.open({
             templateUrl: '/templates/Projects/ViewProjectMember.html',
             controller: "ViewProjectMemberController as viewProjectMemberCtrl",
             resolve: {
@@ -111,7 +113,24 @@ function ($modal, projectDataFactory, notificationFactory, ErrorService, commonF
         });
     };
 
+    vm.getSynRedmineProjectPermission = function () {
+        projectDataFactory.getSynRedmineProjectPermission().success(function (permission) {
+            if (permission === vm.writePermission) {
+                vm.canSync = true;
+            }
+        }).error(function (response, status) {
+            if (status === 405) {
+                ErrorService.errorHandle(status);
+            }
+            else {
+                notificationFactory.error("ErrorMessage");
+            }
+        });
+    };
+
     vm.initialize = function () {
+        vm.getSynRedmineProjectPermission();
+
         vm.getTopParentRedmineProjects();
 
         vm.getSubRedmineProjects();

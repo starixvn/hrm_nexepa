@@ -113,6 +113,9 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
         },
         getSubRedmineProjects: function (parentId) {
             return $http.get('/api/Project/GetSubRedmineProjects', { params: { parentId: parentId || '' } });
+        },
+        getSynRedmineProjectPermission: function () {
+            return $http.get('/api/Project/GetSynRedmineProjectPermission');
         }
     };
 }]);

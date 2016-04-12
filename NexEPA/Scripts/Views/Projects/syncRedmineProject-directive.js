@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global projectsSettingModule*/
+/*global projectsSettingModule, Ladda*/
 
 projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notificationFactory', function ($timeout, notificationFactory) {
     var generateColumnHeaders = function () {
@@ -107,33 +107,36 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
         });
 
         var btnSyncSelector = '#btn-sync-project';
+        if (scope.canSync) {
+            $(btnSyncSelector).off("click");
+            $(btnSyncSelector).on("click", function () {
+                var selectedCheckboxes = $('.grid-container .table-cell input:checked[type=checkbox]');
 
-        $(btnSyncSelector).off("click");
-        $(btnSyncSelector).on("click", function () {
-            var selectedCheckboxes = $('.grid-container .table-cell input:checked[type=checkbox]');
+                if (selectedCheckboxes.length === 0) {
+                    notificationFactory.error("RequireSelectProject");
+                } else if (scope.syncClick) {
+                    scope.isSyncing = true;
 
-            if (selectedCheckboxes.length === 0) {
-                notificationFactory.error("RequireSelectProject");
-            } else if (scope.syncClick) {
-                scope.isSyncing = true;
+                    var projectIds = selectedCheckboxes.map(function () { return $(this).data("id"); }).get();
+                    var projectPMs = [];
 
-                var projectIds = selectedCheckboxes.map(function () { return $(this).data("id"); }).get();
-                var projectPMs = [];
+                    $.each(projectIds, function () {
+                        var projectId = this;
+                        var pmSelectControl = $('.grid-container tr.highlight-row select[data-id=' + projectId + ']');
+                        var pmId = pmSelectControl.val();
 
-                $.each(projectIds, function () {
-                    var projectId = this;
-                    var pmSelectControl = $('.grid-container tr.highlight-row select[data-id=' + projectId + ']');
-                    var pmId = pmSelectControl.val();
-
-                    projectPMs.push({
-                        employeeId: pmId,
-                        projectId: projectId
+                        projectPMs.push({
+                            employeeId: pmId,
+                            projectId: projectId
+                        });
                     });
-                });
 
-                scope.syncClick(projectPMs);
-            }
-        });
+                    scope.syncClick(projectPMs);
+                }
+            });
+        } else {
+            $(btnSyncSelector).prop('disabled', true);
+        }
 
         //view project member
         var projectNameSelector = ".grid-container tr.highlight-row a.project-name";
@@ -191,7 +194,8 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
             projectData: "=",
             syncClick: "=",
             isSyncing: "=",
-            viewProjectMember: "="
+            viewProjectMember: "=",
+            canSync: "="
         },
         link: function ($scope, iElement) {
             var loadingButton = null;

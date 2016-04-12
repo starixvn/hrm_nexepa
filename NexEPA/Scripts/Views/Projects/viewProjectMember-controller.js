@@ -2,8 +2,8 @@
 'use strict';
 
 projectsSettingModule.controller('ViewProjectMemberController',
-['$modalInstance', 'projectId', 'projectName', 'projectMembersFactory',
-function ($modalInstance, projectId, projectName, projectMembersFactory) {
+['$modalInstance', 'projectId', 'projectName', 'projectMembersFactory', 'notificationFactory',
+function ($modalInstance, projectId, projectName, projectMembersFactory, notificationFactory) {
     var vm = this;
 
     vm.projectId = projectId;
