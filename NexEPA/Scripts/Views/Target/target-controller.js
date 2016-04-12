@@ -391,8 +391,8 @@ function ($scope, $location, $routeParams, $window, targetUtility, targetFactory
 
     var targetId = parseInt($routeParams.id),
         projectId = parseInt($routeParams.projectId),
-		isMemberSelect = $routeParams.viewMembers ? true : false,
-		isKPISelect = $routeParams.viewKPIs ? true : false;
+        isMemberSelect = $routeParams.viewMembers ? true : false,
+        isKPISelect = $routeParams.viewKPIs ? true : false;
 
     if (isMemberSelect || isKPISelect) {
         $scope.tabGeneralSelect = false;

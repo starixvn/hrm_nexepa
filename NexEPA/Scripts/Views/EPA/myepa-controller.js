@@ -271,7 +271,7 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
     /**
 	* Scope variables. 
 	*/
-    $scope.max = 5;
+    $scope.max = 10;
     $scope.isReadonly = true;
     $scope.showMenuContext = false;
     var targetId = $routeParams.targetId;

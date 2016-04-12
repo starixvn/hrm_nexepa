@@ -22,8 +22,6 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
     $("#memberValid").hide();
     var projectIdInUrl = $routeParams.projectId;
     $scope.roles = [];
-    $scope.members = sharedProperties.getMembersProject();
-    var abc = projectManagementCtrl.membersProject;
 
     /**
 	* Ajax event loaded. 
@@ -47,6 +45,13 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
     else {
         $scope.members = sharedProperties.getMembersProject();
     }
+
+    // Watch for project's member list changes
+    $scope.$watch(function () {
+        return sharedProperties.getMembersProject();
+    }, function () {
+        $scope.members = sharedProperties.getMembersProject();
+    });
 
     // Watch for Milestone list change in MilestoneController.
     $scope.$watch(function () {
@@ -271,6 +276,12 @@ function ($scope, $modalInstance, roles, editMember, commonFactory, projectDataF
     $scope.editMember = editMember;
     $scope.calendar = { opened: false };
     $scope.searchKey = editMember.nickName + " (" + editMember.fullName + ")";
+
+    $scope.$watch(function () {
+        return sharedProperties.getMembersProject();
+    }, function () {
+        $scope.members = sharedProperties.getMembersProject();
+    });
 
     // get Date Format
     commonFactory.getDateFormat($scope);

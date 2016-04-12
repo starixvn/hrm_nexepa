@@ -367,9 +367,9 @@ notificationFactory, projectUtility, sharedProperties) {
 
 projectsSettingModule.controller('ViewDetailAndEditProjectController',
 ['$scope', '$routeParams', '$location', '$window', '$modal', 'projectDataFactory', 'ProjectSettingCache',
-'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectPermissionService',
+'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectPermissionService', 'projectMembersFactory', 'sharedProperties',
 function ($scope, $routeParams, $location, $window, $modal, projectDataFactory,
-ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService, projectPermissionService) {
+ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService, projectPermissionService, projectMembersFactory, sharedProperties) {
     /**
     * Scope variables. 
     */
@@ -439,6 +439,12 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
                 notificationFactory.error("ErrorMessage");
             });
     };
+
+    $scope.getMembersByProject = function (projectId) {
+        projectMembersFactory.getMembersByProject(projectId).then(function (data) {
+            sharedProperties.setMembersProject(data);
+        });
+    }
 
     /**
     * Initialize data to view Edit Project. 

@@ -88,7 +88,7 @@
                             <td ng-bind="employee.finalScore | customNumber" class="target-center">
                             </td>
                             <td>
-                                <textarea ng-model="employee.epa.comment"></textarea>
+                                <textarea ng-model="employee.epa.comment" ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
                             </td>
                         </tr>
                     </table>
