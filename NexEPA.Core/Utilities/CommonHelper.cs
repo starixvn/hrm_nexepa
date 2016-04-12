@@ -1,7 +1,8 @@
-﻿using System.IO;
-using Ionic.Zlib;
-namespace NexEPA.Core.Utilities
+﻿namespace NexEPA.Core.Utilities
 {
+    using System.IO;
+    using Ionic.Zlib;
+
     public static class CommonHelper
     {
         public static int ConvertInt(object value)
