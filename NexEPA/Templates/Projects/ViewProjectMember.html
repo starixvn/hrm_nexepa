@@ -1,15 +1,44 @@
 ﻿<div>
     <div class="modal-header">
         <div class="popup-header">
-            {{"ViewProjectMember" | translate}}<span class="close-popup" ng-click="viewProjectMemberCtrl.cancel()"></span>
+            {{"ViewProjectMember" | translate}} of "{{viewProjectMemberCtrl.projectName}}"<span class="close-popup" ng-click="viewProjectMemberCtrl.cancel()"></span>
         </div>
     </div>
 
     <div class="modal-body">
-
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th data-translate="#">
+                    </th>
+                    <th data-translate="Members">
+                    </th>
+                    <th data-translate="Roles">
+                    </th>
+                    <th data-translate="JoinedDate">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="member in viewProjectMemberCtrl.projectMembers" ng-repeat-loaded>
+                    <td ng-bind="$index + 1" class="text-center"></td>
+                    <td>
+                        <span tooltip="{{member.member.fullName}}">{{member.member.nickName}}</span>
+                    </td>
+                    <td>
+                        <ul>
+                            <li ng-repeat="role in member.roles" ng-bind="role.name"></li>
+                        </ul>
+                    </td>
+                    <td ng-bind="member.member.joinDate | customDate" class="text-center"></td>
+                </tr>
+                <tr ng-show="!viewProjectMemberCtrl.projectMembers || viewProjectMemberCtrl.projectMembers.length == 0">
+                    <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-default customize" ng-click="viewProjectMemberCtrl.cancel()" data-translate="Cancel"></button>
     </div>
 </div>

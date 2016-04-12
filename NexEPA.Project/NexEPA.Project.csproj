@@ -76,6 +76,7 @@
     <Compile Include="Criteria\Project\UpdateProjectStatusCriteria.cs" />
     <Compile Include="Models\GroupProject\GroupProjectDetailModel.cs" />
     <Compile Include="Models\GroupProject\GroupProjectModel.cs" />
+    <Compile Include="Models\ProjectMemberRoleModel.cs" />
     <Compile Include="Models\RedmineProjectModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\MemberModel.cs" />

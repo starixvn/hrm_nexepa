@@ -57,7 +57,11 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
                         }
                     },
                     { Name: "No", Value: counter++ },
-                    { Name: "ProjectName", Value: '<a class="project-name" href data-project-id="' + subProject.projectId + '" >' + subProject.projectName + '</a>' },
+                    {
+                        Name: "ProjectName",
+                        Value: '<a class="project-name" href data-project-id="' + subProject.projectId + '" ' +
+                                    'data-project-name="' + subProject.projectName + '">' + subProject.projectName + '</a>'
+                    },
                     {
                         Name: "ProjectManager",
                         Value: '',
@@ -137,9 +141,10 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
         $(projectNameSelector).on("click", function () {
             var self = $(this);
             var projectId = self.data("project-id");
+            var projectName = self.data("project-name");
 
             if (scope.viewProjectMember) {
-                scope.viewProjectMember(projectId);
+                scope.viewProjectMember(projectId, projectName);
             }
         });
     };

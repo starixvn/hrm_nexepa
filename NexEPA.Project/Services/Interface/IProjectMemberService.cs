@@ -34,5 +34,7 @@ namespace NexEPA.Project.Services.Interface
         IEnumerable<CommonEmployeeModel> GetPMByProject(GetPMByProjectCriteria criteria);
 
         IEnumerable<ProjectMembersModel> GetMembersByProject(GetMembersByProjectCriteria criteria);
+
+        IList<ProjectMemberRoleModel> GetGroupedMembersByProject(GetMembersByProjectCriteria criteria);
     }
 }

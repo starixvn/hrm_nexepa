@@ -112,6 +112,50 @@
             return pms;
         }
 
+        public IList<ProjectMemberRoleModel> GetGroupedMembersByProject(GetMembersByProjectCriteria criteria)
+        {
+            IList<ProjectMemberRoleModel> result = new List<ProjectMemberRoleModel>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
+            {
+                IEnumerable<ProjectMembersModel> members = GetData<ProjectMembersModel>(criteria);
+
+                result = GroupMemberRoles(members);
+            }
+
+            return result;
+        }
+
+        private IList<ProjectMemberRoleModel> GroupMemberRoles(IEnumerable<ProjectMembersModel> members)
+        {
+            IList<ProjectMemberRoleModel> result = members.GroupBy(x => x.EmployeeId)
+                                                        .Select(g =>
+                                                        {
+                                                            ProjectMembersModel member = g.FirstOrDefault();
+
+                                                            var memberRole = new ProjectMemberRoleModel
+                                                            {
+                                                                Member = new CommonEmployeeModel
+                                                                {
+                                                                    EmployeeId = member.EmployeeId,
+                                                                    NickName = member.NickName,
+                                                                    FullName = member.FullName,
+                                                                    JoinDate = member.JoinDate
+                                                                },
+                                                                Roles = g.Select(r => new ProjectRoleModel
+                                                                {
+                                                                    ProjectRoleId = r.ProjectRoleId,
+                                                                    Name = r.RoleName
+                                                                }).ToList()
+                                                            };
+
+                                                            return memberRole;
+                                                        }).ToList();
+
+            return result;
+        }
+
         /// <summary>
         /// Group project members have same role.
         /// </summary>

@@ -95,14 +95,16 @@ function ($modal, projectDataFactory, notificationFactory, ErrorService, commonF
         });
     };
 
-    vm.viewProjectMembers = function (projectId) {
+    vm.viewProjectMembers = function (projectId, projectName) {
         var modalInstance = $modal.open({
             templateUrl: '/templates/Projects/ViewProjectMember.html',
             controller: "ViewProjectMemberController as viewProjectMemberCtrl",
-            backdrop: 'static',
             resolve: {
                 projectId: function () {
                     return projectId;
+                },
+                projectName: function () {
+                    return projectName;
                 }
             },
             windowClass: "view-project-member"

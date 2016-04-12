@@ -24,6 +24,15 @@ projectsSettingModule.factory("projectMembersFactory", ['$http', '$q', function 
             }).success(deferred.resolve).error(deferred.reject);
             return deferred.promise;
         },
+        getGroupedMembersByProject: function (projectId) {
+            var deferred = $q.defer();
+            $http.get(url + 'GetGroupedMembersByProject', {
+                params: {
+                    projectId: projectId,
+                }
+            }).success(deferred.resolve).error(deferred.reject);
+            return deferred.promise;
+        },
         getProjectRole: function (projectId, employeeId) {
             var deferred = $q.defer();
             $http.get('/api/ProjectMember/ProjectRole', {
