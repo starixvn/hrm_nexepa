@@ -9,7 +9,7 @@
         <form data-novalidate class="form-horizontal common-form col-sm-12 filter">
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right" data-translate="ActivityPeriod"></label>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <select ng-model="syncRedmineProjectCtrl.filter.monthPeriod" class="form-control">
                         <option value="3" data-translate="3 Months"></option>
                         <option value="6" data-translate="6 Months"></option>
@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <label class="col-sm-2 control-label text-right" data-translate="ProjectGroup"></label>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <select ng-model="syncRedmineProjectCtrl.filter.projectGroupId" class="form-control"
                             ng-options="opt.projectId as opt.projectName for opt in syncRedmineProjectCtrl.parentProjects"
                             ng-change="syncRedmineProjectCtrl.getSubRedmineProjects()">
@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right" data-translate="Project">
                 </label>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <add-class-to-role-filter multi-select input-model="syncRedmineProjectCtrl.subProjects" button-label="projectId"
                                               helper-elements="all reset filter" item-label="projectName" tick-property="ticked"
                                               max-labels="0" class="multi-select">
