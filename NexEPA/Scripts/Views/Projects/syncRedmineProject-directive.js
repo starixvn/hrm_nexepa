@@ -222,10 +222,12 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
 
                     $(iElement).fanexGrid(gridOptions);
 
-                    registerControlEvents($scope);
+                    if (value && value.length > 0) {
+                        registerControlEvents($scope);
 
-                    //loading button
-                    loadingButton = Ladda.create($('#btn-sync-project')[0]);
+                        //loading button
+                        loadingButton = Ladda.create($('#btn-sync-project')[0]);
+                    }
                 }
             });
 

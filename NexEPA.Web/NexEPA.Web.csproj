@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\ApiAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\DeflateCompressionAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Criteria\GetEmployeeByDomainUsernameCriteria.cs" />
     <Compile Include="Models\MenuGroup.cs" />

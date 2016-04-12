@@ -1,4 +1,6 @@
-﻿namespace NexEPA.Core.Utilities
+﻿using System.IO;
+using Ionic.Zlib;
+namespace NexEPA.Core.Utilities
 {
     public static class CommonHelper
     {
@@ -17,6 +19,26 @@
             }
 
             return result;
+        }
+
+        public static byte[] DeflateByte(byte[] content)
+        {
+            byte[] zippedContent = null;
+
+            if (content != null)
+            {
+                using (var output = new MemoryStream())
+                {
+                    using (var compressor = new DeflateStream(output, CompressionMode.Compress, CompressionLevel.BestSpeed))
+                    {
+                        compressor.Write(content, 0, content.Length);
+                    }
+
+                    zippedContent = output.ToArray();
+                }
+            }
+
+            return zippedContent;
         }
     }
 }

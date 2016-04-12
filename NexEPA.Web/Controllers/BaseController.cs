@@ -19,6 +19,7 @@ namespace NexEPA.Web.Controllers
     /// Base Controller.
     /// </summary>
     [ApiAuthorize]
+    [DeflateCompression]
     public class BaseController : ApiController
     {
         /// <summary>
@@ -33,7 +34,7 @@ namespace NexEPA.Web.Controllers
                 {
                     FormsAuthentication.RedirectToLoginPage();
                 }
-                
+
                 var currentUser = SessionManager.CurrentUser;
 
                 if (currentUser == null)
