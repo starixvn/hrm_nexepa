@@ -133,7 +133,8 @@
                     Status = project.Status,
                     ModifiedBy = this.CurrentUser.UserId,
                     ModifiedDate = DateTime.Now.Date,
-                    Description = project.Description
+                    Description = project.Description,
+                    MemberList = projectService.ConvertMemberListToXML(project.MemberList)
                 };
 
                 CommandResult result = projectService.UpdateProject(updateProjectCriteria);

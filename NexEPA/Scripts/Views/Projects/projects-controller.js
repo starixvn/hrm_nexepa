@@ -501,6 +501,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 
     // Update
     $scope.update = function (project) {
+        project.memberList = sharedProperties.getMembersProject();
         projectDataFactory.updateProject(project).then(successUpdateProject, errorUpdateProject);
     };
 

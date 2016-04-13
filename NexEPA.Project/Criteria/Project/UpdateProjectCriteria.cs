@@ -35,6 +35,8 @@ namespace NexEPA.Project.Criteria.Project
 
         public DateTime ModifiedDate { get; set; }
 
+        public string MemberList { get; set; }
+
         public override bool IsValid()
         {
             return true;
