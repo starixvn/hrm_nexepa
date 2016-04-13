@@ -8,7 +8,7 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
             { HeaderText: "#", Width: 50, Name: "No", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
             { HeaderText: "Project Name", Width: 350, Name: "ProjectName", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Project Manager", Width: 200, Name: "ProjectManager", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Synced Date", Width: 200, Name: "SyncedDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "YYYY-MM-DD HH:mm A" }
+            { HeaderText: "Synced Date", Width: 200, Name: "SyncedDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM, YYYY HH:mm A" }
         ];
 
         return columnHeaders;
@@ -213,7 +213,7 @@ projectsSettingModule.directive('syncRedmineProjectGrid', ['$timeout', 'notifica
                         titleInfo: {
                             text: '',
                             customButtons:
-                                '<button id="btn-sync-project" type="button" data-style="slide-up" class="btn btn-primary btn-xs btn-custom ladda-button">' +
+                                '<button id="btn-sync-project" type="button" data-style="slide-up" class="button btn-custom ladda-button">' +
                                     '<span class="ladda-label" >Sync</span>' +
                                 '</button>'
                         },
