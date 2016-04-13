@@ -49,5 +49,7 @@ namespace NexEPA.Project.Services.Interface
         IList<RedmineProjectModel> GetTopParentRedmineProjects(GetTopParentRedmineProjectsCriteria criteria);
 
         IList<RedmineProjectModel> GetSubRedmineProjects(GetSubRedmineProjectsCriteria criteria);
+
+        string ConvertMemberListToXML(IEnumerable<MemberModel> members);
     }
 }

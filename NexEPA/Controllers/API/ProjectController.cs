@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ProjectController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.19">Created</change>
-// </history>
-
-namespace NexEPA.Controllers.API
+﻿namespace NexEPA.Controllers.API
 {
     using System;
     using System.Collections.Generic;
@@ -38,9 +29,9 @@ namespace NexEPA.Controllers.API
     /// </summary>
     public class ProjectController : BaseController
     {
-        private readonly IProjectService _projectService;
-        private readonly IEmployeeService _employeeService;
-        private readonly ICommonService _commonService;
+        private readonly IProjectService projectService;
+        private readonly IEmployeeService employeeService;
+        private readonly ICommonService commonService;
 
         public ProjectController()
             : this(null, null, null)
@@ -49,9 +40,9 @@ namespace NexEPA.Controllers.API
 
         public ProjectController(IProjectService projectService, IEmployeeService employeeService, ICommonService commonService)
         {
-            this._projectService = projectService ?? new ProjectService();
-            this._employeeService = employeeService ?? new EmployeeService();
-            this._commonService = commonService ?? new CommonService();
+            this.projectService = projectService ?? new ProjectService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.commonService = commonService ?? new CommonService();
         }
 
         /// <summary>
@@ -79,7 +70,7 @@ namespace NexEPA.Controllers.API
                 StartDate = startDate,
                 EndDate = DateTime.Now
             };
-            projects = _projectService.GetAllProject(getAllProjectCriteria);
+            projects = projectService.GetAllProject(getAllProjectCriteria);
 
             return projects;
         }
@@ -103,10 +94,11 @@ namespace NexEPA.Controllers.API
                     EndDate = project.EndDate,
                     Status = project.Status,
                     CreatedBy = this.CurrentUser.UserId,
-                    CreatedDate = DateTime.Now
+                    CreatedDate = DateTime.Now,
+                    MemberList = projectService.ConvertMemberListToXML(project.MemberList)
                 };
 
-                CommandResult result = _projectService.InsertProject(addProjectCriteria);
+                CommandResult result = projectService.InsertProject(addProjectCriteria);
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
@@ -144,7 +136,7 @@ namespace NexEPA.Controllers.API
                     Description = project.Description
                 };
 
-                CommandResult result = _projectService.UpdateProject(updateProjectCriteria);
+                CommandResult result = projectService.UpdateProject(updateProjectCriteria);
                 if (result.Code != 0)
                 {
                     var errorMessage = new List<string>() { result.Message };
@@ -173,7 +165,7 @@ namespace NexEPA.Controllers.API
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            CommandResult result = _projectService.UpdateProjectStatus(criteria);
+            CommandResult result = projectService.UpdateProjectStatus(criteria);
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
@@ -198,7 +190,7 @@ namespace NexEPA.Controllers.API
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = _projectService.DeleteProject(deleteProjectCriteria);
+            CommandResult result = projectService.DeleteProject(deleteProjectCriteria);
             if (result.Code != 0)
             {
                 var errorMessage = new List<string>() { result.Message };
@@ -217,7 +209,7 @@ namespace NexEPA.Controllers.API
                 ProjectId = projectId,
                 ActorUserId = this.CurrentUser.UserId
             };
-            ProjectModel project = _projectService.GetById(getProjectByIdCriteria);
+            ProjectModel project = projectService.GetById(getProjectByIdCriteria);
 
             return project;
         }
@@ -233,7 +225,7 @@ namespace NexEPA.Controllers.API
                 ProjectIds = projectIds
             };
 
-            IList<RedmineProjectModel> projects = _projectService.GetRedmineProject(criteria);
+            IList<RedmineProjectModel> projects = projectService.GetRedmineProject(criteria);
 
             return projects;
         }
@@ -248,7 +240,7 @@ namespace NexEPA.Controllers.API
                 AddedBy = CurrentUser.UserId
             };
 
-            CommandResult result = _projectService.SyncProjectsFromRedmine(criteria);
+            CommandResult result = projectService.SyncProjectsFromRedmine(criteria);
 
             return result;
         }
@@ -259,7 +251,7 @@ namespace NexEPA.Controllers.API
         {
             var criteria = new GetTopParentRedmineProjectsCriteria();
 
-            IList<RedmineProjectModel> projects = _projectService.GetTopParentRedmineProjects(criteria);
+            IList<RedmineProjectModel> projects = projectService.GetTopParentRedmineProjects(criteria);
 
             return projects;
         }
@@ -270,7 +262,7 @@ namespace NexEPA.Controllers.API
         {
             var criteria = new GetSubRedmineProjectsCriteria() { ParentId = parentId };
 
-            IList<RedmineProjectModel> subProjects = _projectService.GetSubRedmineProjects(criteria);
+            IList<RedmineProjectModel> subProjects = projectService.GetSubRedmineProjects(criteria);
 
             return subProjects;
         }
@@ -282,14 +274,14 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         public int GetPermission()
         {
-            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageProject);
+            int policy = commonService.GetPermission(EPAFunctionKeys.ManageProject);
             return policy;
         }
 
         [HttpGet]
         public int GetSynRedmineProjectPermission()
         {
-            int policy = _commonService.GetPermission(EPAFunctionKeys.SyncRedmineProject);
+            int policy = commonService.GetPermission(EPAFunctionKeys.SyncRedmineProject);
 
             return policy;
         }
@@ -304,7 +296,7 @@ namespace NexEPA.Controllers.API
         public IEnumerable<EmployeeModel> RenderEmployeeSelectList(int? roleId = null, string searchKey = "")
         {
             var getEmployeeByRoleCriteria = new GetEmployeeByRoleCriteria() { RoleId = roleId };
-            IEnumerable<EmployeeModel> employees = _employeeService.GetEmployeeByRole(getEmployeeByRoleCriteria);
+            IEnumerable<EmployeeModel> employees = employeeService.GetEmployeeByRole(getEmployeeByRoleCriteria);
             IEnumerable<EmployeeModel> selectListEmployee = null;
 
             if (!string.IsNullOrEmpty(searchKey))
@@ -377,7 +369,7 @@ namespace NexEPA.Controllers.API
                 ProjectName = keyWord
             };
 
-            var projects = _projectService.GetAllRedmineProjects(criteria);
+            var projects = projectService.GetAllRedmineProjects(criteria);
             var result = projects.Select(p => new SelectListModel { Id = p.ProjectId, Name = p.ProjectName });
 
             return result;

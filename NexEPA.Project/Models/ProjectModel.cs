@@ -58,6 +58,8 @@ namespace NexEPA.Project.Models
 
         public int TotalEPA { get; set; }
 
+        public IEnumerable<MemberModel> MemberList { get; set; }
+
         public MilestoneModel Milestone { get; set; }
     }
 }

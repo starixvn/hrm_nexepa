@@ -29,6 +29,8 @@ namespace NexEPA.Core.Constants
 
         public const string EPAComments = "<EPA EPAId='{0}' Comment='{1}'></EPA>";
 
+        public const string MembersList = "<Member EmployeeId='{0}' ProjectId='{1}' JoinDate='{2:MM/dd/yyyy}' ProjectRoleId='{3}' AddedBy='{4}'></Member>";
+
         public const string BeginRootTag = "<ROOT>";
 
         public const string EndRootTag = "</ROOT>";

@@ -327,6 +327,7 @@ notificationFactory, projectUtility, sharedProperties) {
         $scope.submitted = true;
 
         var newProject = angular.copy(project);
+        newProject.memberList = sharedProperties.getMembersProject();
 
         if (newProject) {
             if (newProject.startDate != null) {

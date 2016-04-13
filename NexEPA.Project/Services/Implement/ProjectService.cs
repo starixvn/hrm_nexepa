@@ -1,17 +1,11 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ProjectService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.20">Created</change>
-// </history>
-
-namespace NexEPA.Project.Services.Implement
+﻿namespace NexEPA.Project.Services.Implement
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Fanex.Common.Helper;
+    using NexEPA.Core.Constants;
     using NexEPA.Core.Models;
     using NexEPA.Core.Services;
     using NexEPA.Project.Criteria.Milestone;
@@ -270,6 +264,19 @@ namespace NexEPA.Project.Services.Implement
             }
 
             return result;
+        }
+
+        public string ConvertMemberListToXML(IEnumerable<MemberModel> members)
+        {
+            StringBuilder epaPattern = new StringBuilder(Constants.BeginRootTag);
+
+            foreach (MemberModel member in members)
+            {
+                epaPattern.AppendFormat(Constants.MembersList, member.EmployeeId, member.ProjectId, member.JoinDate, member.ProjectRoleId, member.AddedBy);
+            }
+
+            epaPattern.Append(Constants.EndRootTag);
+            return epaPattern.ToString();
         }
     }
 }

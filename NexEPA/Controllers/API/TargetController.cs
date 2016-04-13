@@ -30,13 +30,13 @@
     /// </summary>
     public class TargetController : BaseController
     {
-        private ITargetService _targetService;
+        private ITargetService targetService;
 
-        private IProjectService _projectService;
+        private IProjectService projectService;
 
-        private ICommonService _commonService;
+        private ICommonService commonService;
 
-        private IMemberEPAService _memberEPAService;
+        private IMemberEPAService memberEPAService;
 
         public TargetController()
             : this(null, null, null, null)
@@ -49,10 +49,10 @@
             ICommonService commonService,
             IMemberEPAService memberEPAService)
         {
-            this._targetService = targetService ?? new TargetService();
-            this._projectService = projectService ?? new ProjectService();
-            this._commonService = commonService ?? new CommonService();
-            this._memberEPAService = memberEPAService ?? new MemberEPAService();
+            this.targetService = targetService ?? new TargetService();
+            this.projectService = projectService ?? new ProjectService();
+            this.commonService = commonService ?? new CommonService();
+            this.memberEPAService = memberEPAService ?? new MemberEPAService();
         }
 
         /// <summary>
@@ -77,7 +77,7 @@
                 EndDate = endDate
             };
 
-            return _targetService.GetAllTarget(criteria);
+            return targetService.GetAllTarget(criteria);
         }
 
         [HttpGet]
@@ -90,7 +90,7 @@
                 ActorUserId = this.CurrentUser.UserId
             };
 
-            return _targetService.GetTargetById(criteria);
+            return targetService.GetTargetById(criteria);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@
                 criteria.TargetTypeId = 2;
             }
 
-            return _targetService.Insert(criteria);
+            return targetService.Insert(criteria);
         }
 
         [HttpPut]
@@ -125,7 +125,7 @@
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _targetService.Update(criteria);
+            return targetService.Update(criteria);
         }
 
         [HttpPut]
@@ -138,7 +138,7 @@
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            return _targetService.UpdateStatus(criteria);
+            return targetService.UpdateStatus(criteria);
         }
 
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
@@ -151,7 +151,7 @@
                 ModifiedDate = DateTime.Now
             };
 
-            return _targetService.Delete(criteria);
+            return targetService.Delete(criteria);
         }
 
         [HttpGet]
@@ -161,7 +161,7 @@
             {
                 ProjectId = projectId
             };
-            var milestoneList = _projectService.GetMilestoneByProjectId(getMilestoneCriteria);
+            var milestoneList = projectService.GetMilestoneByProjectId(getMilestoneCriteria);
 
             IEnumerable<dynamic> milestoneResult = milestoneList.Select(mi => new { mi.Name, mi.MilestoneId });
             return milestoneResult;
@@ -176,7 +176,7 @@
                  TargetId = targetId
             };
 
-            return _targetService.GetTargetEmployeeByTargetId(criteria);
+            return targetService.GetTargetEmployeeByTargetId(criteria);
         }
 
         [HttpPost]
@@ -189,7 +189,7 @@
                 criteria.AddedDate = DateTime.Now;
             }
 
-            return _targetService.InsertTargetEmployee(criteria);
+            return targetService.InsertTargetEmployee(criteria);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@
                 ModifiedDate = DateTime.Now
             };
 
-            return _targetService.DeleteTargetEmployee(criteria);
+            return targetService.DeleteTargetEmployee(criteria);
         }
 
         [HttpGet]
@@ -222,7 +222,7 @@
                 KPIGroupId = groupId
             };
 
-            return _targetService.GetKPIByTargetId(criteria);
+            return targetService.GetKPIByTargetId(criteria);
         }
 
         [HttpGet]
@@ -234,7 +234,7 @@
                 MilestoneId = milestoneId
             };
 
-            return _targetService.GetProjectOrMilestoneDate(criteria);
+            return targetService.GetProjectOrMilestoneDate(criteria);
         }
 
         [HttpGet]
@@ -246,7 +246,7 @@
                 TargetId = targetId
             };
 
-            return _targetService.GetKPIGroupByTargetId(criteria);
+            return targetService.GetKPIGroupByTargetId(criteria);
         }
 
         [HttpGet]
@@ -258,7 +258,7 @@
                 ActorUserId = this.CurrentUser.UserId,
             };
 
-            return _targetService.GetTargetToFilter(criteria);
+            return targetService.GetTargetToFilter(criteria);
         }
 
         /// <summary>
@@ -268,7 +268,7 @@
         [HttpGet]
         public int GetPermission()
         {
-            int policy = _commonService.GetPermission(EPAFunctionKeys.ManageTarget);
+            int policy = commonService.GetPermission(EPAFunctionKeys.ManageTarget);
             return policy;
         }
 
@@ -291,7 +291,7 @@
                 KPIId = kpiId
             };
 
-            return _targetService.GetEmployeeByKPI(criteria);
+            return targetService.GetEmployeeByKPI(criteria);
         }
 
         /// <summary>
@@ -309,10 +309,10 @@
                 ModifiedDate = DateTime.Now,
                 KPIId = epaInfo.KPIId,
                 KPIGroupId = epaInfo.KPIGroupId,
-                EmployeeScore = _targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
+                EmployeeScore = targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
             };
             
-            return _memberEPAService.UpdateKPIScore(criteria);
+            return memberEPAService.UpdateKPIScore(criteria);
         }
     }
 }

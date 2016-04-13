@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddProjectCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.20">Created</change>
-// </history>
-
-namespace NexEPA.Project.Criteria.Project
+﻿namespace NexEPA.Project.Criteria.Project
 {
     using System;
     using Fanex.Data.Repository;
@@ -32,6 +23,8 @@ namespace NexEPA.Project.Criteria.Project
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public string MemberList { get; set; }
 
         public override bool IsValid()
         {
