@@ -19,6 +19,7 @@
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
+    using NexEPA.Project.Criteria.ProjectRedmine;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
     using NexEPA.Web.Services.Impl;
@@ -216,6 +217,19 @@
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
+        public RedmineProjectModel GetProjectRedmineById(int projectId)
+        {
+            var getProjectByIdCriteria = new GetProjectRedmineByIdCriteria
+            {
+                ProjectId = projectId
+            };
+            RedmineProjectModel project = projectService.GetProjectRedmineById(getProjectByIdCriteria);
+
+            return project;
+        }
+
+        [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineProject, Policy = Policy.Read)]
         public IList<RedmineProjectModel> GetRedmineProject(int monthPeriod, int? projectGroupId, string projectIds)
         {
@@ -363,7 +377,7 @@
         /// </summary>        
         /// <returns>The redmine projects of users.</returns>
         [HttpGet]
-        public IEnumerable<SelectListModel> RetrieveAllRedmineProjects(string keyWord = null)
+        public IEnumerable<RedmineProjectModel> RetrieveAllRedmineProjects(string keyWord = null)
         {
             var criteria = new GetAllRedmineProjectsCriteria()
             {
@@ -371,9 +385,8 @@
             };
 
             var projects = projectService.GetAllRedmineProjects(criteria);
-            var result = projects.Select(p => new SelectListModel { Id = p.ProjectId, Name = p.ProjectName });
 
-            return result;
+            return projects;
         }
 
         private IEnumerable<string> RetrieveErrorMessages()

@@ -124,14 +124,14 @@ namespace NexEPA.Project.Repositories.Implement
             var groupedProjects = parentProjects.Where(x => !x.ParentId.HasValue)
                 .Select(x =>
                 {
-                    List<RedmineProjectModel> subProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, x.ProjectId);
+                    List<RedmineProjectModel> subProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, x.Id);
 
                     x.SubProjects = subProjects;
-                    x.ProjectManagers = GetProjectManagers(projectManagers, x.ProjectId);
+                    x.ProjectManagers = GetProjectManagers(projectManagers, x.Id);
 
                     return x;
                 })
-                .OrderBy(x => x.ProjectName)
+                .OrderBy(x => x.Name)
                 .ToList();
 
             return groupedProjects;
@@ -147,10 +147,10 @@ namespace NexEPA.Project.Repositories.Implement
                 .Union(projects.Where(sub => sub.ParentId == parentId), new RedmineProjectComparer())
                 .Select(p =>
                 {
-                    List<RedmineProjectModel> childProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, p.ProjectId);
+                    List<RedmineProjectModel> childProjects = GetRecursiveParentProjects(parentProjects, projects, projectManagers, p.Id);
 
                     p.SubProjects = childProjects;
-                    p.ProjectManagers = GetProjectManagers(projectManagers, p.ProjectId);
+                    p.ProjectManagers = GetProjectManagers(projectManagers, p.Id);
 
                     return p;
                 }).ToList();
@@ -169,12 +169,12 @@ namespace NexEPA.Project.Repositories.Implement
         {
             public bool Equals(RedmineProjectModel x, RedmineProjectModel y)
             {
-                return x.ProjectId == y.ProjectId;
+                return x.Id == y.Id;
             }
 
             public int GetHashCode(RedmineProjectModel obj)
             {
-                return obj.ProjectId.GetHashCode();
+                return obj.Id.GetHashCode();
             }
         }
     }

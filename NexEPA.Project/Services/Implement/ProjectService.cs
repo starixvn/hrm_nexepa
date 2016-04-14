@@ -10,6 +10,7 @@
     using NexEPA.Core.Services;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Criteria.Project;
+    using NexEPA.Project.Criteria.ProjectRedmine;
     using NexEPA.Project.Models;
     using NexEPA.Project.Repositories.Implement;
     using NexEPA.Project.Repositories.Interface;
@@ -76,6 +77,18 @@
             }
 
             return projects;
+        }
+
+        public RedmineProjectModel GetProjectRedmineById(GetProjectRedmineByIdCriteria criteria)
+        {
+            RedmineProjectModel project = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                project = GetDataEntity<RedmineProjectModel>(criteria);
+            }
+
+            return project;
         }
 
         /// <summary>

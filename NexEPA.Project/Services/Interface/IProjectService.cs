@@ -1,18 +1,10 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IProjectService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.20">Created</change>
-// </history>
-
-namespace NexEPA.Project.Services.Interface
+﻿namespace NexEPA.Project.Services.Interface
 {
     using System.Collections.Generic;
     using NexEPA.Core.Models;
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Criteria.Project;
+    using NexEPA.Project.Criteria.ProjectRedmine;
     using NexEPA.Project.Models;
 
     /// <summary>
@@ -51,5 +43,7 @@ namespace NexEPA.Project.Services.Interface
         IList<RedmineProjectModel> GetSubRedmineProjects(GetSubRedmineProjectsCriteria criteria);
 
         string ConvertMemberListToXML(IEnumerable<MemberModel> members);
+
+        RedmineProjectModel GetProjectRedmineById(GetProjectRedmineByIdCriteria criteria);
     }
 }

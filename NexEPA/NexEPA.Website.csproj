@@ -330,6 +330,7 @@
     <Content Include="Scripts\Extensions\Common\notification-factory.js" />
     <Content Include="Scripts\Extensions\Filters\epa-filter.js" />
     <Content Include="Scripts\Extensions\Services\projectsetting-service.js" />
+    <Content Include="Scripts\Libs\angular-chosen.min.js" />
     <Content Include="Scripts\Libs\angular-multi-select.js" />
     <Content Include="Scripts\Libs\angular.js" />
     <Content Include="Scripts\Libs\angular-resource.js" />
@@ -342,6 +343,7 @@
     <Content Include="Scripts\Libs\Fanex.Pagination.js" />
     <Content Include="Scripts\Libs\highcharts-exporting.js" />
     <Content Include="Scripts\Libs\highcharts.js" />
+    <Content Include="Scripts\Libs\jquery-dateFormat.min.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\Libs\ladda.min.js" />
     <Content Include="Scripts\Libs\moment.min.js" />

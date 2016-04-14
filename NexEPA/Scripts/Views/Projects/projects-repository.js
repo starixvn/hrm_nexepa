@@ -29,6 +29,15 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
             });
             return deferred.promise;
         },
+        getProjectRedmineById: function (projectId) {
+            var deferred = $q.defer();
+            return $http.get('/api/Project/GetProjectRedmineById/', { params: { projectId: projectId } });
+                //.success(deferred.resolve)
+                //.error(function (data, status) {
+                //    deferred.reject(status);
+                //});
+            //return deferred.promise;
+        },
         updateProject: function (project) {
             var deferred = $q.defer();
             $http.put(url, project).success(deferred.resolve).error(deferred.reject);

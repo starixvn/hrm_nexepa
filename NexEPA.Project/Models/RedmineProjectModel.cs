@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RedmineProjectModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Larry.Tran" date="2015.2.5">Created</change>
-// </history>
-
-namespace NexEPA.Project.Models
+﻿namespace NexEPA.Project.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,13 +9,15 @@ namespace NexEPA.Project.Models
     /// </summary>
     public class RedmineProjectModel
     {
-        public int ProjectId { get; set; }
+        public int Id { get; set; }
 
-        public string ProjectName { get; set; }
+        public string Name { get; set; }
 
         public int? ParentId { get; set; }
 
         public int Status { get; set; }
+
+        public string Description { get; set; }
 
         public DateTime? CreatedOn { get; set; }
 

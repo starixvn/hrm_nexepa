@@ -238,6 +238,11 @@ notificationFactory, projectUtility, sharedProperties) {
     };
     $("#projectValid").hide();
 
+    $scope.project = {
+        name: '',
+        description: '12312'
+    };
+
     /**
 	* Ajax event. 
 	*/
@@ -287,6 +292,24 @@ notificationFactory, projectUtility, sharedProperties) {
                 notificationFactory.error("ErrorMessage");
             });
     };
+
+    $scope.getProjectRedmine = function (projectId) {
+        projectDataFactory.getProjectRedmineById(projectId)
+            .success(function (project) {
+                //$scope.projectRedmine = project;
+                //$('#txtDescription').val(project.description);
+                //$('#startDate').val($.format.date(project.createdOn, "dd MMM, yyyy"));
+                $scope.project = project;
+            })
+            .error(function () {
+                notificationFactory.error("ErrorMessage");
+            });
+    }
+
+    $scope.$watch('project.description', function (value) {
+        if(value.lenght > 0)
+        $scope.$apply();
+    });
 
     $scope.getMembersByProject = function (projectId) {
         projectMembersFactory.getMembersByProject(projectId).then(function (data) {
@@ -430,6 +453,16 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
                 notificationFactory.error("ErrorMessage");
             });
     };
+
+    $scope.getProjectRedmine = function (projectId) {
+        projectDataFactory.getProjectRedmineById(projectId)
+            .success(function (project) {
+                $scope.project = project;
+            })
+            .error(function () {
+                notificationFactory.error("ErrorMessage");
+            });
+    }
 
     $scope.getPMByProject = function (projectId) {
         projectDataFactory.getPMByProject(projectId)
@@ -697,6 +730,6 @@ commonFactory, ProjectSettingCache) {
 
 projectsSettingModule.controller('ProjectManagementController', [function () {
     var vm = this;
-    
+
     vm.membersProject = [];
 }]);
