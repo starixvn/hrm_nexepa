@@ -195,7 +195,7 @@ namespace NexEPA
             routes.MapRoute(
               name: "Resource Planning Report",
               url: "Report/ResourcePlanningReport",
-              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });           
+              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Manage Department",
@@ -250,6 +250,11 @@ namespace NexEPA
             routes.MapRoute(
                 name: "Sync Redmine Project",
                 url: "Project/SyncRedmineProject",
+                defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
+                name: "Sync Redmine Target",
+                url: "Target/SyncRedmineTarget",
                 defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(

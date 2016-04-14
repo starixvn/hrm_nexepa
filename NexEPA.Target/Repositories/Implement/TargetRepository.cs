@@ -10,6 +10,7 @@
 namespace NexEPA.Target.Repositories.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using NexEPA.Core.Models;
@@ -34,7 +35,7 @@ namespace NexEPA.Target.Repositories.Implement
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<TargetModel, TargetType, ProjectModel, MilestoneModel, EmployeeModel, TargetModel>(
-                    (tm, tt, pro, mi, emp) => 
+                    (tm, tt, pro, mi, emp) =>
                     {
                         tm.TargetType = tt;
                         tm.Project = pro;
@@ -140,6 +141,38 @@ namespace NexEPA.Target.Repositories.Implement
                     return temporaryEPA;
                 }
             }
+        }
+
+        public IList<ProjectTargetModel> GetRedmineProjectTarget(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IList<ProjectFilterModel> projects = multi.Read<ProjectFilterModel>().ToList();
+                    IList<CommonTargetModel> targets = multi.Read<CommonTargetModel>().ToList();
+
+                    IList<ProjectTargetModel> result = GroupProjectTarget(projects, targets);
+
+                    return result;
+                }
+            }
+        }
+
+        private IList<ProjectTargetModel> GroupProjectTarget(IList<ProjectFilterModel> projects, IList<CommonTargetModel> targets)
+        {
+            IList<ProjectTargetModel> projectTargets = projects.Select(p =>
+            {
+                var projectTarget = new ProjectTargetModel
+                {
+                    Project = p,
+                    Targets = targets.Where(t => t.ProjectId == p.ProjectId).ToList()
+                };
+
+                return projectTarget;
+            }).ToList();
+
+            return projectTargets;
         }
     }
 }

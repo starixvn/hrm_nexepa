@@ -1,0 +1,43 @@
+﻿<div class="col-sm-12 sync-redmine-target" ng-controller="SyncRedmineTargetController as syncRedmineTargetCtrl">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="Target" data-ng-click="syncRedmineTargetCtrl.openTargetPage()"></a></li>
+            <li class="current" data-translate="SyncTargetFromRedmineFeature"></li>
+        </ul>
+    </div>
+    <div class="row row-filter filter-max-width">
+        <form data-novalidate class="form-horizontal common-form col-sm-12 filter">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right" data-translate="From"></label>
+                <div class="col-sm-2">
+                    <input class="calendar-form-control" type="text" data-ng-model="syncRedmineTargetCtrl.filter.fromDate"
+                           data-datepicker-popup="{{syncRedmineTargetCtrl.dateFormat}}" data-is-open="syncRedmineTargetCtrl.calendar.startDateOpened" />
+                    <calendar-image class="calendar-image" ng-click="syncRedmineTargetCtrl.openPopupStartDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-2 control-label text-right" data-translate="To"></label>
+                <div class="col-sm-2">
+                    <input class="calendar-form-control" type="text" data-ng-model="syncRedmineTargetCtrl.filter.toDate"
+                           data-datepicker-popup="{{syncRedmineTargetCtrl.dateFormat}}"
+                           data-is-open="syncRedmineTargetCtrl.calendar.endDateOpened" />
+                    <calendar-image class="calendar-image" ng-click="syncRedmineTargetCtrl.openPopupEndDate($event)"></calendar-image>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right" data-translate="Project">
+                </label>
+                <div class="col-sm-2">
+                    <add-class-to-role-filter multi-select input-model="syncRedmineTargetCtrl.subProjects" button-label="projectId"
+                                              helper-elements="all reset filter" item-label="projectName" tick-property="ticked"
+                                              max-labels="0" class="multi-select">
+                    </add-class-to-role-filter>
+                </div>
+                <div class="col-sm-2">
+                    <button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="syncRedmineTargetCtrl.isLoadingGetTargetButton"
+                            data-ng-click="syncRedmineTargetCtrl.getRedmineTarget(true)">
+                        <span class="ladda-label" data-translate="Submit"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

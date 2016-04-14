@@ -102,6 +102,7 @@
         <Setting Key="Target_GetDefaultDateForAddNew" SpName="Target_GetDefaultDateForAddNew" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="Target_GetKPIGroup" SpName="Target_GetKPIGroup" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="Target_GetAll" SpName="Target_GetAll" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="TargetRedmine_Get" SpName="TargetRedmine_Get" DbName="NexEPA" Plain="0" ></Setting>
     </Function>
 
     <Function Name="TargetEmployee">

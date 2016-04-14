@@ -65,6 +65,15 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
         },
         getUserPermissionOnTarget: function (targetId) {
             return $http.get('/api/EmployeeEPA/GetUserPermissonOnTarget', { params: { targetId: targetId } });
+        },
+        getRedmineProjectTarget: function (filter) {
+            return $http.get('/api/Target/GetRedmineProjectTarget', {
+                params: {
+                    fromDate: filter.fromDate || '',
+                    toDate: filter.toDate || '',
+                    projectIds: filter.projectIds || ''
+                }
+            });
         }
     };
 }]);

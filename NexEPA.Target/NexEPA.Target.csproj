@@ -70,8 +70,10 @@
     <Compile Include="Criteria\Target\TargetKPI\GetKPIByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\TargetKPI\GetKPIGroupByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetProjectOrMilestoneDateCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\GetRedmineProjectTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetToFilterCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetStatusCriteria.cs" />
+    <Compile Include="Models\ProjectTargetModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Models\EPAInfoKPIModel.cs" />
     <Compile Include="Models\EPATypeModel.cs" />

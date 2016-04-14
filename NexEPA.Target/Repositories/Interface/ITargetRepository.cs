@@ -29,5 +29,7 @@ namespace NexEPA.Target.Repositories.Interface
         IEnumerable<EmployeeModel> GetEmployee(ICriteria criteria);
 
         TemporaryEPAAndEmployeeModel GetEmployeeByKPI(ICriteria criteria);
+
+        IList<ProjectTargetModel> GetRedmineProjectTarget(ICriteria criteria);
     }
 }

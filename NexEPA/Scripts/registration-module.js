@@ -15,7 +15,7 @@ var projectsSettingModule = angular.module("projectsSettingModule", ['ngRoute', 
     { templateUrl: '/templates/ProjectMembers/Create.html', controller: 'AddProjectMembersController' });
     $routeProvider.when('/ProjectMembers/Edit/ProjectId=:projectId/EmployeeId=:employeeId',
      { templateUrl: '/templates/ProjectMembers/Edit.html', controller: 'EditProjectMembersController' });
-    $routeProvider.when('/Project/SyncRedmineProject', { templateUrl: '../templates/Projects/SyncRedmineProject.html'});
+    $routeProvider.when('/Project/SyncRedmineProject', { templateUrl: '../templates/Projects/SyncRedmineProject.html' });
 }])
 .factory("ProjectSettingCache", ['$cacheFactory', function ($cacheFactory) {
     return $cacheFactory();
@@ -39,6 +39,7 @@ var targetModule = angular.module("targetModule", ['ngRoute', 'ngResource'])
     $routeProvider.when('/Target/TargetEmployee/:id', { templateUrl: '/templates/Target/Detail.html', controller: 'TargetDetailAndEditController' });
     $routeProvider.when('/Target/TargetKPI/:id', { templateUrl: '/templates/Target/Detail.html', controller: 'TargetDetailAndEditController' });
     $routeProvider.when('/Target/TargetDetail/:id', { templateUrl: '/templates/Target/Detail.html', controller: 'TargetDetailAndEditController' });
+    $routeProvider.when('/Target/SyncRedmineTarget', { templateUrl: '/templates/Target/SyncRedmineTarget.html' });
 }]);
 
 var targetTemplateModule = angular.module("targetTemplateModule", ['ngRoute', 'ngResource'])

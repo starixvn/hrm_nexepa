@@ -101,8 +101,8 @@ namespace NexEPA.Target.Services.Implement
             Check.Argument.IsNotNull(criteria, "criteria");
             CommandResult commandResult = new CommandResult();
 
-            if (criteria.IsValid()) 
-            { 
+            if (criteria.IsValid())
+            {
                 commandResult = Repository.Insert(criteria);
             }
 
@@ -193,7 +193,7 @@ namespace NexEPA.Target.Services.Implement
 
             if (criteria.IsValid())
             {
-                 commandResult = Repository.Insert(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
             return commandResult;
@@ -292,7 +292,7 @@ namespace NexEPA.Target.Services.Implement
             if (criteria.IsValid())
             {
                 IEnumerable<KPIGroupModel> rawGroups = GetData<KPIGroupModel>(criteria);
-                groups  = rawGroups.Select(gr => new { gr.KPIGroupId, gr.Name });
+                groups = rawGroups.Select(gr => new { gr.KPIGroupId, gr.Name });
             }
 
             return groups;
@@ -336,6 +336,19 @@ namespace NexEPA.Target.Services.Implement
             return employees;
         }
 
+        public IList<ProjectTargetModel> GetRedmineProjectTarget(GetRedmineProjectTargetCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<ProjectTargetModel> projectTargets = null;
+
+            if (criteria.IsValid())
+            {
+                projectTargets = _targetRepository.GetRedmineProjectTarget(criteria);
+            }
+
+            return projectTargets;
+        }
+
         /// <summary>
         /// Convert KPI info to XMl before update.
         /// </summary>
@@ -376,7 +389,7 @@ namespace NexEPA.Target.Services.Implement
         {
             foreach (EmployeeModel employee in employees)
             {
-                IEnumerable<TemporaryEPAModel> kpiItemsOfEmployee = kpiItems.Where(item => 
+                IEnumerable<TemporaryEPAModel> kpiItemsOfEmployee = kpiItems.Where(item =>
                     item.EmployeeId == employee.EmployeeId);
                 employee.EPAInfo = GetEPAInformationOfEmployeeDetails(kpiItemsOfEmployee);
             }
@@ -411,7 +424,7 @@ namespace NexEPA.Target.Services.Implement
                     foreach (TemporaryEPAModel rawKPIItem in kpiItemsOfGroup)
                     {
                         string kpiScore = !string.IsNullOrEmpty(rawKPIItem.Score)
-                            ? _encodeService.Decode(rawKPIItem.Score).Replace("_" + rawKPIItem.KPIId, string.Empty) 
+                            ? _encodeService.Decode(rawKPIItem.Score).Replace("_" + rawKPIItem.KPIId, string.Empty)
                             : string.Empty;
                         var kpiItem = new KPIModel
                         {

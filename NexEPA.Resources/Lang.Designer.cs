@@ -2194,6 +2194,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sync Target From Redmine Feature.
+        /// </summary>
+        public static string SyncTargetFromRedmineFeature {
+            get {
+                return ResourceManager.GetString("SyncTargetFromRedmineFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Target.
         /// </summary>
         public static string Target {

@@ -51,5 +51,7 @@ namespace NexEPA.Target.Services.Interface
         IEnumerable<EmployeeModel> GetEmployeeByKPI(GetEmployeeByKPICriteria criteria);
 
         string ConvertTargetKPIInfoToXML(IEnumerable<EmployeeModel> employees, int kpiGroupId, int kpiId);
+
+        IList<ProjectTargetModel> GetRedmineProjectTarget(GetRedmineProjectTargetCriteria criteria);
     }
 }

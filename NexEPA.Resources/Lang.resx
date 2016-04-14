@@ -957,4 +957,7 @@
   <data name="ViewProjectMember" xml:space="preserve">
     <value>Project Members</value>
   </data>
+  <data name="SyncTargetFromRedmineFeature" xml:space="preserve">
+    <value>Sync Target From Redmine Feature</value>
+  </data>
 </root>

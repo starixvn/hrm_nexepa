@@ -19,8 +19,8 @@ function ($modal, projectDataFactory, notificationFactory, ErrorService, commonF
     vm.canSync = false;
     vm.writePermission = "2";
 
-    vm.reload = function () {
-        window.location.reload();
+    vm.openProjectPage = function () {
+        window.location.href = "/Projects/Index";
     };
 
     vm.getRedmineProjects = function (showLoading) {

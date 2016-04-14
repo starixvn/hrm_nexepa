@@ -94,6 +94,7 @@ namespace NexEPA
                 "~/Scripts/Views/KPI/KPI/KPI-repository.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-controller.js",
                 "~/Scripts/Views/TargetTemplate/targettemplate-repository.js",
+                "~/Scripts/Views/Target/syncRedmineTarget-controller.js",
                 "~/Scripts/Views/Target/target-controller.js",
                 "~/Scripts/Views/Target/target-repository.js",
                 "~/Scripts/Views/EPA/myepa-controller.js",

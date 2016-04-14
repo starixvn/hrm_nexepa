@@ -44,7 +44,7 @@
         }
 
         public TargetController(
-            ITargetService targetService, 
+            ITargetService targetService,
             IProjectService projectService,
             ICommonService commonService,
             IMemberEPAService memberEPAService)
@@ -173,7 +173,7 @@
         {
             var criteria = new GetAllEmployeeByTargetIdCriteria
             {
-                 TargetId = targetId
+                TargetId = targetId
             };
 
             return targetService.GetTargetEmployeeByTargetId(criteria);
@@ -311,8 +311,27 @@
                 KPIGroupId = epaInfo.KPIGroupId,
                 EmployeeScore = targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
             };
-            
+
             return memberEPAService.UpdateKPIScore(criteria);
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineTarget, Policy = Policy.Read)]
+        public IList<ProjectTargetModel> GetRedmineProjectTarget(
+            DateTime fromDate,
+            DateTime toDate,
+            string projectIds)
+        {
+            var criteria = new GetRedmineProjectTargetCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                ProjectIds = projectIds
+            };
+
+            IList<ProjectTargetModel> projectTargets = targetService.GetRedmineProjectTarget(criteria);
+
+            return projectTargets;
         }
     }
 }
