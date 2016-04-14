@@ -2,12 +2,12 @@
 @import "../mixins.less";
 
 .target-center {
-	text-align: center;
-	vertical-align: middle!important;
+    text-align: center;
+    vertical-align: middle !important;
 }
 
 .target-col-sm-6 {
-	width: 50% !important;
+    width: 50% !important;
 }
 
 .start-date, .end-date, .status, .action, .form, .count, .target-member, .target-kpi, .target-kpi-weight {
@@ -15,11 +15,11 @@
 }
 
 .target-milestone {
-	width: 100px;
+    width: 100px;
 }
 
 .target-kpi-group {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .container.page {
@@ -35,85 +35,146 @@
 
 .target-kpi-table {
     .target-col-sm-6;
-	min-width: 600px;
+    min-width: 600px;
 }
 
 
 .target-template-index, .target-template-name, .target-template-type, .target-template-kpi, .target-template-active, .target-template-action {
-	.target-center;
+    .target-center;
 }
 
 .target-kpi-name {
-	width: 400px;
+    width: 400px;
 }
 
-.spread-weight-max
-{
-	width: 120px;
+.spread-weight-max {
+    width: 120px;
 }
 
-.item-list-icon
-{
-	color: #87b84b;
-	margin-right: 6px;
-	position: relative;
-	top: 0;
-	font-size: 11px;
+.item-list-icon {
+    color: #87b84b;
+    margin-right: 6px;
+    position: relative;
+    top: 0;
+    font-size: 11px;
 }
 
 .target-employee-setting {
-	width: 725px;
+    width: 725px;
 }
 
 .btn-edit {
-	background: url("/Content/Common/Images/edit.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-	cursor: pointer;
-	display: block !important;
-	font-size: 0;
-	height: 16px;
-	margin: 0 auto;
-	width: 16px;
+    background: url("/Content/Common/Images/edit.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    cursor: pointer;
+    display: block !important;
+    font-size: 0;
+    height: 16px;
+    margin: 0 auto;
+    width: 16px;
 }
 
 .btn-cancel {
-	background: url("/Content/Common/Images/delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-	padding: 0 0 0 18px;
-	display: inline;
+    background: url("/Content/Common/Images/delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    padding: 0 0 0 18px;
+    display: inline;
 }
 
 .target-project-manager {
-	margin-top: 6px;
+    margin-top: 6px;
 }
 
 .project-manager-icon {
-	margin-left: -20px;
+    margin-left: -20px;
 }
 
 .target-template-information {
-	margin-top:5px;
+    margin-top: 5px;
 }
 
 .icon-setting {
-	padding-right: 5px;
+    padding-right: 5px;
 }
 
 .target-rating {
-	margin: 0 1% 10px;
+    margin: 0 1% 10px;
 }
 
 .red {
-	color: #df1501;
+    color: #df1501;
 }
 
 .kpi-group-target-rating {
-	font-weight: bold;
-	text-transform: uppercase;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .score-target-rating {
-	text-align: center !important;
+    text-align: center !important;
 }
 
 .new-rating {
-	font-size: 17px;
+    font-size: 17px;
+}
+
+.sync-redmine-target {
+    .grid-collapse {
+        background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
+        cursor: pointer;
+        padding: 1px 7px;
+    }
+
+    .grid-expand {
+        background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
+        cursor: pointer;
+        padding: 1px 7px;
+    }
+
+    .target-odd td {
+        background: #fff !important;
+        padding: 6px 10px;
+    }
+
+    .target-even td {
+        background: #E4F2FD !important;
+        padding: 6px 10px;
+    }
+
+    .target-select {
+        text-align: center;
+        width: 4%;
+    }
+
+    .target-index {
+        .target-select;
+    }
+
+    .target-name {
+        width: 22%;
+    }
+
+    .target-start-date {
+        width: 17%;
+    }
+
+    .target-end-date {
+        width: 17%;
+    }
+
+    .target-feature-id {
+        width: 18%;
+    }
+
+    .target-synced-date {
+        width: 18%;
+    }
+
+    .project-name {
+        color: #30465D;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .project-target td {
+        background-color: #C2D9EC;
+    }
 }

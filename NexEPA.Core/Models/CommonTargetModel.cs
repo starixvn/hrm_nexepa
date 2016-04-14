@@ -16,6 +16,8 @@
 
         public DateTime? SyncedDate { get; set; }
 
+        public int? RedmineFeatureId { get; set; }
+
         public int ProjectId { get; set; }
     }
 }

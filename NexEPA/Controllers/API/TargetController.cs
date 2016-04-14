@@ -14,6 +14,7 @@
     using NexEPA.Project.Criteria.Milestone;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
+    using NexEPA.Target.Criteria.Target;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
@@ -332,6 +333,19 @@
             IList<ProjectTargetModel> projectTargets = targetService.GetRedmineProjectTarget(criteria);
 
             return projectTargets;
+        }
+
+        [HttpGet]
+        public RedmineIssueModel GetRedmineFeatureInfo(int redmineFeatureId)
+        {
+            var criteria = new GetRedmineFeatureInfoCriteria
+            {
+                RedmineFeatureId = redmineFeatureId                
+            };
+
+            RedmineIssueModel feature = targetService.GetRedmineFeatureInfo(criteria);
+
+            return feature;
         }
     }
 }

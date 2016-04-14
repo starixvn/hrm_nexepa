@@ -26,18 +26,81 @@
                 <label class="col-sm-2 control-label text-right" data-translate="Project">
                 </label>
                 <div class="col-sm-2">
-                    <add-class-to-role-filter multi-select input-model="syncRedmineTargetCtrl.subProjects" button-label="projectId"
-                                              helper-elements="all reset filter" item-label="projectName" tick-property="ticked"
+                    <add-class-to-role-filter multi-select input-model="syncRedmineTargetCtrl.projects" button-label="id"
+                                              helper-elements="all reset filter" item-label="name" tick-property="ticked"
                                               max-labels="0" class="multi-select">
                     </add-class-to-role-filter>
                 </div>
                 <div class="col-sm-2">
                     <button class="button ladda-button" data-style="slide-up" data-loading-button data-is-started="syncRedmineTargetCtrl.isLoadingGetTargetButton"
-                            data-ng-click="syncRedmineTargetCtrl.getRedmineTarget(true)">
+                            data-ng-click="syncRedmineTargetCtrl.getProjectTarget(true)">
                         <span class="ladda-label" data-translate="Submit"></span>
                     </button>
                 </div>
             </div>
         </form>
+    </div>
+    <div class="row">
+        <table class="table table-bordered filter-max-width" scroll-if>
+            <thead>
+                <tr>
+                    <th class="target-select">
+                    </th>
+                    <th class="target-index" data-translate="SymbolCount">
+                    </th>
+                    <th class="target-name" data-translate="TargetName">
+                    </th>
+                    <th class="target-start-date" data-translate="StartDate">
+                    </th>
+                    <th class="target-end-date" data-translate="EndDate">
+                    </th>
+                    <th class="target-feature-id" data-translate="RedmineFeatureId">
+                    </th>
+                    <th class="target-synced-date" data-translate="SyncedDate">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="projectTarget in syncRedmineTargetCtrl.projectTargets" class="project-target">
+                    <td class="text-center">
+                        <label>
+                            <input type="checkbox" ng-checked="projectTarget.checked" ng-click="syncRedmineTargetCtrl.selectTargets(projectTarget)">
+                        </label>
+                    </td>
+                    <td colspan="6">
+                        <div class="pull-left project-name" ng-click="projectTarget.isCollapse = !projectTarget.isCollapse">
+                            <span class="grid-collapse-expand grid-expand" ng-if="projectTarget.isCollapse"></span>
+                            <span class="grid-collapse-expand grid-collapse" ng-if="!projectTarget.isCollapse"></span>
+                            <span ng-bind="$index + 1"></span>.
+                            <span ng-bind="projectTarget.project.name"></span>
+                        </div>
+                        <div class="pull-right">
+                            <button class="button" data-ng-click="syncRedmineTargetCtrl.addNewTargetRow(projectTarget)" data-translate="Add Target"></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-repeat-end ng-if="projectTarget.isCollapse" ng-repeat="target in projectTarget.targets"
+                    ng-class-odd="'target-odd'" ng-class-even="'target-even'">
+                    <td class="text-center">
+                        <label>
+                            <input type="checkbox" ng-checked="target.checked" ng-click="syncRedmineTargetCtrl.selectTarget(projectTarget,target)">
+                        </label>
+                    </td>
+                    <td class="text-center" ng-bind="$index + 1"></td>
+                    <td>
+                        <input ng-model="target.name" class="form-control" />
+                    </td>
+                    <td ng-bind="target.startDate | customDate"></td>
+                    <td ng-bind="target.endDate | customDate"></td>
+                    <td>
+                        <input ng-model="target.redmineFeatureId" class="form-control" ng-blur="syncRedmineTargetCtrl.setTargetInfo(target)" />
+                    </td>
+                    <td ng-bind="target.SyncedDate | customDateTime"></td>
+                </tr>
+                <tr ng-show="syncRedmineTargetCtrl.projectTargets.length == 0">
+                    <td colspan="7" class="empty-result" data-translate="EmptyResult"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

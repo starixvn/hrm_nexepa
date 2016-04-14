@@ -5,7 +5,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
     return {
         getTarget: function (targetTypeId, startDate, endDate) {
             return $http.get('/api/Target/GetTarget',
-				{ params: { targetTypeId: targetTypeId, startDate: startDate, endDate: endDate } });
+                { params: { targetTypeId: targetTypeId, startDate: startDate, endDate: endDate } });
         },
         getTargetById: function (targetId) {
             return $http.get('/api/Target/GetTargetById', { params: { targetId: targetId } });
@@ -39,7 +39,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
         },
         deleteTargetEmployee: function (targetId, employeeId) {
             return $http['delete']('/api/Target/DeleteTargetEmployee',
-				{ params: { targetId: targetId, employeeId: employeeId } });
+                { params: { targetId: targetId, employeeId: employeeId } });
         },
         getKPIByTargetId: function (targetId, groupId) {
             return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId } });
@@ -69,9 +69,16 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
         getRedmineProjectTarget: function (filter) {
             return $http.get('/api/Target/GetRedmineProjectTarget', {
                 params: {
-                    fromDate: filter.fromDate || '',
-                    toDate: filter.toDate || '',
+                    fromDate: filter.fromDate.toDateString() || '',
+                    toDate: filter.toDate.toDateString() || '',
                     projectIds: filter.projectIds || ''
+                }
+            });
+        },
+        getRedmineFeatureInfo: function (redmineFeatureId) {
+            return $http.get('/api/Target/GetRedmineFeatureInfo', {
+                params: {
+                    redmineFeatureId: redmineFeatureId
                 }
             });
         }

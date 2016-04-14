@@ -1852,6 +1852,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redmine Feature Id.
+        /// </summary>
+        public static string RedmineFeatureId {
+            get {
+                return ResourceManager.GetString("RedmineFeatureId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report.
         /// </summary>
         public static string Report {
@@ -2167,6 +2176,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Synced Date.
+        /// </summary>
+        public static string SyncedDate {
+            get {
+                return ResourceManager.GetString("SyncedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sync projects unsuccessfully!.
         /// </summary>
         public static string SyncProjectFailed {
@@ -2262,6 +2280,15 @@ namespace NexEPA.Resources {
         public static string TargetMembers {
             get {
                 return ResourceManager.GetString("TargetMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Name.
+        /// </summary>
+        public static string TargetName {
+            get {
+                return ResourceManager.GetString("TargetName", resourceCulture);
             }
         }
         

@@ -12,6 +12,7 @@ namespace NexEPA.Target.Services.Interface
     using System.Collections.Generic;
     using NexEPA.Core.Models;
     using NexEPA.Employee.Models;
+    using NexEPA.Target.Criteria.Target;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
@@ -53,5 +54,7 @@ namespace NexEPA.Target.Services.Interface
         string ConvertTargetKPIInfoToXML(IEnumerable<EmployeeModel> employees, int kpiGroupId, int kpiId);
 
         IList<ProjectTargetModel> GetRedmineProjectTarget(GetRedmineProjectTargetCriteria criteria);
+
+        RedmineIssueModel GetRedmineFeatureInfo(GetRedmineFeatureInfoCriteria criteria);
     }
 }

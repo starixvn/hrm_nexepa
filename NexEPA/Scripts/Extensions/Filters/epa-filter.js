@@ -35,8 +35,24 @@ registrationModule.filter('targetType', ['$http', function ($http) {
 
 registrationModule.filter('customDate', ['$filter', function ($filter) {
     return function (input) {
-        if (input == null) { return ""; }
-        var _date = $filter('date')(new Date(input), 'dd MMM, yyyy');
+        var _date = null;
+
+        if (input) {
+            _date = $filter('date')(new Date(input), 'dd MMM, yyyy');
+        }
+
+        return _date;
+    };
+}]);
+
+registrationModule.filter('customDateTime', ['$filter', function ($filter) {
+    return function (input) {
+        var _date = null;
+
+        if (input) {
+            _date = $filter('date')(new Date(input), 'dd MMM, yyyy hh:mm tt');
+        }
+
         return _date;
     };
 }]);

@@ -960,4 +960,13 @@
   <data name="SyncTargetFromRedmineFeature" xml:space="preserve">
     <value>Sync Target From Redmine Feature</value>
   </data>
+  <data name="RedmineFeatureId" xml:space="preserve">
+    <value>Redmine Feature Id</value>
+  </data>
+  <data name="SyncedDate" xml:space="preserve">
+    <value>Synced Date</value>
+  </data>
+  <data name="TargetName" xml:space="preserve">
+    <value>Target Name</value>
+  </data>
 </root>

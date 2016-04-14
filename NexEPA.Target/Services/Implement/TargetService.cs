@@ -23,6 +23,7 @@ namespace NexEPA.Target.Services.Implement
     using NexEPA.Core.Utilities;
     using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
+    using NexEPA.Target.Criteria.Target;
     using NexEPA.Target.Criteria.Target.Target;
     using NexEPA.Target.Criteria.Target.TargetEmployee;
     using NexEPA.Target.Criteria.Target.TargetKPI;
@@ -381,6 +382,19 @@ namespace NexEPA.Target.Services.Implement
 
             epaPattern.Append(Constants.EndRootTag);
             return epaPattern.ToString();
+        }
+
+        public RedmineIssueModel GetRedmineFeatureInfo(GetRedmineFeatureInfoCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            RedmineIssueModel feature = null;
+
+            if (criteria.IsValid())
+            {
+                feature = GetDataEntity<RedmineIssueModel>(criteria);
+            }
+
+            return feature;
         }
 
         private IEnumerable<EmployeeModel> GetEPAInformationOfEmployee(

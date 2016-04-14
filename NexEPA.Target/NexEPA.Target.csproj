@@ -70,6 +70,7 @@
     <Compile Include="Criteria\Target\TargetKPI\GetKPIByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\TargetKPI\GetKPIGroupByTargetIdCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetProjectOrMilestoneDateCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\GetRedmineFeatureInfoCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetRedmineProjectTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetToFilterCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetStatusCriteria.cs" />
