@@ -73,6 +73,7 @@
     <Compile Include="Criteria\Target\Target\GetRedmineFeatureInfoCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetRedmineProjectTargetCriteria.cs" />
     <Compile Include="Criteria\Target\Target\GetTargetToFilterCriteria.cs" />
+    <Compile Include="Criteria\Target\Target\SyncTargetFromRedmineFeatureCriteria.cs" />
     <Compile Include="Criteria\Target\Target\UpdateTargetStatusCriteria.cs" />
     <Compile Include="Models\ProjectTargetModel.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />

@@ -81,6 +81,12 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
                     redmineFeatureId: redmineFeatureId
                 }
             });
+        },
+        syncTargetFromRedmineFeature: function (targets) {
+            return $http.post('/api/Target/SyncTargetFromRedmineFeature', targets);
+        },
+        getSyncTargetPermission: function () {
+            return $http.get('/api/Target/GetSyncTargetPermission');
         }
     };
 }]);

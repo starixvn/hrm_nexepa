@@ -40,67 +40,78 @@
             </div>
         </form>
     </div>
-    <div class="row">
-        <table class="table table-bordered filter-max-width" scroll-if>
-            <thead>
-                <tr>
-                    <th class="target-select">
-                    </th>
-                    <th class="target-index" data-translate="SymbolCount">
-                    </th>
-                    <th class="target-name" data-translate="TargetName">
-                    </th>
-                    <th class="target-start-date" data-translate="StartDate">
-                    </th>
-                    <th class="target-end-date" data-translate="EndDate">
-                    </th>
-                    <th class="target-feature-id" data-translate="RedmineFeatureId">
-                    </th>
-                    <th class="target-synced-date" data-translate="SyncedDate">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat-start="projectTarget in syncRedmineTargetCtrl.projectTargets" class="project-target">
-                    <td class="text-center">
-                        <label>
-                            <input type="checkbox" ng-checked="projectTarget.checked" ng-click="syncRedmineTargetCtrl.selectTargets(projectTarget)">
-                        </label>
-                    </td>
-                    <td colspan="6">
-                        <div class="pull-left project-name" ng-click="projectTarget.isCollapse = !projectTarget.isCollapse">
-                            <span class="grid-collapse-expand grid-expand" ng-if="projectTarget.isCollapse"></span>
-                            <span class="grid-collapse-expand grid-collapse" ng-if="!projectTarget.isCollapse"></span>
-                            <span ng-bind="$index + 1"></span>.
-                            <span ng-bind="projectTarget.project.name"></span>
-                        </div>
-                        <div class="pull-right">
-                            <button class="button" data-ng-click="syncRedmineTargetCtrl.addNewTargetRow(projectTarget)" data-translate="Add Target"></button>
-                        </div>
-                    </td>
-                </tr>
-                <tr ng-repeat-end ng-if="projectTarget.isCollapse" ng-repeat="target in projectTarget.targets"
-                    ng-class-odd="'target-odd'" ng-class-even="'target-even'">
-                    <td class="text-center">
-                        <label>
-                            <input type="checkbox" ng-checked="target.checked" ng-click="syncRedmineTargetCtrl.selectTarget(projectTarget,target)">
-                        </label>
-                    </td>
-                    <td class="text-center" ng-bind="$index + 1"></td>
-                    <td>
-                        <input ng-model="target.name" class="form-control" />
-                    </td>
-                    <td ng-bind="target.startDate | customDate"></td>
-                    <td ng-bind="target.endDate | customDate"></td>
-                    <td>
-                        <input ng-model="target.redmineFeatureId" class="form-control" ng-blur="syncRedmineTargetCtrl.setTargetInfo(target)" />
-                    </td>
-                    <td ng-bind="target.SyncedDate | customDateTime"></td>
-                </tr>
-                <tr ng-show="syncRedmineTargetCtrl.projectTargets.length == 0">
-                    <td colspan="7" class="empty-result" data-translate="EmptyResult"></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-sm-12 filter-max-width" ng-if="syncRedmineTargetCtrl.projectTargets != null">
+        <div class="grid-title" ng-if="syncRedmineTargetCtrl.canSync">
+            <button id="btn-sync-target" type="button" data-style="slide-up" data-loading-button data-is-started="syncRedmineTargetCtrl.isLoadingSyncButton"
+                    class="button btn-custom ladda-button" ng-click="syncRedmineTargetCtrl.syncTargets()">
+                <span class="ladda-label">Sync</span>
+            </button>
+        </div>
+        <div>
+            <table class="table table-bordered " scroll-if>
+                <thead>
+                    <tr>
+                        <th class="target-select">
+                        </th>
+                        <th class="target-index" data-translate="SymbolCount">
+                        </th>
+                        <th class="target-name" data-translate="TargetName">
+                        </th>
+                        <th class="target-start-date" data-translate="StartDate">
+                        </th>
+                        <th class="target-end-date" data-translate="EndDate">
+                        </th>
+                        <th class="target-feature-id" data-translate="RedmineFeatureId">
+                        </th>
+                        <th class="target-synced-date" data-translate="SyncedDate">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="projectTarget in syncRedmineTargetCtrl.projectTargets" class="project-target">
+                        <td class="text-center">
+                            <label>
+                                <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="checkbox" ng-checked="projectTarget.checked" ng-click="syncRedmineTargetCtrl.selectTargets(projectTarget)">
+                            </label>
+                        </td>
+                        <td colspan="6">
+                            <div class="pull-left project-name" ng-click="projectTarget.isCollapse = !projectTarget.isCollapse">
+                                <span class="grid-collapse-expand grid-expand" ng-if="projectTarget.isCollapse"></span>
+                                <span class="grid-collapse-expand grid-collapse" ng-if="!projectTarget.isCollapse"></span>
+                                <span ng-bind="$index + 1"></span>.
+                                <span ng-bind="projectTarget.project.name"></span>
+                            </div>
+                            <div class="pull-right">
+                                <button class="button-icon" data-ng-click="syncRedmineTargetCtrl.addNewTargetRow(projectTarget)" ng-if="syncRedmineTargetCtrl.canSync">
+                                    <span class="icon plus"></span>
+                                    <span class="button-text" data-translate="AddTarget"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat-end ng-if="projectTarget.isCollapse" ng-repeat="target in projectTarget.targets"
+                        ng-class-odd="'target-odd'" ng-class-even="'target-even'">
+                        <td class="text-center">
+                            <label>
+                                <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="checkbox" ng-checked="target.checked" ng-click="syncRedmineTargetCtrl.selectTarget(projectTarget,target)">
+                            </label>
+                        </td>
+                        <td class="text-center" ng-bind="$index + 1"></td>
+                        <td>
+                            <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="text" ng-model="target.name" class="form-control" />
+                        </td>
+                        <td class="text-center" ng-bind="target.startDate | customDate"></td>
+                        <td class="text-center" ng-bind="target.endDate | customDate"></td>
+                        <td>
+                            <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="number" ng-model="target.redmineFeatureId" class="form-control" ng-blur="syncRedmineTargetCtrl.setTargetInfo(target)" />
+                        </td>
+                        <td class="text-center" ng-bind="target.syncedDate | customDateTime"></td>
+                    </tr>
+                    <tr ng-show="syncRedmineTargetCtrl.projectTargets.length == 0">
+                        <td colspan="7" class="empty-result" data-translate="EmptyResult"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

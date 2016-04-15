@@ -38,7 +38,7 @@ registrationModule.filter('customDate', ['$filter', function ($filter) {
         var _date = null;
 
         if (input) {
-            _date = $filter('date')(new Date(input), 'dd MMM, yyyy');
+            _date = $filter('date')(input, 'dd MMM, yyyy');
         }
 
         return _date;
@@ -50,7 +50,7 @@ registrationModule.filter('customDateTime', ['$filter', function ($filter) {
         var _date = null;
 
         if (input) {
-            _date = $filter('date')(new Date(input), 'dd MMM, yyyy hh:mm tt');
+            _date = $filter('date')(input, 'dd MMM, yyyy hh:mm a');
         }
 
         return _date;

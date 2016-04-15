@@ -26,6 +26,93 @@
     .table.list-target-template {
         margin-top: 10px;
     }
+
+    .sync-redmine-target {
+        .grid-collapse {
+            background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
+            cursor: pointer;
+            padding: 1px 7px;
+        }
+
+        .grid-expand {
+            background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
+            cursor: pointer;
+            padding: 1px 7px;
+        }
+
+        .target-odd td {
+            background: #fff !important;
+            padding: 6px 10px;
+        }
+
+        .target-even td {
+            background: #E4F2FD !important;
+            padding: 6px 10px;
+        }
+
+        .target-select {
+            text-align: center;
+            width: 4%;
+        }
+
+        .target-index {
+            .target-select;
+        }
+
+        .target-name {
+            width: 30%;
+        }
+
+        .target-start-date {
+            width: 15%;
+        }
+
+        .target-end-date {
+            width: 15%;
+        }
+
+        .target-feature-id {
+            width: 16%;
+        }
+
+        .target-synced-date {
+            width: 16%;
+        }
+
+        .project-name {
+            color: #30465D;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .project-target td {
+            background-color: #C2D9EC;
+        }
+
+        .col-sm-12 {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        .table {
+            margin: 0;
+            width: 100%;
+        }
+
+        .grid-title {
+            height: 33px;
+
+            .btn-custom {
+                margin: 2px;
+                width: 70px;
+            }
+        }
+
+        .form-control {
+            height: 30px;
+            padding: 3px 12px;
+        }        
+    }
 }
 
 .target-member-table {
@@ -114,67 +201,4 @@
 
 .new-rating {
     font-size: 17px;
-}
-
-.sync-redmine-target {
-    .grid-collapse {
-        background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
-        cursor: pointer;
-        padding: 1px 7px;
-    }
-
-    .grid-expand {
-        background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
-        cursor: pointer;
-        padding: 1px 7px;
-    }
-
-    .target-odd td {
-        background: #fff !important;
-        padding: 6px 10px;
-    }
-
-    .target-even td {
-        background: #E4F2FD !important;
-        padding: 6px 10px;
-    }
-
-    .target-select {
-        text-align: center;
-        width: 4%;
-    }
-
-    .target-index {
-        .target-select;
-    }
-
-    .target-name {
-        width: 22%;
-    }
-
-    .target-start-date {
-        width: 17%;
-    }
-
-    .target-end-date {
-        width: 17%;
-    }
-
-    .target-feature-id {
-        width: 18%;
-    }
-
-    .target-synced-date {
-        width: 18%;
-    }
-
-    .project-name {
-        color: #30465D;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .project-target td {
-        background-color: #C2D9EC;
-    }
 }

@@ -9,11 +9,13 @@
 
 namespace NexEPA.Target.Repositories.Implement
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using NexEPA.Core.Models;
+    using NexEPA.Core.Utilities;
     using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
     using NexEPA.Project.Models;
@@ -156,6 +158,26 @@ namespace NexEPA.Target.Repositories.Implement
 
                     return result;
                 }
+            }
+        }
+
+        public CommandResult SyncTargetFromRedmineFeature(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                db.ExecuteNonQuery(criteria.GetSpParams());
+
+                Hashtable output = db.GetOuputParams();
+
+                var result = new CommandResult();
+
+                if (output != null)
+                {
+                    result.Code = CommonHelper.ConvertInt(output["errcode"]);
+                    result.Message = string.Format("{0}", output["errmsg"]);
+                }
+
+                return result;
             }
         }
 

@@ -832,7 +832,7 @@
     <value>To date must not be before than From date</value>
   </data>
   <data name="ValidateMaximumOneYear" xml:space="preserve">
-    <value>Report period must not exceed 365 days</value>
+    <value>Filter period must not exceed 365 days</value>
   </data>
   <data name="PersonalEffort" xml:space="preserve">
     <value>Personal effort</value>
@@ -968,5 +968,32 @@
   </data>
   <data name="TargetName" xml:space="preserve">
     <value>Target Name</value>
+  </data>
+  <data name="AddTarget" xml:space="preserve">
+    <value>Add Target</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="RequireFeatureId" xml:space="preserve">
+    <value>The targets you chosen are invalid. The Redmine Feature Id is required.</value>
+  </data>
+  <data name="RequireSelectTarget" xml:space="preserve">
+    <value>There is no any chosen target. Please choose at least one target to sync.</value>
+  </data>
+  <data name="RequireTargetName" xml:space="preserve">
+    <value>The targets you chosen are invalid. The Target Name is required.</value>
+  </data>
+  <data name="RequireTargetNameAndFeatureId" xml:space="preserve">
+    <value>The targets you chosen are invalid. The Target Name and Redmine Feature Id are required.</value>
+  </data>
+  <data name="SyncTargetFailed" xml:space="preserve">
+    <value>Sync targets unsuccessfully!</value>
+  </data>
+  <data name="SyncTargetSuccess" xml:space="preserve">
+    <value>Sync targets successfully!</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
   </data>
 </root>

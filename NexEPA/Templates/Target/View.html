@@ -3,123 +3,105 @@
         <li><a href="#" data-translate="Target" ng-click="reload()"></a></li>
         <li class="current" data-translate="ManageTarget"></li>
     </ul>
-	<a class="button-icon" ng-if="permission.policy == 2" href="" ng-href="{{createTargetUrl}}" ng-click="create()">
-		<span class="icon plus"></span>
-		<span class="button-text" data-translate="CreateTarget"></span>
-	</a>
+    <a class="button-icon" ng-if="permission.policy == 2" href="" ng-href="{{createTargetUrl}}" ng-click="create()">
+        <span class="icon plus"></span>
+        <span class="button-text" data-translate="CreateTarget"></span>
+    </a>
 </div>
 <div class="row">
     <form novalidate class="form-inline filter">
-    <div class="form-group">
-        <label data-translate="Form">
-        </label>
-        <select name="formSelect" ng-model="filter.targetTypeId" ng-options="opt.targetTypeId as opt.name for opt in formOptions"
-            required class="form-control">
-            <option value="">-- All --</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label data-translate="StartDate">
-        </label>
-        <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
-            is-open="calendar.startDateOpened" />
-        <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
-    </div>
-    <div class="form-group">
-        <label data-translate="EndDate">
-        </label>
-        <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup="{{dateFormat}}"
-            is-open="calendar.endDateOpened" />
-        <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
-    </div>
-    <div class="form-group">
-        <button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit">
-        </button>
-    </div>
+        <div class="form-group">
+            <label data-translate="Form">
+            </label>
+            <select name="formSelect" ng-model="filter.targetTypeId" ng-options="opt.targetTypeId as opt.name for opt in formOptions"
+                    required class="form-control">
+                <option value="">-- All --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="FromDate">
+            </label>
+            <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
+                   is-open="calendar.startDateOpened" />
+            <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+        </div>
+        <div class="form-group">
+            <label data-translate="ToDate">
+            </label>
+            <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup="{{dateFormat}}"
+                   is-open="calendar.endDateOpened" />
+            <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+        </div>
+        <div class="form-group">
+            <button class="button" ng-click="query(filter)" ng-disabled="submitted" data-translate="Submit"></button>
+        </div>
     </form>
 </div>
 <div class="row">
     <table class="col-sm-12 table table-bordered table-striped">
         <thead>
-            <th data-translate="SymbolCount">
-            </th>
-            <th data-translate="Target">
-            </th>
-            <th data-translate="Form">
-            </th>
-            <th data-translate="Project">
-            </th>
-            <th data-translate="Milestone">
-            </th>
-            <th data-translate="Members">
-            </th>
-            <th data-translate="KPIs">
-            </th>
-            <th data-translate="Status">
-            </th>
-            <th data-translate="ProjectEPAStatistic" ng-if="permissionMemberEPA.policy >= 1">
-            </th>
-            <th data-translate="StartDate">
-            </th>
-            <th data-translate="EndDate">
-            </th>
-            <th data-translate="Action">
-            </th>
+        <th data-translate="SymbolCount"></th>
+        <th data-translate="Target"></th>
+        <th data-translate="Form"></th>
+        <th data-translate="Project"></th>
+        <th data-translate="Milestone"></th>
+        <th data-translate="Members"></th>
+        <th data-translate="KPIs"></th>
+        <th data-translate="Status"></th>
+        <th data-translate="ProjectEPAStatistic" ng-if="permissionMemberEPA.policy >= 1"></th>
+        <th data-translate="StartDate"></th>
+        <th data-translate="EndDate"></th>
+        <th data-translate="Action"></th>
         </thead>
         <tbody>
             <tr ng-repeat="target in targetList">
-                <td class="text-center" ng-bind="$index + 1">
-                </td>
+                <td class="text-center" ng-bind="$index + 1"></td>
                 <td>
                     <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target)" ng-href="{{viewDetailTargetUrl}}"
-                        title="View detail of '{{target.name}}'"></a>
+                       title="View detail of '{{target.name}}'"></a>
                 </td>
-                <td class="text-center" ng-bind="target.targetType.name">
-                </td>
-                <td ng-bind="target.project.name">
-                </td>
-                <td class="target-milestone" ng-bind="target.milestone.name">
-                </td>
+                <td class="text-center" ng-bind="target.targetType.name"></td>
+                <td ng-bind="target.project.name"></td>
+                <td class="target-milestone" ng-bind="target.milestone.name"></td>
                 <td class="text-center">
                     <a href="" ng-bind="target.members" ng-click="viewTargetEmployee(target)" ng-show="target.members > 0"
-                        ng-href="{{viewTargetEmployeeUrl}}" title="View Members of '{{target.name}}'">
+                       ng-href="{{viewTargetEmployeeUrl}}" title="View Members of '{{target.name}}'">
                     </a><span ng-show="target.members === 0" ng-bind="0"></span>
                 </td>
                 <td class="text-center">
                     <a href="" ng-bind="target.kpIs" ng-click="viewTargetKPI(target)" ng-href="{{viewTargetKPIUrl}}"
-                        ng-show="target.kpIs > 0" title="View KPIs of '{{target.name}}'"></a><span ng-show="target.kpIs === 0"
-                            ng-bind="0"></span>
+                       ng-show="target.kpIs > 0" title="View KPIs of '{{target.name}}'"></a><span ng-show="target.kpIs === 0"
+                                                                                                  ng-bind="0"></span>
                 </td>
                 <td>
-                    <span class="dropdown" ng-if="permission.policy == 2"><a class="dropdown-toggle changeStatus"
-                        href="" ng-bind="target.statusName"></a>
+                    <span class="dropdown" ng-if="permission.policy == 2">
+                        <a class="dropdown-toggle changeStatus"
+                           href="" ng-bind="target.statusName"></a>
                         <ul class="dropdown-menu dropdown-menu-width">
-                            <li ng-repeat="status in statusOptions | filter:{name:'!'+target.statusName}"><a
-                                href="" ng-bind="status.name" ng-click="updateStatus(target, status)"></a></li>
+                            <li ng-repeat="status in statusOptions | filter:{name:'!'+target.statusName}">
+                                <a href="" ng-bind="status.name" ng-click="updateStatus(target, status)"></a>
+                            </li>
                         </ul>
                     </span><span ng-if="permission.policy == 1" ng-bind="target.statusName"></span>
                 </td>
                 <td class="text-center" ng-if="permissionMemberEPA.policy >= 1">
-                    <a href="" ng-href="{{viewOpenEPAUrl}}" ng-click="viewOpenEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)" 
-						title="View Open EPA" ng-bind="target.totalOpenEPA" />
-					<span> / </span>
-					<a href="" ng-href="{{viewAllEPAUrl}}" ng-click="viewAllEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)"
-                        title="View all EPA" ng-bind="target.totalEPA" />
+                    <a href="" ng-href="{{viewOpenEPAUrl}}" ng-click="viewOpenEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)"
+                       title="View Open EPA" ng-bind="target.totalOpenEPA" />
+                    <span> / </span>
+                    <a href="" ng-href="{{viewAllEPAUrl}}" ng-click="viewAllEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)"
+                       title="View all EPA" ng-bind="target.totalEPA" />
                 </td>
-                <td class="text-center" ng-bind="target.startDate | customDate">
-                </td>
-                <td class="text-center" ng-bind="target.endDate | customDate">
-                </td>
+                <td class="text-center" ng-bind="target.startDate | customDate"></td>
+                <td class="text-center" ng-bind="target.endDate | customDate"></td>
                 <td class="action">
                     <a class="glyphicon glyphicon-edit icon-edit" title="Edit Target" href="" ng-click="edit(target)"
-                        ng-href="{{editTargetUrl}}" />
-					<a class="glyphicon glyphicon-remove icon-remove" title="Delete Target"
-                            href="" ng-click="openDeletePopup(target)" ng-if="permission.policy == 2" />
+                       ng-href="{{editTargetUrl}}" />
+                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete Target"
+                       href="" ng-click="openDeletePopup(target)" ng-if="permission.policy == 2" />
                 </td>
             </tr>
             <tr ng-show="targetList == ''">
-                <td class="empty-result" colspan="12" data-translate="EmptyResult">
-                </td>
+                <td class="empty-result" colspan="12" data-translate="EmptyResult"></td>
             </tr>
         </tbody>
     </table>

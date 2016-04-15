@@ -11,6 +11,7 @@ namespace NexEPA.Target.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.Data.Repository;
+    using NexEPA.Core.Models;
     using NexEPA.Employee.Models;
     using NexEPA.KPI.Model;
     using NexEPA.Target.Models;
@@ -31,5 +32,7 @@ namespace NexEPA.Target.Repositories.Interface
         TemporaryEPAAndEmployeeModel GetEmployeeByKPI(ICriteria criteria);
 
         IList<ProjectTargetModel> GetRedmineProjectTarget(ICriteria criteria);
+
+        CommandResult SyncTargetFromRedmineFeature(ICriteria criteria);
     }
 }

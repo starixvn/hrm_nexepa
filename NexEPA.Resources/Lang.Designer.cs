@@ -160,6 +160,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Target.
+        /// </summary>
+        public static string AddTarget {
+            get {
+                return ResourceManager.GetString("AddTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string Admin {
@@ -993,6 +1002,15 @@ namespace NexEPA.Resources {
         public static string From {
             get {
                 return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Date.
+        /// </summary>
+        public static string FromDate {
+            get {
+                return ResourceManager.GetString("FromDate", resourceCulture);
             }
         }
         
@@ -1888,11 +1906,47 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The targets you chosen are invalid. The Redmine Feature Id is required..
+        /// </summary>
+        public static string RequireFeatureId {
+            get {
+                return ResourceManager.GetString("RequireFeatureId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no any chosen project. Please choose at least one project to sync..
         /// </summary>
         public static string RequireSelectProject {
             get {
                 return ResourceManager.GetString("RequireSelectProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no any chosen target. Please choose at least one target to sync..
+        /// </summary>
+        public static string RequireSelectTarget {
+            get {
+                return ResourceManager.GetString("RequireSelectTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The targets you chosen are invalid. The Target Name is required..
+        /// </summary>
+        public static string RequireTargetName {
+            get {
+                return ResourceManager.GetString("RequireTargetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The targets you chosen are invalid. The Target Name and Redmine Feature Id are required..
+        /// </summary>
+        public static string RequireTargetNameAndFeatureId {
+            get {
+                return ResourceManager.GetString("RequireTargetNameAndFeatureId", resourceCulture);
             }
         }
         
@@ -2212,11 +2266,29 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sync targets unsuccessfully!.
+        /// </summary>
+        public static string SyncTargetFailed {
+            get {
+                return ResourceManager.GetString("SyncTargetFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sync Target From Redmine Feature.
         /// </summary>
         public static string SyncTargetFromRedmineFeature {
             get {
                 return ResourceManager.GetString("SyncTargetFromRedmineFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync targets successfully!.
+        /// </summary>
+        public static string SyncTargetSuccess {
+            get {
+                return ResourceManager.GetString("SyncTargetSuccess", resourceCulture);
             }
         }
         
@@ -2455,6 +2527,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To Date.
+        /// </summary>
+        public static string ToDate {
+            get {
+                return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The To date is required!.
         /// </summary>
         public static string ToRequire {
@@ -2527,7 +2608,7 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report period must not exceed 365 days.
+        ///   Looks up a localized string similar to Filter period must not exceed 365 days.
         /// </summary>
         public static string ValidateMaximumOneYear {
             get {

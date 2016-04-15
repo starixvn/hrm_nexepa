@@ -75,7 +75,7 @@
                 ActorUserId = this.CurrentUser.UserId,
                 TargetTypeId = targetTypeId,
                 StartDate = startDate,
-                EndDate = endDate
+                EndDate = endDate.HasValue ? endDate.Value.AddDays(1) : (DateTime?)null
             };
 
             return targetService.GetAllTarget(criteria);
@@ -273,6 +273,14 @@
             return policy;
         }
 
+        [HttpGet]
+        public int GetSyncTargetPermission()
+        {
+            int policy = commonService.GetPermission(EPAFunctionKeys.SyncRedmineTarget);
+
+            return policy;
+        }
+
         /// <summary>
         /// Get employee by KPI.
         /// </summary>
@@ -326,7 +334,7 @@
             var criteria = new GetRedmineProjectTargetCriteria
             {
                 FromDate = fromDate,
-                ToDate = toDate,
+                ToDate = toDate.AddDays(1),
                 ProjectIds = projectIds
             };
 
@@ -340,12 +348,27 @@
         {
             var criteria = new GetRedmineFeatureInfoCriteria
             {
-                RedmineFeatureId = redmineFeatureId                
+                RedmineFeatureId = redmineFeatureId
             };
 
             RedmineIssueModel feature = targetService.GetRedmineFeatureInfo(criteria);
 
             return feature;
+        }
+
+        [HttpPost]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.SyncRedmineTarget, Policy = Policy.Host)]
+        public CommandResult SyncTargetFromRedmineFeature(IList<CommonTargetModel> targets)
+        {
+            var criteria = new SyncTargetFromRedmineFeatureCriteria
+            {
+                AddedBy = CurrentUser.UserId,
+                Targets = targets
+            };
+
+            CommandResult result = targetService.SyncTargetFromRedmineFeature(criteria);
+
+            return result;
         }
     }
 }

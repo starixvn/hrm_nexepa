@@ -397,6 +397,19 @@ namespace NexEPA.Target.Services.Implement
             return feature;
         }
 
+        public CommandResult SyncTargetFromRedmineFeature(SyncTargetFromRedmineFeatureCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+
+            if (criteria.IsValid())
+            {
+                result = _targetRepository.SyncTargetFromRedmineFeature(criteria);
+            }
+
+            return result;
+        }
+
         private IEnumerable<EmployeeModel> GetEPAInformationOfEmployee(
             IEnumerable<EmployeeModel> employees,
             IEnumerable<TemporaryEPAModel> kpiItems)

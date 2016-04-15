@@ -85,13 +85,17 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
     };
 
     $scope.query = function (filterData) {
-        $scope.submitted = true;
+        var isValid = commonFactory.validateFromToDate(filterData.startDate, filterData.endDate);
 
-        if (filterData) {
-            getTarget(filterData.targetTypeId, filterData.startDate, filterData.endDate);
-        }
-        else {
-            $scope.submitted = false;
+        if (isValid) {
+            $scope.submitted = true;
+
+            if (filterData) {
+                getTarget(filterData.targetTypeId, filterData.startDate, filterData.endDate);
+            }
+            else {
+                $scope.submitted = false;
+            }
         }
     };
 

@@ -111,6 +111,7 @@
     <Setting Key="Target_GetAll" SpName="Target_GetAll" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="TargetRedmine_Get" SpName="TargetRedmine_Get" DbName="NexEPA" Plain="0" ></Setting>
         <Setting Key="TargetRedmine_GetFeatureInfo" SpName="TargetRedmine_GetFeatureInfo" DbName="NexEPA" Plain="0" ></Setting>
+        <Setting Key="Target_SyncFromRedmineFeature" SpName="Target_SyncFromRedmineFeature" DbName="NexEPA" Plain="0" ></Setting>
   </Function>
 
   <Function Name="TargetEmployee">

@@ -56,5 +56,7 @@ namespace NexEPA.Target.Services.Interface
         IList<ProjectTargetModel> GetRedmineProjectTarget(GetRedmineProjectTargetCriteria criteria);
 
         RedmineIssueModel GetRedmineFeatureInfo(GetRedmineFeatureInfoCriteria criteria);
+
+        CommandResult SyncTargetFromRedmineFeature(SyncTargetFromRedmineFeatureCriteria criteria);
     }
 }
