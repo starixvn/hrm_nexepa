@@ -367,6 +367,7 @@ notificationFactory, projectUtility, sharedProperties) {
             }
             else {
                 $scope.disabledSubmit = false;
+                projectUtility.showMessageAfterValidate(this);
             }
         }
         else {
