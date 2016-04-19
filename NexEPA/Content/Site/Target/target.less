@@ -28,6 +28,13 @@
     }
 
     .sync-redmine-target {
+        margin-bottom: 15px;
+
+        .icon-remove {
+            color: red;
+            cursor: pointer;
+        }
+
         .grid-collapse {
             background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
             cursor: pointer;
@@ -50,17 +57,20 @@
             padding: 6px 10px;
         }
 
-        .target-select {
-            text-align: center;
+        .target-select, .target-index {
             width: 4%;
         }
 
-        .target-index {
-            .target-select;
+        .target-remove {
+            width: 6%;
+        }
+
+        .target-group {
+            width: 96%;
         }
 
         .target-name {
-            width: 30%;
+            width: 28%;
         }
 
         .target-start-date {
@@ -72,11 +82,11 @@
         }
 
         .target-feature-id {
-            width: 16%;
+            width: 14%;
         }
 
         .target-synced-date {
-            width: 16%;
+            width: 14%;
         }
 
         .project-name {
@@ -111,7 +121,57 @@
         .form-control {
             height: 30px;
             padding: 3px 12px;
-        }        
+        }
+
+        .header-fixed {
+            .target-name {
+                width: 26.5%;
+            }
+
+            .target-group {
+                width: 95%;
+            }
+        }
+
+        tbody {
+            height: 576px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        tbody, thread, tr, td, th {
+            display: block;
+        }
+
+        thead {
+            width: 100%;
+            height: 30px;
+            background: transparent url("../images/table_header_repeat.jpg") repeat-x scroll 0 0;
+
+            tr > th {
+                vertical-align: middle;
+                height: 30px;
+                border-bottom: none;
+            }
+        }
+
+        thead > tr > th {
+            float: left;
+        }
+
+        tbody > tr {
+            width: 100%;
+            display: table;
+
+            td {
+                display: table-cell;
+                border-top: 0;
+            }
+
+            .button-icon {
+                margin: 0;
+            }
+        }
     }
 }
 

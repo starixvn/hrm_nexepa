@@ -18,10 +18,10 @@ epaModule.directive('scrollIf', function () {
                     });
 
                     if (maxHeight > body.height()) {
-                        head.addClass('header-fixed');
+                        head.addClass('header-fixed');                        
                     }
                     else {
-                        head.removeClass('header-fixed');
+                        head.removeClass('header-fixed');                        
                     }
                 }
             });

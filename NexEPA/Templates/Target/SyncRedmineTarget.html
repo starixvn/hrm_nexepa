@@ -48,7 +48,7 @@
             </button>
         </div>
         <div>
-            <table class="table table-bordered " scroll-if>
+            <table class="table table-bordered" data-table-scroll-if>
                 <thead>
                     <tr>
                         <th class="target-select">
@@ -65,16 +65,18 @@
                         </th>
                         <th class="target-synced-date" data-translate="SyncedDate">
                         </th>
+                        <th class="target-remove" data-translate="Remove">
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat-start="projectTarget in syncRedmineTargetCtrl.projectTargets" class="project-target">
-                        <td class="text-center">
+                        <td class="text-center target-select">
                             <label>
                                 <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="checkbox" ng-checked="projectTarget.checked" ng-click="syncRedmineTargetCtrl.selectTargets(projectTarget)">
                             </label>
                         </td>
-                        <td colspan="6">
+                        <td colspan="7" class="target-group">
                             <div class="pull-left project-name" ng-click="projectTarget.isCollapse = !projectTarget.isCollapse">
                                 <span class="grid-collapse-expand grid-expand" ng-if="projectTarget.isCollapse"></span>
                                 <span class="grid-collapse-expand grid-collapse" ng-if="!projectTarget.isCollapse"></span>
@@ -91,24 +93,27 @@
                     </tr>
                     <tr ng-repeat-end ng-if="projectTarget.isCollapse" ng-repeat="target in projectTarget.targets"
                         ng-class-odd="'target-odd'" ng-class-even="'target-even'">
-                        <td class="text-center">
+                        <td class="text-center target-select">
                             <label>
                                 <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="checkbox" ng-checked="target.checked" ng-click="syncRedmineTargetCtrl.selectTarget(projectTarget,target)">
                             </label>
                         </td>
-                        <td class="text-center" ng-bind="$index + 1"></td>
-                        <td>
+                        <td class="text-center target-index" ng-bind="$index + 1"></td>
+                        <td class="target-name">
                             <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="text" ng-model="target.name" class="form-control" />
                         </td>
-                        <td class="text-center" ng-bind="target.startDate | customDate"></td>
-                        <td class="text-center" ng-bind="target.endDate | customDate"></td>
-                        <td>
+                        <td class="text-center target-start-date" ng-bind="target.startDate | customDate"></td>
+                        <td class="text-center target-end-date" ng-bind="target.endDate | customDate"></td>
+                        <td class="target-feature-id">
                             <input ng-disabled="!syncRedmineTargetCtrl.canSync" type="number" ng-model="target.redmineFeatureId" class="form-control" ng-blur="syncRedmineTargetCtrl.setTargetInfo(target)" />
                         </td>
-                        <td class="text-center" ng-bind="target.syncedDate | customDateTime"></td>
+                        <td class="text-center target-synced-date" ng-bind="target.syncedDate | customDateTime"></td>
+                        <td class="text-center target-remove">
+                            <div class="glyphicon glyphicon-remove icon-remove" ng-if="target.targetId == 0" ng-click="syncRedmineTargetCtrl.removeTarget(projectTarget.targets,$index)"></div>
+                        </td>
                     </tr>
                     <tr ng-show="syncRedmineTargetCtrl.projectTargets.length == 0">
-                        <td colspan="7" class="empty-result" data-translate="EmptyResult"></td>
+                        <td colspan="8" class="empty-result" data-translate="EmptyResult"></td>
                     </tr>
                 </tbody>
             </table>

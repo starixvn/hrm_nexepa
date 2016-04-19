@@ -400,6 +400,7 @@
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-controller.js" />
     <Content Include="Scripts\Views\TargetTemplate\targettemplate-repository.js" />
     <Content Include="Scripts\Views\Target\syncRedmineTarget-controller.js" />
+    <Content Include="Scripts\Views\Target\target-directive.js" />
     <Content Include="Scripts\Views\Target\target-controller.js" />
     <Content Include="Scripts\Views\Target\target-repository.js" />
     <Content Include="Scripts\Views\Test\test-controller.js" />

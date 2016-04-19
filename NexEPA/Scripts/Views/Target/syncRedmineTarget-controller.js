@@ -113,7 +113,10 @@ function (targetFactory, commonFactory, ErrorService, notificationFactory) {
                 target.oldRedmineFeatureId = target.redmineFeatureId;
 
                 if (feature) {
-                    target.name = feature.issueName;
+                    if (!target.name) {
+                        target.name = feature.issueName;
+                    }
+
                     target.startDate = feature.startDate;
                     target.endDate = feature.dueDate;
                 } else {
@@ -240,6 +243,10 @@ function (targetFactory, commonFactory, ErrorService, notificationFactory) {
         }).error(function () {
             notificationFactory.error("ErrorMessage");
         });
+    };
+
+    vm.removeTarget = function (targets, index) {
+        targets.splice(index, 1);
     };
 
     vm.initialize = function () {

@@ -98,6 +98,7 @@ namespace NexEPA
                 "~/Scripts/Views/Target/syncRedmineTarget-controller.js",
                 "~/Scripts/Views/Target/target-controller.js",
                 "~/Scripts/Views/Target/target-repository.js",
+                "~/Scripts/Views/Target/target-directive.js",
                 "~/Scripts/Views/EPA/myepa-controller.js",
                 "~/Scripts/Views/EPA/myepa-repository.js",
                 "~/Scripts/Views/EPA/myepa-directive.js",
