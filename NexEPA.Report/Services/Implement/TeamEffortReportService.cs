@@ -196,8 +196,8 @@ namespace NexEPA.Report.Services.Implement
                     Projects = memberProjects.Where(p => p.Employee.NickName == m.Key.NickName && p.Project != null)
                                 .Select(p => new RedmineProjectModel
                                 {
-                                    Id = p.Project.Id,
-                                    Name = p.Project.Name,
+                                    ProjectId = p.Project.ProjectId,
+                                    ProjectName = p.Project.ProjectName,
                                     TotalSpentTimeOfAllMonths = p.SubTotal
                                 }).ToList()
                 });

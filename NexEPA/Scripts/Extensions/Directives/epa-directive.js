@@ -223,8 +223,8 @@ registrationModule.directive('searchProjectAutoComplete', ['$timeout', function 
                     angular.forEach(projects, function (project) {
                         data.push(
                             {
-                                value: project.name,
-                                id: project.id,
+                                value: project.projectName,
+                                id: project.projectId,
                                 project: project
                             });
                     });
@@ -234,9 +234,11 @@ registrationModule.directive('searchProjectAutoComplete', ['$timeout', function 
                 select: function (event, ui) {
                     scope.project = ui.item.project;
                     scope.project.startDate = ui.item.project.createdOn;
-                    scope.pmList({ projectId: scope.project.id });
-                    scope.projectMembers({ projectId: scope.project.id });
-                    //scope.projectRedmine({ projectId: scope.project.id });
+                    scope.project.id = ui.item.project.projectId;
+                    scope.project.name = ui.item.project.projectName;
+
+                    scope.pmList({ projectId: scope.project.projectId });
+                    scope.projectMembers({ projectId: scope.project.projectId });
 
                     $timeout(function () {
                         iElement.trigger('input');
