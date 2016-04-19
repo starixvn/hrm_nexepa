@@ -16,10 +16,10 @@
     using NexEPA.Employee.Services.Implement;
     using NexEPA.Employee.Services.Interface;
     using NexEPA.Project.Criteria.Project;
+    using NexEPA.Project.Criteria.ProjectRedmine;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Implement;
     using NexEPA.Project.Services.Interface;
-    using NexEPA.Project.Criteria.ProjectRedmine;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
     using NexEPA.Web.Services.Impl;
