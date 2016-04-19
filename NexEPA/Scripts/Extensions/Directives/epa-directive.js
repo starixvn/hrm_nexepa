@@ -233,6 +233,7 @@ registrationModule.directive('searchProjectAutoComplete', ['$timeout', function 
                 },
                 select: function (event, ui) {
                     scope.project = ui.item.project;
+                    scope.project.startDate = ui.item.project.createdOn;
                     scope.pmList({ projectId: scope.project.id });
                     scope.projectMembers({ projectId: scope.project.id });
                     //scope.projectRedmine({ projectId: scope.project.id });
