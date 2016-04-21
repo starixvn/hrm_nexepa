@@ -32,10 +32,10 @@ projectsSettingModule.factory('projectDataFactory', ['$http', '$q', function ($h
         getProjectRedmineById: function (projectId) {
             var deferred = $q.defer();
             return $http.get('/api/Project/GetProjectRedmineById/', { params: { projectId: projectId } });
-                //.success(deferred.resolve)
-                //.error(function (data, status) {
-                //    deferred.reject(status);
-                //});
+            //.success(deferred.resolve)
+            //.error(function (data, status) {
+            //    deferred.reject(status);
+            //});
             //return deferred.promise;
         },
         updateProject: function (project) {
@@ -159,49 +159,35 @@ projectsSettingModule.factory('projectUtility', ['notificationFactory', function
     var utility = {};
 
     utility.validateProject = function (project) {
+        var isValid = true;
+
         if (!project) {
-            return false;
+            isValid = false;
         }
         else {
-            if (!project.name) {
-                return false;
+            if (!project.redmineProjectId || project.redmineProjectId === 0) {
+                isValid = false;
+                notificationFactory.error("RedmineProjectRequire");
             }
-            if (!project.startDate) {
-                return false;
+            else if (!project.name) {
+                isValid = false;
+                notificationFactory.error("NameRequire");
             }
-            if (!project.projectManager) {
-                return false;
+            else if (!project.startDate) {
+                isValid = false;
+                notificationFactory.error("StartDateRequire");
             }
-            if (!project.status && project.status < 0) {
-                return false;
+            else if (!project.projectManager) {
+                isValid = false;
+                notificationFactory.error("ProjectManagerRequire");
+            }
+            else if (!project.status || project.status < 0) {
+                isValid = false;
+                notificationFactory.error("StatusRequire");
             }
         }
 
-        return true;
-    };
-
-    utility.showMessageAfterValidate = function ($scope) {
-        $scope.$watchCollection('[submitted, projectForm.$invalid, projectForm.projectName.$error.required, \
-            projectForm.startDate.$error.required, projectForm.projectManager.$error.required, \
-            projectForm.status.$error.required ]',
-            function (newVals) {
-                if (newVals[0] && newVals[1]) {
-                    if (newVals[5]) {
-                        notificationFactory.error("StatusRequire");
-                    }
-                    if (newVals[4]) {
-                        notificationFactory.error("ProjectManagerRequire");
-                    }
-                    if (newVals[3]) {
-                        notificationFactory.error("StartDateRequire");
-                    }
-                    if (newVals[2]) {
-                        notificationFactory.error("NameRequire");
-                    }
-
-                    $scope.submitted = false;
-                }
-            });
+        return isValid;
     };
 
     return utility;

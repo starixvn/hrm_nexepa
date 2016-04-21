@@ -50,15 +50,15 @@
             return result;
         }
 
-        public List<ProjectMembersModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria)
+        public IList<ProjectMemberRoleModel> GetAllProjectMember(GetAllProjectMembersCriteria criteria)
         {
-            var projectMembers = new List<ProjectMembersModel>();
+            IList<ProjectMemberRoleModel> projectMembers = new List<ProjectMemberRoleModel>();
             Check.Argument.IsNotNull(criteria, "criteria");
 
             if (criteria.IsValid())
             {
                 var rawProjectMembers = (List<ProjectMembersModel>)this.GetData<ProjectMembersModel>(criteria);
-                projectMembers = GroupProjectMembersSameRole(rawProjectMembers, projectMembers);
+                projectMembers = GroupMemberRoles(rawProjectMembers);
             }
 
             return projectMembers;
@@ -90,11 +90,12 @@
 
         public IEnumerable<ProjectMembersModel> GetMembersByProject(GetMembersByProjectCriteria criteria)
         {
-            IEnumerable<ProjectMembersModel> members = null;
+            List<ProjectMembersModel> members = new List<ProjectMembersModel>();
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                members = GetData<ProjectMembersModel>(criteria);
+                var rawMembers = GetData<ProjectMembersModel>(criteria).ToList();
+                members = GroupProjectMembersSameRole(rawMembers, members);
             }
 
             return members;

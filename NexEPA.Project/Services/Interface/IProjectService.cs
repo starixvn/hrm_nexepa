@@ -42,7 +42,7 @@
 
         IList<RedmineProjectModel> GetSubRedmineProjects(GetSubRedmineProjectsCriteria criteria);
 
-        string ConvertMemberListToXML(IEnumerable<MemberModel> members);
+        string ConvertMemberListToXML(IEnumerable<ProjectMemberRoleModel> members);
 
         RedmineProjectModel GetProjectRedmineById(GetProjectRedmineByIdCriteria criteria);
     }

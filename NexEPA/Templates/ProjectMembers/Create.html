@@ -1,35 +1,20 @@
-﻿<!--<div class="row sub-header">
-    <ul class="breadcrumb list-inline pull-left">
-        <li><a href="/Projects/Index">Project</a></li>
-        <li><a href="/ProjectMembers/View/{{currentProject.projectId}}">Project member - {{currentProject.name}}</a></li>
-        <li class="current">Add Members</li>
-    </ul>
-</div>-->
-<div class="modal-addKPI" id="modal-addKPI">
+﻿<div class="modal-addKPI" id="modal-addKPI">
     <div class="modal-header">
         <div class="popup-header">
-            {{"ProjectMember" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+            {{"ProjectMember" | translate}}<span class="close-popup" ng-click="addProjectMembersCtrl.cancel()"></span>
         </div>
     </div>
     <div class="modal-body">
         <form class="col-sm-11 form-horizontal common-form project-form" name="addMemberForm"
               novalidate>
-            <div class="col-sm-offset-3">
-                <div class="error-message buffer-error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
-                    {{error}}
-                </div>
-                <div class="error-message hide-errormessage buffer-error-message" id="memberValid">
-                    Please input all required (*) fields.
-                </div>
-            </div>
             <div class="form-group popup-required">
                 <label class="col-sm-3 control-label">
                     {{"User" | translate}}
                 </label>
                 <div class="col-sm-8">
-                    <input class="form-control custom-padding" ng-model="searchKey" placeholder="full name or nick name"
-                           search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchKey)"
-                           employee="newMember.employee" id="txtEmployee" roles="roles" />
+                    <input class="form-control custom-padding" ng-model="addProjectMembersCtrl.searchKey" placeholder="full name or nick name"
+                           search-auto-complete search-employees="addProjectMembersCtrl.searchEmployees" ng-change="addProjectMembersCtrl.getEmployee()"
+                           employee="addProjectMembersCtrl.employee" id="txtEmployee" />
                 </div>
             </div>
             <div class="form-group popup-required">
@@ -37,9 +22,9 @@
                     {{"JoinedDate" | translate}}
                 </label>
                 <div class="col-sm-8">
-                    <input type="text" class="custom-popup-textbox custom-date" ng-model="newMember.joinDate" placeholder="Start Date"
-                           is-open="calendar.opened" datepicker-popup="{{dateFormat}}" id="startDate" readonly />
-                    <calendar-image class="calendar-image" ng-click="open($event)"></calendar-image>
+                    <input type="text" class="custom-popup-textbox custom-date" ng-model="addProjectMembersCtrl.newMember.member.joinDate" placeholder="Start Date"
+                           is-open="addProjectMembersCtrl.calendar.opened" datepicker-popup="{{addProjectMembersCtrl.dateFormat}}" id="startDate" readonly />
+                    <calendar-image class="calendar-image" ng-click="addProjectMembersCtrl.open($event)"></calendar-image>
                 </div>
             </div>
             <div class="form-group popup-required">
@@ -47,7 +32,7 @@
                     {{"Role" | translate}}
                 </label>
                 <div class="col-sm-8">
-                    <div class="checkbox" ng-repeat="role in roles">
+                    <div class="checkbox" ng-repeat="role in addProjectMembersCtrl.roles">
                         <input type="checkbox" value="{{role.name}}" ng-model="role.selected" />
                         <span ng-bind="role.name"></span>
                     </div>
@@ -56,9 +41,9 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="button" ng-click="ok(true)" data-translate="AddContinue"></button>
-        <button class="button" ng-click="ok(false)" data-translate="Add"></button>
-        <button class="btn btn-default customize" ng-click="cancel()">
+        <button class="button" ng-click="addProjectMembersCtrl.ok(true)" data-translate="AddContinue"></button>
+        <button class="button" ng-click="addProjectMembersCtrl.ok(false)" data-translate="Add"></button>
+        <button class="btn btn-default customize" ng-click="addProjectMembersCtrl.cancel()">
             Cancel
         </button>
     </div>

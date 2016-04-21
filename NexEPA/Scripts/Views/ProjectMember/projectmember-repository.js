@@ -85,3 +85,39 @@ projectsSettingModule.factory("projectMembersFactory", ['$http', '$q', function 
         }
     };
 }]);
+
+projectsSettingModule.factory('projectMemberUtility', ['notificationFactory', function (notificationFactory) {
+    var utility = {};
+
+    utility.validate = function (member) {
+        var isValid = true;
+
+        if (!member.member.employeeId) {
+            isValid = false;
+            notificationFactory.error("UserRequire");
+        } else if (!member.member.joinDate) {
+            isValid = false;
+            notificationFactory.error("JoinDateRequire");
+        } else if (!member.roles || member.roles.length === 0) {
+            isValid = false;
+            notificationFactory.error("RoleRequire");
+        }
+
+        return isValid;
+    };
+
+    utility.checkDuplicateMember = function (members, newMember) {
+        var isDuplicated = false;
+        var matchedMembers = $.grep(members, function (item) { return item.member.employeeId === newMember.member.employeeId });
+
+        if (matchedMembers.length > 0) {
+            isDuplicated = true;
+
+            notificationFactory.error('MemberExisted');
+        }
+
+        return isDuplicated;
+    };
+
+    return utility;
+}]);

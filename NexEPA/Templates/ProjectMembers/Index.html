@@ -1,11 +1,12 @@
-﻿<div ng-controller="ProjectMembersController">
+﻿<div ng-controller="ProjectMembersController as projectMembersCtrl" ng-init="projectMembersCtrl.setParentController(editProjectCtrl)">
     <div class="row">
         <div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
         </div>
     </div>
     <div class="row">
         <div class="span10 tbl-member">
-            <a class="button button-icon btn-addMember" ng-if="permission == 2 && permissionProject.policy == 2" ng-click="addMember()">
+            <a class="button button-icon btn-addMember" ng-if="!editProjectCtrl.formReadOnly"
+               ng-click="projectMembersCtrl.addMember()">
                 <span class="icon plus"></span>
                 <span data-translate="AddMember"></span>
             </a>
@@ -20,35 +21,37 @@
                         </th>
                         <th data-translate="JoinedDate">
                         </th>
-                        <th data-translate="Action" ng-hide="formReadOnly">
+                        <th data-translate="Action" ng-hide="editProjectCtrl.formReadOnly">
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="member in members" ng-repeat-loaded>
+                    <tr ng-repeat="member in projectMembersCtrl.parentController.projectUpdate.memberList">
                         <td ng-bind="$index + 1" class="text-center"></td>
                         <td>
-                            <span tooltip="{{member.fullName}}">{{member.nickName}}</span>
+                            <span tooltip="{{member.member.fullName}}">{{member.member.nickName}}</span>
                         </td>
-                        <td ng-bind="member.roleName"></td>
-                        <td ng-bind="member.joinDate | customDate" class="text-center"></td>
-                        <td class="text-center" ng-if="!formReadOnly">
+                        <td>
+                            <span ng-init="member.roleText = projectMembersCtrl.getRoleText(member.roles)" ng-bind="member.roleText"></span>
+                        </td>
+                        <td ng-bind="member.member.joinDate | customDate" class="text-center"></td>
+                        <td class="text-center" ng-if="!editProjectCtrl.formReadOnly">
                             <div class="btn-group">
-                                <a href="javascript:;" ng-click="updateMember(member)" class="glyphicon glyphicon-edit icon-edit"
+                                <a href="javascript:;" ng-click="projectMembersCtrl.updateMember(member)" class="glyphicon glyphicon-edit icon-edit"
                                    title="Edit"></a>
                                 <a href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"
-                                   ng-click="deleteMember(member)" title="Delete"></a>
+                                   ng-click="projectMembersCtrl.deleteMember($index, member)" title="Delete"></a>
                             </div>
                         </td>
                     </tr>
-                    <tr ng-show="members == '' || members === undefined">
+                    <tr ng-show="projectMembersCtrl.parentController.projectUpdate.memberList == '' || projectMembersCtrl.parentController.projectUpdate.memberList === undefined">
                         <td class="empty-result" colspan="5" data-translate="EmptyResult"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row action-button top-buffer" ng-show="isEditMode">
-        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+    <div class="row action-button top-buffer">
+        <button class="btn btn-default customize" ng-click="projectMembersCtrl.cancel()" data-translate="Cancel"></button>
     </div>
 </div>

@@ -1177,6 +1177,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Joine Date field is required!.
+        /// </summary>
+        public static string JoinDateRequire {
+            get {
+                return ResourceManager.GetString("JoinDateRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Joined Date.
         /// </summary>
         public static string JoinedDate {
@@ -1389,6 +1398,15 @@ namespace NexEPA.Resources {
         public static string MemberEPA {
             get {
                 return ResourceManager.GetString("MemberEPA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This member existed! Please choose another member..
+        /// </summary>
+        public static string MemberExisted {
+            get {
+                return ResourceManager.GetString("MemberExisted", resourceCulture);
             }
         }
         
@@ -1879,6 +1897,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must input Redmine Project Name and choose one item from suggestion list..
+        /// </summary>
+        public static string RedmineProjectRequire {
+            get {
+                return ResourceManager.GetString("RedmineProjectRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report.
         /// </summary>
         public static string Report {
@@ -1992,6 +2019,15 @@ namespace NexEPA.Resources {
         public static string RolePermission {
             get {
                 return ResourceManager.GetString("RolePermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Role field is required!.
+        /// </summary>
+        public static string RoleRequire {
+            get {
+                return ResourceManager.GetString("RoleRequire", resourceCulture);
             }
         }
         
@@ -2595,6 +2631,15 @@ namespace NexEPA.Resources {
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must choose one user from suggestion list..
+        /// </summary>
+        public static string UserRequire {
+            get {
+                return ResourceManager.GetString("UserRequire", resourceCulture);
             }
         }
         

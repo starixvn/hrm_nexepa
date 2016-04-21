@@ -1,177 +1,71 @@
 ﻿/* global projectsSettingModule */
 'use strict';
 
-var projectMemberValidation = function (employeeId, selected, joinDate) {
-    var error = $("#memberValid");
-    if (selected.length > 0 && employeeId != null && joinDate !== undefined) {
-        error.hide();
-        return true;
-    }
-    error.show();
-    return false;
-};
-
 projectsSettingModule.controller("ProjectMembersController",
 ['$scope', '$routeParams', '$location', '$modal', '$window', 'ProjectSettingCache', 'projectMilestoneService',
 'projectMembersFactory', 'notificationFactory', 'projectDataFactory', 'projectPermissionService', 'projectMemberService', 'sharedProperties',
 function ($scope, $routeParams, $location, $modal, $window, ProjectSettingCache, projectMilestoneService,
 projectMembersFactory, notificationFactory, projectDataFactory, projectPermissionService, projectMemberService, sharedProperties) {
-    /**
-	* Scope variable.
-	*/
-    $("#memberValid").hide();
-    var projectIdInUrl = $routeParams.projectId;
-    $scope.roles = [];
+    var vm = this;
 
-    /**
-	* Ajax event loaded. 
-	*/
-    var successGetMembers = function (data) {
-        $scope.members = data;
+    vm.parentController = {};   
+    vm.projectIdInUrl = $routeParams.projectId;
+    vm.isShowDeletedMember = false;
+    vm.milestoneId = '';
+    vm.roles = [];    
+
+    vm.filterMember = function () {
+        projectMembersFactory.getMember(vm.projectIdInUrl, vm.isShowDeletedMember, vm.milestoneId).then(function (members) {
+            vm.parentController.projectUpdate.memberList = members;
+        });
     };
 
-    var successDeleteMember = function () {
-        notificationFactory.success('DataChangeSuccessfully', '');
-        return projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers, errorNotification);
-    };
-    var errorNotification = function (data) { notificationFactory.error('', data); };
-
-    /**
-	* Initialize data to view Index.
-	*/
-    if (projectIdInUrl !== undefined) {
-        projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
-    }
-    else {
-        $scope.members = sharedProperties.getMembersProject();
-    }
-
-    // Watch for project's member list changes
-    $scope.$watch(function () {
-        return sharedProperties.getMembersProject();
-    }, function () {
-        $scope.members = sharedProperties.getMembersProject();
-    });
-
-    // Watch for Milestone list change in MilestoneController.
-    $scope.$watch(function () {
-        return projectMilestoneService.getProperty();
-    }, function (value) {
-        $scope.milestones = value;
-    });
-
-    $scope.$watch(function () {
-        return projectPermissionService.getProperty();
-    }, function (value) {
-        $scope.permission = value;
-    });
-
-    // Watch for Milestone list change in MilestoneController.
-    $scope.$watch(function () {
-        return projectMemberService.getProperty();
-    }, function (value) {
-        $scope.members = value;
-    });
-
-    /**
-	* Events.
-	*/
-    // Filter Data Display on Grid.
-    $scope.filterMember = function (isShowDeletedMember, milestone) {
-        projectMembersFactory.getMember(projectIdInUrl, isShowDeletedMember, milestone).then(successGetMembers);
-    };
-
-    $scope.cancel = function () {
+    vm.cancel = function () {
         $window.history.back();
     };
 
-    // Add New Member.
-    $scope.addMember = function () {
-        /**
-		* Ajax event loaded. 
-		*/
-        var successAddProjectMember = function () {
-            notificationFactory.success('DataChangeSuccessfully', '');
-            projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
-        };
-
-        // Popup Add New Memeber.
-        var populateModalInstance = function (roles) {
-            var addModalInstance = $modal.open({
-                templateUrl: '/templates/ProjectMembers/Create.html',
-                controller: "AddProjectMembersController",
-                backdrop: 'static',
-                resolve: {
-                    roles: function () {
-                        return roles;
-                    },
-                    projectId: function () {
-                        return projectIdInUrl;
-                    }
+    vm.addMember = function () {
+        $modal.open({
+            templateUrl: '/templates/ProjectMembers/Create.html',
+            controller: "AddProjectMembersController as addProjectMembersCtrl",
+            backdrop: 'static',
+            resolve: {
+                roles: function () {
+                    return angular.copy(vm.roles);
                 },
-                windowClass: "modal-confirm-center"
-            });
-            addModalInstance.result.then(function (member) {
-                if (member.joinDate != null) {
-                    var selectedStartDate = new Date(member.joinDate);
-                    member.joinDate = selectedStartDate ? selectedStartDate.toDateString() : null;
+                members: function () {
+                    return vm.parentController.projectUpdate.memberList;
                 }
-                projectMembersFactory.addMember(member).then(successAddProjectMember, errorNotification);
-            });
-        };
-
-        /**
-		* Initialize data to view Add.
-		*/
-        projectMembersFactory.getProjectRole().then(function (data) {
-            $scope.roles = data;
-            populateModalInstance(data);
+            },
+            windowClass: "modal-confirm-center"
         });
     };
 
-    // Update Member.
-    $scope.updateMember = function (member) {
-        var successUpdateProjectMember = function () {
-            notificationFactory.success('DataChangeSuccessfully', '');
-            projectMembersFactory.getMember(projectIdInUrl, null, null).then(successGetMembers);
-        };
-
-        // Popup Edit Member.
-        var populateModalInstance = function (roles) {
-            var editMember = member;
-            editMember.projectId = parseInt(projectIdInUrl);
-            var addModalInstance = $modal.open({
-                templateUrl: '/templates/ProjectMembers/Edit.html',
-                controller: "EditProjectMembersController",
-                backdrop: 'static',
-                resolve: {
-                    roles: function () {
-                        return roles;
-                    },
-                    editMember: function () {
-                        return editMember;
-                    }
+    vm.updateMember = function (member) {
+        var addModalInstance = $modal.open({
+            templateUrl: '/templates/ProjectMembers/Edit.html',
+            controller: "EditProjectMembersController as editProjectMemberCtrl",
+            backdrop: 'static',
+            resolve: {
+                roles: function () {
+                    return angular.copy(vm.roles);
                 },
-                windowClass: "modal-confirm-center"
-            });
-            addModalInstance.result.then(function (member) {
-                projectMembersFactory.updateMember(member).then(successUpdateProjectMember, errorNotification);
-            });
-        };
-
-        /**
-		* Initialize data to view Edit.
-		*/
-        projectMembersFactory.getProjectRole(projectIdInUrl, member.employeeId).then(function (data) {
-            $scope.roles = data;
-            populateModalInstance(data);
+                editMember: function () {
+                    return angular.copy(member);
+                }
+            },
+            windowClass: "modal-confirm-center"
+        });
+        addModalInstance.result.then(function (editMember) {
+            member.member = editMember.member;
+            member.roles = editMember.roles;
+            member.roleText = vm.getRoleText(member.roles);
         });
     };
 
-    // Delete Member.
-    $scope.deleteMember = function (member) {
-        member.projectId = projectIdInUrl;
-        var displayName = member.nickName + ' (' + member.fullName + ')';
+    vm.deleteMember = function (index, member) {
+        var displayName = member.member.nickName + ' (' + member.member.fullName + ')';
+
         var deleteModalInstance = $modal.open({
             templateUrl: '/templates/Common/ModalConfirmContent.html',
             controller: "ModalConfirmController",
@@ -189,135 +83,162 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
             windowClass: "modal-confirm-center"
         });
         deleteModalInstance.result.then(function () {
-            projectMembersFactory.deleteMember(member).then(successDeleteMember, errorNotification);
+            vm.parentController.projectUpdate.memberList.splice(index, 1);
         });
     };
+
+    vm.getRoleText = function (roles) {
+        var roleText = '';
+
+        if (roles && roles.length > 0) {
+            var roleNames = $.map(roles, function (item) { return item.name; });
+
+            roleText = roleNames.join(', ');
+        }
+
+        return roleText;
+    };
+   
+    vm.setParentController = function (parent) {
+        vm.parentController = parent;
+    };
+
+    vm.initialize = function () {
+        $scope.$watch(function () {
+            return projectMilestoneService.getProperty();
+        }, function (value) {
+            vm.milestones = value;
+        });
+
+        projectMembersFactory.getProjectRole().then(function (roles) {
+            vm.roles = roles;
+        });
+    };
+
+    vm.initialize();
 }]);
 
 projectsSettingModule.controller('AddProjectMembersController',
-['$scope', '$modalInstance', 'commonFactory', 'roles', 'projectId', 'projectDataFactory',
-'projectMembersFactory', 'notificationFactory', 'projectMemberService',
-function ($scope, $modalInstance, commonFactory, roles, projectId, projectDataFactory, projectMembersFactory,
-notificationFactory, projectMemberService) {
-    $scope.selection = [];
-    $scope.roles = roles;
-    $scope.calendar = { opened: false };
-    $scope.newMember = { joinDate: new Date() };
+['$scope', '$modalInstance', 'commonFactory', 'roles', 'members', 'projectDataFactory', 'notificationFactory', 'projectMemberUtility',
+function ($scope, $modalInstance, commonFactory, roles, members, projectDataFactory, notificationFactory, projectMemberUtility) {
+    var vm = this;
 
-    // get Date Format
-    commonFactory.getDateFormat($scope);
-    var errorNotification = function (data) { notificationFactory.error('', data); };
-    var successAddProjectMember = function () {
-        notificationFactory.success('DataChangeSuccessfully', '');
-        $scope.newMember = { joinDate: new Date() };
-        $.each($scope.roles, function (i) {
-            $scope.roles[i].selected = false;
-        });
-        $("#txtEmployee").val('');
-        projectMembersFactory.getMember(projectId, null, null).then(function (data) {
-            projectMemberService.setProperty(data);
-        });
+    vm.roles = angular.copy(roles);
+    vm.members = members;
+    vm.calendar = { opened: false };
+    vm.newMember = {};
+    vm.searchKey = '';
+    vm.searchEmployees = [];
+
+    vm.getNewMember = function () {
+        return {
+            member: {
+                joinDate: new Date(),
+                employeeId: '',
+                nickName: '',
+                fullName: ''
+            },
+            roles: []
+        };
     };
 
-    $scope.ok = function (isContinue) {
-        var newMember = $scope.newMember;
-        var employeeId = newMember.employee ? newMember.employee.employeeId : null;
-        var selected = $scope.selection;
-        var check = projectMemberValidation(employeeId, selected, newMember.joinDate);
-        if (check) {
-            var projectRolesIds = selected.join(',');
-            $scope.errors = [];
-            var member = {
-                projectId: projectId, projectRoleIds: projectRolesIds,
-                employeeId: employeeId, joinDate: newMember.joinDate
-            };
+    vm.ok = function (isContinue) {
+        var selectedRoles = $.grep(vm.roles, function (role) { return role.selected; });
+        vm.newMember.roles = selectedRoles;
+        if (vm.employee) {
+            vm.newMember.member.employeeId = vm.employee.employeeId;
+            vm.newMember.member.nickName = vm.employee.nickName;
+            vm.newMember.member.fullName = vm.employee.fullName;
+        }
+        var isValid = projectMemberUtility.validate(vm.newMember) && !projectMemberUtility.checkDuplicateMember(vm.members, vm.newMember);
+
+        if (isValid) {
+            vm.members.push(vm.newMember);
+
             if (isContinue) {
-                projectMembersFactory.addMember(member).then(successAddProjectMember, errorNotification);
-
+                vm.searchKey = '';
+                vm.employee = '';
+                vm.newMember = vm.getNewMember();
+                vm.roles = angular.copy(roles);
+            } else {
+                $modalInstance.close();
             }
-            else {
-                $modalInstance.close(member);
-            }
-
         }
     };
 
-    $scope.cancel = function () {
+    vm.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
 
     // show start date calendar when click button start date
-    $scope.open = function ($event) {
+    vm.open = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
-        $scope.calendar.opened = true;
+        vm.calendar.opened = true;
     };
-
-    // Watch for checkboxlist change.
-    $scope.$watch('roles|filter:{selected:true}', function (selectedItems) {
-        $scope.selection = selectedItems.map(function (item) {
-            return item.projectRoleId;
-        });
-    }, true);
 
     // Search member
-    $scope.getEmployee = function (searchKey) {
-        projectDataFactory.getEmployeeSelectList(null, searchKey).then(function (employees) {
-            $scope.searchEmployees = employees;
-        });
+    vm.getEmployee = function () {
+        if (!vm.searchKey) {
+            vm.newMember.member.employeeId = '';
+            vm.employee = '';
+        } else {
+            projectDataFactory.getEmployeeSelectList(null, vm.searchKey).then(function (employees) {
+                vm.searchEmployees = employees;
+            });
+        }
     };
+
+    vm.initialize = function () {
+        vm.newMember = vm.getNewMember();
+
+        commonFactory.getDateFormat(vm);
+    };
+
+    vm.initialize();
 }]);
 
 projectsSettingModule.controller("EditProjectMembersController",
-['$scope', '$modalInstance', 'roles', 'editMember', 'commonFactory', 'projectDataFactory',
-function ($scope, $modalInstance, roles, editMember, commonFactory, projectDataFactory) {
-    $scope.roles = roles;
-    $scope.selection = [];
-    $scope.editMember = editMember;
-    $scope.calendar = { opened: false };
-    $scope.searchKey = editMember.nickName + " (" + editMember.fullName + ")";
+['$scope', '$modalInstance', 'roles', 'editMember', 'commonFactory', 'projectMemberUtility',
+function ($scope, $modalInstance, roles, editMember, commonFactory, projectMemberUtility) {
+    var vm = this;
 
-    $scope.$watch(function () {
-        return sharedProperties.getMembersProject();
-    }, function () {
-        $scope.members = sharedProperties.getMembersProject();
-    });
+    vm.roles = roles;
+    vm.editMember = editMember;
+    vm.calendar = { opened: false };
+    vm.searchKey = editMember.member.nickName + " (" + editMember.member.fullName + ")";
 
-    // get Date Format
-    commonFactory.getDateFormat($scope);
+    vm.ok = function () {
+        var selectedRoles = $.grep(vm.roles, function (role) { return role.selected; });
+        vm.editMember.roles = selectedRoles;
+        var isValid = projectMemberUtility.validate(vm.editMember);
 
-    $scope.ok = function (member) {
-        var selected = $scope.selection;
-        if (projectMemberValidation(member.employeeId, selected, member.joinDate)) {
-            var projectRolesIds = selected.join(',');
-            $scope.errors = [];
-            member.projectRoleIds = projectRolesIds;
-            $modalInstance.close(member);
+        if (isValid) {
+            $modalInstance.close(vm.editMember);
         }
     };
 
-    $scope.cancel = function () {
+    vm.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
 
-    // show start date calendar when click button start date
-    $scope.open = function ($event) {
+    vm.open = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
-        $scope.calendar.opened = true;
+        vm.calendar.opened = true;
     };
 
-    // Watch for checkboxlist change.
-    $scope.$watch('roles|filter:{selected:true}', function (selectedItems) {
-        $scope.selection = selectedItems.map(function (item) {
-            return item.projectRoleId;
-        });
-    }, true);
+    vm.initialize = function () {
+        commonFactory.getDateFormat(vm);
 
-    // Search member
-    $scope.getEmployee = function (searchKey) {
-        projectDataFactory.getEmployeeSelectList(null, searchKey).then(function (employees) {
-            $scope.searchEmployees = employees;
+        var roleIds = $.map(editMember.roles, function (role) { return role.projectRoleId; });
+
+        angular.forEach(vm.roles, function (role) {
+            if (roleIds.indexOf(role.projectRoleId) !== -1) {
+                role.selected = true;
+            }
         });
     };
+
+    vm.initialize();
 }]);

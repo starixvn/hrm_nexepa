@@ -25,7 +25,7 @@ namespace NexEPA.Project.Models
 
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "The field Start Date is required.")]  
+        [Required(ErrorMessage = "The field Start Date is required.")]
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
@@ -58,7 +58,12 @@ namespace NexEPA.Project.Models
 
         public int TotalEPA { get; set; }
 
-        public IEnumerable<MemberModel> MemberList { get; set; }
+        [Required(ErrorMessage = "You must choose a Redmine Project from suggestion list.")]
+        public int? RedmineProjectId { get; set; }
+
+        public string RedmineProjectName { get; set; }
+
+        public IEnumerable<ProjectMemberRoleModel> MemberList { get; set; }
 
         public MilestoneModel Milestone { get; set; }
     }

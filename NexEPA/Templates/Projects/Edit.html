@@ -6,67 +6,63 @@
             </li>
             <li class="current" data-translate="EditProject"></li>
         </ul>
-        <a class="button-icon" ng-if="projectUpdate.permission == 2 && formReadOnly && permissionProject.policy == 2" href="/Projects/Edit/{{projectUpdate.projectId}}">
-            <span class="glyphicon glyphicon-edit icon-edit"></span>
-            <span class="button-text" data-translate="EditProject"></span>
-        </a>
     </div>
 </div>
-<div class="row target-tabset" ng-controller="ProjectManagementController">
+<div class="row target-tabset" ng-controller="EditProjectController as editProjectCtrl">
     <tabset id="projectInfoTab">
-        <tab heading="GENERAL INFORMATION" class="tab-cursor" active="dataTab.information" select="tabInfoSelect()">
-            <form class="row common-form project-form" name="addProjectForm" novalidate>
+        <tab heading="GENERAL INFORMATION" class="tab-cursor" active="editProjectCtrl.dataTab.information" select="editProjectCtrl.tabInfoSelect()">
+            <form class="row common-form project-form" name="projectForm" novalidate>
                 <div class="row boxtitle first" data-translate="ProjectInformation">
                 </div>
                 <div class="row boxcontent information">
-                    <div class="col-sm-offset-2">
-                        <div class="error-message buffer-error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
-                            {{error}}
-                        </div>
-                    </div>
                     <div class="col-sm-12 line">
                         <label class="col-sm-2 col-md-2" data-translate="ProjectRedmineName" />
                         <div class="col-sm-6 col-md-4">
-                            <input class="custom-textbox" type="text" ng-change="getProjects(projectUpdate.name)"
-                                   ng-model="projectUpdate.name" maxlength="200" placeholder="Project Redmine Name" required pm-list="getPMByProject(projectId)"
-                                   search-project-auto-complete search-key="search.searchKey" search-projects="searchProjects" project="project"
-                                   pm-list="getPMByProject(projectId)" project-members="getMembersByProject(projectId)"
-                                   ng-disabled="formReadOnly || permissionProject.policy == 1" />
+                            <input class="custom-textbox" type="text" ng-change="editProjectCtrl.getProjects()"
+                                   ng-model="editProjectCtrl.searchKey" maxlength="200" placeholder="Project Redmine Name"
+                                   required pm-list="editProjectCtrl.getPMByProject"
+                                   search-project-auto-complete
+                                   search-key="editProjectCtrl.searchKey"
+                                   search-projects="editProjectCtrl.searchProjects"
+                                   project="editProjectCtrl.projectUpdate"
+                                   project-members="editProjectCtrl.getGroupedMembersByProject"
+                                   ng-disabled="editProjectCtrl.formReadOnly" />
+                            <input type="hidden" ng-model="editProjectCtrl.projectUpdate.redmineProjectId" name="redmineProjectId" required />
                         </div>
                     </div>
                     <div class="col-sm-12 line">
                         <label class="col-sm-2 col-md-2" data-translate="ProjectName" />
                         <div class="col-sm-6 col-md-4">
-                            <input class="custom-textbox" type="text" name="projectname" ng-model="projectUpdate.name"
-                                   ng-disabled="formReadOnly || permissionProject.policy == 1" maxlength="200" placeholder="Project Name" />
+                            <input class="custom-textbox" type="text" name="projectName" ng-model="editProjectCtrl.projectUpdate.name"
+                                   ng-disabled="editProjectCtrl.formReadOnly" maxlength="200" placeholder="Project Name" />
                         </div>
                     </div>
                     <div class="col-sm-12 line">
                         <label class="col-sm-2 col-md-2" data-translate="StartDate">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <input type="text" class="custom-textbox custom-date" ng-model="projectUpdate.startDate"
-                                   is-open="calendar.startDateOpened" datepicker-popup="{{dateFormat}}" placeholder="Start Date"
-                                   id="startDate" readonly ng-disabled="formReadOnly || permissionProject.policy == 1" />
-                            <calendar-image ng-click="openPopupStartDate($event)" ng-hide="formReadOnly || permissionProject.policy == 1"></calendar-image>
+                            <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.projectUpdate.startDate"
+                                   is-open="editProjectCtrl.calendar.startDateOpened" datepicker-popup="{{editProjectCtrl.dateFormat}}" placeholder="Start Date"
+                                   id="startDate" name="startDate" readonly ng-disabled="editProjectCtrl.editProjectCtrl.formReadOnly" />
+                            <calendar-image ng-click="editProjectCtrl.openPopupStartDate($event)" ng-hide="editProjectCtrl.editProjectCtrl.formReadOnly"></calendar-image>
                         </div>
                     </div>
                     <div class="col-sm-12 line">
                         <label class="col-sm-2 col-md-2" data-translate="EndDate">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <input type="text" class="custom-textbox custom-date" ng-model="projectUpdate.endDate"
-                                   is-open="calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{dateFormat}}"
-                                   id="endDate" readonly ng-disabled="formReadOnly || permissionProject.policy == 1" />
-                            <calendar-image ng-click="openPopupEndDate($event)" ng-hide="formReadOnly || permissionProject.policy == 1"></calendar-image>
+                            <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.projectUpdate.endDate"
+                                   is-open="editProjectCtrl.calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{editProjectCtrl.dateFormat}}"
+                                   id="endDate" readonly ng-disabled="editProjectCtrl.editProjectCtrl.formReadOnly" />
+                            <calendar-image ng-click="editProjectCtrl.openPopupEndDate($event)" ng-hide="editProjectCtrl.editProjectCtrl.formReadOnly"></calendar-image>
                         </div>
                     </div>
                     <div class="col-sm-12 line">
                         <label class="col-sm-2 col-md-2" data-translate="PM">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <select class="custom-textbox" ng-model="projectUpdate.projectManager" ng-disabled="formReadOnly || permissionProject.policy == 1">
-                                <option ng-repeat="pm in pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
+                            <select class="custom-textbox" name="projectManager" ng-model="editProjectCtrl.projectUpdate.projectManager" ng-disabled="editProjectCtrl.formReadOnly">
+                                <option ng-repeat="pm in editProjectCtrl.pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
                             </select>
                         </div>
                     </div>
@@ -74,8 +70,8 @@
                         <label class="col-sm-2 col-md-2" data-translate="Status">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <select class="custom-textbox" ng-options="s.id as s.name for s in status"
-                                    ng-model="projectUpdate.status" ng-disabled="formReadOnly || permissionProject.policy == 1">
+                            <select class="custom-textbox" ng-options="s.id as s.name for s in editProjectCtrl.status" name="status"
+                                    ng-model="editProjectCtrl.projectUpdate.status" ng-disabled="editProjectCtrl.formReadOnly">
                                 <option style="display: none" value="">-- Select a status --</option>
                             </select>
                         </div>
@@ -84,8 +80,8 @@
                         <label class="col-sm-2 col-md-2" data-translate="Description">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <textarea class="custom-textarea" ng-model="projectUpdate.description"
-                                      ng-disabled="formReadOnly || permissionProject.policy == 1" maxlength="500"></textarea>
+                            <textarea class="custom-textarea" ng-model="editProjectCtrl.projectUpdate.description"
+                                      ng-disabled="editProjectCtrl.formReadOnly" maxlength="500"></textarea>
                         </div>
                     </div>
                 </div>
@@ -99,14 +95,14 @@
                 </div>
 
                 <div class="row action-button">
-                    <button class="button" ng-disabled="addProjectForm.$invalid" ng-click="update(projectUpdate)"
-                            data-translate="Submit" ng-if="!formReadOnly && permissionProject.policy == 2"></button>
-                    <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+                    <button class="button" ng-click="editProjectCtrl.update()"
+                            data-translate="Submit" ng-if="!editProjectCtrl.formReadOnly"></button>
+                    <button class="btn btn-default customize" ng-click="editProjectCtrl.cancel()" data-translate="Cancel"></button>
                 </div>
             </form>
         </tab>
 
-        <tab heading="PROJECT MEMBERS" class="tab-cursor" active="dataTab.member" select="tabMemberSelect()">
+        <tab heading="PROJECT MEMBERS" class="tab-cursor" active="editProjectCtrl.dataTab.member" select="editProjectCtrl.tabMemberSelect()">
             <div ng-include src="'/Templates/ProjectMembers/Index.html'">
             </div>
         </tab>

@@ -92,24 +92,24 @@ registrationModule.directive('treeModel', ['$compile', function ($compile) {
 
             //tree template
             var template =
-					'<ul>' +
-						'<li data-ng-repeat="node in ' + treeModel + '">' +
-							'<i class="collapsed" data-ng-show="node.' +
-							nodeChildren + '.length && node.collapsed" data-ng-click="' +
-							treeId + '.selectNodeHead(node)"></i>' +
-							'<i class="expanded" data-ng-show="node.' +
-							nodeChildren + '.length && !node.collapsed" data-ng-click="' +
-							treeId + '.selectNodeHead(node)"></i>' + '<i class="normal" data-ng-hide="node.' +
-							nodeChildren + '.length"></i> ' +
-							'<span data-ng-class="node.selected" data-ng-click="' +
-							treeId + '.selectNodeLabel(node)">' +
-							'{{node.' + nodeLabel + '}}</span>' +
-							'<div data-ng-hide="!node.collapsed" data-tree-id="' +
-							treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' +
-							nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' +
-							nodeChildren + '></div>' +
-						'</li>' +
-					'</ul>';
+                    '<ul>' +
+                        '<li data-ng-repeat="node in ' + treeModel + '">' +
+                            '<i class="collapsed" data-ng-show="node.' +
+                            nodeChildren + '.length && node.collapsed" data-ng-click="' +
+                            treeId + '.selectNodeHead(node)"></i>' +
+                            '<i class="expanded" data-ng-show="node.' +
+                            nodeChildren + '.length && !node.collapsed" data-ng-click="' +
+                            treeId + '.selectNodeHead(node)"></i>' + '<i class="normal" data-ng-hide="node.' +
+                            nodeChildren + '.length"></i> ' +
+                            '<span data-ng-class="node.selected" data-ng-click="' +
+                            treeId + '.selectNodeLabel(node)">' +
+                            '{{node.' + nodeLabel + '}}</span>' +
+                            '<div data-ng-hide="!node.collapsed" data-tree-id="' +
+                            treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' +
+                            nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' +
+                            nodeChildren + '></div>' +
+                        '</li>' +
+                    '</ul>';
 
 
             //check tree id, tree model
@@ -208,19 +208,18 @@ registrationModule.directive('searchAutoComplete', ['$timeout', function ($timeo
 registrationModule.directive('searchProjectAutoComplete', ['$timeout', function ($timeout) {
     return {
         scope: {
-            project: "=project",
-            searchProjects: "&searchProjects",
-            pmList: "&pmList",
-            projectMembers: "&projectMembers",
-            projectRedmine: "&projectRedmine"
+            project: "=",
+            searchProjects: "=",
+            pmList: "=",
+            projectMembers: "=",
+            searchKey: '='
         },
         link: function (scope, iElement) {
             iElement.autocomplete({
                 source: function (request, response) {
-                    var projects = scope.searchProjects();
                     var data = [];
 
-                    angular.forEach(projects, function (project) {
+                    angular.forEach(scope.searchProjects, function (project) {
                         data.push(
                             {
                                 value: project.projectName,
@@ -232,13 +231,16 @@ registrationModule.directive('searchProjectAutoComplete', ['$timeout', function 
                     response(data);
                 },
                 select: function (event, ui) {
-                    scope.project = ui.item.project;
-                    scope.project.startDate = ui.item.project.createdOn;
-                    scope.project.id = ui.item.project.projectId;
+                    scope.searchKey = ui.item.project.projectName;
+                    if (!scope.project.startDate) {
+                        scope.project.startDate = ui.item.project.createdOn;
+                    }
+
+                    scope.project.redmineProjectId = ui.item.project.projectId;
                     scope.project.name = ui.item.project.projectName;
 
-                    scope.pmList({ projectId: scope.project.projectId });
-                    scope.projectMembers({ projectId: scope.project.projectId });
+                    scope.pmList(ui.item.project.projectId, true);
+                    scope.projectMembers(ui.item.project.projectId);
 
                     $timeout(function () {
                         iElement.trigger('input');
@@ -262,16 +264,16 @@ registrationModule.directive('paginationBar', function () {
                 '<li ng-class="{disabled: currentPage == 0}">' +
                     '<a class="pre" href ng-click="prevPage()" title="Previous Page">‹</a>' +
                 '</li>' +
-				'<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-click="setPage()">' +
-					'<a href ng-bind="n + 1" ng-class="{pagingactive: n == currentPage}">1</a>' +
-				'</li>' +
-				'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">' +
-					'<a class="next" href ng-click="nextPage()" title="Next Page">›</a>' +
-				'</li>' +
-				'<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">' +
-					'<a class="last" href ng-click="lastPage()" title="Last Page">»</a>' +
-				'</li>' +
-			'</ul>'
+                '<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-click="setPage()">' +
+                    '<a href ng-bind="n + 1" ng-class="{pagingactive: n == currentPage}">1</a>' +
+                '</li>' +
+                '<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">' +
+                    '<a class="next" href ng-click="nextPage()" title="Next Page">›</a>' +
+                '</li>' +
+                '<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">' +
+                    '<a class="last" href ng-click="lastPage()" title="Last Page">»</a>' +
+                '</li>' +
+            '</ul>'
     };
 });
 
@@ -374,8 +376,8 @@ registrationModule.directive('assignPermission', function () {
         link: function (scope, iElement) {
             iElement.on("change", function () {
                 var permissionType = $(this).attr('name'),
-					currentId = $(this).val(),
-					checked = $(this).is(':checked');
+                    currentId = $(this).val(),
+                    checked = $(this).is(':checked');
 
                 if (permissionType === 'funcHost') {
                     if (checked) {
@@ -408,8 +410,8 @@ registrationModule.directive('assignPermission', function () {
 registrationModule.directive('getRolePermission', function () {
     var createTemplate = function (functionId, isRead, isHost) {
         var template = '<Function FunctionId="' + functionId + '"' +
-							' IsRead="' + isRead + '"' +
-							' IsHost="' + isHost + '"></Function>';
+                            ' IsRead="' + isRead + '"' +
+                            ' IsHost="' + isHost + '"></Function>';
         return template;
     };
 
@@ -425,9 +427,9 @@ registrationModule.directive('getRolePermission', function () {
                     for (var i = 0; i < roleFunction.length; i++) {
                         var element = roleFunction[i];
                         var functionId = $(element).val(),
-							isRead = $(element).is(':checked') ? 1 : 0,
-							isHost = $('#funcHost' + functionId).is(':checked') ? 1 : 0,
-							template = createTemplate(functionId, isRead, isHost);
+                            isRead = $(element).is(':checked') ? 1 : 0,
+                            isHost = $('#funcHost' + functionId).is(':checked') ? 1 : 0,
+                            template = createTemplate(functionId, isRead, isHost);
                         result += template;
                     }
 
@@ -496,8 +498,8 @@ registrationModule.directive('closeOtherCalendar', function () {
         link: function (scope, iElement) {
             iElement.on("click", function ($event) {
                 var allCalendar = $("[name='appraisalForm']").find("[name='calendar']"),
-					currentCalendar = $(this).prevAll().get(1),
-					currentIsOpen = $(currentCalendar).attr('is-open');
+                    currentCalendar = $(this).prevAll().get(1),
+                    currentIsOpen = $(currentCalendar).attr('is-open');
 
                 for (var i = 0; i < allCalendar.length; i++) {
                     var calendar = allCalendar[i];
@@ -520,10 +522,10 @@ registrationModule.directive('getDetailProcess', function () {
 
     var createTemplate = function (processId, startDate, endDate, alarmDate, noticeAtBegin) {
         var process = '<Process ProcessId="' + processId + '"' +
-								' NoticeAtBegin="' + noticeAtBegin + '"' +
-								' StartDate="' + startDate + '"' +
-								' EndDate="' + endDate + '"' +
-								' RemindDate="' + alarmDate + '"></Process>';
+                                ' NoticeAtBegin="' + noticeAtBegin + '"' +
+                                ' StartDate="' + startDate + '"' +
+                                ' EndDate="' + endDate + '"' +
+                                ' RemindDate="' + alarmDate + '"></Process>';
 
         return process;
     };
@@ -533,21 +535,21 @@ registrationModule.directive('getDetailProcess', function () {
         link: function (scope, iElement) {
             iElement.on("click", function () {
                 var allProcess = $("[name='appraisalForm']").find("tbody tr:visible"),
-					processTemplate = '<ROOT>',
-					requireViolation = false,
-					sameProcessDateViolation = false,
-					differentProcessDateViolation = false,
-					beforeEndDate = '';
+                    processTemplate = '<ROOT>',
+                    requireViolation = false,
+                    sameProcessDateViolation = false,
+                    differentProcessDateViolation = false,
+                    beforeEndDate = '';
 
                 for (var i = 0; i < allProcess.length; i++) {
                     var rowProcess = allProcess[i],
-						firstCalendarItem = $(rowProcess).find('[name="calendar"]').get(0),
-						processId = $(firstCalendarItem).attr("processId"),
-						startDate = $(rowProcess).find('[name="calendar"][start=' + processId + ']').val(),
-						endDate = $(rowProcess).find('[name="calendar"][end=' + processId + ']').val(),
-						alarmDate = $(rowProcess).find('[name="calendar"][alarm=' + processId + ']').val(),
-						noticeAtBegin = $(rowProcess).find('[name="notice"]').is(':checked') ? 1 : 0,
-						process = createTemplate(processId, startDate, endDate, alarmDate, noticeAtBegin);
+                        firstCalendarItem = $(rowProcess).find('[name="calendar"]').get(0),
+                        processId = $(firstCalendarItem).attr("processId"),
+                        startDate = $(rowProcess).find('[name="calendar"][start=' + processId + ']').val(),
+                        endDate = $(rowProcess).find('[name="calendar"][end=' + processId + ']').val(),
+                        alarmDate = $(rowProcess).find('[name="calendar"][alarm=' + processId + ']').val(),
+                        noticeAtBegin = $(rowProcess).find('[name="notice"]').is(':checked') ? 1 : 0,
+                        process = createTemplate(processId, startDate, endDate, alarmDate, noticeAtBegin);
 
                     if (!startDate || !endDate || !alarmDate) {
                         requireViolation = true;

@@ -996,4 +996,19 @@
   <data name="ToDate" xml:space="preserve">
     <value>To Date</value>
   </data>
+  <data name="RedmineProjectRequire" xml:space="preserve">
+    <value>You must input Redmine Project Name and choose one item from suggestion list.</value>
+  </data>
+  <data name="JoinDateRequire" xml:space="preserve">
+    <value>The Joine Date field is required!</value>
+  </data>
+  <data name="MemberExisted" xml:space="preserve">
+    <value>This member existed! Please choose another member.</value>
+  </data>
+  <data name="RoleRequire" xml:space="preserve">
+    <value>The Role field is required!</value>
+  </data>
+  <data name="UserRequire" xml:space="preserve">
+    <value>You must choose one user from suggestion list.</value>
+  </data>
 </root>

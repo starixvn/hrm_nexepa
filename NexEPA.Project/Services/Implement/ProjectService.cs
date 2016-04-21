@@ -1,6 +1,5 @@
 ﻿namespace NexEPA.Project.Services.Implement
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -279,13 +278,16 @@
             return result;
         }
 
-        public string ConvertMemberListToXML(IEnumerable<MemberModel> members)
+        public string ConvertMemberListToXML(IEnumerable<ProjectMemberRoleModel> members)
         {
             StringBuilder epaPattern = new StringBuilder(Constants.BeginRootTag);
 
-            foreach (MemberModel member in members)
+            foreach (ProjectMemberRoleModel member in members)
             {
-                epaPattern.AppendFormat(Constants.MembersList, member.EmployeeId, member.ProjectId, member.JoinDate, member.ProjectRoleId, member.AddedBy);
+                foreach (ProjectRoleModel role in member.Roles)
+                {
+                    epaPattern.AppendFormat(Constants.MembersList, member.Member.EmployeeId, member.Member.JoinDate, role.ProjectRoleId);
+                }
             }
 
             epaPattern.Append(Constants.EndRootTag);

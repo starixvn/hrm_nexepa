@@ -41,9 +41,9 @@
         /// <param name="milestoneId">Belong to milestone.</param>
         /// <returns>List of Project Member Model.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
-        public IEnumerable<ProjectMembersModel> Get(int projectId, bool? isShowDeletedMember = null, int? milestoneId = null)
+        public IEnumerable<ProjectMemberRoleModel> Get(int projectId, bool? isShowDeletedMember = null, int? milestoneId = null)
         {
-            IEnumerable<ProjectMembersModel> members = null;
+            IEnumerable<ProjectMemberRoleModel> members = null;
             var getAllProjectMembersCriteria = new GetAllProjectMembersCriteria()
             {
                 ProjectId = projectId,

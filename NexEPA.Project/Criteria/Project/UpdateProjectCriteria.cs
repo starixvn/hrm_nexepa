@@ -31,9 +31,9 @@ namespace NexEPA.Project.Criteria.Project
 
         public byte? Status { get; set; }
 
-        public int ModifiedBy { get; set; }
+        public int ModifiedBy { get; set; }       
 
-        public DateTime ModifiedDate { get; set; }
+        public int? RedmineProjectId { get; set; }
 
         public string MemberList { get; set; }
 
@@ -45,6 +45,6 @@ namespace NexEPA.Project.Criteria.Project
         public override string GetSettingKey()
         {
             return "Project_Update";
-        } 
+        }
     }
 }

@@ -2,18 +2,18 @@
     <div class="form-group">
         <label data-translate="Milestone">
         </label>
-        <select class="form-control column-limit" ng-options="m.milestoneId as m.name for m in milestones"
-            ng-model="milestone">
+        <select class="form-control column-limit" ng-options="m.milestoneId as m.name for m in projectMembersCtrl.milestones"
+                ng-model="projectMembersCtrl.milestoneId">
             <option value="">-- All --</option>
         </select>
     </div>
     <div class="form-group">
-        <input type="checkbox" ng-model="isShowDeletedMember" id="showDeleted" />
+        <input type="checkbox" ng-model="projectMembersCtrl.isShowDeletedMember" id="showDeleted" />
         <label for="showDeleted" data-translate="ShowDeletedMembers">
         </label>
     </div>
     <div class="form-group">
-        <a class="button" ng-click="filterMember(isShowDeletedMember, milestone)" data-translate="Submit"></a>
-<!--		<a class="button btn-addMember" ng-show="permission == 2 && formReadOnly" ng-click="addMember()">Add member</a>-->
+        <a class="button" ng-click="projectMembersCtrl.filterMember()"
+           data-translate="Submit"></a>
     </div>
 </form>

@@ -16,6 +16,7 @@
     using NexEPA.Employee.Services.Implement;
     using NexEPA.Employee.Services.Interface;
     using NexEPA.Project.Criteria.Project;
+    using NexEPA.Project.Criteria.ProjectMembers;
     using NexEPA.Project.Criteria.ProjectRedmine;
     using NexEPA.Project.Models;
     using NexEPA.Project.Services.Implement;
@@ -33,17 +34,23 @@
         private readonly IProjectService projectService;
         private readonly IEmployeeService employeeService;
         private readonly ICommonService commonService;
+        private readonly IProjectMemberService projectMemberService;
 
         public ProjectController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
-        public ProjectController(IProjectService projectService, IEmployeeService employeeService, ICommonService commonService)
+        public ProjectController(
+            IProjectService projectService,
+            IEmployeeService employeeService,
+            ICommonService commonService,
+            IProjectMemberService projectMemberService)
         {
             this.projectService = projectService ?? new ProjectService();
             this.employeeService = employeeService ?? new EmployeeService();
             this.commonService = commonService ?? new CommonService();
+            this.projectMemberService = projectMemberService ?? new ProjectMemberService();
         }
 
         /// <summary>
@@ -120,37 +127,25 @@
         /// <param name="project">Project Model.</param>
         /// <returns>Http Message Response.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
-        public HttpResponseMessage Put(ProjectModel project)
+        public CommandResult Put(ProjectModel project)
         {
-            if (ModelState.IsValid)
+            var updateProjectCriteria = new UpdateProjectCriteria
             {
-                var updateProjectCriteria = new UpdateProjectCriteria
-                {
-                    ProjectId = project.ProjectId,
-                    Name = project.Name,
-                    ProjectManager = project.ProjectManager,
-                    StartDate = project.StartDate,
-                    EndDate = project.EndDate,
-                    Status = project.Status,
-                    ModifiedBy = this.CurrentUser.UserId,
-                    ModifiedDate = DateTime.Now.Date,
-                    Description = project.Description,
-                    MemberList = projectService.ConvertMemberListToXML(project.MemberList)
-                };
+                ProjectId = project.ProjectId,
+                Name = project.Name,
+                ProjectManager = project.ProjectManager,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                Status = project.Status,
+                ModifiedBy = this.CurrentUser.UserId,
+                Description = project.Description,
+                RedmineProjectId = project.RedmineProjectId,
+                MemberList = projectService.ConvertMemberListToXML(project.MemberList)
+            };
 
-                CommandResult result = projectService.UpdateProject(updateProjectCriteria);
-                if (result.Code != 0)
-                {
-                    var errorMessage = new List<string>() { result.Message };
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
-                }
+            CommandResult result = projectService.UpdateProject(updateProjectCriteria);
 
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
-            }
+            return result;
         }
 
         /// <summary>
@@ -212,6 +207,12 @@
                 ActorUserId = this.CurrentUser.UserId
             };
             ProjectModel project = projectService.GetById(getProjectByIdCriteria);
+
+            var getAllProjectMembersCriteria = new GetAllProjectMembersCriteria()
+            {
+                ProjectId = projectId
+            };
+            project.MemberList = projectMemberService.GetAllProjectMember(getAllProjectMembersCriteria);
 
             return project;
         }
