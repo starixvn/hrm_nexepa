@@ -8,15 +8,16 @@ function ($scope, $routeParams, $location, $modal, $window, ProjectSettingCache,
 projectMembersFactory, notificationFactory, projectDataFactory, projectPermissionService, projectMemberService, sharedProperties) {
     var vm = this;
 
-    vm.parentController = {};   
+    vm.parentController = {};
     vm.projectIdInUrl = $routeParams.projectId;
     vm.isShowDeletedMember = false;
     vm.milestoneId = '';
-    vm.roles = [];    
+    vm.roles = [];
+    vm.showMembersFilter = true;
 
     vm.filterMember = function () {
         projectMembersFactory.getMember(vm.projectIdInUrl, vm.isShowDeletedMember, vm.milestoneId).then(function (members) {
-            vm.parentController.projectUpdate.memberList = members;
+            vm.parentController.project.memberList = members;
         });
     };
 
@@ -34,7 +35,7 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
                     return angular.copy(vm.roles);
                 },
                 members: function () {
-                    return vm.parentController.projectUpdate.memberList;
+                    return vm.parentController.project.memberList;
                 }
             },
             windowClass: "modal-confirm-center"
@@ -83,7 +84,7 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
             windowClass: "modal-confirm-center"
         });
         deleteModalInstance.result.then(function () {
-            vm.parentController.projectUpdate.memberList.splice(index, 1);
+            vm.parentController.project.memberList.splice(index, 1);
         });
     };
 
@@ -98,18 +99,22 @@ projectMembersFactory, notificationFactory, projectDataFactory, projectPermissio
 
         return roleText;
     };
-   
+
     vm.setParentController = function (parent) {
         vm.parentController = parent;
+
+        vm.showMembersFilter = !vm.parentController.isAddMode;
+
+        if (vm.showMembersFilter) {
+            $scope.$watch(function () {
+                return projectMilestoneService.getProperty();
+            }, function (value) {
+                vm.milestones = value;
+            });
+        }
     };
 
     vm.initialize = function () {
-        $scope.$watch(function () {
-            return projectMilestoneService.getProperty();
-        }, function (value) {
-            vm.milestones = value;
-        });
-
         projectMembersFactory.getProjectRole().then(function (roles) {
             vm.roles = roles;
         });

@@ -7,7 +7,7 @@
 var projectsSettingModule = angular.module("projectsSettingModule", ['ngRoute', 'ngResource'])
 .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Projects/Index', { templateUrl: '../templates/Projects/Index.html', controller: 'ProjectController' });
-    $routeProvider.when('/Projects/Create', { templateUrl: '../templates/Projects/Create.html', controller: 'CreateProjectController' });
+    $routeProvider.when('/Projects/Create', { templateUrl: '../templates/Projects/Create.html' });
     $routeProvider.when('/Projects/Edit/:projectId', { templateUrl: '/templates/Projects/Edit.html'});    
     $routeProvider.when('/ProjectMembers/View/:projectId', { templateUrl: '/templates/ProjectMembers/Index.html', controller: 'ProjectMembersController' });
     $routeProvider.when('/ProjectMembers/Create/:projectId',

@@ -2,10 +2,10 @@
 'use strict';
 
 projectsSettingModule.controller('EditProjectController',
-['$scope', '$routeParams', '$location', '$window', '$modal', 'projectUtility', 'projectDataFactory', 'ProjectSettingCache',
-'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectPermissionService', 'projectMembersFactory',
-function ($scope, $routeParams, $location, $window, $modal, projectUtility, projectDataFactory,
-ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorService, projectPermissionService, projectMembersFactory) {
+['$scope', '$routeParams', '$window', 'projectUtility', 'projectDataFactory', 'ProjectSettingCache',
+'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectMembersFactory',
+function ($scope, $routeParams, $window, projectUtility, projectDataFactory, ProjectSettingCache,
+commonFactory, tabService, notificationFactory, ErrorService, projectMembersFactory) {
     var vm = this;
 
     vm.projectId = parseInt($routeParams.projectId);
@@ -17,24 +17,25 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
     vm.formReadOnly = true;
     vm.pms = [];
     vm.searchProjects = [];
-    vm.projectUpdate = {};
+    vm.project = {};
     vm.calendar = {
         endDateOpened: false,
         startDateOpened: false
     };
     vm.searchKey = '';
+    vm.isAddMode = false;
 
     vm.openPopupStartDate = function ($event) {
-        commonFactory.openPopupStartDate($event, $scope);
+        commonFactory.openPopupStartDate($event, vm);
     };
 
     vm.openPopupEndDate = function ($event) {
-        commonFactory.openPopupEndDate($event, $scope);
+        commonFactory.openPopupEndDate($event, vm);
     };
 
     vm.getProjects = function () {
         if (!vm.searchKey) {
-            vm.projectUpdate.redmineProjectId = '';
+            vm.project.redmineProjectId = '';
         } else {
             projectDataFactory.getAllProject(vm.searchKey)
                 .success(function (projects) {
@@ -52,7 +53,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
                 vm.pms = pms;
 
                 if (isResetPM && vm.pms && vm.pms.length > 0) {
-                    vm.projectUpdate.projectManager = vm.pms[0].employeeId;
+                    vm.project.projectManager = vm.pms[0].employeeId;
                 }
             })
             .error(function () {
@@ -62,7 +63,7 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
 
     vm.getGroupedMembersByProject = function (projectId) {
         projectMembersFactory.getGroupedMembersByProject(projectId).then(function (members) {
-            vm.projectUpdate.memberList = members;
+            vm.project.memberList = members;
         });
     }
 
@@ -75,10 +76,10 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
     };
 
     vm.update = function () {
-        var isValid = projectUtility.validateProject(vm.projectUpdate);
+        var isValid = projectUtility.validateProject(vm.project);
 
         if (isValid) {
-            projectDataFactory.updateProject(vm.projectUpdate).then(function (response) {
+            projectDataFactory.updateProject(vm.project).then(function (response) {
                 if (response.isSuccessful === true) {
                     notificationFactory.success("DataChangeSuccessfully");
                 }
@@ -128,11 +129,14 @@ ProjectSettingCache, commonFactory, tabService, notificationFactory, ErrorServic
                 vm.formReadOnly = false;
             }
 
-            vm.projectUpdate = data;
-            vm.searchKey = vm.projectUpdate.redmineProjectName;
-            projectPermissionService.setProperty(data.permission);
+            vm.project = data;
+            vm.searchKey = vm.project.redmineProjectName;
 
-            vm.getPMByProject(vm.projectUpdate.redmineProjectId);
+            if (vm.project.redmineProjectId) {
+                vm.getPMByProject(vm.project.redmineProjectId);
+            } else {
+                vm.getProjectManager();
+            }
         }, function (status) {
             ErrorService.errorHandle(status);
         });

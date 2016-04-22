@@ -14,15 +14,15 @@
 
         public int? ProjectManager { get; set; }
 
+        public int? RedmineProjectId { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
 
         public byte? Status { get; set; }
 
-        public int CreatedBy { get; set; }
-
-        public DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }       
 
         public string MemberList { get; set; }
 

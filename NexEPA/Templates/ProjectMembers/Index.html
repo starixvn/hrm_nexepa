@@ -4,54 +4,59 @@
         </div>
     </div>
     <div class="row">
-        <div class="span10 tbl-member">
-            <a class="button button-icon btn-addMember" ng-if="!editProjectCtrl.formReadOnly"
-               ng-click="projectMembersCtrl.addMember()">
-                <span class="icon plus"></span>
-                <span data-translate="AddMember"></span>
-            </a>
-            <table class="table table-bordered table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th data-translate="#">
-                        </th>
-                        <th data-translate="Members">
-                        </th>
-                        <th data-translate="Roles">
-                        </th>
-                        <th data-translate="JoinedDate">
-                        </th>
-                        <th data-translate="Action" ng-hide="editProjectCtrl.formReadOnly">
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="member in projectMembersCtrl.parentController.projectUpdate.memberList">
-                        <td ng-bind="$index + 1" class="text-center"></td>
-                        <td>
-                            <span tooltip="{{member.member.fullName}}">{{member.member.nickName}}</span>
-                        </td>
-                        <td>
-                            <span ng-init="member.roleText = projectMembersCtrl.getRoleText(member.roles)" ng-bind="member.roleText"></span>
-                        </td>
-                        <td ng-bind="member.member.joinDate | customDate" class="text-center"></td>
-                        <td class="text-center" ng-if="!editProjectCtrl.formReadOnly">
-                            <div class="btn-group">
-                                <a href="javascript:;" ng-click="projectMembersCtrl.updateMember(member)" class="glyphicon glyphicon-edit icon-edit"
-                                   title="Edit"></a>
-                                <a href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"
-                                   ng-click="projectMembersCtrl.deleteMember($index, member)" title="Delete"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr ng-show="projectMembersCtrl.parentController.projectUpdate.memberList == '' || projectMembersCtrl.parentController.projectUpdate.memberList === undefined">
-                        <td class="empty-result" colspan="5" data-translate="EmptyResult"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="span10" ng-class="projectMembersCtrl.showMembersFilter ? 'tbl-member' : ''">
+            <div>
+                <a class="button button-icon btn-addMember" 
+                   ng-if="!projectMembersCtrl.parentController.formReadOnly"
+                   ng-click="projectMembersCtrl.addMember()">
+                    <span class="icon plus"></span>
+                    <span data-translate="AddMember"></span>
+                </a>
+            </div>
+            <div>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th data-translate="#">
+                            </th>
+                            <th data-translate="Members">
+                            </th>
+                            <th data-translate="Roles">
+                            </th>
+                            <th data-translate="JoinedDate">
+                            </th>
+                            <th data-translate="Action" ng-hide="projectMembersCtrl.parentController.formReadOnly">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="member in projectMembersCtrl.parentController.project.memberList">
+                            <td ng-bind="$index + 1" class="text-center"></td>
+                            <td>
+                                <span tooltip="{{member.member.fullName}}">{{member.member.nickName}}</span>
+                            </td>
+                            <td>
+                                <span ng-init="member.roleText = projectMembersCtrl.getRoleText(member.roles)" ng-bind="member.roleText"></span>
+                            </td>
+                            <td ng-bind="member.member.joinDate | customDate" class="text-center"></td>
+                            <td class="text-center" ng-if="!projectMembersCtrl.parentController.formReadOnly">
+                                <div class="btn-group">
+                                    <a href="javascript:;" ng-click="projectMembersCtrl.updateMember(member)" class="glyphicon glyphicon-edit icon-edit"
+                                       title="Edit"></a>
+                                    <a href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"
+                                       ng-click="projectMembersCtrl.deleteMember($index, member)" title="Delete"></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-show="projectMembersCtrl.parentController.project.memberList == '' || projectMembersCtrl.parentController.project.memberList === undefined">
+                            <td class="empty-result" colspan="5" data-translate="EmptyResult"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
     <div class="row action-button top-buffer">
-        <button class="btn btn-default customize" ng-click="projectMembersCtrl.cancel()" data-translate="Cancel"></button>
     </div>
 </div>

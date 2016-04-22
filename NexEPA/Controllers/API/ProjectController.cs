@@ -89,36 +89,24 @@
         /// <param name="project">Project Model.</param>
         /// <returns>Http Response Message.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Host)]
-        public HttpResponseMessage AddProject(ProjectModel project)
+        public CommandResult AddProject(ProjectModel project)
         {
-            if (ModelState.IsValid)
+            var addProjectCriteria = new AddProjectCriteria
             {
-                var addProjectCriteria = new AddProjectCriteria
-                {
-                    Name = project.Name,
-                    Description = project.Description,
-                    ProjectManager = project.ProjectManager,
-                    StartDate = project.StartDate.Value,
-                    EndDate = project.EndDate,
-                    Status = project.Status,
-                    CreatedBy = this.CurrentUser.UserId,
-                    CreatedDate = DateTime.Now,
-                    MemberList = projectService.ConvertMemberListToXML(project.MemberList)
-                };
+                Name = project.Name,
+                Description = project.Description,
+                ProjectManager = project.ProjectManager,
+                StartDate = project.StartDate.Value,
+                EndDate = project.EndDate,
+                Status = project.Status,
+                CreatedBy = this.CurrentUser.UserId,
+                RedmineProjectId = project.RedmineProjectId,
+                MemberList = projectService.ConvertMemberListToXML(project.MemberList)
+            };
 
-                CommandResult result = projectService.InsertProject(addProjectCriteria);
-                if (result.Code != 0)
-                {
-                    var errorMessage = new List<string>() { result.Message };
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, errorMessage);
-                }
+            CommandResult result = projectService.InsertProject(addProjectCriteria);
 
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, RetrieveErrorMessages());
-            }
+            return result;
         }
 
         /// <summary>

@@ -2,169 +2,144 @@
 'use strict';
 
 projectsSettingModule.controller('CreateProjectController',
-['$scope', '$location', '$window', 'projectDataFactory', 'projectMembersFactory', 'ProjectSettingCache', 'commonFactory', '$timeout',
-'notificationFactory', 'projectUtility', 'sharedProperties',
-function ($scope, $location, $window, projectDataFactory, projectMembersFactory, ProjectSettingCache, commonFactory, $timeout,
-notificationFactory, projectUtility, sharedProperties) {
-    /**
-    * Variables. 
-    */
-    var cacheListPM = ProjectSettingCache.get("CacheListPM");
-    var cacheListStatus = ProjectSettingCache.get("CacheListStatus");
-    $scope.errors = [];
-    $scope.search = {
-        searchKey: ''
-    };
-    $("#projectValid").hide();
+['$scope', '$routeParams', '$window', 'projectUtility', 'projectDataFactory', 'ProjectSettingCache',
+'commonFactory', 'tabService', 'notificationFactory', 'ErrorService', 'projectMembersFactory',
+function ($scope, $routeParams, $window, projectUtility, projectDataFactory, ProjectSettingCache,
+commonFactory, tabService, notificationFactory, ErrorService, projectMembersFactory) {
+    var vm = this;
 
-    $scope.project = {
+    vm.cacheListPM = ProjectSettingCache.get("CacheListPM");
+    vm.cacheListStatus = ProjectSettingCache.get("CacheListStatus");
+
+    vm.dataTab = {
+        information: true,
+        member: false
+    };
+    vm.formReadOnly = true;
+    vm.pms = [];
+    vm.searchProjects = [];
+    vm.project = {
+        projectId: '',
+        projectManager: '',
+        redmineProjectId: '',
+        redmineProjectName: '',
+        startDate: '',
+        endDate: '',
+        memberList: [],
+        description: '',
         name: '',
-        description: '12312'
+        status: 1
+    };
+    vm.calendar = {
+        endDateOpened: false,
+        startDateOpened: false
+    };
+    vm.searchKey = '';
+    vm.isAddMode = true;
+
+
+    vm.openPopupStartDate = function ($event) {
+        commonFactory.openPopupStartDate($event, vm);
     };
 
-    /**
-    * Ajax event. 
-    */
-    // Get data to ProjectManager - Select List
-    var successGetEmployeeSelectList = function (data) {
-        $scope.pms = data;
-        ProjectSettingCache.put("CacheListPM", data);
+    vm.openPopupEndDate = function ($event) {
+        commonFactory.openPopupEndDate($event, vm);
     };
 
-    // Get data to Status - Select List
-    var successGetProjectStatusSelectList = function (data) {
-        $scope.status = data;
-        ProjectSettingCache.put("CacheListStatus", data);
+    vm.getProjects = function () {
+        if (!vm.searchKey) {
+            vm.project.redmineProjectId = '';
+        } else {
+            projectDataFactory.getAllProject(vm.searchKey)
+                .success(function (projects) {
+                    vm.searchProjects = projects;
+                })
+                .error(function () {
+                    notificationFactory.error("ErrorMessage");
+                });
+        }
     };
 
-    // Success add new project callback.
-    var successAddProject = function () {
-        $scope.disabledSubmit = false;
-        notificationFactory.success('DataChangeSuccessfully', '');
-        $timeout(function () {
-            $location.url('/Projects/Index');
-        }, 2000);
-    };
-
-    // Errors occur during Add process.
-    var errorAddProject = function () {
-        $scope.disabledSubmit = false;
-    };
-
-    //Get projects - search in auto
-    $scope.getProjects = function (searchKey) {
-        projectDataFactory.getAllProject(searchKey)
-            .success(function (projects) {
-                $scope.searchProjects = projects;
-            })
-            .error(function () {
-                notificationFactory.error("ErrorMessage");
-            });
-    };
-
-    $scope.getPMByProject = function (projectId) {
-        projectDataFactory.getPMByProject(projectId)
+    vm.getPMByProject = function (redmineProjectId, isResetPM) {
+        projectDataFactory.getPMByProject(redmineProjectId)
             .success(function (pms) {
-                $scope.pms = pms;
+                vm.pms = pms;
+
+                if (isResetPM && vm.pms && vm.pms.length > 0) {
+                    vm.project.projectManager = vm.pms[0].employeeId;
+                }
             })
             .error(function () {
                 notificationFactory.error("ErrorMessage");
             });
     };
 
-    $scope.getProjectRedmine = function (projectId) {
-        projectDataFactory.getProjectRedmineById(projectId)
-            .success(function (project) {
-                //$scope.projectRedmine = project;
-                //$('#txtDescription').val(project.description);
-                //$('#startDate').val($.format.date(project.createdOn, "dd MMM, yyyy"));
-                $scope.project = project;
-            })
-            .error(function () {
-                notificationFactory.error("ErrorMessage");
-            });
+    vm.getGroupedMembersByProject = function (projectId) {
+        projectMembersFactory.getGroupedMembersByProject(projectId).then(function (members) {
+            vm.project.memberList = members;
+        });
     }
 
-    $scope.$watch('project.description', function (value) {
-        if (value.lenght > 0)
-            $scope.$apply();
-    });
+    vm.add = function () {
+        var isValid = projectUtility.validateProject(vm.project);
 
-    $scope.getMembersByProject = function (projectId) {
-        projectMembersFactory.getMembersByProject(projectId).then(function (data) {
-            sharedProperties.setMembersProject(data);
+        if (isValid) {
+            projectDataFactory.addProject(vm.project).then(function (response) {
+                if (response.isSuccessful === true) {
+                    notificationFactory.success("DataChangeSuccessfully");
+                    location.href = "/Projects/Index";
+                }
+                else {
+                    notificationFactory.error(null, response.message);
+                }
+            }, function (response) {
+                if (status === 405) {
+                    ErrorService.errorHandle(status);
+                }
+                else {
+                    notificationFactory.error("DataChangeFail");
+                }
+            });
+        }
+    };
+
+    vm.cancel = function () {
+        $window.history.back();
+    };
+
+    vm.getProjectManager = function () {
+        projectDataFactory.getEmployeeSelectList(3).then(function (data) {
+            vm.pms = data;
         });
     };
 
-    /**
-    * Initialize data to view Create Project. 
-    */
-    // Check for list ProjectManager has cache data.
-    if (cacheListPM) {
-        $scope.pms = cacheListPM;
-    }
-    else {
-        projectDataFactory.getEmployeeSelectList(3).then(successGetEmployeeSelectList);
-    }
-
-    // Check for list Status has cache data.
-    if (cacheListStatus) {
-        $scope.status = cacheListStatus;
-    }
-    else {
-        projectDataFactory.getProjectStatusSelectList().then(successGetProjectStatusSelectList);
-    }
-
-    // get Date Format
-    commonFactory.getDateFormat($scope);
-
-    /**
-    * Events 
-    */
-    projectUtility.showMessageAfterValidate($scope);
-
-    // Save
-    $scope.save = function (project) {
-        $scope.disabledSubmit = true;
-        $scope.submitted = true;
-
-        var newProject = angular.copy(project);
-        newProject.memberList = sharedProperties.getMembersProject();
-
-        if (newProject) {
-            if (newProject.startDate != null) {
-                var selectedStartDate = new Date(newProject.startDate);
-                newProject.startDate = selectedStartDate ? selectedStartDate.toDateString() : null;
-            }
-            if (newProject.endDate != null) {
-                var selectedEndDate = new Date(newProject.endDate);
-                newProject.endDate = selectedEndDate ? selectedEndDate.toDateString() : null;
-            }
-
-            if (projectUtility.validateProject(newProject)) {
-                projectDataFactory.addProject(newProject).then(successAddProject, errorAddProject);
-            }
-            else {
-                $scope.disabledSubmit = false;
-                projectUtility.showMessageAfterValidate(this);
-            }
+    vm.getStatus = function () {
+        if (vm.cacheListStatus) {
+            vm.status = vm.cacheListStatus;
         }
         else {
-            $scope.disabledSubmit = false;
+            projectDataFactory.getProjectStatusSelectList().then(function (data) {
+                vm.status = data;
+                ProjectSettingCache.put("CacheListStatus", data);
+            });
         }
     };
 
-    // Cancel
-    $scope.cancel = function () { $window.history.back(); };
+    vm.initialize = function () {
+        commonFactory.getDateFormat(vm);
 
-    // show start date calendar when click button start date
-    $scope.openPopupStartDate = function ($event) {
-        commonFactory.openPopupStartDate($event, $scope);
+        vm.getStatus();
+
+        vm.getProjectManager();
+
+        projectDataFactory.getPermission().then(function (data) {
+            if (data === "2") {
+                vm.formReadOnly = false;
+            }
+        }, function (status) {
+            ErrorService.errorHandle(status);
+        });
     };
 
-    // show end date calendar when click button end date
-    $scope.openPopupEndDate = function ($event) {
-        commonFactory.openPopupEndDate($event, $scope);
-    };
-
+    vm.initialize();
 }]);

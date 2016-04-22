@@ -24,16 +24,16 @@
                                    search-project-auto-complete
                                    search-key="editProjectCtrl.searchKey"
                                    search-projects="editProjectCtrl.searchProjects"
-                                   project="editProjectCtrl.projectUpdate"
+                                   project="editProjectCtrl.project"
                                    project-members="editProjectCtrl.getGroupedMembersByProject"
                                    ng-disabled="editProjectCtrl.formReadOnly" />
-                            <input type="hidden" ng-model="editProjectCtrl.projectUpdate.redmineProjectId" name="redmineProjectId" required />
+                            <input type="hidden" ng-model="editProjectCtrl.project.redmineProjectId" name="redmineProjectId" required />
                         </div>
                     </div>
                     <div class="col-sm-12 line">
                         <label class="col-sm-2 col-md-2" data-translate="ProjectName" />
                         <div class="col-sm-6 col-md-4">
-                            <input class="custom-textbox" type="text" name="projectName" ng-model="editProjectCtrl.projectUpdate.name"
+                            <input class="custom-textbox" type="text" name="projectName" ng-model="editProjectCtrl.project.name"
                                    ng-disabled="editProjectCtrl.formReadOnly" maxlength="200" placeholder="Project Name" />
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <label class="col-sm-2 col-md-2" data-translate="StartDate">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.projectUpdate.startDate"
+                            <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.project.startDate"
                                    is-open="editProjectCtrl.calendar.startDateOpened" datepicker-popup="{{editProjectCtrl.dateFormat}}" placeholder="Start Date"
                                    id="startDate" name="startDate" readonly ng-disabled="editProjectCtrl.editProjectCtrl.formReadOnly" />
                             <calendar-image ng-click="editProjectCtrl.openPopupStartDate($event)" ng-hide="editProjectCtrl.editProjectCtrl.formReadOnly"></calendar-image>
@@ -51,7 +51,7 @@
                         <label class="col-sm-2 col-md-2" data-translate="EndDate">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.projectUpdate.endDate"
+                            <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.project.endDate"
                                    is-open="editProjectCtrl.calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{editProjectCtrl.dateFormat}}"
                                    id="endDate" readonly ng-disabled="editProjectCtrl.editProjectCtrl.formReadOnly" />
                             <calendar-image ng-click="editProjectCtrl.openPopupEndDate($event)" ng-hide="editProjectCtrl.editProjectCtrl.formReadOnly"></calendar-image>
@@ -61,7 +61,7 @@
                         <label class="col-sm-2 col-md-2" data-translate="PM">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <select class="custom-textbox" name="projectManager" ng-model="editProjectCtrl.projectUpdate.projectManager" ng-disabled="editProjectCtrl.formReadOnly">
+                            <select class="custom-textbox" name="projectManager" ng-model="editProjectCtrl.project.projectManager" ng-disabled="editProjectCtrl.formReadOnly">
                                 <option ng-repeat="pm in editProjectCtrl.pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
                             </select>
                         </div>
@@ -71,7 +71,7 @@
                         </label>
                         <div class="col-sm-6 col-md-4">
                             <select class="custom-textbox" ng-options="s.id as s.name for s in editProjectCtrl.status" name="status"
-                                    ng-model="editProjectCtrl.projectUpdate.status" ng-disabled="editProjectCtrl.formReadOnly">
+                                    ng-model="editProjectCtrl.project.status" ng-disabled="editProjectCtrl.formReadOnly">
                                 <option style="display: none" value="">-- Select a status --</option>
                             </select>
                         </div>
@@ -80,7 +80,7 @@
                         <label class="col-sm-2 col-md-2" data-translate="Description">
                         </label>
                         <div class="col-sm-6 col-md-4">
-                            <textarea class="custom-textarea" ng-model="editProjectCtrl.projectUpdate.description"
+                            <textarea class="custom-textarea" ng-model="editProjectCtrl.project.description"
                                       ng-disabled="editProjectCtrl.formReadOnly" maxlength="500"></textarea>
                         </div>
                     </div>
