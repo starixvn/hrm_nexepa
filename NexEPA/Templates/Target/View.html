@@ -57,7 +57,7 @@
             <tr ng-repeat="target in targetList">
                 <td class="text-center" ng-bind="$index + 1"></td>
                 <td>
-                    <a href="" ng-bind="target.name" ng-click="viewDetailTarget(target)" ng-href="{{viewDetailTargetUrl}}"
+                    <a href="" ng-bind="target.name" ng-click="edit(target)" ng-href="{{editTargetUrl}}"
                        title="View detail of '{{target.name}}'"></a>
                 </td>
                 <td class="text-center" ng-bind="target.targetType.name"></td>

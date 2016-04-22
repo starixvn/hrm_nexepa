@@ -7,8 +7,8 @@ targetModule.controller('ViewTargetController',
 function ($scope, $location, $translate, $modal, $route, targetUtility, targetFactory, targetCacheFactory,
 KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeEPAFactory) {
     /**
-	* Get Information
-	*/
+    * Get Information
+    */
     targetFactory.getPermission().success(function (policy) {
         $scope.permission = {
             policy: policy
@@ -35,7 +35,7 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 
     // set default date is today
     var startDate = new Date(),
-		endDate = new Date();
+        endDate = new Date();
     startDate.setMonth(startDate.getMonth() - 6);
     endDate.setMonth(endDate.getMonth() + 6);
 
@@ -71,8 +71,8 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
     };
 
     /**
-	* Declare some actions
-	*/
+    * Declare some actions
+    */
 
     // show start date calendar when click button start date
     $scope.openPopupStartDate = function ($event) {
@@ -105,7 +105,7 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
 
     $scope.edit = function (target) {
         var targetId = target.targetId,
-			projectId = target.project ? target.project.projectId : null;
+            projectId = target.project ? target.project.projectId : null;
         $scope.editTargetUrl = '/Target/EditTarget/' + targetId + '?projectId=' + projectId + '&isEditMode';
     };
 
@@ -440,7 +440,7 @@ function ($scope, $routeParams, $timeout, targetFactory, targetUtility, KPICommo
 notificationFactory, ErrorService, projectDataFactory) {
 
     var targetId = parseInt($routeParams.id),
-		isEditMode = $routeParams.isEditMode ? true : false;
+        isEditMode = $routeParams.isEditMode ? true : false;
 
     $scope.isEditMode = isEditMode;
     $scope.generalInformationLoaded = false;
@@ -567,16 +567,16 @@ notificationFactory, ErrorService, projectDataFactory) {
 
                     $scope.disabledSubmit = false;
                 })
-				.error(function (response, status) {
-				    if (status === 405) {
-				        ErrorService.errorHandle(status);
-				    }
-				    else {
-				        notificationFactory.error('ErrorMessage');
-				    }
+                .error(function (response, status) {
+                    if (status === 405) {
+                        ErrorService.errorHandle(status);
+                    }
+                    else {
+                        notificationFactory.error('ErrorMessage');
+                    }
 
-				    $scope.disabledSubmit = false;
-				});
+                    $scope.disabledSubmit = false;
+                });
             }
             else {
                 $scope.disabledSubmit = false;
@@ -678,43 +678,61 @@ notificationFactory) {
             });
         };
 
-        $scope.openDeletePopup = function (employee) {
-            var modalDeleteInstance = $modal.open({
-                templateUrl: '/templates/Common/modalConfirmContent.html',
-                controller: "ModalConfirmController",
-                resolve: {
-                    name: function () {
-                        return employee.fullName;
-                    },
-                    action: function () {
-                        return "delete";
-                    },
-                    extraInfo: function () {
-                        return '';
-                    }
-                },
-                windowClass: "modal-confirm-center"
-            });
+        $scope.openDeletePopup = function () {
+            var selectedMembers = $.grep($scope.employees, function (item) { return item.checked; });
 
-            modalDeleteInstance.result.then(function () {
-                targetFactory.deleteTargetEmployee(targetId, employee.employeeId).success(function (response) {
-                    if (response.isSuccessful === true) {
-                        var index = $scope.employees.indexOf(employee);
-                        $scope.employees.splice(index, 1);
-                        notificationFactory.success("DataChangeSuccessfully");
-                    }
-                    else {
-                        notificationFactory.error("DataChangeFail", response.message);
-                    }
-                }).error(function (response, status) {
-                    if (status === 405) {
-                        ErrorService.errorHandle(status);
-                    }
-                    else {
-                        notificationFactory.error("ErrorMessage");
-                    }
+            if (selectedMembers.length === 0) {
+                notificationFactory.error("RequireSelectMember");
+            }
+            else {
+                var modalDeleteInstance = $modal.open({
+                    templateUrl: '/templates/Common/modalConfirmContent.html',
+                    controller: "ModalConfirmController",
+                    resolve: {
+                        name: function () {
+                            return null;
+                        },
+                        action: function () {
+                            return "delete the chosen members";
+                        },
+                        extraInfo: function () {
+                            return '';
+                        }
+                    },
+                    windowClass: "modal-confirm-center"
                 });
-            });
+
+                modalDeleteInstance.result.then(function () {
+                    var employeeIds = $.map(selectedMembers, function (item) { return item.employeeId; }).join(',');
+
+                    targetFactory.deleteTargetEmployee(targetId, employeeIds).success(function (response) {
+                        if (response.isSuccessful === true) {
+                            targetFactory.getEmployeeByTargetId(targetId).success(function (employees) {
+                                $scope.employees = employees;
+                            }).error(function (response, status) {
+                                if (status === 405) {
+                                    ErrorService.errorHandle(status);
+                                }
+                                else {
+                                    notificationFactory.error("ErrorMessage");
+                                }
+                            });
+
+                            notificationFactory.success("DataChangeSuccessfully");
+                        }
+                        else {
+                            notificationFactory.error("DataChangeFail", response.message);
+                        }
+                    }).error(function (response, status) {
+                        if (status === 405) {
+                            ErrorService.errorHandle(status);
+                        }
+                        else {
+                            notificationFactory.error("ErrorMessage");
+                        }
+                    });
+                });
+            }
         };
     }
 }]);
@@ -725,8 +743,8 @@ targetModule.controller("TargetKPIController",
 function ($scope, $routeParams, targetFactory, ErrorService, notificationFactory, $modal) {
 
     var targetId = parseInt($routeParams.id),
-		isRating = "isRating",
-		isAllRating = "isAllRating";
+        isRating = "isRating",
+        isAllRating = "isAllRating";
 
     $scope.isEditMode = $routeParams.isEditMode ? true : false;
     $scope.kpiLoaded = false;

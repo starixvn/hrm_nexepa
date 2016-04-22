@@ -5,38 +5,47 @@
                 <div class="form-group">
                     <label data-translate="Employee"></label>
                     <input class="form-control" ng-model="search.searchKey" placeholder="full name or nick name" ng-change="getEmployee(search.searchKey)"
-                            search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" project-id="projectId" employee="employee"/>
+                           search-auto-complete search-key="search.searchKey" search-employees="searchEmployees" project-id="projectId" employee="employee" />
                 </div>
                 <button class="button" ng-click="addEmployee(employee)" ng-disabled="disabledSubmit" data-translate="Add"></button>
             </form>
         </div>
     </div>
 
-    <div class="row">
-        <table class="table table-bordered table-striped target-member-table">
+    <div class="row target-member-table">
+        <div class="grid-title" ng-if="isEditMode && permission.policy == 2">
+            <button class="button-icon btn-custom" data-ng-click="openDeletePopup()">
+                <span class="icon-bar glyphicon glyphicon-remove "></span>
+                <span class="button-text" data-translate="Delete"></span>
+            </button>
+        </div>
+        <table class="table table-bordered table-striped">
             <thead>
-                <th data-translate="SymbolCount"></th>
-                <th data-translate="FullName"></th>
-                <th data-translate="NickName"></th>
-                <th data-translate="Team"></th>
-                <th data-translate="Action" ng-show="isEditMode" ng-if="permission.policy == 2"></th>
+            <th></th>
+            <th data-translate="SymbolCount"></th>
+            <th data-translate="FullName"></th>
+            <th data-translate="NickName"></th>
+            <th data-translate="Team"></th>
             </thead>
             <tr ng-repeat="employee in employees">
+                <td class="text-center">
+                    <label>
+                        <input ng-disabled="permission.policy != 2 || !isEditMode" type="checkbox" ng-checked="employee.checked"
+                               ng-click="employee.checked = !employee.checked">
+                    </label>
+                </td>
                 <td class="index" ng-bind="$index + 1"></td>
                 <td>
-                    <a href="" ng-bind="employee.fullName" ng-click="viewEPADetail(employee.employeeId)" 
-                        ng-if="permissionMemberEPA.policy == 1 || permissionMemberEPA.policy == 2" ng-href={{viewEPADetailUrl}} title="View EPA detail"/>
+                    <a href="" ng-bind="employee.fullName" ng-click="viewEPADetail(employee.employeeId)"
+                       ng-if="permissionMemberEPA.policy == 1 || permissionMemberEPA.policy == 2" ng-href={{viewEPADetailUrl}} title="View EPA detail" />
                     <span ng-if="permissionMemberEPA.policy == 0" ng-bind="employee.fullName"></span>
                 </td>
                 <td ng-bind="employee.nickName"></td>
                 <td ng-bind="employee.group.name"></td>
-                <td class="action" ng-show="isEditMode" ng-if="permission.policy == 2">
-                    <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="openDeletePopup(employee)"/>
-                </td>
             </tr>
             <tr ng-show="employees == ''">
                 <td class="empty-result" colspan="5" data-translate="EmptyResult"></td>
-            </tr> 
+            </tr>
         </table>
     </div>
 </div>

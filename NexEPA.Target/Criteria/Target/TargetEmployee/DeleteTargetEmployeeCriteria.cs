@@ -19,7 +19,7 @@ namespace NexEPA.Target.Criteria.Target.TargetEmployee
     {
         public int TargetId { get; set; }
 
-        public int EmployeeId { get; set; }
+        public string EmployeeIds { get; set; }
 
         public int ModifiedBy { get; set; }
 

@@ -1942,6 +1942,15 @@ namespace NexEPA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no any chosen member. Please choose at least one member to delete..
+        /// </summary>
+        public static string RequireSelectMember {
+            get {
+                return ResourceManager.GetString("RequireSelectMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no any chosen project. Please choose at least one project to sync..
         /// </summary>
         public static string RequireSelectProject {

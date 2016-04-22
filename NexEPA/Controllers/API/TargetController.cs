@@ -200,12 +200,12 @@
         /// <param name="employeeId">The employee ID.</param>
         /// <returns>The Command Result.</returns>
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Host)]
-        public CommandResult DeleteTargetEmployee(int targetId, int employeeId)
+        public CommandResult DeleteTargetEmployee(int targetId, string employeeIds)
         {
             var criteria = new DeleteTargetEmployeeCriteria
             {
                 TargetId = targetId,
-                EmployeeId = employeeId,
+                EmployeeIds = employeeIds,
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now
             };

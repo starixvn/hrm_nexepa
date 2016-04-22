@@ -1011,4 +1011,7 @@
   <data name="UserRequire" xml:space="preserve">
     <value>You must choose one user from suggestion list.</value>
   </data>
+  <data name="RequireSelectMember" xml:space="preserve">
+    <value>There is no any chosen member. Please choose at least one member to delete.</value>
+  </data>
 </root>

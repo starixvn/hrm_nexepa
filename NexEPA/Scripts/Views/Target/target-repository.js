@@ -37,9 +37,9 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
         insertTargetEmployee: function (employee) {
             return $http.post('/api/Target/InsertTargetEmployee', employee);
         },
-        deleteTargetEmployee: function (targetId, employeeId) {
+        deleteTargetEmployee: function (targetId, employeeIds) {
             return $http['delete']('/api/Target/DeleteTargetEmployee',
-                { params: { targetId: targetId, employeeId: employeeId } });
+                { params: { targetId: targetId, employeeIds: employeeIds } });
         },
         getKPIByTargetId: function (targetId, groupId) {
             return $http.get('/api/Target/GetKPIByTargetId', { params: { targetId: targetId, groupId: groupId } });
