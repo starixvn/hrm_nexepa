@@ -134,6 +134,7 @@ function ($scope, $modalInstance, commonFactory, roles, members, projectDataFact
     vm.newMember = {};
     vm.searchKey = '';
     vm.searchEmployees = [];
+    vm.employee = '';
 
     vm.getNewMember = function () {
         return {

@@ -1,4 +1,4 @@
-﻿<div ng-controller="ProjectMembersController as projectMembersCtrl" ng-init="projectMembersCtrl.setParentController(editProjectCtrl)">
+﻿<div ng-controller="ProjectMembersController as projectMembersCtrl" ng-init="projectMembersCtrl.setParentController(createProjectCtrl || editProjectCtrl)">
     <div class="row">
         <div ng-include src="'/Templates/ProjectMembers/ProjectMembersFilterPanel.html'">
         </div>
@@ -6,7 +6,7 @@
     <div class="row">
         <div class="span10" ng-class="projectMembersCtrl.showMembersFilter ? 'tbl-member' : ''">
             <div>
-                <a class="button button-icon btn-addMember" 
+                <a class="button button-icon btn-addMember"
                    ng-if="!projectMembersCtrl.parentController.formReadOnly"
                    ng-click="projectMembersCtrl.addMember()">
                     <span class="icon plus"></span>

@@ -79,6 +79,13 @@ commonFactory, tabService, notificationFactory, ErrorService, projectMembersFact
         var isValid = projectUtility.validateProject(vm.project);
 
         if (isValid) {
+            if (vm.project.startDate) {
+                vm.project.startDate = moment(vm.project.startDate).format('DD MMM, YYYY');
+            }
+            if (vm.project.endDate) {
+                vm.project.endDate = moment(vm.project.endDate).format('DD MMM, YYYY');
+            }
+
             projectDataFactory.updateProject(vm.project).then(function (response) {
                 if (response.isSuccessful === true) {
                     notificationFactory.success("DataChangeSuccessfully");
