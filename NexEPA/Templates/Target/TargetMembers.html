@@ -21,7 +21,12 @@
         </div>
         <table class="table table-bordered table-striped">
             <thead>
-            <th></th>
+            <th>
+                <label>
+                    <input ng-disabled="permission.policy != 2 || !isEditMode" type="checkbox" ng-checked="isCheckAll"
+                           ng-click="selectAllMembers()">
+                </label>
+            </th>
             <th data-translate="SymbolCount"></th>
             <th data-translate="FullName"></th>
             <th data-translate="NickName"></th>
@@ -31,7 +36,7 @@
                 <td class="text-center">
                     <label>
                         <input ng-disabled="permission.policy != 2 || !isEditMode" type="checkbox" ng-checked="employee.checked"
-                               ng-click="employee.checked = !employee.checked">
+                               ng-click="selectMember(employee)">
                     </label>
                 </td>
                 <td class="index" ng-bind="$index + 1"></td>

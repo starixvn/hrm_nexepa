@@ -612,6 +612,7 @@ notificationFactory) {
     $scope.search = {
         searchKey: ''
     };
+    $scope.isCheckAll = false;
 
     $scope.$watch("tabMemberSelect", function (newValue) {
         if (newValue === true && $scope.memberLoaded === false) {
@@ -678,6 +679,26 @@ notificationFactory) {
             });
         };
 
+        $scope.selectAllMembers = function () {
+            $scope.isCheckAll = !$scope.isCheckAll;
+
+            angular.forEach($scope.employees, function (employee) {
+                employee.checked = $scope.isCheckAll;
+            });
+        };
+
+        $scope.selectMember = function (employee) {
+            employee.checked = !employee.checked;
+
+            var selectedMembers = $.grep($scope.employees, function (employee) { return employee.checked; });
+
+            if (selectedMembers.length === $scope.employees.length) {
+                $scope.isCheckAll = true;
+            } else {
+                $scope.isCheckAll = false;
+            }
+        };
+
         $scope.openDeletePopup = function () {
             var selectedMembers = $.grep($scope.employees, function (item) { return item.checked; });
 
@@ -719,6 +740,7 @@ notificationFactory) {
                             });
 
                             notificationFactory.success("DataChangeSuccessfully");
+                            $scope.isCheckAll = false;
                         }
                         else {
                             notificationFactory.error("DataChangeFail", response.message);
