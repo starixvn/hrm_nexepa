@@ -62,7 +62,7 @@ namespace NexEPA.Target.Criteria.Target.Target
                     targetFeatureDataBuilder.AppendFormat(
                                         TargetFeatureDataTemplate,
                                         target.TargetId,
-                                        target.Name,
+                                        RemoveSpecialCharacter(target.Name),
                                         target.StartDate,
                                         target.EndDate,
                                         target.ProjectId,
@@ -75,6 +75,20 @@ namespace NexEPA.Target.Criteria.Target.Target
             }
 
             return targetFeatureData;
+        }
+
+        private string RemoveSpecialCharacter(string content)
+        {
+            string result = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                result = content.Replace("&", string.Empty)
+                                .Replace("<", string.Empty)
+                                .Replace(">", string.Empty);
+            }
+
+            return result;
         }
     }
 }
