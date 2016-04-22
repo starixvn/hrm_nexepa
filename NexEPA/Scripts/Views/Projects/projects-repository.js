@@ -165,11 +165,7 @@ projectsSettingModule.factory('projectUtility', ['notificationFactory', function
             isValid = false;
         }
         else {
-            if (!project.redmineProjectId || project.redmineProjectId === 0) {
-                isValid = false;
-                notificationFactory.error("RedmineProjectRequire");
-            }
-            else if (!project.name) {
+            if (!project.name) {
                 isValid = false;
                 notificationFactory.error("NameRequire");
             }
