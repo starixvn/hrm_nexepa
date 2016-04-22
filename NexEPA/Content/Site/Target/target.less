@@ -30,158 +30,160 @@
     .sync-redmine-target {
         margin-bottom: 15px;
 
-        .icon-remove {
-            color: red;
-            cursor: pointer;
-        }
-
-        .grid-collapse {
-            background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
-            cursor: pointer;
-            padding: 1px 7px;
-        }
-
-        .grid-expand {
-            background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
-            cursor: pointer;
-            padding: 1px 7px;
-        }
-
-        .target-odd td {
-            background: #fff !important;
-            padding: 6px 10px;
-        }
-
-        .target-even td {
-            background: #E4F2FD !important;
-            padding: 6px 10px;
-        }
-
-        .target-select, .target-index {
-            width: 4%;
-        }
-
-        .target-remove {
-            width: 6%;
-        }
-
-        .target-group {
-            width: 96%;
-        }
-
-        .target-name {
-            width: 28%;
-        }
-
-        .target-start-date {
-            width: 15%;
-        }
-
-        .target-end-date {
-            width: 15%;
-        }
-
-        .target-feature-id {
-            width: 14%;
-        }
-
-        .target-synced-date {
-            width: 14%;
-        }
-
-        .project-name {
-            color: #30465D;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .project-target td {
-            background-color: #C2D9EC;
-        }
-
         .col-sm-12 {
             padding-right: 15px;
             padding-left: 15px;
         }
 
-        .table {
-            margin: 0;
-            width: 100%;
-        }
-
-        .grid-title {
-            height: 33px;
-
-            .btn-custom {
-                margin: 2px;
-                width: 70px;
+        .grid-sync-target {
+            .icon-remove {
+                color: red;
+                cursor: pointer;
             }
-        }
 
-        .form-control {
-            height: 30px;
-            padding: 3px 12px;
-        }
+            .grid-collapse {
+                background: url(../images/toggle_collapsed.png) -4px 2px no-repeat;
+                cursor: pointer;
+                padding: 1px 7px;
+            }
 
-        .header-fixed {
-            .target-name {
-                width: 26.5%;
+            .grid-expand {
+                background: url(../images/toggle_expanded.png) -3px 2px no-repeat;
+                cursor: pointer;
+                padding: 1px 7px;
+            }
+
+            .target-odd td {
+                background: #fff !important;
+                padding: 6px 10px;
+            }
+
+            .target-even td {
+                background: #E4F2FD !important;
+                padding: 6px 10px;
+            }
+
+            .target-select, .target-index {
+                width: 4%;
+            }
+
+            .target-remove {
+                width: 6%;
             }
 
             .target-group {
-                width: 95%;
-            }
-        }
-
-        @media (min-height: 768px ) {
-            tbody {
-                height: 576px;
-                overflow-y: auto;
-                width: 100%;
-                border: 1px solid #ddd;
-            }
-        }
-
-        @media (max-height: 768px ) {
-            tbody {
-                height: 430px;
-                overflow-y: auto;
-                width: 100%;
-                border: 1px solid #ddd;
-            }
-        }
-
-        tbody, thread, tr, td, th {
-            display: block;
-        }
-
-        thead {
-            width: 100%;
-            height: 30px;
-            background: transparent url("../images/table_header_repeat.jpg") repeat-x scroll 0 0;
-
-            tr > th {
-                vertical-align: middle;
-                height: 30px;
-                border-bottom: none;
-            }
-        }
-
-        thead > tr > th {
-            float: left;
-        }
-
-        tbody > tr {
-            width: 100%;
-            display: table;
-
-            td {
-                display: table-cell;
-                border-top: 0;
+                width: 96%;
             }
 
-            .button-icon {
+            .target-name {
+                width: 28%;
+            }
+
+            .target-start-date {
+                width: 15%;
+            }
+
+            .target-end-date {
+                width: 15%;
+            }
+
+            .target-feature-id {
+                width: 14%;
+            }
+
+            .target-synced-date {
+                width: 14%;
+            }
+
+            .project-name {
+                color: #30465D;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .project-target td {
+                background-color: #C2D9EC;
+            }
+
+            .table {
                 margin: 0;
+                width: 100%;
+            }
+
+            .grid-title {
+                height: 33px;
+
+                .btn-custom {
+                    margin: 2px;
+                    width: 70px;
+                }
+            }
+
+            .form-control {
+                height: 30px;
+                padding: 3px 12px;
+            }
+
+            .header-fixed {
+                .target-name {
+                    width: 26.5%;
+                }
+
+                .target-group {
+                    width: 95%;
+                }
+            }
+
+            @media (min-height: 768px ) {
+                tbody {
+                    height: 576px;
+                    overflow-y: auto;
+                    width: 100%;
+                    border: 1px solid #ddd;
+                }
+            }
+
+            @media (max-height: 768px ) {
+                tbody {
+                    height: 430px;
+                    overflow-y: auto;
+                    width: 100%;
+                    border: 1px solid #ddd;
+                }
+            }
+
+            tbody, thread, tr, td, th {
+                display: block;
+            }
+
+            thead {
+                width: 100%;
+                height: 30px;
+                background: transparent url("../images/table_header_repeat.jpg") repeat-x scroll 0 0;
+
+                tr > th {
+                    vertical-align: middle;
+                    height: 30px;
+                    border-bottom: none;
+                }
+            }
+
+            thead > tr > th {
+                float: left;
+            }
+
+            tbody > tr {
+                width: 100%;
+                display: table;
+
+                td {
+                    display: table-cell;
+                    border-top: 0;
+                }
+
+                .button-icon {
+                    margin: 0;
+                }
             }
         }
     }

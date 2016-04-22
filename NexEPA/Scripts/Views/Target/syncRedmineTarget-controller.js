@@ -26,6 +26,14 @@ function (targetFactory, commonFactory, ErrorService, notificationFactory) {
         window.location.href = "/Target/ViewTarget";
     };
 
+    vm.openPopupStartDate = function ($event) {
+        commonFactory.openPopupStartDate($event, vm);
+    };
+
+    vm.openPopupEndDate = function ($event) {
+        commonFactory.openPopupEndDate($event, vm);
+    };
+
     vm.validateFilterOptions = function () {
         var isValid = commonFactory.validateFromToDate(vm.filter.fromDate, vm.filter.toDate);
 

@@ -40,7 +40,7 @@
             </div>
         </form>
     </div>
-    <div class="col-sm-12 filter-max-width" ng-if="syncRedmineTargetCtrl.projectTargets != null">
+    <div class="col-sm-12 filter-max-width grid-sync-target" ng-if="syncRedmineTargetCtrl.projectTargets != null">
         <div class="grid-title" ng-if="syncRedmineTargetCtrl.canSync">
             <button id="btn-sync-target" type="button" data-style="slide-up" data-loading-button data-is-started="syncRedmineTargetCtrl.isLoadingSyncButton"
                     class="button btn-custom ladda-button" ng-click="syncRedmineTargetCtrl.syncTargets()">
