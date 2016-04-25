@@ -366,7 +366,7 @@
         /// </summary>        
         /// <returns>The redmine projects of users.</returns>
         [HttpGet]
-        public IEnumerable<RedmineProjectModel> RetrieveAllRedmineProjects(string keyWord = null)
+        public IEnumerable<CommonProjectModel> RetrieveAllRedmineProjects(string keyWord = null)
         {
             var criteria = new GetAllRedmineProjectsCriteria()
             {

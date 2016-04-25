@@ -32,7 +32,7 @@
 
         CommandResult DeleteMilestone(DeleteMilestoneCriteria criteria);
 
-        List<RedmineProjectModel> GetAllRedmineProjects(GetAllRedmineProjectsCriteria criteria);
+        List<CommonProjectModel> GetAllRedmineProjects(GetAllRedmineProjectsCriteria criteria);
 
         IList<RedmineProjectModel> GetRedmineProject(GetRedmineProjectCriteria criteria);
 

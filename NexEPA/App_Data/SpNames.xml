@@ -34,9 +34,7 @@
     <Setting Key="Project_GetAll" SpName="Project_GetAll" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="Project_UpdateStatus" SpName="Project_UpdateStatus" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="Project_Delete" SpName="Project_Delete" DbName="NexEPA" Plain="0" ></Setting>
-    <Setting Key="ProjectRedmine_GetAllProjects" SpName="ProjectRedmine_GetAllProjects" DbName="NexEPA" Plain="0" >
-      <Mapping DataField="Id" ObjectProperty="ProjectId"/>
-      <Mapping DataField="Name" ObjectProperty="ProjectName"/>
+    <Setting Key="ProjectRedmine_GetAllProjects" SpName="ProjectRedmine_GetAllProjects" DbName="NexEPA" Plain="0" >      
     </Setting>
     <Setting Key="ProjectRedmine_Get" SpName="ProjectRedmine_Get" DbName="NexEPA" Plain="0" ></Setting>
     <Setting Key="Project_SyncFromRedmine" SpName="Project_SyncFromRedmine" DbName="NexEPA" Plain="0" ></Setting>

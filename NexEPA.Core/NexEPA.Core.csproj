@@ -65,6 +65,7 @@
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Extensions\StringValueAttribute.cs" />
     <Compile Include="Models\CommonEmployeeModel.cs" />
+    <Compile Include="Models\CommonProjectModel.cs" />
     <Compile Include="Models\CommonTargetModel.cs" />
     <Compile Include="Models\RedmineIssueModel.cs" />
     <Compile Include="Models\RedmineYearMonthModel.cs" />

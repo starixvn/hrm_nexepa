@@ -66,13 +66,13 @@
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The redmine projects of users.</returns>
-        public List<RedmineProjectModel> GetAllRedmineProjects(GetAllRedmineProjectsCriteria criteria)
+        public List<CommonProjectModel> GetAllRedmineProjects(GetAllRedmineProjectsCriteria criteria)
         {
-            List<RedmineProjectModel> projects = null;
+            List<CommonProjectModel> projects = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                projects = GetData<RedmineProjectModel>(criteria).ToList();
+                projects = GetData<CommonProjectModel>(criteria).ToList();
             }
 
             return projects;
