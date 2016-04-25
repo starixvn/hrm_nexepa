@@ -66,8 +66,8 @@
                             <label class="col-sm-2 col-md-2" data-translate="PM">
                             </label>
                             <div class="col-sm-6 col-md-4">
-                                <select class="custom-textbox" name="projectManager" ng-model="editProjectCtrl.project.projectManager" ng-disabled="editProjectCtrl.formReadOnly">
-                                    <option ng-repeat="pm in editProjectCtrl.pms" value="{{pm.employeeId}}">{{pm.nickName}} ({{pm.fullName}})</option>
+                                <select class="custom-textbox" name="projectManager" ng-model="editProjectCtrl.project.projectManager" ng-disabled="editProjectCtrl.formReadOnly"
+                                        ng-options="pm.employeeId as pm.nickName + ' '+ pm.fullName for pm in editProjectCtrl.pms">                                    
                                 </select>
                             </div>
                         </div>
