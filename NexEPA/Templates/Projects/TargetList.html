@@ -1,0 +1,53 @@
+﻿<div class="row target-list" ng-controller="ProjectTargetListController as projectTargetListCtrl">
+    <table class="col-sm-12 table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th data-translate="SymbolCount"></th>
+                <th data-translate="Target"></th>
+                <th data-translate="Members"></th>
+                <th data-translate="KPIs"></th>
+                <th data-translate="Status"></th>
+                <th data-translate="ProjectEPAStatistic" ng-if="projectTargetListCtrl.permissionMemberEPA.policy >= 1"></th>
+                <th data-translate="StartDate"></th>
+                <th data-translate="EndDate"></th>
+            </tr>
+        </thead>
+        <tr ng-repeat="target in projectTargetListCtrl.targets">
+            <td class="text-center" ng-bind="$index + 1"></td>
+            <td>
+                <a ng-bind="target.name" ng-href="{{projectTargetListCtrl.editTargetUrl(target)}}" title="View detail of '{{target.name}}'" target="_blank"></a>
+            </td>
+            <td class="text-center">
+                <a target="_blank" ng-bind="target.members" ng-show="target.members > 0" ng-href="{{projectTargetListCtrl.viewTargetEmployee(target)}}"
+                   title="View Members of '{{target.name}}'"></a><span ng-show="target.members === 0" ng-bind="0"></span>
+            </td>
+            <td class="text-center">
+                <a target="_blank" ng-bind="target.kpIs" ng-href="{{projectTargetListCtrl.viewTargetKPI(target)}}" ng-show="target.kpIs > 0"
+                   title="View KPIs of '{{target.name}}'"></a><span ng-show="target.kpIs === 0" ng-bind="0"></span>
+            </td>
+            <td class="text-center">
+                <span class="dropdown" ng-if="projectTargetListCtrl.permission.policy == 2">
+                    <a class="dropdown-toggle changeStatus"
+                       href="" ng-bind="target.statusName"></a>
+                    <ul class="dropdown-menu dropdown-menu-width">
+                        <li ng-repeat="status in projectTargetListCtrl.statusOptions | filter:{name:'!'+target.statusName}">
+                            <a href="" ng-bind="status.name" ng-click="projectTargetListCtrl.updateStatus(target, status)"></a>
+                        </li>
+                    </ul>
+                </span><span ng-if="projectTargetListCtrl.permission.policy == 1" ng-bind="target.statusName"></span>
+            </td>
+            <td class="text-center" ng-if="projectTargetListCtrl.permissionMemberEPA.policy >= 1">
+                <a target="_blank" ng-href="{{projectTargetListCtrl.viewOpenEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)}}"
+                   title="View Open EPA" ng-bind="target.totalOpenEPA"></a>
+                <span> / </span>
+                <a target="_blank" ng-href="{{projectTargetListCtrl.viewAllEPA(target.startDate, target.endDate, target.targetId, target.projectManager.employeeId)}}"
+                   title="View all EPA" ng-bind="target.totalEPA"></a>
+            </td>
+            <td class="text-center" ng-bind="target.startDate | customDate"></td>
+            <td class="text-center" ng-bind="target.endDate | customDate"></td>
+        </tr>
+        <tr ng-show="projectTargetListCtrl.targets.length == 0">
+            <td class="empty-result" colspan="8" data-translate="EmptyResult"></td>
+        </tr>
+    </table>
+</div>

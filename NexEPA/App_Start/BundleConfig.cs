@@ -81,6 +81,7 @@ namespace NexEPA
                 "~/Scripts/Views/Resource/resource-controller.js",
                 "~/Scripts/Views/Employee/employee-controller.js",
                 "~/Scripts/Views/Employee/employee-repository.js",
+                "~/Scripts/Views/Projects/projectTargetList-controller.js",
                 "~/Scripts/Views/Projects/projects-controller.js",
                 "~/Scripts/Views/Projects/createProject-controller.js",
                 "~/Scripts/Views/Projects/editProject-controller.js", 

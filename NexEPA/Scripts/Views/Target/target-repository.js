@@ -7,6 +7,10 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
             return $http.get('/api/Target/GetTarget',
                 { params: { targetTypeId: targetTypeId, startDate: startDate, endDate: endDate } });
         },
+        getTargetByProjectId: function (projectId) {
+            return $http.get('/api/Target/GetTargetByProjectId',
+                { params: { projectId: projectId || '' } });
+        },
         getTargetById: function (targetId) {
             return $http.get('/api/Target/GetTargetById', { params: { targetId: targetId } });
         },

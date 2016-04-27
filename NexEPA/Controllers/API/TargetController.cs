@@ -83,6 +83,19 @@
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
+        public IEnumerable<TargetModel> GetTargetByProjectId(int projectId)
+        {
+            var criteria = new GetTargetCriteria
+            {
+                ActorUserId = this.CurrentUser.UserId,
+                ProjectId = projectId
+            };
+
+            return targetService.GetAllTarget(criteria);
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
         public TargetModel GetTargetById(int targetId)
         {
             var criteria = new GetTargetByIdCriteria

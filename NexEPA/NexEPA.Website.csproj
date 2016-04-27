@@ -368,6 +368,7 @@
     <Content Include="Scripts\Views\Department\department-repository.js" />
     <Content Include="Scripts\Views\Department\department-controller.js" />
     <Content Include="Scripts\Views\Projects\createProject-controller.js" />
+    <Content Include="Scripts\Views\Projects\projectTargetList-controller.js" />
     <Content Include="Scripts\Views\Projects\syncRedmineProject-directive.js" />
     <Content Include="Scripts\Views\Projects\syncRedmineProject-controller.js" />
     <Content Include="Scripts\Views\Projects\editProject-controller.js" />
@@ -435,6 +436,7 @@
     <Content Include="Templates\KPI\KPI\View.html" />
     <Content Include="Templates\Department\Index.html" />
     <Content Include="Templates\Department\TreeTemplate.html" />
+    <Content Include="Templates\Projects\TargetList.html" />
     <Content Include="Templates\Projects\ViewProjectMember.html" />
     <Content Include="Templates\Projects\SyncRedmineProject.html" />
     <Content Include="Templates\Report\ResourcePlanningReport\ResourcePlanningView.html" />
