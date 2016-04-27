@@ -59,10 +59,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
         },
         updateKPIScore: function (kpiScore) {
             return $http.put('/api/Target/UpdateKPIScore', kpiScore);
-        },
-        updateCommentEPA: function (epaComments) {
-            return $http.put('/api/EmployeeEPA/UpdateCommentEPA', epaComments);
-        },
+        },        
         getUserPermissionOnTarget: function (targetId) {
             return $http.get('/api/EmployeeEPA/GetUserPermissonOnTarget', { params: { targetId: targetId } });
         },

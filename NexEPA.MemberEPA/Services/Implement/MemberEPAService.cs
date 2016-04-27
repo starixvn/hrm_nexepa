@@ -524,7 +524,9 @@ namespace NexEPA.MemberEPA.Services.Implement
 
             foreach (EmployeeModel employee in employees)
             {
-                epaPattern.AppendFormat(Constants.EPAComments, employee.EPA.EPAId, employee.EPA.Comment);
+                string encodedComment = HttpUtility.HtmlEncode(employee.EPA.Comment);
+
+                epaPattern.AppendFormat(Constants.EPAComments, employee.EPA.EPAId, encodedComment);
             }
 
             epaPattern.Append(Constants.EndRootTag);

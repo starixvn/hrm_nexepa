@@ -25,6 +25,8 @@ namespace NexEPA.MemberEPA.Criteria
 
         public string EmployeeScore { get; set; }
 
+        public string Comments { get; set; }
+
         public int ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }

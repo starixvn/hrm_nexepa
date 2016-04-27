@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="target-kpi-content">
     <div class="modal-header">
         <div class="popup-header">
             <span data-translate="Evaluation"></span>
@@ -55,7 +55,7 @@
                                 <th class="control-label" data-translate="Comment" ng-if="kpiItem.hasComment && kpiItem.isRequireComment"></th>
                                 <th data-translate="Comment" ng-if="kpiItem.hasComment && !kpiItem.isRequireComment"></th>
                                 <th data-translate="FinalScore"></th>
-                                <th data-translate="OverallComment"></th>
+                                <th class="overall-comment" data-translate="OverallComment"></th>
                             </tr>
                         </thead>
                         <tr ng-repeat="employee in employees">
@@ -70,7 +70,8 @@
                             <td ng-bind="employee.jobTitle.name"></td>
                             <td>
                                 <div class="list-star score-target-rating">
-                                    <a ng-show="policy.isHost{{kpiItem.kpiId + '_' + employee.employeeId}} && employee.kpiItem.score > 0"
+                                    <a ng-show="policy.isHost{{kpiItem.kpiId + '_' + employee.employeeId}} && employee.kpiItem.score >
+                                        0"
                                         class="glyphicon glyphicon-remove-circle remove-star"
                                         title="Cancel" href="javascript:;" ng-click="cancelRating(employee.kpiItem, employee)">
                                     </a>
@@ -85,10 +86,9 @@
                                 <textarea ng-model="employee.kpiItem.comment"
                                           ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
                             </td>
-                            <td ng-bind="employee.finalScore | customNumber" class="target-center">
-                            </td>
+                            <td ng-bind="employee.finalScore | customNumber" class="target-center"></td>
                             <td>
-                                <textarea ng-model="employee.epa.comment" ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
+                                <textarea class="form-control overall-comment-content" ng-model="employee.epa.comment" ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
                             </td>
                         </tr>
                     </table>

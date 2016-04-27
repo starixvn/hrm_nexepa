@@ -1049,8 +1049,6 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
                     notificationFactory.error("DataChangeFail");
                 }
             });
-
-            targetFactory.updateCommentEPA(epaInfoKPI);
         }
     };
 

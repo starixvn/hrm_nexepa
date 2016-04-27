@@ -318,7 +318,8 @@
                 ModifiedDate = DateTime.Now,
                 KPIId = epaInfo.KPIId,
                 KPIGroupId = epaInfo.KPIGroupId,
-                EmployeeScore = targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId)
+                EmployeeScore = targetService.ConvertTargetKPIInfoToXML(epaInfo.Employees, epaInfo.KPIGroupId, epaInfo.KPIId),
+                Comments = memberEPAService.ConvertEPACommentsToXML(epaInfo.Employees)
             };
 
             return memberEPAService.UpdateKPIScore(criteria);

@@ -14,7 +14,6 @@
     using NexEPA.MemberEPA.Models.MyEPA;
     using NexEPA.MemberEPA.Services.Implement;
     using NexEPA.MemberEPA.Services.Interface;
-    using NexEPA.Target.Models;
     using NexEPA.Web.Attributes;
     using NexEPA.Web.Controllers;
     using NexEPA.Web.Services.Impl;
@@ -378,24 +377,6 @@
             data = _memberEPAService.GetEPAInfo(getEPAInfoCriteria);
 
             return data;
-        }
-
-        [HttpPut]
-        public HttpResponseMessage UpdateCommentEPA(EPAInfoKPIModel model)
-        {
-            var criteria = new UpdateEPACommentsCriteria()
-            {
-                Comments = _memberEPAService.ConvertEPACommentsToXML(model.Employees)
-            };
-            CommandResult result = _memberEPAService.UpdateCommentEPA(criteria);
-
-            if (result.Code != 0)
-            {
-                var errorMessage = new List<string>() { result.Message };
-                return Request.CreateResponse(HttpStatusCode.OK, errorMessage);
-            }
-
-            return new HttpResponseMessage(HttpStatusCode.OK);
-        }
+        }        
     }
 }
