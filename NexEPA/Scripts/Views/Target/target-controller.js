@@ -424,7 +424,7 @@ function ($scope, $location, $routeParams, $window, targetUtility, targetFactory
     };
 
     $scope.cancel = function () {
-        $window.history.back();
+        $location.url('Target/ViewTarget');
     };
 
     $scope.backToView = function () {

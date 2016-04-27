@@ -7,13 +7,14 @@
                 </li>
                 <li class="current" data-translate="EditProject"></li>
             </ul>
-            <div class="row action-button">
-                <button class="button" ng-click="editProjectCtrl.update()"
-                        data-translate="Save" ng-if="!editProjectCtrl.formReadOnly"></button>
-            </div>
         </div>
     </div>
-    <div class="row target-tabset">
+    <div class="row target-tabset edit-project">
+        <div class="grid-title">
+            <button class="button" ng-click="editProjectCtrl.update()"
+                    data-translate="Save" ng-if="!editProjectCtrl.formReadOnly"></button>
+            <button class="btn btn-default customize" ng-click="editProjectCtrl.cancel()" data-translate="Cancel"></button>
+        </div>
         <tabset id="projectInfoTab">
             <tab heading="GENERAL INFORMATION" class="tab-cursor" active="editProjectCtrl.dataTab.information" select="editProjectCtrl.tabInfoSelect()">
                 <form class="row common-form project-form" name="projectForm" novalidate>
