@@ -164,7 +164,10 @@ function ($scope, $modalInstance, commonFactory, roles, members, projectDataFact
             if (isContinue) {
                 vm.searchKey = '';
                 vm.employee = '';
-                vm.newMember = vm.getNewMember();
+                var newMember = vm.getNewMember();
+                newMember.member.joinDate = vm.newMember.member.joinDate;
+                vm.newMember = newMember;
+
                 vm.roles = angular.copy(roles);
             } else {
                 $modalInstance.close();
