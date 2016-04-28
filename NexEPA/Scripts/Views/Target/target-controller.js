@@ -450,8 +450,8 @@ notificationFactory, ErrorService, projectDataFactory) {
             targetFactory.getTargetById(targetId)
                 .success(function (target) {
                     if (isEditMode) {
-                        target.startDate = target.startDate !== "" ? new Date(target.startDate) : "";
-                        target.endDate = target.endDate !== "" ? new Date(target.endDate) : "";
+                        target.startDate = target.startDate ? new Date(target.startDate) : "";
+                        target.endDate = target.endDate ? new Date(target.endDate) : "";
                     }
 
                     $scope.target = target;
