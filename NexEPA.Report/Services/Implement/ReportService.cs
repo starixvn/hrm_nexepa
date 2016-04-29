@@ -14,6 +14,7 @@ namespace NexEPA.Report.Services.Implement
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
+    using NexEPA.Core.Utilities;
     using NexEPA.KPI.Model;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.Dashboard;
@@ -121,7 +122,8 @@ namespace NexEPA.Report.Services.Implement
                 foreach (HistoryProjectModel project in sameProjectRows)
                 {
                     string plainScoreText = !string.IsNullOrEmpty(project.Score) ? _encodeService.Decode(project.Score) : "0";
-                    decimal projectScore = decimal.Parse(plainScoreText);
+                    plainScoreText = string.Format("{0}", CommonHelper.ConvertDecimal(plainScoreText) / 2);
+                    decimal projectScore = CommonHelper.ConvertDecimal(plainScoreText);
                     averageScore += projectScore;
 
                     var target = new TargetModel
@@ -181,7 +183,7 @@ namespace NexEPA.Report.Services.Implement
             foreach (KPIModel kpi in groupKPI)
             {
                 string itemScoreText = !string.IsNullOrEmpty(kpi.Score) ? _encodeService.Decode(kpi.Score).Replace("_" + kpi.KPIId, string.Empty) : string.Empty;
-                decimal itemScore = !string.IsNullOrEmpty(itemScoreText) ? decimal.Parse(itemScoreText) : 0;
+                decimal itemScore = CommonHelper.ConvertDecimal(itemScoreText) / 2;
                 totalScore += itemScore;
             }
 

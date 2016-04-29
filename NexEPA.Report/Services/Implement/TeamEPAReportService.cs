@@ -56,7 +56,7 @@ namespace NexEPA.Report.Services.Implement
             }
 
             return teamReport;
-        }        
+        }
 
         /// <summary>
         /// Group member.
@@ -95,7 +95,7 @@ namespace NexEPA.Report.Services.Implement
             {
                 string memberScoreText = !string.IsNullOrEmpty(member.AverageScore)
                     ? _encodeService.Decode(member.AverageScore) : string.Empty;
-                decimal memberScore = !string.IsNullOrEmpty(memberScoreText) ? decimal.Parse(memberScoreText) : 0;
+                decimal memberScore = !string.IsNullOrEmpty(memberScoreText) ? decimal.Parse(memberScoreText) / 2 : 0;
                 totalScore += memberScore;
             }
 
