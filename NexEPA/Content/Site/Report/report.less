@@ -2,128 +2,144 @@
 @import "../mixins.less";
 
 .container.page {
-	.freegrid {
-		border-top: 1px solid #373737;
-	}
-	.freegrid .freegrid thead th, .freegrid .grid-fixed-table thead th {
-		border-color: #373737;
-	}	
-	.freegrid .col_footer_content.grid-fixed-table thead th,  .freegrid .row_footer_content.grid-fixed-table thead th, .freegrid .grid-fixed-table thead th.free-cell-bottom-left {
-		border-color: #c5c5c5;
-	}
-	.freegrid .free-top-left table thead th, .freegrid .col_header table thead th {
-		background: #606060;
-	}
-	.freegrid tr.parent-row-background td {
-		background: #a0bbd2;
-	}
-	.grid-title{
-		background: #ececec;
-		border: 1px solid #c8c8c8;
-		margin-bottom: 0px;
-		height: 30px;
-	}
-	.vertical-center{
-		vertical-align: middle!important;
-	}
-	.report-center {
-		text-align: center;
-		.vertical-center;
-	}
+    .freegrid {
+        border-top: 1px solid #373737;
+    }
 
-	.report-right {
-		text-align: right;
-		.vertical-center;
-	}
+    .freegrid .freegrid thead th, .freegrid .grid-fixed-table thead th {
+        border-color: #373737;
+    }
 
-	.report-left {
-		text-align: left;
-		.vertical-center;
-	}
+    .freegrid .col_footer_content.grid-fixed-table thead th, .freegrid .row_footer_content.grid-fixed-table thead th, .freegrid .grid-fixed-table thead th.free-cell-bottom-left {
+        border-color: #c5c5c5;
+    }
 
-	.report-index {
-		.report-center;
-		width: 50px;
-	}
+    .freegrid .free-top-left table thead th, .freegrid .col_header table thead th {
+        background: #606060;
+    }
 
-	.report-day {
-		.report-center;
-		width: 60px;
-	}
+    .freegrid tr.parent-row-background td {
+        background: #a0bbd2;
+    }
 
-	.report-total {
-		.report-right;
-		font-weight: bold;
-	}
+    .grid-title {
+        background: #ececec;
+        border: 1px solid #c8c8c8;
+        margin-bottom: 0px;
+        height: 30px;
+    }
 
-	.report-total-left {
-		.report-left;
-		font-weight: bold;
-	}
+    .vertical-center {
+        vertical-align: middle !important;
+    }
 
-	.report-total-center {
-		.report-center;
-		font-weight: bold;
-	}
+    .report-center {
+        text-align: center;
+        .vertical-center;
+    }
 
-	.report-odd-row{
-		background-color: #ececec;
-	}
+    .report-right {
+        text-align: right;
+        .vertical-center;
+    }
 
-	.report-even-row{
-		background-color: #f9f9f9;
-	}
+    .report-left {
+        text-align: left;
+        .vertical-center;
+    }
 
-	.report-bg-total{
-		background-color: #92D4ED;
-	}
+    .report-index {
+        .report-center;
+        width: 50px;
+    }
 
-	.table-total{
-		.table-striped tr:nth-child(odd) td{
-			.report-odd-row;
-		}
-		.table-striped tr:nth-child(even) td{
-			.report-even-row;
-		}
-		tr.bg-total td{
-			.report-bg-total;
-		}
-	}
-	
-	.tbody-striped{ 
-		tbody:nth-child(odd) td{
-			.report-even-row;
-		}
-		tbody:nth-child(even) td{
-			.report-odd-row;		
-		}
-		tbody.bg-total td{
-			.report-bg-total;
-		}
-		tbody tr.bg-workload td{
-			background-color: #F9F5DC;
-		}
-		tbody tr.bg-working-day td{
-			background-color: #C9EFD5;
-		}
-		tbody tr.bg-sub-total td{
-			background-color: #daeef3;
-		}
-		tbody tr.bg-grand-sub-total td{
-			background-color: #B4DDE7;
-		}
-	}
-	.report-chart-icon{
-		background: url(../images/chart.png) no-repeat;
-		width: 14px;
-		height: 14px;
-		margin-top: 2px;
-	}
+    .report-day {
+        .report-center;
+        width: 60px;
+    }
 
-	.report-project-count , .report-epa-count , .report-joined-date , .report-average-score {
-		.report-center;
-		width: 120px;
-	}   
+    .report-total {
+        .report-right;
+        font-weight: bold;
+    }
+
+    .report-total-left {
+        .report-left;
+        font-weight: bold;
+    }
+
+    .report-total-center {
+        .report-center;
+        font-weight: bold;
+    }
+
+    .report-odd-row {
+        background-color: #ececec;
+    }
+
+    .report-even-row {
+        background-color: #f9f9f9;
+    }
+
+    .report-bg-total {
+        background-color: #92D4ED;
+    }
+
+    .table-total {
+        .table-striped tr:nth-child(odd) td {
+            .report-odd-row;
+        }
+
+        .table-striped tr:nth-child(even) td {
+            .report-even-row;
+        }
+
+        tr.bg-total td {
+            .report-bg-total;
+        }
+    }
+
+    .tbody-striped {
+        tbody:nth-child(odd) td {
+            .report-even-row;
+        }
+
+        tbody:nth-child(even) td {
+            .report-odd-row;
+        }
+
+        tbody.bg-total td {
+            .report-bg-total;
+        }
+
+        tbody tr.bg-workload td {
+            background-color: #F9F5DC;
+        }
+
+        tbody tr.bg-working-day td {
+            background-color: #C9EFD5;
+        }
+
+        tbody tr.bg-sub-total td {
+            background-color: #daeef3;
+        }
+
+        tbody tr.bg-grand-sub-total td {
+            background-color: #B4DDE7;
+        }
+    }
+
+    .report-chart-icon {
+        background: url(../images/chart.png) no-repeat;
+        width: 14px;
+        height: 14px;
+        margin-top: 2px;
+    }
+
+    .report-project-count, .report-epa-count, .report-joined-date, .report-average-score {
+        .report-center;
+        width: 120px;
+    }
 
     .common-form.info-form {
         padding: 0;
@@ -193,158 +209,173 @@
         }
     }
 
-	.common-form {
-		.text-right {
-			text-align: right;
-		}
-	}
+    .common-form {
+        .text-right {
+            text-align: right;
+        }
+    }
 
-	.person-report{
-		.default-column {
-			.report-left;
-			width: 10%;
-		}		
-		.score-column {
-			.report-right;
-			width: 9%;
-		}
-		.manager-column {
-			.report-left;
-			width: 11%;
-		}
-		.row-filter .filter .ladda-button {
-			margin-left: 5px;
-		}
-	}
+    .person-report {
+        .default-column {
+            .report-left;
+            width: 10%;
+        }
 
-	.filter-max-width{
-		max-width:1280px;
-	}
+        .score-column {
+            .report-center;
+            width: 9%;
+        }
 
-	.row-filter{
-		padding-right: 26px;
+        .manager-column {
+            .report-left;
+            width: 11%;
+        }
 
-		.calendar-form-control{
-			width:80%;	
-		}
+        .row-filter .filter .ladda-button {
+            margin-left: 5px;
+        }
+    }
 
-		.first-filter{
-			margin-left:15px;
-		}
-		.report-submit {
-			margin-top: 10px !important;
-			margin-left: 15px !important;
-		}
-		.multiSelect{
-			.common-form input[type="checkbox"]{
-				position: absolute;
-				top: 0;
-			}
-	
-			.filter .form-group input[type="checkbox"]{
-				position: absolute;
-				top: 0;
-			}
-		}
-	}
+    .filter-max-width {
+        max-width: 1280px;
+    }
 
-	.date-box {
-		.form-control {
-			width: 80%;
-			display: inline-block;
-		}		
-	}
+    .row-filter {
+        padding-right: 26px;
 
-	.col-sm-12, .col-sm-2{
-		padding-right: 0px;
-		padding-left: 0px;
-	}
-	
-	.col-sm-1{
-		padding-right: 5px;		
-	}
-	
-	/* Multi select control */
-	.multiSelect { 
-		.multiSelectButton {
-		  text-align: left;
-		  position: relative;
-		  width: 100%;
-		}
-		.multiSelectButton .caret {
-		  position: absolute;
-		  top: 10px;
-		  right: 5px;
-		}
-		.checkboxLayer {
-		  min-width: 180px;
-		  .acol {
-			label{
-				height:22px;
-			}
-		  }
-		}
-		.multiSelectItem {
-		  min-width: 180px;
-		}	
-		.checkboxLayer.show {
-			max-height: 300px;
-			overflow-x: hidden;
-			overflow-y: auto;
-		}
-	}
-	
-	.div-scroll{
-		min-width: 95%;
-		overflow-x: auto;
-		overflow-y: hidden;
-		margin: 10px;
-		.table{
-			margin: 0;
-			width: 99.8%;
-		}
-	}
-	
-	.resource-planning-report{
-		.top-level-working{		
-			padding: 5px 0px 5px 0px;			
-			background-color: #256f8e;
-			width:100%;				
-		}
-		.sub-level-working{		
-			padding: 5px 0px 5px 0px;			
-			background-color: #5BBDE7;
-			width:100%;
-		}
-		.bg-current-day{
-			background-color: #F5F2B7;
-		}
-		.grid-title{
-			display:none;
-		}
-		.month-column{
-			white-space: nowrap;			
-		}		
-	}
+        .calendar-form-control {
+            width: 80%;
+        }
 
-	table .collapse.in {
-		display: table-row-group !important;
-	}
-	
-	.expand-icon {
-		background: url('../../Common/Images/ui-icons_228ef1_256x240.png') no-repeat -69px -22px;
-		width: 7px;
-		height: 4px;
-		margin-top: 7px;
-		margin-right: 5px;
-		cursor:pointer;
-	}
-	
-	.collapse-icon {
-		.expand-icon;
-		background: url('../../Common/Images/ui-icons_228ef1_256x240.png') no-repeat -4px -22px;		
-	}
-	.fanex-grid{
-		margin: 10px;
-	}		
+        .first-filter {
+            margin-left: 15px;
+        }
+
+        .report-submit {
+            margin-top: 10px !important;
+            margin-left: 15px !important;
+        }
+
+        .multiSelect {
+            .common-form input[type="checkbox"] {
+                position: absolute;
+                top: 0;
+            }
+
+            .filter .form-group input[type="checkbox"] {
+                position: absolute;
+                top: 0;
+            }
+        }
+    }
+
+    .date-box {
+        .form-control {
+            width: 80%;
+            display: inline-block;
+        }
+    }
+
+    .col-sm-12, .col-sm-2 {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .col-sm-1 {
+        padding-right: 5px;
+    }
+    /* Multi select control */
+    .multiSelect {
+        .multiSelectButton {
+            text-align: left;
+            position: relative;
+            width: 100%;
+        }
+
+        .multiSelectButton .caret {
+            position: absolute;
+            top: 10px;
+            right: 5px;
+        }
+
+        .checkboxLayer {
+            min-width: 180px;
+
+            .acol {
+                label {
+                    height: 22px;
+                }
+            }
+        }
+
+        .multiSelectItem {
+            min-width: 180px;
+        }
+
+        .checkboxLayer.show {
+            max-height: 300px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+
+    .div-scroll {
+        min-width: 95%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin: 10px;
+
+        .table {
+            margin: 0;
+            width: 99.8%;
+        }
+    }
+
+    .resource-planning-report {
+        .top-level-working {
+            padding: 5px 0px 5px 0px;
+            background-color: #256f8e;
+            width: 100%;
+        }
+
+        .sub-level-working {
+            padding: 5px 0px 5px 0px;
+            background-color: #5BBDE7;
+            width: 100%;
+        }
+
+        .bg-current-day {
+            background-color: #F5F2B7;
+        }
+
+        .grid-title {
+            display: none;
+        }
+
+        .month-column {
+            white-space: nowrap;
+        }
+    }
+
+    table .collapse.in {
+        display: table-row-group !important;
+    }
+
+    .expand-icon {
+        background: url('../../Common/Images/ui-icons_228ef1_256x240.png') no-repeat -69px -22px;
+        width: 7px;
+        height: 4px;
+        margin-top: 7px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .collapse-icon {
+        .expand-icon;
+        background: url('../../Common/Images/ui-icons_228ef1_256x240.png') no-repeat -4px -22px;
+    }
+
+    .fanex-grid {
+        margin: 10px;
+    }
 }

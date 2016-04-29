@@ -1,67 +1,54 @@
 ﻿<div class="common-form container-content" ng-show="report.historyProjects !== ''">
-	<div class="row boxtitle first" ng-click="collapseTable('project')">
-		<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;<span class="home-label"
-			data-translate="ByProject"></span>
-	</div>
-	<div class="row" collapse="isProjectCollapsed">
-		<table class="table table-bordered history-table">
-			<thead>
-				<th data-translate="SymbolCount">
-				</th>
-				<th data-translate="Project">
-				</th>
-				<th data-translate="ProjectManager">
-				</th>
-				<th data-translate="Target">
-				</th>
-				<th data-translate="TargetStart">
-				</th>
-				<th data-translate="TargetEnd">
-				</th>
-				<th data-translate="TargetScore">
-				</th>
-				<th data-translate="Average">
-				</th>
-				<th data-translate="Role">
-				</th>
-				<th data-translate="ProjectManagerComment">
-				</th>
-			</thead>
-			<tbody ng-repeat="historyProject in report.historyProjects">
-				<tr ng-repeat="target in historyProject.targetList">
-					<td class="home-index" data-ng-bind="target.index">
-					</td>
-					<td class="default-column" ng-bind="historyProject.project.name" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
-					</td>
-					<td class="manager-column" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
-						<span ng-bind="historyProject.evaluator.nickName" tooltip="{{historyProject.evaluator.fullName}}">
-						</span>
-					</td>
-					<td class="default-column">
-						<a href="" ng-bind="target.name" ng-click="EPADetail(target.targetId)" ng-href="{{viewEPADetailUrl}}"
-							title="View EPA of '{{target.name}}' target"></a>
-					</td>
-					<td class="start-date" ng-bind="target.startDate | customDate">
-					</td>
-					<td class="end-date" ng-bind="target.endDate | customDate">
-					</td>
-					<td class="score-column" ng-bind="target.score | customNumber">
-					</td>
-					<td class="score-column" ng-bind="historyProject.score | customNumber" ng-if="$first"
-						rowspan="{{historyProject.targetList.length}}">
-					</td>
-					<td class="default-column" ng-bind="historyProject.roles" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
-					</td>
-					<td class="report-left" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
-						<span ng-bind="truncateComment" original-comment="historyProject.comment" truncate
-							tooltip="{{historyProject.comment}}"></span>
-					</td>
-				</tr>
-			</tbody>
-			<tr ng-show="report.historyProjects == ''">
-				<td class="empty-result" colspan="12" data-translate="EmptyResult">
-				</td>
-			</tr>
-		</table>
-	</div>
+    <div class="row boxtitle first" ng-click="collapseTable('project')">
+        <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;<span class="home-label"
+                                                                                         data-translate="ByProject"></span>
+    </div>
+    <div class="row" collapse="isProjectCollapsed">
+        <table class="table table-bordered history-table">
+            <thead>
+            <th data-translate="SymbolCount"></th>
+            <th data-translate="Project"></th>
+            <th data-translate="ProjectManager"></th>
+            <th data-translate="Target"></th>
+            <th data-translate="TargetStart"></th>
+            <th data-translate="TargetEnd"></th>
+            <th data-translate="TargetScore"></th>
+            <th data-translate="Average"></th>
+            <th data-translate="Role"></th>
+            <th data-translate="ProjectManagerComment"></th>
+            </thead>
+            <tbody ng-repeat="historyProject in report.historyProjects">
+                <tr ng-repeat="target in historyProject.targetList">
+                    <td class="home-index" data-ng-bind="target.index"></td>
+                    <td class="default-column" ng-bind="historyProject.project.name" ng-if="$first" rowspan="{{historyProject.targetList.length}}"></td>
+                    <td class="manager-column" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
+                        <span ng-bind="historyProject.evaluator.nickName" tooltip="{{historyProject.evaluator.fullName}}">
+                        </span>
+                    </td>
+                    <td class="default-column">
+                        <a href="" ng-bind="target.name" ng-click="EPADetail(target.targetId)" ng-href="{{viewEPADetailUrl}}"
+                           title="View EPA of '{{target.name}}' target"></a>
+                    </td>
+                    <td class="start-date" ng-bind="target.startDate | customDate"></td>
+                    <td class="end-date" ng-bind="target.endDate | customDate"></td>
+                    <td class="score-column">
+                        <span ng-bind="target.score | customNumber"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                    </td>
+                    <td class="score-column" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
+                        <span ng-bind="historyProject.score | customNumber"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                    </td>
+                    <td class="default-column" ng-bind="historyProject.roles" ng-if="$first" rowspan="{{historyProject.targetList.length}}"></td>
+                    <td class="report-left" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
+                        <span ng-bind="truncateComment" original-comment="historyProject.comment" truncate
+                              tooltip="{{historyProject.comment}}"></span>
+                    </td>
+                </tr>
+            </tbody>
+            <tr ng-show="report.historyProjects == ''">
+                <td class="empty-result" colspan="12" data-translate="EmptyResult"></td>
+            </tr>
+        </table>
+    </div>
 </div>

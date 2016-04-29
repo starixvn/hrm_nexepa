@@ -10,7 +10,7 @@ function ($routeParams, $modal, targetFactory, targetUtility, employeeEPAFactory
     vm.targets = [];
     vm.permissionMemberEPA = {
         policy: ''
-    };    
+    };
     vm.permission = {
         policy: ''
     };
@@ -49,7 +49,7 @@ function ($routeParams, $modal, targetFactory, targetUtility, employeeEPAFactory
         return viewTargetKPIUrl;
     };
 
-    vm.viewOpenEPA = function (startDate, endDate, targetId, projectManagerId) {
+    vm.viewOpenEPA = function (createdDate, targetId, projectManagerId) {
         var viewOpenEPAUrl = '';
 
         if (vm.currentUser) {
@@ -59,14 +59,15 @@ function ($routeParams, $modal, targetFactory, targetUtility, employeeEPAFactory
                 isShowAll = true;
             }
 
+            createdDate = new Date(createdDate);
             viewOpenEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&status=0&isShowAll=' + isShowAll +
-            '&startDate=' + startDate + '&endDate=' + endDate;
+                                '&createdDate=' + createdDate.toDateString();
         }
 
         return viewOpenEPAUrl;
     };
 
-    vm.viewAllEPA = function (startDate, endDate, targetId, projectManagerId) {
+    vm.viewAllEPA = function (createdDate, targetId, projectManagerId) {
         var viewAllEPAUrl = '';
 
         if (vm.currentUser) {
@@ -76,8 +77,9 @@ function ($routeParams, $modal, targetFactory, targetUtility, employeeEPAFactory
                 isShowAll = true;
             }
 
+            createdDate = new Date(createdDate);
             viewAllEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&isShowAll=' + isShowAll +
-            '&startDate=' + startDate + '&endDate=' + endDate;
+                                '&createdDate=' + createdDate.toDateString();
         }
 
         return viewAllEPAUrl;

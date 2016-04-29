@@ -30,6 +30,8 @@ namespace NexEPA.Target.Models
 
         public DateTime? EndDate { get; set; }
 
+        public DateTime? CreatedDate { get; set; }
+
         public int Status { get; set; }
 
         public string StatusName { get; set; }

@@ -63,7 +63,7 @@ targetModule.factory('targetFactory', ['$http', function ($http) {
         },
         updateKPIScore: function (kpiScore) {
             return $http.put('/api/Target/UpdateKPIScore', kpiScore);
-        },        
+        },
         getUserPermissionOnTarget: function (targetId) {
             return $http.get('/api/EmployeeEPA/GetUserPermissonOnTarget', { params: { targetId: targetId } });
         },
@@ -279,11 +279,11 @@ function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
                 if (kpiItem.score > 0) {
                     if (!isSpreadKPI) {
                         totalItemWeight += kpiItem.weight;
-                        totalItemScore += kpiItem.score * 2 * kpiItem.weight;
+                        totalItemScore += kpiItem.score * kpiItem.weight;
                     }
                     else {
                         totalItemWeight += averageWeight;
-                        totalItemScore += kpiItem.score * 2 * averageWeight;
+                        totalItemScore += kpiItem.score * averageWeight;
                     }
                 }
             });
@@ -299,7 +299,7 @@ function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
             }
         });
 
-        finalScore = ((totalGroupScore / (totalGroupWeight * 2)) * 10).toFixed(1);
+        finalScore = (totalGroupScore / totalGroupWeight).toFixed(1);
 
         if (isNaN(finalScore)) {
             finalScore = 0;
@@ -307,6 +307,7 @@ function ($translate, targetFactory, targetCacheFactory, notificationFactory) {
 
         return finalScore;
     };
+
     return utility;
 }]);
 

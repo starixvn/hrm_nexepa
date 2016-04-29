@@ -218,7 +218,7 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
         }
     };
 
-    $scope.viewOpenEPA = function (startDate, endDate, targetId, projectManagerId) {
+    $scope.viewOpenEPA = function (createdDate, targetId, projectManagerId) {
         if ($scope.currentUser) {
             var isShowAll = false;
 
@@ -226,12 +226,13 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
                 isShowAll = true;
             }
 
+            createdDate = new Date(createdDate);
             $scope.viewOpenEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&status=0&isShowAll=' + isShowAll +
-            '&startDate=' + startDate + '&endDate=' + endDate;
+                                        '&createdDate=' + createdDate.toDateString();
         }
     };
 
-    $scope.viewAllEPA = function (startDate, endDate, targetId, projectManagerId) {
+    $scope.viewAllEPA = function (createdDate, targetId, projectManagerId) {
         if ($scope.currentUser) {
             var isShowAll = false;
 
@@ -239,8 +240,9 @@ KPICommonRepository, commonFactory, ErrorService, notificationFactory, employeeE
                 isShowAll = true;
             }
 
+            createdDate = new Date(createdDate);
             $scope.viewAllEPAUrl = '/MemberEPA/ViewMember/?targetId=' + targetId + '&isShowAll=' + isShowAll +
-            '&startDate=' + startDate + '&endDate=' + endDate;
+                                        '&createdDate=' + createdDate.toDateString();
         }
     };
 }]);
@@ -905,7 +907,7 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
     $scope.kpiGroup = kpiGroup;
     $scope.kpiItem = kpiItem;
 
-    $scope.max = 10;
+    $scope.max = 5;
     $scope.policy = {};
 
     $scope.isInstructionsCollapsed = true;
@@ -994,12 +996,12 @@ notificationFactory, $timeout, permissionOnTarget, policyMemberEPA) {
         var isRead = "isReadOnly" + kpiItem.kpiId + '_' + employee.employeeId;
 
         if (!$scope.policy[isRead]) {
-            employee.kpiItem.percent = (100 * value) / $scope.max;
+            employee.kpiItem.percent = value;
         }
     };
 
     $scope.hoveringLeave = function (item, employee) {
-        item.percent = (100 * item.score) / $scope.max;
+        item.percent = item.score;
         employee.finalScore = targetUtility.calculateScoreTarget(employee.epaInfo);
     };
 

@@ -53,8 +53,7 @@
                                 <th data-translate="JobTitle"></th>
                                 <th data-translate="Score"></th>
                                 <th class="control-label" data-translate="Comment" ng-if="kpiItem.hasComment && kpiItem.isRequireComment"></th>
-                                <th data-translate="Comment" ng-if="kpiItem.hasComment && !kpiItem.isRequireComment"></th>
-                                <th data-translate="FinalScore"></th>
+                                <th data-translate="Comment" ng-if="kpiItem.hasComment && !kpiItem.isRequireComment"></th>                                
                                 <th class="overall-comment" data-translate="OverallComment"></th>
                             </tr>
                         </thead>
@@ -78,15 +77,14 @@
                                     <rating value="employee.kpiItem.score" max="max" on-hover="hoveringOver(value, employee)"
                                             on-leave="hoveringLeave(employee.kpiItem, employee)" readonly="checkReadOnly(kpiItem, employee)">
                                     </rating>
-                                    <span class="badge percent" ng-show="employee.kpiItem.percent > 0">{{employee.kpiItem.percent}}%</span>
+                                    <span class="badge percent" ng-show="employee.kpiItem.percent > 0" ng-bind="employee.kpiItem.percent"></span>
                                     <span class="badge percent" ng-show="!employee.kpiItem.percent">N/A</span>
                                 </div>
                             </td>
                             <td class="target-center" ng-if="kpiItem.hasComment">
                                 <textarea ng-model="employee.kpiItem.comment"
                                           ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
-                            </td>
-                            <td ng-bind="employee.finalScore | customNumber" class="target-center"></td>
+                            </td>                           
                             <td>
                                 <textarea class="form-control overall-comment-content" ng-model="employee.epa.comment" ng-disabled="policy.isReadOnly{{kpiItem.kpiId + '_' + employee.employeeId}}"></textarea>
                             </td>

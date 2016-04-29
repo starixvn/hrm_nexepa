@@ -22,6 +22,23 @@
             return result;
         }
 
+        public static decimal ConvertDecimal(object value)
+        {
+            decimal result = 0;
+
+            if (value != null)
+            {
+                bool isSuccessful = decimal.TryParse(value.ToString(), out result);
+
+                if (!isSuccessful)
+                {
+                    result = 0;
+                }
+            }
+
+            return result;
+        }
+
         public static byte[] DeflateByte(byte[] content)
         {
             byte[] zippedContent = null;

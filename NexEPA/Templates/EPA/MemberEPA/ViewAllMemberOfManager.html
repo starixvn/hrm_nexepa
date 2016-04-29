@@ -182,6 +182,7 @@
                     <td class="epa-average-score text-right">
                         <span data-translate="AverageScore"></span>:
                         <span ng-bind="epaItem.averageScore | customNumber" ng-show="epaItem.averageScore"></span>
+                        <span class="glyphicon glyphicon-star" ng-show="epaItem.averageScore"></span>
                         <span ng-bind="'N/A'" ng-show="!epaItem.averageScore" />
                     </td>
                 </tr>
@@ -192,8 +193,10 @@
                     <td class="epa-milestone" ng-bind="epa.milestone.milestoneName"></td>
                     <td class="epa-target" ng-bind="epa.target.targetName"></td>
                     <td class="epa-score">
-                        <a href="" ng-bind="epa.score | customNumber" ng-click="EPADetail(epa)" ng-href="{{viewEPADetailUrl}}"
-                           ng-show="epa.score > 0" />
+                        <a href="" ng-click="EPADetail(epa)" ng-href="{{viewEPADetailUrl}}" ng-show="epa.score > 0">
+                            <span ng-bind="epa.score | customNumber"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                        </a>
                         <a href="" ng-bind="'N/A'" ng-click="EPADetail(epa)"
                            ng-href="{{viewEPADetailUrl}}" ng-show="epa.score == 0" />
                     </td>

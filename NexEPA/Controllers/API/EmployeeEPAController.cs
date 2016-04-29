@@ -8,6 +8,7 @@
     using NexEPA.Core.Constants;
     using NexEPA.Core.Enums;
     using NexEPA.Core.Models;
+    using NexEPA.Core.Utilities;
     using NexEPA.MemberEPA.Criteria;
     using NexEPA.MemberEPA.Models;
     using NexEPA.MemberEPA.Models.MemberEPA;
@@ -49,13 +50,15 @@
         [HttpPost]
         public HttpResponseMessage AddEmployeeEPA(EPAInfoModel model)
         {
+            string finalScore = string.Format("{0}", CommonHelper.ConvertDecimal(model.FinalScore) * 2);
+
             var criteria = new AddOrUpdateEPAScoreCriteria()
             {
                 TargetId = model.TargetId,
                 EmployeeId = model.EmployeeId,
                 EvaluatorId = model.ProjectManagerId,
                 Comment = model.Comment,
-                Score = _memberEPAService.Encode(model.FinalScore),
+                Score = _memberEPAService.Encode(finalScore),
                 KPIs = _memberEPAService.ConvertKPIInfoToXML(model.KPIInfo),
                 MarkedBy = this.CurrentUser.UserId,
                 MarkedDate = DateTime.Now
@@ -377,6 +380,6 @@
             data = _memberEPAService.GetEPAInfo(getEPAInfoCriteria);
 
             return data;
-        }        
+        }
     }
 }

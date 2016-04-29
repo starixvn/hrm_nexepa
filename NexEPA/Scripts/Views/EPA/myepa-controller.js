@@ -20,25 +20,24 @@ var calculateScore = function ($scope, kpiInfo) {
             }
         });
 
-        var temp = (totalItemScore / totalItemWeight) * kpiGroupWeight;
-        if (isNaN(temp)) {
+        var kpiGroupScore = (totalItemScore / totalItemWeight) * kpiGroupWeight;
+        if (isNaN(kpiGroupScore)) {
             totalGroupScore += 0;
         }
         else {
-            totalGroupScore += temp;
+            totalGroupScore += kpiGroupScore;
             totalGroupWeight += kpiGroupWeight;
         }
 
-        kpiInfo[item].kpiGroupScore = temp;
-        //kpiInfo[item].groupFinalScore = ((temp / kpiGroupWeight) * 10).toFixed(1);
+        kpiInfo[item].kpiGroupScore = kpiGroupScore;
     });
 
     $.each(kpiInfo, function (item) {
         var currentKPIInfo = kpiInfo[item];
-        currentKPIInfo.groupFinalScore = ((currentKPIInfo.kpiGroupScore / totalGroupWeight) * 10).toFixed(1);
+        currentKPIInfo.groupFinalScore = (currentKPIInfo.kpiGroupScore / totalGroupWeight).toFixed(1);
     });
 
-    $scope.finalScore = ((totalGroupScore / totalGroupWeight) * 10).toFixed(1);
+    $scope.finalScore = (totalGroupScore / totalGroupWeight).toFixed(1);
 
     if (isNaN($scope.finalScore)) {
         $scope.finalScore = 0;
@@ -49,9 +48,9 @@ epaModule.controller('EmployeeEPAController', ['$scope', 'employeeEPAFactory', '
 '$routeParams', '$window', 'ErrorService', '$modal',
 function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService, $modal) {
     /**
-	* Scope variables. 
-	*/
-    $scope.max = 10;
+    * Scope variables. 
+    */
+    $scope.max = 5;
     $scope.isReadonly = false;
     var targetId = $routeParams.targetId;
     var employeeId = $routeParams.employeeId;
@@ -61,8 +60,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
     $scope.isPMPage = true;
 
     /**
-	* Function. 
-	*/
+    * Function. 
+    */
 
     var checkStatus = function (status) {
         if (status === 1) {
@@ -74,20 +73,20 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
             $scope.isReadonly = false;
             // Rating Star Hover.
             $scope.hoveringOver = function (value, object) {
-                object.percent = (100 * value) / $scope.max;
+                object.percent = value;
             };
 
             // Rating Star Mouse Leave
             $scope.hoveringLeave = function (item) {
-                item.percent = (100 * item.score) / $scope.max;
+                item.percent = item.score;
                 calculateScore($scope, $scope.employeeEPA.kpiInfo);
             };
         }
     };
 
     /**
-	* Ajax event. 
-	*/
+    * Ajax event. 
+    */
     var successAddOrUpdateEPA = function (response) {
         if (response.data !== "") {
             notificationFactory.error('', response.data);
@@ -156,8 +155,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
     };
 
     /**
-	* Initialize data to view Edit Project. 
-	*/
+    * Initialize data to view Edit Project. 
+    */
     employeeEPAFactory.getEmployeeEPA(targetId, employeeId).then(successGetEmployeeEPA, errorGetEmployeeEPA);
 
     employeeEPAFactory.getPermission().then(function (policy) {
@@ -167,8 +166,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
     });
 
     /**
-	* Events 
-	*/
+    * Events 
+    */
 
     $scope.$watchCollection('[employeeEPA,permission]', function (newVals) {
         if (newVals[0] && newVals[1]) {
@@ -269,9 +268,9 @@ epaModule.controller('MyEPAController', ['$scope', 'employeeEPAFactory', 'notifi
 '$routeParams', '$window', 'ErrorService',
 function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window, ErrorService) {
     /**
-	* Scope variables. 
-	*/
-    $scope.max = 10;
+    * Scope variables. 
+    */
+    $scope.max = 5;
     $scope.isReadonly = true;
     $scope.showMenuContext = false;
     var targetId = $routeParams.targetId;
@@ -280,8 +279,8 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
     $scope.isPMPage = false;
 
     /**
-	* Ajax event. 
-	*/
+    * Ajax event. 
+    */
     var successGetEmployeeEPA = function (data) {
         if (data !== "null") {
             if (data.kpiInfo.length > 0) {
@@ -318,13 +317,13 @@ function ($scope, employeeEPAFactory, notificationFactory, $routeParams, $window
     };
 
     /**
-	* Initialize data to view. 
-	*/
+    * Initialize data to view. 
+    */
     employeeEPAFactory.getMyEPA(targetId, employeeId).then(successGetEmployeeEPA, errorHandle);
 
     /**
-	* Events 
-	*/
+    * Events 
+    */
 
     $scope.cancel = function () { $window.history.back(); };
 
@@ -396,8 +395,10 @@ epaModule.controller('ViewMemberByManagerEPAController',
 '$modal', 'employeeRepository', 'linkToEPAService',
 function ($scope, $routeParams, $route, employeeEPAFactory, ErrorService, commonFactory, notificationFactory,
 $modal, employeeRepository, linkToEPAService) {
-    var startDate = $routeParams.startDate ? new Date($routeParams.startDate) : new Date(),
-        endDate = $routeParams.endDate ? new Date($routeParams.endDate) : null,
+    var createdDate = $routeParams.createdDate ? new Date($routeParams.createdDate) : new Date();
+
+    var startDate = moment(createdDate).subtract(3, 'months').toDate(),
+        endDate = moment(createdDate).add(1, 'months').toDate(),
         targetId = $routeParams.targetId ? parseInt($routeParams.targetId) : null,
         status = $routeParams.status ? parseInt($routeParams.status) : null,
         isShowAll = $routeParams.isShowAll === "true" ? true : false;
@@ -441,8 +442,8 @@ $modal, employeeRepository, linkToEPAService) {
     };
 
     /*
-	** Open calendar.
-	*/
+    ** Open calendar.
+    */
     $scope.openPopupStartDate = function ($event) {
         commonFactory.openPopupStartDate($event, $scope);
     };
@@ -463,8 +464,8 @@ $modal, employeeRepository, linkToEPAService) {
     };
 
     /*
-	** Get current user.
-	*/
+    ** Get current user.
+    */
     employeeEPAFactory.getCurrentUser().then(function (currentUser) {
         $scope.currentUser = currentUser;
     }, function () {
@@ -472,8 +473,8 @@ $modal, employeeRepository, linkToEPAService) {
     });
 
     /*
-	** Get isShowFullEPAComment.
-	*/
+    ** Get isShowFullEPAComment.
+    */
     employeeEPAFactory.getIsShowFullEPAComment().then(function (isShowFullEPAComment) {
         $scope.isShowFullEPAComment = isShowFullEPAComment === "true" ? true : false;
     }, function () {
@@ -492,8 +493,8 @@ $modal, employeeRepository, linkToEPAService) {
                     $scope.showTargetFilter = true;
 
                     /*
-					** Get all target.
-					*/
+                    ** Get all target.
+                    */
                     employeeEPAFactory.getTargetToFilter().then(function (targetList) {
                         $scope.targetOptions = targetList;
                     });
@@ -514,8 +515,8 @@ $modal, employeeRepository, linkToEPAService) {
     });
 
     /*
-	** Get permission.
-	*/
+    ** Get permission.
+    */
     employeeEPAFactory.getPermission().then(function (policy) {
         $scope.permission = {
             policy: policy
@@ -523,22 +524,22 @@ $modal, employeeRepository, linkToEPAService) {
     });
 
     /*
-	** Get all project.
-	*/
+    ** Get all project.
+    */
     employeeEPAFactory.getAllProject().then(function (projectList) {
         $scope.projectOptions = projectList;
     });
 
     /*
-	** Get all status.
-	*/
+    ** Get all status.
+    */
     employeeEPAFactory.getAllStatus().then(function (statusList) {
         $scope.statusOptions = statusList;
     });
 
     /*
-	** Get all group by current user.
-	*/
+    ** Get all group by current user.
+    */
     employeeRepository.getAllGroupByActorUser().success(function (groupList) {
         $scope.teamOptions = groupList;
     }).error(function () {
@@ -569,16 +570,16 @@ $modal, employeeRepository, linkToEPAService) {
     };
 
     /*
-	** Get EPA of Employee by Manager.
-	*/
+    ** Get EPA of Employee by Manager.
+    */
     var getEPAOfEmployeeByManager = function (fromDate, toDate, teamId, targetId, projectId, status, employeeId, isShowAll) {
         employeeEPAFactory.getEPAOfEmployeeByManager(fromDate, toDate, teamId, targetId, projectId, status, employeeId, isShowAll)
-			.then(successGetEPA, errorHandle);
+            .then(successGetEPA, errorHandle);
     };
 
     /*
-	** Get employee when group and project change.
-	*/
+    ** Get employee when group and project change.
+    */
     $scope.getEmployee = function (teamId, projectId) {
         employeeRepository.getEmployeeByTeamProject(teamId, projectId).success(function (employees) {
             $scope.employeeOptions = employees;
@@ -613,8 +614,8 @@ $modal, employeeRepository, linkToEPAService) {
     };
 
     /*
-	** Query.
-	*/
+    ** Query.
+    */
     $scope.query = function (filter) {
         var isValid = validateFromToDate(filter.fromDate, filter.toDate);
         if (isValid && filter) {
@@ -623,7 +624,7 @@ $modal, employeeRepository, linkToEPAService) {
             filter.employeeId = commonFactory.getSelectedData($scope.employeeOptions, "employeeId");
 
             getEPAOfEmployeeByManager(filter.fromDate, filter.toDate, filter.teamId,
-			filter.targetId, filter.projectId, filter.status, filter.employeeId, filter.isShowAll);
+            filter.targetId, filter.projectId, filter.status, filter.employeeId, filter.isShowAll);
         }
     };
 
@@ -635,19 +636,19 @@ $modal, employeeRepository, linkToEPAService) {
     loadData();
 
     /*
-	** Link to EPA Detail.
-	*/
+    ** Link to EPA Detail.
+    */
     $scope.EPADetail = function (epaItem) {
         if (epaItem.target) {
             var targetId = epaItem.target.targetId,
-			employeeId = epaItem.employeeId;
+            employeeId = epaItem.employeeId;
             $scope.viewEPADetailUrl = '/EmployeeEPA/Index' + '?targetId=' + targetId + '&employeeId=' + employeeId;
         }
     };
 
     /*
-	** Link to Person Report.
-	*/
+    ** Link to Person Report.
+    */
     $scope.PersonReport = function (epaItem) {
         if (epaItem.employeeId) {
             $scope.viewPersonReportUrl = '/Report/EmployeePerformanceTendency?employeeId=' + epaItem.employeeId;

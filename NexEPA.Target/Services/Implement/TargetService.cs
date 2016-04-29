@@ -371,8 +371,11 @@ namespace NexEPA.Target.Services.Implement
                         {
                             if (kpiItem.KPIId == kpiId)
                             {
-                                string cipherScore = !string.IsNullOrEmpty(kpiItem.Score) ? _encodeService.Encode(kpiItem.Score + "_" + kpiId) : null;
-                                string cipherAverageScore = _encodeService.Encode(employee.FinalScore);
+                                string kpiScore = string.Format("{0}", CommonHelper.ConvertDecimal(kpiItem.Score) * 2);
+                                string finalScore = string.Format("{0}", CommonHelper.ConvertDecimal(employee.FinalScore) * 2);
+
+                                string cipherScore = !string.IsNullOrEmpty(kpiItem.Score) ? _encodeService.Encode(kpiScore + "_" + kpiId) : null;
+                                string cipherAverageScore = _encodeService.Encode(finalScore);
                                 epaPattern.AppendFormat(Constants.TargetEPAScore, employee.EmployeeId, cipherScore, HttpUtility.HtmlEncode(kpiItem.Comment), cipherAverageScore);
                             }
                         }
@@ -453,13 +456,15 @@ namespace NexEPA.Target.Services.Implement
                         string kpiScore = !string.IsNullOrEmpty(rawKPIItem.Score)
                             ? _encodeService.Decode(rawKPIItem.Score).Replace("_" + rawKPIItem.KPIId, string.Empty)
                             : string.Empty;
+                        kpiScore = string.Format("{0}", CommonHelper.ConvertDecimal(kpiScore) / (decimal)2); // 5 stars
+
                         var kpiItem = new KPIModel
                         {
                             KPIId = rawKPIItem.KPIId,
                             Score = kpiScore,
                             Weight = rawKPIItem.Weight,
                             Comment = rawKPIItem.Comment,
-                            Percent = !string.IsNullOrEmpty(kpiScore) ? int.Parse(kpiScore) * 10 : 0
+                            Percent = CommonHelper.ConvertInt(kpiScore)
                         };
 
                         epaInfo.KPIItems.Add(kpiItem);
