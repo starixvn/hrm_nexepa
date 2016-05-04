@@ -1,5 +1,6 @@
 ﻿namespace NexEPA.Core.Utilities
 {
+    using System;
     using System.IO;
     using Ionic.Zlib;
 
@@ -57,6 +58,32 @@
             }
 
             return zippedContent;
+        }
+
+        public static string StarNumberToPercent(string starNumber)
+        {
+            decimal percent = CommonHelper.ConvertDecimal(starNumber) * 2 * 10;
+            string result = string.Empty;
+
+            if (percent > 0)
+            {
+                result = percent.ToString();
+            }
+
+            return result;
+        }
+
+        public static string PercentToStarNumber(string percent)
+        {
+            decimal starNumber = Math.Round(CommonHelper.ConvertDecimal(percent) / (2 * 10), 1);
+            string result = string.Empty;
+
+            if (starNumber > 0)
+            {
+                result = starNumber.ToString();
+            }
+
+            return result;
         }
     }
 }

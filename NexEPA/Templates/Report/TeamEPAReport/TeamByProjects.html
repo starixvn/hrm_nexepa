@@ -24,8 +24,9 @@
                 <td class="report-epa-count" ng-bind="employee.epaCount"></td>
                 <td class="report-joined-date" ng-bind="employee.joinedDate | customDate"></td>
                 <td class="report-average-score">
-                    <span ng-bind="employee.averageScore | customNumber"></span>
-                    <span class="glyphicon glyphicon-star"></span>
+                    <span ng-show="employee.averageScore" ng-bind="employee.averageScore | customNumber"></span>
+                    <span ng-show="employee.averageScore" class="glyphicon glyphicon-star"></span>
+                    <span ng-show="!employee.averageScore">N/A</span>
                 </td>
             </tr>
             <tr ng-show="reportByProjects.length === 0">

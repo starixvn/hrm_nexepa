@@ -14,6 +14,7 @@ namespace NexEPA.Report.Services.Implement
     using Fanex.Common.Helper;
     using NexEPA.Core.Services;
     using NexEPA.Core.Services.Interface;
+    using NexEPA.Core.Utilities;
     using NexEPA.Report.Criteria;
     using NexEPA.Report.Models.TeamEPAReport;
     using NexEPA.Report.Repositories.Implement;
@@ -90,16 +91,25 @@ namespace NexEPA.Report.Services.Implement
         private string CalculateAverageScoreOfMember(IGrouping<int, EmployeePerformanceByProjectModel> groupMember)
         {
             decimal totalScore = 0;
+            int count = 0;
 
             foreach (EmployeePerformanceByProjectModel member in groupMember)
             {
                 string memberScoreText = !string.IsNullOrEmpty(member.AverageScore)
-                    ? _encodeService.Decode(member.AverageScore) : string.Empty;
-                decimal memberScore = !string.IsNullOrEmpty(memberScoreText) ? decimal.Parse(memberScoreText) / 2 : 0;
-                totalScore += memberScore;
+                                            ? _encodeService.Decode(member.AverageScore)
+                                            : string.Empty;
+                memberScoreText = CommonHelper.PercentToStarNumber(memberScoreText);
+                decimal memberScore = CommonHelper.ConvertDecimal(memberScoreText);
+
+                if (memberScore > 0)
+                {
+                    totalScore += memberScore;
+                    count++;
+                }
             }
 
-            decimal averageScore = groupMember.Count() > 0 ? totalScore / groupMember.Count() : 0;
+            decimal averageScore = count > 0 ? totalScore / count : 0;
+
             return averageScore > 0 ? averageScore.ToString() : string.Empty;
         }
     }

@@ -170,9 +170,9 @@
                         {{kpi.kpiGroupName}} ({{kpi.kpiGroupWeight}}%)
                         <div class="pull-right group-total">
                             <span data-translate="GroupTotal"></span>
-                            <span ng-show="kpi.groupFinalScore > 0">{{kpi.groupFinalScore | customNumber}}</span>
+                            <span ng-show="kpi.groupFinalScore >0">{{kpi.groupFinalScore | customNumber}}</span>
                             <span class="glyphicon glyphicon-star" ng-show="kpi.groupFinalScore > 0"></span>
-                            <span ng-hide="kpi.groupFinalScore > 0">{{0 | customNumber}}</span>
+                            <span ng-show="!kpi.groupFinalScore || kpi.groupFinalScore == 0">N/A</span>
                         </div>
                     </li>
                     <div class="col-sm-12">
@@ -224,8 +224,9 @@
                         <p data-translate="Total">
                         </p>
                         <p class="finalscore">
-                            {{finalScore | customNumber}}
-                            <span class="glyphicon glyphicon-star"></span>
+                            <span ng-bind="finalScore | customNumber" ng-show="finalScore"></span>
+                            <span class="glyphicon glyphicon-star" ng-show="finalScore"></span>
+                            <span ng-show="!finalScore">N/A</span>
                         </p>
                     </div>
                 </div>

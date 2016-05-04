@@ -45,7 +45,7 @@
             <td ng-bind="epaItem.milestone.milestoneName"></td>
             <td ng-bind="epaItem.target.targetName"></td>
             <td class="epa-score">
-                <a href="" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}">
+                <a href="" ng-click="EPADetail(epaItem)" ng-href="{{viewEPADetailUrl}}" ng-show="epaItem.score">
                     <span ng-bind="epaItem.score | customNumber"></span>
                     <span class="glyphicon glyphicon-star"></span>
                 </a>

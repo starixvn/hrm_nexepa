@@ -82,7 +82,7 @@
         }
 
         [HttpGet]
-        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageTarget, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = EPAFunctionKeys.ManageProject, Policy = Policy.Read)]
         public IEnumerable<TargetModel> GetTargetByProjectId(int projectId)
         {
             var criteria = new GetTargetCriteria

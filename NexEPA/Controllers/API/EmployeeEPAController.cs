@@ -50,7 +50,7 @@
         [HttpPost]
         public HttpResponseMessage AddEmployeeEPA(EPAInfoModel model)
         {
-            string finalScore = string.Format("{0}", CommonHelper.ConvertDecimal(model.FinalScore) * 2);
+            string finalScore = CommonHelper.StarNumberToPercent(model.FinalScore);
 
             var criteria = new AddOrUpdateEPAScoreCriteria()
             {

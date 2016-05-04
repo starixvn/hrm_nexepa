@@ -32,12 +32,14 @@
                     <td class="start-date" ng-bind="target.startDate | customDate"></td>
                     <td class="end-date" ng-bind="target.endDate | customDate"></td>
                     <td class="score-column">
-                        <span ng-bind="target.score | customNumber"></span>
-                        <span class="glyphicon glyphicon-star"></span>
+                        <span ng-bind="target.score | customNumber" ng-show="target.score"></span>
+                        <span class="glyphicon glyphicon-star" ng-show="target.score"></span>
+                        <span ng-show="!target.score">N/A</span>
                     </td>
                     <td class="score-column" ng-if="$first" rowspan="{{historyProject.targetList.length}}">
-                        <span ng-bind="historyProject.score | customNumber"></span>
-                        <span class="glyphicon glyphicon-star"></span>
+                        <span ng-bind="historyProject.score | customNumber" ng-show="historyProject.score"></span>
+                        <span class="glyphicon glyphicon-star" ng-show="historyProject.score"></span>
+                        <span ng-show="!historyProject.score">N/A</span>
                     </td>
                     <td class="default-column" ng-bind="historyProject.roles" ng-if="$first" rowspan="{{historyProject.targetList.length}}"></td>
                     <td class="report-left" ng-if="$first" rowspan="{{historyProject.targetList.length}}">

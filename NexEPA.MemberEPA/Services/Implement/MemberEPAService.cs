@@ -68,7 +68,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 if (result != null)
                 {
                     string finalScore = !string.IsNullOrEmpty(result.FinalScore) ? Decode(result.FinalScore) : string.Empty;
-                    finalScore = string.Format("{0}", CommonHelper.ConvertDecimal(finalScore) / 2);
+                    finalScore = CommonHelper.PercentToStarNumber(finalScore);
 
                     result.KPIInfo = CalculatePercentOfKPI(result.KPIInfo);
                     result.FinalScore = finalScore;
@@ -95,10 +95,9 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employeeEPA in employeeEPAs)
                 {
                     string score = !string.IsNullOrEmpty(employeeEPA.Score) ? Decode(employeeEPA.Score) : string.Empty;
-                    score = string.Format("{0}", CommonHelper.ConvertDecimal(score) / 2);
 
                     employeeEPA.StatusName = EnumStatus.GetDescripton((Status)employeeEPA.Status);
-                    employeeEPA.Score = score;
+                    employeeEPA.Score = CommonHelper.PercentToStarNumber(score);
                 }
             }
 
@@ -115,7 +114,7 @@ namespace NexEPA.MemberEPA.Services.Implement
             CommandResult result = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
-            {                
+            {
                 result = this.Repository.Insert(criteria);
             }
 
@@ -139,10 +138,9 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (var employee in employees)
                 {
                     string score = (string.IsNullOrEmpty(employee.Score) || employee.Score.Equals("0")) ? "0" : Decode(employee.Score);
-                    score = string.Format("{0}", CommonHelper.ConvertDecimal(score) / 2);
 
                     employee.StatusName = EnumStatus.GetDescripton((Status)employee.Status);
-                    employee.Score = score;
+                    employee.Score = CommonHelper.PercentToStarNumber(score);
                 }
             }
 
@@ -157,9 +155,11 @@ namespace NexEPA.MemberEPA.Services.Implement
 
                 foreach (var item in employee.EPAs)
                 {
-                    if (decimal.Parse(item.Score) > 0)
+                    decimal score = CommonHelper.ConvertDecimal(item.Score);
+
+                    if (score > 0)
                     {
-                        totalScore += decimal.Parse(item.Score);
+                        totalScore += score;
                         count++;
                     }
                 }
@@ -352,7 +352,7 @@ namespace NexEPA.MemberEPA.Services.Implement
             CommandResult commandResult = new CommandResult();
 
             if (criteria.IsValid())
-            {                
+            {
                 commandResult = Repository.Update(criteria);
             }
 
@@ -404,8 +404,7 @@ namespace NexEPA.MemberEPA.Services.Implement
                 {
                     foreach (var item in kpi.KPIGroupItems)
                     {
-                        string score = string.Format("{0}", CommonHelper.ConvertDecimal(item.Score) * 2);
-                        string cipherScore = !string.IsNullOrEmpty(item.Score) ? Encode(score + "_" + item.KPIId) : null;
+                        string cipherScore = !string.IsNullOrEmpty(item.Score) ? Encode(item.Score + "_" + item.KPIId) : null;
 
                         value.AppendFormat(Constants.EmployeeEPAScore, item.KPIId, item.Group.KPIGroupId, cipherScore, HttpUtility.HtmlEncode(item.Comment));
                     }
@@ -470,7 +469,6 @@ namespace NexEPA.MemberEPA.Services.Implement
                 foreach (KPIModel kpiItem in kpiOfGroup)
                 {
                     string plainScore = !string.IsNullOrEmpty(kpiItem.Score) ? Decode(kpiItem.Score).Replace("_" + kpiItem.KPIId, string.Empty) : string.Empty;
-                    plainScore = string.Format("{0}", CommonHelper.ConvertDecimal(plainScore) / 2);
 
                     kpiItem.Percent = CommonHelper.ConvertInt(plainScore);
                     kpiItem.Score = plainScore;

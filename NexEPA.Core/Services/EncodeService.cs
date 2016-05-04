@@ -25,7 +25,13 @@ namespace NexEPA.Core.Services
         /// <returns>The cipher text.</returns>
         public string Encode(string plainText)
         {
-            string cipherText = IBCCrypt.Encrypt(plainText, Constants.KeyCryptography);
+            string cipherText = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(plainText))
+            {
+                cipherText = IBCCrypt.Encrypt(plainText, Constants.KeyCryptography);
+            }
+
             return cipherText;
         }
 
@@ -36,7 +42,13 @@ namespace NexEPA.Core.Services
         /// <returns>The plain text.</returns>
         public string Decode(string cipherText)
         {
-            string plainText = IBCCrypt.Decrypt(cipherText, Constants.KeyCryptography);
+            string plainText = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(cipherText))
+            {
+                 plainText = IBCCrypt.Decrypt(cipherText, Constants.KeyCryptography);
+            }
+
             return plainText;
         }
     }

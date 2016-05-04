@@ -49,8 +49,8 @@
                             <div class="col-sm-6 col-md-4">
                                 <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.project.startDate"
                                        is-open="editProjectCtrl.calendar.startDateOpened" datepicker-popup="{{editProjectCtrl.dateFormat}}" placeholder="Start Date"
-                                       id="startDate" name="startDate" readonly ng-disabled="editProjectCtrl.editProjectCtrl.formReadOnly" />
-                                <calendar-image ng-click="editProjectCtrl.openPopupStartDate($event)" ng-hide="editProjectCtrl.editProjectCtrl.formReadOnly"></calendar-image>
+                                       id="startDate" name="startDate" readonly ng-disabled="editProjectCtrl.formReadOnly" />
+                                <calendar-image ng-click="editProjectCtrl.openPopupStartDate($event)" ng-hide="editProjectCtrl.formReadOnly"></calendar-image>
                             </div>
                         </div>
                         <div class="col-sm-12 line">
@@ -59,8 +59,8 @@
                             <div class="col-sm-6 col-md-4">
                                 <input type="text" class="custom-textbox custom-date" ng-model="editProjectCtrl.project.endDate"
                                        is-open="editProjectCtrl.calendar.endDateOpened" placeholder="End Date" datepicker-popup="{{editProjectCtrl.dateFormat}}"
-                                       id="endDate" readonly ng-disabled="editProjectCtrl.editProjectCtrl.formReadOnly" />
-                                <calendar-image ng-click="editProjectCtrl.openPopupEndDate($event)" ng-hide="editProjectCtrl.editProjectCtrl.formReadOnly"></calendar-image>
+                                       id="endDate" readonly ng-disabled="editProjectCtrl.formReadOnly" />
+                                <calendar-image ng-click="editProjectCtrl.openPopupEndDate($event)" ng-hide="editProjectCtrl.formReadOnly"></calendar-image>
                             </div>
                         </div>
                         <div class="col-sm-12 line">

@@ -113,28 +113,26 @@ namespace NexEPA.Report.Services.Implement
                     Project = rawHistoryProjectItem.Project
                 };
 
-                List<HistoryProjectModel> sameProjectRows = rawHistoryProjects.Where(pro =>
-                                    pro.Project.ProjectId == rawHistoryProjectItem.Project.ProjectId).ToList();
+                List<HistoryProjectModel> sameProjectRows = rawHistoryProjects
+                                                                .Where(pro => pro.Project.ProjectId == rawHistoryProjectItem.Project.ProjectId).ToList();
 
                 decimal averageScore = 0;
-                int numberRowsSameProject = sameProjectRows.Count();
+                decimal totalScore = 0;
+                int numberRowsSameProject = 0;
 
                 foreach (HistoryProjectModel project in sameProjectRows)
                 {
                     string plainScoreText = !string.IsNullOrEmpty(project.Score) ? _encodeService.Decode(project.Score) : "0";
-                    plainScoreText = string.Format("{0}", CommonHelper.ConvertDecimal(plainScoreText) / 2);
+                    plainScoreText = CommonHelper.PercentToStarNumber(plainScoreText);
                     decimal projectScore = CommonHelper.ConvertDecimal(plainScoreText);
-                    averageScore += projectScore;
 
-                    var target = new TargetModel
+                    if (projectScore > 0)
                     {
-                        TargetId = project.TargetId,
-                        Name = project.Name,
-                        StartDate = project.StartDate,
-                        EndDate = project.EndDate,
-                        Score = plainScoreText,
-                        Index = counter++
-                    };
+                        totalScore += projectScore;
+                        numberRowsSameProject += 1;
+                    }
+
+                    var target = CreateTarget(project, plainScoreText, ref counter);
 
                     historyProjectItem.TargetList.Add(target);
                     if (project != rawHistoryProjectItem)
@@ -143,12 +141,28 @@ namespace NexEPA.Report.Services.Implement
                     }
                 }
 
-                averageScore = averageScore / numberRowsSameProject;
+                averageScore = numberRowsSameProject > 0 ? totalScore / numberRowsSameProject : 0;
+
                 historyProjectItem.Score = averageScore;
                 historyProjects.Add(historyProjectItem);
             }
 
             return historyProjects;
+        }
+
+        private TargetModel CreateTarget(HistoryProjectModel project, string score, ref int counter)
+        {
+            var target = new TargetModel
+            {
+                TargetId = project.TargetId,
+                Name = project.Name,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                Score = score,
+                Index = counter++
+            };
+
+            return target;
         }
 
         /// <summary>
@@ -179,15 +193,21 @@ namespace NexEPA.Report.Services.Implement
         private decimal CalculateAverageScoreOfKPI(IGrouping<int, KPIModel> groupKPI)
         {
             decimal totalScore = 0;
+            int count = 0;
 
             foreach (KPIModel kpi in groupKPI)
             {
                 string itemScoreText = !string.IsNullOrEmpty(kpi.Score) ? _encodeService.Decode(kpi.Score).Replace("_" + kpi.KPIId, string.Empty) : string.Empty;
-                decimal itemScore = CommonHelper.ConvertDecimal(itemScoreText) / 2;
-                totalScore += itemScore;
+                decimal score = CommonHelper.ConvertDecimal(itemScoreText);
+
+                if (score > 0)
+                {
+                    totalScore += score;
+                    count++;
+                }
             }
 
-            decimal averageScore = groupKPI.Count() > 0 ? totalScore / groupKPI.Count() : 0;
+            decimal averageScore = count > 0 ? totalScore / count : 0;
             return averageScore;
         }
     }
