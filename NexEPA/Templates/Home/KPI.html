@@ -18,18 +18,17 @@
             </thead>
             <tbody>
                 <tr ng-repeat="KPIItem in dashboradInformation.listKPIs">
-                    <td class="home-index" ng-bind="$index + 1">
-                    </td>
-                    <td ng-bind="KPIItem.name">
-                    </td>
-                    <td class="home-weight" ng-bind="KPIItem.evaluateTime">
-                    </td>
-                    <td class="home-score" ng-bind="KPIItem.averageScore | customNumber">
+                    <td class="home-index" ng-bind="$index + 1"></td>
+                    <td ng-bind="KPIItem.name"></td>
+                    <td class="home-weight" ng-bind="KPIItem.evaluateTime"></td>
+                    <td class="home-score">
+                        <span ng-bind="KPIItem.averageScore | customNumber" ng-show="KPIItem.averageScore"></span>
+                        <span class="glyphicon glyphicon-star" ng-show="KPIItem.averageScore"></span>
+                        <span ng-show="!KPIItem.averageScore">N/A</span>
                     </td>
                 </tr>
                 <tr ng-show="dashboradInformation.listKPIs == ''">
-                    <td class="empty-result" colspan="4" data-translate="EmptyResult">
-                    </td>
+                    <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
                 </tr>
             </tbody>
         </table>
