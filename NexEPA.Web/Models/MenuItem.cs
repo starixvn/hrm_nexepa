@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MenuItem.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.06.11">Created</change>
-// </history>
-
-namespace NexEPA.Web.Models
+﻿namespace NexEPA.Web.Models
 {
     /// <summary>
     /// The Menu Item.

@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GroupEPAOfMemberModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015.03.5">Created</change>
-// </history>
-
-namespace NexEPA.MemberEPA.Models.MemberEPA
+﻿namespace NexEPA.MemberEPA.Models.MemberEPA
 {
     using System.Collections.Generic;
     using NexEPA.MemberEPA.Models.MyEPA;

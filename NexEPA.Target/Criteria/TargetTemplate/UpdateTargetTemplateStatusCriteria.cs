@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateTargetTemplateStatusCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.04.29">Created</change>
-// </history>
-
-namespace NexEPA.Target.Criteria.TargetTemplate
+﻿namespace NexEPA.Target.Criteria.TargetTemplate
 {
     using System;
     using Fanex.Data.Repository;

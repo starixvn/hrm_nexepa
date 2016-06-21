@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="InsertKPICriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.28">Created</change>
-// </history>
-
-namespace NexEPA.KPI.Criteria.KPI
+﻿namespace NexEPA.KPI.Criteria.KPI
 {
     using System;
     using Fanex.Data.Repository;

@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetTargetByIdCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.04.07">Created</change>
-// </history>
-
-namespace NexEPA.Target.Criteria.Target.Target
+﻿namespace NexEPA.Target.Criteria.Target.Target
 {
     using Fanex.Data.Repository;
 

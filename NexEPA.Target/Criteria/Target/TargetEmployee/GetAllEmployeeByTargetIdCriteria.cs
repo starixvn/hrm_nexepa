@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetAllEmployeeByTargetIdCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.04.16">Created</change>
-// </history>
-
-namespace NexEPA.Target.Criteria.Target.TargetEmployee
+﻿namespace NexEPA.Target.Criteria.Target.TargetEmployee
 {
     using Fanex.Data.Repository;
 

@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="HomeController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.05.06">Created</change>
-// </history>
-
-namespace NexEPA.Controllers.API
+﻿namespace NexEPA.Controllers.API
 {
     using System.Web.Http;
     using NexEPA.Core.Constants;

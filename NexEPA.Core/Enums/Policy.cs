@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Policy.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.06.10">Created</change>
-// </history>
-
-namespace NexEPA.Core.Enums
+﻿namespace NexEPA.Core.Enums
 {
     using System.ComponentModel;
 

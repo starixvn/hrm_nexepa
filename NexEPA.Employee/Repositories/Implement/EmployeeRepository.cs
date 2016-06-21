@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="EmployeeRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.04.08">Created</change>
-// </history>
-
-namespace NexEPA.Employee.Repositories.Implement
+﻿namespace NexEPA.Employee.Repositories.Implement
 {
     using System.Collections.Generic;
     using Fanex.Data;

@@ -1,14 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.27">Created</change>
-//   <change who="Larry.Tran" date="2015.2.5">Modified</change>
-// </history>
-
-namespace NexEPA.Controllers.API
+﻿namespace NexEPA.Controllers.API
 {
     using System;
     using System.Web.Http;

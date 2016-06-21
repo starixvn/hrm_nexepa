@@ -1,14 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TargetModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.04.04">Created</change>
-//   <change who="Bradley.Mac" date="2014.5.13">Use common model</change>
-// </history>
-
-namespace NexEPA.Target.Models
+﻿namespace NexEPA.Target.Models
 {
     using System;
     using NexEPA.Core.Models;
