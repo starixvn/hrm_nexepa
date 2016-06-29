@@ -86,8 +86,8 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
         public RedminePersonalEffortViewModel GetRedminePersonalEffort(
-            int employeeId, 
-            DateTime fromDate, 
+            int employeeId,
+            DateTime fromDate,
             DateTime toDate,
             bool isFilterGroup = true,
             string projectIds = null,
@@ -119,8 +119,8 @@ namespace NexEPA.Controllers.API
         [HttpGet]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.PersonReport, Policy = Policy.Read)]
         public RedminePersonalEffortDetailViewModel GetRedminePersonalEffortDetail(
-            int employeeId, 
-            DateTime fromDate, 
+            int employeeId,
+            DateTime fromDate,
             DateTime toDate,
             bool isFilterGroup = true,
             string projectIds = null,
@@ -195,27 +195,18 @@ namespace NexEPA.Controllers.API
         /// <param name="projectIds">The project ids.</param>
         /// <param name="groupProjectId">The group project identifier.</param>
         /// <returns>The redmine team efforts.</returns>
-        [HttpGet]
+        [HttpPost]
         [ApiAuthorize(FunctionKey = EPAFunctionKeys.TeamEffortReport, Policy = Policy.Read)]
-        public RedmineTeamEffortViewModel GetRedmineTeamEffort(
-            DateTime fromDate,
-            DateTime toDate,
-            string nickNames,
-            bool isFilterGroup,
-            string projectIds,
-            int? groupProjectId)
+        public RedmineTeamEffortViewModel GetRedmineTeamEffort(GetRedmineTeamEffortCriteria criteria)
         {
-            var criteria = new GetRedmineTeamEffortCriteria
-            {
-                FromDate = fromDate,
-                ToDate = toDate,
-                NickName = nickNames,
-                IsFilterGroup = isFilterGroup,
-                ProjectIds = projectIds,
-                GroupProjectId = groupProjectId
-            };
+            var result = new RedmineTeamEffortViewModel();
 
-            return _teamEffortService.GetRedmineTeamEffort(criteria);
+            if (criteria != null)
+            {
+                result = _teamEffortService.GetRedmineTeamEffort(criteria);
+            }
+
+            return result;
         }
 
         /// <summary>
