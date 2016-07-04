@@ -3,9 +3,9 @@
 
 projectsSettingModule.controller("ProjectMembersController",
 ['$scope', '$routeParams', '$location', '$modal', '$window', 'ProjectSettingCache', 'projectMilestoneService',
-'projectMembersFactory', 'notificationFactory', 'projectDataFactory', 'projectPermissionService', 'projectMemberService', 'sharedProperties',
+'projectMembersFactory',
 function ($scope, $routeParams, $location, $modal, $window, ProjectSettingCache, projectMilestoneService,
-projectMembersFactory, notificationFactory, projectDataFactory, projectPermissionService, projectMemberService, sharedProperties) {
+projectMembersFactory) {
     var vm = this;
 
     vm.parentController = {};

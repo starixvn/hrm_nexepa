@@ -1,4 +1,4 @@
-﻿/* global projectsSettingModule */
+﻿/* global projectsSettingModule, moment */
 'use strict';
 
 projectsSettingModule.controller('EditProjectController',
@@ -65,7 +65,7 @@ commonFactory, tabService, notificationFactory, ErrorService, projectMembersFact
         projectMembersFactory.getGroupedMembersByProject(projectId).then(function (members) {
             vm.project.memberList = members;
         });
-    }
+    };
 
     vm.tabInfoSelect = function () {
         tabService.setProperty(false);
@@ -93,7 +93,7 @@ commonFactory, tabService, notificationFactory, ErrorService, projectMembersFact
                 else {
                     notificationFactory.error(null, response.message);
                 }
-            }, function (response) {
+            }, function () {
                 if (status === 405) {
                     ErrorService.errorHandle(status);
                 }

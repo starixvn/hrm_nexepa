@@ -1,4 +1,4 @@
-﻿/* global epaModule */
+﻿/* global epaModule, moment */
 'use strict';
 
 var calculateScore = function ($scope, kpiInfo) {

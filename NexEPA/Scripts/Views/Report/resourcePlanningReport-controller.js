@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global reportModule*/
+/*global reportModule, moment */
 
 reportModule.controller('ResourcePlanningReportController',
 ['$scope', '$route', '$location', 'reportFactory', 'notificationFactory', 'commonFactory', 'employeeRepository',
@@ -7,8 +7,7 @@ reportModule.controller('ResourcePlanningReportController',
 function ($scope, $route, $location, reportFactory, notificationFactory, commonFactory, employeeRepository,
 employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, projectDataFactory, groupProjectFactory) {
 	var self = this;
-	/*jshint ignore:start */
-	// moment is the third party library.
+	
 	var fromDate = moment().subtract(1, 'months');
 	var toDate = moment().add(1, 'months');
 
@@ -22,7 +21,6 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 		groupProjectId: '',
 		nickNames: ''
 	};
-	/*jshint ignore:end */
 
 	$scope.employees = [];
 	$scope.projects = [];
@@ -90,24 +88,17 @@ employeeEPAFactory, ErrorService, $timeout, authorityRepository, $modal, project
 			notificationFactory.error("ToRequire");
 		} else {
 			fromDate = new Date(fromDate.toDateString());
-			toDate = new Date(toDate.toDateString());
-
-			/*jshint ignore:start */
-			// moment is the third party library.
-			var maxDate = moment(fromDate).add(61, "days");
-			/*jshint ignore:end */
+			toDate = new Date(toDate.toDateString());			
+			var maxDate = moment(fromDate).add(61, "days");			
 
 			if (fromDate > toDate) {
 				isValid = false;
 				notificationFactory.error("ValidateFromToDate");
-			}
-			/*jshint ignore:start */
-			// moment is the third party library.
+			}			
 			else if (toDate > maxDate) {
 				isValid = false;
 				notificationFactory.error("ValidateMaximumTwoMonth");
-			}
-			/*jshint ignore:end */
+			}			
 		}
 
 		if ($scope.filter.isFilterGroup === 'true' && !$scope.filter.groupProjectId) {

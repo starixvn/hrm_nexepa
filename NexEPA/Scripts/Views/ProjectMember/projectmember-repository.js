@@ -108,7 +108,7 @@ projectsSettingModule.factory('projectMemberUtility', ['notificationFactory', fu
 
     utility.checkDuplicateMember = function (members, newMember) {
         var isDuplicated = false;
-        var matchedMembers = $.grep(members, function (item) { return item.member.employeeId === newMember.member.employeeId });
+        var matchedMembers = $.grep(members, function (item) { return item.member.employeeId === newMember.member.employeeId; });
 
         if (matchedMembers.length > 0) {
             isDuplicated = true;

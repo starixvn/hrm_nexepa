@@ -19,7 +19,7 @@ projectsSettingModule.service('projectPermissionService', epaGeneralService);
 
 projectsSettingModule.service('projectMemberService', epaGeneralService);
 
-projectsSettingModule.service('sharedProperties', function() {
+projectsSettingModule.service('sharedProperties', function () {
     var memberProject = [];
 
     return {
@@ -27,9 +27,9 @@ projectsSettingModule.service('sharedProperties', function() {
             return memberProject;
         },
         setMembersProject: function (value) {
-            memberProject = value
+            memberProject = value;
         }
-    }
+    };
 });
 
 registrationModule.service('tabService', epaGeneralService);
