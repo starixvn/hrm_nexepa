@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="EPAService.cs" company="Nexcel Solution Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// Copyright (c) . All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>

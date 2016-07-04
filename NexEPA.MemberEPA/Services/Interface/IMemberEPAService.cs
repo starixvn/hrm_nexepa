@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="IMemberEPAService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IMemberEPAService.cs" company="">
 namespace NexEPA.MemberEPA.Services.Interface
 {
     using System.Collections.Generic;

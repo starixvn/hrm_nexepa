@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="BundleConfig.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.3.6">Created</change>
-//   <change who="Bradley.Mac" date="2014.4.2">Add Bundles</change>
-// </history>
-
-namespace NexEPA
+﻿namespace NexEPA
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Optimization;
